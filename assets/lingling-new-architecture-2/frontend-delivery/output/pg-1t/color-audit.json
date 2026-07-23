@@ -1,0 +1,3396 @@
+{
+  "version": 1,
+  "name": "pg-1t",
+  "generatedAt": "2026-07-22T13:55:20.015Z",
+  "dpr": 1,
+  "threshold": {
+    "maxDeltaE": 3
+  },
+  "summary": {
+    "elements": 103,
+    "textMeasurements": 34,
+    "backgroundMeasurements": 48,
+    "total": 50,
+    "open": 50,
+    "resolved": 0,
+    "bySeverity": {
+      "P2": 23,
+      "P1": 27
+    },
+    "byStatus": {
+      "open": 50
+    },
+    "byDimension": {
+      "textColor": 33,
+      "backgroundColor": 17
+    },
+    "byDetector": {
+      "color-audit": 50
+    }
+  },
+  "textMeasurements": [
+    {
+      "target": {
+        "selector": "body>div>div>div>div>main>header>button>span:nth-of-type(2)",
+        "displaySelector": "span",
+        "text": "灵灵生图站",
+        "rect": {
+          "x": 103,
+          "y": 40,
+          "width": 125,
+          "height": 36
+        }
+      },
+      "cssColor": "#111111",
+      "designColor": "#060607",
+      "actualColor": "#111111",
+      "deltaE": 3.42,
+      "status": "fail"
+    },
+    {
+      "target": {
+        "selector": "body>div>div>div>div>main>section>aside>div>button:nth-of-type(1)>span",
+        "displaySelector": "span",
+        "text": "万物上身",
+        "rect": {
+          "x": 73,
+          "y": 148,
+          "width": 60,
+          "height": 21
+        }
+      },
+      "cssColor": "#ff3328",
+      "designColor": "#fd2c24",
+      "actualColor": "#ff3328",
+      "deltaE": 1.66,
+      "status": "pass"
+    },
+    {
+      "target": {
+        "selector": "body>div>div>div>div>main>section>aside>div>button:nth-of-type(2)>span",
+        "displaySelector": "span",
+        "text": "AI试戴",
+        "rect": {
+          "x": 73,
+          "y": 205,
+          "width": 44,
+          "height": 21
+        }
+      },
+      "cssColor": "#1f2937",
+      "designColor": "#3f4145",
+      "actualColor": "#1f2937",
+      "deltaE": 13.49,
+      "status": "fail"
+    },
+    {
+      "target": {
+        "selector": "body>div>div>div>div>main>section>aside>div>button:nth-of-type(3)>span",
+        "displaySelector": "span",
+        "text": "手持商品",
+        "rect": {
+          "x": 73,
+          "y": 262,
+          "width": 60,
+          "height": 21
+        }
+      },
+      "cssColor": "#1f2937",
+      "designColor": "#3e4146",
+      "actualColor": "#1f2937",
+      "deltaE": 13.05,
+      "status": "fail"
+    },
+    {
+      "target": {
+        "selector": "body>div>div>div>div>main>section>aside>div>button:nth-of-type(4)>span",
+        "displaySelector": "span",
+        "text": "平铺/人台试衣",
+        "rect": {
+          "x": 73,
+          "y": 319,
+          "width": 98,
+          "height": 21
+        }
+      },
+      "cssColor": "#1f2937",
+      "designColor": "#383a40",
+      "actualColor": "#1f2937",
+      "deltaE": 10.6,
+      "status": "fail"
+    },
+    {
+      "target": {
+        "selector": "body>div>div>div>div>main>section>aside>div>button:nth-of-type(5)>span",
+        "displaySelector": "span",
+        "text": "AI换模特",
+        "rect": {
+          "x": 73,
+          "y": 376,
+          "width": 59,
+          "height": 21
+        }
+      },
+      "cssColor": "#1f2937",
+      "designColor": "#383a3f",
+      "actualColor": "#1f2937",
+      "deltaE": 10.65,
+      "status": "fail"
+    },
+    {
+      "target": {
+        "selector": "body>div>div>div>div>main>section>aside>div>button:nth-of-type(6)>span",
+        "displaySelector": "span",
+        "text": "真人图试衣",
+        "rect": {
+          "x": 73,
+          "y": 433,
+          "width": 75,
+          "height": 21
+        }
+      },
+      "cssColor": "#1f2937",
+      "designColor": "#383b3f",
+      "actualColor": "#1f2937",
+      "deltaE": 10.95,
+      "status": "fail"
+    },
+    {
+      "target": {
+        "selector": "body>div>div>div>div>main>section>aside>div>button:nth-of-type(7)>span",
+        "displaySelector": "span",
+        "text": "模特换姿势",
+        "rect": {
+          "x": 73,
+          "y": 490,
+          "width": 75,
+          "height": 21
+        }
+      },
+      "cssColor": "#1f2937",
+      "designColor": "#37393d",
+      "actualColor": "#1f2937",
+      "deltaE": 10.76,
+      "status": "fail"
+    },
+    {
+      "target": {
+        "selector": "body>div>div>div>div>main>section>aside>div>button:nth-of-type(8)>span",
+        "displaySelector": "span",
+        "text": "鞋靴试穿",
+        "rect": {
+          "x": 73,
+          "y": 547,
+          "width": 60,
+          "height": 21
+        }
+      },
+      "cssColor": "#1f2937",
+      "designColor": "#3f4147",
+      "actualColor": "#1f2937",
+      "deltaE": 13.28,
+      "status": "fail"
+    },
+    {
+      "target": {
+        "selector": "body>div>div>div>div>main>section>aside>div>button:nth-of-type(9)>span",
+        "displaySelector": "span",
+        "text": "AI换脸",
+        "rect": {
+          "x": 73,
+          "y": 604,
+          "width": 44,
+          "height": 21
+        }
+      },
+      "cssColor": "#1f2937",
+      "designColor": "#2d3137",
+      "actualColor": "#1f2937",
+      "deltaE": 7.1,
+      "status": "fail"
+    },
+    {
+      "target": {
+        "selector": "body>div>div>div>div>main>section>aside>div>button:nth-of-type(10)>span",
+        "displaySelector": "span",
+        "text": "模拍换景",
+        "rect": {
+          "x": 73,
+          "y": 661,
+          "width": 60,
+          "height": 21
+        }
+      },
+      "cssColor": "#1f2937",
+      "designColor": "#3a3d43",
+      "actualColor": "#1f2937",
+      "deltaE": 11.02,
+      "status": "fail"
+    },
+    {
+      "target": {
+        "selector": "body>div>div>div>div>main>section>aside>div>button:nth-of-type(11)>span",
+        "displaySelector": "span",
+        "text": "服饰换色",
+        "rect": {
+          "x": 73,
+          "y": 718,
+          "width": 60,
+          "height": 21
+        }
+      },
+      "cssColor": "#1f2937",
+      "designColor": "#3e4247",
+      "actualColor": "#1f2937",
+      "deltaE": 13.36,
+      "status": "fail"
+    },
+    {
+      "target": {
+        "selector": "body>div>div>div>div>main>section>aside>div>button:nth-of-type(12)>span",
+        "displaySelector": "span",
+        "text": "服饰商拍套图",
+        "rect": {
+          "x": 73,
+          "y": 775,
+          "width": 90,
+          "height": 21
+        }
+      },
+      "cssColor": "#1f2937",
+      "designColor": "#3e4045",
+      "actualColor": "#1f2937",
+      "deltaE": 13.14,
+      "status": "fail"
+    },
+    {
+      "target": {
+        "selector": "body>div>div>div>div>main>section>aside>div>button:nth-of-type(13)>span",
+        "displaySelector": "span",
+        "text": "服饰种草图",
+        "rect": {
+          "x": 73,
+          "y": 832,
+          "width": 75,
+          "height": 21
+        }
+      },
+      "cssColor": "#1f2937",
+      "designColor": "#3c3e42",
+      "actualColor": "#1f2937",
+      "deltaE": 12.89,
+      "status": "fail"
+    },
+    {
+      "target": {
+        "selector": "body>div>div>div>div>main>section>aside>div>button:nth-of-type(14)>span",
+        "displaySelector": "span",
+        "text": "我的生成记录",
+        "rect": {
+          "x": 73,
+          "y": 889,
+          "width": 90,
+          "height": 21
+        }
+      },
+      "cssColor": "#1f2937",
+      "designColor": "#303339",
+      "actualColor": "#1f2937",
+      "deltaE": 7.9,
+      "status": "fail"
+    },
+    {
+      "target": {
+        "selector": "body>div>div>div>div>main>section>section:nth-of-type(1)>div:nth-of-type(1)>h2",
+        "displaySelector": "h2",
+        "text": "万物上身",
+        "rect": {
+          "x": 250,
+          "y": 135,
+          "width": 84,
+          "height": 25
+        }
+      },
+      "cssColor": "#111827",
+      "designColor": "#020202",
+      "actualColor": "#111827",
+      "deltaE": 13.75,
+      "status": "fail"
+    },
+    {
+      "target": {
+        "selector": "body>div>div>div>div>main>section>section:nth-of-type(1)>div:nth-of-type(1)>button",
+        "displaySelector": "button.outline-red.new-task",
+        "text": "新建任务",
+        "rect": {
+          "x": 530,
+          "y": 133,
+          "width": 84,
+          "height": 30
+        }
+      },
+      "cssColor": "#ff3328",
+      "designColor": "#fb3c30",
+      "actualColor": "#ff3328",
+      "deltaE": 5.03,
+      "status": "fail"
+    },
+    {
+      "target": {
+        "selector": "body>div>div>div>div>main>section>section:nth-of-type(1)>div:nth-of-type(2)>div:nth-of-type(1)>div:nth-of-type(2)>p",
+        "displaySelector": "p",
+        "text": "建议上传正面、侧面、",
+        "rect": {
+          "x": 252,
+          "y": 299,
+          "width": 358,
+          "height": 16
+        }
+      },
+      "cssColor": "#8b95a5",
+      "designColor": "#9b9ea6",
+      "actualColor": "#8c96a6",
+      "deltaE": 6.12,
+      "status": "fail"
+    },
+    {
+      "target": {
+        "selector": "body>div>div>div>div>main>section>section:nth-of-type(1)>div:nth-of-type(2)>div:nth-of-type(2)>div>h3",
+        "displaySelector": "h3",
+        "text": "2. 商品卖点&要求",
+        "rect": {
+          "x": 252,
+          "y": 340,
+          "width": 159,
+          "height": 20
+        }
+      },
+      "cssColor": "#161a22",
+      "designColor": "#1b1c1e",
+      "actualColor": "#161a22",
+      "deltaE": 4.83,
+      "status": "fail"
+    },
+    {
+      "target": {
+        "selector": "body>div>div>div>div>main>section>section:nth-of-type(1)>div:nth-of-type(2)>div:nth-of-type(2)>div>button",
+        "displaySelector": "button.outline-red",
+        "text": "AI帮写",
+        "rect": {
+          "x": 555,
+          "y": 337,
+          "width": 55,
+          "height": 25
+        }
+      },
+      "cssColor": "#697386",
+      "designColor": "#fc4a40",
+      "actualColor": "#697386",
+      "deltaE": 87.59,
+      "status": "fail"
+    },
+    {
+      "target": {
+        "selector": "body>div>div>div>div>main>section>section:nth-of-type(1)>div:nth-of-type(2)>div:nth-of-type(2)>label>textarea",
+        "displaySelector": "textarea",
+        "text": "秋季针织连帽卫衣，要",
+        "rect": {
+          "x": 252,
+          "y": 369,
+          "width": 358,
+          "height": 70
+        }
+      },
+      "cssColor": "#293241",
+      "designColor": "#5d5e62",
+      "actualColor": "#39414f",
+      "deltaE": 14.59,
+      "status": "fail"
+    },
+    {
+      "target": {
+        "selector": "body>div>div>div>div>main>section>section:nth-of-type(1)>div:nth-of-type(2)>div:nth-of-type(3)>div>h3",
+        "displaySelector": "h3",
+        "text": "3. 参考模特",
+        "rect": {
+          "x": 252,
+          "y": 469,
+          "width": 73,
+          "height": 20
+        }
+      },
+      "cssColor": "#161a22",
+      "designColor": "#1c1c1e",
+      "actualColor": "#161a22",
+      "deltaE": 4.81,
+      "status": "fail"
+    },
+    {
+      "target": {
+        "selector": "body>div>div>div>div>main>section>section:nth-of-type(1)>div:nth-of-type(2)>div:nth-of-type(3)>div>button",
+        "displaySelector": "button.outline-red",
+        "text": "AI生成匹配模特",
+        "rect": {
+          "x": 507,
+          "y": 466,
+          "width": 103,
+          "height": 25
+        }
+      },
+      "cssColor": "#697386",
+      "designColor": "#fc453b",
+      "actualColor": "#697386",
+      "deltaE": 89.71,
+      "status": "fail"
+    },
+    {
+      "target": {
+        "selector": "body>div>div>div>div>main>section>section:nth-of-type(1)>div:nth-of-type(2)>div:nth-of-type(3)>button>span",
+        "displaySelector": "span",
+        "text": "上传/选择模特图",
+        "rect": {
+          "x": 386,
+          "y": 508,
+          "width": 120,
+          "height": 22
+        }
+      },
+      "cssColor": "#5f6b7a",
+      "designColor": "#82848d",
+      "actualColor": "#5f6b7a",
+      "deltaE": 11.81,
+      "status": "fail"
+    },
+    {
+      "target": {
+        "selector": "body>div>div>div>div>main>section>section:nth-of-type(1)>div:nth-of-type(2)>div:nth-of-type(3)>p",
+        "displaySelector": "p.section-hint",
+        "text": "可上传身形相近模特图",
+        "rect": {
+          "x": 252,
+          "y": 545,
+          "width": 358,
+          "height": 15
+        }
+      },
+      "cssColor": "#8b95a5",
+      "designColor": "#9da2a9",
+      "actualColor": "#8b95a5",
+      "deltaE": 7.05,
+      "status": "fail"
+    },
+    {
+      "target": {
+        "selector": "body>div>div>div>div>main>section>section:nth-of-type(1)>div:nth-of-type(2)>div:nth-of-type(4)>div>h3",
+        "displaySelector": "h3",
+        "text": "4. 额外描述",
+        "rect": {
+          "x": 252,
+          "y": 584,
+          "width": 73,
+          "height": 20
+        }
+      },
+      "cssColor": "#161a22",
+      "designColor": "#1d1e22",
+      "actualColor": "#161a22",
+      "deltaE": 4.15,
+      "status": "fail"
+    },
+    {
+      "target": {
+        "selector": "body>div>div>div>div>main>section>section:nth-of-type(1)>div:nth-of-type(2)>div:nth-of-type(4)>label>textarea",
+        "displaySelector": "textarea",
+        "text": "背景干净，光线柔和，",
+        "rect": {
+          "x": 252,
+          "y": 613,
+          "width": 358,
+          "height": 70
+        }
+      },
+      "cssColor": "#293241",
+      "designColor": "#6b6d73",
+      "actualColor": "#4a515e",
+      "deltaE": 12.65,
+      "status": "fail"
+    },
+    {
+      "target": {
+        "selector": "body>div>div>div>div>main>section>section:nth-of-type(1)>div:nth-of-type(2)>div:nth-of-type(4)>label>span",
+        "displaySelector": "span",
+        "text": "31 / 300",
+        "rect": {
+          "x": 564,
+          "y": 664,
+          "width": 36,
+          "height": 16
+        }
+      },
+      "cssColor": "#9aa3b2",
+      "designColor": "#acb0b7",
+      "actualColor": "#9ca5b3",
+      "deltaE": 5.95,
+      "status": "fail"
+    },
+    {
+      "target": {
+        "selector": "body>div>div>div>div>main>section>section:nth-of-type(1)>div:nth-of-type(2)>div:nth-of-type(5)>div:nth-of-type(1)>h3",
+        "displaySelector": "h3",
+        "text": "5. 生成比例",
+        "rect": {
+          "x": 252,
+          "y": 712,
+          "width": 121,
+          "height": 20
+        }
+      },
+      "cssColor": "#161a22",
+      "designColor": "#2f3033",
+      "actualColor": "#161a22",
+      "deltaE": 11.6,
+      "status": "fail"
+    },
+    {
+      "target": {
+        "selector": "body>div>div>div>div>main>section>section:nth-of-type(1)>div:nth-of-type(2)>div:nth-of-type(5)>div:nth-of-type(1)>h3>span",
+        "displaySelector": "span",
+        "text": "（必填）",
+        "rect": {
+          "x": 325,
+          "y": 714,
+          "width": 48,
+          "height": 17
+        }
+      },
+      "cssColor": "#ff3328",
+      "designColor": "#848a94",
+      "actualColor": "#ff3328",
+      "deltaE": 95.93,
+      "status": "fail"
+    },
+    {
+      "target": {
+        "selector": "body>div>div>div>div>main>section>section:nth-of-type(1)>div:nth-of-type(2)>div:nth-of-type(5)>div:nth-of-type(2)>div:nth-of-type(1)>b",
+        "displaySelector": "b",
+        "text": "常见比例",
+        "rect": {
+          "x": 252,
+          "y": 741,
+          "width": 115,
+          "height": 16
+        }
+      },
+      "cssColor": "#8b95a5",
+      "designColor": "#8c929c",
+      "actualColor": "#8b95a5",
+      "deltaE": 4.01,
+      "status": "fail"
+    },
+    {
+      "target": {
+        "selector": "body>div>div>div>div>main>section>section:nth-of-type(1)>div:nth-of-type(2)>div:nth-of-type(5)>div:nth-of-type(2)>div:nth-of-type(2)>div>button:nth-of-type(2)>span",
+        "displaySelector": "span",
+        "text": "1:2",
+        "rect": {
+          "x": 426,
+          "y": 764,
+          "width": 15,
+          "height": 17
+        }
+      },
+      "cssColor": "#4b5563",
+      "designColor": "#fc7066",
+      "actualColor": "#4b5563",
+      "deltaE": 73.17,
+      "status": "fail"
+    },
+    {
+      "target": {
+        "selector": "body>div>div>div>div>main>section>section:nth-of-type(1)>div:nth-of-type(2)>div:nth-of-type(6)>div:nth-of-type(2)>div>strong",
+        "displaySelector": "strong",
+        "text": "4",
+        "rect": {
+          "x": 290,
+          "y": 866,
+          "width": 11,
+          "height": 32
+        }
+      },
+      "cssColor": "#111827",
+      "designColor": "#242526",
+      "actualColor": "#111827",
+      "deltaE": 12.73,
+      "status": "fail"
+    },
+    {
+      "target": {
+        "selector": "body>div>div>div>div>main>section>section:nth-of-type(2)>div:nth-of-type(1)>h2",
+        "displaySelector": "h2",
+        "text": "创作结果",
+        "rect": {
+          "x": 677,
+          "y": 139,
+          "width": 84,
+          "height": 25
+        }
+      },
+      "cssColor": "#111827",
+      "designColor": "#0d0d0d",
+      "actualColor": "#111827",
+      "deltaE": 12.16,
+      "status": "fail"
+    }
+  ],
+  "backgroundMeasurements": [
+    {
+      "target": {
+        "selector": "body>div>div>div>div>main>header",
+        "displaySelector": "header.topbar",
+        "text": "",
+        "rect": {
+          "x": 20,
+          "y": 16,
+          "width": 1496,
+          "height": 84
+        }
+      },
+      "kind": "bg",
+      "designColor": "#fefefe",
+      "actualColor": "#ffffff",
+      "deltaE": 0.35,
+      "status": "pass"
+    },
+    {
+      "target": {
+        "selector": "body>div>div>div>div>main>header>div>form",
+        "displaySelector": "form.search-box",
+        "text": "",
+        "rect": {
+          "x": 1038,
+          "y": 32,
+          "width": 338,
+          "height": 52
+        }
+      },
+      "kind": "bg",
+      "designColor": "#fefefe",
+      "actualColor": "#ffffff",
+      "deltaE": 0.35,
+      "status": "pass"
+    },
+    {
+      "target": {
+        "selector": "body>div>div>div>div>main>header>div>button",
+        "displaySelector": "button.profile-button",
+        "text": "",
+        "rect": {
+          "x": 1398,
+          "y": 33,
+          "width": 93,
+          "height": 50
+        }
+      },
+      "kind": "bg",
+      "designColor": "#fefefe",
+      "actualColor": "#f7f8fa",
+      "deltaE": 2.36,
+      "status": "pass"
+    },
+    {
+      "target": {
+        "selector": "body>div>div>div>div>main>section>aside",
+        "displaySelector": "aside.tool-menu.panel",
+        "text": "",
+        "rect": {
+          "x": 18,
+          "y": 114,
+          "width": 195,
+          "height": 888
+        }
+      },
+      "kind": "bg",
+      "designColor": "#fefefe",
+      "actualColor": "#ffffff",
+      "deltaE": 0.35,
+      "status": "pass"
+    },
+    {
+      "target": {
+        "selector": "body>div>div>div>div>main>section>section:nth-of-type(1)",
+        "displaySelector": "section.config-panel.panel",
+        "text": "",
+        "rect": {
+          "x": 227,
+          "y": 114,
+          "width": 412,
+          "height": 888
+        }
+      },
+      "kind": "bg",
+      "designColor": "#fefefe",
+      "actualColor": "#ffffff",
+      "deltaE": 0.35,
+      "status": "pass"
+    },
+    {
+      "target": {
+        "selector": "body>div>div>div>div>main>section>section:nth-of-type(1)>div:nth-of-type(1)>button",
+        "displaySelector": "button.outline-red.new-task",
+        "text": "新建任务",
+        "rect": {
+          "x": 530,
+          "y": 133,
+          "width": 84,
+          "height": 30
+        }
+      },
+      "kind": "bg",
+      "designColor": "#fefdfc",
+      "actualColor": "#ffffff",
+      "deltaE": 0.89,
+      "status": "pass"
+    },
+    {
+      "target": {
+        "selector": "body>div>div>div>div>main>section>section:nth-of-type(1)>div:nth-of-type(2)>div:nth-of-type(1)",
+        "displaySelector": "div.form-section.upload-section",
+        "text": "",
+        "rect": {
+          "x": 242,
+          "y": 180,
+          "width": 378,
+          "height": 144
+        }
+      },
+      "kind": "bg",
+      "designColor": "#fefdfe",
+      "actualColor": "#ffffff",
+      "deltaE": 0.86,
+      "status": "pass"
+    },
+    {
+      "target": {
+        "selector": "body>div>div>div>div>main>section>section:nth-of-type(1)>div:nth-of-type(2)>div:nth-of-type(1)>div:nth-of-type(2)>div>div:nth-of-type(1)",
+        "displaySelector": "div.upload-thumb",
+        "text": "",
+        "rect": {
+          "x": 252,
+          "y": 220,
+          "width": 66,
+          "height": 73
+        }
+      },
+      "kind": "bg",
+      "designColor": "#b4bfcb",
+      "actualColor": "#f2efed",
+      "deltaE": 19.87,
+      "status": "fail"
+    },
+    {
+      "target": {
+        "selector": "body>div>div>div>div>main>section>section:nth-of-type(1)>div:nth-of-type(2)>div:nth-of-type(1)>div:nth-of-type(2)>div>div:nth-of-type(1)>img",
+        "displaySelector": "img",
+        "text": "",
+        "rect": {
+          "x": 253,
+          "y": 221,
+          "width": 64,
+          "height": 71
+        }
+      },
+      "kind": "img",
+      "designColor": "#b4bfcb",
+      "actualColor": "#f2efed",
+      "deltaE": 19.87,
+      "status": "fail"
+    },
+    {
+      "target": {
+        "selector": "body>div>div>div>div>main>section>section:nth-of-type(1)>div:nth-of-type(2)>div:nth-of-type(1)>div:nth-of-type(2)>div>div:nth-of-type(1)>button",
+        "displaySelector": "button",
+        "text": "",
+        "rect": {
+          "x": 296,
+          "y": 224,
+          "width": 18,
+          "height": 18
+        }
+      },
+      "kind": "bg",
+      "designColor": "#bec9d4",
+      "actualColor": "#fefefe",
+      "deltaE": 20.43,
+      "status": "fail"
+    },
+    {
+      "target": {
+        "selector": "body>div>div>div>div>main>section>section:nth-of-type(1)>div:nth-of-type(2)>div:nth-of-type(1)>div:nth-of-type(2)>div>div:nth-of-type(2)",
+        "displaySelector": "div.upload-thumb",
+        "text": "",
+        "rect": {
+          "x": 324,
+          "y": 220,
+          "width": 66,
+          "height": 73
+        }
+      },
+      "kind": "bg",
+      "designColor": "#c2c9d7",
+      "actualColor": "#f2efed",
+      "deltaE": 16.53,
+      "status": "fail"
+    },
+    {
+      "target": {
+        "selector": "body>div>div>div>div>main>section>section:nth-of-type(1)>div:nth-of-type(2)>div:nth-of-type(1)>div:nth-of-type(2)>div>div:nth-of-type(2)>img",
+        "displaySelector": "img",
+        "text": "",
+        "rect": {
+          "x": 325,
+          "y": 221,
+          "width": 64,
+          "height": 71
+        }
+      },
+      "kind": "img",
+      "designColor": "#c2c9d7",
+      "actualColor": "#f2efed",
+      "deltaE": 16.53,
+      "status": "fail"
+    },
+    {
+      "target": {
+        "selector": "body>div>div>div>div>main>section>section:nth-of-type(1)>div:nth-of-type(2)>div:nth-of-type(1)>div:nth-of-type(2)>div>div:nth-of-type(2)>button",
+        "displaySelector": "button",
+        "text": "",
+        "rect": {
+          "x": 368,
+          "y": 224,
+          "width": 18,
+          "height": 18
+        }
+      },
+      "kind": "bg",
+      "designColor": "#c2c8d6",
+      "actualColor": "#fefefe",
+      "deltaE": 20.61,
+      "status": "fail"
+    },
+    {
+      "target": {
+        "selector": "body>div>div>div>div>main>section>section:nth-of-type(1)>div:nth-of-type(2)>div:nth-of-type(1)>div:nth-of-type(2)>div>div:nth-of-type(3)",
+        "displaySelector": "div.upload-thumb",
+        "text": "",
+        "rect": {
+          "x": 396,
+          "y": 220,
+          "width": 66,
+          "height": 73
+        }
+      },
+      "kind": "bg",
+      "designColor": "#f1f1f3",
+      "actualColor": "#f2efed",
+      "deltaE": 2.37,
+      "status": "pass"
+    },
+    {
+      "target": {
+        "selector": "body>div>div>div>div>main>section>section:nth-of-type(1)>div:nth-of-type(2)>div:nth-of-type(1)>div:nth-of-type(2)>div>div:nth-of-type(3)>img",
+        "displaySelector": "img",
+        "text": "",
+        "rect": {
+          "x": 397,
+          "y": 221,
+          "width": 64,
+          "height": 71
+        }
+      },
+      "kind": "img",
+      "designColor": "#dbe1e9",
+      "actualColor": "#f2efed",
+      "deltaE": 8.04,
+      "status": "fail"
+    },
+    {
+      "target": {
+        "selector": "body>div>div>div>div>main>section>section:nth-of-type(1)>div:nth-of-type(2)>div:nth-of-type(1)>div:nth-of-type(2)>div>div:nth-of-type(3)>button",
+        "displaySelector": "button",
+        "text": "",
+        "rect": {
+          "x": 440,
+          "y": 224,
+          "width": 18,
+          "height": 18
+        }
+      },
+      "kind": "bg",
+      "designColor": "#969fac",
+      "actualColor": "#fefefe",
+      "deltaE": 35.37,
+      "status": "fail"
+    },
+    {
+      "target": {
+        "selector": "body>div>div>div>div>main>section>section:nth-of-type(1)>div:nth-of-type(2)>div:nth-of-type(1)>div:nth-of-type(2)>div>div:nth-of-type(4)",
+        "displaySelector": "div.upload-thumb",
+        "text": "",
+        "rect": {
+          "x": 468,
+          "y": 220,
+          "width": 66,
+          "height": 73
+        }
+      },
+      "kind": "bg",
+      "designColor": "#c7cfd6",
+      "actualColor": "#f3efed",
+      "deltaE": 13.54,
+      "status": "fail"
+    },
+    {
+      "target": {
+        "selector": "body>div>div>div>div>main>section>section:nth-of-type(1)>div:nth-of-type(2)>div:nth-of-type(1)>div:nth-of-type(2)>div>div:nth-of-type(4)>img",
+        "displaySelector": "img",
+        "text": "",
+        "rect": {
+          "x": 469,
+          "y": 221,
+          "width": 64,
+          "height": 71
+        }
+      },
+      "kind": "img",
+      "designColor": "#c7cfd6",
+      "actualColor": "#f2efed",
+      "deltaE": 13.37,
+      "status": "fail"
+    },
+    {
+      "target": {
+        "selector": "body>div>div>div>div>main>section>section:nth-of-type(1)>div:nth-of-type(2)>div:nth-of-type(1)>div:nth-of-type(2)>div>div:nth-of-type(4)>button",
+        "displaySelector": "button",
+        "text": "",
+        "rect": {
+          "x": 512,
+          "y": 224,
+          "width": 18,
+          "height": 18
+        }
+      },
+      "kind": "bg",
+      "designColor": "#7f8a94",
+      "actualColor": "#fefefe",
+      "deltaE": 43.31,
+      "status": "fail"
+    },
+    {
+      "target": {
+        "selector": "body>div>div>div>div>main>section>section:nth-of-type(1)>div:nth-of-type(2)>div:nth-of-type(1)>div:nth-of-type(2)>div>button",
+        "displaySelector": "button.upload-add",
+        "text": "",
+        "rect": {
+          "x": 540,
+          "y": 220,
+          "width": 54,
+          "height": 73
+        }
+      },
+      "kind": "bg",
+      "designColor": "#fdfdfe",
+      "actualColor": "#f9fafb",
+      "deltaE": 1.16,
+      "status": "pass"
+    },
+    {
+      "target": {
+        "selector": "body>div>div>div>div>main>section>section:nth-of-type(1)>div:nth-of-type(2)>div:nth-of-type(2)",
+        "displaySelector": "div.form-section.textarea-section",
+        "text": "",
+        "rect": {
+          "x": 242,
+          "y": 328,
+          "width": 378,
+          "height": 125
+        }
+      },
+      "kind": "bg",
+      "designColor": "#fefefe",
+      "actualColor": "#ffffff",
+      "deltaE": 0.35,
+      "status": "pass"
+    },
+    {
+      "target": {
+        "selector": "body>div>div>div>div>main>section>section:nth-of-type(1)>div:nth-of-type(2)>div:nth-of-type(2)>div>button",
+        "displaySelector": "button.outline-red",
+        "text": "AI帮写",
+        "rect": {
+          "x": 555,
+          "y": 337,
+          "width": 55,
+          "height": 25
+        }
+      },
+      "kind": "bg",
+      "designColor": "#fefafa",
+      "actualColor": "#ffffff",
+      "deltaE": 2.01,
+      "status": "pass"
+    },
+    {
+      "target": {
+        "selector": "body>div>div>div>div>main>section>section:nth-of-type(1)>div:nth-of-type(2)>div:nth-of-type(2)>label>textarea",
+        "displaySelector": "textarea",
+        "text": "秋季针织连帽卫衣，要",
+        "rect": {
+          "x": 252,
+          "y": 369,
+          "width": 358,
+          "height": 70
+        }
+      },
+      "kind": "bg",
+      "designColor": "#fefefe",
+      "actualColor": "#ffffff",
+      "deltaE": 0.35,
+      "status": "pass"
+    },
+    {
+      "target": {
+        "selector": "body>div>div>div>div>main>section>section:nth-of-type(1)>div:nth-of-type(2)>div:nth-of-type(3)",
+        "displaySelector": "div.form-section.model-section",
+        "text": "",
+        "rect": {
+          "x": 242,
+          "y": 457,
+          "width": 378,
+          "height": 112
+        }
+      },
+      "kind": "bg",
+      "designColor": "#fefefe",
+      "actualColor": "#ffffff",
+      "deltaE": 0.35,
+      "status": "pass"
+    },
+    {
+      "target": {
+        "selector": "body>div>div>div>div>main>section>section:nth-of-type(1)>div:nth-of-type(2)>div:nth-of-type(3)>div>button",
+        "displaySelector": "button.outline-red",
+        "text": "AI生成匹配模特",
+        "rect": {
+          "x": 507,
+          "y": 466,
+          "width": 103,
+          "height": 25
+        }
+      },
+      "kind": "bg",
+      "designColor": "#fefbfb",
+      "actualColor": "#ffffff",
+      "deltaE": 1.57,
+      "status": "pass"
+    },
+    {
+      "target": {
+        "selector": "body>div>div>div>div>main>section>section:nth-of-type(1)>div:nth-of-type(2)>div:nth-of-type(3)>button",
+        "displaySelector": "button.model-upload",
+        "text": "",
+        "rect": {
+          "x": 252,
+          "y": 498,
+          "width": 358,
+          "height": 42
+        }
+      },
+      "kind": "bg",
+      "designColor": "#fefefe",
+      "actualColor": "#ffffff",
+      "deltaE": 0.35,
+      "status": "pass"
+    },
+    {
+      "target": {
+        "selector": "body>div>div>div>div>main>section>section:nth-of-type(1)>div:nth-of-type(2)>div:nth-of-type(4)",
+        "displaySelector": "div.form-section.textarea-section",
+        "text": "",
+        "rect": {
+          "x": 242,
+          "y": 573,
+          "width": 378,
+          "height": 124
+        }
+      },
+      "kind": "bg",
+      "designColor": "#fefefe",
+      "actualColor": "#ffffff",
+      "deltaE": 0.35,
+      "status": "pass"
+    },
+    {
+      "target": {
+        "selector": "body>div>div>div>div>main>section>section:nth-of-type(1)>div:nth-of-type(2)>div:nth-of-type(4)>label>textarea",
+        "displaySelector": "textarea",
+        "text": "背景干净，光线柔和，",
+        "rect": {
+          "x": 252,
+          "y": 613,
+          "width": 358,
+          "height": 70
+        }
+      },
+      "kind": "bg",
+      "designColor": "#fefefe",
+      "actualColor": "#ffffff",
+      "deltaE": 0.35,
+      "status": "pass"
+    },
+    {
+      "target": {
+        "selector": "body>div>div>div>div>main>section>section:nth-of-type(1)>div:nth-of-type(2)>div:nth-of-type(5)",
+        "displaySelector": "div.form-section.ratio-section",
+        "text": "",
+        "rect": {
+          "x": 242,
+          "y": 701,
+          "width": 378,
+          "height": 120
+        }
+      },
+      "kind": "bg",
+      "designColor": "#fefefe",
+      "actualColor": "#ffffff",
+      "deltaE": 0.35,
+      "status": "pass"
+    },
+    {
+      "target": {
+        "selector": "body>div>div>div>div>main>section>section:nth-of-type(1)>div:nth-of-type(2)>div:nth-of-type(5)>div:nth-of-type(2)>div:nth-of-type(1)>div>button:nth-of-type(1)",
+        "displaySelector": "button.choice-pill",
+        "text": "",
+        "rect": {
+          "x": 252,
+          "y": 761,
+          "width": 34,
+          "height": 23
+        }
+      },
+      "kind": "bg",
+      "designColor": "#fefefe",
+      "actualColor": "#ffffff",
+      "deltaE": 0.35,
+      "status": "pass"
+    },
+    {
+      "target": {
+        "selector": "body>div>div>div>div>main>section>section:nth-of-type(1)>div:nth-of-type(2)>div:nth-of-type(5)>div:nth-of-type(2)>div:nth-of-type(1)>div>button:nth-of-type(2)",
+        "displaySelector": "button.choice-pill.active",
+        "text": "",
+        "rect": {
+          "x": 291,
+          "y": 761,
+          "width": 34,
+          "height": 23
+        }
+      },
+      "kind": "bg",
+      "designColor": "#fefefe",
+      "actualColor": "#fff7f6",
+      "deltaE": 3.41,
+      "status": "fail"
+    },
+    {
+      "target": {
+        "selector": "body>div>div>div>div>main>section>section:nth-of-type(1)>div:nth-of-type(2)>div:nth-of-type(5)>div:nth-of-type(2)>div:nth-of-type(1)>div>button:nth-of-type(3)",
+        "displaySelector": "button.choice-pill",
+        "text": "",
+        "rect": {
+          "x": 330,
+          "y": 761,
+          "width": 34,
+          "height": 23
+        }
+      },
+      "kind": "bg",
+      "designColor": "#fefefe",
+      "actualColor": "#ffffff",
+      "deltaE": 0.35,
+      "status": "pass"
+    },
+    {
+      "target": {
+        "selector": "body>div>div>div>div>main>section>section:nth-of-type(1)>div:nth-of-type(2)>div:nth-of-type(5)>div:nth-of-type(2)>div:nth-of-type(1)>div>button:nth-of-type(4)",
+        "displaySelector": "button.choice-pill",
+        "text": "",
+        "rect": {
+          "x": 252,
+          "y": 789,
+          "width": 34,
+          "height": 23
+        }
+      },
+      "kind": "bg",
+      "designColor": "#fefefe",
+      "actualColor": "#ffffff",
+      "deltaE": 0.35,
+      "status": "pass"
+    },
+    {
+      "target": {
+        "selector": "body>div>div>div>div>main>section>section:nth-of-type(1)>div:nth-of-type(2)>div:nth-of-type(5)>div:nth-of-type(2)>div:nth-of-type(2)>div>button:nth-of-type(1)",
+        "displaySelector": "button.choice-pill",
+        "text": "",
+        "rect": {
+          "x": 373,
+          "y": 761,
+          "width": 39,
+          "height": 23
+        }
+      },
+      "kind": "bg",
+      "designColor": "#fefefe",
+      "actualColor": "#ffffff",
+      "deltaE": 0.35,
+      "status": "pass"
+    },
+    {
+      "target": {
+        "selector": "body>div>div>div>div>main>section>section:nth-of-type(1)>div:nth-of-type(2)>div:nth-of-type(5)>div:nth-of-type(2)>div:nth-of-type(2)>div>button:nth-of-type(2)",
+        "displaySelector": "button.choice-pill",
+        "text": "",
+        "rect": {
+          "x": 417,
+          "y": 761,
+          "width": 34,
+          "height": 23
+        }
+      },
+      "kind": "bg",
+      "designColor": "#fefefe",
+      "actualColor": "#ffffff",
+      "deltaE": 0.35,
+      "status": "pass"
+    },
+    {
+      "target": {
+        "selector": "body>div>div>div>div>main>section>section:nth-of-type(1)>div:nth-of-type(2)>div:nth-of-type(5)>div:nth-of-type(2)>div:nth-of-type(3)>div>button:nth-of-type(1)",
+        "displaySelector": "button.choice-pill",
+        "text": "",
+        "rect": {
+          "x": 495,
+          "y": 761,
+          "width": 34,
+          "height": 23
+        }
+      },
+      "kind": "bg",
+      "designColor": "#fefefe",
+      "actualColor": "#ffffff",
+      "deltaE": 0.35,
+      "status": "pass"
+    },
+    {
+      "target": {
+        "selector": "body>div>div>div>div>main>section>section:nth-of-type(1)>div:nth-of-type(2)>div:nth-of-type(5)>div:nth-of-type(2)>div:nth-of-type(3)>div>button:nth-of-type(2)",
+        "displaySelector": "button.choice-pill",
+        "text": "",
+        "rect": {
+          "x": 534,
+          "y": 761,
+          "width": 34,
+          "height": 23
+        }
+      },
+      "kind": "bg",
+      "designColor": "#fefefe",
+      "actualColor": "#ffffff",
+      "deltaE": 0.35,
+      "status": "pass"
+    },
+    {
+      "target": {
+        "selector": "body>div>div>div>div>main>section>section:nth-of-type(1)>div:nth-of-type(2)>div:nth-of-type(5)>div:nth-of-type(2)>div:nth-of-type(3)>div>button:nth-of-type(3)",
+        "displaySelector": "button.choice-pill",
+        "text": "",
+        "rect": {
+          "x": 495,
+          "y": 789,
+          "width": 39,
+          "height": 23
+        }
+      },
+      "kind": "bg",
+      "designColor": "#fefefe",
+      "actualColor": "#ffffff",
+      "deltaE": 0.35,
+      "status": "pass"
+    },
+    {
+      "target": {
+        "selector": "body>div>div>div>div>main>section>section:nth-of-type(1)>div:nth-of-type(2)>div:nth-of-type(6)",
+        "displaySelector": "div.compact-control",
+        "text": "",
+        "rect": {
+          "x": 242,
+          "y": 825,
+          "width": 185,
+          "height": 83
+        }
+      },
+      "kind": "bg",
+      "designColor": "#fefefe",
+      "actualColor": "#ffffff",
+      "deltaE": 0.35,
+      "status": "pass"
+    },
+    {
+      "target": {
+        "selector": "body>div>div>div>div>main>section>section:nth-of-type(1)>div:nth-of-type(2)>div:nth-of-type(6)>div:nth-of-type(2)>div",
+        "displaySelector": "div.stepper",
+        "text": "",
+        "rect": {
+          "x": 252,
+          "y": 865,
+          "width": 87,
+          "height": 34
+        }
+      },
+      "kind": "bg",
+      "designColor": "#fefefe",
+      "actualColor": "#ffffff",
+      "deltaE": 0.35,
+      "status": "pass"
+    },
+    {
+      "target": {
+        "selector": "body>div>div>div>div>main>section>section:nth-of-type(1)>div:nth-of-type(2)>div:nth-of-type(7)",
+        "displaySelector": "div.compact-control",
+        "text": "",
+        "rect": {
+          "x": 431,
+          "y": 825,
+          "width": 185,
+          "height": 83
+        }
+      },
+      "kind": "bg",
+      "designColor": "#fefefe",
+      "actualColor": "#ffffff",
+      "deltaE": 0.35,
+      "status": "pass"
+    },
+    {
+      "target": {
+        "selector": "body>div>div>div>div>main>section>section:nth-of-type(1)>div:nth-of-type(2)>div:nth-of-type(7)>label",
+        "displaySelector": "label.select-shell",
+        "text": "",
+        "rect": {
+          "x": 441,
+          "y": 865,
+          "width": 165,
+          "height": 34
+        }
+      },
+      "kind": "bg",
+      "designColor": "#fefefe",
+      "actualColor": "#ffffff",
+      "deltaE": 0.35,
+      "status": "pass"
+    },
+    {
+      "target": {
+        "selector": "body>div>div>div>div>main>section>section:nth-of-type(2)>div:nth-of-type(2)",
+        "displaySelector": "div.result-main",
+        "text": "",
+        "rect": {
+          "x": 677,
+          "y": 181,
+          "width": 817,
+          "height": 510
+        }
+      },
+      "kind": "bg",
+      "designColor": "#e8e4e2",
+      "actualColor": "#f8fafc",
+      "deltaE": 7.9,
+      "status": "fail"
+    },
+    {
+      "target": {
+        "selector": "body>div>div>div>div>main>section>section:nth-of-type(2)>div:nth-of-type(2)>div:nth-of-type(1)",
+        "displaySelector": "div.state-card.error",
+        "text": "加载失败： Unex",
+        "rect": {
+          "x": 677,
+          "y": 181,
+          "width": 817,
+          "height": 510
+        }
+      },
+      "kind": "bg",
+      "designColor": "#e8e4e2",
+      "actualColor": "#f8fafc",
+      "deltaE": 7.9,
+      "status": "fail"
+    },
+    {
+      "target": {
+        "selector": "body>div>div>div>div>main>section>section:nth-of-type(2)>div:nth-of-type(2)>div:nth-of-type(2)",
+        "displaySelector": "div.toolbar.side-toolbar",
+        "text": "",
+        "rect": {
+          "x": 1421,
+          "y": 199,
+          "width": 60,
+          "height": 279
+        }
+      },
+      "kind": "bg",
+      "designColor": "#eeeae9",
+      "actualColor": "#f8fafc",
+      "deltaE": 5.82,
+      "status": "fail"
+    },
+    {
+      "target": {
+        "selector": "body>div>div>div>div>main>section>section:nth-of-type(2)>div:nth-of-type(3)>button:nth-of-type(1)",
+        "displaySelector": "button.thumb-arrow.left",
+        "text": "",
+        "rect": {
+          "x": 671,
+          "y": 761,
+          "width": 42,
+          "height": 42
+        }
+      },
+      "kind": "bg",
+      "designColor": "#bac4d2",
+      "actualColor": "#ffffff",
+      "deltaE": 22.73,
+      "status": "fail"
+    },
+    {
+      "target": {
+        "selector": "body>div>div>div>div>main>section>section:nth-of-type(2)>div:nth-of-type(3)>button:nth-of-type(2)",
+        "displaySelector": "button.thumb-arrow.right",
+        "text": "",
+        "rect": {
+          "x": 1458,
+          "y": 761,
+          "width": 42,
+          "height": 42
+        }
+      },
+      "kind": "bg",
+      "designColor": "#fdfdfd",
+      "actualColor": "#ffffff",
+      "deltaE": 0.69,
+      "status": "pass"
+    },
+    {
+      "target": {
+        "selector": "body>div>div>div>div>main>section>section:nth-of-type(2)>button",
+        "displaySelector": "button.error-toast",
+        "text": "Unexpected",
+        "rect": {
+          "x": 870,
+          "y": 919,
+          "width": 432,
+          "height": 60
+        }
+      },
+      "kind": "bg",
+      "designColor": "#fefefe",
+      "actualColor": "#f0312a",
+      "deltaE": 98.29,
+      "status": "fail"
+    }
+  ],
+  "findings": [
+    {
+      "id": "color-audit:textColor:a6036bff428e",
+      "detector": "color-audit",
+      "code": "text-color-delta",
+      "dimension": "textColor",
+      "severity": "P2",
+      "status": "open",
+      "title": "span 文字色 ΔE 3.4",
+      "target": {
+        "selector": "body>div>div>div>div>main>header>button>span:nth-of-type(2)",
+        "displaySelector": "span",
+        "text": "灵灵生图站",
+        "rect": {
+          "x": 103,
+          "y": 40,
+          "width": 125,
+          "height": 36
+        }
+      },
+      "expected": {
+        "color": "#060607"
+      },
+      "actual": {
+        "color": "#111111",
+        "cssColor": "#111111",
+        "deltaE": 3.42
+      },
+      "threshold": {
+        "maxDeltaE": 3
+      },
+      "confidence": 0.82,
+      "evidence": {},
+      "nextAction": "使用 pick/inspect 复核笔画核心色，并批量修正同类文字",
+      "reason": "",
+      "firstSeenAt": null,
+      "lastSeenAt": null,
+      "resolvedAt": null
+    },
+    {
+      "id": "color-audit:textColor:0417dea6f1bb",
+      "detector": "color-audit",
+      "code": "text-color-delta",
+      "dimension": "textColor",
+      "severity": "P1",
+      "status": "open",
+      "title": "span 文字色 ΔE 13.5",
+      "target": {
+        "selector": "body>div>div>div>div>main>section>aside>div>button:nth-of-type(2)>span",
+        "displaySelector": "span",
+        "text": "AI试戴",
+        "rect": {
+          "x": 73,
+          "y": 205,
+          "width": 44,
+          "height": 21
+        }
+      },
+      "expected": {
+        "color": "#3f4145"
+      },
+      "actual": {
+        "color": "#1f2937",
+        "cssColor": "#1f2937",
+        "deltaE": 13.49
+      },
+      "threshold": {
+        "maxDeltaE": 3
+      },
+      "confidence": 0.82,
+      "evidence": {},
+      "nextAction": "使用 pick/inspect 复核笔画核心色，并批量修正同类文字",
+      "reason": "",
+      "firstSeenAt": null,
+      "lastSeenAt": null,
+      "resolvedAt": null
+    },
+    {
+      "id": "color-audit:textColor:aa951d74d017",
+      "detector": "color-audit",
+      "code": "text-color-delta",
+      "dimension": "textColor",
+      "severity": "P1",
+      "status": "open",
+      "title": "span 文字色 ΔE 13.1",
+      "target": {
+        "selector": "body>div>div>div>div>main>section>aside>div>button:nth-of-type(3)>span",
+        "displaySelector": "span",
+        "text": "手持商品",
+        "rect": {
+          "x": 73,
+          "y": 262,
+          "width": 60,
+          "height": 21
+        }
+      },
+      "expected": {
+        "color": "#3e4146"
+      },
+      "actual": {
+        "color": "#1f2937",
+        "cssColor": "#1f2937",
+        "deltaE": 13.05
+      },
+      "threshold": {
+        "maxDeltaE": 3
+      },
+      "confidence": 0.82,
+      "evidence": {},
+      "nextAction": "使用 pick/inspect 复核笔画核心色，并批量修正同类文字",
+      "reason": "",
+      "firstSeenAt": null,
+      "lastSeenAt": null,
+      "resolvedAt": null
+    },
+    {
+      "id": "color-audit:textColor:6cc5a952b2f4",
+      "detector": "color-audit",
+      "code": "text-color-delta",
+      "dimension": "textColor",
+      "severity": "P2",
+      "status": "open",
+      "title": "span 文字色 ΔE 10.6",
+      "target": {
+        "selector": "body>div>div>div>div>main>section>aside>div>button:nth-of-type(4)>span",
+        "displaySelector": "span",
+        "text": "平铺/人台试衣",
+        "rect": {
+          "x": 73,
+          "y": 319,
+          "width": 98,
+          "height": 21
+        }
+      },
+      "expected": {
+        "color": "#383a40"
+      },
+      "actual": {
+        "color": "#1f2937",
+        "cssColor": "#1f2937",
+        "deltaE": 10.6
+      },
+      "threshold": {
+        "maxDeltaE": 3
+      },
+      "confidence": 0.82,
+      "evidence": {},
+      "nextAction": "使用 pick/inspect 复核笔画核心色，并批量修正同类文字",
+      "reason": "",
+      "firstSeenAt": null,
+      "lastSeenAt": null,
+      "resolvedAt": null
+    },
+    {
+      "id": "color-audit:textColor:8918fb4de26b",
+      "detector": "color-audit",
+      "code": "text-color-delta",
+      "dimension": "textColor",
+      "severity": "P2",
+      "status": "open",
+      "title": "span 文字色 ΔE 10.7",
+      "target": {
+        "selector": "body>div>div>div>div>main>section>aside>div>button:nth-of-type(5)>span",
+        "displaySelector": "span",
+        "text": "AI换模特",
+        "rect": {
+          "x": 73,
+          "y": 376,
+          "width": 59,
+          "height": 21
+        }
+      },
+      "expected": {
+        "color": "#383a3f"
+      },
+      "actual": {
+        "color": "#1f2937",
+        "cssColor": "#1f2937",
+        "deltaE": 10.65
+      },
+      "threshold": {
+        "maxDeltaE": 3
+      },
+      "confidence": 0.82,
+      "evidence": {},
+      "nextAction": "使用 pick/inspect 复核笔画核心色，并批量修正同类文字",
+      "reason": "",
+      "firstSeenAt": null,
+      "lastSeenAt": null,
+      "resolvedAt": null
+    },
+    {
+      "id": "color-audit:textColor:40b236daa526",
+      "detector": "color-audit",
+      "code": "text-color-delta",
+      "dimension": "textColor",
+      "severity": "P2",
+      "status": "open",
+      "title": "span 文字色 ΔE 10.9",
+      "target": {
+        "selector": "body>div>div>div>div>main>section>aside>div>button:nth-of-type(6)>span",
+        "displaySelector": "span",
+        "text": "真人图试衣",
+        "rect": {
+          "x": 73,
+          "y": 433,
+          "width": 75,
+          "height": 21
+        }
+      },
+      "expected": {
+        "color": "#383b3f"
+      },
+      "actual": {
+        "color": "#1f2937",
+        "cssColor": "#1f2937",
+        "deltaE": 10.95
+      },
+      "threshold": {
+        "maxDeltaE": 3
+      },
+      "confidence": 0.82,
+      "evidence": {},
+      "nextAction": "使用 pick/inspect 复核笔画核心色，并批量修正同类文字",
+      "reason": "",
+      "firstSeenAt": null,
+      "lastSeenAt": null,
+      "resolvedAt": null
+    },
+    {
+      "id": "color-audit:textColor:e16ccb3e5447",
+      "detector": "color-audit",
+      "code": "text-color-delta",
+      "dimension": "textColor",
+      "severity": "P2",
+      "status": "open",
+      "title": "span 文字色 ΔE 10.8",
+      "target": {
+        "selector": "body>div>div>div>div>main>section>aside>div>button:nth-of-type(7)>span",
+        "displaySelector": "span",
+        "text": "模特换姿势",
+        "rect": {
+          "x": 73,
+          "y": 490,
+          "width": 75,
+          "height": 21
+        }
+      },
+      "expected": {
+        "color": "#37393d"
+      },
+      "actual": {
+        "color": "#1f2937",
+        "cssColor": "#1f2937",
+        "deltaE": 10.76
+      },
+      "threshold": {
+        "maxDeltaE": 3
+      },
+      "confidence": 0.82,
+      "evidence": {},
+      "nextAction": "使用 pick/inspect 复核笔画核心色，并批量修正同类文字",
+      "reason": "",
+      "firstSeenAt": null,
+      "lastSeenAt": null,
+      "resolvedAt": null
+    },
+    {
+      "id": "color-audit:textColor:a49ea31caa02",
+      "detector": "color-audit",
+      "code": "text-color-delta",
+      "dimension": "textColor",
+      "severity": "P1",
+      "status": "open",
+      "title": "span 文字色 ΔE 13.3",
+      "target": {
+        "selector": "body>div>div>div>div>main>section>aside>div>button:nth-of-type(8)>span",
+        "displaySelector": "span",
+        "text": "鞋靴试穿",
+        "rect": {
+          "x": 73,
+          "y": 547,
+          "width": 60,
+          "height": 21
+        }
+      },
+      "expected": {
+        "color": "#3f4147"
+      },
+      "actual": {
+        "color": "#1f2937",
+        "cssColor": "#1f2937",
+        "deltaE": 13.28
+      },
+      "threshold": {
+        "maxDeltaE": 3
+      },
+      "confidence": 0.82,
+      "evidence": {},
+      "nextAction": "使用 pick/inspect 复核笔画核心色，并批量修正同类文字",
+      "reason": "",
+      "firstSeenAt": null,
+      "lastSeenAt": null,
+      "resolvedAt": null
+    },
+    {
+      "id": "color-audit:textColor:31e8ea8a3132",
+      "detector": "color-audit",
+      "code": "text-color-delta",
+      "dimension": "textColor",
+      "severity": "P2",
+      "status": "open",
+      "title": "span 文字色 ΔE 7.1",
+      "target": {
+        "selector": "body>div>div>div>div>main>section>aside>div>button:nth-of-type(9)>span",
+        "displaySelector": "span",
+        "text": "AI换脸",
+        "rect": {
+          "x": 73,
+          "y": 604,
+          "width": 44,
+          "height": 21
+        }
+      },
+      "expected": {
+        "color": "#2d3137"
+      },
+      "actual": {
+        "color": "#1f2937",
+        "cssColor": "#1f2937",
+        "deltaE": 7.1
+      },
+      "threshold": {
+        "maxDeltaE": 3
+      },
+      "confidence": 0.82,
+      "evidence": {},
+      "nextAction": "使用 pick/inspect 复核笔画核心色，并批量修正同类文字",
+      "reason": "",
+      "firstSeenAt": null,
+      "lastSeenAt": null,
+      "resolvedAt": null
+    },
+    {
+      "id": "color-audit:textColor:f445799764ac",
+      "detector": "color-audit",
+      "code": "text-color-delta",
+      "dimension": "textColor",
+      "severity": "P2",
+      "status": "open",
+      "title": "span 文字色 ΔE 11.0",
+      "target": {
+        "selector": "body>div>div>div>div>main>section>aside>div>button:nth-of-type(10)>span",
+        "displaySelector": "span",
+        "text": "模拍换景",
+        "rect": {
+          "x": 73,
+          "y": 661,
+          "width": 60,
+          "height": 21
+        }
+      },
+      "expected": {
+        "color": "#3a3d43"
+      },
+      "actual": {
+        "color": "#1f2937",
+        "cssColor": "#1f2937",
+        "deltaE": 11.02
+      },
+      "threshold": {
+        "maxDeltaE": 3
+      },
+      "confidence": 0.82,
+      "evidence": {},
+      "nextAction": "使用 pick/inspect 复核笔画核心色，并批量修正同类文字",
+      "reason": "",
+      "firstSeenAt": null,
+      "lastSeenAt": null,
+      "resolvedAt": null
+    },
+    {
+      "id": "color-audit:textColor:937b4021c3a3",
+      "detector": "color-audit",
+      "code": "text-color-delta",
+      "dimension": "textColor",
+      "severity": "P1",
+      "status": "open",
+      "title": "span 文字色 ΔE 13.4",
+      "target": {
+        "selector": "body>div>div>div>div>main>section>aside>div>button:nth-of-type(11)>span",
+        "displaySelector": "span",
+        "text": "服饰换色",
+        "rect": {
+          "x": 73,
+          "y": 718,
+          "width": 60,
+          "height": 21
+        }
+      },
+      "expected": {
+        "color": "#3e4247"
+      },
+      "actual": {
+        "color": "#1f2937",
+        "cssColor": "#1f2937",
+        "deltaE": 13.36
+      },
+      "threshold": {
+        "maxDeltaE": 3
+      },
+      "confidence": 0.82,
+      "evidence": {},
+      "nextAction": "使用 pick/inspect 复核笔画核心色，并批量修正同类文字",
+      "reason": "",
+      "firstSeenAt": null,
+      "lastSeenAt": null,
+      "resolvedAt": null
+    },
+    {
+      "id": "color-audit:textColor:cc795be22c99",
+      "detector": "color-audit",
+      "code": "text-color-delta",
+      "dimension": "textColor",
+      "severity": "P1",
+      "status": "open",
+      "title": "span 文字色 ΔE 13.1",
+      "target": {
+        "selector": "body>div>div>div>div>main>section>aside>div>button:nth-of-type(12)>span",
+        "displaySelector": "span",
+        "text": "服饰商拍套图",
+        "rect": {
+          "x": 73,
+          "y": 775,
+          "width": 90,
+          "height": 21
+        }
+      },
+      "expected": {
+        "color": "#3e4045"
+      },
+      "actual": {
+        "color": "#1f2937",
+        "cssColor": "#1f2937",
+        "deltaE": 13.14
+      },
+      "threshold": {
+        "maxDeltaE": 3
+      },
+      "confidence": 0.82,
+      "evidence": {},
+      "nextAction": "使用 pick/inspect 复核笔画核心色，并批量修正同类文字",
+      "reason": "",
+      "firstSeenAt": null,
+      "lastSeenAt": null,
+      "resolvedAt": null
+    },
+    {
+      "id": "color-audit:textColor:2ac5b93de037",
+      "detector": "color-audit",
+      "code": "text-color-delta",
+      "dimension": "textColor",
+      "severity": "P1",
+      "status": "open",
+      "title": "span 文字色 ΔE 12.9",
+      "target": {
+        "selector": "body>div>div>div>div>main>section>aside>div>button:nth-of-type(13)>span",
+        "displaySelector": "span",
+        "text": "服饰种草图",
+        "rect": {
+          "x": 73,
+          "y": 832,
+          "width": 75,
+          "height": 21
+        }
+      },
+      "expected": {
+        "color": "#3c3e42"
+      },
+      "actual": {
+        "color": "#1f2937",
+        "cssColor": "#1f2937",
+        "deltaE": 12.89
+      },
+      "threshold": {
+        "maxDeltaE": 3
+      },
+      "confidence": 0.82,
+      "evidence": {},
+      "nextAction": "使用 pick/inspect 复核笔画核心色，并批量修正同类文字",
+      "reason": "",
+      "firstSeenAt": null,
+      "lastSeenAt": null,
+      "resolvedAt": null
+    },
+    {
+      "id": "color-audit:textColor:7e95e360deee",
+      "detector": "color-audit",
+      "code": "text-color-delta",
+      "dimension": "textColor",
+      "severity": "P2",
+      "status": "open",
+      "title": "span 文字色 ΔE 7.9",
+      "target": {
+        "selector": "body>div>div>div>div>main>section>aside>div>button:nth-of-type(14)>span",
+        "displaySelector": "span",
+        "text": "我的生成记录",
+        "rect": {
+          "x": 73,
+          "y": 889,
+          "width": 90,
+          "height": 21
+        }
+      },
+      "expected": {
+        "color": "#303339"
+      },
+      "actual": {
+        "color": "#1f2937",
+        "cssColor": "#1f2937",
+        "deltaE": 7.9
+      },
+      "threshold": {
+        "maxDeltaE": 3
+      },
+      "confidence": 0.82,
+      "evidence": {},
+      "nextAction": "使用 pick/inspect 复核笔画核心色，并批量修正同类文字",
+      "reason": "",
+      "firstSeenAt": null,
+      "lastSeenAt": null,
+      "resolvedAt": null
+    },
+    {
+      "id": "color-audit:textColor:1ccb728fcc04",
+      "detector": "color-audit",
+      "code": "text-color-delta",
+      "dimension": "textColor",
+      "severity": "P1",
+      "status": "open",
+      "title": "h2 文字色 ΔE 13.7",
+      "target": {
+        "selector": "body>div>div>div>div>main>section>section:nth-of-type(1)>div:nth-of-type(1)>h2",
+        "displaySelector": "h2",
+        "text": "万物上身",
+        "rect": {
+          "x": 250,
+          "y": 135,
+          "width": 84,
+          "height": 25
+        }
+      },
+      "expected": {
+        "color": "#020202"
+      },
+      "actual": {
+        "color": "#111827",
+        "cssColor": "#111827",
+        "deltaE": 13.75
+      },
+      "threshold": {
+        "maxDeltaE": 3
+      },
+      "confidence": 0.82,
+      "evidence": {},
+      "nextAction": "使用 pick/inspect 复核笔画核心色，并批量修正同类文字",
+      "reason": "",
+      "firstSeenAt": null,
+      "lastSeenAt": null,
+      "resolvedAt": null
+    },
+    {
+      "id": "color-audit:textColor:4dd1548b6a6e",
+      "detector": "color-audit",
+      "code": "text-color-delta",
+      "dimension": "textColor",
+      "severity": "P2",
+      "status": "open",
+      "title": "button.outline-red.new-task 文字色 ΔE 5.0",
+      "target": {
+        "selector": "body>div>div>div>div>main>section>section:nth-of-type(1)>div:nth-of-type(1)>button",
+        "displaySelector": "button.outline-red.new-task",
+        "text": "新建任务",
+        "rect": {
+          "x": 530,
+          "y": 133,
+          "width": 84,
+          "height": 30
+        }
+      },
+      "expected": {
+        "color": "#fb3c30"
+      },
+      "actual": {
+        "color": "#ff3328",
+        "cssColor": "#ff3328",
+        "deltaE": 5.03
+      },
+      "threshold": {
+        "maxDeltaE": 3
+      },
+      "confidence": 0.82,
+      "evidence": {},
+      "nextAction": "使用 pick/inspect 复核笔画核心色，并批量修正同类文字",
+      "reason": "",
+      "firstSeenAt": null,
+      "lastSeenAt": null,
+      "resolvedAt": null
+    },
+    {
+      "id": "color-audit:textColor:1be8336b23e3",
+      "detector": "color-audit",
+      "code": "text-color-delta",
+      "dimension": "textColor",
+      "severity": "P2",
+      "status": "open",
+      "title": "p 文字色 ΔE 6.1",
+      "target": {
+        "selector": "body>div>div>div>div>main>section>section:nth-of-type(1)>div:nth-of-type(2)>div:nth-of-type(1)>div:nth-of-type(2)>p",
+        "displaySelector": "p",
+        "text": "建议上传正面、侧面、",
+        "rect": {
+          "x": 252,
+          "y": 299,
+          "width": 358,
+          "height": 16
+        }
+      },
+      "expected": {
+        "color": "#9b9ea6"
+      },
+      "actual": {
+        "color": "#8c96a6",
+        "cssColor": "#8b95a5",
+        "deltaE": 6.12
+      },
+      "threshold": {
+        "maxDeltaE": 3
+      },
+      "confidence": 0.65,
+      "evidence": {},
+      "nextAction": "使用 pick/inspect 复核笔画核心色，并批量修正同类文字",
+      "reason": "",
+      "firstSeenAt": null,
+      "lastSeenAt": null,
+      "resolvedAt": null
+    },
+    {
+      "id": "color-audit:textColor:393f69277a07",
+      "detector": "color-audit",
+      "code": "text-color-delta",
+      "dimension": "textColor",
+      "severity": "P2",
+      "status": "open",
+      "title": "h3 文字色 ΔE 4.8",
+      "target": {
+        "selector": "body>div>div>div>div>main>section>section:nth-of-type(1)>div:nth-of-type(2)>div:nth-of-type(2)>div>h3",
+        "displaySelector": "h3",
+        "text": "2. 商品卖点&要求",
+        "rect": {
+          "x": 252,
+          "y": 340,
+          "width": 159,
+          "height": 20
+        }
+      },
+      "expected": {
+        "color": "#1b1c1e"
+      },
+      "actual": {
+        "color": "#161a22",
+        "cssColor": "#161a22",
+        "deltaE": 4.83
+      },
+      "threshold": {
+        "maxDeltaE": 3
+      },
+      "confidence": 0.82,
+      "evidence": {},
+      "nextAction": "使用 pick/inspect 复核笔画核心色，并批量修正同类文字",
+      "reason": "",
+      "firstSeenAt": null,
+      "lastSeenAt": null,
+      "resolvedAt": null
+    },
+    {
+      "id": "color-audit:textColor:3c5a8f500b37",
+      "detector": "color-audit",
+      "code": "text-color-delta",
+      "dimension": "textColor",
+      "severity": "P1",
+      "status": "open",
+      "title": "button.outline-red 文字色 ΔE 87.6",
+      "target": {
+        "selector": "body>div>div>div>div>main>section>section:nth-of-type(1)>div:nth-of-type(2)>div:nth-of-type(2)>div>button",
+        "displaySelector": "button.outline-red",
+        "text": "AI帮写",
+        "rect": {
+          "x": 555,
+          "y": 337,
+          "width": 55,
+          "height": 25
+        }
+      },
+      "expected": {
+        "color": "#fc4a40"
+      },
+      "actual": {
+        "color": "#697386",
+        "cssColor": "#697386",
+        "deltaE": 87.59
+      },
+      "threshold": {
+        "maxDeltaE": 3
+      },
+      "confidence": 0.65,
+      "evidence": {},
+      "nextAction": "使用 pick/inspect 复核笔画核心色，并批量修正同类文字",
+      "reason": "",
+      "firstSeenAt": null,
+      "lastSeenAt": null,
+      "resolvedAt": null
+    },
+    {
+      "id": "color-audit:textColor:28dda7c31616",
+      "detector": "color-audit",
+      "code": "text-color-delta",
+      "dimension": "textColor",
+      "severity": "P1",
+      "status": "open",
+      "title": "textarea 文字色 ΔE 14.6",
+      "target": {
+        "selector": "body>div>div>div>div>main>section>section:nth-of-type(1)>div:nth-of-type(2)>div:nth-of-type(2)>label>textarea",
+        "displaySelector": "textarea",
+        "text": "秋季针织连帽卫衣，要",
+        "rect": {
+          "x": 252,
+          "y": 369,
+          "width": 358,
+          "height": 70
+        }
+      },
+      "expected": {
+        "color": "#5d5e62"
+      },
+      "actual": {
+        "color": "#39414f",
+        "cssColor": "#293241",
+        "deltaE": 14.59
+      },
+      "threshold": {
+        "maxDeltaE": 3
+      },
+      "confidence": 0.82,
+      "evidence": {},
+      "nextAction": "使用 pick/inspect 复核笔画核心色，并批量修正同类文字",
+      "reason": "",
+      "firstSeenAt": null,
+      "lastSeenAt": null,
+      "resolvedAt": null
+    },
+    {
+      "id": "color-audit:textColor:09374d327f65",
+      "detector": "color-audit",
+      "code": "text-color-delta",
+      "dimension": "textColor",
+      "severity": "P2",
+      "status": "open",
+      "title": "h3 文字色 ΔE 4.8",
+      "target": {
+        "selector": "body>div>div>div>div>main>section>section:nth-of-type(1)>div:nth-of-type(2)>div:nth-of-type(3)>div>h3",
+        "displaySelector": "h3",
+        "text": "3. 参考模特",
+        "rect": {
+          "x": 252,
+          "y": 469,
+          "width": 73,
+          "height": 20
+        }
+      },
+      "expected": {
+        "color": "#1c1c1e"
+      },
+      "actual": {
+        "color": "#161a22",
+        "cssColor": "#161a22",
+        "deltaE": 4.81
+      },
+      "threshold": {
+        "maxDeltaE": 3
+      },
+      "confidence": 0.82,
+      "evidence": {},
+      "nextAction": "使用 pick/inspect 复核笔画核心色，并批量修正同类文字",
+      "reason": "",
+      "firstSeenAt": null,
+      "lastSeenAt": null,
+      "resolvedAt": null
+    },
+    {
+      "id": "color-audit:textColor:296413bf7ffc",
+      "detector": "color-audit",
+      "code": "text-color-delta",
+      "dimension": "textColor",
+      "severity": "P1",
+      "status": "open",
+      "title": "button.outline-red 文字色 ΔE 89.7",
+      "target": {
+        "selector": "body>div>div>div>div>main>section>section:nth-of-type(1)>div:nth-of-type(2)>div:nth-of-type(3)>div>button",
+        "displaySelector": "button.outline-red",
+        "text": "AI生成匹配模特",
+        "rect": {
+          "x": 507,
+          "y": 466,
+          "width": 103,
+          "height": 25
+        }
+      },
+      "expected": {
+        "color": "#fc453b"
+      },
+      "actual": {
+        "color": "#697386",
+        "cssColor": "#697386",
+        "deltaE": 89.71
+      },
+      "threshold": {
+        "maxDeltaE": 3
+      },
+      "confidence": 0.65,
+      "evidence": {},
+      "nextAction": "使用 pick/inspect 复核笔画核心色，并批量修正同类文字",
+      "reason": "",
+      "firstSeenAt": null,
+      "lastSeenAt": null,
+      "resolvedAt": null
+    },
+    {
+      "id": "color-audit:textColor:75faf0eac97c",
+      "detector": "color-audit",
+      "code": "text-color-delta",
+      "dimension": "textColor",
+      "severity": "P2",
+      "status": "open",
+      "title": "span 文字色 ΔE 11.8",
+      "target": {
+        "selector": "body>div>div>div>div>main>section>section:nth-of-type(1)>div:nth-of-type(2)>div:nth-of-type(3)>button>span",
+        "displaySelector": "span",
+        "text": "上传/选择模特图",
+        "rect": {
+          "x": 386,
+          "y": 508,
+          "width": 120,
+          "height": 22
+        }
+      },
+      "expected": {
+        "color": "#82848d"
+      },
+      "actual": {
+        "color": "#5f6b7a",
+        "cssColor": "#5f6b7a",
+        "deltaE": 11.81
+      },
+      "threshold": {
+        "maxDeltaE": 3
+      },
+      "confidence": 0.82,
+      "evidence": {},
+      "nextAction": "使用 pick/inspect 复核笔画核心色，并批量修正同类文字",
+      "reason": "",
+      "firstSeenAt": null,
+      "lastSeenAt": null,
+      "resolvedAt": null
+    },
+    {
+      "id": "color-audit:textColor:f8f18b9c0650",
+      "detector": "color-audit",
+      "code": "text-color-delta",
+      "dimension": "textColor",
+      "severity": "P2",
+      "status": "open",
+      "title": "p.section-hint 文字色 ΔE 7.1",
+      "target": {
+        "selector": "body>div>div>div>div>main>section>section:nth-of-type(1)>div:nth-of-type(2)>div:nth-of-type(3)>p",
+        "displaySelector": "p.section-hint",
+        "text": "可上传身形相近模特图",
+        "rect": {
+          "x": 252,
+          "y": 545,
+          "width": 358,
+          "height": 15
+        }
+      },
+      "expected": {
+        "color": "#9da2a9"
+      },
+      "actual": {
+        "color": "#8b95a5",
+        "cssColor": "#8b95a5",
+        "deltaE": 7.05
+      },
+      "threshold": {
+        "maxDeltaE": 3
+      },
+      "confidence": 0.65,
+      "evidence": {},
+      "nextAction": "使用 pick/inspect 复核笔画核心色，并批量修正同类文字",
+      "reason": "",
+      "firstSeenAt": null,
+      "lastSeenAt": null,
+      "resolvedAt": null
+    },
+    {
+      "id": "color-audit:textColor:b1b0e8ee436f",
+      "detector": "color-audit",
+      "code": "text-color-delta",
+      "dimension": "textColor",
+      "severity": "P2",
+      "status": "open",
+      "title": "h3 文字色 ΔE 4.2",
+      "target": {
+        "selector": "body>div>div>div>div>main>section>section:nth-of-type(1)>div:nth-of-type(2)>div:nth-of-type(4)>div>h3",
+        "displaySelector": "h3",
+        "text": "4. 额外描述",
+        "rect": {
+          "x": 252,
+          "y": 584,
+          "width": 73,
+          "height": 20
+        }
+      },
+      "expected": {
+        "color": "#1d1e22"
+      },
+      "actual": {
+        "color": "#161a22",
+        "cssColor": "#161a22",
+        "deltaE": 4.15
+      },
+      "threshold": {
+        "maxDeltaE": 3
+      },
+      "confidence": 0.82,
+      "evidence": {},
+      "nextAction": "使用 pick/inspect 复核笔画核心色，并批量修正同类文字",
+      "reason": "",
+      "firstSeenAt": null,
+      "lastSeenAt": null,
+      "resolvedAt": null
+    },
+    {
+      "id": "color-audit:textColor:29823e69f69f",
+      "detector": "color-audit",
+      "code": "text-color-delta",
+      "dimension": "textColor",
+      "severity": "P1",
+      "status": "open",
+      "title": "textarea 文字色 ΔE 12.6",
+      "target": {
+        "selector": "body>div>div>div>div>main>section>section:nth-of-type(1)>div:nth-of-type(2)>div:nth-of-type(4)>label>textarea",
+        "displaySelector": "textarea",
+        "text": "背景干净，光线柔和，",
+        "rect": {
+          "x": 252,
+          "y": 613,
+          "width": 358,
+          "height": 70
+        }
+      },
+      "expected": {
+        "color": "#6b6d73"
+      },
+      "actual": {
+        "color": "#4a515e",
+        "cssColor": "#293241",
+        "deltaE": 12.65
+      },
+      "threshold": {
+        "maxDeltaE": 3
+      },
+      "confidence": 0.82,
+      "evidence": {},
+      "nextAction": "使用 pick/inspect 复核笔画核心色，并批量修正同类文字",
+      "reason": "",
+      "firstSeenAt": null,
+      "lastSeenAt": null,
+      "resolvedAt": null
+    },
+    {
+      "id": "color-audit:textColor:30574b6ade37",
+      "detector": "color-audit",
+      "code": "text-color-delta",
+      "dimension": "textColor",
+      "severity": "P2",
+      "status": "open",
+      "title": "span 文字色 ΔE 6.0",
+      "target": {
+        "selector": "body>div>div>div>div>main>section>section:nth-of-type(1)>div:nth-of-type(2)>div:nth-of-type(4)>label>span",
+        "displaySelector": "span",
+        "text": "31 / 300",
+        "rect": {
+          "x": 564,
+          "y": 664,
+          "width": 36,
+          "height": 16
+        }
+      },
+      "expected": {
+        "color": "#acb0b7"
+      },
+      "actual": {
+        "color": "#9ca5b3",
+        "cssColor": "#9aa3b2",
+        "deltaE": 5.95
+      },
+      "threshold": {
+        "maxDeltaE": 3
+      },
+      "confidence": 0.65,
+      "evidence": {},
+      "nextAction": "使用 pick/inspect 复核笔画核心色，并批量修正同类文字",
+      "reason": "",
+      "firstSeenAt": null,
+      "lastSeenAt": null,
+      "resolvedAt": null
+    },
+    {
+      "id": "color-audit:textColor:0f5699541693",
+      "detector": "color-audit",
+      "code": "text-color-delta",
+      "dimension": "textColor",
+      "severity": "P2",
+      "status": "open",
+      "title": "h3 文字色 ΔE 11.6",
+      "target": {
+        "selector": "body>div>div>div>div>main>section>section:nth-of-type(1)>div:nth-of-type(2)>div:nth-of-type(5)>div:nth-of-type(1)>h3",
+        "displaySelector": "h3",
+        "text": "5. 生成比例",
+        "rect": {
+          "x": 252,
+          "y": 712,
+          "width": 121,
+          "height": 20
+        }
+      },
+      "expected": {
+        "color": "#2f3033"
+      },
+      "actual": {
+        "color": "#161a22",
+        "cssColor": "#161a22",
+        "deltaE": 11.6
+      },
+      "threshold": {
+        "maxDeltaE": 3
+      },
+      "confidence": 0.82,
+      "evidence": {},
+      "nextAction": "使用 pick/inspect 复核笔画核心色，并批量修正同类文字",
+      "reason": "",
+      "firstSeenAt": null,
+      "lastSeenAt": null,
+      "resolvedAt": null
+    },
+    {
+      "id": "color-audit:textColor:8ef735a323a3",
+      "detector": "color-audit",
+      "code": "text-color-delta",
+      "dimension": "textColor",
+      "severity": "P1",
+      "status": "open",
+      "title": "span 文字色 ΔE 95.9",
+      "target": {
+        "selector": "body>div>div>div>div>main>section>section:nth-of-type(1)>div:nth-of-type(2)>div:nth-of-type(5)>div:nth-of-type(1)>h3>span",
+        "displaySelector": "span",
+        "text": "（必填）",
+        "rect": {
+          "x": 325,
+          "y": 714,
+          "width": 48,
+          "height": 17
+        }
+      },
+      "expected": {
+        "color": "#848a94"
+      },
+      "actual": {
+        "color": "#ff3328",
+        "cssColor": "#ff3328",
+        "deltaE": 95.93
+      },
+      "threshold": {
+        "maxDeltaE": 3
+      },
+      "confidence": 0.65,
+      "evidence": {},
+      "nextAction": "使用 pick/inspect 复核笔画核心色，并批量修正同类文字",
+      "reason": "",
+      "firstSeenAt": null,
+      "lastSeenAt": null,
+      "resolvedAt": null
+    },
+    {
+      "id": "color-audit:textColor:e7ecd44fb8c1",
+      "detector": "color-audit",
+      "code": "text-color-delta",
+      "dimension": "textColor",
+      "severity": "P2",
+      "status": "open",
+      "title": "b 文字色 ΔE 4.0",
+      "target": {
+        "selector": "body>div>div>div>div>main>section>section:nth-of-type(1)>div:nth-of-type(2)>div:nth-of-type(5)>div:nth-of-type(2)>div:nth-of-type(1)>b",
+        "displaySelector": "b",
+        "text": "常见比例",
+        "rect": {
+          "x": 252,
+          "y": 741,
+          "width": 115,
+          "height": 16
+        }
+      },
+      "expected": {
+        "color": "#8c929c"
+      },
+      "actual": {
+        "color": "#8b95a5",
+        "cssColor": "#8b95a5",
+        "deltaE": 4.01
+      },
+      "threshold": {
+        "maxDeltaE": 3
+      },
+      "confidence": 0.65,
+      "evidence": {},
+      "nextAction": "使用 pick/inspect 复核笔画核心色，并批量修正同类文字",
+      "reason": "",
+      "firstSeenAt": null,
+      "lastSeenAt": null,
+      "resolvedAt": null
+    },
+    {
+      "id": "color-audit:textColor:bf201caebd32",
+      "detector": "color-audit",
+      "code": "text-color-delta",
+      "dimension": "textColor",
+      "severity": "P1",
+      "status": "open",
+      "title": "span 文字色 ΔE 73.2",
+      "target": {
+        "selector": "body>div>div>div>div>main>section>section:nth-of-type(1)>div:nth-of-type(2)>div:nth-of-type(5)>div:nth-of-type(2)>div:nth-of-type(2)>div>button:nth-of-type(2)>span",
+        "displaySelector": "span",
+        "text": "1:2",
+        "rect": {
+          "x": 426,
+          "y": 764,
+          "width": 15,
+          "height": 17
+        }
+      },
+      "expected": {
+        "color": "#fc7066"
+      },
+      "actual": {
+        "color": "#4b5563",
+        "cssColor": "#4b5563",
+        "deltaE": 73.17
+      },
+      "threshold": {
+        "maxDeltaE": 3
+      },
+      "confidence": 0.65,
+      "evidence": {},
+      "nextAction": "使用 pick/inspect 复核笔画核心色，并批量修正同类文字",
+      "reason": "",
+      "firstSeenAt": null,
+      "lastSeenAt": null,
+      "resolvedAt": null
+    },
+    {
+      "id": "color-audit:textColor:7eb33662ea92",
+      "detector": "color-audit",
+      "code": "text-color-delta",
+      "dimension": "textColor",
+      "severity": "P1",
+      "status": "open",
+      "title": "strong 文字色 ΔE 12.7",
+      "target": {
+        "selector": "body>div>div>div>div>main>section>section:nth-of-type(1)>div:nth-of-type(2)>div:nth-of-type(6)>div:nth-of-type(2)>div>strong",
+        "displaySelector": "strong",
+        "text": "4",
+        "rect": {
+          "x": 290,
+          "y": 866,
+          "width": 11,
+          "height": 32
+        }
+      },
+      "expected": {
+        "color": "#242526"
+      },
+      "actual": {
+        "color": "#111827",
+        "cssColor": "#111827",
+        "deltaE": 12.73
+      },
+      "threshold": {
+        "maxDeltaE": 3
+      },
+      "confidence": 0.82,
+      "evidence": {},
+      "nextAction": "使用 pick/inspect 复核笔画核心色，并批量修正同类文字",
+      "reason": "",
+      "firstSeenAt": null,
+      "lastSeenAt": null,
+      "resolvedAt": null
+    },
+    {
+      "id": "color-audit:textColor:32f26760e28a",
+      "detector": "color-audit",
+      "code": "text-color-delta",
+      "dimension": "textColor",
+      "severity": "P1",
+      "status": "open",
+      "title": "h2 文字色 ΔE 12.2",
+      "target": {
+        "selector": "body>div>div>div>div>main>section>section:nth-of-type(2)>div:nth-of-type(1)>h2",
+        "displaySelector": "h2",
+        "text": "创作结果",
+        "rect": {
+          "x": 677,
+          "y": 139,
+          "width": 84,
+          "height": 25
+        }
+      },
+      "expected": {
+        "color": "#0d0d0d"
+      },
+      "actual": {
+        "color": "#111827",
+        "cssColor": "#111827",
+        "deltaE": 12.16
+      },
+      "threshold": {
+        "maxDeltaE": 3
+      },
+      "confidence": 0.82,
+      "evidence": {},
+      "nextAction": "使用 pick/inspect 复核笔画核心色，并批量修正同类文字",
+      "reason": "",
+      "firstSeenAt": null,
+      "lastSeenAt": null,
+      "resolvedAt": null
+    },
+    {
+      "id": "color-audit:backgroundColor:0bbd6a8e3b41",
+      "detector": "color-audit",
+      "code": "background-color-delta",
+      "dimension": "backgroundColor",
+      "severity": "P1",
+      "status": "open",
+      "title": "div.upload-thumb 背景色 ΔE 19.9",
+      "target": {
+        "selector": "body>div>div>div>div>main>section>section:nth-of-type(1)>div:nth-of-type(2)>div:nth-of-type(1)>div:nth-of-type(2)>div>div:nth-of-type(1)",
+        "displaySelector": "div.upload-thumb",
+        "text": "",
+        "rect": {
+          "x": 252,
+          "y": 220,
+          "width": 66,
+          "height": 73
+        }
+      },
+      "expected": {
+        "color": "#b4bfcb"
+      },
+      "actual": {
+        "color": "#f2efed",
+        "deltaE": 19.87
+      },
+      "threshold": {
+        "maxDeltaE": 3
+      },
+      "confidence": 0.8,
+      "evidence": {},
+      "nextAction": "复核纯色采样区后修正背景或填充色",
+      "reason": "",
+      "firstSeenAt": null,
+      "lastSeenAt": null,
+      "resolvedAt": null
+    },
+    {
+      "id": "color-audit:backgroundColor:dd74f820d37a",
+      "detector": "color-audit",
+      "code": "background-color-delta",
+      "dimension": "backgroundColor",
+      "severity": "P1",
+      "status": "open",
+      "title": "img 背景色 ΔE 19.9",
+      "target": {
+        "selector": "body>div>div>div>div>main>section>section:nth-of-type(1)>div:nth-of-type(2)>div:nth-of-type(1)>div:nth-of-type(2)>div>div:nth-of-type(1)>img",
+        "displaySelector": "img",
+        "text": "",
+        "rect": {
+          "x": 253,
+          "y": 221,
+          "width": 64,
+          "height": 71
+        }
+      },
+      "expected": {
+        "color": "#b4bfcb"
+      },
+      "actual": {
+        "color": "#f2efed",
+        "deltaE": 19.87
+      },
+      "threshold": {
+        "maxDeltaE": 3
+      },
+      "confidence": 0.8,
+      "evidence": {},
+      "nextAction": "复核纯色采样区后修正背景或填充色",
+      "reason": "",
+      "firstSeenAt": null,
+      "lastSeenAt": null,
+      "resolvedAt": null
+    },
+    {
+      "id": "color-audit:backgroundColor:97fc11603e6d",
+      "detector": "color-audit",
+      "code": "background-color-delta",
+      "dimension": "backgroundColor",
+      "severity": "P1",
+      "status": "open",
+      "title": "button 背景色 ΔE 20.4",
+      "target": {
+        "selector": "body>div>div>div>div>main>section>section:nth-of-type(1)>div:nth-of-type(2)>div:nth-of-type(1)>div:nth-of-type(2)>div>div:nth-of-type(1)>button",
+        "displaySelector": "button",
+        "text": "",
+        "rect": {
+          "x": 296,
+          "y": 224,
+          "width": 18,
+          "height": 18
+        }
+      },
+      "expected": {
+        "color": "#bec9d4"
+      },
+      "actual": {
+        "color": "#fefefe",
+        "deltaE": 20.43
+      },
+      "threshold": {
+        "maxDeltaE": 3
+      },
+      "confidence": 0.8,
+      "evidence": {},
+      "nextAction": "复核纯色采样区后修正背景或填充色",
+      "reason": "",
+      "firstSeenAt": null,
+      "lastSeenAt": null,
+      "resolvedAt": null
+    },
+    {
+      "id": "color-audit:backgroundColor:7261183ea410",
+      "detector": "color-audit",
+      "code": "background-color-delta",
+      "dimension": "backgroundColor",
+      "severity": "P1",
+      "status": "open",
+      "title": "div.upload-thumb 背景色 ΔE 16.5",
+      "target": {
+        "selector": "body>div>div>div>div>main>section>section:nth-of-type(1)>div:nth-of-type(2)>div:nth-of-type(1)>div:nth-of-type(2)>div>div:nth-of-type(2)",
+        "displaySelector": "div.upload-thumb",
+        "text": "",
+        "rect": {
+          "x": 324,
+          "y": 220,
+          "width": 66,
+          "height": 73
+        }
+      },
+      "expected": {
+        "color": "#c2c9d7"
+      },
+      "actual": {
+        "color": "#f2efed",
+        "deltaE": 16.53
+      },
+      "threshold": {
+        "maxDeltaE": 3
+      },
+      "confidence": 0.8,
+      "evidence": {},
+      "nextAction": "复核纯色采样区后修正背景或填充色",
+      "reason": "",
+      "firstSeenAt": null,
+      "lastSeenAt": null,
+      "resolvedAt": null
+    },
+    {
+      "id": "color-audit:backgroundColor:350f86967d70",
+      "detector": "color-audit",
+      "code": "background-color-delta",
+      "dimension": "backgroundColor",
+      "severity": "P1",
+      "status": "open",
+      "title": "img 背景色 ΔE 16.5",
+      "target": {
+        "selector": "body>div>div>div>div>main>section>section:nth-of-type(1)>div:nth-of-type(2)>div:nth-of-type(1)>div:nth-of-type(2)>div>div:nth-of-type(2)>img",
+        "displaySelector": "img",
+        "text": "",
+        "rect": {
+          "x": 325,
+          "y": 221,
+          "width": 64,
+          "height": 71
+        }
+      },
+      "expected": {
+        "color": "#c2c9d7"
+      },
+      "actual": {
+        "color": "#f2efed",
+        "deltaE": 16.53
+      },
+      "threshold": {
+        "maxDeltaE": 3
+      },
+      "confidence": 0.8,
+      "evidence": {},
+      "nextAction": "复核纯色采样区后修正背景或填充色",
+      "reason": "",
+      "firstSeenAt": null,
+      "lastSeenAt": null,
+      "resolvedAt": null
+    },
+    {
+      "id": "color-audit:backgroundColor:33514fdc64b6",
+      "detector": "color-audit",
+      "code": "background-color-delta",
+      "dimension": "backgroundColor",
+      "severity": "P1",
+      "status": "open",
+      "title": "button 背景色 ΔE 20.6",
+      "target": {
+        "selector": "body>div>div>div>div>main>section>section:nth-of-type(1)>div:nth-of-type(2)>div:nth-of-type(1)>div:nth-of-type(2)>div>div:nth-of-type(2)>button",
+        "displaySelector": "button",
+        "text": "",
+        "rect": {
+          "x": 368,
+          "y": 224,
+          "width": 18,
+          "height": 18
+        }
+      },
+      "expected": {
+        "color": "#c2c8d6"
+      },
+      "actual": {
+        "color": "#fefefe",
+        "deltaE": 20.61
+      },
+      "threshold": {
+        "maxDeltaE": 3
+      },
+      "confidence": 0.8,
+      "evidence": {},
+      "nextAction": "复核纯色采样区后修正背景或填充色",
+      "reason": "",
+      "firstSeenAt": null,
+      "lastSeenAt": null,
+      "resolvedAt": null
+    },
+    {
+      "id": "color-audit:backgroundColor:a611444cf87f",
+      "detector": "color-audit",
+      "code": "background-color-delta",
+      "dimension": "backgroundColor",
+      "severity": "P2",
+      "status": "open",
+      "title": "img 背景色 ΔE 8.0",
+      "target": {
+        "selector": "body>div>div>div>div>main>section>section:nth-of-type(1)>div:nth-of-type(2)>div:nth-of-type(1)>div:nth-of-type(2)>div>div:nth-of-type(3)>img",
+        "displaySelector": "img",
+        "text": "",
+        "rect": {
+          "x": 397,
+          "y": 221,
+          "width": 64,
+          "height": 71
+        }
+      },
+      "expected": {
+        "color": "#dbe1e9"
+      },
+      "actual": {
+        "color": "#f2efed",
+        "deltaE": 8.04
+      },
+      "threshold": {
+        "maxDeltaE": 3
+      },
+      "confidence": 0.8,
+      "evidence": {},
+      "nextAction": "复核纯色采样区后修正背景或填充色",
+      "reason": "",
+      "firstSeenAt": null,
+      "lastSeenAt": null,
+      "resolvedAt": null
+    },
+    {
+      "id": "color-audit:backgroundColor:69a07ff212eb",
+      "detector": "color-audit",
+      "code": "background-color-delta",
+      "dimension": "backgroundColor",
+      "severity": "P1",
+      "status": "open",
+      "title": "button 背景色 ΔE 35.4",
+      "target": {
+        "selector": "body>div>div>div>div>main>section>section:nth-of-type(1)>div:nth-of-type(2)>div:nth-of-type(1)>div:nth-of-type(2)>div>div:nth-of-type(3)>button",
+        "displaySelector": "button",
+        "text": "",
+        "rect": {
+          "x": 440,
+          "y": 224,
+          "width": 18,
+          "height": 18
+        }
+      },
+      "expected": {
+        "color": "#969fac"
+      },
+      "actual": {
+        "color": "#fefefe",
+        "deltaE": 35.37
+      },
+      "threshold": {
+        "maxDeltaE": 3
+      },
+      "confidence": 0.8,
+      "evidence": {},
+      "nextAction": "复核纯色采样区后修正背景或填充色",
+      "reason": "",
+      "firstSeenAt": null,
+      "lastSeenAt": null,
+      "resolvedAt": null
+    },
+    {
+      "id": "color-audit:backgroundColor:4bd3d0fda43e",
+      "detector": "color-audit",
+      "code": "background-color-delta",
+      "dimension": "backgroundColor",
+      "severity": "P1",
+      "status": "open",
+      "title": "div.upload-thumb 背景色 ΔE 13.5",
+      "target": {
+        "selector": "body>div>div>div>div>main>section>section:nth-of-type(1)>div:nth-of-type(2)>div:nth-of-type(1)>div:nth-of-type(2)>div>div:nth-of-type(4)",
+        "displaySelector": "div.upload-thumb",
+        "text": "",
+        "rect": {
+          "x": 468,
+          "y": 220,
+          "width": 66,
+          "height": 73
+        }
+      },
+      "expected": {
+        "color": "#c7cfd6"
+      },
+      "actual": {
+        "color": "#f3efed",
+        "deltaE": 13.54
+      },
+      "threshold": {
+        "maxDeltaE": 3
+      },
+      "confidence": 0.8,
+      "evidence": {},
+      "nextAction": "复核纯色采样区后修正背景或填充色",
+      "reason": "",
+      "firstSeenAt": null,
+      "lastSeenAt": null,
+      "resolvedAt": null
+    },
+    {
+      "id": "color-audit:backgroundColor:1113ae85d55e",
+      "detector": "color-audit",
+      "code": "background-color-delta",
+      "dimension": "backgroundColor",
+      "severity": "P1",
+      "status": "open",
+      "title": "img 背景色 ΔE 13.4",
+      "target": {
+        "selector": "body>div>div>div>div>main>section>section:nth-of-type(1)>div:nth-of-type(2)>div:nth-of-type(1)>div:nth-of-type(2)>div>div:nth-of-type(4)>img",
+        "displaySelector": "img",
+        "text": "",
+        "rect": {
+          "x": 469,
+          "y": 221,
+          "width": 64,
+          "height": 71
+        }
+      },
+      "expected": {
+        "color": "#c7cfd6"
+      },
+      "actual": {
+        "color": "#f2efed",
+        "deltaE": 13.37
+      },
+      "threshold": {
+        "maxDeltaE": 3
+      },
+      "confidence": 0.8,
+      "evidence": {},
+      "nextAction": "复核纯色采样区后修正背景或填充色",
+      "reason": "",
+      "firstSeenAt": null,
+      "lastSeenAt": null,
+      "resolvedAt": null
+    },
+    {
+      "id": "color-audit:backgroundColor:fefa5d59bf77",
+      "detector": "color-audit",
+      "code": "background-color-delta",
+      "dimension": "backgroundColor",
+      "severity": "P1",
+      "status": "open",
+      "title": "button 背景色 ΔE 43.3",
+      "target": {
+        "selector": "body>div>div>div>div>main>section>section:nth-of-type(1)>div:nth-of-type(2)>div:nth-of-type(1)>div:nth-of-type(2)>div>div:nth-of-type(4)>button",
+        "displaySelector": "button",
+        "text": "",
+        "rect": {
+          "x": 512,
+          "y": 224,
+          "width": 18,
+          "height": 18
+        }
+      },
+      "expected": {
+        "color": "#7f8a94"
+      },
+      "actual": {
+        "color": "#fefefe",
+        "deltaE": 43.31
+      },
+      "threshold": {
+        "maxDeltaE": 3
+      },
+      "confidence": 0.8,
+      "evidence": {},
+      "nextAction": "复核纯色采样区后修正背景或填充色",
+      "reason": "",
+      "firstSeenAt": null,
+      "lastSeenAt": null,
+      "resolvedAt": null
+    },
+    {
+      "id": "color-audit:backgroundColor:189be04fec45",
+      "detector": "color-audit",
+      "code": "background-color-delta",
+      "dimension": "backgroundColor",
+      "severity": "P2",
+      "status": "open",
+      "title": "button.choice-pill.active 背景色 ΔE 3.4",
+      "target": {
+        "selector": "body>div>div>div>div>main>section>section:nth-of-type(1)>div:nth-of-type(2)>div:nth-of-type(5)>div:nth-of-type(2)>div:nth-of-type(1)>div>button:nth-of-type(2)",
+        "displaySelector": "button.choice-pill.active",
+        "text": "",
+        "rect": {
+          "x": 291,
+          "y": 761,
+          "width": 34,
+          "height": 23
+        }
+      },
+      "expected": {
+        "color": "#fefefe"
+      },
+      "actual": {
+        "color": "#fff7f6",
+        "deltaE": 3.41
+      },
+      "threshold": {
+        "maxDeltaE": 3
+      },
+      "confidence": 0.8,
+      "evidence": {},
+      "nextAction": "复核纯色采样区后修正背景或填充色",
+      "reason": "",
+      "firstSeenAt": null,
+      "lastSeenAt": null,
+      "resolvedAt": null
+    },
+    {
+      "id": "color-audit:backgroundColor:4e1dd364617a",
+      "detector": "color-audit",
+      "code": "background-color-delta",
+      "dimension": "backgroundColor",
+      "severity": "P2",
+      "status": "open",
+      "title": "div.result-main 背景色 ΔE 7.9",
+      "target": {
+        "selector": "body>div>div>div>div>main>section>section:nth-of-type(2)>div:nth-of-type(2)",
+        "displaySelector": "div.result-main",
+        "text": "",
+        "rect": {
+          "x": 677,
+          "y": 181,
+          "width": 817,
+          "height": 510
+        }
+      },
+      "expected": {
+        "color": "#e8e4e2"
+      },
+      "actual": {
+        "color": "#f8fafc",
+        "deltaE": 7.9
+      },
+      "threshold": {
+        "maxDeltaE": 3
+      },
+      "confidence": 0.8,
+      "evidence": {},
+      "nextAction": "复核纯色采样区后修正背景或填充色",
+      "reason": "",
+      "firstSeenAt": null,
+      "lastSeenAt": null,
+      "resolvedAt": null
+    },
+    {
+      "id": "color-audit:backgroundColor:f2b91bf095b1",
+      "detector": "color-audit",
+      "code": "background-color-delta",
+      "dimension": "backgroundColor",
+      "severity": "P2",
+      "status": "open",
+      "title": "div.state-card.error 背景色 ΔE 7.9",
+      "target": {
+        "selector": "body>div>div>div>div>main>section>section:nth-of-type(2)>div:nth-of-type(2)>div:nth-of-type(1)",
+        "displaySelector": "div.state-card.error",
+        "text": "加载失败： Unex",
+        "rect": {
+          "x": 677,
+          "y": 181,
+          "width": 817,
+          "height": 510
+        }
+      },
+      "expected": {
+        "color": "#e8e4e2"
+      },
+      "actual": {
+        "color": "#f8fafc",
+        "deltaE": 7.9
+      },
+      "threshold": {
+        "maxDeltaE": 3
+      },
+      "confidence": 0.8,
+      "evidence": {},
+      "nextAction": "复核纯色采样区后修正背景或填充色",
+      "reason": "",
+      "firstSeenAt": null,
+      "lastSeenAt": null,
+      "resolvedAt": null
+    },
+    {
+      "id": "color-audit:backgroundColor:8d6469cf22a2",
+      "detector": "color-audit",
+      "code": "background-color-delta",
+      "dimension": "backgroundColor",
+      "severity": "P2",
+      "status": "open",
+      "title": "div.toolbar.side-toolbar 背景色 ΔE 5.8",
+      "target": {
+        "selector": "body>div>div>div>div>main>section>section:nth-of-type(2)>div:nth-of-type(2)>div:nth-of-type(2)",
+        "displaySelector": "div.toolbar.side-toolbar",
+        "text": "",
+        "rect": {
+          "x": 1421,
+          "y": 199,
+          "width": 60,
+          "height": 279
+        }
+      },
+      "expected": {
+        "color": "#eeeae9"
+      },
+      "actual": {
+        "color": "#f8fafc",
+        "deltaE": 5.82
+      },
+      "threshold": {
+        "maxDeltaE": 3
+      },
+      "confidence": 0.8,
+      "evidence": {},
+      "nextAction": "复核纯色采样区后修正背景或填充色",
+      "reason": "",
+      "firstSeenAt": null,
+      "lastSeenAt": null,
+      "resolvedAt": null
+    },
+    {
+      "id": "color-audit:backgroundColor:b43e28ecaff4",
+      "detector": "color-audit",
+      "code": "background-color-delta",
+      "dimension": "backgroundColor",
+      "severity": "P1",
+      "status": "open",
+      "title": "button.thumb-arrow.left 背景色 ΔE 22.7",
+      "target": {
+        "selector": "body>div>div>div>div>main>section>section:nth-of-type(2)>div:nth-of-type(3)>button:nth-of-type(1)",
+        "displaySelector": "button.thumb-arrow.left",
+        "text": "",
+        "rect": {
+          "x": 671,
+          "y": 761,
+          "width": 42,
+          "height": 42
+        }
+      },
+      "expected": {
+        "color": "#bac4d2"
+      },
+      "actual": {
+        "color": "#ffffff",
+        "deltaE": 22.73
+      },
+      "threshold": {
+        "maxDeltaE": 3
+      },
+      "confidence": 0.8,
+      "evidence": {},
+      "nextAction": "复核纯色采样区后修正背景或填充色",
+      "reason": "",
+      "firstSeenAt": null,
+      "lastSeenAt": null,
+      "resolvedAt": null
+    },
+    {
+      "id": "color-audit:backgroundColor:f0c27bb2e6c1",
+      "detector": "color-audit",
+      "code": "background-color-delta",
+      "dimension": "backgroundColor",
+      "severity": "P1",
+      "status": "open",
+      "title": "button.error-toast 背景色 ΔE 98.3",
+      "target": {
+        "selector": "body>div>div>div>div>main>section>section:nth-of-type(2)>button",
+        "displaySelector": "button.error-toast",
+        "text": "Unexpected",
+        "rect": {
+          "x": 870,
+          "y": 919,
+          "width": 432,
+          "height": 60
+        }
+      },
+      "expected": {
+        "color": "#fefefe"
+      },
+      "actual": {
+        "color": "#f0312a",
+        "deltaE": 98.29
+      },
+      "threshold": {
+        "maxDeltaE": 3
+      },
+      "confidence": 0.8,
+      "evidence": {},
+      "nextAction": "复核纯色采样区后修正背景或填充色",
+      "reason": "",
+      "firstSeenAt": null,
+      "lastSeenAt": null,
+      "resolvedAt": null
+    }
+  ]
+}

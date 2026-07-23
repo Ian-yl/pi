@@ -1,0 +1,17 @@
+{
+  "name": "lingling-real-project-v2",
+  "private": true,
+  "version": "0.1.0",
+  "type": "module",
+  "scripts": {
+    "start": "node backend/server.js",
+    "build": "npm --prefix web run build",
+    "test": "node --test tests/*.test.mjs",
+    "gate": "npm test && npm run build"
+  },
+  "dependencies": {
+    "dotenv": "^17.2.3",
+    "express": "^5.1.0",
+    "multer": "^2.0.2"
+  }
+}

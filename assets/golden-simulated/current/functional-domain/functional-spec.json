@@ -1,0 +1,625 @@
+{
+  "schemaVersion": "2.0",
+  "project": {
+    "id": "golden-simulated",
+    "name": "Golden Simulated"
+  },
+  "visualSource": {
+    "sourceType": "ai-restore-release",
+    "releaseDigest": "7cccdced81725094a67ce6c6c2928ea66354b733fdda12674f9bb775be5d361f"
+  },
+  "runtime": {
+    "command": "node backend/server.mjs",
+    "healthUrl": "http://127.0.0.1:${PORT}/health",
+    "requiredEnvironment": [
+      "PORT"
+    ]
+  },
+  "domains": [
+    {
+      "id": "domain-submission",
+      "pageIds": [
+        "sample",
+        "suite-sample-detail"
+      ],
+      "entityIds": [
+        "entity-submission",
+        "entity-submission-event"
+      ]
+    }
+  ],
+  "entities": [
+    {
+      "id": "entity-submission",
+      "domainId": "domain-submission",
+      "identity": {
+        "fields": [
+          "id"
+        ]
+      },
+      "aggregateRoot": true,
+      "lifecycle": [
+        "created",
+        "submitted"
+      ],
+      "constraints": {
+        "required": [
+          "id"
+        ],
+        "unique": [
+          [
+            "id"
+          ]
+        ],
+        "status": {
+          "field": "status",
+          "allowed": [
+            "created",
+            "submitted"
+          ]
+        }
+      },
+      "accessScope": {
+        "ownerActor": "user",
+        "scope": "owner",
+        "ownershipField": "userId"
+      }
+    },
+    {
+      "id": "entity-submission-event",
+      "domainId": "domain-submission",
+      "identity": {
+        "fields": [
+          "id"
+        ]
+      },
+      "aggregateRoot": false,
+      "aggregateRootEntityId": "entity-submission",
+      "lifecycle": [
+        "recorded"
+      ],
+      "constraints": {
+        "required": [
+          "id",
+          "submissionId"
+        ],
+        "unique": [
+          [
+            "id"
+          ]
+        ],
+        "status": {
+          "field": "status",
+          "allowed": [
+            "recorded"
+          ]
+        }
+      },
+      "accessScope": {
+        "ownerActor": "user",
+        "scope": "owner",
+        "ownershipField": "userId"
+      }
+    }
+  ],
+  "relationships": [
+    {
+      "id": "relation-submission-events",
+      "fromEntityId": "entity-submission",
+      "toEntityId": "entity-submission-event",
+      "cardinality": "one-to-many",
+      "ownership": "aggregate",
+      "required": false,
+      "onDelete": "cascade",
+      "associationKey": {
+        "fromFields": [
+          "id"
+        ],
+        "toFields": [
+          "submissionId"
+        ]
+      },
+      "invariants": [
+        "event.submissionId references an existing submission"
+      ]
+    }
+  ],
+  "consistencyBoundaries": [
+    {
+      "id": "boundary-submission",
+      "aggregateRootEntityId": "entity-submission",
+      "entityIds": [
+        "entity-submission",
+        "entity-submission-event"
+      ],
+      "strategy": "atomic"
+    }
+  ],
+  "capabilities": [
+    {
+      "id": "cap-sample",
+      "name": "Submit sample",
+      "purpose": "Submit the restored form",
+      "actor": "user",
+      "pageIds": [
+        "sample"
+      ],
+      "presentation": {
+        "mode": "add-control",
+        "targetPageId": "sample",
+        "preferredRegion": "form-actions",
+        "control": {
+          "type": "primary-button",
+          "label": "Submit sample"
+        }
+      },
+      "operations": [
+        {
+          "id": "submit-sample",
+          "method": "POST",
+          "path": "/api/forms/sample",
+          "request": {
+            "body": [
+              "email",
+              "password"
+            ],
+            "contentType": "application/json",
+            "bodySchema": {
+              "type": "object",
+              "required": [
+                "email",
+                "password"
+              ],
+              "properties": {
+                "email": {
+                  "type": "string"
+                },
+                "password": {
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "response": {
+            "fields": [
+              "ok"
+            ],
+            "bodySchema": {
+              "type": "object",
+              "required": [
+                "ok"
+              ],
+              "properties": {
+                "ok": {
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "effects": [
+            {
+              "entityId": "entity-submission",
+              "effect": "create"
+            }
+          ],
+          "errors": [
+            "INVALID_INPUT"
+          ]
+        }
+      ],
+      "inputs": [
+        "email",
+        "password"
+      ],
+      "outcomes": [
+        "submitted"
+      ],
+      "entityEffects": [
+        {
+          "entityId": "entity-submission",
+          "effect": "create"
+        }
+      ],
+      "writesState": true,
+      "ruleIds": [],
+      "failures": [
+        "invalid input"
+      ],
+      "acceptanceCriteria": [
+        "valid input creates a submission"
+      ],
+      "specificationStatus": "complete",
+      "evidence": {
+        "status": "documented",
+        "sources": [
+          "golden-fixture"
+        ]
+      },
+      "sourceSymbol": "submitSample",
+      "inputSchema": {
+        "type": "object",
+        "required": [
+          "email",
+          "password"
+        ],
+        "properties": {
+          "email": {
+            "type": "string"
+          },
+          "password": {
+            "type": "string"
+          }
+        }
+      },
+      "outputSchema": {
+        "type": "object",
+        "required": [
+          "ok"
+        ],
+        "properties": {
+          "ok": {
+            "type": "string"
+          }
+        }
+      },
+      "acceptanceExamples": [
+        {
+          "given": {
+            "email": "unique-email",
+            "password": "unique-password"
+          },
+          "when": "Submit sample",
+          "then": [
+            {
+              "assertion": "status",
+              "equals": "succeeded"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "cap-suite-sample-detail",
+      "name": "Submit suite-sample-detail",
+      "purpose": "Submit the restored form",
+      "actor": "user",
+      "pageIds": [
+        "suite-sample-detail"
+      ],
+      "presentation": {
+        "mode": "add-control",
+        "targetPageId": "suite-sample-detail",
+        "preferredRegion": "form-actions",
+        "control": {
+          "type": "primary-button",
+          "label": "Submit suite-sample-detail"
+        }
+      },
+      "operations": [
+        {
+          "id": "submit-suite-sample-detail",
+          "method": "POST",
+          "path": "/api/forms/suite-sample-detail",
+          "request": {
+            "body": [
+              "email",
+              "password"
+            ],
+            "contentType": "application/json",
+            "bodySchema": {
+              "type": "object",
+              "required": [
+                "email",
+                "password"
+              ],
+              "properties": {
+                "email": {
+                  "type": "string"
+                },
+                "password": {
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "response": {
+            "fields": [
+              "ok"
+            ],
+            "bodySchema": {
+              "type": "object",
+              "required": [
+                "ok"
+              ],
+              "properties": {
+                "ok": {
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "effects": [
+            {
+              "entityId": "entity-submission",
+              "effect": "create"
+            }
+          ],
+          "errors": [
+            "INVALID_INPUT"
+          ]
+        }
+      ],
+      "inputs": [
+        "email",
+        "password"
+      ],
+      "outcomes": [
+        "submitted"
+      ],
+      "entityEffects": [
+        {
+          "entityId": "entity-submission",
+          "effect": "create"
+        }
+      ],
+      "writesState": true,
+      "ruleIds": [],
+      "failures": [
+        "invalid input"
+      ],
+      "acceptanceCriteria": [
+        "valid input creates a submission"
+      ],
+      "specificationStatus": "complete",
+      "evidence": {
+        "status": "documented",
+        "sources": [
+          "golden-fixture"
+        ]
+      },
+      "sourceSymbol": "submitDetail",
+      "inputSchema": {
+        "type": "object",
+        "required": [
+          "email",
+          "password"
+        ],
+        "properties": {
+          "email": {
+            "type": "string"
+          },
+          "password": {
+            "type": "string"
+          }
+        }
+      },
+      "outputSchema": {
+        "type": "object",
+        "required": [
+          "ok"
+        ],
+        "properties": {
+          "ok": {
+            "type": "string"
+          }
+        }
+      },
+      "acceptanceExamples": [
+        {
+          "given": {
+            "email": "unique-email",
+            "password": "unique-password"
+          },
+          "when": "Submit suite-sample-detail",
+          "then": [
+            {
+              "assertion": "status",
+              "equals": "succeeded"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "cap-sample-local-navigation",
+      "name": "Open local help",
+      "purpose": "Open a local help panel",
+      "actor": "user",
+      "pageIds": [
+        "sample"
+      ],
+      "presentation": {
+        "mode": "reuse-control",
+        "targetPageId": "sample",
+        "visualHint": {
+          "text": "Help",
+          "kind": "button"
+        }
+      },
+      "operations": [],
+      "inputs": [],
+      "outcomes": [
+        "help panel opens"
+      ],
+      "entityEffects": [],
+      "writesState": false,
+      "ruleIds": [],
+      "failures": [],
+      "acceptanceCriteria": [
+        "help opens without a server request"
+      ],
+      "specificationStatus": "complete",
+      "evidence": {
+        "status": "designed",
+        "sources": [
+          "golden-fixture"
+        ],
+        "rationale": "Exercises local-only UI behavior."
+      },
+      "inputSchema": {
+        "type": "object",
+        "required": [],
+        "properties": {}
+      },
+      "outputSchema": {
+        "type": "object",
+        "required": [],
+        "properties": {}
+      },
+      "acceptanceExamples": [
+        {
+          "given": {},
+          "when": "Open local help",
+          "then": [
+            {
+              "assertion": "status",
+              "equals": "succeeded"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "cap-sample-display-result",
+      "name": "Display result",
+      "purpose": "Render the current result after task completion",
+      "actor": "user",
+      "pageIds": [
+        "sample"
+      ],
+      "presentation": {
+        "mode": "display-only",
+        "targetPageId": "sample",
+        "region": "result-panel",
+        "content": {
+          "type": "submission-result"
+        }
+      },
+      "operations": [
+        {
+          "id": "query-sample-result",
+          "method": "GET",
+          "path": "/api/forms/sample/results/{resultId}",
+          "request": {
+            "path": [
+              "resultId"
+            ],
+            "contentType": "application/json",
+            "pathSchema": {
+              "type": "object",
+              "required": [
+                "resultId"
+              ],
+              "properties": {
+                "resultId": {
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "response": {
+            "fields": [
+              "resultId",
+              "status"
+            ],
+            "bodySchema": {
+              "type": "object",
+              "required": [
+                "resultId",
+                "status"
+              ],
+              "properties": {
+                "resultId": {
+                  "type": "string"
+                },
+                "status": {
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "effects": [],
+          "errors": [
+            "NOT_FOUND"
+          ]
+        }
+      ],
+      "inputs": [],
+      "outcomes": [
+        "result is rendered"
+      ],
+      "entityEffects": [
+        {
+          "entityId": "entity-submission",
+          "effect": "read"
+        }
+      ],
+      "writesState": false,
+      "ruleIds": [],
+      "failures": [
+        "result unavailable"
+      ],
+      "acceptanceCriteria": [
+        "task completion renders the queried result"
+      ],
+      "specificationStatus": "complete",
+      "evidence": {
+        "status": "designed",
+        "sources": [
+          "golden-fixture"
+        ],
+        "rationale": "Exercises automatic data rendering."
+      },
+      "inputSchema": {
+        "type": "object",
+        "required": [],
+        "properties": {}
+      },
+      "outputSchema": {
+        "type": "object",
+        "required": [
+          "resultId",
+          "status"
+        ],
+        "properties": {
+          "resultId": {
+            "type": "string"
+          },
+          "status": {
+            "type": "string"
+          }
+        }
+      },
+      "acceptanceExamples": [
+        {
+          "given": {},
+          "when": "Display result",
+          "then": [
+            {
+              "assertion": "status",
+              "equals": "succeeded"
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "journeys": [],
+  "rules": [],
+  "permissions": [
+    {
+      "id": "permission-submission-owner",
+      "actor": "user",
+      "resourceIds": [
+        "entity-submission",
+        "entity-submission-event"
+      ],
+      "actions": [
+        "create",
+        "read"
+      ],
+      "decision": "allow"
+    }
+  ],
+  "integrations": []
+}

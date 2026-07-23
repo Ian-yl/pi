@@ -1,0 +1,1627 @@
+{
+  "version": 2,
+  "name": "pg-1u",
+  "generatedAt": "2026-07-22T13:55:47.954Z",
+  "dpr": 1,
+  "summary": {
+    "reports": 42,
+    "total": 0,
+    "open": 0,
+    "resolved": 0,
+    "bySeverity": {},
+    "byStatus": {},
+    "byDimension": {},
+    "byDetector": {}
+  },
+  "reports": [
+    {
+      "kind": "Input",
+      "selector": "input",
+      "rect": {
+        "x": 1091,
+        "y": 47,
+        "width": 266,
+        "height": 23
+      },
+      "bbox": {
+        "design": {
+          "x": 1085,
+          "y": 41,
+          "width": 278,
+          "height": 35,
+          "x2": 1362,
+          "y2": 75,
+          "count": 9730
+        },
+        "actual": {
+          "x": 1085,
+          "y": 41,
+          "width": 278,
+          "height": 35,
+          "x2": 1362,
+          "y2": 75,
+          "count": 9730
+        },
+        "dx": {
+          "left": 0,
+          "right": 0
+        },
+        "dy": {
+          "top": 0,
+          "bottom": 0
+        }
+      },
+      "hairlines": {
+        "design": 0,
+        "actual": 0,
+        "designX": [],
+        "actualX": []
+      }
+    },
+    {
+      "kind": "Input",
+      "selector": "input",
+      "rect": {
+        "x": 272,
+        "y": 610,
+        "width": 112,
+        "height": 30
+      },
+      "bbox": {
+        "design": {
+          "x": 266,
+          "y": 604,
+          "width": 124,
+          "height": 42,
+          "x2": 389,
+          "y2": 645,
+          "count": 5204
+        },
+        "actual": {
+          "x": 266,
+          "y": 604,
+          "width": 124,
+          "height": 42,
+          "x2": 389,
+          "y2": 645,
+          "count": 5208
+        },
+        "dx": {
+          "left": 0,
+          "right": 0
+        },
+        "dy": {
+          "top": 0,
+          "bottom": 0
+        }
+      },
+      "hairlines": {
+        "design": 0,
+        "actual": 0,
+        "designX": [],
+        "actualX": []
+      }
+    },
+    {
+      "kind": "Button",
+      "selector": ".brand",
+      "rect": {
+        "x": 48,
+        "y": 30,
+        "width": 187,
+        "height": 56
+      },
+      "bbox": {
+        "design": {
+          "x": 42,
+          "y": 24,
+          "width": 199,
+          "height": 68,
+          "x2": 240,
+          "y2": 91,
+          "count": 13098
+        },
+        "actual": {
+          "x": 42,
+          "y": 24,
+          "width": 199,
+          "height": 68,
+          "x2": 240,
+          "y2": 91,
+          "count": 12533
+        },
+        "dx": {
+          "left": 0,
+          "right": 0
+        },
+        "dy": {
+          "top": 0,
+          "bottom": 0
+        }
+      }
+    },
+    {
+      "kind": "Button",
+      "selector": "button",
+      "rect": {
+        "x": 269,
+        "y": 16,
+        "width": 38,
+        "height": 84
+      },
+      "bbox": {
+        "design": {
+          "x": 263,
+          "y": 10,
+          "width": 50,
+          "height": 96,
+          "x2": 312,
+          "y2": 105,
+          "count": 4727
+        },
+        "actual": {
+          "x": 263,
+          "y": 10,
+          "width": 50,
+          "height": 96,
+          "x2": 312,
+          "y2": 105,
+          "count": 4652
+        },
+        "dx": {
+          "left": 0,
+          "right": 0
+        },
+        "dy": {
+          "top": 0,
+          "bottom": 0
+        }
+      }
+    },
+    {
+      "kind": "Button",
+      "selector": "button",
+      "rect": {
+        "x": 357,
+        "y": 16,
+        "width": 122,
+        "height": 84
+      },
+      "bbox": {
+        "design": {
+          "x": 351,
+          "y": 10,
+          "width": 134,
+          "height": 96,
+          "x2": 484,
+          "y2": 105,
+          "count": 12627
+        },
+        "actual": {
+          "x": 351,
+          "y": 10,
+          "width": 134,
+          "height": 96,
+          "x2": 484,
+          "y2": 105,
+          "count": 12355
+        },
+        "dx": {
+          "left": 0,
+          "right": 0
+        },
+        "dy": {
+          "top": 0,
+          "bottom": 0
+        }
+      }
+    },
+    {
+      "kind": "Button",
+      "selector": "button",
+      "rect": {
+        "x": 529,
+        "y": 16,
+        "width": 106,
+        "height": 84
+      },
+      "bbox": {
+        "design": {
+          "x": 523,
+          "y": 10,
+          "width": 118,
+          "height": 96,
+          "x2": 640,
+          "y2": 105,
+          "count": 11163
+        },
+        "actual": {
+          "x": 523,
+          "y": 10,
+          "width": 118,
+          "height": 96,
+          "x2": 640,
+          "y2": 105,
+          "count": 10909
+        },
+        "dx": {
+          "left": 0,
+          "right": 0
+        },
+        "dy": {
+          "top": 0,
+          "bottom": 0
+        }
+      }
+    },
+    {
+      "kind": "Button",
+      "selector": ".active",
+      "rect": {
+        "x": 685,
+        "y": 16,
+        "width": 106,
+        "height": 84
+      },
+      "bbox": {
+        "design": {
+          "x": 679,
+          "y": 10,
+          "width": 118,
+          "height": 96,
+          "x2": 796,
+          "y2": 105,
+          "count": 11328
+        },
+        "actual": {
+          "x": 679,
+          "y": 10,
+          "width": 118,
+          "height": 96,
+          "x2": 796,
+          "y2": 105,
+          "count": 11328
+        },
+        "dx": {
+          "left": 0,
+          "right": 0
+        },
+        "dy": {
+          "top": 0,
+          "bottom": 0
+        }
+      }
+    },
+    {
+      "kind": "Button",
+      "selector": "button",
+      "rect": {
+        "x": 841,
+        "y": 16,
+        "width": 106,
+        "height": 84
+      },
+      "bbox": {
+        "design": {
+          "x": 835,
+          "y": 10,
+          "width": 118,
+          "height": 96,
+          "x2": 952,
+          "y2": 105,
+          "count": 11147
+        },
+        "actual": {
+          "x": 835,
+          "y": 10,
+          "width": 118,
+          "height": 96,
+          "x2": 952,
+          "y2": 105,
+          "count": 10888
+        },
+        "dx": {
+          "left": 0,
+          "right": 0
+        },
+        "dy": {
+          "top": 0,
+          "bottom": 0
+        }
+      }
+    },
+    {
+      "kind": "Button",
+      "selector": ".profile-button",
+      "rect": {
+        "x": 1398,
+        "y": 33,
+        "width": 93,
+        "height": 50
+      },
+      "bbox": {
+        "design": {
+          "x": 1392,
+          "y": 27,
+          "width": 105,
+          "height": 62,
+          "x2": 1496,
+          "y2": 88,
+          "count": 6267
+        },
+        "actual": {
+          "x": 1392,
+          "y": 27,
+          "width": 105,
+          "height": 62,
+          "x2": 1496,
+          "y2": 88,
+          "count": 6508
+        },
+        "dx": {
+          "left": 0,
+          "right": 0
+        },
+        "dy": {
+          "top": 0,
+          "bottom": 0
+        }
+      }
+    },
+    {
+      "kind": "Button",
+      "selector": ".active",
+      "rect": {
+        "x": 29,
+        "y": 150,
+        "width": 188,
+        "height": 47
+      },
+      "bbox": {
+        "design": {
+          "x": 23,
+          "y": 144,
+          "width": 200,
+          "height": 59,
+          "x2": 222,
+          "y2": 202,
+          "count": 11800
+        },
+        "actual": {
+          "x": 23,
+          "y": 144,
+          "width": 200,
+          "height": 59,
+          "x2": 222,
+          "y2": 202,
+          "count": 11800
+        },
+        "dx": {
+          "left": 0,
+          "right": 0
+        },
+        "dy": {
+          "top": 0,
+          "bottom": 0
+        }
+      }
+    },
+    {
+      "kind": "Button",
+      "selector": "button",
+      "rect": {
+        "x": 29,
+        "y": 207,
+        "width": 188,
+        "height": 47
+      },
+      "bbox": {
+        "design": {
+          "x": 23,
+          "y": 201,
+          "width": 200,
+          "height": 59,
+          "x2": 222,
+          "y2": 259,
+          "count": 11796
+        },
+        "actual": {
+          "x": 23,
+          "y": 201,
+          "width": 200,
+          "height": 59,
+          "x2": 222,
+          "y2": 259,
+          "count": 11562
+        },
+        "dx": {
+          "left": 0,
+          "right": 0
+        },
+        "dy": {
+          "top": 0,
+          "bottom": 0
+        }
+      }
+    },
+    {
+      "kind": "Button",
+      "selector": "button",
+      "rect": {
+        "x": 29,
+        "y": 264,
+        "width": 188,
+        "height": 47
+      },
+      "bbox": {
+        "design": {
+          "x": 23,
+          "y": 258,
+          "width": 200,
+          "height": 59,
+          "x2": 222,
+          "y2": 316,
+          "count": 11785
+        },
+        "actual": {
+          "x": 23,
+          "y": 258,
+          "width": 200,
+          "height": 59,
+          "x2": 222,
+          "y2": 316,
+          "count": 11509
+        },
+        "dx": {
+          "left": 0,
+          "right": 0
+        },
+        "dy": {
+          "top": 0,
+          "bottom": 0
+        }
+      }
+    },
+    {
+      "kind": "Button",
+      "selector": "button",
+      "rect": {
+        "x": 29,
+        "y": 321,
+        "width": 188,
+        "height": 47
+      },
+      "bbox": {
+        "design": {
+          "x": 23,
+          "y": 315,
+          "width": 200,
+          "height": 59,
+          "x2": 222,
+          "y2": 373,
+          "count": 11793
+        },
+        "actual": {
+          "x": 23,
+          "y": 315,
+          "width": 200,
+          "height": 59,
+          "x2": 222,
+          "y2": 373,
+          "count": 11533
+        },
+        "dx": {
+          "left": 0,
+          "right": 0
+        },
+        "dy": {
+          "top": 0,
+          "bottom": 0
+        }
+      }
+    },
+    {
+      "kind": "Button",
+      "selector": "button",
+      "rect": {
+        "x": 29,
+        "y": 378,
+        "width": 188,
+        "height": 47
+      },
+      "bbox": {
+        "design": {
+          "x": 23,
+          "y": 372,
+          "width": 200,
+          "height": 59,
+          "x2": 222,
+          "y2": 430,
+          "count": 11792
+        },
+        "actual": {
+          "x": 23,
+          "y": 372,
+          "width": 200,
+          "height": 59,
+          "x2": 222,
+          "y2": 430,
+          "count": 11457
+        },
+        "dx": {
+          "left": 0,
+          "right": 0
+        },
+        "dy": {
+          "top": 0,
+          "bottom": 0
+        }
+      }
+    },
+    {
+      "kind": "Button",
+      "selector": "button",
+      "rect": {
+        "x": 29,
+        "y": 435,
+        "width": 188,
+        "height": 47
+      },
+      "bbox": {
+        "design": {
+          "x": 23,
+          "y": 429,
+          "width": 200,
+          "height": 59,
+          "x2": 222,
+          "y2": 487,
+          "count": 11787
+        },
+        "actual": {
+          "x": 23,
+          "y": 429,
+          "width": 200,
+          "height": 59,
+          "x2": 222,
+          "y2": 487,
+          "count": 11496
+        },
+        "dx": {
+          "left": 0,
+          "right": 0
+        },
+        "dy": {
+          "top": 0,
+          "bottom": 0
+        }
+      }
+    },
+    {
+      "kind": "Button",
+      "selector": "button",
+      "rect": {
+        "x": 29,
+        "y": 492,
+        "width": 188,
+        "height": 47
+      },
+      "bbox": {
+        "design": {
+          "x": 23,
+          "y": 486,
+          "width": 200,
+          "height": 59,
+          "x2": 222,
+          "y2": 544,
+          "count": 11791
+        },
+        "actual": {
+          "x": 23,
+          "y": 486,
+          "width": 200,
+          "height": 59,
+          "x2": 222,
+          "y2": 544,
+          "count": 11450
+        },
+        "dx": {
+          "left": 0,
+          "right": 0
+        },
+        "dy": {
+          "top": 0,
+          "bottom": 0
+        }
+      }
+    },
+    {
+      "kind": "Button",
+      "selector": ".outline-red.new-task",
+      "rect": {
+        "x": 467,
+        "y": 148,
+        "width": 84,
+        "height": 30
+      },
+      "bbox": {
+        "design": {
+          "x": 461,
+          "y": 142,
+          "width": 96,
+          "height": 42,
+          "x2": 556,
+          "y2": 183,
+          "count": 4032
+        },
+        "actual": {
+          "x": 461,
+          "y": 142,
+          "width": 96,
+          "height": 42,
+          "x2": 556,
+          "y2": 183,
+          "count": 4032
+        },
+        "dx": {
+          "left": 0,
+          "right": 0
+        },
+        "dy": {
+          "top": 0,
+          "bottom": 0
+        }
+      }
+    },
+    {
+      "kind": "Button",
+      "selector": "button",
+      "rect": {
+        "x": 330,
+        "y": 242,
+        "width": 18,
+        "height": 18
+      },
+      "bbox": {
+        "design": {
+          "x": 324,
+          "y": 236,
+          "width": 30,
+          "height": 30,
+          "x2": 353,
+          "y2": 265,
+          "count": 900
+        },
+        "actual": {
+          "x": 324,
+          "y": 236,
+          "width": 30,
+          "height": 30,
+          "x2": 353,
+          "y2": 265,
+          "count": 900
+        },
+        "dx": {
+          "left": 0,
+          "right": 0
+        },
+        "dy": {
+          "top": 0,
+          "bottom": 0
+        }
+      }
+    },
+    {
+      "kind": "Button",
+      "selector": "button",
+      "rect": {
+        "x": 418,
+        "y": 242,
+        "width": 18,
+        "height": 18
+      },
+      "bbox": {
+        "design": {
+          "x": 412,
+          "y": 236,
+          "width": 30,
+          "height": 30,
+          "x2": 441,
+          "y2": 265,
+          "count": 900
+        },
+        "actual": {
+          "x": 412,
+          "y": 236,
+          "width": 30,
+          "height": 30,
+          "x2": 441,
+          "y2": 265,
+          "count": 900
+        },
+        "dx": {
+          "left": 0,
+          "right": 0
+        },
+        "dy": {
+          "top": 0,
+          "bottom": 0
+        }
+      }
+    },
+    {
+      "kind": "Button",
+      "selector": "button",
+      "rect": {
+        "x": 506,
+        "y": 242,
+        "width": 18,
+        "height": 18
+      },
+      "bbox": {
+        "design": {
+          "x": 500,
+          "y": 236,
+          "width": 30,
+          "height": 30,
+          "x2": 529,
+          "y2": 265,
+          "count": 900
+        },
+        "actual": {
+          "x": 500,
+          "y": 236,
+          "width": 30,
+          "height": 30,
+          "x2": 529,
+          "y2": 265,
+          "count": 900
+        },
+        "dx": {
+          "left": 0,
+          "right": 0
+        },
+        "dy": {
+          "top": 0,
+          "bottom": 0
+        }
+      }
+    },
+    {
+      "kind": "Button",
+      "selector": ".upload-add",
+      "rect": {
+        "x": 272,
+        "y": 328,
+        "width": 80,
+        "height": 82
+      },
+      "bbox": {
+        "design": {
+          "x": 266,
+          "y": 322,
+          "width": 92,
+          "height": 94,
+          "x2": 357,
+          "y2": 415,
+          "count": 8648
+        },
+        "actual": {
+          "x": 266,
+          "y": 322,
+          "width": 92,
+          "height": 94,
+          "x2": 357,
+          "y2": 415,
+          "count": 8648
+        },
+        "dx": {
+          "left": 0,
+          "right": 0
+        },
+        "dy": {
+          "top": 0,
+          "bottom": 0
+        }
+      }
+    },
+    {
+      "kind": "Button",
+      "selector": "button",
+      "rect": {
+        "x": 502,
+        "y": 464,
+        "width": 44,
+        "height": 25
+      },
+      "bbox": {
+        "design": {
+          "x": 496,
+          "y": 458,
+          "width": 56,
+          "height": 37,
+          "x2": 551,
+          "y2": 494,
+          "count": 2072
+        },
+        "actual": {
+          "x": 496,
+          "y": 458,
+          "width": 56,
+          "height": 37,
+          "x2": 551,
+          "y2": 494,
+          "count": 2072
+        },
+        "dx": {
+          "left": 0,
+          "right": 0
+        },
+        "dy": {
+          "top": 0,
+          "bottom": 0
+        }
+      }
+    },
+    {
+      "kind": "Button",
+      "selector": ".editable-chip",
+      "rect": {
+        "x": 272,
+        "y": 496,
+        "width": 120,
+        "height": 30
+      },
+      "bbox": {
+        "design": {
+          "x": 266,
+          "y": 490,
+          "width": 132,
+          "height": 42,
+          "x2": 397,
+          "y2": 531,
+          "count": 5465
+        },
+        "actual": {
+          "x": 266,
+          "y": 490,
+          "width": 132,
+          "height": 42,
+          "x2": 397,
+          "y2": 531,
+          "count": 5544
+        },
+        "dx": {
+          "left": 0,
+          "right": 0
+        },
+        "dy": {
+          "top": 0,
+          "bottom": 0
+        }
+      }
+    },
+    {
+      "kind": "Button",
+      "selector": ".editable-chip",
+      "rect": {
+        "x": 400,
+        "y": 496,
+        "width": 116,
+        "height": 30
+      },
+      "bbox": {
+        "design": {
+          "x": 394,
+          "y": 490,
+          "width": 128,
+          "height": 42,
+          "x2": 521,
+          "y2": 531,
+          "count": 5348
+        },
+        "actual": {
+          "x": 394,
+          "y": 490,
+          "width": 128,
+          "height": 42,
+          "x2": 521,
+          "y2": 531,
+          "count": 5376
+        },
+        "dx": {
+          "left": 0,
+          "right": 0
+        },
+        "dy": {
+          "top": 0,
+          "bottom": 0
+        }
+      }
+    },
+    {
+      "kind": "Button",
+      "selector": ".editable-chip",
+      "rect": {
+        "x": 272,
+        "y": 534,
+        "width": 120,
+        "height": 30
+      },
+      "bbox": {
+        "design": {
+          "x": 266,
+          "y": 528,
+          "width": 132,
+          "height": 42,
+          "x2": 397,
+          "y2": 569,
+          "count": 5509
+        },
+        "actual": {
+          "x": 266,
+          "y": 528,
+          "width": 132,
+          "height": 42,
+          "x2": 397,
+          "y2": 569,
+          "count": 5544
+        },
+        "dx": {
+          "left": 0,
+          "right": 0
+        },
+        "dy": {
+          "top": 0,
+          "bottom": 0
+        }
+      }
+    },
+    {
+      "kind": "Button",
+      "selector": ".editable-chip",
+      "rect": {
+        "x": 400,
+        "y": 534,
+        "width": 107,
+        "height": 30
+      },
+      "bbox": {
+        "design": {
+          "x": 394,
+          "y": 528,
+          "width": 119,
+          "height": 42,
+          "x2": 512,
+          "y2": 569,
+          "count": 4951
+        },
+        "actual": {
+          "x": 394,
+          "y": 528,
+          "width": 119,
+          "height": 42,
+          "x2": 512,
+          "y2": 569,
+          "count": 4998
+        },
+        "dx": {
+          "left": 0,
+          "right": 0
+        },
+        "dy": {
+          "top": 0,
+          "bottom": 0
+        }
+      }
+    },
+    {
+      "kind": "Button",
+      "selector": ".editable-chip",
+      "rect": {
+        "x": 272,
+        "y": 572,
+        "width": 94,
+        "height": 30
+      },
+      "bbox": {
+        "design": {
+          "x": 266,
+          "y": 566,
+          "width": 106,
+          "height": 42,
+          "x2": 371,
+          "y2": 607,
+          "count": 4422
+        },
+        "actual": {
+          "x": 266,
+          "y": 566,
+          "width": 106,
+          "height": 42,
+          "x2": 371,
+          "y2": 607,
+          "count": 4452
+        },
+        "dx": {
+          "left": 0,
+          "right": 0
+        },
+        "dy": {
+          "top": 0,
+          "bottom": 0
+        }
+      }
+    },
+    {
+      "kind": "Button",
+      "selector": "button",
+      "rect": {
+        "x": 390,
+        "y": 610,
+        "width": 86,
+        "height": 30
+      },
+      "bbox": {
+        "design": {
+          "x": 384,
+          "y": 604,
+          "width": 98,
+          "height": 42,
+          "x2": 481,
+          "y2": 645,
+          "count": 4116
+        },
+        "actual": {
+          "x": 384,
+          "y": 604,
+          "width": 98,
+          "height": 42,
+          "x2": 481,
+          "y2": 645,
+          "count": 4116
+        },
+        "dx": {
+          "left": 0,
+          "right": 0
+        },
+        "dy": {
+          "top": 0,
+          "bottom": 0
+        }
+      }
+    },
+    {
+      "kind": "Button",
+      "selector": ".ratio-summary-button.active",
+      "rect": {
+        "x": 272,
+        "y": 703,
+        "width": 85,
+        "height": 58
+      },
+      "bbox": {
+        "design": {
+          "x": 266,
+          "y": 697,
+          "width": 97,
+          "height": 70,
+          "x2": 362,
+          "y2": 766,
+          "count": 6790
+        },
+        "actual": {
+          "x": 266,
+          "y": 697,
+          "width": 97,
+          "height": 70,
+          "x2": 362,
+          "y2": 766,
+          "count": 6790
+        },
+        "dx": {
+          "left": 0,
+          "right": 0
+        },
+        "dy": {
+          "top": 0,
+          "bottom": 0
+        }
+      }
+    },
+    {
+      "kind": "Button",
+      "selector": ".ratio-summary-button",
+      "rect": {
+        "x": 367,
+        "y": 703,
+        "width": 85,
+        "height": 58
+      },
+      "bbox": {
+        "design": {
+          "x": 361,
+          "y": 697,
+          "width": 97,
+          "height": 70,
+          "x2": 457,
+          "y2": 766,
+          "count": 6780
+        },
+        "actual": {
+          "x": 361,
+          "y": 697,
+          "width": 97,
+          "height": 70,
+          "x2": 457,
+          "y2": 766,
+          "count": 6790
+        },
+        "dx": {
+          "left": 0,
+          "right": 0
+        },
+        "dy": {
+          "top": 0,
+          "bottom": 0
+        }
+      }
+    },
+    {
+      "kind": "Button",
+      "selector": ".ratio-summary-button",
+      "rect": {
+        "x": 461,
+        "y": 703,
+        "width": 85,
+        "height": 58
+      },
+      "bbox": {
+        "design": {
+          "x": 455,
+          "y": 697,
+          "width": 97,
+          "height": 70,
+          "x2": 551,
+          "y2": 766,
+          "count": 6782
+        },
+        "actual": {
+          "x": 455,
+          "y": 697,
+          "width": 97,
+          "height": 70,
+          "x2": 551,
+          "y2": 766,
+          "count": 6790
+        },
+        "dx": {
+          "left": 0,
+          "right": 0
+        },
+        "dy": {
+          "top": 0,
+          "bottom": 0
+        }
+      }
+    },
+    {
+      "kind": "Button",
+      "selector": "button",
+      "rect": {
+        "x": 272,
+        "y": 822,
+        "width": 37,
+        "height": 32
+      },
+      "bbox": {
+        "design": {
+          "x": 266,
+          "y": 816,
+          "width": 49,
+          "height": 44,
+          "x2": 314,
+          "y2": 859,
+          "count": 2156
+        },
+        "actual": {
+          "x": 266,
+          "y": 816,
+          "width": 49,
+          "height": 44,
+          "x2": 314,
+          "y2": 859,
+          "count": 2151
+        },
+        "dx": {
+          "left": 0,
+          "right": 0
+        },
+        "dy": {
+          "top": 0,
+          "bottom": 0
+        }
+      }
+    },
+    {
+      "kind": "Button",
+      "selector": "button",
+      "rect": {
+        "x": 320,
+        "y": 822,
+        "width": 37,
+        "height": 32
+      },
+      "bbox": {
+        "design": {
+          "x": 314,
+          "y": 816,
+          "width": 49,
+          "height": 44,
+          "x2": 362,
+          "y2": 859,
+          "count": 2144
+        },
+        "actual": {
+          "x": 314,
+          "y": 816,
+          "width": 49,
+          "height": 44,
+          "x2": 362,
+          "y2": 859,
+          "count": 2141
+        },
+        "dx": {
+          "left": 0,
+          "right": 0
+        },
+        "dy": {
+          "top": 0,
+          "bottom": 0
+        }
+      }
+    },
+    {
+      "kind": "Button",
+      "selector": ".red-button.primary-generate",
+      "rect": {
+        "x": 263,
+        "y": 936,
+        "width": 292,
+        "height": 43
+      },
+      "bbox": {
+        "design": {
+          "x": 257,
+          "y": 930,
+          "width": 304,
+          "height": 55,
+          "x2": 560,
+          "y2": 984,
+          "count": 16662
+        },
+        "actual": {
+          "x": 257,
+          "y": 930,
+          "width": 304,
+          "height": 55,
+          "x2": 560,
+          "y2": 984,
+          "count": 16720
+        },
+        "dx": {
+          "left": 0,
+          "right": 0
+        },
+        "dy": {
+          "top": 0,
+          "bottom": 0
+        }
+      }
+    },
+    {
+      "kind": "Button",
+      "selector": ".icon-button",
+      "rect": {
+        "x": 1219,
+        "y": 143,
+        "width": 56,
+        "height": 48
+      },
+      "bbox": {
+        "design": {
+          "x": 1213,
+          "y": 137,
+          "width": 68,
+          "height": 60,
+          "x2": 1280,
+          "y2": 196,
+          "count": 4080
+        },
+        "actual": {
+          "x": 1213,
+          "y": 137,
+          "width": 68,
+          "height": 60,
+          "x2": 1280,
+          "y2": 196,
+          "count": 4080
+        },
+        "dx": {
+          "left": 0,
+          "right": 0
+        },
+        "dy": {
+          "top": 0,
+          "bottom": 0
+        }
+      }
+    },
+    {
+      "kind": "Button",
+      "selector": ".icon-button",
+      "rect": {
+        "x": 1292,
+        "y": 143,
+        "width": 56,
+        "height": 48
+      },
+      "bbox": {
+        "design": {
+          "x": 1286,
+          "y": 137,
+          "width": 68,
+          "height": 60,
+          "x2": 1353,
+          "y2": 196,
+          "count": 4080
+        },
+        "actual": {
+          "x": 1286,
+          "y": 137,
+          "width": 68,
+          "height": 60,
+          "x2": 1353,
+          "y2": 196,
+          "count": 4080
+        },
+        "dx": {
+          "left": 0,
+          "right": 0
+        },
+        "dy": {
+          "top": 0,
+          "bottom": 0
+        }
+      }
+    },
+    {
+      "kind": "Button",
+      "selector": ".icon-button",
+      "rect": {
+        "x": 1365,
+        "y": 143,
+        "width": 56,
+        "height": 48
+      },
+      "bbox": {
+        "design": {
+          "x": 1359,
+          "y": 137,
+          "width": 68,
+          "height": 60,
+          "x2": 1426,
+          "y2": 196,
+          "count": 4080
+        },
+        "actual": {
+          "x": 1359,
+          "y": 137,
+          "width": 68,
+          "height": 60,
+          "x2": 1426,
+          "y2": 196,
+          "count": 4080
+        },
+        "dx": {
+          "left": 0,
+          "right": 0
+        },
+        "dy": {
+          "top": 0,
+          "bottom": 0
+        }
+      }
+    },
+    {
+      "kind": "Button",
+      "selector": ".icon-button",
+      "rect": {
+        "x": 1438,
+        "y": 143,
+        "width": 56,
+        "height": 48
+      },
+      "bbox": {
+        "design": {
+          "x": 1432,
+          "y": 137,
+          "width": 68,
+          "height": 60,
+          "x2": 1499,
+          "y2": 196,
+          "count": 4080
+        },
+        "actual": {
+          "x": 1432,
+          "y": 137,
+          "width": 68,
+          "height": 60,
+          "x2": 1499,
+          "y2": 196,
+          "count": 4080
+        },
+        "dx": {
+          "left": 0,
+          "right": 0
+        },
+        "dy": {
+          "top": 0,
+          "bottom": 0
+        }
+      }
+    },
+    {
+      "kind": "Button",
+      "selector": ".thumb-arrow.left",
+      "rect": {
+        "x": 627,
+        "y": 820,
+        "width": 42,
+        "height": 42
+      },
+      "bbox": {
+        "design": {
+          "x": 621,
+          "y": 814,
+          "width": 54,
+          "height": 54,
+          "x2": 674,
+          "y2": 867,
+          "count": 2916
+        },
+        "actual": {
+          "x": 621,
+          "y": 814,
+          "width": 54,
+          "height": 54,
+          "x2": 674,
+          "y2": 867,
+          "count": 2916
+        },
+        "dx": {
+          "left": 0,
+          "right": 0
+        },
+        "dy": {
+          "top": 0,
+          "bottom": 0
+        }
+      }
+    },
+    {
+      "kind": "Button",
+      "selector": ".thumb-arrow.right",
+      "rect": {
+        "x": 1441,
+        "y": 820,
+        "width": 42,
+        "height": 42
+      },
+      "bbox": {
+        "design": {
+          "x": 1435,
+          "y": 814,
+          "width": 54,
+          "height": 54,
+          "x2": 1488,
+          "y2": 867,
+          "count": 2916
+        },
+        "actual": {
+          "x": 1435,
+          "y": 814,
+          "width": 54,
+          "height": 54,
+          "x2": 1488,
+          "y2": 867,
+          "count": 2916
+        },
+        "dx": {
+          "left": 0,
+          "right": 0
+        },
+        "dy": {
+          "top": 0,
+          "bottom": 0
+        }
+      }
+    },
+    {
+      "kind": "Button",
+      "selector": ".error-toast",
+      "rect": {
+        "x": 836,
+        "y": 941,
+        "width": 439,
+        "height": 38
+      },
+      "bbox": {
+        "design": {
+          "x": 830,
+          "y": 935,
+          "width": 451,
+          "height": 50,
+          "x2": 1280,
+          "y2": 984,
+          "count": 22543
+        },
+        "actual": {
+          "x": 830,
+          "y": 935,
+          "width": 451,
+          "height": 50,
+          "x2": 1280,
+          "y2": 984,
+          "count": 22550
+        },
+        "dx": {
+          "left": 0,
+          "right": 0
+        },
+        "dy": {
+          "top": 0,
+          "bottom": 0
+        }
+      }
+    },
+    {
+      "kind": "Card",
+      "selector": ".state-card.error",
+      "rect": {
+        "x": 645,
+        "y": 202,
+        "width": 820,
+        "height": 538
+      },
+      "bbox": {
+        "design": {
+          "x": 639,
+          "y": 196,
+          "width": 832,
+          "height": 550,
+          "x2": 1470,
+          "y2": 745,
+          "count": 456850
+        },
+        "actual": {
+          "x": 639,
+          "y": 196,
+          "width": 832,
+          "height": 550,
+          "x2": 1470,
+          "y2": 745,
+          "count": 457600
+        },
+        "dx": {
+          "left": 0,
+          "right": 0
+        },
+        "dy": {
+          "top": 0,
+          "bottom": 0
+        }
+      }
+    }
+  ],
+  "findings": []
+}

@@ -1,0 +1,12 @@
+{
+  "schemaVersion": "1.0",
+  "packageType": "functional-domain",
+  "projectId": "d61443-9ef2a325",
+  "projectName": "灵灵生图站：新架构2",
+  "status": "approved",
+  "sourceDirectory": "architecture-input",
+  "approval": {
+    "method": "explicit-cli-flag",
+    "note": "Architecture inputs reviewed before generation."
+  }
+}

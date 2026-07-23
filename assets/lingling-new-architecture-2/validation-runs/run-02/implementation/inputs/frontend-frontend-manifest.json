@@ -1,0 +1,27 @@
+{
+  "version": 1,
+  "build": "succeeded",
+  "apiMode": "real",
+  "pages": {
+    "pg-1r": {
+      "route": "/",
+      "status": "succeeded"
+    },
+    "pg-1s": {
+      "route": "/photoreal-product",
+      "status": "succeeded"
+    },
+    "pg-1t": {
+      "route": "/try-on",
+      "status": "succeeded"
+    },
+    "pg-1u": {
+      "route": "/marketing-scene",
+      "status": "succeeded"
+    },
+    "pg-1v": {
+      "route": "/commerce-assets",
+      "status": "succeeded"
+    }
+  }
+}

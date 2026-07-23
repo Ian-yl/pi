@@ -1,0 +1,147 @@
+{
+  "schemaVersion": "1.0",
+  "engine": "playwright",
+  "traceArtifact": "evidence/frontend/playwright-trace.zip",
+  "cases": [
+    {
+      "id": "browser-cap-sample",
+      "capabilityId": "cap-sample",
+      "bindingId": "binding-cap-sample",
+      "locator": "implementation-control-cap-sample",
+      "pageUrl": "http://127.0.0.1:52819",
+      "mode": "add-control",
+      "event": "click",
+      "observed": {
+        "matchCount": 1,
+        "visible": true,
+        "enabled": true,
+        "activeCapabilityId": "cap-sample",
+        "capabilityStatus": "implemented",
+        "networkRequests": [
+          {
+            "method": "POST",
+            "path": "/api/forms/sample",
+            "status": 200
+          }
+        ],
+        "stateTransitions": [
+          "idle",
+          "loading",
+          "succeeded"
+        ],
+        "domChanged": true,
+        "visibleText": [
+          "Submit sample\nSubmit suite-sample-detail\nOpen local help\nDisplay result\nSubmit sample completed"
+        ]
+      },
+      "artifacts": [
+        "evidence/frontend/browser-cap-sample.png"
+      ],
+      "status": "passed"
+    },
+    {
+      "id": "browser-cap-suite-sample-detail",
+      "capabilityId": "cap-suite-sample-detail",
+      "bindingId": "binding-cap-suite-sample-detail",
+      "locator": "implementation-control-cap-suite-sample-detail",
+      "pageUrl": "http://127.0.0.1:52819",
+      "mode": "add-control",
+      "event": "click",
+      "observed": {
+        "matchCount": 1,
+        "visible": true,
+        "enabled": true,
+        "activeCapabilityId": "cap-suite-sample-detail",
+        "capabilityStatus": "implemented",
+        "networkRequests": [
+          {
+            "method": "POST",
+            "path": "/api/forms/suite-sample-detail",
+            "status": 200
+          }
+        ],
+        "stateTransitions": [
+          "idle",
+          "loading",
+          "succeeded"
+        ],
+        "domChanged": true,
+        "visibleText": [
+          "Submit sample\nSubmit suite-sample-detail\nOpen local help\nDisplay result\nSubmit suite-sample-detail completed"
+        ]
+      },
+      "artifacts": [
+        "evidence/frontend/browser-cap-suite-sample-detail.png"
+      ],
+      "status": "passed"
+    },
+    {
+      "id": "browser-cap-sample-local-navigation",
+      "capabilityId": "cap-sample-local-navigation",
+      "bindingId": "binding-cap-sample-local-navigation",
+      "locator": "implementation-control-cap-sample-local-navigation",
+      "pageUrl": "http://127.0.0.1:52819",
+      "mode": "reuse-control",
+      "event": "click",
+      "observed": {
+        "matchCount": 1,
+        "visible": true,
+        "enabled": true,
+        "activeCapabilityId": "cap-sample-local-navigation",
+        "capabilityStatus": "implemented",
+        "networkRequests": [],
+        "stateTransitions": [
+          "idle",
+          "loading",
+          "succeeded"
+        ],
+        "domChanged": true,
+        "visibleText": [
+          "Submit sample\nSubmit suite-sample-detail\nOpen local help\nDisplay result\nOpen local help completed"
+        ]
+      },
+      "artifacts": [
+        "evidence/frontend/browser-cap-sample-local-navigation.png"
+      ],
+      "status": "passed"
+    },
+    {
+      "id": "browser-cap-sample-display-result",
+      "capabilityId": "cap-sample-display-result",
+      "bindingId": "binding-cap-sample-display-result",
+      "locator": "implementation-control-cap-sample-display-result",
+      "pageUrl": "http://127.0.0.1:52819",
+      "mode": "display-only",
+      "event": "click",
+      "bindingType": "data-render",
+      "trigger": "task-succeeded",
+      "observed": {
+        "matchCount": 1,
+        "visible": true,
+        "enabled": true,
+        "activeCapabilityId": "cap-sample-display-result",
+        "capabilityStatus": "implemented",
+        "networkRequests": [
+          {
+            "method": "GET",
+            "path": "/api/forms/sample/results/fixture",
+            "status": 200
+          }
+        ],
+        "stateTransitions": [
+          "idle",
+          "loading",
+          "succeeded"
+        ],
+        "domChanged": true,
+        "visibleText": [
+          "Submit sample\nSubmit suite-sample-detail\nOpen local help\nDisplay result\nDisplay result completed"
+        ]
+      },
+      "artifacts": [
+        "evidence/frontend/browser-cap-sample-display-result.png"
+      ],
+      "status": "passed"
+    }
+  ]
+}

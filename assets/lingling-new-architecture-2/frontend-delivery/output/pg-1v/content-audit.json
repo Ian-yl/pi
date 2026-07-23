@@ -1,0 +1,2278 @@
+{
+  "version": 1,
+  "name": "pg-1v",
+  "generatedAt": "2026-07-22T13:56:31.133Z",
+  "manifest": "pages/pg-1v/content-manifest.json",
+  "required": true,
+  "contentScope": "all-visible",
+  "manifestPresent": true,
+  "requireAllVisible": true,
+  "snapshotCount": 91,
+  "status": "fail",
+  "summary": {
+    "total": 93,
+    "open": 93,
+    "resolved": 0,
+    "bySeverity": {
+      "P0": 2,
+      "P2": 91
+    },
+    "byStatus": {
+      "open": 93
+    },
+    "byDimension": {
+      "content": 93
+    },
+    "byDetector": {
+      "content-audit": 93
+    }
+  },
+  "entries": [
+    {
+      "id": "pg-1v-primary-title",
+      "selector": ".config-head h2",
+      "policy": "exact",
+      "expected": "参数板块",
+      "actual": "",
+      "pass": false,
+      "reason": "target element not found or not visible",
+      "confidence": 1
+    }
+  ],
+  "findings": [
+    {
+      "id": "content-audit:content:75ed2fca2905",
+      "detector": "content-audit",
+      "code": "all-visible-not-enabled",
+      "dimension": "content",
+      "severity": "P0",
+      "status": "open",
+      "title": "contentScope=all-visible 但 manifest 未启用 requireAllVisible",
+      "target": {
+        "file": "pages/<name>/content-manifest.json"
+      },
+      "expected": null,
+      "actual": null,
+      "threshold": null,
+      "confidence": null,
+      "evidence": {},
+      "nextAction": "设置 requireAllVisible=true 并登记审计发现的全部可见内容",
+      "reason": "",
+      "firstSeenAt": null,
+      "lastSeenAt": null,
+      "resolvedAt": null
+    },
+    {
+      "id": "content-audit:content:a418be0c1c89",
+      "detector": "content-audit",
+      "code": "content-target-missing",
+      "dimension": "content",
+      "severity": "P0",
+      "status": "open",
+      "title": "pg-1v-primary-title: target element not found or not visible",
+      "target": {
+        "elementId": "pg-1v-primary-title",
+        "selector": ".config-head h2"
+      },
+      "expected": {
+        "text": "参数板块",
+        "policy": "exact"
+      },
+      "actual": {
+        "text": ""
+      },
+      "threshold": null,
+      "confidence": 1,
+      "evidence": {},
+      "nextAction": "修正前端文案或更新经人工确认的内容清单",
+      "reason": "",
+      "firstSeenAt": null,
+      "lastSeenAt": null,
+      "resolvedAt": null
+    },
+    {
+      "id": "content-audit:content:5ef78496536d",
+      "detector": "content-audit",
+      "code": "visible-content-untracked",
+      "dimension": "content",
+      "severity": "P2",
+      "status": "open",
+      "title": "可见内容未登记: 返回首页",
+      "target": {
+        "selector": "body>div>div>div>div>main>header>button"
+      },
+      "expected": null,
+      "actual": {
+        "text": "返回首页"
+      },
+      "threshold": null,
+      "confidence": null,
+      "evidence": {},
+      "nextAction": "将该内容登记为 exact、contains 或 mock",
+      "reason": "",
+      "firstSeenAt": null,
+      "lastSeenAt": null,
+      "resolvedAt": null
+    },
+    {
+      "id": "content-audit:content:0c0305876e28",
+      "detector": "content-audit",
+      "code": "visible-content-untracked",
+      "dimension": "content",
+      "severity": "P2",
+      "status": "open",
+      "title": "可见内容未登记: 灵灵生图站",
+      "target": {
+        "selector": "body>div>div>div>div>main>header>button>span:nth-of-type(2)"
+      },
+      "expected": null,
+      "actual": {
+        "text": "灵灵生图站"
+      },
+      "threshold": null,
+      "confidence": null,
+      "evidence": {},
+      "nextAction": "将该内容登记为 exact、contains 或 mock",
+      "reason": "",
+      "firstSeenAt": null,
+      "lastSeenAt": null,
+      "resolvedAt": null
+    },
+    {
+      "id": "content-audit:content:6558b22dc43d",
+      "detector": "content-audit",
+      "code": "visible-content-untracked",
+      "dimension": "content",
+      "severity": "P2",
+      "status": "open",
+      "title": "可见内容未登记: 主导航",
+      "target": {
+        "selector": "body>div>div>div>div>main>header>nav"
+      },
+      "expected": null,
+      "actual": {
+        "text": "主导航"
+      },
+      "threshold": null,
+      "confidence": null,
+      "evidence": {},
+      "nextAction": "将该内容登记为 exact、contains 或 mock",
+      "reason": "",
+      "firstSeenAt": null,
+      "lastSeenAt": null,
+      "resolvedAt": null
+    },
+    {
+      "id": "content-audit:content:d46f4f8c2718",
+      "detector": "content-audit",
+      "code": "visible-content-untracked",
+      "dimension": "content",
+      "severity": "P2",
+      "status": "open",
+      "title": "可见内容未登记: 首页",
+      "target": {
+        "selector": "body>div>div>div>div>main>header>nav>button:nth-of-type(1)"
+      },
+      "expected": null,
+      "actual": {
+        "text": "首页"
+      },
+      "threshold": null,
+      "confidence": null,
+      "evidence": {},
+      "nextAction": "将该内容登记为 exact、contains 或 mock",
+      "reason": "",
+      "firstSeenAt": null,
+      "lastSeenAt": null,
+      "resolvedAt": null
+    },
+    {
+      "id": "content-audit:content:53260e4b0475",
+      "detector": "content-audit",
+      "code": "visible-content-untracked",
+      "dimension": "content",
+      "severity": "P2",
+      "status": "open",
+      "title": "可见内容未登记: 照片级AI商品图",
+      "target": {
+        "selector": "body>div>div>div>div>main>header>nav>button:nth-of-type(2)"
+      },
+      "expected": null,
+      "actual": {
+        "text": "照片级AI商品图"
+      },
+      "threshold": null,
+      "confidence": null,
+      "evidence": {},
+      "nextAction": "将该内容登记为 exact、contains 或 mock",
+      "reason": "",
+      "firstSeenAt": null,
+      "lastSeenAt": null,
+      "resolvedAt": null
+    },
+    {
+      "id": "content-audit:content:2910df80b241",
+      "detector": "content-audit",
+      "code": "visible-content-untracked",
+      "dimension": "content",
+      "severity": "P2",
+      "status": "open",
+      "title": "可见内容未登记: 万物穿搭上身",
+      "target": {
+        "selector": "body>div>div>div>div>main>header>nav>button:nth-of-type(3)"
+      },
+      "expected": null,
+      "actual": {
+        "text": "万物穿搭上身"
+      },
+      "threshold": null,
+      "confidence": null,
+      "evidence": {},
+      "nextAction": "将该内容登记为 exact、contains 或 mock",
+      "reason": "",
+      "firstSeenAt": null,
+      "lastSeenAt": null,
+      "resolvedAt": null
+    },
+    {
+      "id": "content-audit:content:471fb078f26a",
+      "detector": "content-audit",
+      "code": "visible-content-untracked",
+      "dimension": "content",
+      "severity": "P2",
+      "status": "open",
+      "title": "可见内容未登记: 营销场景设计",
+      "target": {
+        "selector": "body>div>div>div>div>main>header>nav>button:nth-of-type(4)"
+      },
+      "expected": null,
+      "actual": {
+        "text": "营销场景设计"
+      },
+      "threshold": null,
+      "confidence": null,
+      "evidence": {},
+      "nextAction": "将该内容登记为 exact、contains 或 mock",
+      "reason": "",
+      "firstSeenAt": null,
+      "lastSeenAt": null,
+      "resolvedAt": null
+    },
+    {
+      "id": "content-audit:content:234ec8b2c628",
+      "detector": "content-audit",
+      "code": "visible-content-untracked",
+      "dimension": "content",
+      "severity": "P2",
+      "status": "open",
+      "title": "可见内容未登记: 电商素材生成",
+      "target": {
+        "selector": "body>div>div>div>div>main>header>nav>button:nth-of-type(5)"
+      },
+      "expected": null,
+      "actual": {
+        "text": "电商素材生成"
+      },
+      "threshold": null,
+      "confidence": null,
+      "evidence": {},
+      "nextAction": "将该内容登记为 exact、contains 或 mock",
+      "reason": "",
+      "firstSeenAt": null,
+      "lastSeenAt": null,
+      "resolvedAt": null
+    },
+    {
+      "id": "content-audit:content:749958ee4e86",
+      "detector": "content-audit",
+      "code": "visible-content-untracked",
+      "dimension": "content",
+      "severity": "P2",
+      "status": "open",
+      "title": "可见内容未登记: 搜索模板、场景、素材等",
+      "target": {
+        "selector": "body>div>div>div>div>main>header>div>form>input"
+      },
+      "expected": null,
+      "actual": {
+        "text": "搜索模板、场景、素材等"
+      },
+      "threshold": null,
+      "confidence": null,
+      "evidence": {},
+      "nextAction": "将该内容登记为 exact、contains 或 mock",
+      "reason": "",
+      "firstSeenAt": null,
+      "lastSeenAt": null,
+      "resolvedAt": null
+    },
+    {
+      "id": "content-audit:content:5ca76c87d15f",
+      "detector": "content-audit",
+      "code": "visible-content-untracked",
+      "dimension": "content",
+      "severity": "P2",
+      "status": "open",
+      "title": "可见内容未登记: 参数板块",
+      "target": {
+        "selector": "body>div>div>div>div>main>section>aside>div>button:nth-of-type(1)>span"
+      },
+      "expected": null,
+      "actual": {
+        "text": "参数板块"
+      },
+      "threshold": null,
+      "confidence": null,
+      "evidence": {},
+      "nextAction": "将该内容登记为 exact、contains 或 mock",
+      "reason": "",
+      "firstSeenAt": null,
+      "lastSeenAt": null,
+      "resolvedAt": null
+    },
+    {
+      "id": "content-audit:content:3cf611e3cacd",
+      "detector": "content-audit",
+      "code": "visible-content-untracked",
+      "dimension": "content",
+      "severity": "P2",
+      "status": "open",
+      "title": "可见内容未登记: 卖点堆叠",
+      "target": {
+        "selector": "body>div>div>div>div>main>section>aside>div>button:nth-of-type(2)>span"
+      },
+      "expected": null,
+      "actual": {
+        "text": "卖点堆叠"
+      },
+      "threshold": null,
+      "confidence": null,
+      "evidence": {},
+      "nextAction": "将该内容登记为 exact、contains 或 mock",
+      "reason": "",
+      "firstSeenAt": null,
+      "lastSeenAt": null,
+      "resolvedAt": null
+    },
+    {
+      "id": "content-audit:content:d87565af2f3b",
+      "detector": "content-audit",
+      "code": "visible-content-untracked",
+      "dimension": "content",
+      "severity": "P2",
+      "status": "open",
+      "title": "可见内容未登记: 使用场景",
+      "target": {
+        "selector": "body>div>div>div>div>main>section>aside>div>button:nth-of-type(3)>span"
+      },
+      "expected": null,
+      "actual": {
+        "text": "使用场景"
+      },
+      "threshold": null,
+      "confidence": null,
+      "evidence": {},
+      "nextAction": "将该内容登记为 exact、contains 或 mock",
+      "reason": "",
+      "firstSeenAt": null,
+      "lastSeenAt": null,
+      "resolvedAt": null
+    },
+    {
+      "id": "content-audit:content:de8479715419",
+      "detector": "content-audit",
+      "code": "visible-content-untracked",
+      "dimension": "content",
+      "severity": "P2",
+      "status": "open",
+      "title": "可见内容未登记: 对比图",
+      "target": {
+        "selector": "body>div>div>div>div>main>section>aside>div>button:nth-of-type(4)>span"
+      },
+      "expected": null,
+      "actual": {
+        "text": "对比图"
+      },
+      "threshold": null,
+      "confidence": null,
+      "evidence": {},
+      "nextAction": "将该内容登记为 exact、contains 或 mock",
+      "reason": "",
+      "firstSeenAt": null,
+      "lastSeenAt": null,
+      "resolvedAt": null
+    },
+    {
+      "id": "content-audit:content:7d3a29f859f4",
+      "detector": "content-audit",
+      "code": "visible-content-untracked",
+      "dimension": "content",
+      "severity": "P2",
+      "status": "open",
+      "title": "可见内容未登记: 尺码图",
+      "target": {
+        "selector": "body>div>div>div>div>main>section>aside>div>button:nth-of-type(5)>span"
+      },
+      "expected": null,
+      "actual": {
+        "text": "尺码图"
+      },
+      "threshold": null,
+      "confidence": null,
+      "evidence": {},
+      "nextAction": "将该内容登记为 exact、contains 或 mock",
+      "reason": "",
+      "firstSeenAt": null,
+      "lastSeenAt": null,
+      "resolvedAt": null
+    },
+    {
+      "id": "content-audit:content:7b8b698100fe",
+      "detector": "content-audit",
+      "code": "visible-content-untracked",
+      "dimension": "content",
+      "severity": "P2",
+      "status": "open",
+      "title": "可见内容未登记: 我的生成记录",
+      "target": {
+        "selector": "body>div>div>div>div>main>section>aside>div>button:nth-of-type(6)>span"
+      },
+      "expected": null,
+      "actual": {
+        "text": "我的生成记录"
+      },
+      "threshold": null,
+      "confidence": null,
+      "evidence": {},
+      "nextAction": "将该内容登记为 exact、contains 或 mock",
+      "reason": "",
+      "firstSeenAt": null,
+      "lastSeenAt": null,
+      "resolvedAt": null
+    },
+    {
+      "id": "content-audit:content:36d2b0fa0979",
+      "detector": "content-audit",
+      "code": "visible-content-untracked",
+      "dimension": "content",
+      "severity": "P2",
+      "status": "open",
+      "title": "可见内容未登记: 参数板块",
+      "target": {
+        "selector": "body>div>div>div>div>main>section>section:nth-of-type(1)>div:nth-of-type(1)>h2"
+      },
+      "expected": null,
+      "actual": {
+        "text": "参数板块"
+      },
+      "threshold": null,
+      "confidence": null,
+      "evidence": {},
+      "nextAction": "将该内容登记为 exact、contains 或 mock",
+      "reason": "",
+      "firstSeenAt": null,
+      "lastSeenAt": null,
+      "resolvedAt": null
+    },
+    {
+      "id": "content-audit:content:f0b151c08844",
+      "detector": "content-audit",
+      "code": "visible-content-untracked",
+      "dimension": "content",
+      "severity": "P2",
+      "status": "open",
+      "title": "可见内容未登记: 新建任务",
+      "target": {
+        "selector": "body>div>div>div>div>main>section>section:nth-of-type(1)>div:nth-of-type(1)>button"
+      },
+      "expected": null,
+      "actual": {
+        "text": "新建任务"
+      },
+      "threshold": null,
+      "confidence": null,
+      "evidence": {},
+      "nextAction": "将该内容登记为 exact、contains 或 mock",
+      "reason": "",
+      "firstSeenAt": null,
+      "lastSeenAt": null,
+      "resolvedAt": null
+    },
+    {
+      "id": "content-audit:content:80b73c94b254",
+      "detector": "content-audit",
+      "code": "visible-content-untracked",
+      "dimension": "content",
+      "severity": "P2",
+      "status": "open",
+      "title": "可见内容未登记: 1.  上传商品图",
+      "target": {
+        "selector": "body>div>div>div>div>main>section>section:nth-of-type(1)>div:nth-of-type(2)>div:nth-of-type(1)>div:nth-of-type(1)>h3"
+      },
+      "expected": null,
+      "actual": {
+        "text": "1.  上传商品图"
+      },
+      "threshold": null,
+      "confidence": null,
+      "evidence": {},
+      "nextAction": "将该内容登记为 exact、contains 或 mock",
+      "reason": "",
+      "firstSeenAt": null,
+      "lastSeenAt": null,
+      "resolvedAt": null
+    },
+    {
+      "id": "content-audit:content:fd922f3fd21e",
+      "detector": "content-audit",
+      "code": "visible-content-untracked",
+      "dimension": "content",
+      "severity": "P2",
+      "status": "open",
+      "title": "可见内容未登记: （必填）",
+      "target": {
+        "selector": "body>div>div>div>div>main>section>section:nth-of-type(1)>div:nth-of-type(2)>div:nth-of-type(1)>div:nth-of-type(1)>h3>span"
+      },
+      "expected": null,
+      "actual": {
+        "text": "（必填）"
+      },
+      "threshold": null,
+      "confidence": null,
+      "evidence": {},
+      "nextAction": "将该内容登记为 exact、contains 或 mock",
+      "reason": "",
+      "firstSeenAt": null,
+      "lastSeenAt": null,
+      "resolvedAt": null
+    },
+    {
+      "id": "content-audit:content:cfb7e51aaefe",
+      "detector": "content-audit",
+      "code": "visible-content-untracked",
+      "dimension": "content",
+      "severity": "P2",
+      "status": "open",
+      "title": "可见内容未登记: 正面平铺",
+      "target": {
+        "selector": "body>div>div>div>div>main>section>section:nth-of-type(1)>div:nth-of-type(2)>div:nth-of-type(1)>div:nth-of-type(2)>div>div:nth-of-type(1)>img"
+      },
+      "expected": null,
+      "actual": {
+        "text": "正面平铺"
+      },
+      "threshold": null,
+      "confidence": null,
+      "evidence": {},
+      "nextAction": "将该内容登记为 exact、contains 或 mock",
+      "reason": "",
+      "firstSeenAt": null,
+      "lastSeenAt": null,
+      "resolvedAt": null
+    },
+    {
+      "id": "content-audit:content:022b75d787e2",
+      "detector": "content-audit",
+      "code": "visible-content-untracked",
+      "dimension": "content",
+      "severity": "P2",
+      "status": "open",
+      "title": "可见内容未登记: 移除正面平铺",
+      "target": {
+        "selector": "body>div>div>div>div>main>section>section:nth-of-type(1)>div:nth-of-type(2)>div:nth-of-type(1)>div:nth-of-type(2)>div>div:nth-of-type(1)>button"
+      },
+      "expected": null,
+      "actual": {
+        "text": "移除正面平铺"
+      },
+      "threshold": null,
+      "confidence": null,
+      "evidence": {},
+      "nextAction": "将该内容登记为 exact、contains 或 mock",
+      "reason": "",
+      "firstSeenAt": null,
+      "lastSeenAt": null,
+      "resolvedAt": null
+    },
+    {
+      "id": "content-audit:content:44791ca8e9f7",
+      "detector": "content-audit",
+      "code": "visible-content-untracked",
+      "dimension": "content",
+      "severity": "P2",
+      "status": "open",
+      "title": "可见内容未登记: 侧面悬挂",
+      "target": {
+        "selector": "body>div>div>div>div>main>section>section:nth-of-type(1)>div:nth-of-type(2)>div:nth-of-type(1)>div:nth-of-type(2)>div>div:nth-of-type(2)>img"
+      },
+      "expected": null,
+      "actual": {
+        "text": "侧面悬挂"
+      },
+      "threshold": null,
+      "confidence": null,
+      "evidence": {},
+      "nextAction": "将该内容登记为 exact、contains 或 mock",
+      "reason": "",
+      "firstSeenAt": null,
+      "lastSeenAt": null,
+      "resolvedAt": null
+    },
+    {
+      "id": "content-audit:content:1ee54180fe36",
+      "detector": "content-audit",
+      "code": "visible-content-untracked",
+      "dimension": "content",
+      "severity": "P2",
+      "status": "open",
+      "title": "可见内容未登记: 移除侧面悬挂",
+      "target": {
+        "selector": "body>div>div>div>div>main>section>section:nth-of-type(1)>div:nth-of-type(2)>div:nth-of-type(1)>div:nth-of-type(2)>div>div:nth-of-type(2)>button"
+      },
+      "expected": null,
+      "actual": {
+        "text": "移除侧面悬挂"
+      },
+      "threshold": null,
+      "confidence": null,
+      "evidence": {},
+      "nextAction": "将该内容登记为 exact、contains 或 mock",
+      "reason": "",
+      "firstSeenAt": null,
+      "lastSeenAt": null,
+      "resolvedAt": null
+    },
+    {
+      "id": "content-audit:content:781549e51ce0",
+      "detector": "content-audit",
+      "code": "visible-content-untracked",
+      "dimension": "content",
+      "severity": "P2",
+      "status": "open",
+      "title": "可见内容未登记: 背面平铺",
+      "target": {
+        "selector": "body>div>div>div>div>main>section>section:nth-of-type(1)>div:nth-of-type(2)>div:nth-of-type(1)>div:nth-of-type(2)>div>div:nth-of-type(3)>img"
+      },
+      "expected": null,
+      "actual": {
+        "text": "背面平铺"
+      },
+      "threshold": null,
+      "confidence": null,
+      "evidence": {},
+      "nextAction": "将该内容登记为 exact、contains 或 mock",
+      "reason": "",
+      "firstSeenAt": null,
+      "lastSeenAt": null,
+      "resolvedAt": null
+    },
+    {
+      "id": "content-audit:content:80c679549c73",
+      "detector": "content-audit",
+      "code": "visible-content-untracked",
+      "dimension": "content",
+      "severity": "P2",
+      "status": "open",
+      "title": "可见内容未登记: 移除背面平铺",
+      "target": {
+        "selector": "body>div>div>div>div>main>section>section:nth-of-type(1)>div:nth-of-type(2)>div:nth-of-type(1)>div:nth-of-type(2)>div>div:nth-of-type(3)>button"
+      },
+      "expected": null,
+      "actual": {
+        "text": "移除背面平铺"
+      },
+      "threshold": null,
+      "confidence": null,
+      "evidence": {},
+      "nextAction": "将该内容登记为 exact、contains 或 mock",
+      "reason": "",
+      "firstSeenAt": null,
+      "lastSeenAt": null,
+      "resolvedAt": null
+    },
+    {
+      "id": "content-audit:content:c76cbb54e5b6",
+      "detector": "content-audit",
+      "code": "visible-content-untracked",
+      "dimension": "content",
+      "severity": "P2",
+      "status": "open",
+      "title": "可见内容未登记: 上传上传商品图",
+      "target": {
+        "selector": "body>div>div>div>div>main>section>section:nth-of-type(1)>div:nth-of-type(2)>div:nth-of-type(1)>div:nth-of-type(2)>div>button"
+      },
+      "expected": null,
+      "actual": {
+        "text": "上传上传商品图"
+      },
+      "threshold": null,
+      "confidence": null,
+      "evidence": {},
+      "nextAction": "将该内容登记为 exact、contains 或 mock",
+      "reason": "",
+      "firstSeenAt": null,
+      "lastSeenAt": null,
+      "resolvedAt": null
+    },
+    {
+      "id": "content-audit:content:0cd0db95a319",
+      "detector": "content-audit",
+      "code": "visible-content-untracked",
+      "dimension": "content",
+      "severity": "P2",
+      "status": "open",
+      "title": "可见内容未登记: 继续上传",
+      "target": {
+        "selector": "body>div>div>div>div>main>section>section:nth-of-type(1)>div:nth-of-type(2)>div:nth-of-type(1)>div:nth-of-type(2)>div>button>span"
+      },
+      "expected": null,
+      "actual": {
+        "text": "继续上传"
+      },
+      "threshold": null,
+      "confidence": null,
+      "evidence": {},
+      "nextAction": "将该内容登记为 exact、contains 或 mock",
+      "reason": "",
+      "firstSeenAt": null,
+      "lastSeenAt": null,
+      "resolvedAt": null
+    },
+    {
+      "id": "content-audit:content:eea8a5b941f7",
+      "detector": "content-audit",
+      "code": "visible-content-untracked",
+      "dimension": "content",
+      "severity": "P2",
+      "status": "open",
+      "title": "可见内容未登记: 支持多图上传",
+      "target": {
+        "selector": "body>div>div>div>div>main>section>section:nth-of-type(1)>div:nth-of-type(2)>div:nth-of-type(1)>div:nth-of-type(2)>div>button>small"
+      },
+      "expected": null,
+      "actual": {
+        "text": "支持多图上传"
+      },
+      "threshold": null,
+      "confidence": null,
+      "evidence": {},
+      "nextAction": "将该内容登记为 exact、contains 或 mock",
+      "reason": "",
+      "firstSeenAt": null,
+      "lastSeenAt": null,
+      "resolvedAt": null
+    },
+    {
+      "id": "content-audit:content:403373fd4587",
+      "detector": "content-audit",
+      "code": "visible-content-untracked",
+      "dimension": "content",
+      "severity": "P2",
+      "status": "open",
+      "title": "可见内容未登记: 建议上传正侧背等多角度视图",
+      "target": {
+        "selector": "body>div>div>div>div>main>section>section:nth-of-type(1)>div:nth-of-type(2)>div:nth-of-type(1)>div:nth-of-type(2)>p"
+      },
+      "expected": null,
+      "actual": {
+        "text": "建议上传正侧背等多角度视图"
+      },
+      "threshold": null,
+      "confidence": null,
+      "evidence": {},
+      "nextAction": "将该内容登记为 exact、contains 或 mock",
+      "reason": "",
+      "firstSeenAt": null,
+      "lastSeenAt": null,
+      "resolvedAt": null
+    },
+    {
+      "id": "content-audit:content:69d6d30c49d4",
+      "detector": "content-audit",
+      "code": "visible-content-untracked",
+      "dimension": "content",
+      "severity": "P2",
+      "status": "open",
+      "title": "可见内容未登记: 2.  行业模板",
+      "target": {
+        "selector": "body>div>div>div>div>main>section>section:nth-of-type(1)>div:nth-of-type(2)>div:nth-of-type(2)>div:nth-of-type(1)>h3"
+      },
+      "expected": null,
+      "actual": {
+        "text": "2.  行业模板"
+      },
+      "threshold": null,
+      "confidence": null,
+      "evidence": {},
+      "nextAction": "将该内容登记为 exact、contains 或 mock",
+      "reason": "",
+      "firstSeenAt": null,
+      "lastSeenAt": null,
+      "resolvedAt": null
+    },
+    {
+      "id": "content-audit:content:cc595007ef20",
+      "detector": "content-audit",
+      "code": "visible-content-untracked",
+      "dimension": "content",
+      "severity": "P2",
+      "status": "open",
+      "title": "可见内容未登记: （必填）",
+      "target": {
+        "selector": "body>div>div>div>div>main>section>section:nth-of-type(1)>div:nth-of-type(2)>div:nth-of-type(2)>div:nth-of-type(1)>h3>span"
+      },
+      "expected": null,
+      "actual": {
+        "text": "（必填）"
+      },
+      "threshold": null,
+      "confidence": null,
+      "evidence": {},
+      "nextAction": "将该内容登记为 exact、contains 或 mock",
+      "reason": "",
+      "firstSeenAt": null,
+      "lastSeenAt": null,
+      "resolvedAt": null
+    },
+    {
+      "id": "content-audit:content:35758d899121",
+      "detector": "content-audit",
+      "code": "visible-content-untracked",
+      "dimension": "content",
+      "severity": "P2",
+      "status": "open",
+      "title": "可见内容未登记: 女装上新",
+      "target": {
+        "selector": "body>div>div>div>div>main>section>section:nth-of-type(1)>div:nth-of-type(2)>div:nth-of-type(2)>div:nth-of-type(2)>button:nth-of-type(1)>span"
+      },
+      "expected": null,
+      "actual": {
+        "text": "女装上新"
+      },
+      "threshold": null,
+      "confidence": null,
+      "evidence": {},
+      "nextAction": "将该内容登记为 exact、contains 或 mock",
+      "reason": "",
+      "firstSeenAt": null,
+      "lastSeenAt": null,
+      "resolvedAt": null
+    },
+    {
+      "id": "content-audit:content:35f14eda0bd7",
+      "detector": "content-audit",
+      "code": "visible-content-untracked",
+      "dimension": "content",
+      "severity": "P2",
+      "status": "open",
+      "title": "可见内容未登记: 轻食饮品",
+      "target": {
+        "selector": "body>div>div>div>div>main>section>section:nth-of-type(1)>div:nth-of-type(2)>div:nth-of-type(2)>div:nth-of-type(2)>button:nth-of-type(2)>span"
+      },
+      "expected": null,
+      "actual": {
+        "text": "轻食饮品"
+      },
+      "threshold": null,
+      "confidence": null,
+      "evidence": {},
+      "nextAction": "将该内容登记为 exact、contains 或 mock",
+      "reason": "",
+      "firstSeenAt": null,
+      "lastSeenAt": null,
+      "resolvedAt": null
+    },
+    {
+      "id": "content-audit:content:097ab8dda72b",
+      "detector": "content-audit",
+      "code": "visible-content-untracked",
+      "dimension": "content",
+      "severity": "P2",
+      "status": "open",
+      "title": "可见内容未登记: 家清日用",
+      "target": {
+        "selector": "body>div>div>div>div>main>section>section:nth-of-type(1)>div:nth-of-type(2)>div:nth-of-type(2)>div:nth-of-type(2)>button:nth-of-type(3)>span"
+      },
+      "expected": null,
+      "actual": {
+        "text": "家清日用"
+      },
+      "threshold": null,
+      "confidence": null,
+      "evidence": {},
+      "nextAction": "将该内容登记为 exact、contains 或 mock",
+      "reason": "",
+      "firstSeenAt": null,
+      "lastSeenAt": null,
+      "resolvedAt": null
+    },
+    {
+      "id": "content-audit:content:13df66dcd285",
+      "detector": "content-audit",
+      "code": "visible-content-untracked",
+      "dimension": "content",
+      "severity": "P2",
+      "status": "open",
+      "title": "可见内容未登记: 户外装备",
+      "target": {
+        "selector": "body>div>div>div>div>main>section>section:nth-of-type(1)>div:nth-of-type(2)>div:nth-of-type(2)>div:nth-of-type(2)>button:nth-of-type(4)>span"
+      },
+      "expected": null,
+      "actual": {
+        "text": "户外装备"
+      },
+      "threshold": null,
+      "confidence": null,
+      "evidence": {},
+      "nextAction": "将该内容登记为 exact、contains 或 mock",
+      "reason": "",
+      "firstSeenAt": null,
+      "lastSeenAt": null,
+      "resolvedAt": null
+    },
+    {
+      "id": "content-audit:content:163aa9e2b4c1",
+      "detector": "content-audit",
+      "code": "visible-content-untracked",
+      "dimension": "content",
+      "severity": "P2",
+      "status": "open",
+      "title": "可见内容未登记: 母婴好物",
+      "target": {
+        "selector": "body>div>div>div>div>main>section>section:nth-of-type(1)>div:nth-of-type(2)>div:nth-of-type(2)>div:nth-of-type(2)>button:nth-of-type(5)>span"
+      },
+      "expected": null,
+      "actual": {
+        "text": "母婴好物"
+      },
+      "threshold": null,
+      "confidence": null,
+      "evidence": {},
+      "nextAction": "将该内容登记为 exact、contains 或 mock",
+      "reason": "",
+      "firstSeenAt": null,
+      "lastSeenAt": null,
+      "resolvedAt": null
+    },
+    {
+      "id": "content-audit:content:9bee98286d5d",
+      "detector": "content-audit",
+      "code": "visible-content-untracked",
+      "dimension": "content",
+      "severity": "P2",
+      "status": "open",
+      "title": "可见内容未登记: 3C配件",
+      "target": {
+        "selector": "body>div>div>div>div>main>section>section:nth-of-type(1)>div:nth-of-type(2)>div:nth-of-type(2)>div:nth-of-type(2)>button:nth-of-type(6)>span"
+      },
+      "expected": null,
+      "actual": {
+        "text": "3C配件"
+      },
+      "threshold": null,
+      "confidence": null,
+      "evidence": {},
+      "nextAction": "将该内容登记为 exact、contains 或 mock",
+      "reason": "",
+      "firstSeenAt": null,
+      "lastSeenAt": null,
+      "resolvedAt": null
+    },
+    {
+      "id": "content-audit:content:df8864ba090a",
+      "detector": "content-audit",
+      "code": "visible-content-untracked",
+      "dimension": "content",
+      "severity": "P2",
+      "status": "open",
+      "title": "可见内容未登记: 3.  板式",
+      "target": {
+        "selector": "body>div>div>div>div>main>section>section:nth-of-type(1)>div:nth-of-type(2)>div:nth-of-type(3)>div:nth-of-type(1)>h3"
+      },
+      "expected": null,
+      "actual": {
+        "text": "3.  板式"
+      },
+      "threshold": null,
+      "confidence": null,
+      "evidence": {},
+      "nextAction": "将该内容登记为 exact、contains 或 mock",
+      "reason": "",
+      "firstSeenAt": null,
+      "lastSeenAt": null,
+      "resolvedAt": null
+    },
+    {
+      "id": "content-audit:content:f76e387aa92e",
+      "detector": "content-audit",
+      "code": "visible-content-untracked",
+      "dimension": "content",
+      "severity": "P2",
+      "status": "open",
+      "title": "可见内容未登记: 九宫格",
+      "target": {
+        "selector": "body>div>div>div>div>main>section>section:nth-of-type(1)>div:nth-of-type(2)>div:nth-of-type(3)>div:nth-of-type(2)>button:nth-of-type(1)>span"
+      },
+      "expected": null,
+      "actual": {
+        "text": "九宫格"
+      },
+      "threshold": null,
+      "confidence": null,
+      "evidence": {},
+      "nextAction": "将该内容登记为 exact、contains 或 mock",
+      "reason": "",
+      "firstSeenAt": null,
+      "lastSeenAt": null,
+      "resolvedAt": null
+    },
+    {
+      "id": "content-audit:content:ecd4438d8262",
+      "detector": "content-audit",
+      "code": "visible-content-untracked",
+      "dimension": "content",
+      "severity": "P2",
+      "status": "open",
+      "title": "可见内容未登记: 横排卡片",
+      "target": {
+        "selector": "body>div>div>div>div>main>section>section:nth-of-type(1)>div:nth-of-type(2)>div:nth-of-type(3)>div:nth-of-type(2)>button:nth-of-type(2)>span"
+      },
+      "expected": null,
+      "actual": {
+        "text": "横排卡片"
+      },
+      "threshold": null,
+      "confidence": null,
+      "evidence": {},
+      "nextAction": "将该内容登记为 exact、contains 或 mock",
+      "reason": "",
+      "firstSeenAt": null,
+      "lastSeenAt": null,
+      "resolvedAt": null
+    },
+    {
+      "id": "content-audit:content:31c02fcb292b",
+      "detector": "content-audit",
+      "code": "visible-content-untracked",
+      "dimension": "content",
+      "severity": "P2",
+      "status": "open",
+      "title": "可见内容未登记: 竖排列装",
+      "target": {
+        "selector": "body>div>div>div>div>main>section>section:nth-of-type(1)>div:nth-of-type(2)>div:nth-of-type(3)>div:nth-of-type(2)>button:nth-of-type(3)>span"
+      },
+      "expected": null,
+      "actual": {
+        "text": "竖排列装"
+      },
+      "threshold": null,
+      "confidence": null,
+      "evidence": {},
+      "nextAction": "将该内容登记为 exact、contains 或 mock",
+      "reason": "",
+      "firstSeenAt": null,
+      "lastSeenAt": null,
+      "resolvedAt": null
+    },
+    {
+      "id": "content-audit:content:26423f37e879",
+      "detector": "content-audit",
+      "code": "visible-content-untracked",
+      "dimension": "content",
+      "severity": "P2",
+      "status": "open",
+      "title": "可见内容未登记: 左右分栏",
+      "target": {
+        "selector": "body>div>div>div>div>main>section>section:nth-of-type(1)>div:nth-of-type(2)>div:nth-of-type(3)>div:nth-of-type(2)>button:nth-of-type(4)>span"
+      },
+      "expected": null,
+      "actual": {
+        "text": "左右分栏"
+      },
+      "threshold": null,
+      "confidence": null,
+      "evidence": {},
+      "nextAction": "将该内容登记为 exact、contains 或 mock",
+      "reason": "",
+      "firstSeenAt": null,
+      "lastSeenAt": null,
+      "resolvedAt": null
+    },
+    {
+      "id": "content-audit:content:9b4556b2b4b1",
+      "detector": "content-audit",
+      "code": "visible-content-untracked",
+      "dimension": "content",
+      "severity": "P2",
+      "status": "open",
+      "title": "可见内容未登记: 4.  配色主题",
+      "target": {
+        "selector": "body>div>div>div>div>main>section>section:nth-of-type(1)>div:nth-of-type(2)>div:nth-of-type(4)>div:nth-of-type(1)>h3"
+      },
+      "expected": null,
+      "actual": {
+        "text": "4.  配色主题"
+      },
+      "threshold": null,
+      "confidence": null,
+      "evidence": {},
+      "nextAction": "将该内容登记为 exact、contains 或 mock",
+      "reason": "",
+      "firstSeenAt": null,
+      "lastSeenAt": null,
+      "resolvedAt": null
+    },
+    {
+      "id": "content-audit:content:274d5319d972",
+      "detector": "content-audit",
+      "code": "visible-content-untracked",
+      "dimension": "content",
+      "severity": "P2",
+      "status": "open",
+      "title": "可见内容未登记: 极简白灰黑",
+      "target": {
+        "selector": "body>div>div>div>div>main>section>section:nth-of-type(1)>div:nth-of-type(2)>div:nth-of-type(4)>div:nth-of-type(2)>button:nth-of-type(1)>b"
+      },
+      "expected": null,
+      "actual": {
+        "text": "极简白灰黑"
+      },
+      "threshold": null,
+      "confidence": null,
+      "evidence": {},
+      "nextAction": "将该内容登记为 exact、contains 或 mock",
+      "reason": "",
+      "firstSeenAt": null,
+      "lastSeenAt": null,
+      "resolvedAt": null
+    },
+    {
+      "id": "content-audit:content:176878e4678c",
+      "detector": "content-audit",
+      "code": "visible-content-untracked",
+      "dimension": "content",
+      "severity": "P2",
+      "status": "open",
+      "title": "可见内容未登记: 奶油卡咖",
+      "target": {
+        "selector": "body>div>div>div>div>main>section>section:nth-of-type(1)>div:nth-of-type(2)>div:nth-of-type(4)>div:nth-of-type(2)>button:nth-of-type(2)>b"
+      },
+      "expected": null,
+      "actual": {
+        "text": "奶油卡咖"
+      },
+      "threshold": null,
+      "confidence": null,
+      "evidence": {},
+      "nextAction": "将该内容登记为 exact、contains 或 mock",
+      "reason": "",
+      "firstSeenAt": null,
+      "lastSeenAt": null,
+      "resolvedAt": null
+    },
+    {
+      "id": "content-audit:content:0defbcd88b9a",
+      "detector": "content-audit",
+      "code": "visible-content-untracked",
+      "dimension": "content",
+      "severity": "P2",
+      "status": "open",
+      "title": "可见内容未登记: 海盐蓝灰",
+      "target": {
+        "selector": "body>div>div>div>div>main>section>section:nth-of-type(1)>div:nth-of-type(2)>div:nth-of-type(4)>div:nth-of-type(2)>button:nth-of-type(3)>b"
+      },
+      "expected": null,
+      "actual": {
+        "text": "海盐蓝灰"
+      },
+      "threshold": null,
+      "confidence": null,
+      "evidence": {},
+      "nextAction": "将该内容登记为 exact、contains 或 mock",
+      "reason": "",
+      "firstSeenAt": null,
+      "lastSeenAt": null,
+      "resolvedAt": null
+    },
+    {
+      "id": "content-audit:content:01cec89f199e",
+      "detector": "content-audit",
+      "code": "visible-content-untracked",
+      "dimension": "content",
+      "severity": "P2",
+      "status": "open",
+      "title": "可见内容未登记: 豆沙棉粉",
+      "target": {
+        "selector": "body>div>div>div>div>main>section>section:nth-of-type(1)>div:nth-of-type(2)>div:nth-of-type(4)>div:nth-of-type(2)>button:nth-of-type(4)>b"
+      },
+      "expected": null,
+      "actual": {
+        "text": "豆沙棉粉"
+      },
+      "threshold": null,
+      "confidence": null,
+      "evidence": {},
+      "nextAction": "将该内容登记为 exact、contains 或 mock",
+      "reason": "",
+      "firstSeenAt": null,
+      "lastSeenAt": null,
+      "resolvedAt": null
+    },
+    {
+      "id": "content-audit:content:e1d70d10b846",
+      "detector": "content-audit",
+      "code": "visible-content-untracked",
+      "dimension": "content",
+      "severity": "P2",
+      "status": "open",
+      "title": "可见内容未登记: 森林绿白",
+      "target": {
+        "selector": "body>div>div>div>div>main>section>section:nth-of-type(1)>div:nth-of-type(2)>div:nth-of-type(4)>div:nth-of-type(2)>button:nth-of-type(5)>b"
+      },
+      "expected": null,
+      "actual": {
+        "text": "森林绿白"
+      },
+      "threshold": null,
+      "confidence": null,
+      "evidence": {},
+      "nextAction": "将该内容登记为 exact、contains 或 mock",
+      "reason": "",
+      "firstSeenAt": null,
+      "lastSeenAt": null,
+      "resolvedAt": null
+    },
+    {
+      "id": "content-audit:content:6213bfd24b36",
+      "detector": "content-audit",
+      "code": "visible-content-untracked",
+      "dimension": "content",
+      "severity": "P2",
+      "status": "open",
+      "title": "可见内容未登记: 午夜黑银",
+      "target": {
+        "selector": "body>div>div>div>div>main>section>section:nth-of-type(1)>div:nth-of-type(2)>div:nth-of-type(4)>div:nth-of-type(2)>button:nth-of-type(6)>b"
+      },
+      "expected": null,
+      "actual": {
+        "text": "午夜黑银"
+      },
+      "threshold": null,
+      "confidence": null,
+      "evidence": {},
+      "nextAction": "将该内容登记为 exact、contains 或 mock",
+      "reason": "",
+      "firstSeenAt": null,
+      "lastSeenAt": null,
+      "resolvedAt": null
+    },
+    {
+      "id": "content-audit:content:1c0b2203cfc6",
+      "detector": "content-audit",
+      "code": "visible-content-untracked",
+      "dimension": "content",
+      "severity": "P2",
+      "status": "open",
+      "title": "可见内容未登记: 参数项",
+      "target": {
+        "selector": "body>div>div>div>div>main>section>section:nth-of-type(1)>div:nth-of-type(2)>div:nth-of-type(5)>div:nth-of-type(1)>h3"
+      },
+      "expected": null,
+      "actual": {
+        "text": "参数项"
+      },
+      "threshold": null,
+      "confidence": null,
+      "evidence": {},
+      "nextAction": "将该内容登记为 exact、contains 或 mock",
+      "reason": "",
+      "firstSeenAt": null,
+      "lastSeenAt": null,
+      "resolvedAt": null
+    },
+    {
+      "id": "content-audit:content:7a7e314474df",
+      "detector": "content-audit",
+      "code": "visible-content-untracked",
+      "dimension": "content",
+      "severity": "P2",
+      "status": "open",
+      "title": "可见内容未登记: 添加参数项",
+      "target": {
+        "selector": "body>div>div>div>div>main>section>section:nth-of-type(1)>div:nth-of-type(2)>div:nth-of-type(5)>div:nth-of-type(1)>button"
+      },
+      "expected": null,
+      "actual": {
+        "text": "添加参数项"
+      },
+      "threshold": null,
+      "confidence": null,
+      "evidence": {},
+      "nextAction": "将该内容登记为 exact、contains 或 mock",
+      "reason": "",
+      "firstSeenAt": null,
+      "lastSeenAt": null,
+      "resolvedAt": null
+    },
+    {
+      "id": "content-audit:content:39452703e191",
+      "detector": "content-audit",
+      "code": "visible-content-untracked",
+      "dimension": "content",
+      "severity": "P2",
+      "status": "open",
+      "title": "可见内容未登记: 图标",
+      "target": {
+        "selector": "body>div>div>div>div>main>section>section:nth-of-type(1)>div:nth-of-type(2)>div:nth-of-type(5)>div:nth-of-type(2)>div:nth-of-type(1)>span:nth-of-type(1)"
+      },
+      "expected": null,
+      "actual": {
+        "text": "图标"
+      },
+      "threshold": null,
+      "confidence": null,
+      "evidence": {},
+      "nextAction": "将该内容登记为 exact、contains 或 mock",
+      "reason": "",
+      "firstSeenAt": null,
+      "lastSeenAt": null,
+      "resolvedAt": null
+    },
+    {
+      "id": "content-audit:content:0a23173cf53e",
+      "detector": "content-audit",
+      "code": "visible-content-untracked",
+      "dimension": "content",
+      "severity": "P2",
+      "status": "open",
+      "title": "可见内容未登记: 名称",
+      "target": {
+        "selector": "body>div>div>div>div>main>section>section:nth-of-type(1)>div:nth-of-type(2)>div:nth-of-type(5)>div:nth-of-type(2)>div:nth-of-type(1)>span:nth-of-type(2)"
+      },
+      "expected": null,
+      "actual": {
+        "text": "名称"
+      },
+      "threshold": null,
+      "confidence": null,
+      "evidence": {},
+      "nextAction": "将该内容登记为 exact、contains 或 mock",
+      "reason": "",
+      "firstSeenAt": null,
+      "lastSeenAt": null,
+      "resolvedAt": null
+    },
+    {
+      "id": "content-audit:content:59184c017d39",
+      "detector": "content-audit",
+      "code": "visible-content-untracked",
+      "dimension": "content",
+      "severity": "P2",
+      "status": "open",
+      "title": "可见内容未登记: 值",
+      "target": {
+        "selector": "body>div>div>div>div>main>section>section:nth-of-type(1)>div:nth-of-type(2)>div:nth-of-type(5)>div:nth-of-type(2)>div:nth-of-type(1)>span:nth-of-type(3)"
+      },
+      "expected": null,
+      "actual": {
+        "text": "值"
+      },
+      "threshold": null,
+      "confidence": null,
+      "evidence": {},
+      "nextAction": "将该内容登记为 exact、contains 或 mock",
+      "reason": "",
+      "firstSeenAt": null,
+      "lastSeenAt": null,
+      "resolvedAt": null
+    },
+    {
+      "id": "content-audit:content:c0078ed2370d",
+      "detector": "content-audit",
+      "code": "visible-content-untracked",
+      "dimension": "content",
+      "severity": "P2",
+      "status": "open",
+      "title": "可见内容未登记: Type",
+      "target": {
+        "selector": "body>div>div>div>div>main>section>section:nth-of-type(1)>div:nth-of-type(2)>div:nth-of-type(5)>div:nth-of-type(2)>div:nth-of-type(2)>input:nth-of-type(1)"
+      },
+      "expected": null,
+      "actual": {
+        "text": "Type"
+      },
+      "threshold": null,
+      "confidence": null,
+      "evidence": {},
+      "nextAction": "将该内容登记为 exact、contains 或 mock",
+      "reason": "",
+      "firstSeenAt": null,
+      "lastSeenAt": null,
+      "resolvedAt": null
+    },
+    {
+      "id": "content-audit:content:0b95346365e4",
+      "detector": "content-audit",
+      "code": "visible-content-untracked",
+      "dimension": "content",
+      "severity": "P2",
+      "status": "open",
+      "title": "可见内容未登记: 主标题",
+      "target": {
+        "selector": "body>div>div>div>div>main>section>section:nth-of-type(1)>div:nth-of-type(2)>div:nth-of-type(5)>div:nth-of-type(2)>div:nth-of-type(2)>input:nth-of-type(2)"
+      },
+      "expected": null,
+      "actual": {
+        "text": "主标题"
+      },
+      "threshold": null,
+      "confidence": null,
+      "evidence": {},
+      "nextAction": "将该内容登记为 exact、contains 或 mock",
+      "reason": "",
+      "firstSeenAt": null,
+      "lastSeenAt": null,
+      "resolvedAt": null
+    },
+    {
+      "id": "content-audit:content:faf6641da022",
+      "detector": "content-audit",
+      "code": "visible-content-untracked",
+      "dimension": "content",
+      "severity": "P2",
+      "status": "open",
+      "title": "可见内容未登记: 自在生活 轻盈出行",
+      "target": {
+        "selector": "body>div>div>div>div>main>section>section:nth-of-type(1)>div:nth-of-type(2)>div:nth-of-type(5)>div:nth-of-type(2)>div:nth-of-type(2)>input:nth-of-type(3)"
+      },
+      "expected": null,
+      "actual": {
+        "text": "自在生活 轻盈出行"
+      },
+      "threshold": null,
+      "confidence": null,
+      "evidence": {},
+      "nextAction": "将该内容登记为 exact、contains 或 mock",
+      "reason": "",
+      "firstSeenAt": null,
+      "lastSeenAt": null,
+      "resolvedAt": null
+    },
+    {
+      "id": "content-audit:content:858115b63c27",
+      "detector": "content-audit",
+      "code": "visible-content-untracked",
+      "dimension": "content",
+      "severity": "P2",
+      "status": "open",
+      "title": "可见内容未登记: 删除参数",
+      "target": {
+        "selector": "body>div>div>div>div>main>section>section:nth-of-type(1)>div:nth-of-type(2)>div:nth-of-type(5)>div:nth-of-type(2)>div:nth-of-type(2)>button"
+      },
+      "expected": null,
+      "actual": {
+        "text": "删除参数"
+      },
+      "threshold": null,
+      "confidence": null,
+      "evidence": {},
+      "nextAction": "将该内容登记为 exact、contains 或 mock",
+      "reason": "",
+      "firstSeenAt": null,
+      "lastSeenAt": null,
+      "resolvedAt": null
+    },
+    {
+      "id": "content-audit:content:a7f603860657",
+      "detector": "content-audit",
+      "code": "visible-content-untracked",
+      "dimension": "content",
+      "severity": "P2",
+      "status": "open",
+      "title": "可见内容未登记: Tag",
+      "target": {
+        "selector": "body>div>div>div>div>main>section>section:nth-of-type(1)>div:nth-of-type(2)>div:nth-of-type(5)>div:nth-of-type(2)>div:nth-of-type(3)>input:nth-of-type(1)"
+      },
+      "expected": null,
+      "actual": {
+        "text": "Tag"
+      },
+      "threshold": null,
+      "confidence": null,
+      "evidence": {},
+      "nextAction": "将该内容登记为 exact、contains 或 mock",
+      "reason": "",
+      "firstSeenAt": null,
+      "lastSeenAt": null,
+      "resolvedAt": null
+    },
+    {
+      "id": "content-audit:content:aadaf6b26133",
+      "detector": "content-audit",
+      "code": "visible-content-untracked",
+      "dimension": "content",
+      "severity": "P2",
+      "status": "open",
+      "title": "可见内容未登记: 促销角标",
+      "target": {
+        "selector": "body>div>div>div>div>main>section>section:nth-of-type(1)>div:nth-of-type(2)>div:nth-of-type(5)>div:nth-of-type(2)>div:nth-of-type(3)>input:nth-of-type(2)"
+      },
+      "expected": null,
+      "actual": {
+        "text": "促销角标"
+      },
+      "threshold": null,
+      "confidence": null,
+      "evidence": {},
+      "nextAction": "将该内容登记为 exact、contains 或 mock",
+      "reason": "",
+      "firstSeenAt": null,
+      "lastSeenAt": null,
+      "resolvedAt": null
+    },
+    {
+      "id": "content-audit:content:d358db5a0508",
+      "detector": "content-audit",
+      "code": "visible-content-untracked",
+      "dimension": "content",
+      "severity": "P2",
+      "status": "open",
+      "title": "可见内容未登记: 限时直降 立省60元",
+      "target": {
+        "selector": "body>div>div>div>div>main>section>section:nth-of-type(1)>div:nth-of-type(2)>div:nth-of-type(5)>div:nth-of-type(2)>div:nth-of-type(3)>input:nth-of-type(3)"
+      },
+      "expected": null,
+      "actual": {
+        "text": "限时直降 立省60元"
+      },
+      "threshold": null,
+      "confidence": null,
+      "evidence": {},
+      "nextAction": "将该内容登记为 exact、contains 或 mock",
+      "reason": "",
+      "firstSeenAt": null,
+      "lastSeenAt": null,
+      "resolvedAt": null
+    },
+    {
+      "id": "content-audit:content:b24f5648d9f7",
+      "detector": "content-audit",
+      "code": "visible-content-untracked",
+      "dimension": "content",
+      "severity": "P2",
+      "status": "open",
+      "title": "可见内容未登记: 删除参数",
+      "target": {
+        "selector": "body>div>div>div>div>main>section>section:nth-of-type(1)>div:nth-of-type(2)>div:nth-of-type(5)>div:nth-of-type(2)>div:nth-of-type(3)>button"
+      },
+      "expected": null,
+      "actual": {
+        "text": "删除参数"
+      },
+      "threshold": null,
+      "confidence": null,
+      "evidence": {},
+      "nextAction": "将该内容登记为 exact、contains 或 mock",
+      "reason": "",
+      "firstSeenAt": null,
+      "lastSeenAt": null,
+      "resolvedAt": null
+    },
+    {
+      "id": "content-audit:content:369fe94f1dc9",
+      "detector": "content-audit",
+      "code": "visible-content-untracked",
+      "dimension": "content",
+      "severity": "P2",
+      "status": "open",
+      "title": "可见内容未登记: MessageCircle",
+      "target": {
+        "selector": "body>div>div>div>div>main>section>section:nth-of-type(1)>div:nth-of-type(2)>div:nth-of-type(5)>div:nth-of-type(2)>div:nth-of-type(4)>input:nth-of-type(1)"
+      },
+      "expected": null,
+      "actual": {
+        "text": "MessageCircle"
+      },
+      "threshold": null,
+      "confidence": null,
+      "evidence": {},
+      "nextAction": "将该内容登记为 exact、contains 或 mock",
+      "reason": "",
+      "firstSeenAt": null,
+      "lastSeenAt": null,
+      "resolvedAt": null
+    },
+    {
+      "id": "content-audit:content:c96742469b06",
+      "detector": "content-audit",
+      "code": "visible-content-untracked",
+      "dimension": "content",
+      "severity": "P2",
+      "status": "open",
+      "title": "可见内容未登记: 卖点短句",
+      "target": {
+        "selector": "body>div>div>div>div>main>section>section:nth-of-type(1)>div:nth-of-type(2)>div:nth-of-type(5)>div:nth-of-type(2)>div:nth-of-type(4)>input:nth-of-type(2)"
+      },
+      "expected": null,
+      "actual": {
+        "text": "卖点短句"
+      },
+      "threshold": null,
+      "confidence": null,
+      "evidence": {},
+      "nextAction": "将该内容登记为 exact、contains 或 mock",
+      "reason": "",
+      "firstSeenAt": null,
+      "lastSeenAt": null,
+      "resolvedAt": null
+    },
+    {
+      "id": "content-audit:content:98eca680e154",
+      "detector": "content-audit",
+      "code": "visible-content-untracked",
+      "dimension": "content",
+      "severity": "P2",
+      "status": "open",
+      "title": "可见内容未登记: 柔软透气 不易变形",
+      "target": {
+        "selector": "body>div>div>div>div>main>section>section:nth-of-type(1)>div:nth-of-type(2)>div:nth-of-type(5)>div:nth-of-type(2)>div:nth-of-type(4)>input:nth-of-type(3)"
+      },
+      "expected": null,
+      "actual": {
+        "text": "柔软透气 不易变形"
+      },
+      "threshold": null,
+      "confidence": null,
+      "evidence": {},
+      "nextAction": "将该内容登记为 exact、contains 或 mock",
+      "reason": "",
+      "firstSeenAt": null,
+      "lastSeenAt": null,
+      "resolvedAt": null
+    },
+    {
+      "id": "content-audit:content:8f39eebc5c25",
+      "detector": "content-audit",
+      "code": "visible-content-untracked",
+      "dimension": "content",
+      "severity": "P2",
+      "status": "open",
+      "title": "可见内容未登记: 删除参数",
+      "target": {
+        "selector": "body>div>div>div>div>main>section>section:nth-of-type(1)>div:nth-of-type(2)>div:nth-of-type(5)>div:nth-of-type(2)>div:nth-of-type(4)>button"
+      },
+      "expected": null,
+      "actual": {
+        "text": "删除参数"
+      },
+      "threshold": null,
+      "confidence": null,
+      "evidence": {},
+      "nextAction": "将该内容登记为 exact、contains 或 mock",
+      "reason": "",
+      "firstSeenAt": null,
+      "lastSeenAt": null,
+      "resolvedAt": null
+    },
+    {
+      "id": "content-audit:content:f80ba492d9b4",
+      "detector": "content-audit",
+      "code": "visible-content-untracked",
+      "dimension": "content",
+      "severity": "P2",
+      "status": "open",
+      "title": "可见内容未登记: 6.  生成比例",
+      "target": {
+        "selector": "body>div>div>div>div>main>section>section:nth-of-type(1)>div:nth-of-type(2)>div:nth-of-type(6)>div:nth-of-type(1)>h3"
+      },
+      "expected": null,
+      "actual": {
+        "text": "6.  生成比例"
+      },
+      "threshold": null,
+      "confidence": null,
+      "evidence": {},
+      "nextAction": "将该内容登记为 exact、contains 或 mock",
+      "reason": "",
+      "firstSeenAt": null,
+      "lastSeenAt": null,
+      "resolvedAt": null
+    },
+    {
+      "id": "content-audit:content:8210a68f6357",
+      "detector": "content-audit",
+      "code": "visible-content-untracked",
+      "dimension": "content",
+      "severity": "P2",
+      "status": "open",
+      "title": "可见内容未登记: （必填）",
+      "target": {
+        "selector": "body>div>div>div>div>main>section>section:nth-of-type(1)>div:nth-of-type(2)>div:nth-of-type(6)>div:nth-of-type(1)>h3>span"
+      },
+      "expected": null,
+      "actual": {
+        "text": "（必填）"
+      },
+      "threshold": null,
+      "confidence": null,
+      "evidence": {},
+      "nextAction": "将该内容登记为 exact、contains 或 mock",
+      "reason": "",
+      "firstSeenAt": null,
+      "lastSeenAt": null,
+      "resolvedAt": null
+    },
+    {
+      "id": "content-audit:content:cf5afbe9096f",
+      "detector": "content-audit",
+      "code": "visible-content-untracked",
+      "dimension": "content",
+      "severity": "P2",
+      "status": "open",
+      "title": "可见内容未登记: 1:1",
+      "target": {
+        "selector": "body>div>div>div>div>main>section>section:nth-of-type(1)>div:nth-of-type(2)>div:nth-of-type(6)>div:nth-of-type(2)>button:nth-of-type(1)"
+      },
+      "expected": null,
+      "actual": {
+        "text": "1:1"
+      },
+      "threshold": null,
+      "confidence": null,
+      "evidence": {},
+      "nextAction": "将该内容登记为 exact、contains 或 mock",
+      "reason": "",
+      "firstSeenAt": null,
+      "lastSeenAt": null,
+      "resolvedAt": null
+    },
+    {
+      "id": "content-audit:content:a96a0bc368ce",
+      "detector": "content-audit",
+      "code": "visible-content-untracked",
+      "dimension": "content",
+      "severity": "P2",
+      "status": "open",
+      "title": "可见内容未登记: 4:5",
+      "target": {
+        "selector": "body>div>div>div>div>main>section>section:nth-of-type(1)>div:nth-of-type(2)>div:nth-of-type(6)>div:nth-of-type(2)>button:nth-of-type(2)"
+      },
+      "expected": null,
+      "actual": {
+        "text": "4:5"
+      },
+      "threshold": null,
+      "confidence": null,
+      "evidence": {},
+      "nextAction": "将该内容登记为 exact、contains 或 mock",
+      "reason": "",
+      "firstSeenAt": null,
+      "lastSeenAt": null,
+      "resolvedAt": null
+    },
+    {
+      "id": "content-audit:content:2a3f6ff00cdf",
+      "detector": "content-audit",
+      "code": "visible-content-untracked",
+      "dimension": "content",
+      "severity": "P2",
+      "status": "open",
+      "title": "可见内容未登记: 3:4",
+      "target": {
+        "selector": "body>div>div>div>div>main>section>section:nth-of-type(1)>div:nth-of-type(2)>div:nth-of-type(6)>div:nth-of-type(2)>button:nth-of-type(3)"
+      },
+      "expected": null,
+      "actual": {
+        "text": "3:4"
+      },
+      "threshold": null,
+      "confidence": null,
+      "evidence": {},
+      "nextAction": "将该内容登记为 exact、contains 或 mock",
+      "reason": "",
+      "firstSeenAt": null,
+      "lastSeenAt": null,
+      "resolvedAt": null
+    },
+    {
+      "id": "content-audit:content:54bd70fe3725",
+      "detector": "content-audit",
+      "code": "visible-content-untracked",
+      "dimension": "content",
+      "severity": "P2",
+      "status": "open",
+      "title": "可见内容未登记: 9:16",
+      "target": {
+        "selector": "body>div>div>div>div>main>section>section:nth-of-type(1)>div:nth-of-type(2)>div:nth-of-type(6)>div:nth-of-type(2)>button:nth-of-type(4)"
+      },
+      "expected": null,
+      "actual": {
+        "text": "9:16"
+      },
+      "threshold": null,
+      "confidence": null,
+      "evidence": {},
+      "nextAction": "将该内容登记为 exact、contains 或 mock",
+      "reason": "",
+      "firstSeenAt": null,
+      "lastSeenAt": null,
+      "resolvedAt": null
+    },
+    {
+      "id": "content-audit:content:4561667a52a8",
+      "detector": "content-audit",
+      "code": "visible-content-untracked",
+      "dimension": "content",
+      "severity": "P2",
+      "status": "open",
+      "title": "可见内容未登记: 2:3",
+      "target": {
+        "selector": "body>div>div>div>div>main>section>section:nth-of-type(1)>div:nth-of-type(2)>div:nth-of-type(6)>div:nth-of-type(2)>button:nth-of-type(5)"
+      },
+      "expected": null,
+      "actual": {
+        "text": "2:3"
+      },
+      "threshold": null,
+      "confidence": null,
+      "evidence": {},
+      "nextAction": "将该内容登记为 exact、contains 或 mock",
+      "reason": "",
+      "firstSeenAt": null,
+      "lastSeenAt": null,
+      "resolvedAt": null
+    },
+    {
+      "id": "content-audit:content:bac89ec0fe37",
+      "detector": "content-audit",
+      "code": "visible-content-untracked",
+      "dimension": "content",
+      "severity": "P2",
+      "status": "open",
+      "title": "可见内容未登记: 16:9",
+      "target": {
+        "selector": "body>div>div>div>div>main>section>section:nth-of-type(1)>div:nth-of-type(2)>div:nth-of-type(6)>div:nth-of-type(2)>button:nth-of-type(6)"
+      },
+      "expected": null,
+      "actual": {
+        "text": "16:9"
+      },
+      "threshold": null,
+      "confidence": null,
+      "evidence": {},
+      "nextAction": "将该内容登记为 exact、contains 或 mock",
+      "reason": "",
+      "firstSeenAt": null,
+      "lastSeenAt": null,
+      "resolvedAt": null
+    },
+    {
+      "id": "content-audit:content:6cdb35356b5d",
+      "detector": "content-audit",
+      "code": "visible-content-untracked",
+      "dimension": "content",
+      "severity": "P2",
+      "status": "open",
+      "title": "可见内容未登记: 7.  生成张数",
+      "target": {
+        "selector": "body>div>div>div>div>main>section>section:nth-of-type(1)>div:nth-of-type(2)>div:nth-of-type(7)>div:nth-of-type(1)>h3"
+      },
+      "expected": null,
+      "actual": {
+        "text": "7.  生成张数"
+      },
+      "threshold": null,
+      "confidence": null,
+      "evidence": {},
+      "nextAction": "将该内容登记为 exact、contains 或 mock",
+      "reason": "",
+      "firstSeenAt": null,
+      "lastSeenAt": null,
+      "resolvedAt": null
+    },
+    {
+      "id": "content-audit:content:9a78e7fef8e5",
+      "detector": "content-audit",
+      "code": "visible-content-untracked",
+      "dimension": "content",
+      "severity": "P2",
+      "status": "open",
+      "title": "可见内容未登记: 1",
+      "target": {
+        "selector": "body>div>div>div>div>main>section>section:nth-of-type(1)>div:nth-of-type(2)>div:nth-of-type(7)>div:nth-of-type(2)>button:nth-of-type(1)"
+      },
+      "expected": null,
+      "actual": {
+        "text": "1"
+      },
+      "threshold": null,
+      "confidence": null,
+      "evidence": {},
+      "nextAction": "将该内容登记为 exact、contains 或 mock",
+      "reason": "",
+      "firstSeenAt": null,
+      "lastSeenAt": null,
+      "resolvedAt": null
+    },
+    {
+      "id": "content-audit:content:76090b06113a",
+      "detector": "content-audit",
+      "code": "visible-content-untracked",
+      "dimension": "content",
+      "severity": "P2",
+      "status": "open",
+      "title": "可见内容未登记: 2",
+      "target": {
+        "selector": "body>div>div>div>div>main>section>section:nth-of-type(1)>div:nth-of-type(2)>div:nth-of-type(7)>div:nth-of-type(2)>button:nth-of-type(2)"
+      },
+      "expected": null,
+      "actual": {
+        "text": "2"
+      },
+      "threshold": null,
+      "confidence": null,
+      "evidence": {},
+      "nextAction": "将该内容登记为 exact、contains 或 mock",
+      "reason": "",
+      "firstSeenAt": null,
+      "lastSeenAt": null,
+      "resolvedAt": null
+    },
+    {
+      "id": "content-audit:content:7eac031000c5",
+      "detector": "content-audit",
+      "code": "visible-content-untracked",
+      "dimension": "content",
+      "severity": "P2",
+      "status": "open",
+      "title": "可见内容未登记: 4",
+      "target": {
+        "selector": "body>div>div>div>div>main>section>section:nth-of-type(1)>div:nth-of-type(2)>div:nth-of-type(7)>div:nth-of-type(2)>button:nth-of-type(3)"
+      },
+      "expected": null,
+      "actual": {
+        "text": "4"
+      },
+      "threshold": null,
+      "confidence": null,
+      "evidence": {},
+      "nextAction": "将该内容登记为 exact、contains 或 mock",
+      "reason": "",
+      "firstSeenAt": null,
+      "lastSeenAt": null,
+      "resolvedAt": null
+    },
+    {
+      "id": "content-audit:content:4bf3fccf8b22",
+      "detector": "content-audit",
+      "code": "visible-content-untracked",
+      "dimension": "content",
+      "severity": "P2",
+      "status": "open",
+      "title": "可见内容未登记: 6",
+      "target": {
+        "selector": "body>div>div>div>div>main>section>section:nth-of-type(1)>div:nth-of-type(2)>div:nth-of-type(7)>div:nth-of-type(2)>button:nth-of-type(4)"
+      },
+      "expected": null,
+      "actual": {
+        "text": "6"
+      },
+      "threshold": null,
+      "confidence": null,
+      "evidence": {},
+      "nextAction": "将该内容登记为 exact、contains 或 mock",
+      "reason": "",
+      "firstSeenAt": null,
+      "lastSeenAt": null,
+      "resolvedAt": null
+    },
+    {
+      "id": "content-audit:content:1ead1f97f8a3",
+      "detector": "content-audit",
+      "code": "visible-content-untracked",
+      "dimension": "content",
+      "severity": "P2",
+      "status": "open",
+      "title": "可见内容未登记: 8.  分辨率",
+      "target": {
+        "selector": "body>div>div>div>div>main>section>section:nth-of-type(1)>div:nth-of-type(2)>div:nth-of-type(8)>div:nth-of-type(1)>h3"
+      },
+      "expected": null,
+      "actual": {
+        "text": "8.  分辨率"
+      },
+      "threshold": null,
+      "confidence": null,
+      "evidence": {},
+      "nextAction": "将该内容登记为 exact、contains 或 mock",
+      "reason": "",
+      "firstSeenAt": null,
+      "lastSeenAt": null,
+      "resolvedAt": null
+    },
+    {
+      "id": "content-audit:content:78725efcbee8",
+      "detector": "content-audit",
+      "code": "visible-content-untracked",
+      "dimension": "content",
+      "severity": "P2",
+      "status": "open",
+      "title": "可见内容未登记: 标准 1024",
+      "target": {
+        "selector": "body>div>div>div>div>main>section>section:nth-of-type(1)>div:nth-of-type(2)>div:nth-of-type(8)>div:nth-of-type(2)>button:nth-of-type(1)"
+      },
+      "expected": null,
+      "actual": {
+        "text": "标准 1024"
+      },
+      "threshold": null,
+      "confidence": null,
+      "evidence": {},
+      "nextAction": "将该内容登记为 exact、contains 或 mock",
+      "reason": "",
+      "firstSeenAt": null,
+      "lastSeenAt": null,
+      "resolvedAt": null
+    },
+    {
+      "id": "content-audit:content:5deb3b101399",
+      "detector": "content-audit",
+      "code": "visible-content-untracked",
+      "dimension": "content",
+      "severity": "P2",
+      "status": "open",
+      "title": "可见内容未登记: 高清 1536",
+      "target": {
+        "selector": "body>div>div>div>div>main>section>section:nth-of-type(1)>div:nth-of-type(2)>div:nth-of-type(8)>div:nth-of-type(2)>button:nth-of-type(2)"
+      },
+      "expected": null,
+      "actual": {
+        "text": "高清 1536"
+      },
+      "threshold": null,
+      "confidence": null,
+      "evidence": {},
+      "nextAction": "将该内容登记为 exact、contains 或 mock",
+      "reason": "",
+      "firstSeenAt": null,
+      "lastSeenAt": null,
+      "resolvedAt": null
+    },
+    {
+      "id": "content-audit:content:b62008a25160",
+      "detector": "content-audit",
+      "code": "visible-content-untracked",
+      "dimension": "content",
+      "severity": "P2",
+      "status": "open",
+      "title": "可见内容未登记: 超清 2048",
+      "target": {
+        "selector": "body>div>div>div>div>main>section>section:nth-of-type(1)>div:nth-of-type(2)>div:nth-of-type(8)>div:nth-of-type(2)>button:nth-of-type(3)"
+      },
+      "expected": null,
+      "actual": {
+        "text": "超清 2048"
+      },
+      "threshold": null,
+      "confidence": null,
+      "evidence": {},
+      "nextAction": "将该内容登记为 exact、contains 或 mock",
+      "reason": "",
+      "firstSeenAt": null,
+      "lastSeenAt": null,
+      "resolvedAt": null
+    },
+    {
+      "id": "content-audit:content:093c0af0d9be",
+      "detector": "content-audit",
+      "code": "visible-content-untracked",
+      "dimension": "content",
+      "severity": "P2",
+      "status": "open",
+      "title": "可见内容未登记: 开始生成",
+      "target": {
+        "selector": "body>div>div>div>div>main>section>section:nth-of-type(1)>button"
+      },
+      "expected": null,
+      "actual": {
+        "text": "开始生成"
+      },
+      "threshold": null,
+      "confidence": null,
+      "evidence": {},
+      "nextAction": "将该内容登记为 exact、contains 或 mock",
+      "reason": "",
+      "firstSeenAt": null,
+      "lastSeenAt": null,
+      "resolvedAt": null
+    },
+    {
+      "id": "content-audit:content:54a801a70b9e",
+      "detector": "content-audit",
+      "code": "visible-content-untracked",
+      "dimension": "content",
+      "severity": "P2",
+      "status": "open",
+      "title": "可见内容未登记: 创作结果",
+      "target": {
+        "selector": "body>div>div>div>div>main>section>section:nth-of-type(2)>div:nth-of-type(1)>h2"
+      },
+      "expected": null,
+      "actual": {
+        "text": "创作结果"
+      },
+      "threshold": null,
+      "confidence": null,
+      "evidence": {},
+      "nextAction": "将该内容登记为 exact、contains 或 mock",
+      "reason": "",
+      "firstSeenAt": null,
+      "lastSeenAt": null,
+      "resolvedAt": null
+    },
+    {
+      "id": "content-audit:content:0ea049047818",
+      "detector": "content-audit",
+      "code": "visible-content-untracked",
+      "dimension": "content",
+      "severity": "P2",
+      "status": "open",
+      "title": "可见内容未登记: 放大",
+      "target": {
+        "selector": "body>div>div>div>div>main>section>section:nth-of-type(2)>div:nth-of-type(1)>div>button:nth-of-type(1)"
+      },
+      "expected": null,
+      "actual": {
+        "text": "放大"
+      },
+      "threshold": null,
+      "confidence": null,
+      "evidence": {},
+      "nextAction": "将该内容登记为 exact、contains 或 mock",
+      "reason": "",
+      "firstSeenAt": null,
+      "lastSeenAt": null,
+      "resolvedAt": null
+    },
+    {
+      "id": "content-audit:content:5890d13f6b24",
+      "detector": "content-audit",
+      "code": "visible-content-untracked",
+      "dimension": "content",
+      "severity": "P2",
+      "status": "open",
+      "title": "可见内容未登记: 缩小",
+      "target": {
+        "selector": "body>div>div>div>div>main>section>section:nth-of-type(2)>div:nth-of-type(1)>div>button:nth-of-type(2)"
+      },
+      "expected": null,
+      "actual": {
+        "text": "缩小"
+      },
+      "threshold": null,
+      "confidence": null,
+      "evidence": {},
+      "nextAction": "将该内容登记为 exact、contains 或 mock",
+      "reason": "",
+      "firstSeenAt": null,
+      "lastSeenAt": null,
+      "resolvedAt": null
+    },
+    {
+      "id": "content-audit:content:b04a1caea85a",
+      "detector": "content-audit",
+      "code": "visible-content-untracked",
+      "dimension": "content",
+      "severity": "P2",
+      "status": "open",
+      "title": "可见内容未登记: 下载",
+      "target": {
+        "selector": "body>div>div>div>div>main>section>section:nth-of-type(2)>div:nth-of-type(1)>div>button:nth-of-type(3)"
+      },
+      "expected": null,
+      "actual": {
+        "text": "下载"
+      },
+      "threshold": null,
+      "confidence": null,
+      "evidence": {},
+      "nextAction": "将该内容登记为 exact、contains 或 mock",
+      "reason": "",
+      "firstSeenAt": null,
+      "lastSeenAt": null,
+      "resolvedAt": null
+    },
+    {
+      "id": "content-audit:content:b6543d6acd92",
+      "detector": "content-audit",
+      "code": "visible-content-untracked",
+      "dimension": "content",
+      "severity": "P2",
+      "status": "open",
+      "title": "可见内容未登记: 重新生成",
+      "target": {
+        "selector": "body>div>div>div>div>main>section>section:nth-of-type(2)>div:nth-of-type(1)>div>button:nth-of-type(4)"
+      },
+      "expected": null,
+      "actual": {
+        "text": "重新生成"
+      },
+      "threshold": null,
+      "confidence": null,
+      "evidence": {},
+      "nextAction": "将该内容登记为 exact、contains 或 mock",
+      "reason": "",
+      "firstSeenAt": null,
+      "lastSeenAt": null,
+      "resolvedAt": null
+    },
+    {
+      "id": "content-audit:content:66769dad09b9",
+      "detector": "content-audit",
+      "code": "visible-content-untracked",
+      "dimension": "content",
+      "severity": "P2",
+      "status": "open",
+      "title": "可见内容未登记: 加载失败： Unexpected token '<', \"<!doctype \"",
+      "target": {
+        "selector": "body>div>div>div>div>main>section>section:nth-of-type(2)>div:nth-of-type(2)>div"
+      },
+      "expected": null,
+      "actual": {
+        "text": "加载失败： Unexpected token '<', \"<!doctype \"... is not valid JSON"
+      },
+      "threshold": null,
+      "confidence": null,
+      "evidence": {},
+      "nextAction": "将该内容登记为 exact、contains 或 mock",
+      "reason": "",
+      "firstSeenAt": null,
+      "lastSeenAt": null,
+      "resolvedAt": null
+    },
+    {
+      "id": "content-audit:content:839bc9431ca9",
+      "detector": "content-audit",
+      "code": "visible-content-untracked",
+      "dimension": "content",
+      "severity": "P2",
+      "status": "open",
+      "title": "可见内容未登记: Unexpected token '<', \"<!doctype \"... is",
+      "target": {
+        "selector": "body>div>div>div>div>main>section>section:nth-of-type(2)>button"
+      },
+      "expected": null,
+      "actual": {
+        "text": "Unexpected token '<', \"<!doctype \"... is not valid JSON"
+      },
+      "threshold": null,
+      "confidence": null,
+      "evidence": {},
+      "nextAction": "将该内容登记为 exact、contains 或 mock",
+      "reason": "",
+      "firstSeenAt": null,
+      "lastSeenAt": null,
+      "resolvedAt": null
+    }
+  ]
+}

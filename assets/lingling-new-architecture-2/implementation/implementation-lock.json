@@ -1,0 +1,14 @@
+{
+  "schemaVersion": "1.0",
+  "algorithm": "sha256",
+  "digests": {
+    "input-lock.json": "b03c3ecd00c804c1fa7bd6aac91f2b431bc6c0e3a03cbdd8cfeaa9d408e51a4c",
+    "implementation-plan.json": "9537473ba19c58a66c1a1948f26dd9ccb0e3659de91a3907018dbeae2db1f96c",
+    "implementation-provenance.json": "cddbcbadbc8d75c891b5d74b2c3e8ad362e0db2e88f08928f26fb351a426112e",
+    "implementation-manifest.json": "afa634ff8725b8fa535f84b255b59a0a0e1c0df584eb64d4c2ad64c9f2e83190",
+    "integration-evidence.json": "c0dbe32c585018e3b4ae603053f5fded2ae564ab1ea0f9114c94afd00cc1ae3f",
+    "openapi.json": "92676d28fd090b880a9ed1743342020754e101093c5fd8cae55b76eda3bbc01c",
+    "startup.json": "4d3e56cca723b44d651583cf756a17c557577f07b38f1423cb1f43de51dc2681",
+    "test-report.json": "4384716c7404a3ea4e7d6003de1b2a748a57f40918ec66451b9831a495946aff"
+  }
+}

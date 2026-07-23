@@ -1,0 +1,15 @@
+{
+  "version": 3,
+  "name": "pg-1t",
+  "generatedAt": "2026-07-22T13:55:14.912Z",
+  "threshold": 0.1,
+  "width": 1536,
+  "height": 1024,
+  "pixels": 1572864,
+  "fullMismatch": 424685,
+  "fullSimilarity": 72.9993,
+  "salientPixels": 777655,
+  "salientRatio": 49.442,
+  "foregroundMismatch": 424685,
+  "foregroundSimilarity": 45.389
+}

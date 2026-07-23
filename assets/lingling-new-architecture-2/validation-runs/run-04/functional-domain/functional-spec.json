@@ -1,0 +1,741 @@
+{
+  "schemaVersion": "1.0",
+  "project": {
+    "id": "d61443-9ef2a325",
+    "name": "灵灵生图站：新架构2",
+    "brief": "主要是有四个模块，照片级Ai商品图，万物穿搭上身，营销场景设计，电商素材生成四个模块，点击对应的模块可以进入对应的页面，在对应的页面可以实现不同的生成操作",
+    "goals": [
+      "为商家提供一站式AI电商视觉生成平台，快速完成商品图、上身效果图、营销场景图和素材图制作。降低拍摄与设计成本，提升商品展示效率和营销素材产出速度。"
+    ],
+    "users": [
+      "电商商家、品牌运营和店铺美工，需高频制作商品展示图与营销素材。也适合服饰、美妆、家居等类目的中小卖家和内容投放团队使用。"
+    ],
+    "needs": [
+      "用户需要按不同业务场景快速进入对应模块，并通过简单操作生成可直接用于上架、投放和活动页的图片。用户还需要生成效果真实、风格统一、可反复调整的电商视觉素材，以减少外包和人工修图成本。"
+    ]
+  },
+  "architecture": {
+    "pageVersion": 3,
+    "systemVersion": 1
+  },
+  "domains": [
+    {
+      "id": "domain-pg-1s",
+      "name": "照片级AI商品图",
+      "purpose": "左侧是功能列表的菜单栏。宽度占屏幕10%，中间是商品套图，占屏幕的20%（组件比较多，可上下滚动），右边是创作结果，占屏幕的70%（结果展示原图、01 商拍图、02卖点海报、03 场景海报 、04细节海报等等根据数量判定（如果很多可以横向滚动），下面展示横向缩略图列表，主页面展示放大图，默认展示第一张生成的，可以放大缩小，下载，重生成）。\n\n",
+      "pageIds": [
+        "pg-1s"
+      ],
+      "entityIds": [
+        "entity-task-pg-1s",
+        "entity-result-pg-1s"
+      ],
+      "evidence": {
+        "status": "documented",
+        "sources": [
+          "page:pg-1s"
+        ]
+      }
+    },
+    {
+      "id": "domain-pg-1t",
+      "name": "万物穿搭上身",
+      "purpose": "左侧是功能列表的菜单栏。宽度占屏幕10%，中间是万物上身，占屏幕的20%（组件比较多，可上下滚动），右边是创作结果，占屏幕的70%（结果展示原图、01 上身图、02上身图、等等根据数量判定（如果很多可以横向滚动），下面展示横向缩略图列表，主页面展示放大图，默认展示第一张生成的，可以放大缩小，下载，重生成）。",
+      "pageIds": [
+        "pg-1t"
+      ],
+      "entityIds": [
+        "entity-task-pg-1t",
+        "entity-result-pg-1t"
+      ],
+      "evidence": {
+        "status": "documented",
+        "sources": [
+          "page:pg-1t"
+        ]
+      }
+    },
+    {
+      "id": "domain-pg-1u",
+      "name": "营销场景设计",
+      "purpose": "左侧是功能列表的菜单栏。宽度占屏幕10%，中间是高转化主图，占屏幕的20%（组件比较多，可上下滚动），右边是创作结果，占屏幕的70%（结果展示原图、01 转化图、02转化图、等等根据数量判定（如果很多可以横向滚动），下面展示横向缩略图列表，主页面展示放大图，默认展示第一张生成的，可以放大缩小，下载，重生成）。",
+      "pageIds": [
+        "pg-1u"
+      ],
+      "entityIds": [
+        "entity-task-pg-1u",
+        "entity-result-pg-1u"
+      ],
+      "evidence": {
+        "status": "documented",
+        "sources": [
+          "page:pg-1u"
+        ]
+      }
+    },
+    {
+      "id": "domain-pg-1v",
+      "name": "电商素材生成",
+      "purpose": "左侧是功能列表的菜单栏。宽度占屏幕10%，中间是参数板块，占屏幕的20%（组件比较多，可上下滚动），右边是创作结果，占屏幕的70%（结果展示原图、01 参数板块、02参数板块、等等根据数量判定（如果很多可以横向滚动），下面展示横向缩略图列表，主页面展示放大图，默认展示第一张生成的，可以放大缩小，下载，重生成）。",
+      "pageIds": [
+        "pg-1v"
+      ],
+      "entityIds": [
+        "entity-task-pg-1v",
+        "entity-result-pg-1v"
+      ],
+      "evidence": {
+        "status": "documented",
+        "sources": [
+          "page:pg-1v"
+        ]
+      }
+    }
+  ],
+  "entities": [
+    {
+      "id": "entity-task-pg-1s",
+      "name": "照片级AI商品图任务",
+      "domainId": "domain-pg-1s",
+      "owner": "user",
+      "lifecycle": [
+        "draft",
+        "ready",
+        "running",
+        "succeeded",
+        "failed"
+      ],
+      "sensitiveFields": [],
+      "evidence": {
+        "status": "documented",
+        "sources": [
+          "page:pg-1s"
+        ]
+      }
+    },
+    {
+      "id": "entity-result-pg-1s",
+      "name": "照片级AI商品图结果",
+      "domainId": "domain-pg-1s",
+      "owner": "user",
+      "lifecycle": [
+        "created",
+        "available",
+        "archived"
+      ],
+      "sensitiveFields": [],
+      "evidence": {
+        "status": "documented",
+        "sources": [
+          "page:pg-1s"
+        ]
+      }
+    },
+    {
+      "id": "entity-task-pg-1t",
+      "name": "万物穿搭上身任务",
+      "domainId": "domain-pg-1t",
+      "owner": "user",
+      "lifecycle": [
+        "draft",
+        "ready",
+        "running",
+        "succeeded",
+        "failed"
+      ],
+      "sensitiveFields": [],
+      "evidence": {
+        "status": "documented",
+        "sources": [
+          "page:pg-1t"
+        ]
+      }
+    },
+    {
+      "id": "entity-result-pg-1t",
+      "name": "万物穿搭上身结果",
+      "domainId": "domain-pg-1t",
+      "owner": "user",
+      "lifecycle": [
+        "created",
+        "available",
+        "archived"
+      ],
+      "sensitiveFields": [],
+      "evidence": {
+        "status": "documented",
+        "sources": [
+          "page:pg-1t"
+        ]
+      }
+    },
+    {
+      "id": "entity-task-pg-1u",
+      "name": "营销场景设计任务",
+      "domainId": "domain-pg-1u",
+      "owner": "user",
+      "lifecycle": [
+        "draft",
+        "ready",
+        "running",
+        "succeeded",
+        "failed"
+      ],
+      "sensitiveFields": [],
+      "evidence": {
+        "status": "documented",
+        "sources": [
+          "page:pg-1u"
+        ]
+      }
+    },
+    {
+      "id": "entity-result-pg-1u",
+      "name": "营销场景设计结果",
+      "domainId": "domain-pg-1u",
+      "owner": "user",
+      "lifecycle": [
+        "created",
+        "available",
+        "archived"
+      ],
+      "sensitiveFields": [],
+      "evidence": {
+        "status": "documented",
+        "sources": [
+          "page:pg-1u"
+        ]
+      }
+    },
+    {
+      "id": "entity-task-pg-1v",
+      "name": "电商素材生成任务",
+      "domainId": "domain-pg-1v",
+      "owner": "user",
+      "lifecycle": [
+        "draft",
+        "ready",
+        "running",
+        "succeeded",
+        "failed"
+      ],
+      "sensitiveFields": [],
+      "evidence": {
+        "status": "documented",
+        "sources": [
+          "page:pg-1v"
+        ]
+      }
+    },
+    {
+      "id": "entity-result-pg-1v",
+      "name": "电商素材生成结果",
+      "domainId": "domain-pg-1v",
+      "owner": "user",
+      "lifecycle": [
+        "created",
+        "available",
+        "archived"
+      ],
+      "sensitiveFields": [],
+      "evidence": {
+        "status": "documented",
+        "sources": [
+          "page:pg-1v"
+        ]
+      }
+    }
+  ],
+  "capabilities": [
+    {
+      "id": "cap-pg-1r-navigate",
+      "name": "浏览模块入口",
+      "purpose": "首页中的浏览模块入口能力",
+      "actor": "creator",
+      "pageIds": [
+        "pg-1r"
+      ],
+      "inputs": [
+        "选择目标模块"
+      ],
+      "outcomes": [
+        "进入对应业务页面"
+      ],
+      "entityEffects": [],
+      "writesState": false,
+      "ruleIds": [],
+      "failures": [
+        "目标页面不可用"
+      ],
+      "acceptanceCriteria": [
+        "用户能够完成浏览模块入口",
+        "失败时显示明确状态且不伪造成功结果"
+      ],
+      "sourceResponsibilities": [],
+      "evidence": {
+        "status": "documented",
+        "sources": [
+          "page:pg-1r"
+        ]
+      }
+    },
+    {
+      "id": "cap-pg-1s-mod-y5",
+      "name": "商品套图",
+      "purpose": "照片级AI商品图中的商品套图能力",
+      "actor": "creator",
+      "pageIds": [
+        "pg-1s"
+      ],
+      "inputs": [
+        "上传商品图（必填）",
+        "上传其他图（非必填）",
+        "商品卖点&要求（必填）",
+        "规避内容补充",
+        "创作模式",
+        "视觉风格（非必填）",
+        "生成比例（必选）",
+        "生成张数",
+        "分辨率"
+      ],
+      "outcomes": [
+        "完成商品套图并获得可查看结果"
+      ],
+      "entityEffects": [
+        {
+          "entityId": "entity-task-pg-1s",
+          "effect": "create-or-update"
+        },
+        {
+          "entityId": "entity-result-pg-1s",
+          "effect": "create-or-update"
+        }
+      ],
+      "writesState": true,
+      "ruleIds": [
+        "rule-pg-1s-required-inputs",
+        "rule-pg-1s-preserve-history"
+      ],
+      "failures": [
+        "输入无效",
+        "外部生成能力不可用",
+        "任务执行失败"
+      ],
+      "acceptanceCriteria": [
+        "用户能够完成商品套图",
+        "失败时显示明确状态且不伪造成功结果"
+      ],
+      "sourceResponsibilities": [
+        "新建任务",
+        "上传商品图（必填）",
+        "上传其他图（非必填）",
+        "商品卖点&要求（必填）",
+        "规避内容补充",
+        "创作模式",
+        "视觉风格（非必填）",
+        "生成比例（必选）",
+        "生成张数",
+        "分辨率"
+      ],
+      "evidence": {
+        "status": "documented",
+        "sources": [
+          "page:pg-1s"
+        ]
+      }
+    },
+    {
+      "id": "cap-pg-1t-mod-yo",
+      "name": "万物上身",
+      "purpose": "万物穿搭上身中的万物上身能力",
+      "actor": "creator",
+      "pageIds": [
+        "pg-1t"
+      ],
+      "inputs": [
+        "上传图（必填）",
+        "商品卖点&要求",
+        "参考模特",
+        "额外描述",
+        "生成比例（必选）",
+        "生成张数",
+        "分辨率"
+      ],
+      "outcomes": [
+        "完成万物上身并获得可查看结果"
+      ],
+      "entityEffects": [
+        {
+          "entityId": "entity-task-pg-1t",
+          "effect": "create-or-update"
+        },
+        {
+          "entityId": "entity-result-pg-1t",
+          "effect": "create-or-update"
+        }
+      ],
+      "writesState": true,
+      "ruleIds": [
+        "rule-pg-1t-required-inputs",
+        "rule-pg-1t-preserve-history"
+      ],
+      "failures": [
+        "输入无效",
+        "外部生成能力不可用",
+        "任务执行失败"
+      ],
+      "acceptanceCriteria": [
+        "用户能够完成万物上身",
+        "失败时显示明确状态且不伪造成功结果"
+      ],
+      "sourceResponsibilities": [
+        "新建任务",
+        "上传图（必填）",
+        "商品卖点&要求",
+        "参考模特",
+        "额外描述",
+        "生成比例（必选）",
+        "生成张数",
+        "分辨率"
+      ],
+      "evidence": {
+        "status": "documented",
+        "sources": [
+          "page:pg-1t"
+        ]
+      }
+    },
+    {
+      "id": "cap-pg-1u-mod-wd",
+      "name": "高转化主图",
+      "purpose": "营销场景设计中的高转化主图能力",
+      "actor": "creator",
+      "pageIds": [
+        "pg-1u"
+      ],
+      "inputs": [
+        "上传商品图（必填）",
+        "主推卖点",
+        "生成比例（必选）",
+        "生成张数",
+        "分辨率"
+      ],
+      "outcomes": [
+        "完成高转化主图并获得可查看结果"
+      ],
+      "entityEffects": [
+        {
+          "entityId": "entity-task-pg-1u",
+          "effect": "create-or-update"
+        },
+        {
+          "entityId": "entity-result-pg-1u",
+          "effect": "create-or-update"
+        }
+      ],
+      "writesState": true,
+      "ruleIds": [
+        "rule-pg-1u-required-inputs",
+        "rule-pg-1u-preserve-history"
+      ],
+      "failures": [
+        "输入无效",
+        "外部生成能力不可用",
+        "任务执行失败"
+      ],
+      "acceptanceCriteria": [
+        "用户能够完成高转化主图",
+        "失败时显示明确状态且不伪造成功结果"
+      ],
+      "sourceResponsibilities": [
+        "新建任务",
+        "上传商品图（必填）",
+        "主推卖点",
+        "生成比例（必选）",
+        "生成张数",
+        "分辨率"
+      ],
+      "evidence": {
+        "status": "documented",
+        "sources": [
+          "page:pg-1u"
+        ]
+      }
+    },
+    {
+      "id": "cap-pg-1v-mod-wz",
+      "name": "参数板块",
+      "purpose": "电商素材生成中的参数板块能力",
+      "actor": "creator",
+      "pageIds": [
+        "pg-1v"
+      ],
+      "inputs": [
+        "上传商品图（必填）",
+        "行业模板（必选）",
+        "板式",
+        "配色主题",
+        "参数项",
+        "生成比例（必选）",
+        "生成张数",
+        "分辨率"
+      ],
+      "outcomes": [
+        "完成参数板块并获得可查看结果"
+      ],
+      "entityEffects": [
+        {
+          "entityId": "entity-task-pg-1v",
+          "effect": "create-or-update"
+        },
+        {
+          "entityId": "entity-result-pg-1v",
+          "effect": "create-or-update"
+        }
+      ],
+      "writesState": true,
+      "ruleIds": [
+        "rule-pg-1v-required-inputs",
+        "rule-pg-1v-preserve-history"
+      ],
+      "failures": [
+        "输入无效",
+        "外部生成能力不可用",
+        "任务执行失败"
+      ],
+      "acceptanceCriteria": [
+        "用户能够完成参数板块",
+        "失败时显示明确状态且不伪造成功结果"
+      ],
+      "sourceResponsibilities": [
+        "新建任务",
+        "上传商品图（必填）",
+        "行业模板（必选）",
+        "板式",
+        "配色主题",
+        "参数项",
+        "生成比例（必选）",
+        "生成张数",
+        "分辨率"
+      ],
+      "evidence": {
+        "status": "documented",
+        "sources": [
+          "page:pg-1v"
+        ]
+      }
+    }
+  ],
+  "journeys": [
+    {
+      "id": "journey-pg-1s",
+      "name": "完成照片级AI商品图创作",
+      "actor": "creator",
+      "goal": "配置并完成一次照片级AI商品图任务",
+      "capabilityIds": [
+        "cap-pg-1s-mod-y5"
+      ],
+      "success": "结果可预览、下载并能追溯到本次任务配置",
+      "evidence": {
+        "status": "documented",
+        "sources": [
+          "page:pg-1s"
+        ]
+      }
+    },
+    {
+      "id": "journey-pg-1t",
+      "name": "完成万物穿搭上身创作",
+      "actor": "creator",
+      "goal": "配置并完成一次万物穿搭上身任务",
+      "capabilityIds": [
+        "cap-pg-1t-mod-yo"
+      ],
+      "success": "结果可预览、下载并能追溯到本次任务配置",
+      "evidence": {
+        "status": "documented",
+        "sources": [
+          "page:pg-1t"
+        ]
+      }
+    },
+    {
+      "id": "journey-pg-1u",
+      "name": "完成营销场景设计创作",
+      "actor": "creator",
+      "goal": "配置并完成一次营销场景设计任务",
+      "capabilityIds": [
+        "cap-pg-1u-mod-wd"
+      ],
+      "success": "结果可预览、下载并能追溯到本次任务配置",
+      "evidence": {
+        "status": "documented",
+        "sources": [
+          "page:pg-1u"
+        ]
+      }
+    },
+    {
+      "id": "journey-pg-1v",
+      "name": "完成电商素材生成创作",
+      "actor": "creator",
+      "goal": "配置并完成一次电商素材生成任务",
+      "capabilityIds": [
+        "cap-pg-1v-mod-wz"
+      ],
+      "success": "结果可预览、下载并能追溯到本次任务配置",
+      "evidence": {
+        "status": "documented",
+        "sources": [
+          "page:pg-1v"
+        ]
+      }
+    }
+  ],
+  "rules": [
+    {
+      "id": "rule-pg-1s-required-inputs",
+      "statement": "页面架构标为必填或必选的输入完成后才能提交生成任务",
+      "appliesTo": [
+        "cap-pg-1s-mod-y5"
+      ],
+      "evidence": {
+        "status": "documented",
+        "sources": [
+          "page:pg-1s"
+        ]
+      }
+    },
+    {
+      "id": "rule-pg-1s-preserve-history",
+      "statement": "重新生成创建新任务和新结果，不覆盖“我的生成记录”中的历史结果",
+      "appliesTo": [
+        "cap-pg-1s-mod-y5"
+      ],
+      "evidence": {
+        "status": "documented",
+        "sources": [
+          "page:pg-1s"
+        ]
+      }
+    },
+    {
+      "id": "rule-pg-1t-required-inputs",
+      "statement": "页面架构标为必填或必选的输入完成后才能提交生成任务",
+      "appliesTo": [
+        "cap-pg-1t-mod-yo"
+      ],
+      "evidence": {
+        "status": "documented",
+        "sources": [
+          "page:pg-1t"
+        ]
+      }
+    },
+    {
+      "id": "rule-pg-1t-preserve-history",
+      "statement": "重新生成创建新任务和新结果，不覆盖“我的生成记录”中的历史结果",
+      "appliesTo": [
+        "cap-pg-1t-mod-yo"
+      ],
+      "evidence": {
+        "status": "documented",
+        "sources": [
+          "page:pg-1t"
+        ]
+      }
+    },
+    {
+      "id": "rule-pg-1u-required-inputs",
+      "statement": "页面架构标为必填或必选的输入完成后才能提交生成任务",
+      "appliesTo": [
+        "cap-pg-1u-mod-wd"
+      ],
+      "evidence": {
+        "status": "documented",
+        "sources": [
+          "page:pg-1u"
+        ]
+      }
+    },
+    {
+      "id": "rule-pg-1u-preserve-history",
+      "statement": "重新生成创建新任务和新结果，不覆盖“我的生成记录”中的历史结果",
+      "appliesTo": [
+        "cap-pg-1u-mod-wd"
+      ],
+      "evidence": {
+        "status": "documented",
+        "sources": [
+          "page:pg-1u"
+        ]
+      }
+    },
+    {
+      "id": "rule-pg-1v-required-inputs",
+      "statement": "页面架构标为必填或必选的输入完成后才能提交生成任务",
+      "appliesTo": [
+        "cap-pg-1v-mod-wz"
+      ],
+      "evidence": {
+        "status": "documented",
+        "sources": [
+          "page:pg-1v"
+        ]
+      }
+    },
+    {
+      "id": "rule-pg-1v-preserve-history",
+      "statement": "重新生成创建新任务和新结果，不覆盖“我的生成记录”中的历史结果",
+      "appliesTo": [
+        "cap-pg-1v-mod-wz"
+      ],
+      "evidence": {
+        "status": "documented",
+        "sources": [
+          "page:pg-1v"
+        ]
+      }
+    }
+  ],
+  "permissions": [
+    {
+      "id": "permission-creator-own-resources",
+      "actor": "creator",
+      "actions": [
+        "create",
+        "read",
+        "regenerate",
+        "download"
+      ],
+      "resource": "owned-generation-resources",
+      "decision": "allow",
+      "evidence": {
+        "status": "documented",
+        "sources": [
+          "product-context:users"
+        ]
+      }
+    }
+  ],
+  "integrations": [
+    {
+      "id": "integration-image-generation",
+      "capability": "image-generation-provider",
+      "adapterContract": "OpenAI-compatible image generation adapter",
+      "requiredConfig": [
+        "OPENAI_BASE_URL",
+        "OPENAI_API_KEY",
+        "OPENAI_IMAGE_MODEL"
+      ],
+      "timeoutPolicy": "bounded",
+      "failureBehavior": "return explicit unavailable or failed state; never fabricate a successful result",
+      "evidence": {
+        "status": "documented",
+        "sources": [
+          "product-context:brief"
+        ]
+      }
+    }
+  ]
+}

@@ -1,0 +1,18 @@
+$ npm run build
+
+> lingling-image-site-backend@0.1.0 build
+> npm --prefix web run build
+
+
+> lingling-image-site-frontend@0.1.0 build
+> vite build
+
+vite v8.1.5 building client environment for production...
+[2Ktransforming...✓ 1574 modules transformed.
+rendering chunks...
+computing gzip size...
+dist/index.html                   0.40 kB │ gzip:   0.29 kB
+dist/assets/index-B3Iw_OXA.css   26.67 kB │ gzip:   6.49 kB
+dist/assets/index-JOBols5N.js   395.67 kB │ gzip: 118.78 kB
+
+✓ built in 78ms

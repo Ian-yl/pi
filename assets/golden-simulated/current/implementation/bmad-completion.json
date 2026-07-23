@@ -1,0 +1,411 @@
+{
+  "schemaVersion": "1.0",
+  "status": "completed",
+  "records": [
+    {
+      "unitId": "persistence-entity-submission",
+      "storyId": "1.1",
+      "storyDigest": "59cd1e039f09066b71feb2237e80e4ac3f7b9b579333fe5fe73dad929cbcf724",
+      "devStory": {
+        "status": "completed",
+        "agentId": "golden-dev",
+        "completedAt": "2026-07-23T10:29:03.119Z"
+      },
+      "codeReview": {
+        "status": "approved",
+        "reviewerAgentId": "golden-reviewer",
+        "reviewedAt": "2026-07-23T10:29:03.120Z"
+      }
+    },
+    {
+      "unitId": "persistence-entity-submission-event",
+      "storyId": "1.2",
+      "storyDigest": "b175ae124cba0ce504703fe532e753513b72c8ce092756bd71f61d7342fa91ec",
+      "devStory": {
+        "status": "completed",
+        "agentId": "golden-dev",
+        "completedAt": "2026-07-23T10:29:03.120Z"
+      },
+      "codeReview": {
+        "status": "approved",
+        "reviewerAgentId": "golden-reviewer",
+        "reviewedAt": "2026-07-23T10:29:03.120Z"
+      }
+    },
+    {
+      "unitId": "relationship-relation-submission-events",
+      "storyId": "1.3",
+      "storyDigest": "7c7c051287bd949b89ff88eeecef9c9d3d8ab39ac31ac60fb290776c1a55a90e",
+      "devStory": {
+        "status": "completed",
+        "agentId": "golden-dev",
+        "completedAt": "2026-07-23T10:29:03.120Z"
+      },
+      "codeReview": {
+        "status": "approved",
+        "reviewerAgentId": "golden-reviewer",
+        "reviewedAt": "2026-07-23T10:29:03.120Z"
+      }
+    },
+    {
+      "unitId": "consistency-boundary-submission",
+      "storyId": "1.4",
+      "storyDigest": "1a5a92333d5c8404bd89c49cf1ef28a7a79923034ccae18fc570eb9c1b91f7c0",
+      "devStory": {
+        "status": "completed",
+        "agentId": "golden-dev",
+        "completedAt": "2026-07-23T10:29:03.120Z"
+      },
+      "codeReview": {
+        "status": "approved",
+        "reviewerAgentId": "golden-reviewer",
+        "reviewedAt": "2026-07-23T10:29:03.120Z"
+      }
+    },
+    {
+      "unitId": "capability-cap-sample",
+      "storyId": "1.5",
+      "storyDigest": "bd9373b65873cd5dc7ddee8704514bfd112d2cf19e5a17bde4afe1de48bfd97d",
+      "devStory": {
+        "status": "completed",
+        "agentId": "golden-dev",
+        "completedAt": "2026-07-23T10:29:03.120Z"
+      },
+      "codeReview": {
+        "status": "approved",
+        "reviewerAgentId": "golden-reviewer",
+        "reviewedAt": "2026-07-23T10:29:03.120Z"
+      }
+    },
+    {
+      "unitId": "capability-cap-suite-sample-detail",
+      "storyId": "1.6",
+      "storyDigest": "32f5c4546db4f467ca99ce83118233b8a7a045891ad5f1db9e756149a5b96f02",
+      "devStory": {
+        "status": "completed",
+        "agentId": "golden-dev",
+        "completedAt": "2026-07-23T10:29:03.120Z"
+      },
+      "codeReview": {
+        "status": "approved",
+        "reviewerAgentId": "golden-reviewer",
+        "reviewedAt": "2026-07-23T10:29:03.120Z"
+      }
+    },
+    {
+      "unitId": "capability-cap-sample-local-navigation",
+      "storyId": "1.7",
+      "storyDigest": "8dd56260c48104faf3e59fdd4eeb21c9635abb4da0e68d02bdbb4bce2cf6641d",
+      "devStory": {
+        "status": "completed",
+        "agentId": "golden-dev",
+        "completedAt": "2026-07-23T10:29:03.120Z"
+      },
+      "codeReview": {
+        "status": "approved",
+        "reviewerAgentId": "golden-reviewer",
+        "reviewedAt": "2026-07-23T10:29:03.120Z"
+      }
+    },
+    {
+      "unitId": "capability-cap-sample-display-result",
+      "storyId": "1.8",
+      "storyDigest": "02d288f2e775cb3f6a018ab632db7edbe361a8be80950545a546a1c2a568b23f",
+      "devStory": {
+        "status": "completed",
+        "agentId": "golden-dev",
+        "completedAt": "2026-07-23T10:29:03.120Z"
+      },
+      "codeReview": {
+        "status": "approved",
+        "reviewerAgentId": "golden-reviewer",
+        "reviewedAt": "2026-07-23T10:29:03.120Z"
+      }
+    },
+    {
+      "unitId": "presentation-cap-sample",
+      "storyId": "1.9",
+      "storyDigest": "53453bd0aca6af5f532654ac1997cbcd8e7d2b6f25b20ec9838e9a68f6271d40",
+      "devStory": {
+        "status": "completed",
+        "agentId": "golden-dev",
+        "completedAt": "2026-07-23T10:29:03.120Z"
+      },
+      "codeReview": {
+        "status": "approved",
+        "reviewerAgentId": "golden-reviewer",
+        "reviewedAt": "2026-07-23T10:29:03.120Z"
+      }
+    },
+    {
+      "unitId": "interaction-cap-sample",
+      "storyId": "1.10",
+      "storyDigest": "62dbb9e37206edf5abb1eb1823edd7b867a3af48206e9d5468a177758de038c8",
+      "devStory": {
+        "status": "completed",
+        "agentId": "golden-dev",
+        "completedAt": "2026-07-23T10:29:03.121Z"
+      },
+      "codeReview": {
+        "status": "approved",
+        "reviewerAgentId": "golden-reviewer",
+        "reviewedAt": "2026-07-23T10:29:03.121Z"
+      }
+    },
+    {
+      "unitId": "frontend-state-cap-sample",
+      "storyId": "1.11",
+      "storyDigest": "87dcd253ae55bc89e78d95d915e5b33b39d2c25bfee3a47e807e64d0b9aa6e5e",
+      "devStory": {
+        "status": "completed",
+        "agentId": "golden-dev",
+        "completedAt": "2026-07-23T10:29:03.121Z"
+      },
+      "codeReview": {
+        "status": "approved",
+        "reviewerAgentId": "golden-reviewer",
+        "reviewedAt": "2026-07-23T10:29:03.121Z"
+      }
+    },
+    {
+      "unitId": "frontend-data-cap-sample",
+      "storyId": "1.12",
+      "storyDigest": "f9e940fee3660d3c470e8bf7e7ea4cb8fd21bfb80b8283dcd988a6312b93e258",
+      "devStory": {
+        "status": "completed",
+        "agentId": "golden-dev",
+        "completedAt": "2026-07-23T10:29:03.121Z"
+      },
+      "codeReview": {
+        "status": "approved",
+        "reviewerAgentId": "golden-reviewer",
+        "reviewedAt": "2026-07-23T10:29:03.121Z"
+      }
+    },
+    {
+      "unitId": "presentation-cap-suite-sample-detail",
+      "storyId": "1.13",
+      "storyDigest": "98da0c6a6d80e852344f0572dcde983e45304f0270c5ffcac328895dd66b81b2",
+      "devStory": {
+        "status": "completed",
+        "agentId": "golden-dev",
+        "completedAt": "2026-07-23T10:29:03.121Z"
+      },
+      "codeReview": {
+        "status": "approved",
+        "reviewerAgentId": "golden-reviewer",
+        "reviewedAt": "2026-07-23T10:29:03.121Z"
+      }
+    },
+    {
+      "unitId": "interaction-cap-suite-sample-detail",
+      "storyId": "1.14",
+      "storyDigest": "4b93c61411afd9dde82708c3543f159c3c6f2b0fd58e50f7f943530f789428a8",
+      "devStory": {
+        "status": "completed",
+        "agentId": "golden-dev",
+        "completedAt": "2026-07-23T10:29:03.121Z"
+      },
+      "codeReview": {
+        "status": "approved",
+        "reviewerAgentId": "golden-reviewer",
+        "reviewedAt": "2026-07-23T10:29:03.121Z"
+      }
+    },
+    {
+      "unitId": "frontend-state-cap-suite-sample-detail",
+      "storyId": "1.15",
+      "storyDigest": "2905bd5dd79a8c04084fc9228fcc7ff60b1248aced469b9a93f1e5680a36cbea",
+      "devStory": {
+        "status": "completed",
+        "agentId": "golden-dev",
+        "completedAt": "2026-07-23T10:29:03.121Z"
+      },
+      "codeReview": {
+        "status": "approved",
+        "reviewerAgentId": "golden-reviewer",
+        "reviewedAt": "2026-07-23T10:29:03.121Z"
+      }
+    },
+    {
+      "unitId": "frontend-data-cap-suite-sample-detail",
+      "storyId": "1.16",
+      "storyDigest": "ac76f59933df86595e351c25593f3c2f486e295a0dd9781208229713f893a9d2",
+      "devStory": {
+        "status": "completed",
+        "agentId": "golden-dev",
+        "completedAt": "2026-07-23T10:29:03.121Z"
+      },
+      "codeReview": {
+        "status": "approved",
+        "reviewerAgentId": "golden-reviewer",
+        "reviewedAt": "2026-07-23T10:29:03.121Z"
+      }
+    },
+    {
+      "unitId": "presentation-cap-sample-local-navigation",
+      "storyId": "1.17",
+      "storyDigest": "95856796f02198c023afdd4fb1e0133f96223ba60f958937783f75bac33ad008",
+      "devStory": {
+        "status": "completed",
+        "agentId": "golden-dev",
+        "completedAt": "2026-07-23T10:29:03.121Z"
+      },
+      "codeReview": {
+        "status": "approved",
+        "reviewerAgentId": "golden-reviewer",
+        "reviewedAt": "2026-07-23T10:29:03.121Z"
+      }
+    },
+    {
+      "unitId": "interaction-cap-sample-local-navigation",
+      "storyId": "1.18",
+      "storyDigest": "f9a5daf12c7b5ef191ff510865f034e4d5e4b00ccacabb036c3235b5280e8250",
+      "devStory": {
+        "status": "completed",
+        "agentId": "golden-dev",
+        "completedAt": "2026-07-23T10:29:03.121Z"
+      },
+      "codeReview": {
+        "status": "approved",
+        "reviewerAgentId": "golden-reviewer",
+        "reviewedAt": "2026-07-23T10:29:03.121Z"
+      }
+    },
+    {
+      "unitId": "frontend-state-cap-sample-local-navigation",
+      "storyId": "1.19",
+      "storyDigest": "b5af4443eb09b72d8bc7edd09814fdc13eddba265a999930be07365661e6fb6d",
+      "devStory": {
+        "status": "completed",
+        "agentId": "golden-dev",
+        "completedAt": "2026-07-23T10:29:03.121Z"
+      },
+      "codeReview": {
+        "status": "approved",
+        "reviewerAgentId": "golden-reviewer",
+        "reviewedAt": "2026-07-23T10:29:03.121Z"
+      }
+    },
+    {
+      "unitId": "frontend-data-cap-sample-local-navigation",
+      "storyId": "1.20",
+      "storyDigest": "611e49291964f41fe47740ff02fd63d19fdf1fe3aee2491ae87a671ed18a5284",
+      "devStory": {
+        "status": "completed",
+        "agentId": "golden-dev",
+        "completedAt": "2026-07-23T10:29:03.121Z"
+      },
+      "codeReview": {
+        "status": "approved",
+        "reviewerAgentId": "golden-reviewer",
+        "reviewedAt": "2026-07-23T10:29:03.121Z"
+      }
+    },
+    {
+      "unitId": "presentation-cap-sample-display-result",
+      "storyId": "1.21",
+      "storyDigest": "6274367e816b265cec7b377a4f3d39c3cba507d64b0cd01b7469611584692d6b",
+      "devStory": {
+        "status": "completed",
+        "agentId": "golden-dev",
+        "completedAt": "2026-07-23T10:29:03.121Z"
+      },
+      "codeReview": {
+        "status": "approved",
+        "reviewerAgentId": "golden-reviewer",
+        "reviewedAt": "2026-07-23T10:29:03.121Z"
+      }
+    },
+    {
+      "unitId": "interaction-cap-sample-display-result",
+      "storyId": "1.22",
+      "storyDigest": "e9e788127f68fc5ed41b0f258be265bb19fc1a35486d4b369918ccfbf202d7ec",
+      "devStory": {
+        "status": "completed",
+        "agentId": "golden-dev",
+        "completedAt": "2026-07-23T10:29:03.121Z"
+      },
+      "codeReview": {
+        "status": "approved",
+        "reviewerAgentId": "golden-reviewer",
+        "reviewedAt": "2026-07-23T10:29:03.121Z"
+      }
+    },
+    {
+      "unitId": "frontend-state-cap-sample-display-result",
+      "storyId": "1.23",
+      "storyDigest": "045cad94103c1483109867d73d6efe2ad6fd853886a0a2c8bd233ae1aedd27f4",
+      "devStory": {
+        "status": "completed",
+        "agentId": "golden-dev",
+        "completedAt": "2026-07-23T10:29:03.122Z"
+      },
+      "codeReview": {
+        "status": "approved",
+        "reviewerAgentId": "golden-reviewer",
+        "reviewedAt": "2026-07-23T10:29:03.122Z"
+      }
+    },
+    {
+      "unitId": "frontend-data-cap-sample-display-result",
+      "storyId": "1.24",
+      "storyDigest": "cacb3eaf8746541e3f89ae4126ec597d4d89782b595cc31cbdd46f81bf5b902d",
+      "devStory": {
+        "status": "completed",
+        "agentId": "golden-dev",
+        "completedAt": "2026-07-23T10:29:03.122Z"
+      },
+      "codeReview": {
+        "status": "approved",
+        "reviewerAgentId": "golden-reviewer",
+        "reviewedAt": "2026-07-23T10:29:03.122Z"
+      }
+    },
+    {
+      "unitId": "operation-submit-sample",
+      "storyId": "1.25",
+      "storyDigest": "00a6e2c3f17b3d1b4e1f6c35e0d39408049b09ef7d8d3d3ceadf8f91306601c2",
+      "devStory": {
+        "status": "completed",
+        "agentId": "golden-dev",
+        "completedAt": "2026-07-23T10:29:03.122Z"
+      },
+      "codeReview": {
+        "status": "approved",
+        "reviewerAgentId": "golden-reviewer",
+        "reviewedAt": "2026-07-23T10:29:03.122Z"
+      }
+    },
+    {
+      "unitId": "operation-submit-suite-sample-detail",
+      "storyId": "1.26",
+      "storyDigest": "403a5b08c59be4de7eb4b90aeda282b292c6629412f34c1f04926a0cd07e6634",
+      "devStory": {
+        "status": "completed",
+        "agentId": "golden-dev",
+        "completedAt": "2026-07-23T10:29:03.122Z"
+      },
+      "codeReview": {
+        "status": "approved",
+        "reviewerAgentId": "golden-reviewer",
+        "reviewedAt": "2026-07-23T10:29:03.122Z"
+      }
+    },
+    {
+      "unitId": "operation-query-sample-result",
+      "storyId": "1.27",
+      "storyDigest": "932bacf2a90eac3ffcc0345f1008103a17b2c853b17157c4f0cbb22954a68d6b",
+      "devStory": {
+        "status": "completed",
+        "agentId": "golden-dev",
+        "completedAt": "2026-07-23T10:29:03.122Z"
+      },
+      "codeReview": {
+        "status": "approved",
+        "reviewerAgentId": "golden-reviewer",
+        "reviewedAt": "2026-07-23T10:29:03.122Z"
+      }
+    }
+  ]
+}

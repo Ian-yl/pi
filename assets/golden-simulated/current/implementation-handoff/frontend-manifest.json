@@ -1,0 +1,15 @@
+{
+  "schemaVersion": "1.0",
+  "status": "visual-baseline",
+  "pages": {
+    "sample": {
+      "route": "/pages/sample/index.html",
+      "status": "baseline"
+    },
+    "suite-sample-detail": {
+      "route": "/pages/suite-sample-detail/index.html",
+      "status": "baseline"
+    }
+  },
+  "sourceTreeDigest": "16e5eb18b42eec93296360758916dd1198067dbb12995c2a0d7f159e5e31253c"
+}

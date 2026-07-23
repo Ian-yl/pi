@@ -1,0 +1,104 @@
+{
+  "schemaVersion": "1.0",
+  "suiteId": "sample-suite",
+  "runId": "fixture-green-003",
+  "pass": true,
+  "checks": [
+    {
+      "id": "manifest",
+      "required": true,
+      "status": "pass"
+    },
+    {
+      "id": "snapshot",
+      "required": true,
+      "status": "pass"
+    },
+    {
+      "id": "snapshot:fresh",
+      "required": true,
+      "status": "pass"
+    },
+    {
+      "id": "manifest:snapshot-digest",
+      "required": true,
+      "status": "pass"
+    },
+    {
+      "id": "exemplar",
+      "required": true,
+      "status": "pass"
+    },
+    {
+      "id": "page:sample:coverage",
+      "required": true,
+      "status": "pass"
+    },
+    {
+      "id": "page:sample:input-digest",
+      "required": true,
+      "status": "pass"
+    },
+    {
+      "id": "page:sample:fresh",
+      "required": true,
+      "status": "pass"
+    },
+    {
+      "id": "page:sample:gate",
+      "required": true,
+      "status": "pass"
+    },
+    {
+      "id": "page:suite-sample-detail:coverage",
+      "required": true,
+      "status": "pass"
+    },
+    {
+      "id": "page:suite-sample-detail:input-digest",
+      "required": true,
+      "status": "pass"
+    },
+    {
+      "id": "page:suite-sample-detail:fresh",
+      "required": true,
+      "status": "pass"
+    },
+    {
+      "id": "page:suite-sample-detail:gate",
+      "required": true,
+      "status": "pass"
+    },
+    {
+      "id": "component:welcome-title",
+      "required": true,
+      "status": "pass"
+    },
+    {
+      "id": "region:full-canvas",
+      "required": true,
+      "status": "pass"
+    },
+    {
+      "id": "tokens",
+      "required": true,
+      "status": "pass"
+    },
+    {
+      "id": "findings:blocking",
+      "required": true,
+      "status": "pass"
+    }
+  ],
+  "errors": [],
+  "warnings": [],
+  "blockingFindingIds": [],
+  "summary": {
+    "requiredPages": 2,
+    "passedRequiredPages": 2,
+    "optionalPages": 0,
+    "blockingFindings": 0,
+    "warnings": 0
+  },
+  "gateDigest": "559bd734510502c0a65be863344cad94db48f091468b2d7eeea10babc3fb7962"
+}

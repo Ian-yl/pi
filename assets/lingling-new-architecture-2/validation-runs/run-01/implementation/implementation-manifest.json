@@ -1,0 +1,186 @@
+{
+  "schemaVersion": "1.0",
+  "projectId": "d61443-9ef2a325",
+  "status": "succeeded",
+  "units": [
+    {
+      "id": "persistence-entity-task-pg-1s",
+      "status": "succeeded",
+      "testIds": [
+        "backend-contract-tests"
+      ]
+    },
+    {
+      "id": "persistence-entity-result-pg-1s",
+      "status": "succeeded",
+      "testIds": [
+        "backend-contract-tests"
+      ]
+    },
+    {
+      "id": "persistence-entity-task-pg-1t",
+      "status": "succeeded",
+      "testIds": [
+        "backend-contract-tests"
+      ]
+    },
+    {
+      "id": "persistence-entity-result-pg-1t",
+      "status": "succeeded",
+      "testIds": [
+        "backend-contract-tests"
+      ]
+    },
+    {
+      "id": "persistence-entity-task-pg-1u",
+      "status": "succeeded",
+      "testIds": [
+        "backend-contract-tests"
+      ]
+    },
+    {
+      "id": "persistence-entity-result-pg-1u",
+      "status": "succeeded",
+      "testIds": [
+        "backend-contract-tests"
+      ]
+    },
+    {
+      "id": "persistence-entity-task-pg-1v",
+      "status": "succeeded",
+      "testIds": [
+        "backend-contract-tests"
+      ]
+    },
+    {
+      "id": "persistence-entity-result-pg-1v",
+      "status": "succeeded",
+      "testIds": [
+        "backend-contract-tests"
+      ]
+    },
+    {
+      "id": "operation-bootstrap-home",
+      "status": "succeeded",
+      "testIds": [
+        "backend-contract-tests"
+      ]
+    },
+    {
+      "id": "operation-bootstrap-product",
+      "status": "succeeded",
+      "testIds": [
+        "backend-contract-tests"
+      ]
+    },
+    {
+      "id": "operation-bootstrap-try-on",
+      "status": "succeeded",
+      "testIds": [
+        "backend-contract-tests"
+      ]
+    },
+    {
+      "id": "operation-bootstrap-marketing",
+      "status": "succeeded",
+      "testIds": [
+        "backend-contract-tests"
+      ]
+    },
+    {
+      "id": "operation-bootstrap-commerce",
+      "status": "succeeded",
+      "testIds": [
+        "backend-contract-tests"
+      ]
+    },
+    {
+      "id": "operation-assist-product-copy",
+      "status": "succeeded",
+      "testIds": [
+        "backend-contract-tests"
+      ]
+    },
+    {
+      "id": "operation-assist-try-on-copy",
+      "status": "succeeded",
+      "testIds": [
+        "backend-contract-tests"
+      ]
+    },
+    {
+      "id": "operation-match-reference-model",
+      "status": "succeeded",
+      "testIds": [
+        "backend-contract-tests"
+      ]
+    },
+    {
+      "id": "operation-create-product-suite",
+      "status": "succeeded",
+      "testIds": [
+        "backend-contract-tests"
+      ]
+    },
+    {
+      "id": "operation-create-try-on",
+      "status": "succeeded",
+      "testIds": [
+        "backend-contract-tests"
+      ]
+    },
+    {
+      "id": "operation-create-marketing-scene",
+      "status": "succeeded",
+      "testIds": [
+        "backend-contract-tests"
+      ]
+    },
+    {
+      "id": "operation-create-commerce-assets",
+      "status": "succeeded",
+      "testIds": [
+        "backend-contract-tests"
+      ]
+    },
+    {
+      "id": "operation-generation-history",
+      "status": "succeeded",
+      "testIds": [
+        "backend-contract-tests"
+      ]
+    },
+    {
+      "id": "journey-journey-pg-1s",
+      "status": "succeeded",
+      "testIds": [
+        "backend-contract-tests",
+        "frontend-production-build"
+      ]
+    },
+    {
+      "id": "journey-journey-pg-1t",
+      "status": "succeeded",
+      "testIds": [
+        "backend-contract-tests",
+        "frontend-production-build"
+      ]
+    },
+    {
+      "id": "journey-journey-pg-1u",
+      "status": "succeeded",
+      "testIds": [
+        "backend-contract-tests",
+        "frontend-production-build"
+      ]
+    },
+    {
+      "id": "journey-journey-pg-1v",
+      "status": "succeeded",
+      "testIds": [
+        "backend-contract-tests",
+        "frontend-production-build"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,130 @@
+{
+  "version": 3,
+  "schemaVersion": "3.2",
+  "name": "pg-1t",
+  "source": "designs/pg-1t.png",
+  "platform": "web-desktop",
+  "viewport": {
+    "width": 1536,
+    "height": 1024,
+    "dpr": 1
+  },
+  "responsiveAudit": {
+    "enabled": true,
+    "mode": "desktop",
+    "profiles": "auto",
+    "rules": {
+      "maxHorizontalOverflow": 1,
+      "maxViewportDrift": 1,
+      "minTouchTarget": 0,
+      "minInlineTarget": 0,
+      "minInputFontSize": 0,
+      "requireSemanticControls": true,
+      "safeArea": "off"
+    }
+  },
+  "capture": {
+    "adapter": "external",
+    "url": "http://127.0.0.1:4917/try-on",
+    "readyUrl": "http://127.0.0.1:4917/",
+    "startCommand": "npm --prefix web run dev -- --host 127.0.0.1 --port 4917",
+    "cwd": ".",
+    "watch": [
+      "web/src",
+      "web/index.html"
+    ],
+    "fullPage": false,
+    "timeoutMs": 60000
+  },
+  "quality": {
+    "target": "png",
+    "thresholds": {
+      "pngSimilarity": 70,
+      "jpegSimilarity": 95,
+      "fullSimilarity": 70,
+      "foregroundSimilarity": 65,
+      "minRegionSimilarity": 70,
+      "maxStructureDx": 2,
+      "maxStructureDy": 1.5,
+      "maxColorDeltaE": 3,
+      "maxFontDiff": 1.2,
+      "maxRegression": 0.2
+    }
+  },
+  "convergence": {
+    "maxRounds": 12,
+    "plateauRounds": 3,
+    "plateauEpsilonPp": 0.1
+  },
+  "regions": [
+    {
+      "name": "Viewport",
+      "x": 0,
+      "y": 0,
+      "width": 1536,
+      "height": 1024,
+      "required": true,
+      "minSimilarity": 70
+    }
+  ],
+  "auditPolicy": {
+    "scope": "all-visible-elements",
+    "dimensions": [
+      "geometry",
+      "typography",
+      "textColor",
+      "backgroundColor",
+      "border",
+      "radius",
+      "shadow",
+      "opacity",
+      "asset",
+      "content",
+      "responsive",
+      "interaction",
+      "semantics"
+    ],
+    "silentOmission": false,
+    "skippedRequiresReason": true,
+    "lowClarityTextRule": "render-clear-text-or-semantic-mock-no-blur",
+    "assetRule": "mask-first-clean-assets-no-ui-ghosts",
+    "contentRequired": true,
+    "contentScope": "all-visible",
+    "assetRequired": false,
+    "responsiveRequired": true,
+    "strictSkipped": false
+  },
+  "artifacts": {
+    "required": [
+      "output/pg-1t/design.png",
+      "output/pg-1t/actual.png",
+      "output/pg-1t/diff.png",
+      "output/pg-1t/delta.png",
+      "output/pg-1t/foreground-score.json",
+      "output/pg-1t/diff-components.json",
+      "output/pg-1t/region-score.json",
+      "output/pg-1t/structure-audit.json",
+      "output/pg-1t/visual-inventory.json",
+      "output/pg-1t/color-audit.json",
+      "output/pg-1t/font-audit.json",
+      "output/pg-1t/full-audit.json",
+      "output/pg-1t/content-audit.json",
+      "output/pg-1t/findings.json",
+      "output/pg-1t/audit-ledger.json",
+      "output/pg-1t/run-manifest.json",
+      "output/pg-1t/responsive-audit.json"
+    ],
+    "optional": [
+      "pages/pg-1t/asset-plan.json",
+      "output/pg-1t/assets/asset-report.json",
+      "output/pg-1t/assets/edge-audit.json"
+    ]
+  },
+  "notes": [
+    "Every visible DOM element must appear in visual-inventory.json.",
+    "Every audit dimension must be measured, pending, failed, or skipped with a reason.",
+    "Blur in the input screenshot is not a frontend blur requirement.",
+    "Mobile plans compare pixels only at the reference viewport and audit invariant robustness elsewhere.",
+    "Desktop plans must render a fluid application shell: the reference viewport is a comparison baseline, not a fixed production canvas."
+  ]
+}

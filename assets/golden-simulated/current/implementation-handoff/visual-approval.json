@@ -1,0 +1,13 @@
+{
+  "schemaVersion": "1.0",
+  "suiteId": "sample-suite",
+  "runId": "fixture-green-003",
+  "suiteResultDigest": "843a1541f8b1517dd996580cb467fa1534df8a320ce059e097910f01d92cb957",
+  "inputSnapshotDigest": "739f564df3793ca960a49122e6d017347589561afb071aeab4eb15f972e4b529",
+  "evidenceManifestDigest": "55346fbfb041a6fc671a94b7bfeff6f74cc57782101d5e4045b3eb599b0eca1c",
+  "gateDigest": "559bd734510502c0a65be863344cad94db48f091468b2d7eeea10babc3fb7962",
+  "approver": "local-suite-review",
+  "reason": "Independent-two-page-Suite-audit-Gate-recomputation-consistency-token-and-evidence-checks-passed",
+  "approvedAt": "2026-07-10T14:33:50.607Z",
+  "approvalDigest": "f317433e0e4461ebb5edd9e745f13f37c2792514229b0d034a057eb7aa57a0be"
+}

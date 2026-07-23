@@ -1,0 +1,162 @@
+{
+  "schemaVersion": "1.0",
+  "operations": [
+    {
+      "id": "submit-sample",
+      "method": "POST",
+      "path": "/api/forms/sample",
+      "request": {
+        "body": [
+          "email",
+          "password"
+        ],
+        "contentType": "application/json",
+        "bodySchema": {
+          "type": "object",
+          "required": [
+            "email",
+            "password"
+          ],
+          "properties": {
+            "email": {
+              "type": "string"
+            },
+            "password": {
+              "type": "string"
+            }
+          }
+        }
+      },
+      "response": {
+        "fields": [
+          "ok"
+        ],
+        "bodySchema": {
+          "type": "object",
+          "required": [
+            "ok"
+          ],
+          "properties": {
+            "ok": {
+              "type": "string"
+            }
+          }
+        }
+      },
+      "effects": [
+        {
+          "entityId": "entity-submission",
+          "effect": "create"
+        }
+      ],
+      "errors": [
+        "INVALID_INPUT"
+      ],
+      "capabilityId": "cap-sample",
+      "ruleIds": []
+    },
+    {
+      "id": "submit-suite-sample-detail",
+      "method": "POST",
+      "path": "/api/forms/suite-sample-detail",
+      "request": {
+        "body": [
+          "email",
+          "password"
+        ],
+        "contentType": "application/json",
+        "bodySchema": {
+          "type": "object",
+          "required": [
+            "email",
+            "password"
+          ],
+          "properties": {
+            "email": {
+              "type": "string"
+            },
+            "password": {
+              "type": "string"
+            }
+          }
+        }
+      },
+      "response": {
+        "fields": [
+          "ok"
+        ],
+        "bodySchema": {
+          "type": "object",
+          "required": [
+            "ok"
+          ],
+          "properties": {
+            "ok": {
+              "type": "string"
+            }
+          }
+        }
+      },
+      "effects": [
+        {
+          "entityId": "entity-submission",
+          "effect": "create"
+        }
+      ],
+      "errors": [
+        "INVALID_INPUT"
+      ],
+      "capabilityId": "cap-suite-sample-detail",
+      "ruleIds": []
+    },
+    {
+      "id": "query-sample-result",
+      "method": "GET",
+      "path": "/api/forms/sample/results/{resultId}",
+      "request": {
+        "path": [
+          "resultId"
+        ],
+        "contentType": "application/json",
+        "pathSchema": {
+          "type": "object",
+          "required": [
+            "resultId"
+          ],
+          "properties": {
+            "resultId": {
+              "type": "string"
+            }
+          }
+        }
+      },
+      "response": {
+        "fields": [
+          "resultId",
+          "status"
+        ],
+        "bodySchema": {
+          "type": "object",
+          "required": [
+            "resultId",
+            "status"
+          ],
+          "properties": {
+            "resultId": {
+              "type": "string"
+            },
+            "status": {
+              "type": "string"
+            }
+          }
+        }
+      },
+      "effects": [],
+      "errors": [
+        "NOT_FOUND"
+      ],
+      "capabilityId": "cap-sample-display-result",
+      "ruleIds": []
+    }
+  ]
+}

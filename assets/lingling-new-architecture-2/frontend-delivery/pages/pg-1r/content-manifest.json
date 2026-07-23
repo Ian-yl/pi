@@ -1,0 +1,13 @@
+{
+  "version": 1,
+  "requireAllVisible": false,
+  "entries": [
+    {
+      "id": "pg-1r-primary-title",
+      "selector": ".hero-title",
+      "expected": "让商品视觉，随场景一键生长",
+      "policy": "exact",
+      "confidence": 1
+    }
+  ]
+}

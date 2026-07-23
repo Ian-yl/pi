@@ -1,0 +1,312 @@
+{
+  "openapi": "3.1.0",
+  "info": {
+    "title": "Project d61443-9ef2a325 API",
+    "version": "1.0.0"
+  },
+  "paths": {
+    "/api/pages/{pageId}/bootstrap": {
+      "get": {
+        "operationId": "bootstrap-home",
+        "x-capability-id": "cap-pg-1r-navigate",
+        "x-rule-ids": [],
+        "x-operation-variants": [
+          {
+            "operationId": "bootstrap-home",
+            "capabilityId": "cap-pg-1r-navigate",
+            "ruleIds": [],
+            "errors": [
+              "PAGE_NOT_FOUND"
+            ]
+          },
+          {
+            "operationId": "bootstrap-product",
+            "capabilityId": "cap-pg-1s-mod-y5",
+            "ruleIds": [],
+            "errors": [
+              "PAGE_NOT_FOUND"
+            ]
+          },
+          {
+            "operationId": "bootstrap-try-on",
+            "capabilityId": "cap-pg-1t-mod-yo",
+            "ruleIds": [],
+            "errors": [
+              "PAGE_NOT_FOUND"
+            ]
+          },
+          {
+            "operationId": "bootstrap-marketing",
+            "capabilityId": "cap-pg-1u-mod-wd",
+            "ruleIds": [],
+            "errors": [
+              "PAGE_NOT_FOUND"
+            ]
+          },
+          {
+            "operationId": "bootstrap-commerce",
+            "capabilityId": "cap-pg-1v-mod-wz",
+            "ruleIds": [],
+            "errors": [
+              "PAGE_NOT_FOUND"
+            ]
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Contract success response"
+          },
+          "400": {
+            "description": "PAGE_NOT_FOUND"
+          },
+          "503": {
+            "description": "Configured provider unavailable"
+          }
+        }
+      }
+    },
+    "/api/ai/assist-copy": {
+      "post": {
+        "operationId": "assist-product-copy",
+        "x-capability-id": "cap-pg-1s-mod-y5",
+        "x-rule-ids": [],
+        "x-operation-variants": [
+          {
+            "operationId": "assist-product-copy",
+            "capabilityId": "cap-pg-1s-mod-y5",
+            "ruleIds": [],
+            "errors": [
+              "INVALID_INPUT",
+              "PROVIDER_UNAVAILABLE"
+            ]
+          },
+          {
+            "operationId": "assist-try-on-copy",
+            "capabilityId": "cap-pg-1t-mod-yo",
+            "ruleIds": [],
+            "errors": [
+              "INVALID_INPUT",
+              "PROVIDER_UNAVAILABLE"
+            ]
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Contract success response"
+          },
+          "400": {
+            "description": "INVALID_INPUT, PROVIDER_UNAVAILABLE"
+          },
+          "503": {
+            "description": "Configured provider unavailable"
+          }
+        }
+      }
+    },
+    "/api/models/matched-reference": {
+      "post": {
+        "operationId": "match-reference-model",
+        "x-capability-id": "cap-pg-1t-mod-yo",
+        "x-rule-ids": [],
+        "x-operation-variants": [
+          {
+            "operationId": "match-reference-model",
+            "capabilityId": "cap-pg-1t-mod-yo",
+            "ruleIds": [],
+            "errors": [
+              "PRODUCT_IMAGE_REQUIRED",
+              "PROVIDER_UNAVAILABLE"
+            ]
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Contract success response"
+          },
+          "400": {
+            "description": "PRODUCT_IMAGE_REQUIRED, PROVIDER_UNAVAILABLE"
+          },
+          "503": {
+            "description": "Configured provider unavailable"
+          }
+        }
+      }
+    },
+    "/api/generations/product-suite": {
+      "post": {
+        "operationId": "create-product-suite",
+        "x-capability-id": "cap-pg-1s-mod-y5",
+        "x-rule-ids": [
+          "rule-pg-1s-required-inputs",
+          "rule-pg-1s-preserve-history"
+        ],
+        "x-operation-variants": [
+          {
+            "operationId": "create-product-suite",
+            "capabilityId": "cap-pg-1s-mod-y5",
+            "ruleIds": [
+              "rule-pg-1s-required-inputs",
+              "rule-pg-1s-preserve-history"
+            ],
+            "errors": [
+              "PRODUCT_IMAGE_REQUIRED",
+              "OPTIONS_INVALID",
+              "PROVIDER_UNAVAILABLE"
+            ]
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Contract success response"
+          },
+          "400": {
+            "description": "PRODUCT_IMAGE_REQUIRED, OPTIONS_INVALID, PROVIDER_UNAVAILABLE"
+          },
+          "503": {
+            "description": "Configured provider unavailable"
+          }
+        }
+      }
+    },
+    "/api/generations/try-on": {
+      "post": {
+        "operationId": "create-try-on",
+        "x-capability-id": "cap-pg-1t-mod-yo",
+        "x-rule-ids": [
+          "rule-pg-1t-required-inputs",
+          "rule-pg-1t-preserve-history"
+        ],
+        "x-operation-variants": [
+          {
+            "operationId": "create-try-on",
+            "capabilityId": "cap-pg-1t-mod-yo",
+            "ruleIds": [
+              "rule-pg-1t-required-inputs",
+              "rule-pg-1t-preserve-history"
+            ],
+            "errors": [
+              "PRODUCT_IMAGE_REQUIRED",
+              "REFERENCE_MODEL_INVALID",
+              "PROVIDER_UNAVAILABLE"
+            ]
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Contract success response"
+          },
+          "400": {
+            "description": "PRODUCT_IMAGE_REQUIRED, REFERENCE_MODEL_INVALID, PROVIDER_UNAVAILABLE"
+          },
+          "503": {
+            "description": "Configured provider unavailable"
+          }
+        }
+      }
+    },
+    "/api/generations/marketing-scene": {
+      "post": {
+        "operationId": "create-marketing-scene",
+        "x-capability-id": "cap-pg-1u-mod-wd",
+        "x-rule-ids": [
+          "rule-pg-1u-required-inputs",
+          "rule-pg-1u-preserve-history"
+        ],
+        "x-operation-variants": [
+          {
+            "operationId": "create-marketing-scene",
+            "capabilityId": "cap-pg-1u-mod-wd",
+            "ruleIds": [
+              "rule-pg-1u-required-inputs",
+              "rule-pg-1u-preserve-history"
+            ],
+            "errors": [
+              "PRODUCT_IMAGE_REQUIRED",
+              "OPTIONS_INVALID",
+              "PROVIDER_UNAVAILABLE"
+            ]
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Contract success response"
+          },
+          "400": {
+            "description": "PRODUCT_IMAGE_REQUIRED, OPTIONS_INVALID, PROVIDER_UNAVAILABLE"
+          },
+          "503": {
+            "description": "Configured provider unavailable"
+          }
+        }
+      }
+    },
+    "/api/generations/commerce-assets": {
+      "post": {
+        "operationId": "create-commerce-assets",
+        "x-capability-id": "cap-pg-1v-mod-wz",
+        "x-rule-ids": [
+          "rule-pg-1v-required-inputs",
+          "rule-pg-1v-preserve-history"
+        ],
+        "x-operation-variants": [
+          {
+            "operationId": "create-commerce-assets",
+            "capabilityId": "cap-pg-1v-mod-wz",
+            "ruleIds": [
+              "rule-pg-1v-required-inputs",
+              "rule-pg-1v-preserve-history"
+            ],
+            "errors": [
+              "PRODUCT_IMAGE_REQUIRED",
+              "INDUSTRY_TEMPLATE_REQUIRED",
+              "PROVIDER_UNAVAILABLE"
+            ]
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Contract success response"
+          },
+          "400": {
+            "description": "PRODUCT_IMAGE_REQUIRED, INDUSTRY_TEMPLATE_REQUIRED, PROVIDER_UNAVAILABLE"
+          },
+          "503": {
+            "description": "Configured provider unavailable"
+          }
+        }
+      }
+    },
+    "/api/generations/history": {
+      "get": {
+        "operationId": "generation-history",
+        "x-capability-id": "cap-pg-1s-mod-y5",
+        "x-rule-ids": [
+          "rule-pg-1s-preserve-history"
+        ],
+        "x-operation-variants": [
+          {
+            "operationId": "generation-history",
+            "capabilityId": "cap-pg-1s-mod-y5",
+            "ruleIds": [
+              "rule-pg-1s-preserve-history"
+            ],
+            "errors": [
+              "PAGE_ID_REQUIRED"
+            ]
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Contract success response"
+          },
+          "400": {
+            "description": "PAGE_ID_REQUIRED"
+          },
+          "503": {
+            "description": "Configured provider unavailable"
+          }
+        }
+      }
+    }
+  }
+}

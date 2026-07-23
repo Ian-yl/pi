@@ -1,0 +1,18 @@
+{
+  "schemaVersion": "1.0",
+  "status": "implemented",
+  "baseUrl": "http://127.0.0.1:${PORT}",
+  "start": {
+    "command": "node",
+    "args": [
+      "backend/server.mjs"
+    ]
+  },
+  "healthUrl": "http://127.0.0.1:${PORT}/health",
+  "e2e": {
+    "command": "node",
+    "args": [
+      "tests/browser-runtime.mjs"
+    ]
+  }
+}

@@ -1,0 +1,374 @@
+{
+  "openapi": "3.1.0",
+  "info": {
+    "title": "Project golden-simulated API",
+    "version": "1.0.0"
+  },
+  "paths": {
+    "/api/forms/sample": {
+      "post": {
+        "operationId": "submit-sample",
+        "x-capability-id": "cap-sample",
+        "x-rule-ids": [],
+        "x-operation-variants": [
+          {
+            "operationId": "submit-sample",
+            "capabilityId": "cap-sample",
+            "ruleIds": [],
+            "request": {
+              "body": [
+                "email",
+                "password"
+              ],
+              "contentType": "application/json",
+              "bodySchema": {
+                "type": "object",
+                "required": [
+                  "email",
+                  "password"
+                ],
+                "properties": {
+                  "email": {
+                    "type": "string"
+                  },
+                  "password": {
+                    "type": "string"
+                  }
+                }
+              }
+            },
+            "requestSchema": "#/components/schemas/submitSampleRequest",
+            "responseSchema": "#/components/schemas/submitSampleResponse",
+            "effects": [
+              {
+                "entityId": "entity-submission",
+                "effect": "create"
+              }
+            ],
+            "errors": [
+              "INVALID_INPUT"
+            ]
+          }
+        ],
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "Successful contract response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "oneOf": [
+                    {
+                      "$ref": "#/components/schemas/submitSampleResponse"
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Contract error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "error"
+                  ],
+                  "properties": {
+                    "error": {
+                      "type": "string",
+                      "enum": [
+                        "INVALID_INPUT"
+                      ]
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "requestBody": {
+          "required": false,
+          "content": {
+            "application/json": {
+              "schema": {
+                "oneOf": [
+                  {
+                    "$ref": "#/components/schemas/submitSampleRequest"
+                  }
+                ]
+              }
+            }
+          }
+        },
+        "x-data-effects": [
+          {
+            "entityId": "entity-submission",
+            "effect": "create"
+          }
+        ]
+      }
+    },
+    "/api/forms/suite-sample-detail": {
+      "post": {
+        "operationId": "submit-suite-sample-detail",
+        "x-capability-id": "cap-suite-sample-detail",
+        "x-rule-ids": [],
+        "x-operation-variants": [
+          {
+            "operationId": "submit-suite-sample-detail",
+            "capabilityId": "cap-suite-sample-detail",
+            "ruleIds": [],
+            "request": {
+              "body": [
+                "email",
+                "password"
+              ],
+              "contentType": "application/json",
+              "bodySchema": {
+                "type": "object",
+                "required": [
+                  "email",
+                  "password"
+                ],
+                "properties": {
+                  "email": {
+                    "type": "string"
+                  },
+                  "password": {
+                    "type": "string"
+                  }
+                }
+              }
+            },
+            "requestSchema": "#/components/schemas/submitSuiteSampleDetailRequest",
+            "responseSchema": "#/components/schemas/submitSuiteSampleDetailResponse",
+            "effects": [
+              {
+                "entityId": "entity-submission",
+                "effect": "create"
+              }
+            ],
+            "errors": [
+              "INVALID_INPUT"
+            ]
+          }
+        ],
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "Successful contract response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "oneOf": [
+                    {
+                      "$ref": "#/components/schemas/submitSuiteSampleDetailResponse"
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Contract error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "error"
+                  ],
+                  "properties": {
+                    "error": {
+                      "type": "string",
+                      "enum": [
+                        "INVALID_INPUT"
+                      ]
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "requestBody": {
+          "required": false,
+          "content": {
+            "application/json": {
+              "schema": {
+                "oneOf": [
+                  {
+                    "$ref": "#/components/schemas/submitSuiteSampleDetailRequest"
+                  }
+                ]
+              }
+            }
+          }
+        },
+        "x-data-effects": [
+          {
+            "entityId": "entity-submission",
+            "effect": "create"
+          }
+        ]
+      }
+    },
+    "/api/forms/sample/results/{resultId}": {
+      "get": {
+        "operationId": "query-sample-result",
+        "x-capability-id": "cap-sample-display-result",
+        "x-rule-ids": [],
+        "x-operation-variants": [
+          {
+            "operationId": "query-sample-result",
+            "capabilityId": "cap-sample-display-result",
+            "ruleIds": [],
+            "request": {
+              "path": [
+                "resultId"
+              ],
+              "contentType": "application/json",
+              "pathSchema": {
+                "type": "object",
+                "required": [
+                  "resultId"
+                ],
+                "properties": {
+                  "resultId": {
+                    "type": "string"
+                  }
+                }
+              }
+            },
+            "requestSchema": "#/components/schemas/querySampleResultRequest",
+            "responseSchema": "#/components/schemas/querySampleResultResponse",
+            "effects": [],
+            "errors": [
+              "NOT_FOUND"
+            ]
+          }
+        ],
+        "parameters": [
+          {
+            "name": "resultId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful contract response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "oneOf": [
+                    {
+                      "$ref": "#/components/schemas/querySampleResultResponse"
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Contract error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "error"
+                  ],
+                  "properties": {
+                    "error": {
+                      "type": "string",
+                      "enum": [
+                        "NOT_FOUND"
+                      ]
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "x-data-effects": []
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "submitSampleRequest": {
+        "type": "object",
+        "properties": {
+          "email": {},
+          "password": {}
+        },
+        "required": [
+          "email",
+          "password"
+        ],
+        "additionalProperties": true
+      },
+      "submitSampleResponse": {
+        "type": "object",
+        "properties": {
+          "ok": {}
+        },
+        "required": [
+          "ok"
+        ],
+        "additionalProperties": true
+      },
+      "submitSuiteSampleDetailRequest": {
+        "type": "object",
+        "properties": {
+          "email": {},
+          "password": {}
+        },
+        "required": [
+          "email",
+          "password"
+        ],
+        "additionalProperties": true
+      },
+      "submitSuiteSampleDetailResponse": {
+        "type": "object",
+        "properties": {
+          "ok": {}
+        },
+        "required": [
+          "ok"
+        ],
+        "additionalProperties": true
+      },
+      "querySampleResultRequest": {
+        "type": "object",
+        "properties": {
+          "resultId": {}
+        },
+        "required": [
+          "resultId"
+        ],
+        "additionalProperties": true
+      },
+      "querySampleResultResponse": {
+        "type": "object",
+        "properties": {
+          "resultId": {},
+          "status": {}
+        },
+        "required": [
+          "resultId",
+          "status"
+        ],
+        "additionalProperties": true
+      }
+    }
+  }
+}

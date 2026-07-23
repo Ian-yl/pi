@@ -1,0 +1,21 @@
+{
+  "schemaVersion": "1.0",
+  "generatedBy": "project-implementation/run-browser-e2e",
+  "generatedAt": "2026-07-23T10:29:04.324Z",
+  "command": {
+    "executable": "node",
+    "args": [
+      "tests/browser-runtime.mjs"
+    ]
+  },
+  "healthUrl": "http://127.0.0.1:52819/health",
+  "rawReportDigest": "64c81b1ab35dca8182347d56d2aa428128f52ef3fbcf7cb44fb08d9586eadd9d",
+  "runtimeCasesDigest": "ba7ac7a675673ddabf7e5bfe43e7c00467b1ede4338c179ec19f1ccc4eda745d",
+  "artifactDigests": {
+    "evidence/frontend/browser-cap-sample.png": "2ad1298c2880748dfee25a1caa0c562b4dfe536a6b5f6ca62f519f1ffb5f59a9",
+    "evidence/frontend/browser-cap-suite-sample-detail.png": "8a3b91cb0d1db52b65f827f20cbcff1f62ede014bdb19e1d094b4f5732b66b40",
+    "evidence/frontend/browser-cap-sample-local-navigation.png": "1e47aeb9db555cbbc7d6acc3bfa194657ee8b32f6890840292034769849c6077",
+    "evidence/frontend/browser-cap-sample-display-result.png": "2592d42cdf9369db77fdf3910bd005c3bc060f1abf68baab5f3d5835403846b8"
+  },
+  "status": "passed"
+}

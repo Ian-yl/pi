@@ -1,0 +1,219 @@
+{
+  "version": 1,
+  "name": "pg-1r",
+  "generatedAt": "2026-07-22T13:54:01.290Z",
+  "dpr": 1,
+  "threshold": {
+    "maxDeltaE": 3
+  },
+  "summary": {
+    "elements": 11,
+    "textMeasurements": 3,
+    "backgroundMeasurements": 3,
+    "total": 2,
+    "open": 2,
+    "resolved": 0,
+    "bySeverity": {
+      "P2": 2
+    },
+    "byStatus": {
+      "open": 2
+    },
+    "byDimension": {
+      "textColor": 2
+    },
+    "byDetector": {
+      "color-audit": 2
+    }
+  },
+  "textMeasurements": [
+    {
+      "target": {
+        "selector": "body>div>div>div>div>main>header>button>span:nth-of-type(2)",
+        "displaySelector": "span",
+        "text": "灵灵生图站",
+        "rect": {
+          "x": 103,
+          "y": 40,
+          "width": 125,
+          "height": 36
+        }
+      },
+      "cssColor": "#111111",
+      "designColor": "#040303",
+      "actualColor": "#111111",
+      "deltaE": 4.27,
+      "status": "fail"
+    },
+    {
+      "target": {
+        "selector": "body>div>div>div>div>main>header>nav>button:nth-of-type(1)",
+        "displaySelector": "button.active",
+        "text": "首页",
+        "rect": {
+          "x": 269,
+          "y": 16,
+          "width": 38,
+          "height": 84
+        }
+      },
+      "cssColor": "#ff3328",
+      "designColor": "#fe1e0e",
+      "actualColor": "#ff3328",
+      "deltaE": 9.22,
+      "status": "fail"
+    },
+    {
+      "target": {
+        "selector": "body>div>div>div>div>main>section>div:nth-of-type(2)>h1",
+        "displaySelector": "h1.hero-title",
+        "text": "首页加载失败",
+        "rect": {
+          "x": 146,
+          "y": 360,
+          "width": 650,
+          "height": 87
+        }
+      },
+      "cssColor": "#050505",
+      "designColor": "#010000",
+      "actualColor": "#050505",
+      "deltaE": 1.24,
+      "status": "pass"
+    }
+  ],
+  "backgroundMeasurements": [
+    {
+      "target": {
+        "selector": "body>div>div>div>div>main>header",
+        "displaySelector": "header.topbar",
+        "text": "",
+        "rect": {
+          "x": 20,
+          "y": 16,
+          "width": 1496,
+          "height": 84
+        }
+      },
+      "kind": "bg",
+      "designColor": "#fbfbfc",
+      "actualColor": "#ffffff",
+      "deltaE": 1.45,
+      "status": "pass"
+    },
+    {
+      "target": {
+        "selector": "body>div>div>div>div>main>header>div>form",
+        "displaySelector": "form.search-box",
+        "text": "",
+        "rect": {
+          "x": 1038,
+          "y": 32,
+          "width": 338,
+          "height": 52
+        }
+      },
+      "kind": "bg",
+      "designColor": "#fafafb",
+      "actualColor": "#ffffff",
+      "deltaE": 1.78,
+      "status": "pass"
+    },
+    {
+      "target": {
+        "selector": "body>div>div>div>div>main>header>div>button",
+        "displaySelector": "button.profile-button",
+        "text": "",
+        "rect": {
+          "x": 1398,
+          "y": 33,
+          "width": 93,
+          "height": 50
+        }
+      },
+      "kind": "bg",
+      "designColor": "#f7f7f8",
+      "actualColor": "#f7f8fa",
+      "deltaE": 0.68,
+      "status": "pass"
+    }
+  ],
+  "findings": [
+    {
+      "id": "color-audit:textColor:a6036bff428e",
+      "detector": "color-audit",
+      "code": "text-color-delta",
+      "dimension": "textColor",
+      "severity": "P2",
+      "status": "open",
+      "title": "span 文字色 ΔE 4.3",
+      "target": {
+        "selector": "body>div>div>div>div>main>header>button>span:nth-of-type(2)",
+        "displaySelector": "span",
+        "text": "灵灵生图站",
+        "rect": {
+          "x": 103,
+          "y": 40,
+          "width": 125,
+          "height": 36
+        }
+      },
+      "expected": {
+        "color": "#040303"
+      },
+      "actual": {
+        "color": "#111111",
+        "cssColor": "#111111",
+        "deltaE": 4.27
+      },
+      "threshold": {
+        "maxDeltaE": 3
+      },
+      "confidence": 0.82,
+      "evidence": {},
+      "nextAction": "使用 pick/inspect 复核笔画核心色，并批量修正同类文字",
+      "reason": "",
+      "firstSeenAt": null,
+      "lastSeenAt": null,
+      "resolvedAt": null
+    },
+    {
+      "id": "color-audit:textColor:89817bb7b787",
+      "detector": "color-audit",
+      "code": "text-color-delta",
+      "dimension": "textColor",
+      "severity": "P2",
+      "status": "open",
+      "title": "button.active 文字色 ΔE 9.2",
+      "target": {
+        "selector": "body>div>div>div>div>main>header>nav>button:nth-of-type(1)",
+        "displaySelector": "button.active",
+        "text": "首页",
+        "rect": {
+          "x": 269,
+          "y": 16,
+          "width": 38,
+          "height": 84
+        }
+      },
+      "expected": {
+        "color": "#fe1e0e"
+      },
+      "actual": {
+        "color": "#ff3328",
+        "cssColor": "#ff3328",
+        "deltaE": 9.22
+      },
+      "threshold": {
+        "maxDeltaE": 3
+      },
+      "confidence": 0.82,
+      "evidence": {},
+      "nextAction": "使用 pick/inspect 复核笔画核心色，并批量修正同类文字",
+      "reason": "",
+      "firstSeenAt": null,
+      "lastSeenAt": null,
+      "resolvedAt": null
+    }
+  ]
+}

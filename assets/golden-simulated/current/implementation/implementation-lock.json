@@ -1,0 +1,70 @@
+{
+  "schemaVersion": "1.0",
+  "algorithm": "sha256",
+  "digests": {
+    "input-lock.json": "9bea1215e4fcdea67672c6ea15b30d9ded57b935d017850aff5a5cf7794769ac",
+    "implementation-plan.json": "c4afbb0467803f26bcf497fb633a8b80cc5bbebcaaf6248d4fadde3b1bb60def",
+    "field-binding-plan.json": "5686fb6b314be093c4ec689c5ddf978145690a3c116bcebc2dbe59e9f9efb26f",
+    "operation-events.json": "b9389d74246a1a94091f9a2d9a418711fb74f552ebfedbf0f95d42dbe3a065da",
+    "operation-receipts.json": "4de6b0f405eba9ae2193f630b9954078869d252810ac878ad9f0781bccede679",
+    "implementation-provenance.json": "df7b7526fe42ba1e9ea6859882569bc9e2c5408f420e17703f6668c2fbf515f2",
+    "implementation-manifest.json": "02b28e621f66002d556c8ab8b8dac4e6a63b7f7fb4fcc02fd3a709c226651592",
+    "integration-evidence.json": "bad6939132d1c95ece2e30f97237282e1d893ba2b4b15638fde57f2dc4bb0dc7",
+    "openapi.json": "b32c6e11836029f9b379e1398ac92181ba37fd83ae037e9864e418a0f52c6054",
+    "startup.json": "5973e29e8623d1af7e1052325c6039dc0e74ca96fdcdf5183a02b72650dba0a4",
+    "test-report.json": "d594fe9b590e6705b3a18d3fc8a4749f425d1e70a2b1f17b48b307a540916336",
+    "bmad-traceability.json": "79cbd88f30630a19902e056ac9589b84d99db999914910ee5954450dcb7f74f7",
+    "bmad-completion.json": "d75cfb59844311c6ae0e9fb8cb2070bc0f30c260606598b8689617748c8b9dd9",
+    "interaction-manifest.json": "5870e08162668e106f28c5ea1d76ec6a7ad3cdbbc33cd2e2a3a8eda02cbbfe1c",
+    "control-bindings.json": "1008470dcc4413d54d4a2e579f9927c24a2af5172367bd8d3016b6307e76734e",
+    "frontend-runtime-config.json": "e485127c21b29502fbb7acacb965fcd6559b08b500bfc55d3004f9107501d5e2",
+    "frontend-runtime-report.json": "cfaadbd3465662a6debfee2f7799b25233ad00c1c78a0180f160ea0d91fb8c6c",
+    "frontend-capability-results.json": "5ea1377c70190769dcace1c3c1a5f88277169ade8c1adabd5485fdf94af83c2a",
+    "browser-e2e-report.json": "3ede69e222a8d55824bc3f1a9eb0403c9962509b43bc4a111ba354da664bb0ff",
+    "placeholder-resolution.json": "66fc6bdf68a2f447bf0b54ec212ee40f08ca43b10a60703ff4ae5cb05bd4ab88",
+    "placeholder-audit-report.json": "acb823192809e6f7f5d4df14011ae059a16eb084609bb006427802ac4c63dc03",
+    "capability-completion-report.json": "d4c6f8322d28e3bec2684110576c76db6fcfeb158872645ae4d9fd090a3dc842",
+    "evidence/frontend/application-runtime.txt": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "evidence/frontend/browser-cap-sample-display-result.png": "2592d42cdf9369db77fdf3910bd005c3bc060f1abf68baab5f3d5835403846b8",
+    "evidence/frontend/browser-cap-sample-local-navigation.png": "1e47aeb9db555cbbc7d6acc3bfa194657ee8b32f6890840292034769849c6077",
+    "evidence/frontend/browser-cap-sample.png": "2ad1298c2880748dfee25a1caa0c562b4dfe536a6b5f6ca62f519f1ffb5f59a9",
+    "evidence/frontend/browser-cap-suite-sample-detail.png": "8a3b91cb0d1db52b65f827f20cbcff1f62ede014bdb19e1d094b4f5732b66b40",
+    "evidence/frontend/browser-e2e-command.txt": "9ab766d21e48bc9e09b4d44a0b5775e3b524447d92316b6ac544909fb3b3db3f",
+    "evidence/frontend/playwright-trace.zip": "28b865dcecfc2fd6d5573bf3297f1a7285481b4ae40d6bd882569606c4993eed",
+    "evidence/frontend/raw-browser-report.json": "64c81b1ab35dca8182347d56d2aa428128f52ef3fbcf7cb44fb08d9586eadd9d"
+  },
+  "sourceDigests": {
+    "backend": "144c5f8e38baa75e97678172fb8dce546f4e1e6a0284f08ec63897408c0c126d",
+    "frontend": "618b2a622149a00d5c542060f8988bd5d79cd8a868ca088ee7e737a5d1b57153",
+    "migrations": "143aac2390e0d10c208950f3e7d39f8930fbc92beb33b97238683d6992f82716",
+    "tests": "bf09777e8f5ec23fcfefe3cd9b054aa9f773f6746615718402cfb248ed923a39",
+    "deployment": "07025b15f6fe0a04354ecb1fac0916daebb12d70d87ff9cf3824767f7c48a60b"
+  },
+  "sourceFiles": {
+    "backend": [
+      "backend/server.mjs",
+      "capability-completion-report.json",
+      "package.json"
+    ],
+    "frontend": [
+      "web/pages/sample/content-manifest.json",
+      "web/pages/sample/index.html",
+      "web/pages/sample/restore-plan.json",
+      "web/pages/suite-sample-detail/content-manifest.json",
+      "web/pages/suite-sample-detail/index.html",
+      "web/pages/suite-sample-detail/restore-plan.json",
+      "web/suites/sample-suite/shared/components.css",
+      "web/suites/sample-suite/shared/tokens.css"
+    ],
+    "migrations": [
+      "migrations/001-submissions.sql"
+    ],
+    "tests": [
+      "tests/browser-runtime.mjs",
+      "tests/unit.mjs"
+    ],
+    "deployment": [
+      "Dockerfile"
+    ]
+  }
+}

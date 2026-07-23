@@ -1,0 +1,351 @@
+{
+  "schemaVersion": "1.0",
+  "generatedAt": "2026-07-23T10:29:04.505Z",
+  "cases": [
+    {
+      "id": "backend-contract-tests",
+      "status": "passed",
+      "command": "npm test",
+      "evidence": [
+        "evidence/backend-tests.txt"
+      ]
+    },
+    {
+      "id": "frontend-production-build",
+      "status": "passed",
+      "command": "npm run build",
+      "evidence": [
+        "evidence/frontend-build.txt"
+      ]
+    },
+    {
+      "id": "frontend-browser-runtime",
+      "status": "passed",
+      "command": "node /Users/ylzs/Documents/ylzs/project-implementation/scripts/run-browser-e2e.mjs --dir /Users/ylzs/Documents/ylzs/project-implementation/assets/golden-simulated/current/implementation",
+      "evidence": [
+        "evidence/browser-runtime-runner.txt",
+        "browser-e2e-report.json",
+        "frontend-runtime-report.json"
+      ]
+    },
+    {
+      "id": "frontend-placeholder-audit",
+      "status": "passed",
+      "command": "node /Users/ylzs/Documents/ylzs/project-implementation/scripts/audit-placeholders.mjs /Users/ylzs/Documents/ylzs/project-implementation/assets/golden-simulated/current/implementation",
+      "evidence": [
+        "evidence/placeholder-audit.txt",
+        "placeholder-audit-report.json"
+      ]
+    },
+    {
+      "id": "frontend-runtime-verification",
+      "status": "passed",
+      "command": "node /Users/ylzs/Documents/ylzs/project-implementation/scripts/verify-frontend-runtime.mjs /Users/ylzs/Documents/ylzs/project-implementation/assets/golden-simulated/current/implementation",
+      "evidence": [
+        "evidence/frontend-runtime-verification.txt"
+      ]
+    },
+    {
+      "id": "test-persistence-entity-submission",
+      "status": "passed",
+      "unitIds": [
+        "persistence-entity-submission"
+      ],
+      "evidence": [
+        "evidence/golden-units.txt"
+      ]
+    },
+    {
+      "id": "test-persistence-entity-submission-event",
+      "status": "passed",
+      "unitIds": [
+        "persistence-entity-submission-event"
+      ],
+      "evidence": [
+        "evidence/golden-units.txt"
+      ]
+    },
+    {
+      "id": "test-relationship-relation-submission-events",
+      "status": "passed",
+      "unitIds": [
+        "relationship-relation-submission-events"
+      ],
+      "evidence": [
+        "evidence/golden-units.txt"
+      ]
+    },
+    {
+      "id": "test-consistency-boundary-submission",
+      "status": "passed",
+      "unitIds": [
+        "consistency-boundary-submission"
+      ],
+      "evidence": [
+        "evidence/golden-units.txt"
+      ]
+    },
+    {
+      "id": "test-capability-cap-sample",
+      "status": "passed",
+      "unitIds": [
+        "capability-cap-sample"
+      ],
+      "evidence": [
+        "evidence/golden-units.txt"
+      ]
+    },
+    {
+      "id": "test-capability-cap-suite-sample-detail",
+      "status": "passed",
+      "unitIds": [
+        "capability-cap-suite-sample-detail"
+      ],
+      "evidence": [
+        "evidence/golden-units.txt"
+      ]
+    },
+    {
+      "id": "test-capability-cap-sample-local-navigation",
+      "status": "passed",
+      "unitIds": [
+        "capability-cap-sample-local-navigation"
+      ],
+      "evidence": [
+        "evidence/golden-units.txt"
+      ]
+    },
+    {
+      "id": "test-capability-cap-sample-display-result",
+      "status": "passed",
+      "unitIds": [
+        "capability-cap-sample-display-result"
+      ],
+      "evidence": [
+        "evidence/golden-units.txt"
+      ]
+    },
+    {
+      "id": "test-operation-submit-sample",
+      "status": "passed",
+      "unitIds": [
+        "operation-submit-sample"
+      ],
+      "evidence": [
+        "evidence/golden-units.txt"
+      ]
+    },
+    {
+      "id": "test-operation-submit-suite-sample-detail",
+      "status": "passed",
+      "unitIds": [
+        "operation-submit-suite-sample-detail"
+      ],
+      "evidence": [
+        "evidence/golden-units.txt"
+      ]
+    },
+    {
+      "id": "test-operation-query-sample-result",
+      "status": "passed",
+      "unitIds": [
+        "operation-query-sample-result"
+      ],
+      "evidence": [
+        "evidence/golden-units.txt"
+      ]
+    },
+    {
+      "id": "runtime-presentation-cap-sample",
+      "status": "passed",
+      "unitIds": [
+        "presentation-cap-sample"
+      ],
+      "evidence": [
+        "frontend-runtime-report.json",
+        "browser-e2e-report.json",
+        "placeholder-audit-report.json"
+      ]
+    },
+    {
+      "id": "runtime-interaction-cap-sample",
+      "status": "passed",
+      "unitIds": [
+        "interaction-cap-sample"
+      ],
+      "evidence": [
+        "frontend-runtime-report.json",
+        "browser-e2e-report.json",
+        "placeholder-audit-report.json"
+      ]
+    },
+    {
+      "id": "runtime-frontend-state-cap-sample",
+      "status": "passed",
+      "unitIds": [
+        "frontend-state-cap-sample"
+      ],
+      "evidence": [
+        "frontend-runtime-report.json",
+        "browser-e2e-report.json",
+        "placeholder-audit-report.json"
+      ]
+    },
+    {
+      "id": "runtime-frontend-data-cap-sample",
+      "status": "passed",
+      "unitIds": [
+        "frontend-data-cap-sample"
+      ],
+      "evidence": [
+        "frontend-runtime-report.json",
+        "browser-e2e-report.json",
+        "placeholder-audit-report.json"
+      ]
+    },
+    {
+      "id": "runtime-presentation-cap-suite-sample-detail",
+      "status": "passed",
+      "unitIds": [
+        "presentation-cap-suite-sample-detail"
+      ],
+      "evidence": [
+        "frontend-runtime-report.json",
+        "browser-e2e-report.json",
+        "placeholder-audit-report.json"
+      ]
+    },
+    {
+      "id": "runtime-interaction-cap-suite-sample-detail",
+      "status": "passed",
+      "unitIds": [
+        "interaction-cap-suite-sample-detail"
+      ],
+      "evidence": [
+        "frontend-runtime-report.json",
+        "browser-e2e-report.json",
+        "placeholder-audit-report.json"
+      ]
+    },
+    {
+      "id": "runtime-frontend-state-cap-suite-sample-detail",
+      "status": "passed",
+      "unitIds": [
+        "frontend-state-cap-suite-sample-detail"
+      ],
+      "evidence": [
+        "frontend-runtime-report.json",
+        "browser-e2e-report.json",
+        "placeholder-audit-report.json"
+      ]
+    },
+    {
+      "id": "runtime-frontend-data-cap-suite-sample-detail",
+      "status": "passed",
+      "unitIds": [
+        "frontend-data-cap-suite-sample-detail"
+      ],
+      "evidence": [
+        "frontend-runtime-report.json",
+        "browser-e2e-report.json",
+        "placeholder-audit-report.json"
+      ]
+    },
+    {
+      "id": "runtime-presentation-cap-sample-local-navigation",
+      "status": "passed",
+      "unitIds": [
+        "presentation-cap-sample-local-navigation"
+      ],
+      "evidence": [
+        "frontend-runtime-report.json",
+        "browser-e2e-report.json",
+        "placeholder-audit-report.json"
+      ]
+    },
+    {
+      "id": "runtime-interaction-cap-sample-local-navigation",
+      "status": "passed",
+      "unitIds": [
+        "interaction-cap-sample-local-navigation"
+      ],
+      "evidence": [
+        "frontend-runtime-report.json",
+        "browser-e2e-report.json",
+        "placeholder-audit-report.json"
+      ]
+    },
+    {
+      "id": "runtime-frontend-state-cap-sample-local-navigation",
+      "status": "passed",
+      "unitIds": [
+        "frontend-state-cap-sample-local-navigation"
+      ],
+      "evidence": [
+        "frontend-runtime-report.json",
+        "browser-e2e-report.json",
+        "placeholder-audit-report.json"
+      ]
+    },
+    {
+      "id": "runtime-frontend-data-cap-sample-local-navigation",
+      "status": "passed",
+      "unitIds": [
+        "frontend-data-cap-sample-local-navigation"
+      ],
+      "evidence": [
+        "frontend-runtime-report.json",
+        "browser-e2e-report.json",
+        "placeholder-audit-report.json"
+      ]
+    },
+    {
+      "id": "runtime-presentation-cap-sample-display-result",
+      "status": "passed",
+      "unitIds": [
+        "presentation-cap-sample-display-result"
+      ],
+      "evidence": [
+        "frontend-runtime-report.json",
+        "browser-e2e-report.json",
+        "placeholder-audit-report.json"
+      ]
+    },
+    {
+      "id": "runtime-interaction-cap-sample-display-result",
+      "status": "passed",
+      "unitIds": [
+        "interaction-cap-sample-display-result"
+      ],
+      "evidence": [
+        "frontend-runtime-report.json",
+        "browser-e2e-report.json",
+        "placeholder-audit-report.json"
+      ]
+    },
+    {
+      "id": "runtime-frontend-state-cap-sample-display-result",
+      "status": "passed",
+      "unitIds": [
+        "frontend-state-cap-sample-display-result"
+      ],
+      "evidence": [
+        "frontend-runtime-report.json",
+        "browser-e2e-report.json",
+        "placeholder-audit-report.json"
+      ]
+    },
+    {
+      "id": "runtime-frontend-data-cap-sample-display-result",
+      "status": "passed",
+      "unitIds": [
+        "frontend-data-cap-sample-display-result"
+      ],
+      "evidence": [
+        "frontend-runtime-report.json",
+        "browser-e2e-report.json",
+        "placeholder-audit-report.json"
+      ]
+    }
+  ]
+}

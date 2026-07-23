@@ -1,0 +1,19 @@
+{
+  "schemaVersion": "1.0",
+  "algorithm": "sha256",
+  "sources": {
+    "functional": "functional-domain",
+    "frontend": "frontend-delivery"
+  },
+  "digests": {
+    "functional/manifest.json": "3ae4d193efc8a8979edee02953c04f1db510fd3321c90807190a89b7976f9ebd",
+    "functional/functional-spec.json": "2ef3f6bc19a7f86a3398816740c86ce8c671f65bc06cfb09d52fde4714051bf1",
+    "functional/page-function-map.json": "526100e9e93d98dea770f0cc8d811ac0c3877f64c375a6102a347e951085ceed",
+    "functional/unresolved-items.json": "bbe9d2b88b177252c3f5c7f3a6eec70aec58bab1a66100d83c6ad6fc3b3985a1",
+    "functional/package-lock.json": "2991e4766a1befcf5d9ddcb1d5b79ace2ca5e7eb1714fe5c09e543744779d2d8",
+    "frontend/frontend-manifest.json": "24a30806a7eee0ef478da9e4d6a3dbcaa7ae7627b5c1413e9fe26c8d538bf149",
+    "frontend/interaction-manifest.json": "8f4712e888e5f40e7b7a00bd76240fd0f634f21f7ae6a618f2b6922b448cf7ed",
+    "frontend/api-contract.json": "9dcd3e7eaa4b6bfacc3dd9a4d0df152aea7df00ed59c24b07b97a1ff4a702f31",
+    "frontend/web": "cd578139ee79a0025d7fa0a6013a4bc5fd49265d12471f050555f4ed5b0614d0"
+  }
+}

@@ -1,0 +1,51 @@
+{
+  "schemaVersion": "1.0",
+  "status": "implemented",
+  "bindings": [
+    {
+      "id": "binding-cap-sample",
+      "capabilityId": "cap-sample",
+      "operationId": "submit-sample",
+      "mode": "add-control",
+      "runtimeEvidenceId": "browser-cap-sample",
+      "source": {
+        "path": "web/pages/sample/index.html",
+        "locator": "implementation-control-cap-sample"
+      }
+    },
+    {
+      "id": "binding-cap-suite-sample-detail",
+      "capabilityId": "cap-suite-sample-detail",
+      "operationId": "submit-suite-sample-detail",
+      "mode": "add-control",
+      "runtimeEvidenceId": "browser-cap-suite-sample-detail",
+      "source": {
+        "path": "web/pages/suite-sample-detail/index.html",
+        "locator": "implementation-control-cap-suite-sample-detail"
+      }
+    },
+    {
+      "id": "binding-cap-sample-local-navigation",
+      "capabilityId": "cap-sample-local-navigation",
+      "mode": "reuse-control",
+      "runtimeEvidenceId": "browser-cap-sample-local-navigation",
+      "source": {
+        "path": "web/pages/sample/index.html",
+        "locator": "implementation-control-cap-sample-local-navigation"
+      }
+    },
+    {
+      "id": "binding-cap-sample-display-result",
+      "capabilityId": "cap-sample-display-result",
+      "operationId": "query-sample-result",
+      "mode": "display-only",
+      "bindingType": "data-render",
+      "trigger": "task-succeeded",
+      "runtimeEvidenceId": "browser-cap-sample-display-result",
+      "source": {
+        "path": "web/pages/sample/index.html",
+        "locator": "implementation-control-cap-sample-display-result"
+      }
+    }
+  ]
+}

@@ -1,0 +1,15 @@
+{
+  "schemaVersion": "1.0",
+  "tool": "ai-restore visual-restore-v3",
+  "captureTarget": "frontend-delivery/web",
+  "functionalReady": true,
+  "strictVisualGate": "failed",
+  "pages": {
+    "pg-1r": { "fullSimilarity": 76.1773, "foregroundSimilarity": 33.7803, "responsiveBlocking": 0 },
+    "pg-1s": { "fullSimilarity": 70.705, "foregroundSimilarity": 42.1005, "responsiveBlocking": 37 },
+    "pg-1t": { "fullSimilarity": 72.9993, "foregroundSimilarity": 45.389, "responsiveBlocking": 0 },
+    "pg-1u": { "fullSimilarity": 73.221, "foregroundSimilarity": 41.192, "responsiveBlocking": 0 },
+    "pg-1v": { "fullSimilarity": 75.8226, "foregroundSimilarity": 49.7997, "responsiveBlocking": 48 }
+  },
+  "decision": "Frontend behavior and contracts may enter backend implementation; visual findings remain a separate remediation queue and are not reported as passed."
+}

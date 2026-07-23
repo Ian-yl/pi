@@ -1,0 +1,2239 @@
+{
+  "version": 1,
+  "nodes": [
+    {
+      "id": "system-root",
+      "kind": "system",
+      "label": "灵灵生图站：新架构2",
+      "subtitle": "系统入口"
+    },
+    {
+      "id": "domain-pg-1r",
+      "kind": "domain",
+      "label": "首页",
+      "subtitle": "为商家提供四个AI电商视觉模块的统一入口，展示各模块用途、最近生成记录入口与当前工作上下文。",
+      "sourcePageId": "pg-1r"
+    },
+    {
+      "id": "module-pg-1r-mod-uo",
+      "kind": "module",
+      "label": "模块导航",
+      "subtitle": "功能模块",
+      "detailKind": "module",
+      "description": "首页中的模块导航能力",
+      "responsibilities": [
+        "模块导航"
+      ],
+      "sourcePageId": "pg-1r",
+      "sourceModuleId": "mod-uo",
+      "pageType": "home"
+    },
+    {
+      "id": "module-pg-1r-mod-up",
+      "kind": "module",
+      "label": "照片级AI商品图入口卡片：说明适用商品静物主图、详情图、白底图生成",
+      "subtitle": "子模块",
+      "detailKind": "feature",
+      "description": "首页 / 模块导航 下的功能点：照片级AI商品图入口卡片：说明适用商品静物主图、详情图、白底图生成",
+      "responsibilities": [
+        "照片级AI商品图入口卡片：说明适用商品静物主图、详情图、白底图生成"
+      ],
+      "sourcePageId": "pg-1r",
+      "sourceModuleId": "mod-up",
+      "pageType": "home"
+    },
+    {
+      "id": "module-pg-1r-mod-uq",
+      "kind": "module",
+      "label": "万物穿搭上身入口卡片：说明适用服饰配件上身效果生成",
+      "subtitle": "子模块",
+      "detailKind": "feature",
+      "description": "首页 / 模块导航 下的功能点：万物穿搭上身入口卡片：说明适用服饰配件上身效果生成",
+      "responsibilities": [
+        "万物穿搭上身入口卡片：说明适用服饰配件上身效果生成"
+      ],
+      "sourcePageId": "pg-1r",
+      "sourceModuleId": "mod-uq",
+      "pageType": "home"
+    },
+    {
+      "id": "module-pg-1r-mod-ur",
+      "kind": "module",
+      "label": "营销场景设计入口卡片：说明适用活动海报、营销场景、节日氛围图生成",
+      "subtitle": "子模块",
+      "detailKind": "feature",
+      "description": "首页 / 模块导航 下的功能点：营销场景设计入口卡片：说明适用活动海报、营销场景、节日氛围图生成",
+      "responsibilities": [
+        "营销场景设计入口卡片：说明适用活动海报、营销场景、节日氛围图生成"
+      ],
+      "sourcePageId": "pg-1r",
+      "sourceModuleId": "mod-ur",
+      "pageType": "home"
+    },
+    {
+      "id": "module-pg-1r-mod-us",
+      "kind": "module",
+      "label": "电商素材生成入口卡片：说明适用贴片、角标、背景素材、详情配图生成",
+      "subtitle": "子模块",
+      "detailKind": "feature",
+      "description": "首页 / 模块导航 下的功能点：电商素材生成入口卡片：说明适用贴片、角标、背景素材、详情配图生成",
+      "responsibilities": [
+        "电商素材生成入口卡片：说明适用贴片、角标、背景素材、详情配图生成"
+      ],
+      "sourcePageId": "pg-1r",
+      "sourceModuleId": "mod-us",
+      "pageType": "home"
+    },
+    {
+      "id": "domain-pg-1s",
+      "kind": "domain",
+      "label": "照片级AI商品图",
+      "subtitle": "左侧是功能列表的菜单栏。宽度占屏幕10%，中间是商品套图，占屏幕的20%（组件比较多，可上下滚动），右边是创作结果，占屏幕的70%（结果展示原图、01 商拍图、02卖点海报、03 场景海报 、04细节海报等等根据数量判定（如果很多可以横向滚动），下面展示横向缩略图列表，主页面展示放大图，默认展示第一张生成的，可以放大缩小，下载，重生成）。\n\n",
+      "sourcePageId": "pg-1s"
+    },
+    {
+      "id": "module-pg-1s-mod-xl",
+      "kind": "module",
+      "label": "功能列表",
+      "subtitle": "功能模块",
+      "detailKind": "module",
+      "description": "照片级AI商品图中的功能列表能力",
+      "responsibilities": [
+        "功能列表"
+      ],
+      "sourcePageId": "pg-1s",
+      "sourceModuleId": "mod-xl",
+      "pageType": "list"
+    },
+    {
+      "id": "module-pg-1s-mod-xm",
+      "kind": "module",
+      "label": "商品套图生成",
+      "subtitle": "子模块",
+      "detailKind": "feature",
+      "description": "照片级AI商品图 / 功能列表 下的功能点：商品套图生成",
+      "responsibilities": [
+        "商品套图生成"
+      ],
+      "sourcePageId": "pg-1s",
+      "sourceModuleId": "mod-xm",
+      "pageType": "list"
+    },
+    {
+      "id": "module-pg-1s-mod-xn",
+      "kind": "module",
+      "label": "电商详情页",
+      "subtitle": "子模块",
+      "detailKind": "feature",
+      "description": "照片级AI商品图 / 功能列表 下的功能点：电商详情页",
+      "responsibilities": [
+        "电商详情页"
+      ],
+      "sourcePageId": "pg-1s",
+      "sourceModuleId": "mod-xn",
+      "pageType": "list"
+    },
+    {
+      "id": "module-pg-1s-mod-xo",
+      "kind": "module",
+      "label": "商品主图",
+      "subtitle": "子模块",
+      "detailKind": "feature",
+      "description": "照片级AI商品图 / 功能列表 下的功能点：商品主图",
+      "responsibilities": [
+        "商品主图"
+      ],
+      "sourcePageId": "pg-1s",
+      "sourceModuleId": "mod-xo",
+      "pageType": "list"
+    },
+    {
+      "id": "module-pg-1s-mod-xp",
+      "kind": "module",
+      "label": "爆款复刻",
+      "subtitle": "子模块",
+      "detailKind": "feature",
+      "description": "照片级AI商品图 / 功能列表 下的功能点：爆款复刻",
+      "responsibilities": [
+        "爆款复刻"
+      ],
+      "sourcePageId": "pg-1s",
+      "sourceModuleId": "mod-xp",
+      "pageType": "list"
+    },
+    {
+      "id": "module-pg-1s-mod-xq",
+      "kind": "module",
+      "label": "商品SKU图",
+      "subtitle": "子模块",
+      "detailKind": "feature",
+      "description": "照片级AI商品图 / 功能列表 下的功能点：商品SKU图",
+      "responsibilities": [
+        "商品SKU图"
+      ],
+      "sourcePageId": "pg-1s",
+      "sourceModuleId": "mod-xq",
+      "pageType": "list"
+    },
+    {
+      "id": "module-pg-1s-mod-xr",
+      "kind": "module",
+      "label": "百变服饰图",
+      "subtitle": "子模块",
+      "detailKind": "feature",
+      "description": "照片级AI商品图 / 功能列表 下的功能点：百变服饰图",
+      "responsibilities": [
+        "百变服饰图"
+      ],
+      "sourcePageId": "pg-1s",
+      "sourceModuleId": "mod-xr",
+      "pageType": "list"
+    },
+    {
+      "id": "module-pg-1s-mod-xs",
+      "kind": "module",
+      "label": "平铺转3D",
+      "subtitle": "子模块",
+      "detailKind": "feature",
+      "description": "照片级AI商品图 / 功能列表 下的功能点：平铺转3D",
+      "responsibilities": [
+        "平铺转3D"
+      ],
+      "sourcePageId": "pg-1s",
+      "sourceModuleId": "mod-xs",
+      "pageType": "list"
+    },
+    {
+      "id": "module-pg-1s-mod-xt",
+      "kind": "module",
+      "label": "面料上身",
+      "subtitle": "子模块",
+      "detailKind": "feature",
+      "description": "照片级AI商品图 / 功能列表 下的功能点：面料上身",
+      "responsibilities": [
+        "面料上身"
+      ],
+      "sourcePageId": "pg-1s",
+      "sourceModuleId": "mod-xt",
+      "pageType": "list"
+    },
+    {
+      "id": "module-pg-1s-mod-xu",
+      "kind": "module",
+      "label": "一键种草图",
+      "subtitle": "子模块",
+      "detailKind": "feature",
+      "description": "照片级AI商品图 / 功能列表 下的功能点：一键种草图",
+      "responsibilities": [
+        "一键种草图"
+      ],
+      "sourcePageId": "pg-1s",
+      "sourceModuleId": "mod-xu",
+      "pageType": "list"
+    },
+    {
+      "id": "module-pg-1s-mod-xv",
+      "kind": "module",
+      "label": "商品图合成",
+      "subtitle": "子模块",
+      "detailKind": "feature",
+      "description": "照片级AI商品图 / 功能列表 下的功能点：商品图合成",
+      "responsibilities": [
+        "商品图合成"
+      ],
+      "sourcePageId": "pg-1s",
+      "sourceModuleId": "mod-xv",
+      "pageType": "list"
+    },
+    {
+      "id": "module-pg-1s-mod-xw",
+      "kind": "module",
+      "label": "商品换背景",
+      "subtitle": "子模块",
+      "detailKind": "feature",
+      "description": "照片级AI商品图 / 功能列表 下的功能点：商品换背景",
+      "responsibilities": [
+        "商品换背景"
+      ],
+      "sourcePageId": "pg-1s",
+      "sourceModuleId": "mod-xw",
+      "pageType": "list"
+    },
+    {
+      "id": "module-pg-1s-mod-xx",
+      "kind": "module",
+      "label": "图片翻译",
+      "subtitle": "子模块",
+      "detailKind": "feature",
+      "description": "照片级AI商品图 / 功能列表 下的功能点：图片翻译",
+      "responsibilities": [
+        "图片翻译"
+      ],
+      "sourcePageId": "pg-1s",
+      "sourceModuleId": "mod-xx",
+      "pageType": "list"
+    },
+    {
+      "id": "module-pg-1s-mod-xy",
+      "kind": "module",
+      "label": "商品白底图",
+      "subtitle": "子模块",
+      "detailKind": "feature",
+      "description": "照片级AI商品图 / 功能列表 下的功能点：商品白底图",
+      "responsibilities": [
+        "商品白底图"
+      ],
+      "sourcePageId": "pg-1s",
+      "sourceModuleId": "mod-xy",
+      "pageType": "list"
+    },
+    {
+      "id": "module-pg-1s-mod-xz",
+      "kind": "module",
+      "label": "商品多视角图",
+      "subtitle": "子模块",
+      "detailKind": "feature",
+      "description": "照片级AI商品图 / 功能列表 下的功能点：商品多视角图",
+      "responsibilities": [
+        "商品多视角图"
+      ],
+      "sourcePageId": "pg-1s",
+      "sourceModuleId": "mod-xz",
+      "pageType": "list"
+    },
+    {
+      "id": "module-pg-1s-mod-y0",
+      "kind": "module",
+      "label": "商品细节图",
+      "subtitle": "子模块",
+      "detailKind": "feature",
+      "description": "照片级AI商品图 / 功能列表 下的功能点：商品细节图",
+      "responsibilities": [
+        "商品细节图"
+      ],
+      "sourcePageId": "pg-1s",
+      "sourceModuleId": "mod-y0",
+      "pageType": "list"
+    },
+    {
+      "id": "module-pg-1s-mod-y1",
+      "kind": "module",
+      "label": "印花提取",
+      "subtitle": "子模块",
+      "detailKind": "feature",
+      "description": "照片级AI商品图 / 功能列表 下的功能点：印花提取",
+      "responsibilities": [
+        "印花提取"
+      ],
+      "sourcePageId": "pg-1s",
+      "sourceModuleId": "mod-y1",
+      "pageType": "list"
+    },
+    {
+      "id": "module-pg-1s-mod-yh",
+      "kind": "module",
+      "label": "我的生成记录",
+      "subtitle": "子模块",
+      "detailKind": "feature",
+      "description": "照片级AI商品图 / 功能列表 下的功能点：我的生成记录",
+      "responsibilities": [
+        "我的生成记录"
+      ],
+      "sourcePageId": "pg-1s",
+      "sourceModuleId": "mod-yh",
+      "pageType": "list"
+    },
+    {
+      "id": "module-pg-1s-mod-y5",
+      "kind": "module",
+      "label": "商品套图",
+      "subtitle": "功能模块",
+      "detailKind": "module",
+      "description": "照片级AI商品图中的商品套图能力",
+      "responsibilities": [
+        "商品套图"
+      ],
+      "sourcePageId": "pg-1s",
+      "sourceModuleId": "mod-y5",
+      "pageType": "list"
+    },
+    {
+      "id": "module-pg-1s-mod-y6",
+      "kind": "module",
+      "label": "新建任务 #这个是在标题右边靠右的按钮",
+      "subtitle": "子模块",
+      "detailKind": "feature",
+      "description": "照片级AI商品图 / 商品套图 下的功能点：新建任务 #这个是在标题右边靠右的按钮",
+      "responsibilities": [
+        "新建任务 #这个是在标题右边靠右的按钮"
+      ],
+      "sourcePageId": "pg-1s",
+      "sourceModuleId": "mod-y6",
+      "pageType": "list"
+    },
+    {
+      "id": "module-pg-1s-mod-y7",
+      "kind": "module",
+      "label": "上传商品图（必填）#支持多图上传，提示建议上传多角度视图",
+      "subtitle": "子模块",
+      "detailKind": "feature",
+      "description": "照片级AI商品图 / 商品套图 下的功能点：上传商品图（必填）#支持多图上传，提示建议上传多角度视图",
+      "responsibilities": [
+        "上传商品图（必填）#支持多图上传，提示建议上传多角度视图"
+      ],
+      "sourcePageId": "pg-1s",
+      "sourceModuleId": "mod-y7",
+      "pageType": "list"
+    },
+    {
+      "id": "module-pg-1s-mod-y8",
+      "kind": "module",
+      "label": "上传其他图（非必填）",
+      "subtitle": "子模块",
+      "detailKind": "feature",
+      "description": "照片级AI商品图 / 商品套图 下的功能点：上传其他图（非必填）",
+      "responsibilities": [
+        "上传其他图（非必填）"
+      ],
+      "sourcePageId": "pg-1s",
+      "sourceModuleId": "mod-y8",
+      "pageType": "list"
+    },
+    {
+      "id": "module-pg-1s-mod-y9",
+      "kind": "module",
+      "label": "商品卖点&要求（必填）#支持AI帮写，有个ai帮写按钮，根据上传图片生成",
+      "subtitle": "子模块",
+      "detailKind": "feature",
+      "description": "照片级AI商品图 / 商品套图 下的功能点：商品卖点&要求（必填）#支持AI帮写，有个ai帮写按钮，根据上传图片生成",
+      "responsibilities": [
+        "商品卖点&要求（必填）#支持AI帮写，有个ai帮写按钮，根据上传图片生成"
+      ],
+      "sourcePageId": "pg-1s",
+      "sourceModuleId": "mod-y9",
+      "pageType": "list"
+    },
+    {
+      "id": "module-pg-1s-mod-ya",
+      "kind": "module",
+      "label": "规避内容补充",
+      "subtitle": "子模块",
+      "detailKind": "feature",
+      "description": "照片级AI商品图 / 商品套图 下的功能点：规避内容补充",
+      "responsibilities": [
+        "规避内容补充"
+      ],
+      "sourcePageId": "pg-1s",
+      "sourceModuleId": "mod-ya",
+      "pageType": "list"
+    },
+    {
+      "id": "module-pg-1s-mod-yb",
+      "kind": "module",
+      "label": "创作模式",
+      "subtitle": "子模块",
+      "detailKind": "feature",
+      "description": "照片级AI商品图 / 商品套图 下的功能点：创作模式",
+      "responsibilities": [
+        "创作模式"
+      ],
+      "sourcePageId": "pg-1s",
+      "sourceModuleId": "mod-yb",
+      "pageType": "list"
+    },
+    {
+      "id": "module-pg-1s-mod-yc",
+      "kind": "module",
+      "label": "视觉风格（非必填）",
+      "subtitle": "子模块",
+      "detailKind": "feature",
+      "description": "照片级AI商品图 / 商品套图 下的功能点：视觉风格（非必填）",
+      "responsibilities": [
+        "视觉风格（非必填）"
+      ],
+      "sourcePageId": "pg-1s",
+      "sourceModuleId": "mod-yc",
+      "pageType": "list"
+    },
+    {
+      "id": "module-pg-1s-mod-yd",
+      "kind": "module",
+      "label": "生成比例（必选）#需要包含常见比例、细长比例、细宽比例",
+      "subtitle": "子模块",
+      "detailKind": "feature",
+      "description": "照片级AI商品图 / 商品套图 下的功能点：生成比例（必选）#需要包含常见比例、细长比例、细宽比例",
+      "responsibilities": [
+        "生成比例（必选）#需要包含常见比例、细长比例、细宽比例"
+      ],
+      "sourcePageId": "pg-1s",
+      "sourceModuleId": "mod-yd",
+      "pageType": "list"
+    },
+    {
+      "id": "module-pg-1s-mod-ye",
+      "kind": "module",
+      "label": "生成张数",
+      "subtitle": "子模块",
+      "detailKind": "feature",
+      "description": "照片级AI商品图 / 商品套图 下的功能点：生成张数",
+      "responsibilities": [
+        "生成张数"
+      ],
+      "sourcePageId": "pg-1s",
+      "sourceModuleId": "mod-ye",
+      "pageType": "list"
+    },
+    {
+      "id": "module-pg-1s-mod-yf",
+      "kind": "module",
+      "label": "分辨率",
+      "subtitle": "子模块",
+      "detailKind": "feature",
+      "description": "照片级AI商品图 / 商品套图 下的功能点：分辨率",
+      "responsibilities": [
+        "分辨率"
+      ],
+      "sourcePageId": "pg-1s",
+      "sourceModuleId": "mod-yf",
+      "pageType": "list"
+    },
+    {
+      "id": "module-pg-1s-mod-yg",
+      "kind": "module",
+      "label": "创作结果",
+      "subtitle": "功能模块",
+      "detailKind": "module",
+      "description": "照片级AI商品图中的创作结果能力",
+      "responsibilities": [
+        "创作结果"
+      ],
+      "sourcePageId": "pg-1s",
+      "sourceModuleId": "mod-yg",
+      "pageType": "list"
+    },
+    {
+      "id": "module-pg-1s-mod-yi",
+      "kind": "module",
+      "label": "顶部展示创作结果四个字",
+      "subtitle": "子模块",
+      "detailKind": "feature",
+      "description": "照片级AI商品图 / 创作结果 下的功能点：顶部展示创作结果四个字",
+      "responsibilities": [
+        "顶部展示创作结果四个字"
+      ],
+      "sourcePageId": "pg-1s",
+      "sourceModuleId": "mod-yi",
+      "pageType": "list"
+    },
+    {
+      "id": "module-pg-1s-mod-yj",
+      "kind": "module",
+      "label": "中间放放大的图片",
+      "subtitle": "子模块",
+      "detailKind": "feature",
+      "description": "照片级AI商品图 / 创作结果 下的功能点：中间放放大的图片",
+      "responsibilities": [
+        "中间放放大的图片"
+      ],
+      "sourcePageId": "pg-1s",
+      "sourceModuleId": "mod-yj",
+      "pageType": "list"
+    },
+    {
+      "id": "module-pg-1s-mod-yk",
+      "kind": "module",
+      "label": "下面放原图 01 商拍图 02 卖点海报 03 场景海报 04 细节海报 这几个的缩略图",
+      "subtitle": "子模块",
+      "detailKind": "feature",
+      "description": "照片级AI商品图 / 创作结果 下的功能点：下面放原图 01 商拍图 02 卖点海报 03 场景海报 04 细节海报 这几个的缩略图",
+      "responsibilities": [
+        "下面放原图 01 商拍图 02 卖点海报 03 场景海报 04 细节海报 这几个的缩略图"
+      ],
+      "sourcePageId": "pg-1s",
+      "sourceModuleId": "mod-yk",
+      "pageType": "list"
+    },
+    {
+      "id": "module-pg-1s-mod-yl",
+      "kind": "module",
+      "label": "点击某个图片可以在中间展示放大后的图片",
+      "subtitle": "子模块",
+      "detailKind": "feature",
+      "description": "照片级AI商品图 / 创作结果 下的功能点：点击某个图片可以在中间展示放大后的图片",
+      "responsibilities": [
+        "点击某个图片可以在中间展示放大后的图片"
+      ],
+      "sourcePageId": "pg-1s",
+      "sourceModuleId": "mod-yl",
+      "pageType": "list"
+    },
+    {
+      "id": "module-pg-1s-mod-ym",
+      "kind": "module",
+      "label": "还有放大，缩小，下载，重新生成几个悬浮按钮",
+      "subtitle": "子模块",
+      "detailKind": "feature",
+      "description": "照片级AI商品图 / 创作结果 下的功能点：还有放大，缩小，下载，重新生成几个悬浮按钮",
+      "responsibilities": [
+        "还有放大，缩小，下载，重新生成几个悬浮按钮"
+      ],
+      "sourcePageId": "pg-1s",
+      "sourceModuleId": "mod-ym",
+      "pageType": "list"
+    },
+    {
+      "id": "domain-pg-1t",
+      "kind": "domain",
+      "label": "万物穿搭上身",
+      "subtitle": "左侧是功能列表的菜单栏。宽度占屏幕10%，中间是万物上身，占屏幕的20%（组件比较多，可上下滚动），右边是创作结果，占屏幕的70%（结果展示原图、01 上身图、02上身图、等等根据数量判定（如果很多可以横向滚动），下面展示横向缩略图列表，主页面展示放大图，默认展示第一张生成的，可以放大缩小，下载，重生成）。",
+      "sourcePageId": "pg-1t"
+    },
+    {
+      "id": "module-pg-1t-mod-yn",
+      "kind": "module",
+      "label": "功能列表",
+      "subtitle": "功能模块",
+      "detailKind": "module",
+      "description": "万物穿搭上身中的功能列表能力",
+      "responsibilities": [
+        "功能列表"
+      ],
+      "sourcePageId": "pg-1t",
+      "sourceModuleId": "mod-yn",
+      "pageType": "form"
+    },
+    {
+      "id": "module-pg-1t-mod-z3",
+      "kind": "module",
+      "label": "万物上身",
+      "subtitle": "子模块",
+      "detailKind": "feature",
+      "description": "万物穿搭上身 / 功能列表 下的功能点：万物上身",
+      "responsibilities": [
+        "万物上身"
+      ],
+      "sourcePageId": "pg-1t",
+      "sourceModuleId": "mod-z3",
+      "pageType": "form"
+    },
+    {
+      "id": "module-pg-1t-mod-z4",
+      "kind": "module",
+      "label": "AI试戴",
+      "subtitle": "子模块",
+      "detailKind": "feature",
+      "description": "万物穿搭上身 / 功能列表 下的功能点：AI试戴",
+      "responsibilities": [
+        "AI试戴"
+      ],
+      "sourcePageId": "pg-1t",
+      "sourceModuleId": "mod-z4",
+      "pageType": "form"
+    },
+    {
+      "id": "module-pg-1t-mod-z5",
+      "kind": "module",
+      "label": "手持商品",
+      "subtitle": "子模块",
+      "detailKind": "feature",
+      "description": "万物穿搭上身 / 功能列表 下的功能点：手持商品",
+      "responsibilities": [
+        "手持商品"
+      ],
+      "sourcePageId": "pg-1t",
+      "sourceModuleId": "mod-z5",
+      "pageType": "form"
+    },
+    {
+      "id": "module-pg-1t-mod-z6",
+      "kind": "module",
+      "label": "平铺/人台试衣",
+      "subtitle": "子模块",
+      "detailKind": "feature",
+      "description": "万物穿搭上身 / 功能列表 下的功能点：平铺/人台试衣",
+      "responsibilities": [
+        "平铺/人台试衣"
+      ],
+      "sourcePageId": "pg-1t",
+      "sourceModuleId": "mod-z6",
+      "pageType": "form"
+    },
+    {
+      "id": "module-pg-1t-mod-z7",
+      "kind": "module",
+      "label": "AI换模特",
+      "subtitle": "子模块",
+      "detailKind": "feature",
+      "description": "万物穿搭上身 / 功能列表 下的功能点：AI换模特",
+      "responsibilities": [
+        "AI换模特"
+      ],
+      "sourcePageId": "pg-1t",
+      "sourceModuleId": "mod-z7",
+      "pageType": "form"
+    },
+    {
+      "id": "module-pg-1t-mod-z8",
+      "kind": "module",
+      "label": "真人图试衣",
+      "subtitle": "子模块",
+      "detailKind": "feature",
+      "description": "万物穿搭上身 / 功能列表 下的功能点：真人图试衣",
+      "responsibilities": [
+        "真人图试衣"
+      ],
+      "sourcePageId": "pg-1t",
+      "sourceModuleId": "mod-z8",
+      "pageType": "form"
+    },
+    {
+      "id": "module-pg-1t-mod-z9",
+      "kind": "module",
+      "label": "模特换姿势",
+      "subtitle": "子模块",
+      "detailKind": "feature",
+      "description": "万物穿搭上身 / 功能列表 下的功能点：模特换姿势",
+      "responsibilities": [
+        "模特换姿势"
+      ],
+      "sourcePageId": "pg-1t",
+      "sourceModuleId": "mod-z9",
+      "pageType": "form"
+    },
+    {
+      "id": "module-pg-1t-mod-za",
+      "kind": "module",
+      "label": "鞋靴试穿",
+      "subtitle": "子模块",
+      "detailKind": "feature",
+      "description": "万物穿搭上身 / 功能列表 下的功能点：鞋靴试穿",
+      "responsibilities": [
+        "鞋靴试穿"
+      ],
+      "sourcePageId": "pg-1t",
+      "sourceModuleId": "mod-za",
+      "pageType": "form"
+    },
+    {
+      "id": "module-pg-1t-mod-zb",
+      "kind": "module",
+      "label": "AI换脸",
+      "subtitle": "子模块",
+      "detailKind": "feature",
+      "description": "万物穿搭上身 / 功能列表 下的功能点：AI换脸",
+      "responsibilities": [
+        "AI换脸"
+      ],
+      "sourcePageId": "pg-1t",
+      "sourceModuleId": "mod-zb",
+      "pageType": "form"
+    },
+    {
+      "id": "module-pg-1t-mod-zc",
+      "kind": "module",
+      "label": "模拍换景",
+      "subtitle": "子模块",
+      "detailKind": "feature",
+      "description": "万物穿搭上身 / 功能列表 下的功能点：模拍换景",
+      "responsibilities": [
+        "模拍换景"
+      ],
+      "sourcePageId": "pg-1t",
+      "sourceModuleId": "mod-zc",
+      "pageType": "form"
+    },
+    {
+      "id": "module-pg-1t-mod-zd",
+      "kind": "module",
+      "label": "服饰换色",
+      "subtitle": "子模块",
+      "detailKind": "feature",
+      "description": "万物穿搭上身 / 功能列表 下的功能点：服饰换色",
+      "responsibilities": [
+        "服饰换色"
+      ],
+      "sourcePageId": "pg-1t",
+      "sourceModuleId": "mod-zd",
+      "pageType": "form"
+    },
+    {
+      "id": "module-pg-1t-mod-ze",
+      "kind": "module",
+      "label": "服饰商拍套图",
+      "subtitle": "子模块",
+      "detailKind": "feature",
+      "description": "万物穿搭上身 / 功能列表 下的功能点：服饰商拍套图",
+      "responsibilities": [
+        "服饰商拍套图"
+      ],
+      "sourcePageId": "pg-1t",
+      "sourceModuleId": "mod-ze",
+      "pageType": "form"
+    },
+    {
+      "id": "module-pg-1t-mod-zf",
+      "kind": "module",
+      "label": "服饰种草图",
+      "subtitle": "子模块",
+      "detailKind": "feature",
+      "description": "万物穿搭上身 / 功能列表 下的功能点：服饰种草图",
+      "responsibilities": [
+        "服饰种草图"
+      ],
+      "sourcePageId": "pg-1t",
+      "sourceModuleId": "mod-zf",
+      "pageType": "form"
+    },
+    {
+      "id": "module-pg-1t-mod-zg",
+      "kind": "module",
+      "label": "我的生成记录",
+      "subtitle": "子模块",
+      "detailKind": "feature",
+      "description": "万物穿搭上身 / 功能列表 下的功能点：我的生成记录",
+      "responsibilities": [
+        "我的生成记录"
+      ],
+      "sourcePageId": "pg-1t",
+      "sourceModuleId": "mod-zg",
+      "pageType": "form"
+    },
+    {
+      "id": "module-pg-1t-mod-yo",
+      "kind": "module",
+      "label": "万物上身",
+      "subtitle": "功能模块",
+      "detailKind": "module",
+      "description": "万物穿搭上身中的万物上身能力",
+      "responsibilities": [
+        "万物上身"
+      ],
+      "sourcePageId": "pg-1t",
+      "sourceModuleId": "mod-yo",
+      "pageType": "form"
+    },
+    {
+      "id": "module-pg-1t-mod-yv",
+      "kind": "module",
+      "label": "新建任务 #这个是在标题右边靠右的按钮",
+      "subtitle": "子模块",
+      "detailKind": "feature",
+      "description": "万物穿搭上身 / 万物上身 下的功能点：新建任务 #这个是在标题右边靠右的按钮",
+      "responsibilities": [
+        "新建任务 #这个是在标题右边靠右的按钮"
+      ],
+      "sourcePageId": "pg-1t",
+      "sourceModuleId": "mod-yv",
+      "pageType": "form"
+    },
+    {
+      "id": "module-pg-1t-mod-yw",
+      "kind": "module",
+      "label": "上传图（必填）#不显示标题名，支持多图上传，提示建议上传多角度视图",
+      "subtitle": "子模块",
+      "detailKind": "feature",
+      "description": "万物穿搭上身 / 万物上身 下的功能点：上传图（必填）#不显示标题名，支持多图上传，提示建议上传多角度视图",
+      "responsibilities": [
+        "上传图（必填）#不显示标题名，支持多图上传，提示建议上传多角度视图"
+      ],
+      "sourcePageId": "pg-1t",
+      "sourceModuleId": "mod-yw",
+      "pageType": "form"
+    },
+    {
+      "id": "module-pg-1t-mod-yx",
+      "kind": "module",
+      "label": "商品卖点&要求 #支持AI帮写，有个ai帮写按钮，根据上传图片生成",
+      "subtitle": "子模块",
+      "detailKind": "feature",
+      "description": "万物穿搭上身 / 万物上身 下的功能点：商品卖点&要求 #支持AI帮写，有个ai帮写按钮，根据上传图片生成",
+      "responsibilities": [
+        "商品卖点&要求 #支持AI帮写，有个ai帮写按钮，根据上传图片生成"
+      ],
+      "sourcePageId": "pg-1t",
+      "sourceModuleId": "mod-yx",
+      "pageType": "form"
+    },
+    {
+      "id": "module-pg-1t-mod-yy",
+      "kind": "module",
+      "label": "参考模特 #可以一键生成匹配的模特图，也可以上传参考模特",
+      "subtitle": "子模块",
+      "detailKind": "feature",
+      "description": "万物穿搭上身 / 万物上身 下的功能点：参考模特 #可以一键生成匹配的模特图，也可以上传参考模特",
+      "responsibilities": [
+        "参考模特 #可以一键生成匹配的模特图，也可以上传参考模特"
+      ],
+      "sourcePageId": "pg-1t",
+      "sourceModuleId": "mod-yy",
+      "pageType": "form"
+    },
+    {
+      "id": "module-pg-1t-mod-yz",
+      "kind": "module",
+      "label": "额外描述",
+      "subtitle": "子模块",
+      "detailKind": "feature",
+      "description": "万物穿搭上身 / 万物上身 下的功能点：额外描述",
+      "responsibilities": [
+        "额外描述"
+      ],
+      "sourcePageId": "pg-1t",
+      "sourceModuleId": "mod-yz",
+      "pageType": "form"
+    },
+    {
+      "id": "module-pg-1t-mod-z0",
+      "kind": "module",
+      "label": "生成比例（必选）#需要包含常见比例、细长比例、细宽比例",
+      "subtitle": "子模块",
+      "detailKind": "feature",
+      "description": "万物穿搭上身 / 万物上身 下的功能点：生成比例（必选）#需要包含常见比例、细长比例、细宽比例",
+      "responsibilities": [
+        "生成比例（必选）#需要包含常见比例、细长比例、细宽比例"
+      ],
+      "sourcePageId": "pg-1t",
+      "sourceModuleId": "mod-z0",
+      "pageType": "form"
+    },
+    {
+      "id": "module-pg-1t-mod-z1",
+      "kind": "module",
+      "label": "生成张数",
+      "subtitle": "子模块",
+      "detailKind": "feature",
+      "description": "万物穿搭上身 / 万物上身 下的功能点：生成张数",
+      "responsibilities": [
+        "生成张数"
+      ],
+      "sourcePageId": "pg-1t",
+      "sourceModuleId": "mod-z1",
+      "pageType": "form"
+    },
+    {
+      "id": "module-pg-1t-mod-z2",
+      "kind": "module",
+      "label": "分辨率",
+      "subtitle": "子模块",
+      "detailKind": "feature",
+      "description": "万物穿搭上身 / 万物上身 下的功能点：分辨率",
+      "responsibilities": [
+        "分辨率"
+      ],
+      "sourcePageId": "pg-1t",
+      "sourceModuleId": "mod-z2",
+      "pageType": "form"
+    },
+    {
+      "id": "module-pg-1t-mod-yp",
+      "kind": "module",
+      "label": "创作结果",
+      "subtitle": "功能模块",
+      "detailKind": "module",
+      "description": "万物穿搭上身中的创作结果能力",
+      "responsibilities": [
+        "创作结果"
+      ],
+      "sourcePageId": "pg-1t",
+      "sourceModuleId": "mod-yp",
+      "pageType": "form"
+    },
+    {
+      "id": "module-pg-1t-mod-yq",
+      "kind": "module",
+      "label": "顶部展示创作结果四个字",
+      "subtitle": "子模块",
+      "detailKind": "feature",
+      "description": "万物穿搭上身 / 创作结果 下的功能点：顶部展示创作结果四个字",
+      "responsibilities": [
+        "顶部展示创作结果四个字"
+      ],
+      "sourcePageId": "pg-1t",
+      "sourceModuleId": "mod-yq",
+      "pageType": "form"
+    },
+    {
+      "id": "module-pg-1t-mod-yr",
+      "kind": "module",
+      "label": "中间放放大的图片",
+      "subtitle": "子模块",
+      "detailKind": "feature",
+      "description": "万物穿搭上身 / 创作结果 下的功能点：中间放放大的图片",
+      "responsibilities": [
+        "中间放放大的图片"
+      ],
+      "sourcePageId": "pg-1t",
+      "sourceModuleId": "mod-yr",
+      "pageType": "form"
+    },
+    {
+      "id": "module-pg-1t-mod-ys",
+      "kind": "module",
+      "label": "下面放原图 01 上身图 02 上身图 这几个的缩略图",
+      "subtitle": "子模块",
+      "detailKind": "feature",
+      "description": "万物穿搭上身 / 创作结果 下的功能点：下面放原图 01 上身图 02 上身图 这几个的缩略图",
+      "responsibilities": [
+        "下面放原图 01 上身图 02 上身图 这几个的缩略图"
+      ],
+      "sourcePageId": "pg-1t",
+      "sourceModuleId": "mod-ys",
+      "pageType": "form"
+    },
+    {
+      "id": "module-pg-1t-mod-yt",
+      "kind": "module",
+      "label": "点击某个图片可以在中间展示放大后的图片",
+      "subtitle": "子模块",
+      "detailKind": "feature",
+      "description": "万物穿搭上身 / 创作结果 下的功能点：点击某个图片可以在中间展示放大后的图片",
+      "responsibilities": [
+        "点击某个图片可以在中间展示放大后的图片"
+      ],
+      "sourcePageId": "pg-1t",
+      "sourceModuleId": "mod-yt",
+      "pageType": "form"
+    },
+    {
+      "id": "module-pg-1t-mod-yu",
+      "kind": "module",
+      "label": "还有放大，缩小，下载，重新生成几个悬浮按钮",
+      "subtitle": "子模块",
+      "detailKind": "feature",
+      "description": "万物穿搭上身 / 创作结果 下的功能点：还有放大，缩小，下载，重新生成几个悬浮按钮",
+      "responsibilities": [
+        "还有放大，缩小，下载，重新生成几个悬浮按钮"
+      ],
+      "sourcePageId": "pg-1t",
+      "sourceModuleId": "mod-yu",
+      "pageType": "form"
+    },
+    {
+      "id": "domain-pg-1u",
+      "kind": "domain",
+      "label": "营销场景设计",
+      "subtitle": "左侧是功能列表的菜单栏。宽度占屏幕10%，中间是高转化主图，占屏幕的20%（组件比较多，可上下滚动），右边是创作结果，占屏幕的70%（结果展示原图、01 转化图、02转化图、等等根据数量判定（如果很多可以横向滚动），下面展示横向缩略图列表，主页面展示放大图，默认展示第一张生成的，可以放大缩小，下载，重生成）。",
+      "sourcePageId": "pg-1u"
+    },
+    {
+      "id": "module-pg-1u-mod-w8",
+      "kind": "module",
+      "label": "功能列表",
+      "subtitle": "功能模块",
+      "detailKind": "module",
+      "description": "营销场景设计中的功能列表能力",
+      "responsibilities": [
+        "功能列表"
+      ],
+      "sourcePageId": "pg-1u",
+      "sourceModuleId": "mod-w8",
+      "pageType": "form"
+    },
+    {
+      "id": "module-pg-1u-mod-w9",
+      "kind": "module",
+      "label": "高转化主图",
+      "subtitle": "子模块",
+      "detailKind": "feature",
+      "description": "营销场景设计 / 功能列表 下的功能点：高转化主图",
+      "responsibilities": [
+        "高转化主图"
+      ],
+      "sourcePageId": "pg-1u",
+      "sourceModuleId": "mod-w9",
+      "pageType": "form"
+    },
+    {
+      "id": "module-pg-1u-mod-zi",
+      "kind": "module",
+      "label": "节日海报",
+      "subtitle": "子模块",
+      "detailKind": "feature",
+      "description": "营销场景设计 / 功能列表 下的功能点：节日海报",
+      "responsibilities": [
+        "节日海报"
+      ],
+      "sourcePageId": "pg-1u",
+      "sourceModuleId": "mod-zi",
+      "pageType": "form"
+    },
+    {
+      "id": "module-pg-1u-mod-zj",
+      "kind": "module",
+      "label": "横版Banner",
+      "subtitle": "子模块",
+      "detailKind": "feature",
+      "description": "营销场景设计 / 功能列表 下的功能点：横版Banner",
+      "responsibilities": [
+        "横版Banner"
+      ],
+      "sourcePageId": "pg-1u",
+      "sourceModuleId": "mod-zj",
+      "pageType": "form"
+    },
+    {
+      "id": "module-pg-1u-mod-zk",
+      "kind": "module",
+      "label": "促销弹窗",
+      "subtitle": "子模块",
+      "detailKind": "feature",
+      "description": "营销场景设计 / 功能列表 下的功能点：促销弹窗",
+      "responsibilities": [
+        "促销弹窗"
+      ],
+      "sourcePageId": "pg-1u",
+      "sourceModuleId": "mod-zk",
+      "pageType": "form"
+    },
+    {
+      "id": "module-pg-1u-mod-zl",
+      "kind": "module",
+      "label": "直播背景图",
+      "subtitle": "子模块",
+      "detailKind": "feature",
+      "description": "营销场景设计 / 功能列表 下的功能点：直播背景图",
+      "responsibilities": [
+        "直播背景图"
+      ],
+      "sourcePageId": "pg-1u",
+      "sourceModuleId": "mod-zl",
+      "pageType": "form"
+    },
+    {
+      "id": "module-pg-1u-mod-zm",
+      "kind": "module",
+      "label": "社媒种草图",
+      "subtitle": "子模块",
+      "detailKind": "feature",
+      "description": "营销场景设计 / 功能列表 下的功能点：社媒种草图",
+      "responsibilities": [
+        "社媒种草图"
+      ],
+      "sourcePageId": "pg-1u",
+      "sourceModuleId": "mod-zm",
+      "pageType": "form"
+    },
+    {
+      "id": "module-pg-1u-mod-103",
+      "kind": "module",
+      "label": "我的生成记录",
+      "subtitle": "子模块",
+      "detailKind": "feature",
+      "description": "营销场景设计 / 功能列表 下的功能点：我的生成记录",
+      "responsibilities": [
+        "我的生成记录"
+      ],
+      "sourcePageId": "pg-1u",
+      "sourceModuleId": "mod-103",
+      "pageType": "form"
+    },
+    {
+      "id": "module-pg-1u-mod-wd",
+      "kind": "module",
+      "label": "高转化主图",
+      "subtitle": "功能模块",
+      "detailKind": "module",
+      "description": "营销场景设计中的高转化主图能力",
+      "responsibilities": [
+        "高转化主图"
+      ],
+      "sourcePageId": "pg-1u",
+      "sourceModuleId": "mod-wd",
+      "pageType": "form"
+    },
+    {
+      "id": "module-pg-1u-mod-104",
+      "kind": "module",
+      "label": "新建任务 #这个是在标题右边靠右的按钮",
+      "subtitle": "子模块",
+      "detailKind": "feature",
+      "description": "营销场景设计 / 高转化主图 下的功能点：新建任务 #这个是在标题右边靠右的按钮",
+      "responsibilities": [
+        "新建任务 #这个是在标题右边靠右的按钮"
+      ],
+      "sourcePageId": "pg-1u",
+      "sourceModuleId": "mod-104",
+      "pageType": "form"
+    },
+    {
+      "id": "module-pg-1u-mod-105",
+      "kind": "module",
+      "label": "上传商品图（必填）#支持多图上传，提示建议上传多角度视图",
+      "subtitle": "子模块",
+      "detailKind": "feature",
+      "description": "营销场景设计 / 高转化主图 下的功能点：上传商品图（必填）#支持多图上传，提示建议上传多角度视图",
+      "responsibilities": [
+        "上传商品图（必填）#支持多图上传，提示建议上传多角度视图"
+      ],
+      "sourcePageId": "pg-1u",
+      "sourceModuleId": "mod-105",
+      "pageType": "form"
+    },
+    {
+      "id": "module-pg-1u-mod-106",
+      "kind": "module",
+      "label": "主推卖点 #类似于标签的形式展示，用户可以自定义输入，根据上传图片生成",
+      "subtitle": "子模块",
+      "detailKind": "feature",
+      "description": "营销场景设计 / 高转化主图 下的功能点：主推卖点 #类似于标签的形式展示，用户可以自定义输入，根据上传图片生成",
+      "responsibilities": [
+        "主推卖点 #类似于标签的形式展示，用户可以自定义输入，根据上传图片生成"
+      ],
+      "sourcePageId": "pg-1u",
+      "sourceModuleId": "mod-106",
+      "pageType": "form"
+    },
+    {
+      "id": "module-pg-1u-mod-107",
+      "kind": "module",
+      "label": "生成比例（必选）#需要包含常见比例、细长比例、细宽比例",
+      "subtitle": "子模块",
+      "detailKind": "feature",
+      "description": "营销场景设计 / 高转化主图 下的功能点：生成比例（必选）#需要包含常见比例、细长比例、细宽比例",
+      "responsibilities": [
+        "生成比例（必选）#需要包含常见比例、细长比例、细宽比例"
+      ],
+      "sourcePageId": "pg-1u",
+      "sourceModuleId": "mod-107",
+      "pageType": "form"
+    },
+    {
+      "id": "module-pg-1u-mod-108",
+      "kind": "module",
+      "label": "生成张数",
+      "subtitle": "子模块",
+      "detailKind": "feature",
+      "description": "营销场景设计 / 高转化主图 下的功能点：生成张数",
+      "responsibilities": [
+        "生成张数"
+      ],
+      "sourcePageId": "pg-1u",
+      "sourceModuleId": "mod-108",
+      "pageType": "form"
+    },
+    {
+      "id": "module-pg-1u-mod-109",
+      "kind": "module",
+      "label": "分辨率",
+      "subtitle": "子模块",
+      "detailKind": "feature",
+      "description": "营销场景设计 / 高转化主图 下的功能点：分辨率",
+      "responsibilities": [
+        "分辨率"
+      ],
+      "sourcePageId": "pg-1u",
+      "sourceModuleId": "mod-109",
+      "pageType": "form"
+    },
+    {
+      "id": "module-pg-1u-mod-wp",
+      "kind": "module",
+      "label": "创作结果",
+      "subtitle": "功能模块",
+      "detailKind": "module",
+      "description": "营销场景设计中的创作结果能力",
+      "responsibilities": [
+        "创作结果"
+      ],
+      "sourcePageId": "pg-1u",
+      "sourceModuleId": "mod-wp",
+      "pageType": "form"
+    },
+    {
+      "id": "module-pg-1u-mod-wq",
+      "kind": "module",
+      "label": "顶部展示创作结果四个字",
+      "subtitle": "子模块",
+      "detailKind": "feature",
+      "description": "营销场景设计 / 创作结果 下的功能点：顶部展示创作结果四个字",
+      "responsibilities": [
+        "顶部展示创作结果四个字"
+      ],
+      "sourcePageId": "pg-1u",
+      "sourceModuleId": "mod-wq",
+      "pageType": "form"
+    },
+    {
+      "id": "module-pg-1u-mod-wr",
+      "kind": "module",
+      "label": "中间放放大的图片",
+      "subtitle": "子模块",
+      "detailKind": "feature",
+      "description": "营销场景设计 / 创作结果 下的功能点：中间放放大的图片",
+      "responsibilities": [
+        "中间放放大的图片"
+      ],
+      "sourcePageId": "pg-1u",
+      "sourceModuleId": "mod-wr",
+      "pageType": "form"
+    },
+    {
+      "id": "module-pg-1u-mod-ws",
+      "kind": "module",
+      "label": "下面放原图 01 转化图 02 转化图 这几个的缩略图",
+      "subtitle": "子模块",
+      "detailKind": "feature",
+      "description": "营销场景设计 / 创作结果 下的功能点：下面放原图 01 转化图 02 转化图 这几个的缩略图",
+      "responsibilities": [
+        "下面放原图 01 转化图 02 转化图 这几个的缩略图"
+      ],
+      "sourcePageId": "pg-1u",
+      "sourceModuleId": "mod-ws",
+      "pageType": "form"
+    },
+    {
+      "id": "module-pg-1u-mod-wt",
+      "kind": "module",
+      "label": "点击某个图片可以在中间展示放大后的图片",
+      "subtitle": "子模块",
+      "detailKind": "feature",
+      "description": "营销场景设计 / 创作结果 下的功能点：点击某个图片可以在中间展示放大后的图片",
+      "responsibilities": [
+        "点击某个图片可以在中间展示放大后的图片"
+      ],
+      "sourcePageId": "pg-1u",
+      "sourceModuleId": "mod-wt",
+      "pageType": "form"
+    },
+    {
+      "id": "module-pg-1u-mod-zh",
+      "kind": "module",
+      "label": "还有放大，缩小，下载，重新生成几个悬浮按钮",
+      "subtitle": "子模块",
+      "detailKind": "feature",
+      "description": "营销场景设计 / 创作结果 下的功能点：还有放大，缩小，下载，重新生成几个悬浮按钮",
+      "responsibilities": [
+        "还有放大，缩小，下载，重新生成几个悬浮按钮"
+      ],
+      "sourcePageId": "pg-1u",
+      "sourceModuleId": "mod-zh",
+      "pageType": "form"
+    },
+    {
+      "id": "domain-pg-1v",
+      "kind": "domain",
+      "label": "电商素材生成",
+      "subtitle": "左侧是功能列表的菜单栏。宽度占屏幕10%，中间是参数板块，占屏幕的20%（组件比较多，可上下滚动），右边是创作结果，占屏幕的70%（结果展示原图、01 参数板块、02参数板块、等等根据数量判定（如果很多可以横向滚动），下面展示横向缩略图列表，主页面展示放大图，默认展示第一张生成的，可以放大缩小，下载，重生成）。",
+      "sourcePageId": "pg-1v"
+    },
+    {
+      "id": "module-pg-1v-mod-wu",
+      "kind": "module",
+      "label": "功能列表",
+      "subtitle": "功能模块",
+      "detailKind": "module",
+      "description": "电商素材生成中的功能列表能力",
+      "responsibilities": [
+        "功能列表"
+      ],
+      "sourcePageId": "pg-1v",
+      "sourceModuleId": "mod-wu",
+      "pageType": "form"
+    },
+    {
+      "id": "module-pg-1v-mod-zx",
+      "kind": "module",
+      "label": "参数板块",
+      "subtitle": "子模块",
+      "detailKind": "feature",
+      "description": "电商素材生成 / 功能列表 下的功能点：参数板块",
+      "responsibilities": [
+        "参数板块"
+      ],
+      "sourcePageId": "pg-1v",
+      "sourceModuleId": "mod-zx",
+      "pageType": "form"
+    },
+    {
+      "id": "module-pg-1v-mod-zy",
+      "kind": "module",
+      "label": "卖点堆叠",
+      "subtitle": "子模块",
+      "detailKind": "feature",
+      "description": "电商素材生成 / 功能列表 下的功能点：卖点堆叠",
+      "responsibilities": [
+        "卖点堆叠"
+      ],
+      "sourcePageId": "pg-1v",
+      "sourceModuleId": "mod-zy",
+      "pageType": "form"
+    },
+    {
+      "id": "module-pg-1v-mod-zz",
+      "kind": "module",
+      "label": "使用场景",
+      "subtitle": "子模块",
+      "detailKind": "feature",
+      "description": "电商素材生成 / 功能列表 下的功能点：使用场景",
+      "responsibilities": [
+        "使用场景"
+      ],
+      "sourcePageId": "pg-1v",
+      "sourceModuleId": "mod-zz",
+      "pageType": "form"
+    },
+    {
+      "id": "module-pg-1v-mod-100",
+      "kind": "module",
+      "label": "对比图",
+      "subtitle": "子模块",
+      "detailKind": "feature",
+      "description": "电商素材生成 / 功能列表 下的功能点：对比图",
+      "responsibilities": [
+        "对比图"
+      ],
+      "sourcePageId": "pg-1v",
+      "sourceModuleId": "mod-100",
+      "pageType": "form"
+    },
+    {
+      "id": "module-pg-1v-mod-101",
+      "kind": "module",
+      "label": "尺码图",
+      "subtitle": "子模块",
+      "detailKind": "feature",
+      "description": "电商素材生成 / 功能列表 下的功能点：尺码图",
+      "responsibilities": [
+        "尺码图"
+      ],
+      "sourcePageId": "pg-1v",
+      "sourceModuleId": "mod-101",
+      "pageType": "form"
+    },
+    {
+      "id": "module-pg-1v-mod-102",
+      "kind": "module",
+      "label": "我的生成记录",
+      "subtitle": "子模块",
+      "detailKind": "feature",
+      "description": "电商素材生成 / 功能列表 下的功能点：我的生成记录",
+      "responsibilities": [
+        "我的生成记录"
+      ],
+      "sourcePageId": "pg-1v",
+      "sourceModuleId": "mod-102",
+      "pageType": "form"
+    },
+    {
+      "id": "module-pg-1v-mod-wz",
+      "kind": "module",
+      "label": "参数板块",
+      "subtitle": "功能模块",
+      "detailKind": "module",
+      "description": "电商素材生成中的参数板块能力",
+      "responsibilities": [
+        "参数板块"
+      ],
+      "sourcePageId": "pg-1v",
+      "sourceModuleId": "mod-wz",
+      "pageType": "form"
+    },
+    {
+      "id": "module-pg-1v-mod-zo",
+      "kind": "module",
+      "label": "新建任务 #这个是在标题右边靠右的按钮",
+      "subtitle": "子模块",
+      "detailKind": "feature",
+      "description": "电商素材生成 / 参数板块 下的功能点：新建任务 #这个是在标题右边靠右的按钮",
+      "responsibilities": [
+        "新建任务 #这个是在标题右边靠右的按钮"
+      ],
+      "sourcePageId": "pg-1v",
+      "sourceModuleId": "mod-zo",
+      "pageType": "form"
+    },
+    {
+      "id": "module-pg-1v-mod-zp",
+      "kind": "module",
+      "label": "上传商品图（必填）#支持多图上传，提示建议上传多角度视图",
+      "subtitle": "子模块",
+      "detailKind": "feature",
+      "description": "电商素材生成 / 参数板块 下的功能点：上传商品图（必填）#支持多图上传，提示建议上传多角度视图",
+      "responsibilities": [
+        "上传商品图（必填）#支持多图上传，提示建议上传多角度视图"
+      ],
+      "sourcePageId": "pg-1v",
+      "sourceModuleId": "mod-zp",
+      "pageType": "form"
+    },
+    {
+      "id": "module-pg-1v-mod-zq",
+      "kind": "module",
+      "label": "行业模板（必选） #供用户选择的行业模板标签，单选",
+      "subtitle": "子模块",
+      "detailKind": "feature",
+      "description": "电商素材生成 / 参数板块 下的功能点：行业模板（必选） #供用户选择的行业模板标签，单选",
+      "responsibilities": [
+        "行业模板（必选） #供用户选择的行业模板标签，单选"
+      ],
+      "sourcePageId": "pg-1v",
+      "sourceModuleId": "mod-zq",
+      "pageType": "form"
+    },
+    {
+      "id": "module-pg-1v-mod-zr",
+      "kind": "module",
+      "label": "板式 #有九宫格，横排卡片，竖排列表，左右分栏四个选择",
+      "subtitle": "子模块",
+      "detailKind": "feature",
+      "description": "电商素材生成 / 参数板块 下的功能点：板式 #有九宫格，横排卡片，竖排列表，左右分栏四个选择",
+      "responsibilities": [
+        "板式 #有九宫格，横排卡片，竖排列表，左右分栏四个选择"
+      ],
+      "sourcePageId": "pg-1v",
+      "sourceModuleId": "mod-zr",
+      "pageType": "form"
+    },
+    {
+      "id": "module-pg-1v-mod-zs",
+      "kind": "module",
+      "label": "配色主题 #展示六种常见的三色套，如极简版（白灰黑三色），展示色块和名称",
+      "subtitle": "子模块",
+      "detailKind": "feature",
+      "description": "电商素材生成 / 参数板块 下的功能点：配色主题 #展示六种常见的三色套，如极简版（白灰黑三色），展示色块和名称",
+      "responsibilities": [
+        "配色主题 #展示六种常见的三色套，如极简版（白灰黑三色），展示色块和名称"
+      ],
+      "sourcePageId": "pg-1v",
+      "sourceModuleId": "mod-zs",
+      "pageType": "form"
+    },
+    {
+      "id": "module-pg-1v-mod-zt",
+      "kind": "module",
+      "label": "参数项 #列表形式，三个参数字段，图标（输入法打出来的），名称，值。 最多可添加九个参数项",
+      "subtitle": "子模块",
+      "detailKind": "feature",
+      "description": "电商素材生成 / 参数板块 下的功能点：参数项 #列表形式，三个参数字段，图标（输入法打出来的），名称，值。 最多可添加九个参数项",
+      "responsibilities": [
+        "参数项 #列表形式，三个参数字段，图标（输入法打出来的），名称，值。 最多可添加九个参数项"
+      ],
+      "sourcePageId": "pg-1v",
+      "sourceModuleId": "mod-zt",
+      "pageType": "form"
+    },
+    {
+      "id": "module-pg-1v-mod-zu",
+      "kind": "module",
+      "label": "生成比例（必选）#需要包含常见比例、细长比例、细宽比例",
+      "subtitle": "子模块",
+      "detailKind": "feature",
+      "description": "电商素材生成 / 参数板块 下的功能点：生成比例（必选）#需要包含常见比例、细长比例、细宽比例",
+      "responsibilities": [
+        "生成比例（必选）#需要包含常见比例、细长比例、细宽比例"
+      ],
+      "sourcePageId": "pg-1v",
+      "sourceModuleId": "mod-zu",
+      "pageType": "form"
+    },
+    {
+      "id": "module-pg-1v-mod-zv",
+      "kind": "module",
+      "label": "生成张数",
+      "subtitle": "子模块",
+      "detailKind": "feature",
+      "description": "电商素材生成 / 参数板块 下的功能点：生成张数",
+      "responsibilities": [
+        "生成张数"
+      ],
+      "sourcePageId": "pg-1v",
+      "sourceModuleId": "mod-zv",
+      "pageType": "form"
+    },
+    {
+      "id": "module-pg-1v-mod-zw",
+      "kind": "module",
+      "label": "分辨率",
+      "subtitle": "子模块",
+      "detailKind": "feature",
+      "description": "电商素材生成 / 参数板块 下的功能点：分辨率",
+      "responsibilities": [
+        "分辨率"
+      ],
+      "sourcePageId": "pg-1v",
+      "sourceModuleId": "mod-zw",
+      "pageType": "form"
+    },
+    {
+      "id": "module-pg-1v-mod-xb",
+      "kind": "module",
+      "label": "创作结果",
+      "subtitle": "功能模块",
+      "detailKind": "module",
+      "description": "电商素材生成中的创作结果能力",
+      "responsibilities": [
+        "创作结果"
+      ],
+      "sourcePageId": "pg-1v",
+      "sourceModuleId": "mod-xb",
+      "pageType": "form"
+    },
+    {
+      "id": "module-pg-1v-mod-xc",
+      "kind": "module",
+      "label": "顶部展示创作结果四个字",
+      "subtitle": "子模块",
+      "detailKind": "feature",
+      "description": "电商素材生成 / 创作结果 下的功能点：顶部展示创作结果四个字",
+      "responsibilities": [
+        "顶部展示创作结果四个字"
+      ],
+      "sourcePageId": "pg-1v",
+      "sourceModuleId": "mod-xc",
+      "pageType": "form"
+    },
+    {
+      "id": "module-pg-1v-mod-xd",
+      "kind": "module",
+      "label": "中间放放大的图片",
+      "subtitle": "子模块",
+      "detailKind": "feature",
+      "description": "电商素材生成 / 创作结果 下的功能点：中间放放大的图片",
+      "responsibilities": [
+        "中间放放大的图片"
+      ],
+      "sourcePageId": "pg-1v",
+      "sourceModuleId": "mod-xd",
+      "pageType": "form"
+    },
+    {
+      "id": "module-pg-1v-mod-xe",
+      "kind": "module",
+      "label": "下面放原图 01 参数图 02 参数图 这几个的缩略图",
+      "subtitle": "子模块",
+      "detailKind": "feature",
+      "description": "电商素材生成 / 创作结果 下的功能点：下面放原图 01 参数图 02 参数图 这几个的缩略图",
+      "responsibilities": [
+        "下面放原图 01 参数图 02 参数图 这几个的缩略图"
+      ],
+      "sourcePageId": "pg-1v",
+      "sourceModuleId": "mod-xe",
+      "pageType": "form"
+    },
+    {
+      "id": "module-pg-1v-mod-xf",
+      "kind": "module",
+      "label": "点击某个图片可以在中间展示放大后的图片",
+      "subtitle": "子模块",
+      "detailKind": "feature",
+      "description": "电商素材生成 / 创作结果 下的功能点：点击某个图片可以在中间展示放大后的图片",
+      "responsibilities": [
+        "点击某个图片可以在中间展示放大后的图片"
+      ],
+      "sourcePageId": "pg-1v",
+      "sourceModuleId": "mod-xf",
+      "pageType": "form"
+    },
+    {
+      "id": "module-pg-1v-mod-zn",
+      "kind": "module",
+      "label": "还有放大，缩小，下载，重新生成几个悬浮按钮",
+      "subtitle": "子模块",
+      "detailKind": "feature",
+      "description": "电商素材生成 / 创作结果 下的功能点：还有放大，缩小，下载，重新生成几个悬浮按钮",
+      "responsibilities": [
+        "还有放大，缩小，下载，重新生成几个悬浮按钮"
+      ],
+      "sourcePageId": "pg-1v",
+      "sourceModuleId": "mod-zn",
+      "pageType": "form"
+    }
+  ],
+  "edges": [
+    {
+      "id": "edge-system-root-domain-pg-1r",
+      "source": "system-root",
+      "target": "domain-pg-1r"
+    },
+    {
+      "id": "edge-domain-pg-1r-module-pg-1r-mod-uo",
+      "source": "domain-pg-1r",
+      "target": "module-pg-1r-mod-uo"
+    },
+    {
+      "id": "edge-module-pg-1r-mod-uo-module-pg-1r-mod-up",
+      "source": "module-pg-1r-mod-uo",
+      "target": "module-pg-1r-mod-up"
+    },
+    {
+      "id": "edge-module-pg-1r-mod-uo-module-pg-1r-mod-uq",
+      "source": "module-pg-1r-mod-uo",
+      "target": "module-pg-1r-mod-uq"
+    },
+    {
+      "id": "edge-module-pg-1r-mod-uo-module-pg-1r-mod-ur",
+      "source": "module-pg-1r-mod-uo",
+      "target": "module-pg-1r-mod-ur"
+    },
+    {
+      "id": "edge-module-pg-1r-mod-uo-module-pg-1r-mod-us",
+      "source": "module-pg-1r-mod-uo",
+      "target": "module-pg-1r-mod-us"
+    },
+    {
+      "id": "edge-domain-pg-1r-domain-pg-1s",
+      "source": "domain-pg-1r",
+      "target": "domain-pg-1s"
+    },
+    {
+      "id": "edge-domain-pg-1s-module-pg-1s-mod-xl",
+      "source": "domain-pg-1s",
+      "target": "module-pg-1s-mod-xl"
+    },
+    {
+      "id": "edge-module-pg-1s-mod-xl-module-pg-1s-mod-xm",
+      "source": "module-pg-1s-mod-xl",
+      "target": "module-pg-1s-mod-xm"
+    },
+    {
+      "id": "edge-module-pg-1s-mod-xl-module-pg-1s-mod-xn",
+      "source": "module-pg-1s-mod-xl",
+      "target": "module-pg-1s-mod-xn"
+    },
+    {
+      "id": "edge-module-pg-1s-mod-xl-module-pg-1s-mod-xo",
+      "source": "module-pg-1s-mod-xl",
+      "target": "module-pg-1s-mod-xo"
+    },
+    {
+      "id": "edge-module-pg-1s-mod-xl-module-pg-1s-mod-xp",
+      "source": "module-pg-1s-mod-xl",
+      "target": "module-pg-1s-mod-xp"
+    },
+    {
+      "id": "edge-module-pg-1s-mod-xl-module-pg-1s-mod-xq",
+      "source": "module-pg-1s-mod-xl",
+      "target": "module-pg-1s-mod-xq"
+    },
+    {
+      "id": "edge-module-pg-1s-mod-xl-module-pg-1s-mod-xr",
+      "source": "module-pg-1s-mod-xl",
+      "target": "module-pg-1s-mod-xr"
+    },
+    {
+      "id": "edge-module-pg-1s-mod-xl-module-pg-1s-mod-xs",
+      "source": "module-pg-1s-mod-xl",
+      "target": "module-pg-1s-mod-xs"
+    },
+    {
+      "id": "edge-module-pg-1s-mod-xl-module-pg-1s-mod-xt",
+      "source": "module-pg-1s-mod-xl",
+      "target": "module-pg-1s-mod-xt"
+    },
+    {
+      "id": "edge-module-pg-1s-mod-xl-module-pg-1s-mod-xu",
+      "source": "module-pg-1s-mod-xl",
+      "target": "module-pg-1s-mod-xu"
+    },
+    {
+      "id": "edge-module-pg-1s-mod-xl-module-pg-1s-mod-xv",
+      "source": "module-pg-1s-mod-xl",
+      "target": "module-pg-1s-mod-xv"
+    },
+    {
+      "id": "edge-module-pg-1s-mod-xl-module-pg-1s-mod-xw",
+      "source": "module-pg-1s-mod-xl",
+      "target": "module-pg-1s-mod-xw"
+    },
+    {
+      "id": "edge-module-pg-1s-mod-xl-module-pg-1s-mod-xx",
+      "source": "module-pg-1s-mod-xl",
+      "target": "module-pg-1s-mod-xx"
+    },
+    {
+      "id": "edge-module-pg-1s-mod-xl-module-pg-1s-mod-xy",
+      "source": "module-pg-1s-mod-xl",
+      "target": "module-pg-1s-mod-xy"
+    },
+    {
+      "id": "edge-module-pg-1s-mod-xl-module-pg-1s-mod-xz",
+      "source": "module-pg-1s-mod-xl",
+      "target": "module-pg-1s-mod-xz"
+    },
+    {
+      "id": "edge-module-pg-1s-mod-xl-module-pg-1s-mod-y0",
+      "source": "module-pg-1s-mod-xl",
+      "target": "module-pg-1s-mod-y0"
+    },
+    {
+      "id": "edge-module-pg-1s-mod-xl-module-pg-1s-mod-y1",
+      "source": "module-pg-1s-mod-xl",
+      "target": "module-pg-1s-mod-y1"
+    },
+    {
+      "id": "edge-module-pg-1s-mod-xl-module-pg-1s-mod-yh",
+      "source": "module-pg-1s-mod-xl",
+      "target": "module-pg-1s-mod-yh"
+    },
+    {
+      "id": "edge-domain-pg-1s-module-pg-1s-mod-y5",
+      "source": "domain-pg-1s",
+      "target": "module-pg-1s-mod-y5"
+    },
+    {
+      "id": "edge-module-pg-1s-mod-y5-module-pg-1s-mod-y6",
+      "source": "module-pg-1s-mod-y5",
+      "target": "module-pg-1s-mod-y6"
+    },
+    {
+      "id": "edge-module-pg-1s-mod-y5-module-pg-1s-mod-y7",
+      "source": "module-pg-1s-mod-y5",
+      "target": "module-pg-1s-mod-y7"
+    },
+    {
+      "id": "edge-module-pg-1s-mod-y5-module-pg-1s-mod-y8",
+      "source": "module-pg-1s-mod-y5",
+      "target": "module-pg-1s-mod-y8"
+    },
+    {
+      "id": "edge-module-pg-1s-mod-y5-module-pg-1s-mod-y9",
+      "source": "module-pg-1s-mod-y5",
+      "target": "module-pg-1s-mod-y9"
+    },
+    {
+      "id": "edge-module-pg-1s-mod-y5-module-pg-1s-mod-ya",
+      "source": "module-pg-1s-mod-y5",
+      "target": "module-pg-1s-mod-ya"
+    },
+    {
+      "id": "edge-module-pg-1s-mod-y5-module-pg-1s-mod-yb",
+      "source": "module-pg-1s-mod-y5",
+      "target": "module-pg-1s-mod-yb"
+    },
+    {
+      "id": "edge-module-pg-1s-mod-y5-module-pg-1s-mod-yc",
+      "source": "module-pg-1s-mod-y5",
+      "target": "module-pg-1s-mod-yc"
+    },
+    {
+      "id": "edge-module-pg-1s-mod-y5-module-pg-1s-mod-yd",
+      "source": "module-pg-1s-mod-y5",
+      "target": "module-pg-1s-mod-yd"
+    },
+    {
+      "id": "edge-module-pg-1s-mod-y5-module-pg-1s-mod-ye",
+      "source": "module-pg-1s-mod-y5",
+      "target": "module-pg-1s-mod-ye"
+    },
+    {
+      "id": "edge-module-pg-1s-mod-y5-module-pg-1s-mod-yf",
+      "source": "module-pg-1s-mod-y5",
+      "target": "module-pg-1s-mod-yf"
+    },
+    {
+      "id": "edge-domain-pg-1s-module-pg-1s-mod-yg",
+      "source": "domain-pg-1s",
+      "target": "module-pg-1s-mod-yg"
+    },
+    {
+      "id": "edge-module-pg-1s-mod-yg-module-pg-1s-mod-yi",
+      "source": "module-pg-1s-mod-yg",
+      "target": "module-pg-1s-mod-yi"
+    },
+    {
+      "id": "edge-module-pg-1s-mod-yg-module-pg-1s-mod-yj",
+      "source": "module-pg-1s-mod-yg",
+      "target": "module-pg-1s-mod-yj"
+    },
+    {
+      "id": "edge-module-pg-1s-mod-yg-module-pg-1s-mod-yk",
+      "source": "module-pg-1s-mod-yg",
+      "target": "module-pg-1s-mod-yk"
+    },
+    {
+      "id": "edge-module-pg-1s-mod-yg-module-pg-1s-mod-yl",
+      "source": "module-pg-1s-mod-yg",
+      "target": "module-pg-1s-mod-yl"
+    },
+    {
+      "id": "edge-module-pg-1s-mod-yg-module-pg-1s-mod-ym",
+      "source": "module-pg-1s-mod-yg",
+      "target": "module-pg-1s-mod-ym"
+    },
+    {
+      "id": "edge-domain-pg-1r-domain-pg-1t",
+      "source": "domain-pg-1r",
+      "target": "domain-pg-1t"
+    },
+    {
+      "id": "edge-domain-pg-1t-module-pg-1t-mod-yn",
+      "source": "domain-pg-1t",
+      "target": "module-pg-1t-mod-yn"
+    },
+    {
+      "id": "edge-module-pg-1t-mod-yn-module-pg-1t-mod-z3",
+      "source": "module-pg-1t-mod-yn",
+      "target": "module-pg-1t-mod-z3"
+    },
+    {
+      "id": "edge-module-pg-1t-mod-yn-module-pg-1t-mod-z4",
+      "source": "module-pg-1t-mod-yn",
+      "target": "module-pg-1t-mod-z4"
+    },
+    {
+      "id": "edge-module-pg-1t-mod-yn-module-pg-1t-mod-z5",
+      "source": "module-pg-1t-mod-yn",
+      "target": "module-pg-1t-mod-z5"
+    },
+    {
+      "id": "edge-module-pg-1t-mod-yn-module-pg-1t-mod-z6",
+      "source": "module-pg-1t-mod-yn",
+      "target": "module-pg-1t-mod-z6"
+    },
+    {
+      "id": "edge-module-pg-1t-mod-yn-module-pg-1t-mod-z7",
+      "source": "module-pg-1t-mod-yn",
+      "target": "module-pg-1t-mod-z7"
+    },
+    {
+      "id": "edge-module-pg-1t-mod-yn-module-pg-1t-mod-z8",
+      "source": "module-pg-1t-mod-yn",
+      "target": "module-pg-1t-mod-z8"
+    },
+    {
+      "id": "edge-module-pg-1t-mod-yn-module-pg-1t-mod-z9",
+      "source": "module-pg-1t-mod-yn",
+      "target": "module-pg-1t-mod-z9"
+    },
+    {
+      "id": "edge-module-pg-1t-mod-yn-module-pg-1t-mod-za",
+      "source": "module-pg-1t-mod-yn",
+      "target": "module-pg-1t-mod-za"
+    },
+    {
+      "id": "edge-module-pg-1t-mod-yn-module-pg-1t-mod-zb",
+      "source": "module-pg-1t-mod-yn",
+      "target": "module-pg-1t-mod-zb"
+    },
+    {
+      "id": "edge-module-pg-1t-mod-yn-module-pg-1t-mod-zc",
+      "source": "module-pg-1t-mod-yn",
+      "target": "module-pg-1t-mod-zc"
+    },
+    {
+      "id": "edge-module-pg-1t-mod-yn-module-pg-1t-mod-zd",
+      "source": "module-pg-1t-mod-yn",
+      "target": "module-pg-1t-mod-zd"
+    },
+    {
+      "id": "edge-module-pg-1t-mod-yn-module-pg-1t-mod-ze",
+      "source": "module-pg-1t-mod-yn",
+      "target": "module-pg-1t-mod-ze"
+    },
+    {
+      "id": "edge-module-pg-1t-mod-yn-module-pg-1t-mod-zf",
+      "source": "module-pg-1t-mod-yn",
+      "target": "module-pg-1t-mod-zf"
+    },
+    {
+      "id": "edge-module-pg-1t-mod-yn-module-pg-1t-mod-zg",
+      "source": "module-pg-1t-mod-yn",
+      "target": "module-pg-1t-mod-zg"
+    },
+    {
+      "id": "edge-domain-pg-1t-module-pg-1t-mod-yo",
+      "source": "domain-pg-1t",
+      "target": "module-pg-1t-mod-yo"
+    },
+    {
+      "id": "edge-module-pg-1t-mod-yo-module-pg-1t-mod-yv",
+      "source": "module-pg-1t-mod-yo",
+      "target": "module-pg-1t-mod-yv"
+    },
+    {
+      "id": "edge-module-pg-1t-mod-yo-module-pg-1t-mod-yw",
+      "source": "module-pg-1t-mod-yo",
+      "target": "module-pg-1t-mod-yw"
+    },
+    {
+      "id": "edge-module-pg-1t-mod-yo-module-pg-1t-mod-yx",
+      "source": "module-pg-1t-mod-yo",
+      "target": "module-pg-1t-mod-yx"
+    },
+    {
+      "id": "edge-module-pg-1t-mod-yo-module-pg-1t-mod-yy",
+      "source": "module-pg-1t-mod-yo",
+      "target": "module-pg-1t-mod-yy"
+    },
+    {
+      "id": "edge-module-pg-1t-mod-yo-module-pg-1t-mod-yz",
+      "source": "module-pg-1t-mod-yo",
+      "target": "module-pg-1t-mod-yz"
+    },
+    {
+      "id": "edge-module-pg-1t-mod-yo-module-pg-1t-mod-z0",
+      "source": "module-pg-1t-mod-yo",
+      "target": "module-pg-1t-mod-z0"
+    },
+    {
+      "id": "edge-module-pg-1t-mod-yo-module-pg-1t-mod-z1",
+      "source": "module-pg-1t-mod-yo",
+      "target": "module-pg-1t-mod-z1"
+    },
+    {
+      "id": "edge-module-pg-1t-mod-yo-module-pg-1t-mod-z2",
+      "source": "module-pg-1t-mod-yo",
+      "target": "module-pg-1t-mod-z2"
+    },
+    {
+      "id": "edge-domain-pg-1t-module-pg-1t-mod-yp",
+      "source": "domain-pg-1t",
+      "target": "module-pg-1t-mod-yp"
+    },
+    {
+      "id": "edge-module-pg-1t-mod-yp-module-pg-1t-mod-yq",
+      "source": "module-pg-1t-mod-yp",
+      "target": "module-pg-1t-mod-yq"
+    },
+    {
+      "id": "edge-module-pg-1t-mod-yp-module-pg-1t-mod-yr",
+      "source": "module-pg-1t-mod-yp",
+      "target": "module-pg-1t-mod-yr"
+    },
+    {
+      "id": "edge-module-pg-1t-mod-yp-module-pg-1t-mod-ys",
+      "source": "module-pg-1t-mod-yp",
+      "target": "module-pg-1t-mod-ys"
+    },
+    {
+      "id": "edge-module-pg-1t-mod-yp-module-pg-1t-mod-yt",
+      "source": "module-pg-1t-mod-yp",
+      "target": "module-pg-1t-mod-yt"
+    },
+    {
+      "id": "edge-module-pg-1t-mod-yp-module-pg-1t-mod-yu",
+      "source": "module-pg-1t-mod-yp",
+      "target": "module-pg-1t-mod-yu"
+    },
+    {
+      "id": "edge-domain-pg-1r-domain-pg-1u",
+      "source": "domain-pg-1r",
+      "target": "domain-pg-1u"
+    },
+    {
+      "id": "edge-domain-pg-1u-module-pg-1u-mod-w8",
+      "source": "domain-pg-1u",
+      "target": "module-pg-1u-mod-w8"
+    },
+    {
+      "id": "edge-module-pg-1u-mod-w8-module-pg-1u-mod-w9",
+      "source": "module-pg-1u-mod-w8",
+      "target": "module-pg-1u-mod-w9"
+    },
+    {
+      "id": "edge-module-pg-1u-mod-w8-module-pg-1u-mod-zi",
+      "source": "module-pg-1u-mod-w8",
+      "target": "module-pg-1u-mod-zi"
+    },
+    {
+      "id": "edge-module-pg-1u-mod-w8-module-pg-1u-mod-zj",
+      "source": "module-pg-1u-mod-w8",
+      "target": "module-pg-1u-mod-zj"
+    },
+    {
+      "id": "edge-module-pg-1u-mod-w8-module-pg-1u-mod-zk",
+      "source": "module-pg-1u-mod-w8",
+      "target": "module-pg-1u-mod-zk"
+    },
+    {
+      "id": "edge-module-pg-1u-mod-w8-module-pg-1u-mod-zl",
+      "source": "module-pg-1u-mod-w8",
+      "target": "module-pg-1u-mod-zl"
+    },
+    {
+      "id": "edge-module-pg-1u-mod-w8-module-pg-1u-mod-zm",
+      "source": "module-pg-1u-mod-w8",
+      "target": "module-pg-1u-mod-zm"
+    },
+    {
+      "id": "edge-module-pg-1u-mod-w8-module-pg-1u-mod-103",
+      "source": "module-pg-1u-mod-w8",
+      "target": "module-pg-1u-mod-103"
+    },
+    {
+      "id": "edge-domain-pg-1u-module-pg-1u-mod-wd",
+      "source": "domain-pg-1u",
+      "target": "module-pg-1u-mod-wd"
+    },
+    {
+      "id": "edge-module-pg-1u-mod-wd-module-pg-1u-mod-104",
+      "source": "module-pg-1u-mod-wd",
+      "target": "module-pg-1u-mod-104"
+    },
+    {
+      "id": "edge-module-pg-1u-mod-wd-module-pg-1u-mod-105",
+      "source": "module-pg-1u-mod-wd",
+      "target": "module-pg-1u-mod-105"
+    },
+    {
+      "id": "edge-module-pg-1u-mod-wd-module-pg-1u-mod-106",
+      "source": "module-pg-1u-mod-wd",
+      "target": "module-pg-1u-mod-106"
+    },
+    {
+      "id": "edge-module-pg-1u-mod-wd-module-pg-1u-mod-107",
+      "source": "module-pg-1u-mod-wd",
+      "target": "module-pg-1u-mod-107"
+    },
+    {
+      "id": "edge-module-pg-1u-mod-wd-module-pg-1u-mod-108",
+      "source": "module-pg-1u-mod-wd",
+      "target": "module-pg-1u-mod-108"
+    },
+    {
+      "id": "edge-module-pg-1u-mod-wd-module-pg-1u-mod-109",
+      "source": "module-pg-1u-mod-wd",
+      "target": "module-pg-1u-mod-109"
+    },
+    {
+      "id": "edge-domain-pg-1u-module-pg-1u-mod-wp",
+      "source": "domain-pg-1u",
+      "target": "module-pg-1u-mod-wp"
+    },
+    {
+      "id": "edge-module-pg-1u-mod-wp-module-pg-1u-mod-wq",
+      "source": "module-pg-1u-mod-wp",
+      "target": "module-pg-1u-mod-wq"
+    },
+    {
+      "id": "edge-module-pg-1u-mod-wp-module-pg-1u-mod-wr",
+      "source": "module-pg-1u-mod-wp",
+      "target": "module-pg-1u-mod-wr"
+    },
+    {
+      "id": "edge-module-pg-1u-mod-wp-module-pg-1u-mod-ws",
+      "source": "module-pg-1u-mod-wp",
+      "target": "module-pg-1u-mod-ws"
+    },
+    {
+      "id": "edge-module-pg-1u-mod-wp-module-pg-1u-mod-wt",
+      "source": "module-pg-1u-mod-wp",
+      "target": "module-pg-1u-mod-wt"
+    },
+    {
+      "id": "edge-module-pg-1u-mod-wp-module-pg-1u-mod-zh",
+      "source": "module-pg-1u-mod-wp",
+      "target": "module-pg-1u-mod-zh"
+    },
+    {
+      "id": "edge-domain-pg-1r-domain-pg-1v",
+      "source": "domain-pg-1r",
+      "target": "domain-pg-1v"
+    },
+    {
+      "id": "edge-domain-pg-1v-module-pg-1v-mod-wu",
+      "source": "domain-pg-1v",
+      "target": "module-pg-1v-mod-wu"
+    },
+    {
+      "id": "edge-module-pg-1v-mod-wu-module-pg-1v-mod-zx",
+      "source": "module-pg-1v-mod-wu",
+      "target": "module-pg-1v-mod-zx"
+    },
+    {
+      "id": "edge-module-pg-1v-mod-wu-module-pg-1v-mod-zy",
+      "source": "module-pg-1v-mod-wu",
+      "target": "module-pg-1v-mod-zy"
+    },
+    {
+      "id": "edge-module-pg-1v-mod-wu-module-pg-1v-mod-zz",
+      "source": "module-pg-1v-mod-wu",
+      "target": "module-pg-1v-mod-zz"
+    },
+    {
+      "id": "edge-module-pg-1v-mod-wu-module-pg-1v-mod-100",
+      "source": "module-pg-1v-mod-wu",
+      "target": "module-pg-1v-mod-100"
+    },
+    {
+      "id": "edge-module-pg-1v-mod-wu-module-pg-1v-mod-101",
+      "source": "module-pg-1v-mod-wu",
+      "target": "module-pg-1v-mod-101"
+    },
+    {
+      "id": "edge-module-pg-1v-mod-wu-module-pg-1v-mod-102",
+      "source": "module-pg-1v-mod-wu",
+      "target": "module-pg-1v-mod-102"
+    },
+    {
+      "id": "edge-domain-pg-1v-module-pg-1v-mod-wz",
+      "source": "domain-pg-1v",
+      "target": "module-pg-1v-mod-wz"
+    },
+    {
+      "id": "edge-module-pg-1v-mod-wz-module-pg-1v-mod-zo",
+      "source": "module-pg-1v-mod-wz",
+      "target": "module-pg-1v-mod-zo"
+    },
+    {
+      "id": "edge-module-pg-1v-mod-wz-module-pg-1v-mod-zp",
+      "source": "module-pg-1v-mod-wz",
+      "target": "module-pg-1v-mod-zp"
+    },
+    {
+      "id": "edge-module-pg-1v-mod-wz-module-pg-1v-mod-zq",
+      "source": "module-pg-1v-mod-wz",
+      "target": "module-pg-1v-mod-zq"
+    },
+    {
+      "id": "edge-module-pg-1v-mod-wz-module-pg-1v-mod-zr",
+      "source": "module-pg-1v-mod-wz",
+      "target": "module-pg-1v-mod-zr"
+    },
+    {
+      "id": "edge-module-pg-1v-mod-wz-module-pg-1v-mod-zs",
+      "source": "module-pg-1v-mod-wz",
+      "target": "module-pg-1v-mod-zs"
+    },
+    {
+      "id": "edge-module-pg-1v-mod-wz-module-pg-1v-mod-zt",
+      "source": "module-pg-1v-mod-wz",
+      "target": "module-pg-1v-mod-zt"
+    },
+    {
+      "id": "edge-module-pg-1v-mod-wz-module-pg-1v-mod-zu",
+      "source": "module-pg-1v-mod-wz",
+      "target": "module-pg-1v-mod-zu"
+    },
+    {
+      "id": "edge-module-pg-1v-mod-wz-module-pg-1v-mod-zv",
+      "source": "module-pg-1v-mod-wz",
+      "target": "module-pg-1v-mod-zv"
+    },
+    {
+      "id": "edge-module-pg-1v-mod-wz-module-pg-1v-mod-zw",
+      "source": "module-pg-1v-mod-wz",
+      "target": "module-pg-1v-mod-zw"
+    },
+    {
+      "id": "edge-domain-pg-1v-module-pg-1v-mod-xb",
+      "source": "domain-pg-1v",
+      "target": "module-pg-1v-mod-xb"
+    },
+    {
+      "id": "edge-module-pg-1v-mod-xb-module-pg-1v-mod-xc",
+      "source": "module-pg-1v-mod-xb",
+      "target": "module-pg-1v-mod-xc"
+    },
+    {
+      "id": "edge-module-pg-1v-mod-xb-module-pg-1v-mod-xd",
+      "source": "module-pg-1v-mod-xb",
+      "target": "module-pg-1v-mod-xd"
+    },
+    {
+      "id": "edge-module-pg-1v-mod-xb-module-pg-1v-mod-xe",
+      "source": "module-pg-1v-mod-xb",
+      "target": "module-pg-1v-mod-xe"
+    },
+    {
+      "id": "edge-module-pg-1v-mod-xb-module-pg-1v-mod-xf",
+      "source": "module-pg-1v-mod-xb",
+      "target": "module-pg-1v-mod-xf"
+    },
+    {
+      "id": "edge-module-pg-1v-mod-xb-module-pg-1v-mod-zn",
+      "source": "module-pg-1v-mod-xb",
+      "target": "module-pg-1v-mod-zn"
+    }
+  ]
+}

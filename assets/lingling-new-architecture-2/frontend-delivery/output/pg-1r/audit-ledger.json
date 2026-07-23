@@ -1,0 +1,844 @@
+{
+  "version": 3,
+  "name": "pg-1r",
+  "generatedAt": "2026-07-22T13:54:14.643Z",
+  "convergence": {
+    "status": "converging",
+    "rounds": 2,
+    "maxRounds": 12,
+    "plateauRounds": 3,
+    "plateauEpsilonPp": 0.1,
+    "bestScore": 86.105,
+    "latestScore": 76.1773,
+    "windowImprovementPp": null,
+    "evaluatedAt": "2026-07-22T13:54:14.643Z"
+  },
+  "run": {
+    "dpr": 1,
+    "threshold": 0.1,
+    "skipAssets": false,
+    "config": {
+      "source": "designs/pg-1r.png",
+      "target": "png",
+      "fullSimilarity": 70,
+      "foregroundSimilarity": 65,
+      "minRegionSimilarity": 70,
+      "responsiveEnabled": true,
+      "responsiveProfiles": [
+        {
+          "id": "compact-1024x768",
+          "width": 1024,
+          "height": 768,
+          "reference": false
+        },
+        {
+          "id": "laptop-1280x720",
+          "width": 1280,
+          "height": 720,
+          "reference": false
+        },
+        {
+          "id": "laptop-1366x768",
+          "width": 1366,
+          "height": 768,
+          "reference": false
+        },
+        {
+          "id": "desktop-1440x900",
+          "width": 1440,
+          "height": 900,
+          "reference": false
+        },
+        {
+          "id": "wide-1920x1080",
+          "width": 1920,
+          "height": 1080,
+          "reference": false
+        },
+        {
+          "id": "reference-1536x1024",
+          "width": 1536,
+          "height": 1024,
+          "reference": true
+        }
+      ]
+    }
+  },
+  "commands": [
+    {
+      "id": "verify",
+      "command": "node scripts/verify.mjs pg-1r --dpr=1 --threshold=0.1",
+      "status": "pass",
+      "exitCode": 0,
+      "optional": false,
+      "durationMs": 5218,
+      "log": "output/pg-1r/audit-logs/verify.log",
+      "stdoutTail": [
+        "设计图 1536×1024 @1x → viewport 1536×1024",
+        "🔴 pg-1r 相似度 76.18%(差异 374,699 / 1,572,864 px)",
+        "报告: output/pg-1r/report.html"
+      ],
+      "stderrTail": []
+    },
+    {
+      "id": "foreground-score",
+      "command": "node scripts/foreground-score.mjs pg-1r --threshold=0.1",
+      "status": "pass",
+      "exitCode": 0,
+      "optional": false,
+      "durationMs": 449,
+      "log": "output/pg-1r/audit-logs/foreground-score.log",
+      "stdoutTail": [
+        "前景相似度: 33.78% · 全图 76.18% · salient 33.31%",
+        "报告: output/pg-1r/foreground-score.json"
+      ],
+      "stderrTail": []
+    },
+    {
+      "id": "diff-components",
+      "command": "node scripts/diff-components.mjs pg-1r",
+      "status": "pass",
+      "exitCode": 0,
+      "optional": false,
+      "durationMs": 94,
+      "log": "output/pg-1r/audit-logs/diff-components.log",
+      "stdoutTail": [
+        "  2410 px  Viewport  x=987, y=863, w=56, h=57",
+        "  2368 px  Viewport  x=670, y=863, w=56, h=57",
+        "  2325 px  Viewport  x=752, y=605, w=29, h=155",
+        "  1974 px  Viewport  x=582, y=391, w=65, h=68",
+        "  1784 px  Viewport  x=362, y=300, w=63, h=67",
+        "  1675 px  Viewport  x=147, y=301, w=66, h=64",
+        "  1662 px  Viewport  x=149, y=372, w=58, h=86",
+        "  1581 px  Viewport  x=162, y=391, w=52, h=67"
+      ],
+      "stderrTail": []
+    },
+    {
+      "id": "region-score",
+      "command": "node scripts/region-score.mjs pg-1r --threshold=0.1",
+      "status": "pass",
+      "exitCode": 0,
+      "optional": false,
+      "durationMs": 225,
+      "log": "output/pg-1r/audit-logs/region-score.log",
+      "stdoutTail": [
+        "分区相似度(已写 output/pg-1r/region-score.json)",
+        " 76.18%   374699 / 1572864  px  100.0% diff  Viewport"
+      ],
+      "stderrTail": []
+    },
+    {
+      "id": "structure-audit",
+      "command": "node scripts/structure-audit.mjs pg-1r --dpr=1",
+      "status": "pass",
+      "exitCode": 0,
+      "optional": false,
+      "durationMs": 1261,
+      "log": "output/pg-1r/audit-logs/structure-audit.log",
+      "stdoutTail": [
+        "  Input    input        dom=(1091,47,266×23) dx=0,0 dy=0,0 hairlines d/a=0/0",
+        "  Button   .brand       dom=(48,30,187×56) dx=0,0 dy=0,0",
+        "  Button   .active      dom=(269,16,38×84) dx=0,0 dy=0,0",
+        "  Button   button       dom=(357,16,122×84) dx=0,0 dy=0,0",
+        "  Button   button       dom=(529,16,106×84) dx=0,0 dy=0,0",
+        "  Button   button       dom=(685,16,106×84) dx=0,0 dy=0,0",
+        "  Button   button       dom=(841,16,106×84) dx=0,0 dy=0,0",
+        "  Button   .profile-button dom=(1398,33,93×50) dx=0,0 dy=0,0"
+      ],
+      "stderrTail": []
+    },
+    {
+      "id": "visual-inventory",
+      "command": "node scripts/visual-inventory.mjs pg-1r --dpr=1",
+      "status": "pass",
+      "exitCode": 0,
+      "optional": false,
+      "durationMs": 1181,
+      "log": "output/pg-1r/audit-logs/visual-inventory.log",
+      "stdoutTail": [
+        "视觉盘点: 48 个可见元素, 已写 output/pg-1r/visual-inventory.json",
+        "类型: container×31, button×7, icon×4, text×4, card×1, input×1",
+        "未闭环维度: 129 项(pending/fail/missing; skipped 均含原因)"
+      ],
+      "stderrTail": []
+    },
+    {
+      "id": "color-audit",
+      "command": "node scripts/color-audit.mjs pg-1r --dpr=1",
+      "status": "pass",
+      "exitCode": 0,
+      "optional": false,
+      "durationMs": 2876,
+      "log": "output/pg-1r/audit-logs/color-audit.log",
+      "stdoutTail": [
+        "═══ 文字色偏差(实测 actual ↔ design,ΔE ≥ 3,top 20)═══",
+        "  ΔE   元素                            文本        css声明   design实测  actual实测",
+        "  9.2  button.active                   首页        #ff3328   #fe1e0e     #ff3328",
+        "  4.3  span                            灵灵生图站     #111111   #040303     #111111",
+        "═══ 背景/填充色偏差(actual ↔ design,ΔE ≥ 3,top 20)═══",
+        "  ΔE   元素                            类型  design实测  actual实测",
+        "共审计 11 个元素(文字 3 / 背景·填充 3)。建议:文字色以 design实测 为准修 css;小字(<13px)受 JPEG 侵蚀,design实测 会偏向背景色,酌情参考。"
+      ],
+      "stderrTail": []
+    },
+    {
+      "id": "font-audit",
+      "command": "node scripts/font-audit.mjs pg-1r --dpr=1",
+      "status": "pass",
+      "exitCode": 0,
+      "optional": false,
+      "durationMs": 2804,
+      "log": "output/pg-1r/audit-logs/font-audit.log",
+      "stdoutTail": [
+        "═══ 字体审计(墨高比反推;|Δ| ≥ 1.2px 需修,按偏差排序)═══",
+        "   Δfs   我的fs → 设计fs   墨高(a/d)  元素                    文本",
+        "-12.0      22 →  10.0    22/10     p.hero-subtitle         Unexpected tok",
+        " -4.2      25 →  20.8    24/20     span                    灵灵生图站",
+        " -3.1      64 →  60.9    61/58     h1.hero-title           首页加载失败",
+        "共测 8 段单行文字,已对齐(|Δ|<1.2)5 段;多行元素 0 段未测(需人工)"
+      ],
+      "stderrTail": []
+    },
+    {
+      "id": "full-audit",
+      "command": "node scripts/full-audit.mjs pg-1r --dpr=1",
+      "status": "pass",
+      "exitCode": 0,
+      "optional": false,
+      "durationMs": 2573,
+      "log": "output/pg-1r/audit-logs/full-audit.log",
+      "stdoutTail": [
+        "── 文字色偏差(ΔRGB>55)(0 项)──",
+        "── 背景色偏差(ΔRGB>22)(0 项)──",
+        "── 边框色偏差(ΔRGB>26)(5 项)──",
+        "  form.search-box                   #d9dee8 → #fcfcfc",
+        "  span                              #f7f7f9 → #e0dcde",
+        "  span                              #f7f6f8 → #e0dee0",
+        "  span                              #f6eef0 → #e0cbcb",
+        "  span                              #f6eef0 → #dbc4c4"
+      ],
+      "stderrTail": []
+    },
+    {
+      "id": "content-audit",
+      "command": "node scripts/content-audit.mjs pg-1r --dpr=1",
+      "status": "pass",
+      "exitCode": 0,
+      "optional": false,
+      "durationMs": 1141,
+      "log": "output/pg-1r/audit-logs/content-audit.log",
+      "stdoutTail": [
+        "内容审计: fail, manifest present, findings 13"
+      ],
+      "stderrTail": []
+    },
+    {
+      "id": "responsive-audit",
+      "command": "node scripts/responsive-audit.mjs pg-1r",
+      "status": "pass",
+      "exitCode": 0,
+      "optional": false,
+      "durationMs": 6552,
+      "log": "output/pg-1r/audit-logs/responsive-audit.log",
+      "stdoutTail": [
+        "响应式审计: pass, 6 profiles, 0 blocking, 0 findings",
+        "  compact-1024x768 1024x768: 0 findings",
+        "  laptop-1280x720 1280x720: 0 findings",
+        "  laptop-1366x768 1366x768: 0 findings",
+        "  desktop-1440x900 1440x900: 0 findings",
+        "  wide-1920x1080 1920x1080: 0 findings",
+        "  reference-1536x1024 1536x1024: 0 findings"
+      ],
+      "stderrTail": []
+    },
+    {
+      "id": "asset-plan",
+      "command": "",
+      "status": "skipped",
+      "optional": true,
+      "exitCode": null,
+      "durationMs": 0,
+      "reason": "pages/<name>/asset-plan.json missing"
+    },
+    {
+      "id": "asset-edge-audit",
+      "command": "node scripts/asset-edge-audit.mjs pg-1r",
+      "status": "pass",
+      "exitCode": 0,
+      "optional": false,
+      "durationMs": 68,
+      "log": "output/pg-1r/audit-logs/asset-edge-audit.log",
+      "stdoutTail": [
+        "资源边缘审计: 0 个 PNG, 失败 0 个, 已写 output/pg-1r/assets/edge-audit.json"
+      ],
+      "stderrTail": []
+    },
+    {
+      "id": "audit-fusion",
+      "command": "node scripts/audit-fusion.mjs pg-1r",
+      "status": "pass",
+      "exitCode": 0,
+      "optional": false,
+      "durationMs": 195,
+      "log": "output/pg-1r/audit-logs/audit-fusion.log",
+      "stdoutTail": [
+        "审计融合: open 56, resolved 114, inventory unresolved 26"
+      ],
+      "stderrTail": []
+    }
+  ],
+  "artifacts": {
+    "required": [
+      {
+        "path": "output/pg-1r/design.png",
+        "exists": true
+      },
+      {
+        "path": "output/pg-1r/actual.png",
+        "exists": true
+      },
+      {
+        "path": "output/pg-1r/diff.png",
+        "exists": true
+      },
+      {
+        "path": "output/pg-1r/delta.png",
+        "exists": true
+      },
+      {
+        "path": "output/pg-1r/report.html",
+        "exists": true
+      },
+      {
+        "path": "output/pg-1r/history.jsonl",
+        "exists": true
+      },
+      {
+        "path": "output/pg-1r/diff-components.json",
+        "exists": true
+      },
+      {
+        "path": "output/pg-1r/region-score.json",
+        "exists": true
+      },
+      {
+        "path": "output/pg-1r/foreground-score.json",
+        "exists": true
+      },
+      {
+        "path": "output/pg-1r/structure-audit.json",
+        "exists": true
+      },
+      {
+        "path": "output/pg-1r/visual-inventory.json",
+        "exists": true
+      },
+      {
+        "path": "output/pg-1r/color-audit.json",
+        "exists": true
+      },
+      {
+        "path": "output/pg-1r/font-audit.json",
+        "exists": true
+      },
+      {
+        "path": "output/pg-1r/full-audit.json",
+        "exists": true
+      },
+      {
+        "path": "output/pg-1r/content-audit.json",
+        "exists": true
+      },
+      {
+        "path": "output/pg-1r/findings.json",
+        "exists": true
+      },
+      {
+        "path": "output/pg-1r/run-manifest.json",
+        "exists": true
+      },
+      {
+        "path": "output/pg-1r/responsive-audit.json",
+        "exists": true
+      },
+      {
+        "path": "output/pg-1r/responsive/compact-1024x768.png",
+        "exists": true
+      },
+      {
+        "path": "output/pg-1r/responsive/laptop-1280x720.png",
+        "exists": true
+      },
+      {
+        "path": "output/pg-1r/responsive/laptop-1366x768.png",
+        "exists": true
+      },
+      {
+        "path": "output/pg-1r/responsive/desktop-1440x900.png",
+        "exists": true
+      },
+      {
+        "path": "output/pg-1r/responsive/wide-1920x1080.png",
+        "exists": true
+      },
+      {
+        "path": "output/pg-1r/responsive/reference-1536x1024.png",
+        "exists": true
+      }
+    ],
+    "optional": [
+      {
+        "path": "pages/pg-1r/restore-plan.json",
+        "exists": true
+      },
+      {
+        "path": "pages/pg-1r/asset-plan.json",
+        "exists": false
+      },
+      {
+        "path": "output/pg-1r/assets/asset-report.json",
+        "exists": false
+      },
+      {
+        "path": "output/pg-1r/assets/edge-audit.json",
+        "exists": true
+      }
+    ]
+  },
+  "summary": {
+    "score": {
+      "ts": "2026-07-22T13:53:55.199Z",
+      "name": "pg-1r",
+      "similarity": 76.1773,
+      "mismatch": 374699,
+      "pixels": 1572864,
+      "design": {
+        "width": 1536,
+        "height": 1024
+      },
+      "actual": {
+        "width": 1536,
+        "height": 1024
+      },
+      "dpr": 1,
+      "threshold": 0.1
+    },
+    "foreground": {
+      "version": 3,
+      "name": "pg-1r",
+      "generatedAt": "2026-07-22T13:53:55.324Z",
+      "threshold": 0.1,
+      "width": 1536,
+      "height": 1024,
+      "pixels": 1572864,
+      "fullMismatch": 374699,
+      "fullSimilarity": 76.1773,
+      "salientPixels": 523861,
+      "salientRatio": 33.3062,
+      "foregroundMismatch": 346899,
+      "foregroundSimilarity": 33.7803
+    },
+    "inventory": {
+      "total": 48,
+      "byKind": {
+        "container": 31,
+        "button": 7,
+        "icon": 4,
+        "text": 4,
+        "card": 1,
+        "input": 1
+      },
+      "dimensions": {
+        "geometry": {
+          "pass": 0,
+          "fail": 3,
+          "pending": 0,
+          "skipped": 45,
+          "missing": 0
+        },
+        "typography": {
+          "pass": 5,
+          "fail": 3,
+          "pending": 0,
+          "skipped": 40,
+          "missing": 0
+        },
+        "textColor": {
+          "pass": 1,
+          "fail": 2,
+          "pending": 0,
+          "skipped": 45,
+          "missing": 0
+        },
+        "backgroundColor": {
+          "pass": 3,
+          "fail": 0,
+          "pending": 2,
+          "skipped": 43,
+          "missing": 0
+        },
+        "border": {
+          "pass": 2,
+          "fail": 5,
+          "pending": 0,
+          "skipped": 41,
+          "missing": 0
+        },
+        "radius": {
+          "pass": 0,
+          "fail": 0,
+          "pending": 0,
+          "skipped": 48,
+          "missing": 0
+        },
+        "shadow": {
+          "pass": 0,
+          "fail": 0,
+          "pending": 0,
+          "skipped": 48,
+          "missing": 0
+        },
+        "opacity": {
+          "pass": 0,
+          "fail": 0,
+          "pending": 0,
+          "skipped": 48,
+          "missing": 0
+        },
+        "asset": {
+          "pass": 0,
+          "fail": 0,
+          "pending": 0,
+          "skipped": 48,
+          "missing": 0
+        },
+        "content": {
+          "pass": 0,
+          "fail": 0,
+          "pending": 11,
+          "skipped": 37,
+          "missing": 0
+        }
+      },
+      "unresolved": {
+        "count": 26,
+        "items": [
+          {
+            "id": "container-005-9fhl8n",
+            "kind": "container",
+            "selector": "main.app.page-pg-1r",
+            "text": "",
+            "dimension": "backgroundColor",
+            "status": "pending",
+            "reason": "visible fill/background must be checked",
+            "findingId": ""
+          },
+          {
+            "id": "button-007-1yhbr1",
+            "kind": "button",
+            "selector": "button.brand",
+            "text": "",
+            "dimension": "content",
+            "status": "pending",
+            "reason": "visible content must match or be documented as mock",
+            "findingId": ""
+          },
+          {
+            "id": "text-011-1yxsam",
+            "kind": "text",
+            "selector": "span:nth-of-type(2)",
+            "text": "灵灵生图站",
+            "dimension": "geometry",
+            "status": "fail",
+            "reason": "span: 垂直位置偏差 6.0px",
+            "findingId": "full-audit:geometry:eb132a018fe9"
+          },
+          {
+            "id": "text-011-1yxsam",
+            "kind": "text",
+            "selector": "span:nth-of-type(2)",
+            "text": "灵灵生图站",
+            "dimension": "typography",
+            "status": "fail",
+            "reason": "span 字号偏差 -4.2px",
+            "findingId": "font-audit:typography:e0f24d5b5416"
+          },
+          {
+            "id": "text-011-1yxsam",
+            "kind": "text",
+            "selector": "span:nth-of-type(2)",
+            "text": "灵灵生图站",
+            "dimension": "textColor",
+            "status": "fail",
+            "reason": "span 文字色 ΔE 4.3",
+            "findingId": "color-audit:textColor:a6036bff428e"
+          },
+          {
+            "id": "text-011-1yxsam",
+            "kind": "text",
+            "selector": "span:nth-of-type(2)",
+            "text": "灵灵生图站",
+            "dimension": "content",
+            "status": "pending",
+            "reason": "visible content must match or be documented as mock",
+            "findingId": ""
+          },
+          {
+            "id": "text-012-1weow4",
+            "kind": "text",
+            "selector": "nav.nav-tabs",
+            "text": "",
+            "dimension": "content",
+            "status": "pending",
+            "reason": "visible content must match or be documented as mock",
+            "findingId": ""
+          },
+          {
+            "id": "button-013-18cahi",
+            "kind": "button",
+            "selector": "button.active:nth-of-type(1)",
+            "text": "首页",
+            "dimension": "textColor",
+            "status": "fail",
+            "reason": "button.active 文字色 ΔE 9.2",
+            "findingId": "color-audit:textColor:89817bb7b787"
+          },
+          {
+            "id": "button-013-18cahi",
+            "kind": "button",
+            "selector": "button.active:nth-of-type(1)",
+            "text": "首页",
+            "dimension": "content",
+            "status": "pending",
+            "reason": "visible content must match or be documented as mock",
+            "findingId": ""
+          },
+          {
+            "id": "button-014-13m4tn",
+            "kind": "button",
+            "selector": "button:nth-of-type(2)",
+            "text": "照片级AI商品图",
+            "dimension": "content",
+            "status": "pending",
+            "reason": "visible content must match or be documented as mock",
+            "findingId": ""
+          },
+          {
+            "id": "button-015-1o7l5o",
+            "kind": "button",
+            "selector": "button:nth-of-type(3)",
+            "text": "万物穿搭上身",
+            "dimension": "content",
+            "status": "pending",
+            "reason": "visible content must match or be documented as mock",
+            "findingId": ""
+          },
+          {
+            "id": "button-016-q97we1",
+            "kind": "button",
+            "selector": "button:nth-of-type(4)",
+            "text": "营销场景设计",
+            "dimension": "content",
+            "status": "pending",
+            "reason": "visible content must match or be documented as mock",
+            "findingId": ""
+          },
+          {
+            "id": "button-017-11fsz8",
+            "kind": "button",
+            "selector": "button:nth-of-type(5)",
+            "text": "电商素材生成",
+            "dimension": "content",
+            "status": "pending",
+            "reason": "visible content must match or be documented as mock",
+            "findingId": ""
+          },
+          {
+            "id": "card-019-1h3aih",
+            "kind": "card",
+            "selector": "form.search-box",
+            "text": "",
+            "dimension": "border",
+            "status": "fail",
+            "reason": "form.search-box: 边框色 #d9dee8 → #fcfcfc",
+            "findingId": "full-audit:border:e9d53e36f4ab"
+          },
+          {
+            "id": "input-023-7gxtzm",
+            "kind": "input",
+            "selector": "input",
+            "text": "",
+            "dimension": "content",
+            "status": "pending",
+            "reason": "visible content must match or be documented as mock",
+            "findingId": ""
+          },
+          {
+            "id": "container-031-bxmtbs",
+            "kind": "container",
+            "selector": "section.home-page.home-page-error",
+            "text": "",
+            "dimension": "backgroundColor",
+            "status": "pending",
+            "reason": "visible fill/background must be checked",
+            "findingId": ""
+          },
+          {
+            "id": "container-042-1xzuol",
+            "kind": "container",
+            "selector": "span:nth-of-type(1)",
+            "text": "",
+            "dimension": "border",
+            "status": "fail",
+            "reason": "span: 边框色 #f7f7f9 → #e0dcde",
+            "findingId": "full-audit:border:dc4923d59e8c"
+          },
+          {
+            "id": "container-043-1fx21i",
+            "kind": "container",
+            "selector": "span:nth-of-type(2)",
+            "text": "",
+            "dimension": "border",
+            "status": "fail",
+            "reason": "span: 边框色 #f7f6f8 → #e0dee0",
+            "findingId": "full-audit:border:2f220f72f533"
+          },
+          {
+            "id": "container-044-ajl2ty",
+            "kind": "container",
+            "selector": "span:nth-of-type(3)",
+            "text": "",
+            "dimension": "border",
+            "status": "fail",
+            "reason": "span: 边框色 #f6eef0 → #e0cbcb",
+            "findingId": "full-audit:border:510cbe7e1773"
+          },
+          {
+            "id": "container-045-j6or8n",
+            "kind": "container",
+            "selector": "span:nth-of-type(4)",
+            "text": "",
+            "dimension": "border",
+            "status": "fail",
+            "reason": "span: 边框色 #f6eef0 → #dbc4c4",
+            "findingId": "full-audit:border:da774d16c64a"
+          },
+          {
+            "id": "text-047-1j8quk",
+            "kind": "text",
+            "selector": "h1.hero-title",
+            "text": "首页加载失败",
+            "dimension": "geometry",
+            "status": "fail",
+            "reason": "h1.hero-title: 垂直位置偏差 19.0px",
+            "findingId": "full-audit:geometry:ca1388733f28"
+          },
+          {
+            "id": "text-047-1j8quk",
+            "kind": "text",
+            "selector": "h1.hero-title",
+            "text": "首页加载失败",
+            "dimension": "typography",
+            "status": "fail",
+            "reason": "h1.hero-title 字号偏差 -3.1px",
+            "findingId": "font-audit:typography:207d65b54bf7"
+          },
+          {
+            "id": "text-047-1j8quk",
+            "kind": "text",
+            "selector": "h1.hero-title",
+            "text": "首页加载失败",
+            "dimension": "content",
+            "status": "pending",
+            "reason": "visible content must match or be documented as mock",
+            "findingId": ""
+          },
+          {
+            "id": "text-048-fa6dx7",
+            "kind": "text",
+            "selector": "p.hero-subtitle",
+            "text": "Unexpected token '<', \"<!doctype \"... is not valid JSON",
+            "dimension": "geometry",
+            "status": "fail",
+            "reason": "p.hero-subtitle: 垂直位置偏差 20.0px",
+            "findingId": "full-audit:geometry:29e72f26afa0"
+          },
+          {
+            "id": "text-048-fa6dx7",
+            "kind": "text",
+            "selector": "p.hero-subtitle",
+            "text": "Unexpected token '<', \"<!doctype \"... is not valid JSON",
+            "dimension": "typography",
+            "status": "fail",
+            "reason": "p.hero-subtitle 字号偏差 -12.0px",
+            "findingId": "font-audit:typography:5133e78cdf97"
+          },
+          {
+            "id": "text-048-fa6dx7",
+            "kind": "text",
+            "selector": "p.hero-subtitle",
+            "text": "Unexpected token '<', \"<!doctype \"... is not valid JSON",
+            "dimension": "content",
+            "status": "pending",
+            "reason": "visible content must match or be documented as mock",
+            "findingId": ""
+          }
+        ]
+      }
+    },
+    "assets": null,
+    "assetEdges": {
+      "totalAssets": 0,
+      "passAssets": 0,
+      "failAssets": 0,
+      "findings": []
+    },
+    "findings": {
+      "total": 170,
+      "open": 56,
+      "resolved": 114,
+      "bySeverity": {
+        "P0": 12,
+        "P1": 55,
+        "P2": 103
+      },
+      "byStatus": {
+        "open": 56,
+        "fixed": 114
+      },
+      "byDimension": {
+        "content": 40,
+        "interaction": 27,
+        "geometry": 70,
+        "typography": 10,
+        "backgroundColor": 4,
+        "textColor": 11,
+        "border": 8
+      },
+      "byDetector": {
+        "content-audit": 40,
+        "responsive-audit": 27,
+        "diff-components": 60,
+        "font-audit": 10,
+        "full-audit": 18,
+        "color-audit": 15
+      }
+    },
+    "responsive": {
+      "status": "pass",
+      "profiles": 6,
+      "passedProfiles": 6,
+      "failedProfiles": 0,
+      "findings": 0,
+      "blockingFindings": 0,
+      "bySeverity": {},
+      "byDimension": {}
+    },
+    "warnings": [
+      "asset-plan skipped: pages/<name>/asset-plan.json missing",
+      "visual inventory has 26 pending/fail/missing dimension entries",
+      "audit findings open: 56"
+    ]
+  }
+}

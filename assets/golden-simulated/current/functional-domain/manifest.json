@@ -1,0 +1,17 @@
+{
+  "schemaVersion": "2.0",
+  "packageType": "functional-domain",
+  "projectId": "golden-simulated",
+  "projectName": "Golden Simulated",
+  "status": "approved",
+  "authorAgentId": "golden-domain-author",
+  "visualReleaseDigest": "7cccdced81725094a67ce6c6c2928ea66354b733fdda12674f9bb775be5d361f",
+  "planning": {
+    "manifest": "planning-manifest.json",
+    "artifacts": "planning-artifacts.json",
+    "capabilityDefinitions": "capability-definitions.json"
+  },
+  "approval": {
+    "reviewerAgentId": "golden-domain-reviewer"
+  }
+}

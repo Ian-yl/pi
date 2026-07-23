@@ -1,0 +1,18 @@
+{
+  "schemaVersion": "1.0",
+  "functionalPackageDigest": "9a551a5ade15279761a5cb45073077e9bb989b3fe979493ef3be974699ff52ae",
+  "capabilityIds": [
+    "cap-sample",
+    "cap-suite-sample-detail",
+    "cap-sample-local-navigation",
+    "cap-sample-display-result"
+  ],
+  "completeCapabilityIds": [
+    "cap-sample",
+    "cap-suite-sample-detail",
+    "cap-sample-local-navigation",
+    "cap-sample-display-result"
+  ],
+  "plannedCapabilityIds": [],
+  "ruleIds": []
+}

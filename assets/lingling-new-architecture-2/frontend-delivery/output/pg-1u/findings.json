@@ -1,0 +1,6263 @@
+{
+  "version": 1,
+  "name": "pg-1u",
+  "generatedAt": "2026-07-22T13:56:03.759Z",
+  "summary": {
+    "total": 191,
+    "open": 184,
+    "resolved": 7,
+    "bySeverity": {
+      "P0": 7,
+      "P1": 68,
+      "P2": 116
+    },
+    "byStatus": {
+      "open": 184,
+      "fixed": 7
+    },
+    "byDimension": {
+      "content": 64,
+      "responsive": 7,
+      "backgroundColor": 14,
+      "textColor": 15,
+      "geometry": 48,
+      "typography": 26,
+      "border": 17
+    },
+    "byDetector": {
+      "content-audit": 64,
+      "responsive-audit": 7,
+      "color-audit": 29,
+      "diff-components": 30,
+      "font-audit": 26,
+      "full-audit": 35
+    }
+  },
+  "findings": [
+    {
+      "id": "content-audit:content:2f52b558b60c",
+      "detector": "content-audit",
+      "code": "content-target-missing",
+      "dimension": "content",
+      "severity": "P0",
+      "status": "open",
+      "title": "pg-1u-primary-title: target element not found or not visible",
+      "target": {
+        "elementId": "pg-1u-primary-title",
+        "selector": ".config-head h2"
+      },
+      "expected": {
+        "text": "高转化主图",
+        "policy": "exact"
+      },
+      "actual": {
+        "text": ""
+      },
+      "threshold": null,
+      "confidence": 1,
+      "evidence": {},
+      "nextAction": "修正前端文案或更新经人工确认的内容清单",
+      "reason": "",
+      "firstSeenAt": "2026-07-22T13:55:06.362Z",
+      "lastSeenAt": "2026-07-22T13:56:03.750Z",
+      "resolvedAt": null
+    },
+    {
+      "id": "content-audit:content:75ed2fca2905",
+      "detector": "content-audit",
+      "code": "all-visible-not-enabled",
+      "dimension": "content",
+      "severity": "P0",
+      "status": "open",
+      "title": "contentScope=all-visible 但 manifest 未启用 requireAllVisible",
+      "target": {
+        "file": "pages/<name>/content-manifest.json"
+      },
+      "expected": null,
+      "actual": null,
+      "threshold": null,
+      "confidence": null,
+      "evidence": {},
+      "nextAction": "设置 requireAllVisible=true 并登记审计发现的全部可见内容",
+      "reason": "",
+      "firstSeenAt": "2026-07-22T13:55:06.362Z",
+      "lastSeenAt": "2026-07-22T13:56:03.750Z",
+      "resolvedAt": null
+    },
+    {
+      "id": "responsive-audit:responsive:351abb80f772",
+      "detector": "responsive-audit",
+      "code": "profile-capture-failed",
+      "dimension": "responsive",
+      "severity": "P0",
+      "status": "fixed",
+      "title": "desktop-1440x900 视口采集失败",
+      "target": {
+        "region": "desktop-1440x900"
+      },
+      "expected": null,
+      "actual": {
+        "message": "page.goto: net::ERR_CONNECTION_REFUSED at http://127.0.0.1:4917/marketing-scene\nCall log:\n\u001b[2m  - navigating to \"http://127.0.0.1:4917/marketing-scene\", waiting until \"networkidle\"\u001b[22m\n"
+      },
+      "threshold": null,
+      "confidence": 0.95,
+      "evidence": {
+        "profile": "desktop-1440x900",
+        "screenshot": "output/pg-1u/responsive/desktop-1440x900.png"
+      },
+      "nextAction": "修复页面启动、路由或浏览器错误后重新执行完整移动端审计",
+      "reason": "",
+      "firstSeenAt": "2026-07-22T13:55:06.362Z",
+      "lastSeenAt": "2026-07-22T13:55:06.362Z",
+      "resolvedAt": "2026-07-22T13:56:03.750Z"
+    },
+    {
+      "id": "responsive-audit:responsive:5cb977a11d54",
+      "detector": "responsive-audit",
+      "code": "profile-capture-failed",
+      "dimension": "responsive",
+      "severity": "P0",
+      "status": "fixed",
+      "title": "laptop-1366x768 视口采集失败",
+      "target": {
+        "region": "laptop-1366x768"
+      },
+      "expected": null,
+      "actual": {
+        "message": "page.goto: net::ERR_CONNECTION_REFUSED at http://127.0.0.1:4917/marketing-scene\nCall log:\n\u001b[2m  - navigating to \"http://127.0.0.1:4917/marketing-scene\", waiting until \"networkidle\"\u001b[22m\n"
+      },
+      "threshold": null,
+      "confidence": 0.95,
+      "evidence": {
+        "profile": "laptop-1366x768",
+        "screenshot": "output/pg-1u/responsive/laptop-1366x768.png"
+      },
+      "nextAction": "修复页面启动、路由或浏览器错误后重新执行完整移动端审计",
+      "reason": "",
+      "firstSeenAt": "2026-07-22T13:55:06.362Z",
+      "lastSeenAt": "2026-07-22T13:55:06.362Z",
+      "resolvedAt": "2026-07-22T13:56:03.750Z"
+    },
+    {
+      "id": "responsive-audit:responsive:5f0b1f624165",
+      "detector": "responsive-audit",
+      "code": "profile-capture-failed",
+      "dimension": "responsive",
+      "severity": "P0",
+      "status": "fixed",
+      "title": "wide-1920x1080 视口采集失败",
+      "target": {
+        "region": "wide-1920x1080"
+      },
+      "expected": null,
+      "actual": {
+        "message": "page.goto: net::ERR_CONNECTION_REFUSED at http://127.0.0.1:4917/marketing-scene\nCall log:\n\u001b[2m  - navigating to \"http://127.0.0.1:4917/marketing-scene\", waiting until \"networkidle\"\u001b[22m\n"
+      },
+      "threshold": null,
+      "confidence": 0.95,
+      "evidence": {
+        "profile": "wide-1920x1080",
+        "screenshot": "output/pg-1u/responsive/wide-1920x1080.png"
+      },
+      "nextAction": "修复页面启动、路由或浏览器错误后重新执行完整移动端审计",
+      "reason": "",
+      "firstSeenAt": "2026-07-22T13:55:06.362Z",
+      "lastSeenAt": "2026-07-22T13:55:06.362Z",
+      "resolvedAt": "2026-07-22T13:56:03.750Z"
+    },
+    {
+      "id": "responsive-audit:responsive:e1915f054f56",
+      "detector": "responsive-audit",
+      "code": "profile-capture-failed",
+      "dimension": "responsive",
+      "severity": "P0",
+      "status": "fixed",
+      "title": "reference-1536x1024 视口采集失败",
+      "target": {
+        "region": "reference-1536x1024"
+      },
+      "expected": null,
+      "actual": {
+        "message": "page.goto: net::ERR_CONNECTION_REFUSED at http://127.0.0.1:4917/marketing-scene\nCall log:\n\u001b[2m  - navigating to \"http://127.0.0.1:4917/marketing-scene\", waiting until \"networkidle\"\u001b[22m\n"
+      },
+      "threshold": null,
+      "confidence": 0.95,
+      "evidence": {
+        "profile": "reference-1536x1024",
+        "screenshot": "output/pg-1u/responsive/reference-1536x1024.png"
+      },
+      "nextAction": "修复页面启动、路由或浏览器错误后重新执行完整移动端审计",
+      "reason": "",
+      "firstSeenAt": "2026-07-22T13:55:06.362Z",
+      "lastSeenAt": "2026-07-22T13:55:06.362Z",
+      "resolvedAt": "2026-07-22T13:56:03.750Z"
+    },
+    {
+      "id": "responsive-audit:responsive:e85bc6178256",
+      "detector": "responsive-audit",
+      "code": "profile-capture-failed",
+      "dimension": "responsive",
+      "severity": "P0",
+      "status": "fixed",
+      "title": "laptop-1280x720 视口采集失败",
+      "target": {
+        "region": "laptop-1280x720"
+      },
+      "expected": null,
+      "actual": {
+        "message": "page.goto: net::ERR_CONNECTION_REFUSED at http://127.0.0.1:4917/marketing-scene\nCall log:\n\u001b[2m  - navigating to \"http://127.0.0.1:4917/marketing-scene\", waiting until \"networkidle\"\u001b[22m\n"
+      },
+      "threshold": null,
+      "confidence": 0.95,
+      "evidence": {
+        "profile": "laptop-1280x720",
+        "screenshot": "output/pg-1u/responsive/laptop-1280x720.png"
+      },
+      "nextAction": "修复页面启动、路由或浏览器错误后重新执行完整移动端审计",
+      "reason": "",
+      "firstSeenAt": "2026-07-22T13:55:06.362Z",
+      "lastSeenAt": "2026-07-22T13:55:06.362Z",
+      "resolvedAt": "2026-07-22T13:56:03.750Z"
+    },
+    {
+      "id": "color-audit:backgroundColor:0bbd6a8e3b41",
+      "detector": "color-audit",
+      "code": "background-color-delta",
+      "dimension": "backgroundColor",
+      "severity": "P1",
+      "status": "open",
+      "title": "div.upload-thumb 背景色 ΔE 12.3",
+      "target": {
+        "selector": "body>div>div>div>div>main>section>section:nth-of-type(1)>div:nth-of-type(2)>div:nth-of-type(1)>div:nth-of-type(2)>div>div:nth-of-type(1)",
+        "displaySelector": "div.upload-thumb",
+        "text": "",
+        "rect": {
+          "x": 272,
+          "y": 238,
+          "width": 80,
+          "height": 82
+        }
+      },
+      "expected": {
+        "color": "#fefefe"
+      },
+      "actual": {
+        "color": "#f4f5de",
+        "deltaE": 12.33
+      },
+      "threshold": {
+        "maxDeltaE": 3
+      },
+      "confidence": 0.8,
+      "evidence": {},
+      "nextAction": "复核纯色采样区后修正背景或填充色",
+      "reason": "",
+      "firstSeenAt": "2026-07-22T13:55:06.362Z",
+      "lastSeenAt": "2026-07-22T13:56:03.750Z",
+      "resolvedAt": null
+    },
+    {
+      "id": "color-audit:backgroundColor:350f86967d70",
+      "detector": "color-audit",
+      "code": "background-color-delta",
+      "dimension": "backgroundColor",
+      "severity": "P1",
+      "status": "open",
+      "title": "img 背景色 ΔE 12.4",
+      "target": {
+        "selector": "body>div>div>div>div>main>section>section:nth-of-type(1)>div:nth-of-type(2)>div:nth-of-type(1)>div:nth-of-type(2)>div>div:nth-of-type(2)>img",
+        "displaySelector": "img",
+        "text": "",
+        "rect": {
+          "x": 361,
+          "y": 239,
+          "width": 78,
+          "height": 80
+        }
+      },
+      "expected": {
+        "color": "#fefefe"
+      },
+      "actual": {
+        "color": "#f3f5de",
+        "deltaE": 12.37
+      },
+      "threshold": {
+        "maxDeltaE": 3
+      },
+      "confidence": 0.8,
+      "evidence": {},
+      "nextAction": "复核纯色采样区后修正背景或填充色",
+      "reason": "",
+      "firstSeenAt": "2026-07-22T13:55:06.362Z",
+      "lastSeenAt": "2026-07-22T13:56:03.750Z",
+      "resolvedAt": null
+    },
+    {
+      "id": "color-audit:backgroundColor:4e1dd364617a",
+      "detector": "color-audit",
+      "code": "background-color-delta",
+      "dimension": "backgroundColor",
+      "severity": "P1",
+      "status": "open",
+      "title": "div.result-main 背景色 ΔE 13.6",
+      "target": {
+        "selector": "body>div>div>div>div>main>section>section:nth-of-type(2)>div:nth-of-type(2)",
+        "displaySelector": "div.result-main",
+        "text": "",
+        "rect": {
+          "x": 645,
+          "y": 202,
+          "width": 820,
+          "height": 538
+        }
+      },
+      "expected": {
+        "color": "#e2ddce"
+      },
+      "actual": {
+        "color": "#f8fafc",
+        "deltaE": 13.6
+      },
+      "threshold": {
+        "maxDeltaE": 3
+      },
+      "confidence": 0.8,
+      "evidence": {},
+      "nextAction": "复核纯色采样区后修正背景或填充色",
+      "reason": "",
+      "firstSeenAt": "2026-07-22T13:55:06.362Z",
+      "lastSeenAt": "2026-07-22T13:56:03.750Z",
+      "resolvedAt": null
+    },
+    {
+      "id": "color-audit:backgroundColor:7261183ea410",
+      "detector": "color-audit",
+      "code": "background-color-delta",
+      "dimension": "backgroundColor",
+      "severity": "P1",
+      "status": "open",
+      "title": "div.upload-thumb 背景色 ΔE 12.4",
+      "target": {
+        "selector": "body>div>div>div>div>main>section>section:nth-of-type(1)>div:nth-of-type(2)>div:nth-of-type(1)>div:nth-of-type(2)>div>div:nth-of-type(2)",
+        "displaySelector": "div.upload-thumb",
+        "text": "",
+        "rect": {
+          "x": 360,
+          "y": 238,
+          "width": 80,
+          "height": 82
+        }
+      },
+      "expected": {
+        "color": "#fefefe"
+      },
+      "actual": {
+        "color": "#f3f5de",
+        "deltaE": 12.37
+      },
+      "threshold": {
+        "maxDeltaE": 3
+      },
+      "confidence": 0.8,
+      "evidence": {},
+      "nextAction": "复核纯色采样区后修正背景或填充色",
+      "reason": "",
+      "firstSeenAt": "2026-07-22T13:55:06.362Z",
+      "lastSeenAt": "2026-07-22T13:56:03.750Z",
+      "resolvedAt": null
+    },
+    {
+      "id": "color-audit:backgroundColor:8b65545ca914",
+      "detector": "color-audit",
+      "code": "background-color-delta",
+      "dimension": "backgroundColor",
+      "severity": "P1",
+      "status": "open",
+      "title": "div.upload-thumb 背景色 ΔE 12.4",
+      "target": {
+        "selector": "body>div>div>div>div>main>section>section:nth-of-type(1)>div:nth-of-type(2)>div:nth-of-type(1)>div:nth-of-type(2)>div>div:nth-of-type(3)",
+        "displaySelector": "div.upload-thumb",
+        "text": "",
+        "rect": {
+          "x": 448,
+          "y": 238,
+          "width": 80,
+          "height": 82
+        }
+      },
+      "expected": {
+        "color": "#fefefe"
+      },
+      "actual": {
+        "color": "#f3f5de",
+        "deltaE": 12.37
+      },
+      "threshold": {
+        "maxDeltaE": 3
+      },
+      "confidence": 0.8,
+      "evidence": {},
+      "nextAction": "复核纯色采样区后修正背景或填充色",
+      "reason": "",
+      "firstSeenAt": "2026-07-22T13:55:06.362Z",
+      "lastSeenAt": "2026-07-22T13:56:03.750Z",
+      "resolvedAt": null
+    },
+    {
+      "id": "color-audit:backgroundColor:a611444cf87f",
+      "detector": "color-audit",
+      "code": "background-color-delta",
+      "dimension": "backgroundColor",
+      "severity": "P1",
+      "status": "open",
+      "title": "img 背景色 ΔE 12.4",
+      "target": {
+        "selector": "body>div>div>div>div>main>section>section:nth-of-type(1)>div:nth-of-type(2)>div:nth-of-type(1)>div:nth-of-type(2)>div>div:nth-of-type(3)>img",
+        "displaySelector": "img",
+        "text": "",
+        "rect": {
+          "x": 449,
+          "y": 239,
+          "width": 78,
+          "height": 80
+        }
+      },
+      "expected": {
+        "color": "#fefefe"
+      },
+      "actual": {
+        "color": "#f3f5de",
+        "deltaE": 12.37
+      },
+      "threshold": {
+        "maxDeltaE": 3
+      },
+      "confidence": 0.8,
+      "evidence": {},
+      "nextAction": "复核纯色采样区后修正背景或填充色",
+      "reason": "",
+      "firstSeenAt": "2026-07-22T13:55:06.362Z",
+      "lastSeenAt": "2026-07-22T13:56:03.750Z",
+      "resolvedAt": null
+    },
+    {
+      "id": "color-audit:backgroundColor:b43e28ecaff4",
+      "detector": "color-audit",
+      "code": "background-color-delta",
+      "dimension": "backgroundColor",
+      "severity": "P1",
+      "status": "open",
+      "title": "button.thumb-arrow.left 背景色 ΔE 20.2",
+      "target": {
+        "selector": "body>div>div>div>div>main>section>section:nth-of-type(2)>div:nth-of-type(3)>button:nth-of-type(1)",
+        "displaySelector": "button.thumb-arrow.left",
+        "text": "",
+        "rect": {
+          "x": 627,
+          "y": 820,
+          "width": 42,
+          "height": 42
+        }
+      },
+      "expected": {
+        "color": "#e2d7bc"
+      },
+      "actual": {
+        "color": "#ffffff",
+        "deltaE": 20.16
+      },
+      "threshold": {
+        "maxDeltaE": 3
+      },
+      "confidence": 0.8,
+      "evidence": {},
+      "nextAction": "复核纯色采样区后修正背景或填充色",
+      "reason": "",
+      "firstSeenAt": "2026-07-22T13:55:06.362Z",
+      "lastSeenAt": "2026-07-22T13:56:03.750Z",
+      "resolvedAt": null
+    },
+    {
+      "id": "color-audit:backgroundColor:ca10c5914c5e",
+      "detector": "color-audit",
+      "code": "background-color-delta",
+      "dimension": "backgroundColor",
+      "severity": "P1",
+      "status": "open",
+      "title": "div.state-card.error 背景色 ΔE 13.6",
+      "target": {
+        "selector": "body>div>div>div>div>main>section>section:nth-of-type(2)>div:nth-of-type(2)>div",
+        "displaySelector": "div.state-card.error",
+        "text": "加载失败： Unex",
+        "rect": {
+          "x": 645,
+          "y": 202,
+          "width": 820,
+          "height": 538
+        }
+      },
+      "expected": {
+        "color": "#e2ddce"
+      },
+      "actual": {
+        "color": "#f8fafc",
+        "deltaE": 13.6
+      },
+      "threshold": {
+        "maxDeltaE": 3
+      },
+      "confidence": 0.8,
+      "evidence": {},
+      "nextAction": "复核纯色采样区后修正背景或填充色",
+      "reason": "",
+      "firstSeenAt": "2026-07-22T13:55:06.362Z",
+      "lastSeenAt": "2026-07-22T13:56:03.750Z",
+      "resolvedAt": null
+    },
+    {
+      "id": "color-audit:backgroundColor:dd74f820d37a",
+      "detector": "color-audit",
+      "code": "background-color-delta",
+      "dimension": "backgroundColor",
+      "severity": "P1",
+      "status": "open",
+      "title": "img 背景色 ΔE 12.4",
+      "target": {
+        "selector": "body>div>div>div>div>main>section>section:nth-of-type(1)>div:nth-of-type(2)>div:nth-of-type(1)>div:nth-of-type(2)>div>div:nth-of-type(1)>img",
+        "displaySelector": "img",
+        "text": "",
+        "rect": {
+          "x": 273,
+          "y": 239,
+          "width": 78,
+          "height": 80
+        }
+      },
+      "expected": {
+        "color": "#fefefe"
+      },
+      "actual": {
+        "color": "#f3f5de",
+        "deltaE": 12.37
+      },
+      "threshold": {
+        "maxDeltaE": 3
+      },
+      "confidence": 0.8,
+      "evidence": {},
+      "nextAction": "复核纯色采样区后修正背景或填充色",
+      "reason": "",
+      "firstSeenAt": "2026-07-22T13:55:06.362Z",
+      "lastSeenAt": "2026-07-22T13:56:03.750Z",
+      "resolvedAt": null
+    },
+    {
+      "id": "color-audit:backgroundColor:f0c27bb2e6c1",
+      "detector": "color-audit",
+      "code": "background-color-delta",
+      "dimension": "backgroundColor",
+      "severity": "P1",
+      "status": "open",
+      "title": "button.error-toast 背景色 ΔE 98.3",
+      "target": {
+        "selector": "body>div>div>div>div>main>section>section:nth-of-type(2)>button",
+        "displaySelector": "button.error-toast",
+        "text": "Unexpected",
+        "rect": {
+          "x": 836,
+          "y": 941,
+          "width": 439,
+          "height": 38
+        }
+      },
+      "expected": {
+        "color": "#fefefe"
+      },
+      "actual": {
+        "color": "#f0312a",
+        "deltaE": 98.29
+      },
+      "threshold": {
+        "maxDeltaE": 3
+      },
+      "confidence": 0.8,
+      "evidence": {},
+      "nextAction": "复核纯色采样区后修正背景或填充色",
+      "reason": "",
+      "firstSeenAt": "2026-07-22T13:55:06.362Z",
+      "lastSeenAt": "2026-07-22T13:56:03.750Z",
+      "resolvedAt": null
+    },
+    {
+      "id": "color-audit:textColor:1ccb728fcc04",
+      "detector": "color-audit",
+      "code": "text-color-delta",
+      "dimension": "textColor",
+      "severity": "P1",
+      "status": "open",
+      "title": "h2 文字色 ΔE 13.9",
+      "target": {
+        "selector": "body>div>div>div>div>main>section>section:nth-of-type(1)>div:nth-of-type(1)>h2",
+        "displaySelector": "h2",
+        "text": "高转化主图",
+        "rect": {
+          "x": 269,
+          "y": 150,
+          "width": 105,
+          "height": 25
+        }
+      },
+      "expected": {
+        "color": "#020202"
+      },
+      "actual": {
+        "color": "#111827",
+        "cssColor": "#111827",
+        "deltaE": 13.92
+      },
+      "threshold": {
+        "maxDeltaE": 3
+      },
+      "confidence": 0.82,
+      "evidence": {},
+      "nextAction": "使用 pick/inspect 复核笔画核心色，并批量修正同类文字",
+      "reason": "",
+      "firstSeenAt": "2026-07-22T13:55:06.362Z",
+      "lastSeenAt": "2026-07-22T13:56:03.750Z",
+      "resolvedAt": null
+    },
+    {
+      "id": "color-audit:textColor:32f26760e28a",
+      "detector": "color-audit",
+      "code": "text-color-delta",
+      "dimension": "textColor",
+      "severity": "P1",
+      "status": "open",
+      "title": "h2 文字色 ΔE 14.0",
+      "target": {
+        "selector": "body>div>div>div>div>main>section>section:nth-of-type(2)>div:nth-of-type(1)>h2",
+        "displaySelector": "h2",
+        "text": "创作结果",
+        "rect": {
+          "x": 616,
+          "y": 154,
+          "width": 84,
+          "height": 25
+        }
+      },
+      "expected": {
+        "color": "#010101"
+      },
+      "actual": {
+        "color": "#111827",
+        "cssColor": "#111827",
+        "deltaE": 13.98
+      },
+      "threshold": {
+        "maxDeltaE": 3
+      },
+      "confidence": 0.82,
+      "evidence": {},
+      "nextAction": "使用 pick/inspect 复核笔画核心色，并批量修正同类文字",
+      "reason": "",
+      "firstSeenAt": "2026-07-22T13:55:06.362Z",
+      "lastSeenAt": "2026-07-22T13:56:03.750Z",
+      "resolvedAt": null
+    },
+    {
+      "id": "color-audit:textColor:40b236daa526",
+      "detector": "color-audit",
+      "code": "text-color-delta",
+      "dimension": "textColor",
+      "severity": "P1",
+      "status": "open",
+      "title": "span 文字色 ΔE 15.4",
+      "target": {
+        "selector": "body>div>div>div>div>main>section>aside>div>button:nth-of-type(6)>span",
+        "displaySelector": "span",
+        "text": "社媒种草图",
+        "rect": {
+          "x": 81,
+          "y": 448,
+          "width": 80,
+          "height": 22
+        }
+      },
+      "expected": {
+        "color": "#464850"
+      },
+      "actual": {
+        "color": "#1f2937",
+        "cssColor": "#1f2937",
+        "deltaE": 15.4
+      },
+      "threshold": {
+        "maxDeltaE": 3
+      },
+      "confidence": 0.82,
+      "evidence": {},
+      "nextAction": "使用 pick/inspect 复核笔画核心色，并批量修正同类文字",
+      "reason": "",
+      "firstSeenAt": "2026-07-22T13:55:06.362Z",
+      "lastSeenAt": "2026-07-22T13:56:03.750Z",
+      "resolvedAt": null
+    },
+    {
+      "id": "color-audit:textColor:6df17ee43328",
+      "detector": "color-audit",
+      "code": "text-color-delta",
+      "dimension": "textColor",
+      "severity": "P1",
+      "status": "open",
+      "title": "small 文字色 ΔE 40.5",
+      "target": {
+        "selector": "body>div>div>div>div>main>section>section:nth-of-type(1)>div:nth-of-type(2)>div:nth-of-type(3)>div:nth-of-type(2)>button:nth-of-type(1)>small",
+        "displaySelector": "small",
+        "text": "1:1/3:4/4:",
+        "rect": {
+          "x": 284,
+          "y": 736,
+          "width": 61,
+          "height": 14
+        }
+      },
+      "expected": {
+        "color": "#fe8176"
+      },
+      "actual": {
+        "color": "#ff3328",
+        "cssColor": "#ff3328",
+        "deltaE": 40.51
+      },
+      "threshold": {
+        "maxDeltaE": 3
+      },
+      "confidence": 0.65,
+      "evidence": {},
+      "nextAction": "使用 pick/inspect 复核笔画核心色，并批量修正同类文字",
+      "reason": "",
+      "firstSeenAt": "2026-07-22T13:55:06.362Z",
+      "lastSeenAt": "2026-07-22T13:56:03.750Z",
+      "resolvedAt": null
+    },
+    {
+      "id": "color-audit:textColor:81ef832f10b5",
+      "detector": "color-audit",
+      "code": "text-color-delta",
+      "dimension": "textColor",
+      "severity": "P1",
+      "status": "open",
+      "title": "span 文字色 ΔE 13.1",
+      "target": {
+        "selector": "body>div>div>div>div>main>section>section:nth-of-type(1)>div:nth-of-type(2)>div:nth-of-type(3)>div:nth-of-type(2)>button:nth-of-type(3)>span",
+        "displaySelector": "span",
+        "text": "细宽比例",
+        "rect": {
+          "x": 478,
+          "y": 713,
+          "width": 52,
+          "height": 18
+        }
+      },
+      "expected": {
+        "color": "#4c4d4e"
+      },
+      "actual": {
+        "color": "#313b4a",
+        "cssColor": "#313b4a",
+        "deltaE": 13.05
+      },
+      "threshold": {
+        "maxDeltaE": 3
+      },
+      "confidence": 0.82,
+      "evidence": {},
+      "nextAction": "使用 pick/inspect 复核笔画核心色，并批量修正同类文字",
+      "reason": "",
+      "firstSeenAt": "2026-07-22T13:55:06.362Z",
+      "lastSeenAt": "2026-07-22T13:56:03.750Z",
+      "resolvedAt": null
+    },
+    {
+      "id": "color-audit:textColor:8c3399505142",
+      "detector": "color-audit",
+      "code": "text-color-delta",
+      "dimension": "textColor",
+      "severity": "P1",
+      "status": "open",
+      "title": "span 文字色 ΔE 12.8",
+      "target": {
+        "selector": "body>div>div>div>div>main>section>section:nth-of-type(1)>div:nth-of-type(2)>div:nth-of-type(3)>div:nth-of-type(2)>button:nth-of-type(2)>span",
+        "displaySelector": "span",
+        "text": "细长比例",
+        "rect": {
+          "x": 383,
+          "y": 713,
+          "width": 52,
+          "height": 18
+        }
+      },
+      "expected": {
+        "color": "#4e4f51"
+      },
+      "actual": {
+        "color": "#313b4a",
+        "cssColor": "#313b4a",
+        "deltaE": 12.78
+      },
+      "threshold": {
+        "maxDeltaE": 3
+      },
+      "confidence": 0.82,
+      "evidence": {},
+      "nextAction": "使用 pick/inspect 复核笔画核心色，并批量修正同类文字",
+      "reason": "",
+      "firstSeenAt": "2026-07-22T13:55:06.362Z",
+      "lastSeenAt": "2026-07-22T13:56:03.750Z",
+      "resolvedAt": null
+    },
+    {
+      "id": "color-audit:textColor:8d4e4d062967",
+      "detector": "color-audit",
+      "code": "text-color-delta",
+      "dimension": "textColor",
+      "severity": "P1",
+      "status": "open",
+      "title": "span 文字色 ΔE 104.3",
+      "target": {
+        "selector": "body>div>div>div>div>main>section>section:nth-of-type(1)>div:nth-of-type(2)>div:nth-of-type(1)>div:nth-of-type(1)>h3>span",
+        "displaySelector": "span",
+        "text": "（必填）",
+        "rect": {
+          "x": 356,
+          "y": 211,
+          "width": 48,
+          "height": 17
+        }
+      },
+      "expected": {
+        "color": "#161717"
+      },
+      "actual": {
+        "color": "#ff3328",
+        "cssColor": "#ff3328",
+        "deltaE": 104.29
+      },
+      "threshold": {
+        "maxDeltaE": 3
+      },
+      "confidence": 0.65,
+      "evidence": {},
+      "nextAction": "使用 pick/inspect 复核笔画核心色，并批量修正同类文字",
+      "reason": "",
+      "firstSeenAt": "2026-07-22T13:55:06.362Z",
+      "lastSeenAt": "2026-07-22T13:56:03.750Z",
+      "resolvedAt": null
+    },
+    {
+      "id": "color-audit:textColor:ed5113550186",
+      "detector": "color-audit",
+      "code": "text-color-delta",
+      "dimension": "textColor",
+      "severity": "P1",
+      "status": "open",
+      "title": "button 文字色 ΔE 15.9",
+      "target": {
+        "selector": "body>div>div>div>div>main>section>section:nth-of-type(1)>div:nth-of-type(2)>div:nth-of-type(2)>div:nth-of-type(1)>button",
+        "displaySelector": "button",
+        "text": "编辑",
+        "rect": {
+          "x": 502,
+          "y": 464,
+          "width": 44,
+          "height": 25
+        }
+      },
+      "expected": {
+        "color": "#9a9ca7"
+      },
+      "actual": {
+        "color": "#6d7789",
+        "cssColor": "#697386",
+        "deltaE": 15.87
+      },
+      "threshold": {
+        "maxDeltaE": 3
+      },
+      "confidence": 0.65,
+      "evidence": {},
+      "nextAction": "使用 pick/inspect 复核笔画核心色，并批量修正同类文字",
+      "reason": "",
+      "firstSeenAt": "2026-07-22T13:55:06.362Z",
+      "lastSeenAt": "2026-07-22T13:56:03.750Z",
+      "resolvedAt": null
+    },
+    {
+      "id": "diff-components:geometry:2a865f3c21a2",
+      "detector": "diff-components",
+      "code": "diff-component",
+      "dimension": "geometry",
+      "severity": "P1",
+      "status": "open",
+      "title": "Viewport 差异块 15659px",
+      "target": {
+        "region": "Viewport",
+        "rect": {
+          "x": 835,
+          "y": 941,
+          "width": 440,
+          "height": 48
+        }
+      },
+      "expected": null,
+      "actual": {
+        "pixels": 15659,
+        "share": 0.009955724080403646
+      },
+      "threshold": null,
+      "confidence": 0.96,
+      "evidence": {
+        "diff": "diff.png",
+        "rect": {
+          "x": 835,
+          "y": 941,
+          "width": 440,
+          "height": 48
+        }
+      },
+      "nextAction": "打开该坐标局部对比，定位对应 DOM 元素后修复",
+      "reason": "",
+      "firstSeenAt": "2026-07-22T13:55:06.362Z",
+      "lastSeenAt": "2026-07-22T13:56:03.750Z",
+      "resolvedAt": null
+    },
+    {
+      "id": "diff-components:geometry:60ddfa1aa0d6",
+      "detector": "diff-components",
+      "code": "diff-component",
+      "dimension": "geometry",
+      "severity": "P1",
+      "status": "open",
+      "title": "Viewport 差异块 10272px",
+      "target": {
+        "region": "Viewport",
+        "rect": {
+          "x": 263,
+          "y": 923,
+          "width": 292,
+          "height": 57
+        }
+      },
+      "expected": null,
+      "actual": {
+        "pixels": 10272,
+        "share": 0.00653076171875
+      },
+      "threshold": null,
+      "confidence": 0.96,
+      "evidence": {
+        "diff": "diff.png",
+        "rect": {
+          "x": 263,
+          "y": 923,
+          "width": 292,
+          "height": 57
+        }
+      },
+      "nextAction": "打开该坐标局部对比，定位对应 DOM 元素后修复",
+      "reason": "",
+      "firstSeenAt": "2026-07-22T13:55:06.362Z",
+      "lastSeenAt": "2026-07-22T13:56:03.750Z",
+      "resolvedAt": null
+    },
+    {
+      "id": "diff-components:geometry:7911146e9f1e",
+      "detector": "diff-components",
+      "code": "diff-component",
+      "dimension": "geometry",
+      "severity": "P1",
+      "status": "open",
+      "title": "Viewport 差异块 16438px",
+      "target": {
+        "region": "Viewport",
+        "rect": {
+          "x": 1045,
+          "y": 783,
+          "width": 200,
+          "height": 146
+        }
+      },
+      "expected": null,
+      "actual": {
+        "pixels": 16438,
+        "share": 0.010450998942057291
+      },
+      "threshold": null,
+      "confidence": 0.96,
+      "evidence": {
+        "diff": "diff.png",
+        "rect": {
+          "x": 1045,
+          "y": 783,
+          "width": 200,
+          "height": 146
+        }
+      },
+      "nextAction": "打开该坐标局部对比，定位对应 DOM 元素后修复",
+      "reason": "",
+      "firstSeenAt": "2026-07-22T13:55:06.362Z",
+      "lastSeenAt": "2026-07-22T13:56:03.750Z",
+      "resolvedAt": null
+    },
+    {
+      "id": "diff-components:geometry:8c52b09788a2",
+      "detector": "diff-components",
+      "code": "diff-component",
+      "dimension": "geometry",
+      "severity": "P1",
+      "status": "open",
+      "title": "Viewport 差异块 207060px",
+      "target": {
+        "region": "Viewport",
+        "rect": {
+          "x": 647,
+          "y": 212,
+          "width": 802,
+          "height": 537
+        }
+      },
+      "expected": null,
+      "actual": {
+        "pixels": 207060,
+        "share": 0.13164520263671875
+      },
+      "threshold": null,
+      "confidence": 0.96,
+      "evidence": {
+        "diff": "diff.png",
+        "rect": {
+          "x": 647,
+          "y": 212,
+          "width": 802,
+          "height": 537
+        }
+      },
+      "nextAction": "打开该坐标局部对比，定位对应 DOM 元素后修复",
+      "reason": "",
+      "firstSeenAt": "2026-07-22T13:55:06.362Z",
+      "lastSeenAt": "2026-07-22T13:56:03.750Z",
+      "resolvedAt": null
+    },
+    {
+      "id": "diff-components:geometry:90a3b02eb854",
+      "detector": "diff-components",
+      "code": "diff-component",
+      "dimension": "geometry",
+      "severity": "P1",
+      "status": "open",
+      "title": "Viewport 差异块 30330px",
+      "target": {
+        "region": "Viewport",
+        "rect": {
+          "x": 1222,
+          "y": 377,
+          "width": 227,
+          "height": 294
+        }
+      },
+      "expected": null,
+      "actual": {
+        "pixels": 30330,
+        "share": 0.019283294677734375
+      },
+      "threshold": null,
+      "confidence": 0.96,
+      "evidence": {
+        "diff": "diff.png",
+        "rect": {
+          "x": 1222,
+          "y": 377,
+          "width": 227,
+          "height": 294
+        }
+      },
+      "nextAction": "打开该坐标局部对比，定位对应 DOM 元素后修复",
+      "reason": "",
+      "firstSeenAt": "2026-07-22T13:55:06.362Z",
+      "lastSeenAt": "2026-07-22T13:56:03.750Z",
+      "resolvedAt": null
+    },
+    {
+      "id": "diff-components:geometry:a2cd40e225b3",
+      "detector": "diff-components",
+      "code": "diff-component",
+      "dimension": "geometry",
+      "severity": "P1",
+      "status": "open",
+      "title": "Viewport 差异块 12416px",
+      "target": {
+        "region": "Viewport",
+        "rect": {
+          "x": 1267,
+          "y": 783,
+          "width": 200,
+          "height": 146
+        }
+      },
+      "expected": null,
+      "actual": {
+        "pixels": 12416,
+        "share": 0.007893880208333334
+      },
+      "threshold": null,
+      "confidence": 0.96,
+      "evidence": {
+        "diff": "diff.png",
+        "rect": {
+          "x": 1267,
+          "y": 783,
+          "width": 200,
+          "height": 146
+        }
+      },
+      "nextAction": "打开该坐标局部对比，定位对应 DOM 元素后修复",
+      "reason": "",
+      "firstSeenAt": "2026-07-22T13:55:06.362Z",
+      "lastSeenAt": "2026-07-22T13:56:03.750Z",
+      "resolvedAt": null
+    },
+    {
+      "id": "diff-components:geometry:b2f19b74d959",
+      "detector": "diff-components",
+      "code": "diff-component",
+      "dimension": "geometry",
+      "severity": "P1",
+      "status": "open",
+      "title": "Viewport 差异块 18274px",
+      "target": {
+        "region": "Viewport",
+        "rect": {
+          "x": 823,
+          "y": 783,
+          "width": 200,
+          "height": 148
+        }
+      },
+      "expected": null,
+      "actual": {
+        "pixels": 18274,
+        "share": 0.011618296305338541
+      },
+      "threshold": null,
+      "confidence": 0.96,
+      "evidence": {
+        "diff": "diff.png",
+        "rect": {
+          "x": 823,
+          "y": 783,
+          "width": 200,
+          "height": 148
+        }
+      },
+      "nextAction": "打开该坐标局部对比，定位对应 DOM 元素后修复",
+      "reason": "",
+      "firstSeenAt": "2026-07-22T13:55:06.362Z",
+      "lastSeenAt": "2026-07-22T13:56:03.750Z",
+      "resolvedAt": null
+    },
+    {
+      "id": "diff-components:geometry:c49eefec5227",
+      "detector": "diff-components",
+      "code": "diff-component",
+      "dimension": "geometry",
+      "severity": "P1",
+      "status": "open",
+      "title": "Viewport 差异块 20564px",
+      "target": {
+        "region": "Viewport",
+        "rect": {
+          "x": 614,
+          "y": 782,
+          "width": 188,
+          "height": 188
+        }
+      },
+      "expected": null,
+      "actual": {
+        "pixels": 20564,
+        "share": 0.013074239095052084
+      },
+      "threshold": null,
+      "confidence": 0.96,
+      "evidence": {
+        "diff": "diff.png",
+        "rect": {
+          "x": 614,
+          "y": 782,
+          "width": 188,
+          "height": 188
+        }
+      },
+      "nextAction": "打开该坐标局部对比，定位对应 DOM 元素后修复",
+      "reason": "",
+      "firstSeenAt": "2026-07-22T13:55:06.362Z",
+      "lastSeenAt": "2026-07-22T13:56:03.750Z",
+      "resolvedAt": null
+    },
+    {
+      "id": "font-audit:typography:0c45aba0c676",
+      "detector": "font-audit",
+      "code": "font-size-delta",
+      "dimension": "typography",
+      "severity": "P1",
+      "status": "open",
+      "title": "span 字号偏差 -10.0px",
+      "target": {
+        "selector": "body>div>div>div>div>main>section>aside>div>button:nth-of-type(2)>span",
+        "displaySelector": "span",
+        "text": "节日海报",
+        "rect": {
+          "x": 81,
+          "y": 219.5,
+          "width": 64,
+          "height": 22
+        }
+      },
+      "expected": {
+        "fontSize": 6,
+        "inkHeight": 6
+      },
+      "actual": {
+        "fontSize": 16,
+        "inkHeight": 16,
+        "delta": -10
+      },
+      "threshold": {
+        "maxFontDiff": 1.2
+      },
+      "confidence": 0.75,
+      "evidence": {},
+      "nextAction": "结合 inspect 与文字宽度复核后，批量修正同类字号并重新对位",
+      "reason": "",
+      "firstSeenAt": "2026-07-22T13:55:06.362Z",
+      "lastSeenAt": "2026-07-22T13:56:03.750Z",
+      "resolvedAt": null
+    },
+    {
+      "id": "font-audit:typography:221d124f1ca7",
+      "detector": "font-audit",
+      "code": "font-size-delta",
+      "dimension": "typography",
+      "severity": "P1",
+      "status": "open",
+      "title": "button.red-button 字号偏差 -14.7px",
+      "target": {
+        "selector": "body>div>div>div>div>main>section>section:nth-of-type(1)>button",
+        "displaySelector": "button.red-button",
+        "text": "开始生成",
+        "rect": {
+          "x": 263,
+          "y": 936,
+          "width": 292,
+          "height": 43
+        }
+      },
+      "expected": {
+        "fontSize": 2.27,
+        "inkHeight": 6
+      },
+      "actual": {
+        "fontSize": 17,
+        "inkHeight": 45,
+        "delta": -14.73
+      },
+      "threshold": {
+        "maxFontDiff": 1.2
+      },
+      "confidence": 0.75,
+      "evidence": {},
+      "nextAction": "结合 inspect 与文字宽度复核后，批量修正同类字号并重新对位",
+      "reason": "",
+      "firstSeenAt": "2026-07-22T13:55:06.362Z",
+      "lastSeenAt": "2026-07-22T13:56:03.750Z",
+      "resolvedAt": null
+    },
+    {
+      "id": "font-audit:typography:28cb8d6c61d6",
+      "detector": "font-audit",
+      "code": "font-size-delta",
+      "dimension": "typography",
+      "severity": "P1",
+      "status": "open",
+      "title": "button.editable-chip 字号偏差 -9.0px",
+      "target": {
+        "selector": "body>div>div>div>div>main>section>section:nth-of-type(1)>div:nth-of-type(2)>div:nth-of-type(2)>div:nth-of-type(2)>button:nth-of-type(4)",
+        "displaySelector": "button.editable-chip",
+        "text": "低泡易漂洗",
+        "rect": {
+          "x": 400,
+          "y": 534.1875,
+          "width": 107,
+          "height": 30
+        }
+      },
+      "expected": {
+        "fontSize": 4,
+        "inkHeight": 4
+      },
+      "actual": {
+        "fontSize": 13,
+        "inkHeight": 13,
+        "delta": -9
+      },
+      "threshold": {
+        "maxFontDiff": 1.2
+      },
+      "confidence": 0.75,
+      "evidence": {},
+      "nextAction": "结合 inspect 与文字宽度复核后，批量修正同类字号并重新对位",
+      "reason": "",
+      "firstSeenAt": "2026-07-22T13:55:06.362Z",
+      "lastSeenAt": "2026-07-22T13:56:03.750Z",
+      "resolvedAt": null
+    },
+    {
+      "id": "font-audit:typography:2afd2b0c8d56",
+      "detector": "font-audit",
+      "code": "font-size-delta",
+      "dimension": "typography",
+      "severity": "P1",
+      "status": "open",
+      "title": "span 字号偏差 +9.0px",
+      "target": {
+        "selector": "body>div>div>div>div>main>section>section:nth-of-type(1)>div:nth-of-type(2)>div:nth-of-type(3)>div:nth-of-type(2)>button:nth-of-type(3)>span",
+        "displaySelector": "span",
+        "text": "细宽比例",
+        "rect": {
+          "x": 477.65625,
+          "y": 713.484375,
+          "width": 52,
+          "height": 18
+        }
+      },
+      "expected": {
+        "fontSize": 22,
+        "inkHeight": 22
+      },
+      "actual": {
+        "fontSize": 13,
+        "inkHeight": 13,
+        "delta": 9
+      },
+      "threshold": {
+        "maxFontDiff": 1.2
+      },
+      "confidence": 0.75,
+      "evidence": {},
+      "nextAction": "结合 inspect 与文字宽度复核后，批量修正同类字号并重新对位",
+      "reason": "",
+      "firstSeenAt": "2026-07-22T13:55:06.362Z",
+      "lastSeenAt": "2026-07-22T13:56:03.750Z",
+      "resolvedAt": null
+    },
+    {
+      "id": "font-audit:typography:2b9fe829f1dd",
+      "detector": "font-audit",
+      "code": "font-size-delta",
+      "dimension": "typography",
+      "severity": "P1",
+      "status": "open",
+      "title": "button 字号偏差 -10.9px",
+      "target": {
+        "selector": "body>div>div>div>div>main>section>section:nth-of-type(1)>div:nth-of-type(2)>div:nth-of-type(2)>div:nth-of-type(2)>form>button",
+        "displaySelector": "button",
+        "text": "添加卖点",
+        "rect": {
+          "x": 390,
+          "y": 610.1875,
+          "width": 86,
+          "height": 30
+        }
+      },
+      "expected": {
+        "fontSize": 1.09,
+        "inkHeight": 1
+      },
+      "actual": {
+        "fontSize": 12,
+        "inkHeight": 11,
+        "delta": -10.91
+      },
+      "threshold": {
+        "maxFontDiff": 1.2
+      },
+      "confidence": 0.75,
+      "evidence": {},
+      "nextAction": "结合 inspect 与文字宽度复核后，批量修正同类字号并重新对位",
+      "reason": "",
+      "firstSeenAt": "2026-07-22T13:55:06.362Z",
+      "lastSeenAt": "2026-07-22T13:56:03.750Z",
+      "resolvedAt": null
+    },
+    {
+      "id": "font-audit:typography:4406957dae20",
+      "detector": "font-audit",
+      "code": "font-size-delta",
+      "dimension": "typography",
+      "severity": "P1",
+      "status": "open",
+      "title": "h3 字号偏差 -8.0px",
+      "target": {
+        "selector": "body>div>div>div>div>main>section>section:nth-of-type(1)>div:nth-of-type(2)>div:nth-of-type(4)>div:nth-of-type(1)>h3",
+        "displaySelector": "h3",
+        "text": "4. 生成张数",
+        "rect": {
+          "x": 271,
+          "y": 792.1875,
+          "width": 72.921875,
+          "height": 20
+        }
+      },
+      "expected": {
+        "fontSize": 6,
+        "inkHeight": 6
+      },
+      "actual": {
+        "fontSize": 14,
+        "inkHeight": 14,
+        "delta": -8
+      },
+      "threshold": {
+        "maxFontDiff": 1.2
+      },
+      "confidence": 0.75,
+      "evidence": {},
+      "nextAction": "结合 inspect 与文字宽度复核后，批量修正同类字号并重新对位",
+      "reason": "",
+      "firstSeenAt": "2026-07-22T13:55:06.362Z",
+      "lastSeenAt": "2026-07-22T13:56:03.750Z",
+      "resolvedAt": null
+    },
+    {
+      "id": "font-audit:typography:4ee2912b5e91",
+      "detector": "font-audit",
+      "code": "font-size-delta",
+      "dimension": "typography",
+      "severity": "P1",
+      "status": "open",
+      "title": "button.outline-red 字号偏差 -3.0px",
+      "target": {
+        "selector": "body>div>div>div>div>main>section>section:nth-of-type(1)>div:nth-of-type(1)>button",
+        "displaySelector": "button.outline-red",
+        "text": "新建任务",
+        "rect": {
+          "x": 467,
+          "y": 147.5,
+          "width": 84,
+          "height": 30
+        }
+      },
+      "expected": {
+        "fontSize": 9.97,
+        "inkHeight": 23
+      },
+      "actual": {
+        "fontSize": 13,
+        "inkHeight": 30,
+        "delta": -3.03
+      },
+      "threshold": {
+        "maxFontDiff": 1.2
+      },
+      "confidence": 0.75,
+      "evidence": {},
+      "nextAction": "结合 inspect 与文字宽度复核后，批量修正同类字号并重新对位",
+      "reason": "",
+      "firstSeenAt": "2026-07-22T13:55:06.362Z",
+      "lastSeenAt": "2026-07-22T13:56:03.750Z",
+      "resolvedAt": null
+    },
+    {
+      "id": "font-audit:typography:520bc36aea64",
+      "detector": "font-audit",
+      "code": "font-size-delta",
+      "dimension": "typography",
+      "severity": "P1",
+      "status": "open",
+      "title": "button.editable-chip 字号偏差 -9.0px",
+      "target": {
+        "selector": "body>div>div>div>div>main>section>section:nth-of-type(1)>div:nth-of-type(2)>div:nth-of-type(2)>div:nth-of-type(2)>button:nth-of-type(3)",
+        "displaySelector": "button.editable-chip",
+        "text": "植物萃取配方",
+        "rect": {
+          "x": 272,
+          "y": 534.1875,
+          "width": 120,
+          "height": 30
+        }
+      },
+      "expected": {
+        "fontSize": 4,
+        "inkHeight": 4
+      },
+      "actual": {
+        "fontSize": 13,
+        "inkHeight": 13,
+        "delta": -9
+      },
+      "threshold": {
+        "maxFontDiff": 1.2
+      },
+      "confidence": 0.75,
+      "evidence": {},
+      "nextAction": "结合 inspect 与文字宽度复核后，批量修正同类字号并重新对位",
+      "reason": "",
+      "firstSeenAt": "2026-07-22T13:55:06.362Z",
+      "lastSeenAt": "2026-07-22T13:56:03.750Z",
+      "resolvedAt": null
+    },
+    {
+      "id": "font-audit:typography:69a0648f4dc2",
+      "detector": "font-audit",
+      "code": "font-size-delta",
+      "dimension": "typography",
+      "severity": "P1",
+      "status": "open",
+      "title": "button.editable-chip 字号偏差 -8.0px",
+      "target": {
+        "selector": "body>div>div>div>div>main>section>section:nth-of-type(1)>div:nth-of-type(2)>div:nth-of-type(2)>div:nth-of-type(2)>button:nth-of-type(5)",
+        "displaySelector": "button.editable-chip",
+        "text": "柔顺护衣",
+        "rect": {
+          "x": 272,
+          "y": 572.1875,
+          "width": 94,
+          "height": 30
+        }
+      },
+      "expected": {
+        "fontSize": 5,
+        "inkHeight": 5
+      },
+      "actual": {
+        "fontSize": 13,
+        "inkHeight": 13,
+        "delta": -8
+      },
+      "threshold": {
+        "maxFontDiff": 1.2
+      },
+      "confidence": 0.75,
+      "evidence": {},
+      "nextAction": "结合 inspect 与文字宽度复核后，批量修正同类字号并重新对位",
+      "reason": "",
+      "firstSeenAt": "2026-07-22T13:55:06.362Z",
+      "lastSeenAt": "2026-07-22T13:56:03.750Z",
+      "resolvedAt": null
+    },
+    {
+      "id": "font-audit:typography:8248147497f7",
+      "detector": "font-audit",
+      "code": "font-size-delta",
+      "dimension": "typography",
+      "severity": "P1",
+      "status": "open",
+      "title": "span.control-hint 字号偏差 -3.3px",
+      "target": {
+        "selector": "body>div>div>div>div>main>section>section:nth-of-type(1)>div:nth-of-type(2)>div:nth-of-type(4)>div:nth-of-type(2)>span",
+        "displaySelector": "span.control-hint",
+        "text": "最多生成 8 张",
+        "rect": {
+          "x": 372,
+          "y": 829.6875,
+          "width": 75.203125,
+          "height": 17
+        }
+      },
+      "expected": {
+        "fontSize": 8.73,
+        "inkHeight": 8
+      },
+      "actual": {
+        "fontSize": 12,
+        "inkHeight": 11,
+        "delta": -3.27
+      },
+      "threshold": {
+        "maxFontDiff": 1.2
+      },
+      "confidence": 0.75,
+      "evidence": {},
+      "nextAction": "结合 inspect 与文字宽度复核后，批量修正同类字号并重新对位",
+      "reason": "",
+      "firstSeenAt": "2026-07-22T13:55:06.362Z",
+      "lastSeenAt": "2026-07-22T13:56:03.750Z",
+      "resolvedAt": null
+    },
+    {
+      "id": "font-audit:typography:97329b7bd8ab",
+      "detector": "font-audit",
+      "code": "font-size-delta",
+      "dimension": "typography",
+      "severity": "P1",
+      "status": "open",
+      "title": "button.editable-chip 字号偏差 -7.0px",
+      "target": {
+        "selector": "body>div>div>div>div>main>section>section:nth-of-type(1)>div:nth-of-type(2)>div:nth-of-type(2)>div:nth-of-type(2)>button:nth-of-type(1)",
+        "displaySelector": "button.editable-chip",
+        "text": "除菌率99.9%",
+        "rect": {
+          "x": 272,
+          "y": 496.1875,
+          "width": 120.453125,
+          "height": 30
+        }
+      },
+      "expected": {
+        "fontSize": 6,
+        "inkHeight": 6
+      },
+      "actual": {
+        "fontSize": 13,
+        "inkHeight": 13,
+        "delta": -7
+      },
+      "threshold": {
+        "maxFontDiff": 1.2
+      },
+      "confidence": 0.75,
+      "evidence": {},
+      "nextAction": "结合 inspect 与文字宽度复核后，批量修正同类字号并重新对位",
+      "reason": "",
+      "firstSeenAt": "2026-07-22T13:55:06.362Z",
+      "lastSeenAt": "2026-07-22T13:56:03.750Z",
+      "resolvedAt": null
+    },
+    {
+      "id": "font-audit:typography:98d2c17f685f",
+      "detector": "font-audit",
+      "code": "font-size-delta",
+      "dimension": "typography",
+      "severity": "P1",
+      "status": "open",
+      "title": "span 字号偏差 +9.0px",
+      "target": {
+        "selector": "body>div>div>div>div>main>section>section:nth-of-type(1)>div:nth-of-type(2)>div:nth-of-type(3)>div:nth-of-type(2)>button:nth-of-type(2)>span",
+        "displaySelector": "span",
+        "text": "细长比例",
+        "rect": {
+          "x": 382.984375,
+          "y": 713.484375,
+          "width": 52,
+          "height": 18
+        }
+      },
+      "expected": {
+        "fontSize": 22,
+        "inkHeight": 22
+      },
+      "actual": {
+        "fontSize": 13,
+        "inkHeight": 13,
+        "delta": 9
+      },
+      "threshold": {
+        "maxFontDiff": 1.2
+      },
+      "confidence": 0.75,
+      "evidence": {},
+      "nextAction": "结合 inspect 与文字宽度复核后，批量修正同类字号并重新对位",
+      "reason": "",
+      "firstSeenAt": "2026-07-22T13:55:06.362Z",
+      "lastSeenAt": "2026-07-22T13:56:03.750Z",
+      "resolvedAt": null
+    },
+    {
+      "id": "font-audit:typography:a930d23f08a0",
+      "detector": "font-audit",
+      "code": "font-size-delta",
+      "dimension": "typography",
+      "severity": "P1",
+      "status": "open",
+      "title": "small 字号偏差 -9.8px",
+      "target": {
+        "selector": "body>div>div>div>div>main>section>section:nth-of-type(1)>div:nth-of-type(2)>div:nth-of-type(3)>div:nth-of-type(2)>button:nth-of-type(1)>small",
+        "displaySelector": "small",
+        "text": "1:1/3:4/4:5",
+        "rect": {
+          "x": 284.046875,
+          "y": 736.484375,
+          "width": 60.546875,
+          "height": 14.390625
+        }
+      },
+      "expected": {
+        "fontSize": 2.18,
+        "inkHeight": 2
+      },
+      "actual": {
+        "fontSize": 12,
+        "inkHeight": 11,
+        "delta": -9.82
+      },
+      "threshold": {
+        "maxFontDiff": 1.2
+      },
+      "confidence": 0.75,
+      "evidence": {},
+      "nextAction": "结合 inspect 与文字宽度复核后，批量修正同类字号并重新对位",
+      "reason": "",
+      "firstSeenAt": "2026-07-22T13:55:06.362Z",
+      "lastSeenAt": "2026-07-22T13:56:03.750Z",
+      "resolvedAt": null
+    },
+    {
+      "id": "font-audit:typography:b5346675124f",
+      "detector": "font-audit",
+      "code": "font-size-delta",
+      "dimension": "typography",
+      "severity": "P1",
+      "status": "open",
+      "title": "span 字号偏差 -4.0px",
+      "target": {
+        "selector": "body>div>div>div>div>main>section>section:nth-of-type(1)>div:nth-of-type(2)>div:nth-of-type(3)>div:nth-of-type(2)>button:nth-of-type(1)>span",
+        "displaySelector": "span",
+        "text": "常见比例",
+        "rect": {
+          "x": 288.328125,
+          "y": 713.484375,
+          "width": 52,
+          "height": 18
+        }
+      },
+      "expected": {
+        "fontSize": 9,
+        "inkHeight": 9
+      },
+      "actual": {
+        "fontSize": 13,
+        "inkHeight": 13,
+        "delta": -4
+      },
+      "threshold": {
+        "maxFontDiff": 1.2
+      },
+      "confidence": 0.75,
+      "evidence": {},
+      "nextAction": "结合 inspect 与文字宽度复核后，批量修正同类字号并重新对位",
+      "reason": "",
+      "firstSeenAt": "2026-07-22T13:55:06.362Z",
+      "lastSeenAt": "2026-07-22T13:56:03.750Z",
+      "resolvedAt": null
+    },
+    {
+      "id": "font-audit:typography:c06b806b7563",
+      "detector": "font-audit",
+      "code": "font-size-delta",
+      "dimension": "typography",
+      "severity": "P1",
+      "status": "open",
+      "title": "button.error-toast 字号偏差 -10.5px",
+      "target": {
+        "selector": "body>div>div>div>div>main>section>section:nth-of-type(2)>button",
+        "displaySelector": "button.error-toast",
+        "text": "Unexpected tok",
+        "rect": {
+          "x": 835.515625,
+          "y": 941,
+          "width": 438.96875,
+          "height": 38
+        }
+      },
+      "expected": {
+        "fontSize": 5.47,
+        "inkHeight": 13
+      },
+      "actual": {
+        "fontSize": 16,
+        "inkHeight": 38,
+        "delta": -10.53
+      },
+      "threshold": {
+        "maxFontDiff": 1.2
+      },
+      "confidence": 0.75,
+      "evidence": {},
+      "nextAction": "结合 inspect 与文字宽度复核后，批量修正同类字号并重新对位",
+      "reason": "",
+      "firstSeenAt": "2026-07-22T13:55:06.362Z",
+      "lastSeenAt": "2026-07-22T13:56:03.750Z",
+      "resolvedAt": null
+    },
+    {
+      "id": "font-audit:typography:cbb86a8fdcc6",
+      "detector": "font-audit",
+      "code": "font-size-delta",
+      "dimension": "typography",
+      "severity": "P1",
+      "status": "open",
+      "title": "h3 字号偏差 -5.0px",
+      "target": {
+        "selector": "body>div>div>div>div>main>section>section:nth-of-type(1)>div:nth-of-type(2)>div:nth-of-type(2)>div:nth-of-type(1)>h3",
+        "displaySelector": "h3",
+        "text": "2. 主推卖点",
+        "rect": {
+          "x": 272,
+          "y": 466.6875,
+          "width": 72.921875,
+          "height": 20
+        }
+      },
+      "expected": {
+        "fontSize": 9,
+        "inkHeight": 9
+      },
+      "actual": {
+        "fontSize": 14,
+        "inkHeight": 14,
+        "delta": -5
+      },
+      "threshold": {
+        "maxFontDiff": 1.2
+      },
+      "confidence": 0.75,
+      "evidence": {},
+      "nextAction": "结合 inspect 与文字宽度复核后，批量修正同类字号并重新对位",
+      "reason": "",
+      "firstSeenAt": "2026-07-22T13:55:06.362Z",
+      "lastSeenAt": "2026-07-22T13:56:03.750Z",
+      "resolvedAt": null
+    },
+    {
+      "id": "font-audit:typography:cca41e0c00b7",
+      "detector": "font-audit",
+      "code": "font-size-delta",
+      "dimension": "typography",
+      "severity": "P1",
+      "status": "open",
+      "title": "span 字号偏差 -4.4px",
+      "target": {
+        "selector": "body>div>div>div>div>main>section>section:nth-of-type(1)>div:nth-of-type(2)>div:nth-of-type(3)>div:nth-of-type(1)>h3>span",
+        "displaySelector": "span",
+        "text": "（必填）",
+        "rect": {
+          "x": 344.921875,
+          "y": 676.1875,
+          "width": 48,
+          "height": 17
+        }
+      },
+      "expected": {
+        "fontSize": 7.64,
+        "inkHeight": 7
+      },
+      "actual": {
+        "fontSize": 12,
+        "inkHeight": 11,
+        "delta": -4.36
+      },
+      "threshold": {
+        "maxFontDiff": 1.2
+      },
+      "confidence": 0.75,
+      "evidence": {},
+      "nextAction": "结合 inspect 与文字宽度复核后，批量修正同类字号并重新对位",
+      "reason": "",
+      "firstSeenAt": "2026-07-22T13:55:06.362Z",
+      "lastSeenAt": "2026-07-22T13:56:03.750Z",
+      "resolvedAt": null
+    },
+    {
+      "id": "font-audit:typography:cede95aff57a",
+      "detector": "font-audit",
+      "code": "font-size-delta",
+      "dimension": "typography",
+      "severity": "P1",
+      "status": "open",
+      "title": "div.state-card 字号偏差 +482.8px",
+      "target": {
+        "selector": "body>div>div>div>div>main>section>section:nth-of-type(2)>div:nth-of-type(2)>div",
+        "displaySelector": "div.state-card",
+        "text": "加载失败： Unexpect",
+        "rect": {
+          "x": 645,
+          "y": 202,
+          "width": 820,
+          "height": 538
+        }
+      },
+      "expected": {
+        "fontSize": 498.82,
+        "inkHeight": 530
+      },
+      "actual": {
+        "fontSize": 16,
+        "inkHeight": 17,
+        "delta": 482.82
+      },
+      "threshold": {
+        "maxFontDiff": 1.2
+      },
+      "confidence": 0.75,
+      "evidence": {},
+      "nextAction": "结合 inspect 与文字宽度复核后，批量修正同类字号并重新对位",
+      "reason": "",
+      "firstSeenAt": "2026-07-22T13:55:06.362Z",
+      "lastSeenAt": "2026-07-22T13:56:03.750Z",
+      "resolvedAt": null
+    },
+    {
+      "id": "font-audit:typography:e0f24d5b5416",
+      "detector": "font-audit",
+      "code": "font-size-delta",
+      "dimension": "typography",
+      "severity": "P1",
+      "status": "open",
+      "title": "span 字号偏差 -4.2px",
+      "target": {
+        "selector": "body>div>div>div>div>main>header>button>span:nth-of-type(2)",
+        "displaySelector": "span",
+        "text": "灵灵生图站",
+        "rect": {
+          "x": 103,
+          "y": 40,
+          "width": 125,
+          "height": 36
+        }
+      },
+      "expected": {
+        "fontSize": 20.83,
+        "inkHeight": 20
+      },
+      "actual": {
+        "fontSize": 25,
+        "inkHeight": 24,
+        "delta": -4.17
+      },
+      "threshold": {
+        "maxFontDiff": 1.2
+      },
+      "confidence": 0.75,
+      "evidence": {},
+      "nextAction": "结合 inspect 与文字宽度复核后，批量修正同类字号并重新对位",
+      "reason": "",
+      "firstSeenAt": "2026-07-22T13:55:06.362Z",
+      "lastSeenAt": "2026-07-22T13:56:03.750Z",
+      "resolvedAt": null
+    },
+    {
+      "id": "font-audit:typography:e129e6a40b6b",
+      "detector": "font-audit",
+      "code": "font-size-delta",
+      "dimension": "typography",
+      "severity": "P1",
+      "status": "open",
+      "title": "button.editable-chip 字号偏差 -7.0px",
+      "target": {
+        "selector": "body>div>div>div>div>main>section>section:nth-of-type(1)>div:nth-of-type(2)>div:nth-of-type(2)>div:nth-of-type(2)>button:nth-of-type(2)",
+        "displaySelector": "button.editable-chip",
+        "text": "持久留香72h",
+        "rect": {
+          "x": 400.453125,
+          "y": 496.1875,
+          "width": 116.140625,
+          "height": 30
+        }
+      },
+      "expected": {
+        "fontSize": 6,
+        "inkHeight": 6
+      },
+      "actual": {
+        "fontSize": 13,
+        "inkHeight": 13,
+        "delta": -7
+      },
+      "threshold": {
+        "maxFontDiff": 1.2
+      },
+      "confidence": 0.75,
+      "evidence": {},
+      "nextAction": "结合 inspect 与文字宽度复核后，批量修正同类字号并重新对位",
+      "reason": "",
+      "firstSeenAt": "2026-07-22T13:55:06.362Z",
+      "lastSeenAt": "2026-07-22T13:56:03.750Z",
+      "resolvedAt": null
+    },
+    {
+      "id": "font-audit:typography:e630a208b176",
+      "detector": "font-audit",
+      "code": "font-size-delta",
+      "dimension": "typography",
+      "severity": "P1",
+      "status": "open",
+      "title": "h3 字号偏差 -6.0px",
+      "target": {
+        "selector": "body>div>div>div>div>main>section>section:nth-of-type(1)>div:nth-of-type(2)>div:nth-of-type(3)>div:nth-of-type(1)>h3",
+        "displaySelector": "h3",
+        "text": "3. 生成比例",
+        "rect": {
+          "x": 272,
+          "y": 674.1875,
+          "width": 120.921875,
+          "height": 20
+        }
+      },
+      "expected": {
+        "fontSize": 8,
+        "inkHeight": 8
+      },
+      "actual": {
+        "fontSize": 14,
+        "inkHeight": 14,
+        "delta": -6
+      },
+      "threshold": {
+        "maxFontDiff": 1.2
+      },
+      "confidence": 0.75,
+      "evidence": {},
+      "nextAction": "结合 inspect 与文字宽度复核后，批量修正同类字号并重新对位",
+      "reason": "",
+      "firstSeenAt": "2026-07-22T13:55:06.362Z",
+      "lastSeenAt": "2026-07-22T13:56:03.750Z",
+      "resolvedAt": null
+    },
+    {
+      "id": "font-audit:typography:e8814e92dd01",
+      "detector": "font-audit",
+      "code": "font-size-delta",
+      "dimension": "typography",
+      "severity": "P1",
+      "status": "open",
+      "title": "span 字号偏差 -7.0px",
+      "target": {
+        "selector": "body>div>div>div>div>main>section>aside>div>button:nth-of-type(6)>span",
+        "displaySelector": "span",
+        "text": "社媒种草图",
+        "rect": {
+          "x": 81,
+          "y": 447.5,
+          "width": 80,
+          "height": 22
+        }
+      },
+      "expected": {
+        "fontSize": 9,
+        "inkHeight": 9
+      },
+      "actual": {
+        "fontSize": 16,
+        "inkHeight": 16,
+        "delta": -7
+      },
+      "threshold": {
+        "maxFontDiff": 1.2
+      },
+      "confidence": 0.75,
+      "evidence": {},
+      "nextAction": "结合 inspect 与文字宽度复核后，批量修正同类字号并重新对位",
+      "reason": "",
+      "firstSeenAt": "2026-07-22T13:55:06.362Z",
+      "lastSeenAt": "2026-07-22T13:56:03.750Z",
+      "resolvedAt": null
+    },
+    {
+      "id": "full-audit:geometry:0204608044ba",
+      "detector": "full-audit",
+      "code": "vertical-position-delta",
+      "dimension": "geometry",
+      "severity": "P1",
+      "status": "open",
+      "title": "span: 垂直位置偏差 -5.0px",
+      "target": {
+        "selector": "body>div>div>div>div>main>section>aside>div>button:nth-of-type(6)>span",
+        "displaySelector": "span",
+        "text": "社媒种草图",
+        "rect": {
+          "x": 81,
+          "y": 447.5,
+          "width": 80,
+          "height": 22
+        }
+      },
+      "expected": {
+        "maxAbsDy": 1.5
+      },
+      "actual": {
+        "dy": -5
+      },
+      "threshold": null,
+      "confidence": 0.8,
+      "evidence": {},
+      "nextAction": "复核 geometry 测量并批量修正同类元素",
+      "reason": "",
+      "firstSeenAt": "2026-07-22T13:55:06.362Z",
+      "lastSeenAt": "2026-07-22T13:56:03.750Z",
+      "resolvedAt": null
+    },
+    {
+      "id": "full-audit:geometry:0a20ee27b2a5",
+      "detector": "full-audit",
+      "code": "vertical-position-delta",
+      "dimension": "geometry",
+      "severity": "P1",
+      "status": "open",
+      "title": "h3: 垂直位置偏差 -5.0px",
+      "target": {
+        "selector": "body>div>div>div>div>main>section>section:nth-of-type(1)>div:nth-of-type(2)>div:nth-of-type(4)>div:nth-of-type(1)>h3",
+        "displaySelector": "h3",
+        "text": "4. 生成张数",
+        "rect": {
+          "x": 271,
+          "y": 792.1875,
+          "width": 72.921875,
+          "height": 20
+        }
+      },
+      "expected": {
+        "maxAbsDy": 1.5
+      },
+      "actual": {
+        "dy": -5
+      },
+      "threshold": null,
+      "confidence": 0.8,
+      "evidence": {},
+      "nextAction": "复核 geometry 测量并批量修正同类元素",
+      "reason": "",
+      "firstSeenAt": "2026-07-22T13:55:06.362Z",
+      "lastSeenAt": "2026-07-22T13:56:03.750Z",
+      "resolvedAt": null
+    },
+    {
+      "id": "full-audit:geometry:18cd066caf2e",
+      "detector": "full-audit",
+      "code": "vertical-position-delta",
+      "dimension": "geometry",
+      "severity": "P1",
+      "status": "open",
+      "title": "span: 垂直位置偏差 -5.0px",
+      "target": {
+        "selector": "body>div>div>div>div>main>section>section:nth-of-type(1)>div:nth-of-type(2)>div:nth-of-type(3)>div:nth-of-type(2)>button:nth-of-type(3)>span",
+        "displaySelector": "span",
+        "text": "细宽比例",
+        "rect": {
+          "x": 477.65625,
+          "y": 713.484375,
+          "width": 52,
+          "height": 18
+        }
+      },
+      "expected": {
+        "maxAbsDy": 1.5
+      },
+      "actual": {
+        "dy": -5
+      },
+      "threshold": null,
+      "confidence": 0.8,
+      "evidence": {},
+      "nextAction": "复核 geometry 测量并批量修正同类元素",
+      "reason": "",
+      "firstSeenAt": "2026-07-22T13:55:06.362Z",
+      "lastSeenAt": "2026-07-22T13:56:03.750Z",
+      "resolvedAt": null
+    },
+    {
+      "id": "full-audit:geometry:2b843d8d074d",
+      "detector": "full-audit",
+      "code": "vertical-position-delta",
+      "dimension": "geometry",
+      "severity": "P1",
+      "status": "open",
+      "title": "small: 垂直位置偏差 10.0px",
+      "target": {
+        "selector": "body>div>div>div>div>main>section>section:nth-of-type(1)>div:nth-of-type(2)>div:nth-of-type(3)>div:nth-of-type(2)>button:nth-of-type(1)>small",
+        "displaySelector": "small",
+        "text": "1:1/3:4/4:5",
+        "rect": {
+          "x": 284.046875,
+          "y": 736.484375,
+          "width": 60.546875,
+          "height": 14.390625
+        }
+      },
+      "expected": {
+        "maxAbsDy": 1.5
+      },
+      "actual": {
+        "dy": 10
+      },
+      "threshold": null,
+      "confidence": 0.8,
+      "evidence": {},
+      "nextAction": "复核 geometry 测量并批量修正同类元素",
+      "reason": "",
+      "firstSeenAt": "2026-07-22T13:55:06.362Z",
+      "lastSeenAt": "2026-07-22T13:56:03.750Z",
+      "resolvedAt": null
+    },
+    {
+      "id": "full-audit:geometry:328b31134e66",
+      "detector": "full-audit",
+      "code": "vertical-position-delta",
+      "dimension": "geometry",
+      "severity": "P1",
+      "status": "open",
+      "title": "span: 垂直位置偏差 -5.0px",
+      "target": {
+        "selector": "body>div>div>div>div>main>section>section:nth-of-type(1)>div:nth-of-type(2)>div:nth-of-type(3)>div:nth-of-type(2)>button:nth-of-type(2)>span",
+        "displaySelector": "span",
+        "text": "细长比例",
+        "rect": {
+          "x": 382.984375,
+          "y": 713.484375,
+          "width": 52,
+          "height": 18
+        }
+      },
+      "expected": {
+        "maxAbsDy": 1.5
+      },
+      "actual": {
+        "dy": -5
+      },
+      "threshold": null,
+      "confidence": 0.8,
+      "evidence": {},
+      "nextAction": "复核 geometry 测量并批量修正同类元素",
+      "reason": "",
+      "firstSeenAt": "2026-07-22T13:55:06.362Z",
+      "lastSeenAt": "2026-07-22T13:56:03.750Z",
+      "resolvedAt": null
+    },
+    {
+      "id": "full-audit:geometry:4a75e153c56c",
+      "detector": "full-audit",
+      "code": "vertical-position-delta",
+      "dimension": "geometry",
+      "severity": "P1",
+      "status": "open",
+      "title": "h3: 垂直位置偏差 10.0px",
+      "target": {
+        "selector": "body>div>div>div>div>main>section>section:nth-of-type(1)>div:nth-of-type(2)>div:nth-of-type(2)>div:nth-of-type(1)>h3",
+        "displaySelector": "h3",
+        "text": "2. 主推卖点",
+        "rect": {
+          "x": 272,
+          "y": 466.6875,
+          "width": 72.921875,
+          "height": 20
+        }
+      },
+      "expected": {
+        "maxAbsDy": 1.5
+      },
+      "actual": {
+        "dy": 10
+      },
+      "threshold": null,
+      "confidence": 0.8,
+      "evidence": {},
+      "nextAction": "复核 geometry 测量并批量修正同类元素",
+      "reason": "",
+      "firstSeenAt": "2026-07-22T13:55:06.362Z",
+      "lastSeenAt": "2026-07-22T13:56:03.750Z",
+      "resolvedAt": null
+    },
+    {
+      "id": "full-audit:geometry:59c88a87a73e",
+      "detector": "full-audit",
+      "code": "vertical-position-delta",
+      "dimension": "geometry",
+      "severity": "P1",
+      "status": "open",
+      "title": "span.control-hint: 垂直位置偏差 -5.0px",
+      "target": {
+        "selector": "body>div>div>div>div>main>section>section:nth-of-type(1)>div:nth-of-type(2)>div:nth-of-type(4)>div:nth-of-type(2)>span",
+        "displaySelector": "span.control-hint",
+        "text": "最多生成 8 张",
+        "rect": {
+          "x": 372,
+          "y": 829.6875,
+          "width": 75.203125,
+          "height": 17
+        }
+      },
+      "expected": {
+        "maxAbsDy": 1.5
+      },
+      "actual": {
+        "dy": -5
+      },
+      "threshold": null,
+      "confidence": 0.8,
+      "evidence": {},
+      "nextAction": "复核 geometry 测量并批量修正同类元素",
+      "reason": "",
+      "firstSeenAt": "2026-07-22T13:55:06.362Z",
+      "lastSeenAt": "2026-07-22T13:56:03.750Z",
+      "resolvedAt": null
+    },
+    {
+      "id": "full-audit:geometry:7467e00c588e",
+      "detector": "full-audit",
+      "code": "vertical-position-delta",
+      "dimension": "geometry",
+      "severity": "P1",
+      "status": "open",
+      "title": "h2: 垂直位置偏差 2.0px",
+      "target": {
+        "selector": "body>div>div>div>div>main>section>section:nth-of-type(2)>div:nth-of-type(1)>h2",
+        "displaySelector": "h2",
+        "text": "创作结果",
+        "rect": {
+          "x": 616,
+          "y": 154.40625,
+          "width": 84,
+          "height": 25.1875
+        }
+      },
+      "expected": {
+        "maxAbsDy": 1.5
+      },
+      "actual": {
+        "dy": 2
+      },
+      "threshold": null,
+      "confidence": 0.8,
+      "evidence": {},
+      "nextAction": "复核 geometry 测量并批量修正同类元素",
+      "reason": "",
+      "firstSeenAt": "2026-07-22T13:55:06.362Z",
+      "lastSeenAt": "2026-07-22T13:56:03.750Z",
+      "resolvedAt": null
+    },
+    {
+      "id": "full-audit:geometry:7d4d3aab864d",
+      "detector": "full-audit",
+      "code": "vertical-position-delta",
+      "dimension": "geometry",
+      "severity": "P1",
+      "status": "open",
+      "title": "h2: 垂直位置偏差 4.0px",
+      "target": {
+        "selector": "body>div>div>div>div>main>section>section:nth-of-type(1)>div:nth-of-type(1)>h2",
+        "displaySelector": "h2",
+        "text": "高转化主图",
+        "rect": {
+          "x": 269,
+          "y": 149.90625,
+          "width": 105,
+          "height": 25.1875
+        }
+      },
+      "expected": {
+        "maxAbsDy": 1.5
+      },
+      "actual": {
+        "dy": 4
+      },
+      "threshold": null,
+      "confidence": 0.8,
+      "evidence": {},
+      "nextAction": "复核 geometry 测量并批量修正同类元素",
+      "reason": "",
+      "firstSeenAt": "2026-07-22T13:55:06.362Z",
+      "lastSeenAt": "2026-07-22T13:56:03.750Z",
+      "resolvedAt": null
+    },
+    {
+      "id": "full-audit:geometry:8ea34aaf21b1",
+      "detector": "full-audit",
+      "code": "vertical-position-delta",
+      "dimension": "geometry",
+      "severity": "P1",
+      "status": "open",
+      "title": "span: 垂直位置偏差 9.0px",
+      "target": {
+        "selector": "body>div>div>div>div>main>section>section:nth-of-type(1)>div:nth-of-type(2)>div:nth-of-type(3)>div:nth-of-type(1)>h3>span",
+        "displaySelector": "span",
+        "text": "（必填）",
+        "rect": {
+          "x": 344.921875,
+          "y": 676.1875,
+          "width": 48,
+          "height": 17
+        }
+      },
+      "expected": {
+        "maxAbsDy": 1.5
+      },
+      "actual": {
+        "dy": 9
+      },
+      "threshold": null,
+      "confidence": 0.8,
+      "evidence": {},
+      "nextAction": "复核 geometry 测量并批量修正同类元素",
+      "reason": "",
+      "firstSeenAt": "2026-07-22T13:55:06.362Z",
+      "lastSeenAt": "2026-07-22T13:56:03.750Z",
+      "resolvedAt": null
+    },
+    {
+      "id": "full-audit:geometry:9978a69e6e13",
+      "detector": "full-audit",
+      "code": "vertical-position-delta",
+      "dimension": "geometry",
+      "severity": "P1",
+      "status": "open",
+      "title": "span: 垂直位置偏差 -2.0px",
+      "target": {
+        "selector": "body>div>div>div>div>main>section>aside>div>button:nth-of-type(7)>span",
+        "displaySelector": "span",
+        "text": "我的生成记录",
+        "rect": {
+          "x": 81,
+          "y": 504.5,
+          "width": 96,
+          "height": 22
+        }
+      },
+      "expected": {
+        "maxAbsDy": 1.5
+      },
+      "actual": {
+        "dy": -2
+      },
+      "threshold": null,
+      "confidence": 0.8,
+      "evidence": {},
+      "nextAction": "复核 geometry 测量并批量修正同类元素",
+      "reason": "",
+      "firstSeenAt": "2026-07-22T13:55:06.362Z",
+      "lastSeenAt": "2026-07-22T13:56:03.750Z",
+      "resolvedAt": null
+    },
+    {
+      "id": "full-audit:geometry:b93a5f7f5655",
+      "detector": "full-audit",
+      "code": "vertical-position-delta",
+      "dimension": "geometry",
+      "severity": "P1",
+      "status": "open",
+      "title": "span: 垂直位置偏差 5.0px",
+      "target": {
+        "selector": "body>div>div>div>div>main>section>aside>div>button:nth-of-type(1)>span",
+        "displaySelector": "span",
+        "text": "高转化主图",
+        "rect": {
+          "x": 81,
+          "y": 162.5,
+          "width": 80,
+          "height": 22
+        }
+      },
+      "expected": {
+        "maxAbsDy": 1.5
+      },
+      "actual": {
+        "dy": 5
+      },
+      "threshold": null,
+      "confidence": 0.8,
+      "evidence": {},
+      "nextAction": "复核 geometry 测量并批量修正同类元素",
+      "reason": "",
+      "firstSeenAt": "2026-07-22T13:55:06.362Z",
+      "lastSeenAt": "2026-07-22T13:56:03.750Z",
+      "resolvedAt": null
+    },
+    {
+      "id": "full-audit:geometry:b9d87eeec1a7",
+      "detector": "full-audit",
+      "code": "vertical-position-delta",
+      "dimension": "geometry",
+      "severity": "P1",
+      "status": "open",
+      "title": "span: 垂直位置偏差 2.0px",
+      "target": {
+        "selector": "body>div>div>div>div>main>section>section:nth-of-type(1)>div:nth-of-type(2)>div:nth-of-type(1)>div:nth-of-type(1)>h3>span",
+        "displaySelector": "span",
+        "text": "（必填）",
+        "rect": {
+          "x": 356.265625,
+          "y": 211,
+          "width": 48,
+          "height": 17
+        }
+      },
+      "expected": {
+        "maxAbsDy": 1.5
+      },
+      "actual": {
+        "dy": 2
+      },
+      "threshold": null,
+      "confidence": 0.8,
+      "evidence": {},
+      "nextAction": "复核 geometry 测量并批量修正同类元素",
+      "reason": "",
+      "firstSeenAt": "2026-07-22T13:55:06.362Z",
+      "lastSeenAt": "2026-07-22T13:56:03.750Z",
+      "resolvedAt": null
+    },
+    {
+      "id": "full-audit:geometry:bc267fcef48e",
+      "detector": "full-audit",
+      "code": "vertical-position-delta",
+      "dimension": "geometry",
+      "severity": "P1",
+      "status": "open",
+      "title": "span: 垂直位置偏差 15.0px",
+      "target": {
+        "selector": "body>div>div>div>div>main>section>aside>div>button:nth-of-type(2)>span",
+        "displaySelector": "span",
+        "text": "节日海报",
+        "rect": {
+          "x": 81,
+          "y": 219.5,
+          "width": 64,
+          "height": 22
+        }
+      },
+      "expected": {
+        "maxAbsDy": 1.5
+      },
+      "actual": {
+        "dy": 15
+      },
+      "threshold": null,
+      "confidence": 0.8,
+      "evidence": {},
+      "nextAction": "复核 geometry 测量并批量修正同类元素",
+      "reason": "",
+      "firstSeenAt": "2026-07-22T13:55:06.362Z",
+      "lastSeenAt": "2026-07-22T13:56:03.750Z",
+      "resolvedAt": null
+    },
+    {
+      "id": "full-audit:geometry:bdbb99d1d8f4",
+      "detector": "full-audit",
+      "code": "vertical-position-delta",
+      "dimension": "geometry",
+      "severity": "P1",
+      "status": "open",
+      "title": "span: 垂直位置偏差 8.0px",
+      "target": {
+        "selector": "body>div>div>div>div>main>section>section:nth-of-type(1)>div:nth-of-type(2)>div:nth-of-type(3)>div:nth-of-type(2)>button:nth-of-type(1)>span",
+        "displaySelector": "span",
+        "text": "常见比例",
+        "rect": {
+          "x": 288.328125,
+          "y": 713.484375,
+          "width": 52,
+          "height": 18
+        }
+      },
+      "expected": {
+        "maxAbsDy": 1.5
+      },
+      "actual": {
+        "dy": 8
+      },
+      "threshold": null,
+      "confidence": 0.8,
+      "evidence": {},
+      "nextAction": "复核 geometry 测量并批量修正同类元素",
+      "reason": "",
+      "firstSeenAt": "2026-07-22T13:55:06.362Z",
+      "lastSeenAt": "2026-07-22T13:56:03.750Z",
+      "resolvedAt": null
+    },
+    {
+      "id": "full-audit:geometry:db441eba905c",
+      "detector": "full-audit",
+      "code": "vertical-position-delta",
+      "dimension": "geometry",
+      "severity": "P1",
+      "status": "open",
+      "title": "button: 垂直位置偏差 10.0px",
+      "target": {
+        "selector": "body>div>div>div>div>main>section>section:nth-of-type(1)>div:nth-of-type(2)>div:nth-of-type(2)>div:nth-of-type(1)>button",
+        "displaySelector": "button",
+        "text": "编辑",
+        "rect": {
+          "x": 502,
+          "y": 464.1875,
+          "width": 44,
+          "height": 25
+        }
+      },
+      "expected": {
+        "maxAbsDy": 1.5
+      },
+      "actual": {
+        "dy": 10
+      },
+      "threshold": null,
+      "confidence": 0.8,
+      "evidence": {},
+      "nextAction": "复核 geometry 测量并批量修正同类元素",
+      "reason": "",
+      "firstSeenAt": "2026-07-22T13:55:06.362Z",
+      "lastSeenAt": "2026-07-22T13:56:03.750Z",
+      "resolvedAt": null
+    },
+    {
+      "id": "full-audit:geometry:e44b537ad9fe",
+      "detector": "full-audit",
+      "code": "vertical-position-delta",
+      "dimension": "geometry",
+      "severity": "P1",
+      "status": "open",
+      "title": "small: 垂直位置偏差 3.0px",
+      "target": {
+        "selector": "body>div>div>div>div>main>section>section:nth-of-type(1)>div:nth-of-type(2)>div:nth-of-type(1)>div:nth-of-type(2)>div>button>small",
+        "displaySelector": "small",
+        "text": "支持多图上传",
+        "rect": {
+          "x": 279,
+          "y": 384,
+          "width": 66,
+          "height": 16
+        }
+      },
+      "expected": {
+        "maxAbsDy": 1.5
+      },
+      "actual": {
+        "dy": 3
+      },
+      "threshold": null,
+      "confidence": 0.8,
+      "evidence": {},
+      "nextAction": "复核 geometry 测量并批量修正同类元素",
+      "reason": "",
+      "firstSeenAt": "2026-07-22T13:55:06.362Z",
+      "lastSeenAt": "2026-07-22T13:56:03.750Z",
+      "resolvedAt": null
+    },
+    {
+      "id": "full-audit:geometry:eb132a018fe9",
+      "detector": "full-audit",
+      "code": "vertical-position-delta",
+      "dimension": "geometry",
+      "severity": "P1",
+      "status": "open",
+      "title": "span: 垂直位置偏差 6.0px",
+      "target": {
+        "selector": "body>div>div>div>div>main>header>button>span:nth-of-type(2)",
+        "displaySelector": "span",
+        "text": "灵灵生图站",
+        "rect": {
+          "x": 103,
+          "y": 40,
+          "width": 125,
+          "height": 36
+        }
+      },
+      "expected": {
+        "maxAbsDy": 1.5
+      },
+      "actual": {
+        "dy": 6
+      },
+      "threshold": null,
+      "confidence": 0.8,
+      "evidence": {},
+      "nextAction": "复核 geometry 测量并批量修正同类元素",
+      "reason": "",
+      "firstSeenAt": "2026-07-22T13:55:06.362Z",
+      "lastSeenAt": "2026-07-22T13:56:03.750Z",
+      "resolvedAt": null
+    },
+    {
+      "id": "responsive-audit:responsive:16fefd71ce35",
+      "detector": "responsive-audit",
+      "code": "browser-error",
+      "dimension": "responsive",
+      "severity": "P1",
+      "status": "fixed",
+      "title": "compact-1024x768 浏览器错误: GET http://127.0.0.1:4917/ net::ERR_CONNECTION_REFUSED",
+      "target": {
+        "region": "compact-1024x768"
+      },
+      "expected": null,
+      "actual": {
+        "type": "request",
+        "message": "GET http://127.0.0.1:4917/ net::ERR_CONNECTION_REFUSED"
+      },
+      "threshold": null,
+      "confidence": 0.95,
+      "evidence": {
+        "profile": "compact-1024x768",
+        "screenshot": "output/pg-1u/responsive/compact-1024x768.png"
+      },
+      "nextAction": "修复控制台、页面或资源加载错误后重新执行所有视口",
+      "reason": "",
+      "firstSeenAt": "2026-07-22T13:55:06.362Z",
+      "lastSeenAt": "2026-07-22T13:55:06.362Z",
+      "resolvedAt": "2026-07-22T13:56:03.750Z"
+    },
+    {
+      "id": "responsive-audit:responsive:eda9d98e965e",
+      "detector": "responsive-audit",
+      "code": "browser-error",
+      "dimension": "responsive",
+      "severity": "P1",
+      "status": "fixed",
+      "title": "compact-1024x768 浏览器错误: Failed to load resource: net::ERR_CONNECTION_REFUSED",
+      "target": {
+        "region": "compact-1024x768"
+      },
+      "expected": null,
+      "actual": {
+        "type": "console",
+        "message": "Failed to load resource: net::ERR_CONNECTION_REFUSED"
+      },
+      "threshold": null,
+      "confidence": 0.95,
+      "evidence": {
+        "profile": "compact-1024x768",
+        "screenshot": "output/pg-1u/responsive/compact-1024x768.png"
+      },
+      "nextAction": "修复控制台、页面或资源加载错误后重新执行所有视口",
+      "reason": "",
+      "firstSeenAt": "2026-07-22T13:55:06.362Z",
+      "lastSeenAt": "2026-07-22T13:55:06.362Z",
+      "resolvedAt": "2026-07-22T13:56:03.750Z"
+    },
+    {
+      "id": "color-audit:backgroundColor:359797345af0",
+      "detector": "color-audit",
+      "code": "background-color-delta",
+      "dimension": "backgroundColor",
+      "severity": "P2",
+      "status": "open",
+      "title": "button.editable-chip 背景色 ΔE 4.1",
+      "target": {
+        "selector": "body>div>div>div>div>main>section>section:nth-of-type(1)>div:nth-of-type(2)>div:nth-of-type(2)>div:nth-of-type(2)>button:nth-of-type(2)",
+        "displaySelector": "button.editable-chip",
+        "text": "持久留香72h",
+        "rect": {
+          "x": 400,
+          "y": 496,
+          "width": 116,
+          "height": 30
+        }
+      },
+      "expected": {
+        "color": "#fefefe"
+      },
+      "actual": {
+        "color": "#f1f3f5",
+        "deltaE": 4.1
+      },
+      "threshold": {
+        "maxDeltaE": 3
+      },
+      "confidence": 0.8,
+      "evidence": {},
+      "nextAction": "复核纯色采样区后修正背景或填充色",
+      "reason": "",
+      "firstSeenAt": "2026-07-22T13:55:06.362Z",
+      "lastSeenAt": "2026-07-22T13:56:03.750Z",
+      "resolvedAt": null
+    },
+    {
+      "id": "color-audit:backgroundColor:6a4ee049f33b",
+      "detector": "color-audit",
+      "code": "background-color-delta",
+      "dimension": "backgroundColor",
+      "severity": "P2",
+      "status": "open",
+      "title": "button.editable-chip 背景色 ΔE 3.8",
+      "target": {
+        "selector": "body>div>div>div>div>main>section>section:nth-of-type(1)>div:nth-of-type(2)>div:nth-of-type(2)>div:nth-of-type(2)>button:nth-of-type(4)",
+        "displaySelector": "button.editable-chip",
+        "text": "低泡易漂洗",
+        "rect": {
+          "x": 400,
+          "y": 534,
+          "width": 107,
+          "height": 30
+        }
+      },
+      "expected": {
+        "color": "#fdfdfd"
+      },
+      "actual": {
+        "color": "#f1f3f5",
+        "deltaE": 3.77
+      },
+      "threshold": {
+        "maxDeltaE": 3
+      },
+      "confidence": 0.8,
+      "evidence": {},
+      "nextAction": "复核纯色采样区后修正背景或填充色",
+      "reason": "",
+      "firstSeenAt": "2026-07-22T13:55:06.362Z",
+      "lastSeenAt": "2026-07-22T13:56:03.750Z",
+      "resolvedAt": null
+    },
+    {
+      "id": "color-audit:backgroundColor:7107b841e0ba",
+      "detector": "color-audit",
+      "code": "background-color-delta",
+      "dimension": "backgroundColor",
+      "severity": "P2",
+      "status": "open",
+      "title": "button.editable-chip 背景色 ΔE 4.1",
+      "target": {
+        "selector": "body>div>div>div>div>main>section>section:nth-of-type(1)>div:nth-of-type(2)>div:nth-of-type(2)>div:nth-of-type(2)>button:nth-of-type(1)",
+        "displaySelector": "button.editable-chip",
+        "text": "除菌率99.9%",
+        "rect": {
+          "x": 272,
+          "y": 496,
+          "width": 120,
+          "height": 30
+        }
+      },
+      "expected": {
+        "color": "#fefefe"
+      },
+      "actual": {
+        "color": "#f1f3f5",
+        "deltaE": 4.1
+      },
+      "threshold": {
+        "maxDeltaE": 3
+      },
+      "confidence": 0.8,
+      "evidence": {},
+      "nextAction": "复核纯色采样区后修正背景或填充色",
+      "reason": "",
+      "firstSeenAt": "2026-07-22T13:55:06.362Z",
+      "lastSeenAt": "2026-07-22T13:56:03.750Z",
+      "resolvedAt": null
+    },
+    {
+      "id": "color-audit:backgroundColor:e679700e8669",
+      "detector": "color-audit",
+      "code": "background-color-delta",
+      "dimension": "backgroundColor",
+      "severity": "P2",
+      "status": "open",
+      "title": "button.thumb-arrow.right 背景色 ΔE 5.3",
+      "target": {
+        "selector": "body>div>div>div>div>main>section>section:nth-of-type(2)>div:nth-of-type(3)>button:nth-of-type(2)",
+        "displaySelector": "button.thumb-arrow.right",
+        "text": "",
+        "rect": {
+          "x": 1441,
+          "y": 820,
+          "width": 42,
+          "height": 42
+        }
+      },
+      "expected": {
+        "color": "#eff0f2"
+      },
+      "actual": {
+        "color": "#ffffff",
+        "deltaE": 5.34
+      },
+      "threshold": {
+        "maxDeltaE": 3
+      },
+      "confidence": 0.8,
+      "evidence": {},
+      "nextAction": "复核纯色采样区后修正背景或填充色",
+      "reason": "",
+      "firstSeenAt": "2026-07-22T13:55:06.362Z",
+      "lastSeenAt": "2026-07-22T13:56:03.750Z",
+      "resolvedAt": null
+    },
+    {
+      "id": "color-audit:textColor:0fbb2910b5ff",
+      "detector": "color-audit",
+      "code": "text-color-delta",
+      "dimension": "textColor",
+      "severity": "P2",
+      "status": "open",
+      "title": "h3 文字色 ΔE 8.3",
+      "target": {
+        "selector": "body>div>div>div>div>main>section>section:nth-of-type(1)>div:nth-of-type(2)>div:nth-of-type(1)>div:nth-of-type(1)>h3",
+        "displaySelector": "h3",
+        "text": "1. 上传商品图",
+        "rect": {
+          "x": 272,
+          "y": 209,
+          "width": 132,
+          "height": 20
+        }
+      },
+      "expected": {
+        "color": "#0d0d0d"
+      },
+      "actual": {
+        "color": "#161a22",
+        "cssColor": "#161a22",
+        "deltaE": 8.29
+      },
+      "threshold": {
+        "maxDeltaE": 3
+      },
+      "confidence": 0.82,
+      "evidence": {},
+      "nextAction": "使用 pick/inspect 复核笔画核心色，并批量修正同类文字",
+      "reason": "",
+      "firstSeenAt": "2026-07-22T13:55:06.362Z",
+      "lastSeenAt": "2026-07-22T13:56:03.750Z",
+      "resolvedAt": null
+    },
+    {
+      "id": "color-audit:textColor:13db3a047a9b",
+      "detector": "color-audit",
+      "code": "text-color-delta",
+      "dimension": "textColor",
+      "severity": "P2",
+      "status": "open",
+      "title": "h3 文字色 ΔE 8.5",
+      "target": {
+        "selector": "body>div>div>div>div>main>section>section:nth-of-type(1)>div:nth-of-type(2)>div:nth-of-type(5)>div>h3",
+        "displaySelector": "h3",
+        "text": "5. 分辨率",
+        "rect": {
+          "x": 271,
+          "y": 883,
+          "width": 59,
+          "height": 20
+        }
+      },
+      "expected": {
+        "color": "#0c0b0c"
+      },
+      "actual": {
+        "color": "#161a22",
+        "cssColor": "#161a22",
+        "deltaE": 8.46
+      },
+      "threshold": {
+        "maxDeltaE": 3
+      },
+      "confidence": 0.82,
+      "evidence": {},
+      "nextAction": "使用 pick/inspect 复核笔画核心色，并批量修正同类文字",
+      "reason": "",
+      "firstSeenAt": "2026-07-22T13:55:06.362Z",
+      "lastSeenAt": "2026-07-22T13:56:03.750Z",
+      "resolvedAt": null
+    },
+    {
+      "id": "color-audit:textColor:27623ef7030f",
+      "detector": "color-audit",
+      "code": "text-color-delta",
+      "dimension": "textColor",
+      "severity": "P2",
+      "status": "open",
+      "title": "h3 文字色 ΔE 7.2",
+      "target": {
+        "selector": "body>div>div>div>div>main>section>section:nth-of-type(1)>div:nth-of-type(2)>div:nth-of-type(2)>div:nth-of-type(1)>h3",
+        "displaySelector": "h3",
+        "text": "2. 主推卖点",
+        "rect": {
+          "x": 272,
+          "y": 467,
+          "width": 73,
+          "height": 20
+        }
+      },
+      "expected": {
+        "color": "#101111"
+      },
+      "actual": {
+        "color": "#161a22",
+        "cssColor": "#161a22",
+        "deltaE": 7.2
+      },
+      "threshold": {
+        "maxDeltaE": 3
+      },
+      "confidence": 0.82,
+      "evidence": {},
+      "nextAction": "使用 pick/inspect 复核笔画核心色，并批量修正同类文字",
+      "reason": "",
+      "firstSeenAt": "2026-07-22T13:55:06.362Z",
+      "lastSeenAt": "2026-07-22T13:56:03.750Z",
+      "resolvedAt": null
+    },
+    {
+      "id": "color-audit:textColor:4dd1548b6a6e",
+      "detector": "color-audit",
+      "code": "text-color-delta",
+      "dimension": "textColor",
+      "severity": "P2",
+      "status": "open",
+      "title": "button.outline-red.new-task 文字色 ΔE 7.0",
+      "target": {
+        "selector": "body>div>div>div>div>main>section>section:nth-of-type(1)>div:nth-of-type(1)>button",
+        "displaySelector": "button.outline-red.new-task",
+        "text": "新建任务",
+        "rect": {
+          "x": 467,
+          "y": 148,
+          "width": 84,
+          "height": 30
+        }
+      },
+      "expected": {
+        "color": "#fd4434"
+      },
+      "actual": {
+        "color": "#ff3328",
+        "cssColor": "#ff3328",
+        "deltaE": 7.04
+      },
+      "threshold": {
+        "maxDeltaE": 3
+      },
+      "confidence": 0.82,
+      "evidence": {},
+      "nextAction": "使用 pick/inspect 复核笔画核心色，并批量修正同类文字",
+      "reason": "",
+      "firstSeenAt": "2026-07-22T13:55:06.362Z",
+      "lastSeenAt": "2026-07-22T13:56:03.750Z",
+      "resolvedAt": null
+    },
+    {
+      "id": "color-audit:textColor:a6036bff428e",
+      "detector": "color-audit",
+      "code": "text-color-delta",
+      "dimension": "textColor",
+      "severity": "P2",
+      "status": "open",
+      "title": "span 文字色 ΔE 4.3",
+      "target": {
+        "selector": "body>div>div>div>div>main>header>button>span:nth-of-type(2)",
+        "displaySelector": "span",
+        "text": "灵灵生图站",
+        "rect": {
+          "x": 103,
+          "y": 40,
+          "width": 125,
+          "height": 36
+        }
+      },
+      "expected": {
+        "color": "#030303"
+      },
+      "actual": {
+        "color": "#111111",
+        "cssColor": "#111111",
+        "deltaE": 4.25
+      },
+      "threshold": {
+        "maxDeltaE": 3
+      },
+      "confidence": 0.82,
+      "evidence": {},
+      "nextAction": "使用 pick/inspect 复核笔画核心色，并批量修正同类文字",
+      "reason": "",
+      "firstSeenAt": "2026-07-22T13:55:06.362Z",
+      "lastSeenAt": "2026-07-22T13:56:03.750Z",
+      "resolvedAt": null
+    },
+    {
+      "id": "color-audit:textColor:a74a1c3dbd0f",
+      "detector": "color-audit",
+      "code": "text-color-delta",
+      "dimension": "textColor",
+      "severity": "P2",
+      "status": "open",
+      "title": "span 文字色 ΔE 6.2",
+      "target": {
+        "selector": "body>div>div>div>div>main>section>aside>div>button:nth-of-type(1)>span",
+        "displaySelector": "span",
+        "text": "高转化主图",
+        "rect": {
+          "x": 81,
+          "y": 163,
+          "width": 80,
+          "height": 22
+        }
+      },
+      "expected": {
+        "color": "#fe2518"
+      },
+      "actual": {
+        "color": "#ff3328",
+        "cssColor": "#ff3328",
+        "deltaE": 6.19
+      },
+      "threshold": {
+        "maxDeltaE": 3
+      },
+      "confidence": 0.82,
+      "evidence": {},
+      "nextAction": "使用 pick/inspect 复核笔画核心色，并批量修正同类文字",
+      "reason": "",
+      "firstSeenAt": "2026-07-22T13:55:06.362Z",
+      "lastSeenAt": "2026-07-22T13:56:03.750Z",
+      "resolvedAt": null
+    },
+    {
+      "id": "color-audit:textColor:e16ccb3e5447",
+      "detector": "color-audit",
+      "code": "text-color-delta",
+      "dimension": "textColor",
+      "severity": "P2",
+      "status": "open",
+      "title": "span 文字色 ΔE 9.0",
+      "target": {
+        "selector": "body>div>div>div>div>main>section>aside>div>button:nth-of-type(7)>span",
+        "displaySelector": "span",
+        "text": "我的生成记录",
+        "rect": {
+          "x": 81,
+          "y": 505,
+          "width": 96,
+          "height": 22
+        }
+      },
+      "expected": {
+        "color": "#373943"
+      },
+      "actual": {
+        "color": "#1f2937",
+        "cssColor": "#1f2937",
+        "deltaE": 9.04
+      },
+      "threshold": {
+        "maxDeltaE": 3
+      },
+      "confidence": 0.82,
+      "evidence": {},
+      "nextAction": "使用 pick/inspect 复核笔画核心色，并批量修正同类文字",
+      "reason": "",
+      "firstSeenAt": "2026-07-22T13:55:06.362Z",
+      "lastSeenAt": "2026-07-22T13:56:03.750Z",
+      "resolvedAt": null
+    },
+    {
+      "id": "content-audit:content:022b75d787e2",
+      "detector": "content-audit",
+      "code": "visible-content-untracked",
+      "dimension": "content",
+      "severity": "P2",
+      "status": "open",
+      "title": "可见内容未登记: 移除正面主图",
+      "target": {
+        "selector": "body>div>div>div>div>main>section>section:nth-of-type(1)>div:nth-of-type(2)>div:nth-of-type(1)>div:nth-of-type(2)>div>div:nth-of-type(1)>button"
+      },
+      "expected": null,
+      "actual": {
+        "text": "移除正面主图"
+      },
+      "threshold": null,
+      "confidence": null,
+      "evidence": {},
+      "nextAction": "将该内容登记为 exact、contains 或 mock",
+      "reason": "",
+      "firstSeenAt": "2026-07-22T13:55:06.362Z",
+      "lastSeenAt": "2026-07-22T13:56:03.750Z",
+      "resolvedAt": null
+    },
+    {
+      "id": "content-audit:content:06948dc08ee9",
+      "detector": "content-audit",
+      "code": "visible-content-untracked",
+      "dimension": "content",
+      "severity": "P2",
+      "status": "open",
+      "title": "可见内容未登记: 植物萃取配方",
+      "target": {
+        "selector": "body>div>div>div>div>main>section>section:nth-of-type(1)>div:nth-of-type(2)>div:nth-of-type(2)>div:nth-of-type(2)>button:nth-of-type(3)"
+      },
+      "expected": null,
+      "actual": {
+        "text": "植物萃取配方"
+      },
+      "threshold": null,
+      "confidence": null,
+      "evidence": {},
+      "nextAction": "将该内容登记为 exact、contains 或 mock",
+      "reason": "",
+      "firstSeenAt": "2026-07-22T13:55:06.362Z",
+      "lastSeenAt": "2026-07-22T13:56:03.750Z",
+      "resolvedAt": null
+    },
+    {
+      "id": "content-audit:content:093c0af0d9be",
+      "detector": "content-audit",
+      "code": "visible-content-untracked",
+      "dimension": "content",
+      "severity": "P2",
+      "status": "open",
+      "title": "可见内容未登记: 开始生成",
+      "target": {
+        "selector": "body>div>div>div>div>main>section>section:nth-of-type(1)>button"
+      },
+      "expected": null,
+      "actual": {
+        "text": "开始生成"
+      },
+      "threshold": null,
+      "confidence": null,
+      "evidence": {},
+      "nextAction": "将该内容登记为 exact、contains 或 mock",
+      "reason": "",
+      "firstSeenAt": "2026-07-22T13:55:06.362Z",
+      "lastSeenAt": "2026-07-22T13:56:03.750Z",
+      "resolvedAt": null
+    },
+    {
+      "id": "content-audit:content:0c0305876e28",
+      "detector": "content-audit",
+      "code": "visible-content-untracked",
+      "dimension": "content",
+      "severity": "P2",
+      "status": "open",
+      "title": "可见内容未登记: 灵灵生图站",
+      "target": {
+        "selector": "body>div>div>div>div>main>header>button>span:nth-of-type(2)"
+      },
+      "expected": null,
+      "actual": {
+        "text": "灵灵生图站"
+      },
+      "threshold": null,
+      "confidence": null,
+      "evidence": {},
+      "nextAction": "将该内容登记为 exact、contains 或 mock",
+      "reason": "",
+      "firstSeenAt": "2026-07-22T13:55:06.362Z",
+      "lastSeenAt": "2026-07-22T13:56:03.750Z",
+      "resolvedAt": null
+    },
+    {
+      "id": "content-audit:content:0cd0db95a319",
+      "detector": "content-audit",
+      "code": "visible-content-untracked",
+      "dimension": "content",
+      "severity": "P2",
+      "status": "open",
+      "title": "可见内容未登记: 继续上传",
+      "target": {
+        "selector": "body>div>div>div>div>main>section>section:nth-of-type(1)>div:nth-of-type(2)>div:nth-of-type(1)>div:nth-of-type(2)>div>button>span"
+      },
+      "expected": null,
+      "actual": {
+        "text": "继续上传"
+      },
+      "threshold": null,
+      "confidence": null,
+      "evidence": {},
+      "nextAction": "将该内容登记为 exact、contains 或 mock",
+      "reason": "",
+      "firstSeenAt": "2026-07-22T13:55:06.362Z",
+      "lastSeenAt": "2026-07-22T13:56:03.750Z",
+      "resolvedAt": null
+    },
+    {
+      "id": "content-audit:content:0ea049047818",
+      "detector": "content-audit",
+      "code": "visible-content-untracked",
+      "dimension": "content",
+      "severity": "P2",
+      "status": "open",
+      "title": "可见内容未登记: 放大",
+      "target": {
+        "selector": "body>div>div>div>div>main>section>section:nth-of-type(2)>div:nth-of-type(1)>div>button:nth-of-type(1)"
+      },
+      "expected": null,
+      "actual": {
+        "text": "放大"
+      },
+      "threshold": null,
+      "confidence": null,
+      "evidence": {},
+      "nextAction": "将该内容登记为 exact、contains 或 mock",
+      "reason": "",
+      "firstSeenAt": "2026-07-22T13:55:06.362Z",
+      "lastSeenAt": "2026-07-22T13:56:03.750Z",
+      "resolvedAt": null
+    },
+    {
+      "id": "content-audit:content:12d5be9f9806",
+      "detector": "content-audit",
+      "code": "visible-content-untracked",
+      "dimension": "content",
+      "severity": "P2",
+      "status": "open",
+      "title": "可见内容未登记: 3:1/21:9",
+      "target": {
+        "selector": "body>div>div>div>div>main>section>section:nth-of-type(1)>div:nth-of-type(2)>div:nth-of-type(3)>div:nth-of-type(2)>button:nth-of-type(3)>small"
+      },
+      "expected": null,
+      "actual": {
+        "text": "3:1/21:9"
+      },
+      "threshold": null,
+      "confidence": null,
+      "evidence": {},
+      "nextAction": "将该内容登记为 exact、contains 或 mock",
+      "reason": "",
+      "firstSeenAt": "2026-07-22T13:55:06.362Z",
+      "lastSeenAt": "2026-07-22T13:56:03.750Z",
+      "resolvedAt": null
+    },
+    {
+      "id": "content-audit:content:1cc03b0d4c3e",
+      "detector": "content-audit",
+      "code": "visible-content-untracked",
+      "dimension": "content",
+      "severity": "P2",
+      "status": "open",
+      "title": "可见内容未登记: （必填）",
+      "target": {
+        "selector": "body>div>div>div>div>main>section>section:nth-of-type(1)>div:nth-of-type(2)>div:nth-of-type(3)>div:nth-of-type(1)>h3>span"
+      },
+      "expected": null,
+      "actual": {
+        "text": "（必填）"
+      },
+      "threshold": null,
+      "confidence": null,
+      "evidence": {},
+      "nextAction": "将该内容登记为 exact、contains 或 mock",
+      "reason": "",
+      "firstSeenAt": "2026-07-22T13:55:06.362Z",
+      "lastSeenAt": "2026-07-22T13:56:03.750Z",
+      "resolvedAt": null
+    },
+    {
+      "id": "content-audit:content:1ee54180fe36",
+      "detector": "content-audit",
+      "code": "visible-content-untracked",
+      "dimension": "content",
+      "severity": "P2",
+      "status": "open",
+      "title": "可见内容未登记: 移除侧面细节",
+      "target": {
+        "selector": "body>div>div>div>div>main>section>section:nth-of-type(1)>div:nth-of-type(2)>div:nth-of-type(1)>div:nth-of-type(2)>div>div:nth-of-type(2)>button"
+      },
+      "expected": null,
+      "actual": {
+        "text": "移除侧面细节"
+      },
+      "threshold": null,
+      "confidence": null,
+      "evidence": {},
+      "nextAction": "将该内容登记为 exact、contains 或 mock",
+      "reason": "",
+      "firstSeenAt": "2026-07-22T13:55:06.362Z",
+      "lastSeenAt": "2026-07-22T13:56:03.750Z",
+      "resolvedAt": null
+    },
+    {
+      "id": "content-audit:content:234ec8b2c628",
+      "detector": "content-audit",
+      "code": "visible-content-untracked",
+      "dimension": "content",
+      "severity": "P2",
+      "status": "open",
+      "title": "可见内容未登记: 电商素材生成",
+      "target": {
+        "selector": "body>div>div>div>div>main>header>nav>button:nth-of-type(5)"
+      },
+      "expected": null,
+      "actual": {
+        "text": "电商素材生成"
+      },
+      "threshold": null,
+      "confidence": null,
+      "evidence": {},
+      "nextAction": "将该内容登记为 exact、contains 或 mock",
+      "reason": "",
+      "firstSeenAt": "2026-07-22T13:55:06.362Z",
+      "lastSeenAt": "2026-07-22T13:56:03.750Z",
+      "resolvedAt": null
+    },
+    {
+      "id": "content-audit:content:2910df80b241",
+      "detector": "content-audit",
+      "code": "visible-content-untracked",
+      "dimension": "content",
+      "severity": "P2",
+      "status": "open",
+      "title": "可见内容未登记: 万物穿搭上身",
+      "target": {
+        "selector": "body>div>div>div>div>main>header>nav>button:nth-of-type(3)"
+      },
+      "expected": null,
+      "actual": {
+        "text": "万物穿搭上身"
+      },
+      "threshold": null,
+      "confidence": null,
+      "evidence": {},
+      "nextAction": "将该内容登记为 exact、contains 或 mock",
+      "reason": "",
+      "firstSeenAt": "2026-07-22T13:55:06.362Z",
+      "lastSeenAt": "2026-07-22T13:56:03.750Z",
+      "resolvedAt": null
+    },
+    {
+      "id": "content-audit:content:31c02fcb292b",
+      "detector": "content-audit",
+      "code": "visible-content-untracked",
+      "dimension": "content",
+      "severity": "P2",
+      "status": "open",
+      "title": "可见内容未登记: 细宽比例",
+      "target": {
+        "selector": "body>div>div>div>div>main>section>section:nth-of-type(1)>div:nth-of-type(2)>div:nth-of-type(3)>div:nth-of-type(2)>button:nth-of-type(3)>span"
+      },
+      "expected": null,
+      "actual": {
+        "text": "细宽比例"
+      },
+      "threshold": null,
+      "confidence": null,
+      "evidence": {},
+      "nextAction": "将该内容登记为 exact、contains 或 mock",
+      "reason": "",
+      "firstSeenAt": "2026-07-22T13:55:06.362Z",
+      "lastSeenAt": "2026-07-22T13:56:03.750Z",
+      "resolvedAt": null
+    },
+    {
+      "id": "content-audit:content:36d2b0fa0979",
+      "detector": "content-audit",
+      "code": "visible-content-untracked",
+      "dimension": "content",
+      "severity": "P2",
+      "status": "open",
+      "title": "可见内容未登记: 高转化主图",
+      "target": {
+        "selector": "body>div>div>div>div>main>section>section:nth-of-type(1)>div:nth-of-type(1)>h2"
+      },
+      "expected": null,
+      "actual": {
+        "text": "高转化主图"
+      },
+      "threshold": null,
+      "confidence": null,
+      "evidence": {},
+      "nextAction": "将该内容登记为 exact、contains 或 mock",
+      "reason": "",
+      "firstSeenAt": "2026-07-22T13:55:06.362Z",
+      "lastSeenAt": "2026-07-22T13:56:03.750Z",
+      "resolvedAt": null
+    },
+    {
+      "id": "content-audit:content:3cf611e3cacd",
+      "detector": "content-audit",
+      "code": "visible-content-untracked",
+      "dimension": "content",
+      "severity": "P2",
+      "status": "open",
+      "title": "可见内容未登记: 节日海报",
+      "target": {
+        "selector": "body>div>div>div>div>main>section>aside>div>button:nth-of-type(2)>span"
+      },
+      "expected": null,
+      "actual": {
+        "text": "节日海报"
+      },
+      "threshold": null,
+      "confidence": null,
+      "evidence": {},
+      "nextAction": "将该内容登记为 exact、contains 或 mock",
+      "reason": "",
+      "firstSeenAt": "2026-07-22T13:55:06.362Z",
+      "lastSeenAt": "2026-07-22T13:56:03.750Z",
+      "resolvedAt": null
+    },
+    {
+      "id": "content-audit:content:403373fd4587",
+      "detector": "content-audit",
+      "code": "visible-content-untracked",
+      "dimension": "content",
+      "severity": "P2",
+      "status": "open",
+      "title": "可见内容未登记: 建议上传多角度视图",
+      "target": {
+        "selector": "body>div>div>div>div>main>section>section:nth-of-type(1)>div:nth-of-type(2)>div:nth-of-type(1)>div:nth-of-type(2)>p"
+      },
+      "expected": null,
+      "actual": {
+        "text": "建议上传多角度视图"
+      },
+      "threshold": null,
+      "confidence": null,
+      "evidence": {},
+      "nextAction": "将该内容登记为 exact、contains 或 mock",
+      "reason": "",
+      "firstSeenAt": "2026-07-22T13:55:06.362Z",
+      "lastSeenAt": "2026-07-22T13:56:03.750Z",
+      "resolvedAt": null
+    },
+    {
+      "id": "content-audit:content:44791ca8e9f7",
+      "detector": "content-audit",
+      "code": "visible-content-untracked",
+      "dimension": "content",
+      "severity": "P2",
+      "status": "open",
+      "title": "可见内容未登记: 侧面细节",
+      "target": {
+        "selector": "body>div>div>div>div>main>section>section:nth-of-type(1)>div:nth-of-type(2)>div:nth-of-type(1)>div:nth-of-type(2)>div>div:nth-of-type(2)>img"
+      },
+      "expected": null,
+      "actual": {
+        "text": "侧面细节"
+      },
+      "threshold": null,
+      "confidence": null,
+      "evidence": {},
+      "nextAction": "将该内容登记为 exact、contains 或 mock",
+      "reason": "",
+      "firstSeenAt": "2026-07-22T13:55:06.362Z",
+      "lastSeenAt": "2026-07-22T13:56:03.750Z",
+      "resolvedAt": null
+    },
+    {
+      "id": "content-audit:content:471fb078f26a",
+      "detector": "content-audit",
+      "code": "visible-content-untracked",
+      "dimension": "content",
+      "severity": "P2",
+      "status": "open",
+      "title": "可见内容未登记: 营销场景设计",
+      "target": {
+        "selector": "body>div>div>div>div>main>header>nav>button:nth-of-type(4)"
+      },
+      "expected": null,
+      "actual": {
+        "text": "营销场景设计"
+      },
+      "threshold": null,
+      "confidence": null,
+      "evidence": {},
+      "nextAction": "将该内容登记为 exact、contains 或 mock",
+      "reason": "",
+      "firstSeenAt": "2026-07-22T13:55:06.362Z",
+      "lastSeenAt": "2026-07-22T13:56:03.750Z",
+      "resolvedAt": null
+    },
+    {
+      "id": "content-audit:content:4f61d92d67f1",
+      "detector": "content-audit",
+      "code": "visible-content-untracked",
+      "dimension": "content",
+      "severity": "P2",
+      "status": "open",
+      "title": "可见内容未登记: 1:1/3:4/4:5",
+      "target": {
+        "selector": "body>div>div>div>div>main>section>section:nth-of-type(1)>div:nth-of-type(2)>div:nth-of-type(3)>div:nth-of-type(2)>button:nth-of-type(1)>small"
+      },
+      "expected": null,
+      "actual": {
+        "text": "1:1/3:4/4:5"
+      },
+      "threshold": null,
+      "confidence": null,
+      "evidence": {},
+      "nextAction": "将该内容登记为 exact、contains 或 mock",
+      "reason": "",
+      "firstSeenAt": "2026-07-22T13:55:06.362Z",
+      "lastSeenAt": "2026-07-22T13:56:03.750Z",
+      "resolvedAt": null
+    },
+    {
+      "id": "content-audit:content:53260e4b0475",
+      "detector": "content-audit",
+      "code": "visible-content-untracked",
+      "dimension": "content",
+      "severity": "P2",
+      "status": "open",
+      "title": "可见内容未登记: 照片级AI商品图",
+      "target": {
+        "selector": "body>div>div>div>div>main>header>nav>button:nth-of-type(2)"
+      },
+      "expected": null,
+      "actual": {
+        "text": "照片级AI商品图"
+      },
+      "threshold": null,
+      "confidence": null,
+      "evidence": {},
+      "nextAction": "将该内容登记为 exact、contains 或 mock",
+      "reason": "",
+      "firstSeenAt": "2026-07-22T13:55:06.362Z",
+      "lastSeenAt": "2026-07-22T13:56:03.750Z",
+      "resolvedAt": null
+    },
+    {
+      "id": "content-audit:content:5328d7c3830e",
+      "detector": "content-audit",
+      "code": "visible-content-untracked",
+      "dimension": "content",
+      "severity": "P2",
+      "status": "open",
+      "title": "可见内容未登记: 最多生成 8 张",
+      "target": {
+        "selector": "body>div>div>div>div>main>section>section:nth-of-type(1)>div:nth-of-type(2)>div:nth-of-type(4)>div:nth-of-type(2)>span"
+      },
+      "expected": null,
+      "actual": {
+        "text": "最多生成 8 张"
+      },
+      "threshold": null,
+      "confidence": null,
+      "evidence": {},
+      "nextAction": "将该内容登记为 exact、contains 或 mock",
+      "reason": "",
+      "firstSeenAt": "2026-07-22T13:55:06.362Z",
+      "lastSeenAt": "2026-07-22T13:56:03.750Z",
+      "resolvedAt": null
+    },
+    {
+      "id": "content-audit:content:54a801a70b9e",
+      "detector": "content-audit",
+      "code": "visible-content-untracked",
+      "dimension": "content",
+      "severity": "P2",
+      "status": "open",
+      "title": "可见内容未登记: 创作结果",
+      "target": {
+        "selector": "body>div>div>div>div>main>section>section:nth-of-type(2)>div:nth-of-type(1)>h2"
+      },
+      "expected": null,
+      "actual": {
+        "text": "创作结果"
+      },
+      "threshold": null,
+      "confidence": null,
+      "evidence": {},
+      "nextAction": "将该内容登记为 exact、contains 或 mock",
+      "reason": "",
+      "firstSeenAt": "2026-07-22T13:55:06.362Z",
+      "lastSeenAt": "2026-07-22T13:56:03.750Z",
+      "resolvedAt": null
+    },
+    {
+      "id": "content-audit:content:5890d13f6b24",
+      "detector": "content-audit",
+      "code": "visible-content-untracked",
+      "dimension": "content",
+      "severity": "P2",
+      "status": "open",
+      "title": "可见内容未登记: 缩小",
+      "target": {
+        "selector": "body>div>div>div>div>main>section>section:nth-of-type(2)>div:nth-of-type(1)>div>button:nth-of-type(2)"
+      },
+      "expected": null,
+      "actual": {
+        "text": "缩小"
+      },
+      "threshold": null,
+      "confidence": null,
+      "evidence": {},
+      "nextAction": "将该内容登记为 exact、contains 或 mock",
+      "reason": "",
+      "firstSeenAt": "2026-07-22T13:55:06.362Z",
+      "lastSeenAt": "2026-07-22T13:56:03.750Z",
+      "resolvedAt": null
+    },
+    {
+      "id": "content-audit:content:598917387125",
+      "detector": "content-audit",
+      "code": "visible-content-untracked",
+      "dimension": "content",
+      "severity": "P2",
+      "status": "open",
+      "title": "可见内容未登记: 2:3/9:16",
+      "target": {
+        "selector": "body>div>div>div>div>main>section>section:nth-of-type(1)>div:nth-of-type(2)>div:nth-of-type(3)>div:nth-of-type(2)>button:nth-of-type(2)>small"
+      },
+      "expected": null,
+      "actual": {
+        "text": "2:3/9:16"
+      },
+      "threshold": null,
+      "confidence": null,
+      "evidence": {},
+      "nextAction": "将该内容登记为 exact、contains 或 mock",
+      "reason": "",
+      "firstSeenAt": "2026-07-22T13:55:06.362Z",
+      "lastSeenAt": "2026-07-22T13:56:03.750Z",
+      "resolvedAt": null
+    },
+    {
+      "id": "content-audit:content:5ca76c87d15f",
+      "detector": "content-audit",
+      "code": "visible-content-untracked",
+      "dimension": "content",
+      "severity": "P2",
+      "status": "open",
+      "title": "可见内容未登记: 高转化主图",
+      "target": {
+        "selector": "body>div>div>div>div>main>section>aside>div>button:nth-of-type(1)>span"
+      },
+      "expected": null,
+      "actual": {
+        "text": "高转化主图"
+      },
+      "threshold": null,
+      "confidence": null,
+      "evidence": {},
+      "nextAction": "将该内容登记为 exact、contains 或 mock",
+      "reason": "",
+      "firstSeenAt": "2026-07-22T13:55:06.362Z",
+      "lastSeenAt": "2026-07-22T13:56:03.750Z",
+      "resolvedAt": null
+    },
+    {
+      "id": "content-audit:content:5ef78496536d",
+      "detector": "content-audit",
+      "code": "visible-content-untracked",
+      "dimension": "content",
+      "severity": "P2",
+      "status": "open",
+      "title": "可见内容未登记: 返回首页",
+      "target": {
+        "selector": "body>div>div>div>div>main>header>button"
+      },
+      "expected": null,
+      "actual": {
+        "text": "返回首页"
+      },
+      "threshold": null,
+      "confidence": null,
+      "evidence": {},
+      "nextAction": "将该内容登记为 exact、contains 或 mock",
+      "reason": "",
+      "firstSeenAt": "2026-07-22T13:55:06.362Z",
+      "lastSeenAt": "2026-07-22T13:56:03.750Z",
+      "resolvedAt": null
+    },
+    {
+      "id": "content-audit:content:6558b22dc43d",
+      "detector": "content-audit",
+      "code": "visible-content-untracked",
+      "dimension": "content",
+      "severity": "P2",
+      "status": "open",
+      "title": "可见内容未登记: 主导航",
+      "target": {
+        "selector": "body>div>div>div>div>main>header>nav"
+      },
+      "expected": null,
+      "actual": {
+        "text": "主导航"
+      },
+      "threshold": null,
+      "confidence": null,
+      "evidence": {},
+      "nextAction": "将该内容登记为 exact、contains 或 mock",
+      "reason": "",
+      "firstSeenAt": "2026-07-22T13:55:06.362Z",
+      "lastSeenAt": "2026-07-22T13:56:03.750Z",
+      "resolvedAt": null
+    },
+    {
+      "id": "content-audit:content:66769dad09b9",
+      "detector": "content-audit",
+      "code": "visible-content-untracked",
+      "dimension": "content",
+      "severity": "P2",
+      "status": "open",
+      "title": "可见内容未登记: 加载失败： Unexpected token '<', \"<!doctype \"",
+      "target": {
+        "selector": "body>div>div>div>div>main>section>section:nth-of-type(2)>div:nth-of-type(2)>div"
+      },
+      "expected": null,
+      "actual": {
+        "text": "加载失败： Unexpected token '<', \"<!doctype \"... is not valid JSON"
+      },
+      "threshold": null,
+      "confidence": null,
+      "evidence": {},
+      "nextAction": "将该内容登记为 exact、contains 或 mock",
+      "reason": "",
+      "firstSeenAt": "2026-07-22T13:55:06.362Z",
+      "lastSeenAt": "2026-07-22T13:56:03.750Z",
+      "resolvedAt": null
+    },
+    {
+      "id": "content-audit:content:69d6d30c49d4",
+      "detector": "content-audit",
+      "code": "visible-content-untracked",
+      "dimension": "content",
+      "severity": "P2",
+      "status": "open",
+      "title": "可见内容未登记: 2.  主推卖点",
+      "target": {
+        "selector": "body>div>div>div>div>main>section>section:nth-of-type(1)>div:nth-of-type(2)>div:nth-of-type(2)>div:nth-of-type(1)>h3"
+      },
+      "expected": null,
+      "actual": {
+        "text": "2.  主推卖点"
+      },
+      "threshold": null,
+      "confidence": null,
+      "evidence": {},
+      "nextAction": "将该内容登记为 exact、contains 或 mock",
+      "reason": "",
+      "firstSeenAt": "2026-07-22T13:55:06.362Z",
+      "lastSeenAt": "2026-07-22T13:56:03.750Z",
+      "resolvedAt": null
+    },
+    {
+      "id": "content-audit:content:749958ee4e86",
+      "detector": "content-audit",
+      "code": "visible-content-untracked",
+      "dimension": "content",
+      "severity": "P2",
+      "status": "open",
+      "title": "可见内容未登记: 搜索模板、场景、素材等",
+      "target": {
+        "selector": "body>div>div>div>div>main>header>div>form>input"
+      },
+      "expected": null,
+      "actual": {
+        "text": "搜索模板、场景、素材等"
+      },
+      "threshold": null,
+      "confidence": null,
+      "evidence": {},
+      "nextAction": "将该内容登记为 exact、contains 或 mock",
+      "reason": "",
+      "firstSeenAt": "2026-07-22T13:55:06.362Z",
+      "lastSeenAt": "2026-07-22T13:56:03.750Z",
+      "resolvedAt": null
+    },
+    {
+      "id": "content-audit:content:76d98a96cd60",
+      "detector": "content-audit",
+      "code": "visible-content-untracked",
+      "dimension": "content",
+      "severity": "P2",
+      "status": "open",
+      "title": "可见内容未登记: 输入卖点",
+      "target": {
+        "selector": "body>div>div>div>div>main>section>section:nth-of-type(1)>div:nth-of-type(2)>div:nth-of-type(2)>div:nth-of-type(2)>form>input"
+      },
+      "expected": null,
+      "actual": {
+        "text": "输入卖点"
+      },
+      "threshold": null,
+      "confidence": null,
+      "evidence": {},
+      "nextAction": "将该内容登记为 exact、contains 或 mock",
+      "reason": "",
+      "firstSeenAt": "2026-07-22T13:55:06.362Z",
+      "lastSeenAt": "2026-07-22T13:56:03.750Z",
+      "resolvedAt": null
+    },
+    {
+      "id": "content-audit:content:7719a801239b",
+      "detector": "content-audit",
+      "code": "visible-content-untracked",
+      "dimension": "content",
+      "severity": "P2",
+      "status": "open",
+      "title": "可见内容未登记: 添加卖点",
+      "target": {
+        "selector": "body>div>div>div>div>main>section>section:nth-of-type(1)>div:nth-of-type(2)>div:nth-of-type(2)>div:nth-of-type(2)>form>button"
+      },
+      "expected": null,
+      "actual": {
+        "text": "添加卖点"
+      },
+      "threshold": null,
+      "confidence": null,
+      "evidence": {},
+      "nextAction": "将该内容登记为 exact、contains 或 mock",
+      "reason": "",
+      "firstSeenAt": "2026-07-22T13:55:06.362Z",
+      "lastSeenAt": "2026-07-22T13:56:03.750Z",
+      "resolvedAt": null
+    },
+    {
+      "id": "content-audit:content:781549e51ce0",
+      "detector": "content-audit",
+      "code": "visible-content-untracked",
+      "dimension": "content",
+      "severity": "P2",
+      "status": "open",
+      "title": "可见内容未登记: 背标细节",
+      "target": {
+        "selector": "body>div>div>div>div>main>section>section:nth-of-type(1)>div:nth-of-type(2)>div:nth-of-type(1)>div:nth-of-type(2)>div>div:nth-of-type(3)>img"
+      },
+      "expected": null,
+      "actual": {
+        "text": "背标细节"
+      },
+      "threshold": null,
+      "confidence": null,
+      "evidence": {},
+      "nextAction": "将该内容登记为 exact、contains 或 mock",
+      "reason": "",
+      "firstSeenAt": "2026-07-22T13:55:06.362Z",
+      "lastSeenAt": "2026-07-22T13:56:03.750Z",
+      "resolvedAt": null
+    },
+    {
+      "id": "content-audit:content:7b8b698100fe",
+      "detector": "content-audit",
+      "code": "visible-content-untracked",
+      "dimension": "content",
+      "severity": "P2",
+      "status": "open",
+      "title": "可见内容未登记: 社媒种草图",
+      "target": {
+        "selector": "body>div>div>div>div>main>section>aside>div>button:nth-of-type(6)>span"
+      },
+      "expected": null,
+      "actual": {
+        "text": "社媒种草图"
+      },
+      "threshold": null,
+      "confidence": null,
+      "evidence": {},
+      "nextAction": "将该内容登记为 exact、contains 或 mock",
+      "reason": "",
+      "firstSeenAt": "2026-07-22T13:55:06.362Z",
+      "lastSeenAt": "2026-07-22T13:56:03.750Z",
+      "resolvedAt": null
+    },
+    {
+      "id": "content-audit:content:7d3a29f859f4",
+      "detector": "content-audit",
+      "code": "visible-content-untracked",
+      "dimension": "content",
+      "severity": "P2",
+      "status": "open",
+      "title": "可见内容未登记: 直播背景图",
+      "target": {
+        "selector": "body>div>div>div>div>main>section>aside>div>button:nth-of-type(5)>span"
+      },
+      "expected": null,
+      "actual": {
+        "text": "直播背景图"
+      },
+      "threshold": null,
+      "confidence": null,
+      "evidence": {},
+      "nextAction": "将该内容登记为 exact、contains 或 mock",
+      "reason": "",
+      "firstSeenAt": "2026-07-22T13:55:06.362Z",
+      "lastSeenAt": "2026-07-22T13:56:03.750Z",
+      "resolvedAt": null
+    },
+    {
+      "id": "content-audit:content:80b73c94b254",
+      "detector": "content-audit",
+      "code": "visible-content-untracked",
+      "dimension": "content",
+      "severity": "P2",
+      "status": "open",
+      "title": "可见内容未登记: 1.  上传商品图",
+      "target": {
+        "selector": "body>div>div>div>div>main>section>section:nth-of-type(1)>div:nth-of-type(2)>div:nth-of-type(1)>div:nth-of-type(1)>h3"
+      },
+      "expected": null,
+      "actual": {
+        "text": "1.  上传商品图"
+      },
+      "threshold": null,
+      "confidence": null,
+      "evidence": {},
+      "nextAction": "将该内容登记为 exact、contains 或 mock",
+      "reason": "",
+      "firstSeenAt": "2026-07-22T13:55:06.362Z",
+      "lastSeenAt": "2026-07-22T13:56:03.750Z",
+      "resolvedAt": null
+    },
+    {
+      "id": "content-audit:content:80c679549c73",
+      "detector": "content-audit",
+      "code": "visible-content-untracked",
+      "dimension": "content",
+      "severity": "P2",
+      "status": "open",
+      "title": "可见内容未登记: 移除背标细节",
+      "target": {
+        "selector": "body>div>div>div>div>main>section>section:nth-of-type(1)>div:nth-of-type(2)>div:nth-of-type(1)>div:nth-of-type(2)>div>div:nth-of-type(3)>button"
+      },
+      "expected": null,
+      "actual": {
+        "text": "移除背标细节"
+      },
+      "threshold": null,
+      "confidence": null,
+      "evidence": {},
+      "nextAction": "将该内容登记为 exact、contains 或 mock",
+      "reason": "",
+      "firstSeenAt": "2026-07-22T13:55:06.362Z",
+      "lastSeenAt": "2026-07-22T13:56:03.750Z",
+      "resolvedAt": null
+    },
+    {
+      "id": "content-audit:content:839bc9431ca9",
+      "detector": "content-audit",
+      "code": "visible-content-untracked",
+      "dimension": "content",
+      "severity": "P2",
+      "status": "open",
+      "title": "可见内容未登记: Unexpected token '<', \"<!doctype \"... is",
+      "target": {
+        "selector": "body>div>div>div>div>main>section>section:nth-of-type(2)>button"
+      },
+      "expected": null,
+      "actual": {
+        "text": "Unexpected token '<', \"<!doctype \"... is not valid JSON"
+      },
+      "threshold": null,
+      "confidence": null,
+      "evidence": {},
+      "nextAction": "将该内容登记为 exact、contains 或 mock",
+      "reason": "",
+      "firstSeenAt": "2026-07-22T13:55:06.362Z",
+      "lastSeenAt": "2026-07-22T13:56:03.750Z",
+      "resolvedAt": null
+    },
+    {
+      "id": "content-audit:content:8ac1a2107a78",
+      "detector": "content-audit",
+      "code": "visible-content-untracked",
+      "dimension": "content",
+      "severity": "P2",
+      "status": "open",
+      "title": "可见内容未登记: 编辑",
+      "target": {
+        "selector": "body>div>div>div>div>main>section>section:nth-of-type(1)>div:nth-of-type(2)>div:nth-of-type(2)>div:nth-of-type(1)>button"
+      },
+      "expected": null,
+      "actual": {
+        "text": "编辑"
+      },
+      "threshold": null,
+      "confidence": null,
+      "evidence": {},
+      "nextAction": "将该内容登记为 exact、contains 或 mock",
+      "reason": "",
+      "firstSeenAt": "2026-07-22T13:55:06.362Z",
+      "lastSeenAt": "2026-07-22T13:56:03.750Z",
+      "resolvedAt": null
+    },
+    {
+      "id": "content-audit:content:92d2430631d4",
+      "detector": "content-audit",
+      "code": "visible-content-untracked",
+      "dimension": "content",
+      "severity": "P2",
+      "status": "open",
+      "title": "可见内容未登记: 我的生成记录",
+      "target": {
+        "selector": "body>div>div>div>div>main>section>aside>div>button:nth-of-type(7)>span"
+      },
+      "expected": null,
+      "actual": {
+        "text": "我的生成记录"
+      },
+      "threshold": null,
+      "confidence": null,
+      "evidence": {},
+      "nextAction": "将该内容登记为 exact、contains 或 mock",
+      "reason": "",
+      "firstSeenAt": "2026-07-22T13:55:06.362Z",
+      "lastSeenAt": "2026-07-22T13:56:03.750Z",
+      "resolvedAt": null
+    },
+    {
+      "id": "content-audit:content:9a90686f203a",
+      "detector": "content-audit",
+      "code": "visible-content-untracked",
+      "dimension": "content",
+      "severity": "P2",
+      "status": "open",
+      "title": "可见内容未登记: 低泡易漂洗",
+      "target": {
+        "selector": "body>div>div>div>div>main>section>section:nth-of-type(1)>div:nth-of-type(2)>div:nth-of-type(2)>div:nth-of-type(2)>button:nth-of-type(4)"
+      },
+      "expected": null,
+      "actual": {
+        "text": "低泡易漂洗"
+      },
+      "threshold": null,
+      "confidence": null,
+      "evidence": {},
+      "nextAction": "将该内容登记为 exact、contains 或 mock",
+      "reason": "",
+      "firstSeenAt": "2026-07-22T13:55:06.362Z",
+      "lastSeenAt": "2026-07-22T13:56:03.750Z",
+      "resolvedAt": null
+    },
+    {
+      "id": "content-audit:content:9b4556b2b4b1",
+      "detector": "content-audit",
+      "code": "visible-content-untracked",
+      "dimension": "content",
+      "severity": "P2",
+      "status": "open",
+      "title": "可见内容未登记: 4.  生成张数",
+      "target": {
+        "selector": "body>div>div>div>div>main>section>section:nth-of-type(1)>div:nth-of-type(2)>div:nth-of-type(4)>div:nth-of-type(1)>h3"
+      },
+      "expected": null,
+      "actual": {
+        "text": "4.  生成张数"
+      },
+      "threshold": null,
+      "confidence": null,
+      "evidence": {},
+      "nextAction": "将该内容登记为 exact、contains 或 mock",
+      "reason": "",
+      "firstSeenAt": "2026-07-22T13:55:06.362Z",
+      "lastSeenAt": "2026-07-22T13:56:03.750Z",
+      "resolvedAt": null
+    },
+    {
+      "id": "content-audit:content:a743e9e488f6",
+      "detector": "content-audit",
+      "code": "visible-content-untracked",
+      "dimension": "content",
+      "severity": "P2",
+      "status": "open",
+      "title": "可见内容未登记: 减少",
+      "target": {
+        "selector": "body>div>div>div>div>main>section>section:nth-of-type(1)>div:nth-of-type(2)>div:nth-of-type(4)>div:nth-of-type(2)>div>button:nth-of-type(1)"
+      },
+      "expected": null,
+      "actual": {
+        "text": "减少"
+      },
+      "threshold": null,
+      "confidence": null,
+      "evidence": {},
+      "nextAction": "将该内容登记为 exact、contains 或 mock",
+      "reason": "",
+      "firstSeenAt": "2026-07-22T13:55:06.362Z",
+      "lastSeenAt": "2026-07-22T13:56:03.750Z",
+      "resolvedAt": null
+    },
+    {
+      "id": "content-audit:content:a75979b5d91e",
+      "detector": "content-audit",
+      "code": "visible-content-untracked",
+      "dimension": "content",
+      "severity": "P2",
+      "status": "open",
+      "title": "可见内容未登记: 5.  分辨率",
+      "target": {
+        "selector": "body>div>div>div>div>main>section>section:nth-of-type(1)>div:nth-of-type(2)>div:nth-of-type(5)>div>h3"
+      },
+      "expected": null,
+      "actual": {
+        "text": "5.  分辨率"
+      },
+      "threshold": null,
+      "confidence": null,
+      "evidence": {},
+      "nextAction": "将该内容登记为 exact、contains 或 mock",
+      "reason": "",
+      "firstSeenAt": "2026-07-22T13:55:06.362Z",
+      "lastSeenAt": "2026-07-22T13:56:03.750Z",
+      "resolvedAt": null
+    },
+    {
+      "id": "content-audit:content:ab6df696b6b1",
+      "detector": "content-audit",
+      "code": "visible-content-untracked",
+      "dimension": "content",
+      "severity": "P2",
+      "status": "open",
+      "title": "可见内容未登记: 增加",
+      "target": {
+        "selector": "body>div>div>div>div>main>section>section:nth-of-type(1)>div:nth-of-type(2)>div:nth-of-type(4)>div:nth-of-type(2)>div>button:nth-of-type(2)"
+      },
+      "expected": null,
+      "actual": {
+        "text": "增加"
+      },
+      "threshold": null,
+      "confidence": null,
+      "evidence": {},
+      "nextAction": "将该内容登记为 exact、contains 或 mock",
+      "reason": "",
+      "firstSeenAt": "2026-07-22T13:55:06.362Z",
+      "lastSeenAt": "2026-07-22T13:56:03.750Z",
+      "resolvedAt": null
+    },
+    {
+      "id": "content-audit:content:add65754a4a7",
+      "detector": "content-audit",
+      "code": "visible-content-untracked",
+      "dimension": "content",
+      "severity": "P2",
+      "status": "open",
+      "title": "可见内容未登记: 除菌率99.9%",
+      "target": {
+        "selector": "body>div>div>div>div>main>section>section:nth-of-type(1)>div:nth-of-type(2)>div:nth-of-type(2)>div:nth-of-type(2)>button:nth-of-type(1)"
+      },
+      "expected": null,
+      "actual": {
+        "text": "除菌率99.9%"
+      },
+      "threshold": null,
+      "confidence": null,
+      "evidence": {},
+      "nextAction": "将该内容登记为 exact、contains 或 mock",
+      "reason": "",
+      "firstSeenAt": "2026-07-22T13:55:06.362Z",
+      "lastSeenAt": "2026-07-22T13:56:03.750Z",
+      "resolvedAt": null
+    },
+    {
+      "id": "content-audit:content:b04a1caea85a",
+      "detector": "content-audit",
+      "code": "visible-content-untracked",
+      "dimension": "content",
+      "severity": "P2",
+      "status": "open",
+      "title": "可见内容未登记: 下载",
+      "target": {
+        "selector": "body>div>div>div>div>main>section>section:nth-of-type(2)>div:nth-of-type(1)>div>button:nth-of-type(3)"
+      },
+      "expected": null,
+      "actual": {
+        "text": "下载"
+      },
+      "threshold": null,
+      "confidence": null,
+      "evidence": {},
+      "nextAction": "将该内容登记为 exact、contains 或 mock",
+      "reason": "",
+      "firstSeenAt": "2026-07-22T13:55:06.362Z",
+      "lastSeenAt": "2026-07-22T13:56:03.750Z",
+      "resolvedAt": null
+    },
+    {
+      "id": "content-audit:content:b6543d6acd92",
+      "detector": "content-audit",
+      "code": "visible-content-untracked",
+      "dimension": "content",
+      "severity": "P2",
+      "status": "open",
+      "title": "可见内容未登记: 重新生成",
+      "target": {
+        "selector": "body>div>div>div>div>main>section>section:nth-of-type(2)>div:nth-of-type(1)>div>button:nth-of-type(4)"
+      },
+      "expected": null,
+      "actual": {
+        "text": "重新生成"
+      },
+      "threshold": null,
+      "confidence": null,
+      "evidence": {},
+      "nextAction": "将该内容登记为 exact、contains 或 mock",
+      "reason": "",
+      "firstSeenAt": "2026-07-22T13:55:06.362Z",
+      "lastSeenAt": "2026-07-22T13:56:03.750Z",
+      "resolvedAt": null
+    },
+    {
+      "id": "content-audit:content:c76cbb54e5b6",
+      "detector": "content-audit",
+      "code": "visible-content-untracked",
+      "dimension": "content",
+      "severity": "P2",
+      "status": "open",
+      "title": "可见内容未登记: 上传上传商品图",
+      "target": {
+        "selector": "body>div>div>div>div>main>section>section:nth-of-type(1)>div:nth-of-type(2)>div:nth-of-type(1)>div:nth-of-type(2)>div>button"
+      },
+      "expected": null,
+      "actual": {
+        "text": "上传上传商品图"
+      },
+      "threshold": null,
+      "confidence": null,
+      "evidence": {},
+      "nextAction": "将该内容登记为 exact、contains 或 mock",
+      "reason": "",
+      "firstSeenAt": "2026-07-22T13:55:06.362Z",
+      "lastSeenAt": "2026-07-22T13:56:03.750Z",
+      "resolvedAt": null
+    },
+    {
+      "id": "content-audit:content:cfb7e51aaefe",
+      "detector": "content-audit",
+      "code": "visible-content-untracked",
+      "dimension": "content",
+      "severity": "P2",
+      "status": "open",
+      "title": "可见内容未登记: 正面主图",
+      "target": {
+        "selector": "body>div>div>div>div>main>section>section:nth-of-type(1)>div:nth-of-type(2)>div:nth-of-type(1)>div:nth-of-type(2)>div>div:nth-of-type(1)>img"
+      },
+      "expected": null,
+      "actual": {
+        "text": "正面主图"
+      },
+      "threshold": null,
+      "confidence": null,
+      "evidence": {},
+      "nextAction": "将该内容登记为 exact、contains 或 mock",
+      "reason": "",
+      "firstSeenAt": "2026-07-22T13:55:06.362Z",
+      "lastSeenAt": "2026-07-22T13:56:03.750Z",
+      "resolvedAt": null
+    },
+    {
+      "id": "content-audit:content:d46f4f8c2718",
+      "detector": "content-audit",
+      "code": "visible-content-untracked",
+      "dimension": "content",
+      "severity": "P2",
+      "status": "open",
+      "title": "可见内容未登记: 首页",
+      "target": {
+        "selector": "body>div>div>div>div>main>header>nav>button:nth-of-type(1)"
+      },
+      "expected": null,
+      "actual": {
+        "text": "首页"
+      },
+      "threshold": null,
+      "confidence": null,
+      "evidence": {},
+      "nextAction": "将该内容登记为 exact、contains 或 mock",
+      "reason": "",
+      "firstSeenAt": "2026-07-22T13:55:06.362Z",
+      "lastSeenAt": "2026-07-22T13:56:03.750Z",
+      "resolvedAt": null
+    },
+    {
+      "id": "content-audit:content:d7424edb01fe",
+      "detector": "content-audit",
+      "code": "visible-content-untracked",
+      "dimension": "content",
+      "severity": "P2",
+      "status": "open",
+      "title": "可见内容未登记: 柔顺护衣",
+      "target": {
+        "selector": "body>div>div>div>div>main>section>section:nth-of-type(1)>div:nth-of-type(2)>div:nth-of-type(2)>div:nth-of-type(2)>button:nth-of-type(5)"
+      },
+      "expected": null,
+      "actual": {
+        "text": "柔顺护衣"
+      },
+      "threshold": null,
+      "confidence": null,
+      "evidence": {},
+      "nextAction": "将该内容登记为 exact、contains 或 mock",
+      "reason": "",
+      "firstSeenAt": "2026-07-22T13:55:06.362Z",
+      "lastSeenAt": "2026-07-22T13:56:03.750Z",
+      "resolvedAt": null
+    },
+    {
+      "id": "content-audit:content:d87565af2f3b",
+      "detector": "content-audit",
+      "code": "visible-content-untracked",
+      "dimension": "content",
+      "severity": "P2",
+      "status": "open",
+      "title": "可见内容未登记: 横版Banner",
+      "target": {
+        "selector": "body>div>div>div>div>main>section>aside>div>button:nth-of-type(3)>span"
+      },
+      "expected": null,
+      "actual": {
+        "text": "横版Banner"
+      },
+      "threshold": null,
+      "confidence": null,
+      "evidence": {},
+      "nextAction": "将该内容登记为 exact、contains 或 mock",
+      "reason": "",
+      "firstSeenAt": "2026-07-22T13:55:06.362Z",
+      "lastSeenAt": "2026-07-22T13:56:03.750Z",
+      "resolvedAt": null
+    },
+    {
+      "id": "content-audit:content:dd40eec95822",
+      "detector": "content-audit",
+      "code": "visible-content-untracked",
+      "dimension": "content",
+      "severity": "P2",
+      "status": "open",
+      "title": "可见内容未登记: 1024 × 1365（推荐）",
+      "target": {
+        "selector": "body>div>div>div>div>main>section>section:nth-of-type(1)>div:nth-of-type(2)>div:nth-of-type(5)>label>select"
+      },
+      "expected": null,
+      "actual": {
+        "text": "1024 × 1365（推荐）"
+      },
+      "threshold": null,
+      "confidence": null,
+      "evidence": {},
+      "nextAction": "将该内容登记为 exact、contains 或 mock",
+      "reason": "",
+      "firstSeenAt": "2026-07-22T13:55:06.362Z",
+      "lastSeenAt": "2026-07-22T13:56:03.750Z",
+      "resolvedAt": null
+    },
+    {
+      "id": "content-audit:content:de8479715419",
+      "detector": "content-audit",
+      "code": "visible-content-untracked",
+      "dimension": "content",
+      "severity": "P2",
+      "status": "open",
+      "title": "可见内容未登记: 促销弹窗",
+      "target": {
+        "selector": "body>div>div>div>div>main>section>aside>div>button:nth-of-type(4)>span"
+      },
+      "expected": null,
+      "actual": {
+        "text": "促销弹窗"
+      },
+      "threshold": null,
+      "confidence": null,
+      "evidence": {},
+      "nextAction": "将该内容登记为 exact、contains 或 mock",
+      "reason": "",
+      "firstSeenAt": "2026-07-22T13:55:06.362Z",
+      "lastSeenAt": "2026-07-22T13:56:03.750Z",
+      "resolvedAt": null
+    },
+    {
+      "id": "content-audit:content:df8864ba090a",
+      "detector": "content-audit",
+      "code": "visible-content-untracked",
+      "dimension": "content",
+      "severity": "P2",
+      "status": "open",
+      "title": "可见内容未登记: 3.  生成比例",
+      "target": {
+        "selector": "body>div>div>div>div>main>section>section:nth-of-type(1)>div:nth-of-type(2)>div:nth-of-type(3)>div:nth-of-type(1)>h3"
+      },
+      "expected": null,
+      "actual": {
+        "text": "3.  生成比例"
+      },
+      "threshold": null,
+      "confidence": null,
+      "evidence": {},
+      "nextAction": "将该内容登记为 exact、contains 或 mock",
+      "reason": "",
+      "firstSeenAt": "2026-07-22T13:55:06.362Z",
+      "lastSeenAt": "2026-07-22T13:56:03.750Z",
+      "resolvedAt": null
+    },
+    {
+      "id": "content-audit:content:dfc3dd09372a",
+      "detector": "content-audit",
+      "code": "visible-content-untracked",
+      "dimension": "content",
+      "severity": "P2",
+      "status": "open",
+      "title": "可见内容未登记: 持久留香72h",
+      "target": {
+        "selector": "body>div>div>div>div>main>section>section:nth-of-type(1)>div:nth-of-type(2)>div:nth-of-type(2)>div:nth-of-type(2)>button:nth-of-type(2)"
+      },
+      "expected": null,
+      "actual": {
+        "text": "持久留香72h"
+      },
+      "threshold": null,
+      "confidence": null,
+      "evidence": {},
+      "nextAction": "将该内容登记为 exact、contains 或 mock",
+      "reason": "",
+      "firstSeenAt": "2026-07-22T13:55:06.362Z",
+      "lastSeenAt": "2026-07-22T13:56:03.750Z",
+      "resolvedAt": null
+    },
+    {
+      "id": "content-audit:content:ecd4438d8262",
+      "detector": "content-audit",
+      "code": "visible-content-untracked",
+      "dimension": "content",
+      "severity": "P2",
+      "status": "open",
+      "title": "可见内容未登记: 细长比例",
+      "target": {
+        "selector": "body>div>div>div>div>main>section>section:nth-of-type(1)>div:nth-of-type(2)>div:nth-of-type(3)>div:nth-of-type(2)>button:nth-of-type(2)>span"
+      },
+      "expected": null,
+      "actual": {
+        "text": "细长比例"
+      },
+      "threshold": null,
+      "confidence": null,
+      "evidence": {},
+      "nextAction": "将该内容登记为 exact、contains 或 mock",
+      "reason": "",
+      "firstSeenAt": "2026-07-22T13:55:06.362Z",
+      "lastSeenAt": "2026-07-22T13:56:03.750Z",
+      "resolvedAt": null
+    },
+    {
+      "id": "content-audit:content:eea8a5b941f7",
+      "detector": "content-audit",
+      "code": "visible-content-untracked",
+      "dimension": "content",
+      "severity": "P2",
+      "status": "open",
+      "title": "可见内容未登记: 支持多图上传",
+      "target": {
+        "selector": "body>div>div>div>div>main>section>section:nth-of-type(1)>div:nth-of-type(2)>div:nth-of-type(1)>div:nth-of-type(2)>div>button>small"
+      },
+      "expected": null,
+      "actual": {
+        "text": "支持多图上传"
+      },
+      "threshold": null,
+      "confidence": null,
+      "evidence": {},
+      "nextAction": "将该内容登记为 exact、contains 或 mock",
+      "reason": "",
+      "firstSeenAt": "2026-07-22T13:55:06.362Z",
+      "lastSeenAt": "2026-07-22T13:56:03.750Z",
+      "resolvedAt": null
+    },
+    {
+      "id": "content-audit:content:f0b151c08844",
+      "detector": "content-audit",
+      "code": "visible-content-untracked",
+      "dimension": "content",
+      "severity": "P2",
+      "status": "open",
+      "title": "可见内容未登记: 新建任务",
+      "target": {
+        "selector": "body>div>div>div>div>main>section>section:nth-of-type(1)>div:nth-of-type(1)>button"
+      },
+      "expected": null,
+      "actual": {
+        "text": "新建任务"
+      },
+      "threshold": null,
+      "confidence": null,
+      "evidence": {},
+      "nextAction": "将该内容登记为 exact、contains 或 mock",
+      "reason": "",
+      "firstSeenAt": "2026-07-22T13:55:06.362Z",
+      "lastSeenAt": "2026-07-22T13:56:03.750Z",
+      "resolvedAt": null
+    },
+    {
+      "id": "content-audit:content:f76e387aa92e",
+      "detector": "content-audit",
+      "code": "visible-content-untracked",
+      "dimension": "content",
+      "severity": "P2",
+      "status": "open",
+      "title": "可见内容未登记: 常见比例",
+      "target": {
+        "selector": "body>div>div>div>div>main>section>section:nth-of-type(1)>div:nth-of-type(2)>div:nth-of-type(3)>div:nth-of-type(2)>button:nth-of-type(1)>span"
+      },
+      "expected": null,
+      "actual": {
+        "text": "常见比例"
+      },
+      "threshold": null,
+      "confidence": null,
+      "evidence": {},
+      "nextAction": "将该内容登记为 exact、contains 或 mock",
+      "reason": "",
+      "firstSeenAt": "2026-07-22T13:55:06.362Z",
+      "lastSeenAt": "2026-07-22T13:56:03.750Z",
+      "resolvedAt": null
+    },
+    {
+      "id": "content-audit:content:f9dd90a64d43",
+      "detector": "content-audit",
+      "code": "visible-content-untracked",
+      "dimension": "content",
+      "severity": "P2",
+      "status": "open",
+      "title": "可见内容未登记: 4",
+      "target": {
+        "selector": "body>div>div>div>div>main>section>section:nth-of-type(1)>div:nth-of-type(2)>div:nth-of-type(4)>div:nth-of-type(2)>div>strong"
+      },
+      "expected": null,
+      "actual": {
+        "text": "4"
+      },
+      "threshold": null,
+      "confidence": null,
+      "evidence": {},
+      "nextAction": "将该内容登记为 exact、contains 或 mock",
+      "reason": "",
+      "firstSeenAt": "2026-07-22T13:55:06.362Z",
+      "lastSeenAt": "2026-07-22T13:56:03.750Z",
+      "resolvedAt": null
+    },
+    {
+      "id": "content-audit:content:fd922f3fd21e",
+      "detector": "content-audit",
+      "code": "visible-content-untracked",
+      "dimension": "content",
+      "severity": "P2",
+      "status": "open",
+      "title": "可见内容未登记: （必填）",
+      "target": {
+        "selector": "body>div>div>div>div>main>section>section:nth-of-type(1)>div:nth-of-type(2)>div:nth-of-type(1)>div:nth-of-type(1)>h3>span"
+      },
+      "expected": null,
+      "actual": {
+        "text": "（必填）"
+      },
+      "threshold": null,
+      "confidence": null,
+      "evidence": {},
+      "nextAction": "将该内容登记为 exact、contains 或 mock",
+      "reason": "",
+      "firstSeenAt": "2026-07-22T13:55:06.362Z",
+      "lastSeenAt": "2026-07-22T13:56:03.750Z",
+      "resolvedAt": null
+    },
+    {
+      "id": "diff-components:geometry:027cbbcddc5b",
+      "detector": "diff-components",
+      "code": "diff-component",
+      "dimension": "geometry",
+      "severity": "P2",
+      "status": "open",
+      "title": "Viewport 差异块 1613px",
+      "target": {
+        "region": "Viewport",
+        "rect": {
+          "x": 1279,
+          "y": 614,
+          "width": 95,
+          "height": 28
+        }
+      },
+      "expected": null,
+      "actual": {
+        "pixels": 1613,
+        "share": 0.0010255177815755208
+      },
+      "threshold": null,
+      "confidence": 0.96,
+      "evidence": {
+        "diff": "diff.png",
+        "rect": {
+          "x": 1279,
+          "y": 614,
+          "width": 95,
+          "height": 28
+        }
+      },
+      "nextAction": "打开该坐标局部对比，定位对应 DOM 元素后修复",
+      "reason": "",
+      "firstSeenAt": "2026-07-22T13:55:06.362Z",
+      "lastSeenAt": "2026-07-22T13:56:03.750Z",
+      "resolvedAt": null
+    },
+    {
+      "id": "diff-components:geometry:077d7895d9da",
+      "detector": "diff-components",
+      "code": "diff-component",
+      "dimension": "geometry",
+      "severity": "P2",
+      "status": "open",
+      "title": "Viewport 差异块 5183px",
+      "target": {
+        "region": "Viewport",
+        "rect": {
+          "x": 1059,
+          "y": 434,
+          "width": 236,
+          "height": 27
+        }
+      },
+      "expected": null,
+      "actual": {
+        "pixels": 5183,
+        "share": 0.003295262654622396
+      },
+      "threshold": null,
+      "confidence": 0.96,
+      "evidence": {
+        "diff": "diff.png",
+        "rect": {
+          "x": 1059,
+          "y": 434,
+          "width": 236,
+          "height": 27
+        }
+      },
+      "nextAction": "打开该坐标局部对比，定位对应 DOM 元素后修复",
+      "reason": "",
+      "firstSeenAt": "2026-07-22T13:55:06.362Z",
+      "lastSeenAt": "2026-07-22T13:56:03.750Z",
+      "resolvedAt": null
+    },
+    {
+      "id": "diff-components:geometry:27cdaf920e34",
+      "detector": "diff-components",
+      "code": "diff-component",
+      "dimension": "geometry",
+      "severity": "P2",
+      "status": "open",
+      "title": "Viewport 差异块 1375px",
+      "target": {
+        "region": "Viewport",
+        "rect": {
+          "x": 126,
+          "y": 47,
+          "width": 88,
+          "height": 25
+        }
+      },
+      "expected": null,
+      "actual": {
+        "pixels": 1375,
+        "share": 0.0008742014567057291
+      },
+      "threshold": null,
+      "confidence": 0.96,
+      "evidence": {
+        "diff": "diff.png",
+        "rect": {
+          "x": 126,
+          "y": 47,
+          "width": 88,
+          "height": 25
+        }
+      },
+      "nextAction": "打开该坐标局部对比，定位对应 DOM 元素后修复",
+      "reason": "",
+      "firstSeenAt": "2026-07-22T13:55:06.362Z",
+      "lastSeenAt": "2026-07-22T13:56:03.750Z",
+      "resolvedAt": null
+    },
+    {
+      "id": "diff-components:geometry:3799c01b1c72",
+      "detector": "diff-components",
+      "code": "diff-component",
+      "dimension": "geometry",
+      "severity": "P2",
+      "status": "open",
+      "title": "Viewport 差异块 3781px",
+      "target": {
+        "region": "Viewport",
+        "rect": {
+          "x": 1340,
+          "y": 213,
+          "width": 55,
+          "height": 169
+        }
+      },
+      "expected": null,
+      "actual": {
+        "pixels": 3781,
+        "share": 0.002403895060221354
+      },
+      "threshold": null,
+      "confidence": 0.96,
+      "evidence": {
+        "diff": "diff.png",
+        "rect": {
+          "x": 1340,
+          "y": 213,
+          "width": 55,
+          "height": 169
+        }
+      },
+      "nextAction": "打开该坐标局部对比，定位对应 DOM 元素后修复",
+      "reason": "",
+      "firstSeenAt": "2026-07-22T13:55:06.362Z",
+      "lastSeenAt": "2026-07-22T13:56:03.750Z",
+      "resolvedAt": null
+    },
+    {
+      "id": "diff-components:geometry:3a2fb232fadd",
+      "detector": "diff-components",
+      "code": "diff-component",
+      "dimension": "geometry",
+      "severity": "P2",
+      "status": "open",
+      "title": "Viewport 差异块 2223px",
+      "target": {
+        "region": "Viewport",
+        "rect": {
+          "x": 1406,
+          "y": 275,
+          "width": 43,
+          "height": 107
+        }
+      },
+      "expected": null,
+      "actual": {
+        "pixels": 2223,
+        "share": 0.0014133453369140625
+      },
+      "threshold": null,
+      "confidence": 0.96,
+      "evidence": {
+        "diff": "diff.png",
+        "rect": {
+          "x": 1406,
+          "y": 275,
+          "width": 43,
+          "height": 107
+        }
+      },
+      "nextAction": "打开该坐标局部对比，定位对应 DOM 元素后修复",
+      "reason": "",
+      "firstSeenAt": "2026-07-22T13:55:06.362Z",
+      "lastSeenAt": "2026-07-22T13:56:03.750Z",
+      "resolvedAt": null
+    },
+    {
+      "id": "diff-components:geometry:492d8be44244",
+      "detector": "diff-components",
+      "code": "diff-component",
+      "dimension": "geometry",
+      "severity": "P2",
+      "status": "open",
+      "title": "Viewport 差异块 638px",
+      "target": {
+        "region": "Viewport",
+        "rect": {
+          "x": 1309,
+          "y": 321,
+          "width": 39,
+          "height": 43
+        }
+      },
+      "expected": null,
+      "actual": {
+        "pixels": 638,
+        "share": 0.0004056294759114583
+      },
+      "threshold": null,
+      "confidence": 0.96,
+      "evidence": {
+        "diff": "diff.png",
+        "rect": {
+          "x": 1309,
+          "y": 321,
+          "width": 39,
+          "height": 43
+        }
+      },
+      "nextAction": "打开该坐标局部对比，定位对应 DOM 元素后修复",
+      "reason": "",
+      "firstSeenAt": "2026-07-22T13:55:06.362Z",
+      "lastSeenAt": "2026-07-22T13:56:03.750Z",
+      "resolvedAt": null
+    },
+    {
+      "id": "diff-components:geometry:5dcc841a2ba5",
+      "detector": "diff-components",
+      "code": "diff-component",
+      "dimension": "geometry",
+      "severity": "P2",
+      "status": "open",
+      "title": "Viewport 差异块 1427px",
+      "target": {
+        "region": "Viewport",
+        "rect": {
+          "x": 1398,
+          "y": 37,
+          "width": 44,
+          "height": 50
+        }
+      },
+      "expected": null,
+      "actual": {
+        "pixels": 1427,
+        "share": 0.0009072621663411459
+      },
+      "threshold": null,
+      "confidence": 0.96,
+      "evidence": {
+        "diff": "diff.png",
+        "rect": {
+          "x": 1398,
+          "y": 37,
+          "width": 44,
+          "height": 50
+        }
+      },
+      "nextAction": "打开该坐标局部对比，定位对应 DOM 元素后修复",
+      "reason": "",
+      "firstSeenAt": "2026-07-22T13:55:06.362Z",
+      "lastSeenAt": "2026-07-22T13:56:03.750Z",
+      "resolvedAt": null
+    },
+    {
+      "id": "diff-components:geometry:69ce50ab2b0c",
+      "detector": "diff-components",
+      "code": "diff-component",
+      "dimension": "geometry",
+      "severity": "P2",
+      "status": "open",
+      "title": "Viewport 差异块 983px",
+      "target": {
+        "region": "Viewport",
+        "rect": {
+          "x": 51,
+          "y": 40,
+          "width": 39,
+          "height": 39
+        }
+      },
+      "expected": null,
+      "actual": {
+        "pixels": 983,
+        "share": 0.0006249745686848959
+      },
+      "threshold": null,
+      "confidence": 0.96,
+      "evidence": {
+        "diff": "diff.png",
+        "rect": {
+          "x": 51,
+          "y": 40,
+          "width": 39,
+          "height": 39
+        }
+      },
+      "nextAction": "打开该坐标局部对比，定位对应 DOM 元素后修复",
+      "reason": "",
+      "firstSeenAt": "2026-07-22T13:55:06.362Z",
+      "lastSeenAt": "2026-07-22T13:56:03.750Z",
+      "resolvedAt": null
+    },
+    {
+      "id": "diff-components:geometry:7adb809ea5f1",
+      "detector": "diff-components",
+      "code": "diff-component",
+      "dimension": "geometry",
+      "severity": "P2",
+      "status": "open",
+      "title": "Viewport 差异块 659px",
+      "target": {
+        "region": "Viewport",
+        "rect": {
+          "x": 1143,
+          "y": 373,
+          "width": 41,
+          "height": 43
+        }
+      },
+      "expected": null,
+      "actual": {
+        "pixels": 659,
+        "share": 0.0004189809163411458
+      },
+      "threshold": null,
+      "confidence": 0.96,
+      "evidence": {
+        "diff": "diff.png",
+        "rect": {
+          "x": 1143,
+          "y": 373,
+          "width": 41,
+          "height": 43
+        }
+      },
+      "nextAction": "打开该坐标局部对比，定位对应 DOM 元素后修复",
+      "reason": "",
+      "firstSeenAt": "2026-07-22T13:55:06.362Z",
+      "lastSeenAt": "2026-07-22T13:56:03.750Z",
+      "resolvedAt": null
+    },
+    {
+      "id": "diff-components:geometry:8d3f2ec69ae4",
+      "detector": "diff-components",
+      "code": "diff-component",
+      "dimension": "geometry",
+      "severity": "P2",
+      "status": "open",
+      "title": "Viewport 差异块 789px",
+      "target": {
+        "region": "Viewport",
+        "rect": {
+          "x": 287,
+          "y": 212,
+          "width": 73,
+          "height": 17
+        }
+      },
+      "expected": null,
+      "actual": {
+        "pixels": 789,
+        "share": 0.0005016326904296875
+      },
+      "threshold": null,
+      "confidence": 0.96,
+      "evidence": {
+        "diff": "diff.png",
+        "rect": {
+          "x": 287,
+          "y": 212,
+          "width": 73,
+          "height": 17
+        }
+      },
+      "nextAction": "打开该坐标局部对比，定位对应 DOM 元素后修复",
+      "reason": "",
+      "firstSeenAt": "2026-07-22T13:55:06.362Z",
+      "lastSeenAt": "2026-07-22T13:56:03.750Z",
+      "resolvedAt": null
+    },
+    {
+      "id": "diff-components:geometry:90485bce8e6a",
+      "detector": "diff-components",
+      "code": "diff-component",
+      "dimension": "geometry",
+      "severity": "P2",
+      "status": "open",
+      "title": "Viewport 差异块 1163px",
+      "target": {
+        "region": "Viewport",
+        "rect": {
+          "x": 483,
+          "y": 297,
+          "width": 35,
+          "height": 55
+        }
+      },
+      "expected": null,
+      "actual": {
+        "pixels": 1163,
+        "share": 0.0007394154866536459
+      },
+      "threshold": null,
+      "confidence": 0.96,
+      "evidence": {
+        "diff": "diff.png",
+        "rect": {
+          "x": 483,
+          "y": 297,
+          "width": 35,
+          "height": 55
+        }
+      },
+      "nextAction": "打开该坐标局部对比，定位对应 DOM 元素后修复",
+      "reason": "",
+      "firstSeenAt": "2026-07-22T13:55:06.362Z",
+      "lastSeenAt": "2026-07-22T13:56:03.750Z",
+      "resolvedAt": null
+    },
+    {
+      "id": "diff-components:geometry:93986bfcec08",
+      "detector": "diff-components",
+      "code": "diff-component",
+      "dimension": "geometry",
+      "severity": "P2",
+      "status": "open",
+      "title": "Viewport 差异块 905px",
+      "target": {
+        "region": "Viewport",
+        "rect": {
+          "x": 79,
+          "y": 506,
+          "width": 81,
+          "height": 18
+        }
+      },
+      "expected": null,
+      "actual": {
+        "pixels": 905,
+        "share": 0.0005753835042317709
+      },
+      "threshold": null,
+      "confidence": 0.96,
+      "evidence": {
+        "diff": "diff.png",
+        "rect": {
+          "x": 79,
+          "y": 506,
+          "width": 81,
+          "height": 18
+        }
+      },
+      "nextAction": "打开该坐标局部对比，定位对应 DOM 元素后修复",
+      "reason": "",
+      "firstSeenAt": "2026-07-22T13:55:06.362Z",
+      "lastSeenAt": "2026-07-22T13:56:03.750Z",
+      "resolvedAt": null
+    },
+    {
+      "id": "diff-components:geometry:a90cb3bdc88d",
+      "detector": "diff-components",
+      "code": "diff-component",
+      "dimension": "geometry",
+      "severity": "P2",
+      "status": "open",
+      "title": "Viewport 差异块 1484px",
+      "target": {
+        "region": "Viewport",
+        "rect": {
+          "x": 294,
+          "y": 283,
+          "width": 39,
+          "height": 75
+        }
+      },
+      "expected": null,
+      "actual": {
+        "pixels": 1484,
+        "share": 0.0009435017903645834
+      },
+      "threshold": null,
+      "confidence": 0.96,
+      "evidence": {
+        "diff": "diff.png",
+        "rect": {
+          "x": 294,
+          "y": 283,
+          "width": 39,
+          "height": 75
+        }
+      },
+      "nextAction": "打开该坐标局部对比，定位对应 DOM 元素后修复",
+      "reason": "",
+      "firstSeenAt": "2026-07-22T13:55:06.362Z",
+      "lastSeenAt": "2026-07-22T13:56:03.750Z",
+      "resolvedAt": null
+    },
+    {
+      "id": "diff-components:geometry:aae8feb8428c",
+      "detector": "diff-components",
+      "code": "diff-component",
+      "dimension": "geometry",
+      "severity": "P2",
+      "status": "open",
+      "title": "Viewport 差异块 746px",
+      "target": {
+        "region": "Viewport",
+        "rect": {
+          "x": 389,
+          "y": 299,
+          "width": 36,
+          "height": 53
+        }
+      },
+      "expected": null,
+      "actual": {
+        "pixels": 746,
+        "share": 0.0004742940266927083
+      },
+      "threshold": null,
+      "confidence": 0.96,
+      "evidence": {
+        "diff": "diff.png",
+        "rect": {
+          "x": 389,
+          "y": 299,
+          "width": 36,
+          "height": 53
+        }
+      },
+      "nextAction": "打开该坐标局部对比，定位对应 DOM 元素后修复",
+      "reason": "",
+      "firstSeenAt": "2026-07-22T13:55:06.362Z",
+      "lastSeenAt": "2026-07-22T13:56:03.750Z",
+      "resolvedAt": null
+    },
+    {
+      "id": "diff-components:geometry:c897e0fca6b4",
+      "detector": "diff-components",
+      "code": "diff-component",
+      "dimension": "geometry",
+      "severity": "P2",
+      "status": "open",
+      "title": "Viewport 差异块 1247px",
+      "target": {
+        "region": "Viewport",
+        "rect": {
+          "x": 842,
+          "y": 50,
+          "width": 103,
+          "height": 20
+        }
+      },
+      "expected": null,
+      "actual": {
+        "pixels": 1247,
+        "share": 0.0007928212483723959
+      },
+      "threshold": null,
+      "confidence": 0.96,
+      "evidence": {
+        "diff": "diff.png",
+        "rect": {
+          "x": 842,
+          "y": 50,
+          "width": 103,
+          "height": 20
+        }
+      },
+      "nextAction": "打开该坐标局部对比，定位对应 DOM 元素后修复",
+      "reason": "",
+      "firstSeenAt": "2026-07-22T13:55:06.362Z",
+      "lastSeenAt": "2026-07-22T13:56:03.750Z",
+      "resolvedAt": null
+    },
+    {
+      "id": "diff-components:geometry:d2c7e011e1ec",
+      "detector": "diff-components",
+      "code": "diff-component",
+      "dimension": "geometry",
+      "severity": "P2",
+      "status": "open",
+      "title": "Viewport 差异块 581px",
+      "target": {
+        "region": "Viewport",
+        "rect": {
+          "x": 483,
+          "y": 157,
+          "width": 58,
+          "height": 16
+        }
+      },
+      "expected": null,
+      "actual": {
+        "pixels": 581,
+        "share": 0.0003693898518880208
+      },
+      "threshold": null,
+      "confidence": 0.96,
+      "evidence": {
+        "diff": "diff.png",
+        "rect": {
+          "x": 483,
+          "y": 157,
+          "width": 58,
+          "height": 16
+        }
+      },
+      "nextAction": "打开该坐标局部对比，定位对应 DOM 元素后修复",
+      "reason": "",
+      "firstSeenAt": "2026-07-22T13:55:06.362Z",
+      "lastSeenAt": "2026-07-22T13:56:03.750Z",
+      "resolvedAt": null
+    },
+    {
+      "id": "diff-components:geometry:d4d53e18d879",
+      "detector": "diff-components",
+      "code": "diff-component",
+      "dimension": "geometry",
+      "severity": "P2",
+      "status": "open",
+      "title": "Viewport 差异块 1390px",
+      "target": {
+        "region": "Viewport",
+        "rect": {
+          "x": 1406,
+          "y": 213,
+          "width": 32,
+          "height": 69
+        }
+      },
+      "expected": null,
+      "actual": {
+        "pixels": 1390,
+        "share": 0.0008837381998697916
+      },
+      "threshold": null,
+      "confidence": 0.96,
+      "evidence": {
+        "diff": "diff.png",
+        "rect": {
+          "x": 1406,
+          "y": 213,
+          "width": 32,
+          "height": 69
+        }
+      },
+      "nextAction": "打开该坐标局部对比，定位对应 DOM 元素后修复",
+      "reason": "",
+      "firstSeenAt": "2026-07-22T13:55:06.362Z",
+      "lastSeenAt": "2026-07-22T13:56:03.750Z",
+      "resolvedAt": null
+    },
+    {
+      "id": "diff-components:geometry:d6e247fcb78e",
+      "detector": "diff-components",
+      "code": "diff-component",
+      "dimension": "geometry",
+      "severity": "P2",
+      "status": "open",
+      "title": "Viewport 差异块 975px",
+      "target": {
+        "region": "Viewport",
+        "rect": {
+          "x": 79,
+          "y": 166,
+          "width": 81,
+          "height": 20
+        }
+      },
+      "expected": null,
+      "actual": {
+        "pixels": 975,
+        "share": 0.0006198883056640625
+      },
+      "threshold": null,
+      "confidence": 0.96,
+      "evidence": {
+        "diff": "diff.png",
+        "rect": {
+          "x": 79,
+          "y": 166,
+          "width": 81,
+          "height": 20
+        }
+      },
+      "nextAction": "打开该坐标局部对比，定位对应 DOM 元素后修复",
+      "reason": "",
+      "firstSeenAt": "2026-07-22T13:55:06.362Z",
+      "lastSeenAt": "2026-07-22T13:56:03.750Z",
+      "resolvedAt": null
+    },
+    {
+      "id": "diff-components:geometry:e1f67c8254b0",
+      "detector": "diff-components",
+      "code": "diff-component",
+      "dimension": "geometry",
+      "severity": "P2",
+      "status": "open",
+      "title": "Viewport 差异块 906px",
+      "target": {
+        "region": "Viewport",
+        "rect": {
+          "x": 683,
+          "y": 50,
+          "width": 73,
+          "height": 20
+        }
+      },
+      "expected": null,
+      "actual": {
+        "pixels": 906,
+        "share": 0.000576019287109375
+      },
+      "threshold": null,
+      "confidence": 0.96,
+      "evidence": {
+        "diff": "diff.png",
+        "rect": {
+          "x": 683,
+          "y": 50,
+          "width": 73,
+          "height": 20
+        }
+      },
+      "nextAction": "打开该坐标局部对比，定位对应 DOM 元素后修复",
+      "reason": "",
+      "firstSeenAt": "2026-07-22T13:55:06.362Z",
+      "lastSeenAt": "2026-07-22T13:56:03.750Z",
+      "resolvedAt": null
+    },
+    {
+      "id": "diff-components:geometry:e79099c37e56",
+      "detector": "diff-components",
+      "code": "diff-component",
+      "dimension": "geometry",
+      "severity": "P2",
+      "status": "open",
+      "title": "Viewport 差异块 772px",
+      "target": {
+        "region": "Viewport",
+        "rect": {
+          "x": 1101,
+          "y": 373,
+          "width": 40,
+          "height": 43
+        }
+      },
+      "expected": null,
+      "actual": {
+        "pixels": 772,
+        "share": 0.0004908243815104166
+      },
+      "threshold": null,
+      "confidence": 0.96,
+      "evidence": {
+        "diff": "diff.png",
+        "rect": {
+          "x": 1101,
+          "y": 373,
+          "width": 40,
+          "height": 43
+        }
+      },
+      "nextAction": "打开该坐标局部对比，定位对应 DOM 元素后修复",
+      "reason": "",
+      "firstSeenAt": "2026-07-22T13:55:06.362Z",
+      "lastSeenAt": "2026-07-22T13:56:03.750Z",
+      "resolvedAt": null
+    },
+    {
+      "id": "diff-components:geometry:ed3157b48405",
+      "detector": "diff-components",
+      "code": "diff-component",
+      "dimension": "geometry",
+      "severity": "P2",
+      "status": "open",
+      "title": "Viewport 差异块 790px",
+      "target": {
+        "region": "Viewport",
+        "rect": {
+          "x": 529,
+          "y": 50,
+          "width": 70,
+          "height": 20
+        }
+      },
+      "expected": null,
+      "actual": {
+        "pixels": 790,
+        "share": 0.0005022684733072916
+      },
+      "threshold": null,
+      "confidence": 0.96,
+      "evidence": {
+        "diff": "diff.png",
+        "rect": {
+          "x": 529,
+          "y": 50,
+          "width": 70,
+          "height": 20
+        }
+      },
+      "nextAction": "打开该坐标局部对比，定位对应 DOM 元素后修复",
+      "reason": "",
+      "firstSeenAt": "2026-07-22T13:55:06.362Z",
+      "lastSeenAt": "2026-07-22T13:56:03.750Z",
+      "resolvedAt": null
+    },
+    {
+      "id": "diff-components:geometry:f1d5944b3375",
+      "detector": "diff-components",
+      "code": "diff-component",
+      "dimension": "geometry",
+      "severity": "P2",
+      "status": "open",
+      "title": "Viewport 差异块 827px",
+      "target": {
+        "region": "Viewport",
+        "rect": {
+          "x": 1357,
+          "y": 841,
+          "width": 86,
+          "height": 10
+        }
+      },
+      "expected": null,
+      "actual": {
+        "pixels": 827,
+        "share": 0.0005257924397786459
+      },
+      "threshold": null,
+      "confidence": 0.96,
+      "evidence": {
+        "diff": "diff.png",
+        "rect": {
+          "x": 1357,
+          "y": 841,
+          "width": 86,
+          "height": 10
+        }
+      },
+      "nextAction": "打开该坐标局部对比，定位对应 DOM 元素后修复",
+      "reason": "",
+      "firstSeenAt": "2026-07-22T13:55:06.362Z",
+      "lastSeenAt": "2026-07-22T13:56:03.750Z",
+      "resolvedAt": null
+    },
+    {
+      "id": "font-audit:typography:1b3c32b588f6",
+      "detector": "font-audit",
+      "code": "font-size-delta",
+      "dimension": "typography",
+      "severity": "P2",
+      "status": "open",
+      "title": "small 字号偏差 +2.2px",
+      "target": {
+        "selector": "body>div>div>div>div>main>section>section:nth-of-type(1)>div:nth-of-type(2)>div:nth-of-type(1)>div:nth-of-type(2)>div>button>small",
+        "displaySelector": "small",
+        "text": "支持多图上传",
+        "rect": {
+          "x": 279,
+          "y": 384,
+          "width": 66,
+          "height": 16
+        }
+      },
+      "expected": {
+        "fontSize": 13.2,
+        "inkHeight": 12
+      },
+      "actual": {
+        "fontSize": 11,
+        "inkHeight": 10,
+        "delta": 2.2
+      },
+      "threshold": {
+        "maxFontDiff": 1.2
+      },
+      "confidence": 0.75,
+      "evidence": {},
+      "nextAction": "结合 inspect 与文字宽度复核后，批量修正同类字号并重新对位",
+      "reason": "",
+      "firstSeenAt": "2026-07-22T13:55:06.362Z",
+      "lastSeenAt": "2026-07-22T13:56:03.750Z",
+      "resolvedAt": null
+    },
+    {
+      "id": "font-audit:typography:9735a7b9194e",
+      "detector": "font-audit",
+      "code": "font-size-delta",
+      "dimension": "typography",
+      "severity": "P2",
+      "status": "open",
+      "title": "span 字号偏差 +2.0px",
+      "target": {
+        "selector": "body>div>div>div>div>main>section>section:nth-of-type(1)>div:nth-of-type(2)>div:nth-of-type(1)>div:nth-of-type(1)>h3>span",
+        "displaySelector": "span",
+        "text": "（必填）",
+        "rect": {
+          "x": 356.265625,
+          "y": 211,
+          "width": 48,
+          "height": 17
+        }
+      },
+      "expected": {
+        "fontSize": 14,
+        "inkHeight": 14
+      },
+      "actual": {
+        "fontSize": 12,
+        "inkHeight": 12,
+        "delta": 2
+      },
+      "threshold": {
+        "maxFontDiff": 1.2
+      },
+      "confidence": 0.75,
+      "evidence": {},
+      "nextAction": "结合 inspect 与文字宽度复核后，批量修正同类字号并重新对位",
+      "reason": "",
+      "firstSeenAt": "2026-07-22T13:55:06.362Z",
+      "lastSeenAt": "2026-07-22T13:56:03.750Z",
+      "resolvedAt": null
+    },
+    {
+      "id": "font-audit:typography:ea467b9702bc",
+      "detector": "font-audit",
+      "code": "font-size-delta",
+      "dimension": "typography",
+      "severity": "P2",
+      "status": "open",
+      "title": "h2 字号偏差 -2.0px",
+      "target": {
+        "selector": "body>div>div>div>div>main>section>section:nth-of-type(2)>div:nth-of-type(1)>h2",
+        "displaySelector": "h2",
+        "text": "创作结果",
+        "rect": {
+          "x": 616,
+          "y": 154.40625,
+          "width": 84,
+          "height": 25.1875
+        }
+      },
+      "expected": {
+        "fontSize": 19,
+        "inkHeight": 19
+      },
+      "actual": {
+        "fontSize": 21,
+        "inkHeight": 21,
+        "delta": -2
+      },
+      "threshold": {
+        "maxFontDiff": 1.2
+      },
+      "confidence": 0.75,
+      "evidence": {},
+      "nextAction": "结合 inspect 与文字宽度复核后，批量修正同类字号并重新对位",
+      "reason": "",
+      "firstSeenAt": "2026-07-22T13:55:06.362Z",
+      "lastSeenAt": "2026-07-22T13:56:03.750Z",
+      "resolvedAt": null
+    },
+    {
+      "id": "font-audit:typography:ed3ced827968",
+      "detector": "font-audit",
+      "code": "font-size-delta",
+      "dimension": "typography",
+      "severity": "P2",
+      "status": "open",
+      "title": "span 字号偏差 -2.0px",
+      "target": {
+        "selector": "body>div>div>div>div>main>section>aside>div>button:nth-of-type(1)>span",
+        "displaySelector": "span",
+        "text": "高转化主图",
+        "rect": {
+          "x": 81,
+          "y": 162.5,
+          "width": 80,
+          "height": 22
+        }
+      },
+      "expected": {
+        "fontSize": 14,
+        "inkHeight": 14
+      },
+      "actual": {
+        "fontSize": 16,
+        "inkHeight": 16,
+        "delta": -2
+      },
+      "threshold": {
+        "maxFontDiff": 1.2
+      },
+      "confidence": 0.75,
+      "evidence": {},
+      "nextAction": "结合 inspect 与文字宽度复核后，批量修正同类字号并重新对位",
+      "reason": "",
+      "firstSeenAt": "2026-07-22T13:55:06.362Z",
+      "lastSeenAt": "2026-07-22T13:56:03.750Z",
+      "resolvedAt": null
+    },
+    {
+      "id": "full-audit:border:14252cc90a9b",
+      "detector": "full-audit",
+      "code": "border-color-delta",
+      "dimension": "border",
+      "severity": "P2",
+      "status": "open",
+      "title": "div.stepper: 边框色 #dfe4ec → #fefefe",
+      "target": {
+        "selector": "body>div>div>div>div>main>section>section:nth-of-type(1)>div:nth-of-type(2)>div:nth-of-type(4)>div:nth-of-type(2)>div",
+        "displaySelector": "div.stepper",
+        "text": "",
+        "rect": {
+          "x": 271,
+          "y": 821.1875,
+          "width": 87,
+          "height": 34
+        }
+      },
+      "expected": {
+        "color": "#fefefe",
+        "maxDelta": 26
+      },
+      "actual": {
+        "color": "#dfe4ec",
+        "delta": 44.28
+      },
+      "threshold": null,
+      "confidence": 0.72,
+      "evidence": {},
+      "nextAction": "复核 border 测量并批量修正同类元素",
+      "reason": "",
+      "firstSeenAt": "2026-07-22T13:55:06.362Z",
+      "lastSeenAt": "2026-07-22T13:56:03.750Z",
+      "resolvedAt": null
+    },
+    {
+      "id": "full-audit:border:17e67ef344fe",
+      "detector": "full-audit",
+      "code": "border-color-delta",
+      "dimension": "border",
+      "severity": "P2",
+      "status": "open",
+      "title": "label.select-shell: 边框色 #ffe4ec → #fefefe",
+      "target": {
+        "selector": "body>div>div>div>div>main>section>section:nth-of-type(1)>div:nth-of-type(2)>div:nth-of-type(5)>label",
+        "displaySelector": "label.select-shell",
+        "text": "",
+        "rect": {
+          "x": 271,
+          "y": 912.1875,
+          "width": 276,
+          "height": 34
+        }
+      },
+      "expected": {
+        "color": "#fefefe",
+        "maxDelta": 26
+      },
+      "actual": {
+        "color": "#ffe4ec",
+        "delta": 31.64
+      },
+      "threshold": null,
+      "confidence": 0.72,
+      "evidence": {},
+      "nextAction": "复核 border 测量并批量修正同类元素",
+      "reason": "",
+      "firstSeenAt": "2026-07-22T13:55:06.362Z",
+      "lastSeenAt": "2026-07-22T13:56:03.750Z",
+      "resolvedAt": null
+    },
+    {
+      "id": "full-audit:border:196a062cbbdf",
+      "detector": "full-audit",
+      "code": "border-color-delta",
+      "dimension": "border",
+      "severity": "P2",
+      "status": "open",
+      "title": "div.upload-thumb: 边框色 #dbe1e8 → #fdfdfd",
+      "target": {
+        "selector": "body>div>div>div>div>main>section>section:nth-of-type(1)>div:nth-of-type(2)>div:nth-of-type(1)>div:nth-of-type(2)>div>div:nth-of-type(2)",
+        "displaySelector": "div.upload-thumb",
+        "text": "",
+        "rect": {
+          "x": 360,
+          "y": 238,
+          "width": 80,
+          "height": 82
+        }
+      },
+      "expected": {
+        "color": "#fdfdfd",
+        "maxDelta": 26
+      },
+      "actual": {
+        "color": "#dbe1e8",
+        "delta": 48.8
+      },
+      "threshold": null,
+      "confidence": 0.72,
+      "evidence": {},
+      "nextAction": "复核 border 测量并批量修正同类元素",
+      "reason": "",
+      "firstSeenAt": "2026-07-22T13:55:06.362Z",
+      "lastSeenAt": "2026-07-22T13:56:03.750Z",
+      "resolvedAt": null
+    },
+    {
+      "id": "full-audit:border:28400070edcd",
+      "detector": "full-audit",
+      "code": "border-color-delta",
+      "dimension": "border",
+      "severity": "P2",
+      "status": "open",
+      "title": "div.compact-control: 边框色 #e7ebf1 → #fefefe",
+      "target": {
+        "selector": "body>div>div>div>div>main>section>section:nth-of-type(1)>div:nth-of-type(2)>div:nth-of-type(4)",
+        "displaySelector": "div.compact-control",
+        "text": "",
+        "rect": {
+          "x": 261,
+          "y": 781.1875,
+          "width": 296,
+          "height": 83
+        }
+      },
+      "expected": {
+        "color": "#fefefe",
+        "maxDelta": 26
+      },
+      "actual": {
+        "color": "#e7ebf1",
+        "delta": 32.54
+      },
+      "threshold": null,
+      "confidence": 0.72,
+      "evidence": {},
+      "nextAction": "复核 border 测量并批量修正同类元素",
+      "reason": "",
+      "firstSeenAt": "2026-07-22T13:55:06.362Z",
+      "lastSeenAt": "2026-07-22T13:56:03.750Z",
+      "resolvedAt": null
+    },
+    {
+      "id": "full-audit:border:3376ea99bc6c",
+      "detector": "full-audit",
+      "code": "border-color-delta",
+      "dimension": "border",
+      "severity": "P2",
+      "status": "open",
+      "title": "button.ratio-summary-button: 边框色 #ff3328 → #fefefe",
+      "target": {
+        "selector": "body>div>div>div>div>main>section>section:nth-of-type(1)>div:nth-of-type(2)>div:nth-of-type(3)>div:nth-of-type(2)>button:nth-of-type(1)",
+        "displaySelector": "button.ratio-summary-button",
+        "text": "",
+        "rect": {
+          "x": 272,
+          "y": 703.1875,
+          "width": 84.65625,
+          "height": 58
+        }
+      },
+      "expected": {
+        "color": "#fefefe",
+        "maxDelta": 26
+      },
+      "actual": {
+        "color": "#ff3328",
+        "delta": 294.97
+      },
+      "threshold": null,
+      "confidence": 0.72,
+      "evidence": {},
+      "nextAction": "复核 border 测量并批量修正同类元素",
+      "reason": "",
+      "firstSeenAt": "2026-07-22T13:55:06.362Z",
+      "lastSeenAt": "2026-07-22T13:56:03.750Z",
+      "resolvedAt": null
+    },
+    {
+      "id": "full-audit:border:5090c19fc950",
+      "detector": "full-audit",
+      "code": "border-color-delta",
+      "dimension": "border",
+      "severity": "P2",
+      "status": "open",
+      "title": "div.upload-thumb: 边框色 #dbe1e8 → #fcfbfb",
+      "target": {
+        "selector": "body>div>div>div>div>main>section>section:nth-of-type(1)>div:nth-of-type(2)>div:nth-of-type(1)>div:nth-of-type(2)>div>div:nth-of-type(1)",
+        "displaySelector": "div.upload-thumb",
+        "text": "",
+        "rect": {
+          "x": 272,
+          "y": 238,
+          "width": 80,
+          "height": 82
+        }
+      },
+      "expected": {
+        "color": "#fcfbfb",
+        "maxDelta": 26
+      },
+      "actual": {
+        "color": "#dbe1e8",
+        "delta": 46.11
+      },
+      "threshold": null,
+      "confidence": 0.72,
+      "evidence": {},
+      "nextAction": "复核 border 测量并批量修正同类元素",
+      "reason": "",
+      "firstSeenAt": "2026-07-22T13:55:06.362Z",
+      "lastSeenAt": "2026-07-22T13:56:03.750Z",
+      "resolvedAt": null
+    },
+    {
+      "id": "full-audit:border:5a13a6ec5b95",
+      "detector": "full-audit",
+      "code": "border-color-delta",
+      "dimension": "border",
+      "severity": "P2",
+      "status": "open",
+      "title": "button.ratio-summary-button: 边框色 #dfe4ec → #fefdfd",
+      "target": {
+        "selector": "body>div>div>div>div>main>section>section:nth-of-type(1)>div:nth-of-type(2)>div:nth-of-type(3)>div:nth-of-type(2)>button:nth-of-type(3)",
+        "displaySelector": "button.ratio-summary-button",
+        "text": "",
+        "rect": {
+          "x": 461.328125,
+          "y": 703.1875,
+          "width": 84.65625,
+          "height": 58
+        }
+      },
+      "expected": {
+        "color": "#fefdfd",
+        "maxDelta": 26
+      },
+      "actual": {
+        "color": "#dfe4ec",
+        "delta": 43.3
+      },
+      "threshold": null,
+      "confidence": 0.72,
+      "evidence": {},
+      "nextAction": "复核 border 测量并批量修正同类元素",
+      "reason": "",
+      "firstSeenAt": "2026-07-22T13:55:06.362Z",
+      "lastSeenAt": "2026-07-22T13:56:03.750Z",
+      "resolvedAt": null
+    },
+    {
+      "id": "full-audit:border:6668c9e278f9",
+      "detector": "full-audit",
+      "code": "border-color-delta",
+      "dimension": "border",
+      "severity": "P2",
+      "status": "open",
+      "title": "input: 边框色 #dde2e9 → #fdfdfe",
+      "target": {
+        "selector": "body>div>div>div>div>main>section>section:nth-of-type(1)>div:nth-of-type(2)>div:nth-of-type(2)>div:nth-of-type(2)>form>input",
+        "displaySelector": "input",
+        "text": "",
+        "rect": {
+          "x": 272,
+          "y": 610.1875,
+          "width": 112,
+          "height": 30
+        }
+      },
+      "expected": {
+        "color": "#fdfdfe",
+        "maxDelta": 26
+      },
+      "actual": {
+        "color": "#dde2e9",
+        "delta": 46.84
+      },
+      "threshold": null,
+      "confidence": 0.72,
+      "evidence": {},
+      "nextAction": "复核 border 测量并批量修正同类元素",
+      "reason": "",
+      "firstSeenAt": "2026-07-22T13:55:06.362Z",
+      "lastSeenAt": "2026-07-22T13:56:03.750Z",
+      "resolvedAt": null
+    },
+    {
+      "id": "full-audit:border:677cf33a8a69",
+      "detector": "full-audit",
+      "code": "border-color-delta",
+      "dimension": "border",
+      "severity": "P2",
+      "status": "open",
+      "title": "div.upload-thumb: 边框色 #dbe1e8 → #fefdfd",
+      "target": {
+        "selector": "body>div>div>div>div>main>section>section:nth-of-type(1)>div:nth-of-type(2)>div:nth-of-type(1)>div:nth-of-type(2)>div>div:nth-of-type(3)",
+        "displaySelector": "div.upload-thumb",
+        "text": "",
+        "rect": {
+          "x": 448,
+          "y": 238,
+          "width": 80,
+          "height": 82
+        }
+      },
+      "expected": {
+        "color": "#fefdfd",
+        "maxDelta": 26
+      },
+      "actual": {
+        "color": "#dbe1e8",
+        "delta": 49.5
+      },
+      "threshold": null,
+      "confidence": 0.72,
+      "evidence": {},
+      "nextAction": "复核 border 测量并批量修正同类元素",
+      "reason": "",
+      "firstSeenAt": "2026-07-22T13:55:06.362Z",
+      "lastSeenAt": "2026-07-22T13:56:03.750Z",
+      "resolvedAt": null
+    },
+    {
+      "id": "full-audit:border:8fb9b6268f99",
+      "detector": "full-audit",
+      "code": "border-color-delta",
+      "dimension": "border",
+      "severity": "P2",
+      "status": "open",
+      "title": "button: 边框色 #e8ebf0 → #fefefe",
+      "target": {
+        "selector": "body>div>div>div>div>main>section>section:nth-of-type(1)>div:nth-of-type(2)>div:nth-of-type(2)>div:nth-of-type(2)>form>button",
+        "displaySelector": "button",
+        "text": "添加卖点",
+        "rect": {
+          "x": 390,
+          "y": 610.1875,
+          "width": 86,
+          "height": 30
+        }
+      },
+      "expected": {
+        "color": "#fefefe",
+        "maxDelta": 26
+      },
+      "actual": {
+        "color": "#e8ebf0",
+        "delta": 32.26
+      },
+      "threshold": null,
+      "confidence": 0.72,
+      "evidence": {},
+      "nextAction": "复核 border 测量并批量修正同类元素",
+      "reason": "",
+      "firstSeenAt": "2026-07-22T13:55:06.362Z",
+      "lastSeenAt": "2026-07-22T13:56:03.750Z",
+      "resolvedAt": null
+    },
+    {
+      "id": "full-audit:border:9decdbd97418",
+      "detector": "full-audit",
+      "code": "border-color-delta",
+      "dimension": "border",
+      "severity": "P2",
+      "status": "open",
+      "title": "div.form-section: 边框色 #e7ebf1 → #fefefe",
+      "target": {
+        "selector": "body>div>div>div>div>main>section>section:nth-of-type(1)>div:nth-of-type(2)>div:nth-of-type(2)",
+        "displaySelector": "div.form-section",
+        "text": "",
+        "rect": {
+          "x": 261,
+          "y": 452.1875,
+          "width": 296,
+          "height": 200
+        }
+      },
+      "expected": {
+        "color": "#fefefe",
+        "maxDelta": 26
+      },
+      "actual": {
+        "color": "#e7ebf1",
+        "delta": 32.54
+      },
+      "threshold": null,
+      "confidence": 0.72,
+      "evidence": {},
+      "nextAction": "复核 border 测量并批量修正同类元素",
+      "reason": "",
+      "firstSeenAt": "2026-07-22T13:55:06.362Z",
+      "lastSeenAt": "2026-07-22T13:56:03.750Z",
+      "resolvedAt": null
+    },
+    {
+      "id": "full-audit:border:a74294c8ed82",
+      "detector": "full-audit",
+      "code": "border-color-delta",
+      "dimension": "border",
+      "severity": "P2",
+      "status": "open",
+      "title": "button.ratio-summary-button: 边框色 #dfe4ec → #fefefe",
+      "target": {
+        "selector": "body>div>div>div>div>main>section>section:nth-of-type(1)>div:nth-of-type(2)>div:nth-of-type(3)>div:nth-of-type(2)>button:nth-of-type(2)",
+        "displaySelector": "button.ratio-summary-button",
+        "text": "",
+        "rect": {
+          "x": 366.65625,
+          "y": 703.1875,
+          "width": 84.671875,
+          "height": 58
+        }
+      },
+      "expected": {
+        "color": "#fefefe",
+        "maxDelta": 26
+      },
+      "actual": {
+        "color": "#dfe4ec",
+        "delta": 44.28
+      },
+      "threshold": null,
+      "confidence": 0.72,
+      "evidence": {},
+      "nextAction": "复核 border 测量并批量修正同类元素",
+      "reason": "",
+      "firstSeenAt": "2026-07-22T13:55:06.362Z",
+      "lastSeenAt": "2026-07-22T13:56:03.750Z",
+      "resolvedAt": null
+    },
+    {
+      "id": "full-audit:border:b03d18ff6ee7",
+      "detector": "full-audit",
+      "code": "border-color-delta",
+      "dimension": "border",
+      "severity": "P2",
+      "status": "open",
+      "title": "div.form-section: 边框色 #e7ebf1 → #fefefe",
+      "target": {
+        "selector": "body>div>div>div>div>main>section>section:nth-of-type(1)>div:nth-of-type(2)>div:nth-of-type(3)",
+        "displaySelector": "div.form-section",
+        "text": "",
+        "rect": {
+          "x": 261,
+          "y": 660.1875,
+          "width": 296,
+          "height": 113
+        }
+      },
+      "expected": {
+        "color": "#fefefe",
+        "maxDelta": 26
+      },
+      "actual": {
+        "color": "#e7ebf1",
+        "delta": 32.54
+      },
+      "threshold": null,
+      "confidence": 0.72,
+      "evidence": {},
+      "nextAction": "复核 border 测量并批量修正同类元素",
+      "reason": "",
+      "firstSeenAt": "2026-07-22T13:55:06.362Z",
+      "lastSeenAt": "2026-07-22T13:56:03.750Z",
+      "resolvedAt": null
+    },
+    {
+      "id": "full-audit:border:b34452507ef4",
+      "detector": "full-audit",
+      "code": "border-color-delta",
+      "dimension": "border",
+      "severity": "P2",
+      "status": "open",
+      "title": "div.form-section: 边框色 #e7ebf1 → #fefefe",
+      "target": {
+        "selector": "body>div>div>div>div>main>section>section:nth-of-type(1)>div:nth-of-type(2)>div:nth-of-type(1)",
+        "displaySelector": "div.form-section",
+        "text": "",
+        "rect": {
+          "x": 261,
+          "y": 195,
+          "width": 296,
+          "height": 249.1875
+        }
+      },
+      "expected": {
+        "color": "#fefefe",
+        "maxDelta": 26
+      },
+      "actual": {
+        "color": "#e7ebf1",
+        "delta": 32.54
+      },
+      "threshold": null,
+      "confidence": 0.72,
+      "evidence": {},
+      "nextAction": "复核 border 测量并批量修正同类元素",
+      "reason": "",
+      "firstSeenAt": "2026-07-22T13:55:06.362Z",
+      "lastSeenAt": "2026-07-22T13:56:03.750Z",
+      "resolvedAt": null
+    },
+    {
+      "id": "full-audit:border:e06026c83c65",
+      "detector": "full-audit",
+      "code": "border-color-delta",
+      "dimension": "border",
+      "severity": "P2",
+      "status": "open",
+      "title": "button.upload-add: 边框色 #dbe1e8 → #fdfdfd",
+      "target": {
+        "selector": "body>div>div>div>div>main>section>section:nth-of-type(1)>div:nth-of-type(2)>div:nth-of-type(1)>div:nth-of-type(2)>div>button",
+        "displaySelector": "button.upload-add",
+        "text": "",
+        "rect": {
+          "x": 272,
+          "y": 328,
+          "width": 80,
+          "height": 82
+        }
+      },
+      "expected": {
+        "color": "#fdfdfd",
+        "maxDelta": 26
+      },
+      "actual": {
+        "color": "#dbe1e8",
+        "delta": 48.8
+      },
+      "threshold": null,
+      "confidence": 0.72,
+      "evidence": {},
+      "nextAction": "复核 border 测量并批量修正同类元素",
+      "reason": "",
+      "firstSeenAt": "2026-07-22T13:55:06.362Z",
+      "lastSeenAt": "2026-07-22T13:56:03.750Z",
+      "resolvedAt": null
+    },
+    {
+      "id": "full-audit:border:e4fa80293212",
+      "detector": "full-audit",
+      "code": "border-color-delta",
+      "dimension": "border",
+      "severity": "P2",
+      "status": "open",
+      "title": "button.outline-red: 边框色 #ff3328 → #fefdfd",
+      "target": {
+        "selector": "body>div>div>div>div>main>section>section:nth-of-type(1)>div:nth-of-type(1)>button",
+        "displaySelector": "button.outline-red",
+        "text": "新建任务",
+        "rect": {
+          "x": 467,
+          "y": 147.5,
+          "width": 84,
+          "height": 30
+        }
+      },
+      "expected": {
+        "color": "#fefdfd",
+        "maxDelta": 26
+      },
+      "actual": {
+        "color": "#ff3328",
+        "delta": 293.55
+      },
+      "threshold": null,
+      "confidence": 0.72,
+      "evidence": {},
+      "nextAction": "复核 border 测量并批量修正同类元素",
+      "reason": "",
+      "firstSeenAt": "2026-07-22T13:55:06.362Z",
+      "lastSeenAt": "2026-07-22T13:56:03.750Z",
+      "resolvedAt": null
+    },
+    {
+      "id": "full-audit:border:e9d53e36f4ab",
+      "detector": "full-audit",
+      "code": "border-color-delta",
+      "dimension": "border",
+      "severity": "P2",
+      "status": "open",
+      "title": "form.search-box: 边框色 #d9dee8 → #fefefe",
+      "target": {
+        "selector": "body>div>div>div>div>main>header>div>form",
+        "displaySelector": "form.search-box",
+        "text": "",
+        "rect": {
+          "x": 1038,
+          "y": 32,
+          "width": 338,
+          "height": 52
+        }
+      },
+      "expected": {
+        "color": "#fefefe",
+        "maxDelta": 26
+      },
+      "actual": {
+        "color": "#d9dee8",
+        "delta": 53.64
+      },
+      "threshold": null,
+      "confidence": 0.72,
+      "evidence": {},
+      "nextAction": "复核 border 测量并批量修正同类元素",
+      "reason": "",
+      "firstSeenAt": "2026-07-22T13:55:06.362Z",
+      "lastSeenAt": "2026-07-22T13:56:03.750Z",
+      "resolvedAt": null
+    }
+  ]
+}

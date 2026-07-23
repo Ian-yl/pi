@@ -1,0 +1,10 @@
+{
+  "schemaVersion": "1.0",
+  "packageType": "fdd-bmad-planning",
+  "status": "approved",
+  "authorAgentId": "golden-domain-author",
+  "artifacts": [
+    "planning-artifacts.json",
+    "capability-definitions.json"
+  ]
+}

@@ -1,0 +1,35 @@
+{
+  "schemaVersion": "1.0",
+  "generatedBy": "project-implementation/build-operation-receipts",
+  "trustLevel": "self-reported-runtime-events",
+  "sourceDigest": "b9389d74246a1a94091f9a2d9a418711fb74f552ebfedbf0f95d42dbe3a065da",
+  "receipts": [
+    {
+      "operationId": "submit-sample",
+      "status": "passed",
+      "eventIds": [
+        "event-submit-sample-0",
+        "event-submit-sample-1"
+      ],
+      "findings": []
+    },
+    {
+      "operationId": "submit-suite-sample-detail",
+      "status": "passed",
+      "eventIds": [
+        "event-submit-suite-sample-detail-0",
+        "event-submit-suite-sample-detail-1"
+      ],
+      "findings": []
+    },
+    {
+      "operationId": "query-sample-result",
+      "status": "passed",
+      "eventIds": [
+        "event-query-sample-result-0",
+        "event-query-sample-result-1"
+      ],
+      "findings": []
+    }
+  ]
+}

@@ -1,0 +1,35 @@
+{
+  "schemaVersion": "1.0",
+  "backendSource": {
+    "status": "implemented"
+  },
+  "operationSources": [
+    {
+      "operationId": "submit-sample",
+      "files": [
+        {
+          "path": "backend/server.mjs",
+          "symbol": "submitSample"
+        }
+      ]
+    },
+    {
+      "operationId": "submit-suite-sample-detail",
+      "files": [
+        {
+          "path": "backend/server.mjs",
+          "symbol": "submitDetail"
+        }
+      ]
+    },
+    {
+      "operationId": "query-sample-result",
+      "files": [
+        {
+          "path": "backend/server.mjs",
+          "symbol": "querySampleResult"
+        }
+      ]
+    }
+  ]
+}

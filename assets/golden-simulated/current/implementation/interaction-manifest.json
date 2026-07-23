@@ -1,0 +1,29 @@
+{
+  "schemaVersion": "1.0",
+  "status": "implemented",
+  "interactions": [
+    {
+      "id": "interaction-cap-sample",
+      "capabilityId": "cap-sample",
+      "operationId": "submit-sample",
+      "event": "submit",
+      "evidenceId": "browser-cap-sample",
+      "status": "verified"
+    },
+    {
+      "id": "interaction-cap-suite-sample-detail",
+      "capabilityId": "cap-suite-sample-detail",
+      "operationId": "submit-suite-sample-detail",
+      "event": "submit",
+      "evidenceId": "browser-cap-suite-sample-detail",
+      "status": "verified"
+    },
+    {
+      "id": "interaction-cap-sample-local-navigation",
+      "capabilityId": "cap-sample-local-navigation",
+      "event": "click",
+      "evidenceId": "browser-cap-sample-local-navigation",
+      "status": "verified"
+    }
+  ]
+}

@@ -1,0 +1,23 @@
+{
+  "schemaVersion": "1.0",
+  "algorithm": "sha256",
+  "functionalPackageDigest": "9a551a5ade15279761a5cb45073077e9bb989b3fe979493ef3be974699ff52ae",
+  "visualReleaseDigest": "7cccdced81725094a67ce6c6c2928ea66354b733fdda12674f9bb775be5d361f",
+  "sourceTreeDigest": "16e5eb18b42eec93296360758916dd1198067dbb12995c2a0d7f159e5e31253c",
+  "digests": {
+    "handoff-manifest.json": "9c5abe0ac6b0be4660e0f5132370c94aa6e0beb3a12e4dff56e394e09360eaf7",
+    "visual-source.json": "ec687b14767c18caa0b0ef6cab2db94ec4efe906e1991767b9e7f1b5d6751845",
+    "release-manifest.json": "5afd1062704ed4ef50eb6b340628b06eeb49e7e337b54d8aece452e323ef960f",
+    "suite-gate.json": "6d20f79010e7567faecbd8c5d33277ea9cc83ae5fb0324e688cb9c7fc7b1225f",
+    "visual-approval.json": "87df910a753c813f2ebb6041d2e317a2f0ebc6c82e57d5fa4800d9d3b90915fd",
+    "frontend-manifest.json": "18461a523a0223d9583832eda499cc7ea9b0a67d4adce4a3ad01660f44a38b08",
+    "functional-spec.json": "86fea03fc0cd0ba06859ad4c283c2b28d2a0a554cf2a27b93d451acbf9706e21",
+    "visual-controls.json": "8a8ecda573bdbdb2bc0859f778576e85a31d961d3f805c6eadcae4eaa73b5ae2",
+    "ui-implementation-plan.json": "e83aaca65a963733b673a9b94889103aaf218cf278bb3861d45d0b0f5b678570",
+    "api-contract.json": "da6f089945636a441e4cf4b1041ea1538d2b18d8b1793dc32062356f241ebdb8",
+    "domain-bindings.json": "1be74bd661a246fee0efecc4a16f28167d949e8ab99a76c0c89854698855d01b",
+    "runtime-contract.json": "f750cb887c3705c2ec8dd13cb05388da1db594c694fd04ee9ffa3d09e0f5eca2",
+    "handoff-review-receipt.json": "f13f8972465a140aa938c297ce629265752aa5ae977f6be249816539900d829c",
+    "web": "16e5eb18b42eec93296360758916dd1198067dbb12995c2a0d7f159e5e31253c"
+  }
+}

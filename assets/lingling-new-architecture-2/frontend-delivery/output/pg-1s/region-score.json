@@ -1,0 +1,17 @@
+[
+  {
+    "name": "Viewport",
+    "x": 0,
+    "y": 0,
+    "width": 1536,
+    "height": 1024,
+    "pixels": 1572864,
+    "mismatch": 460770,
+    "similarity": 70.705,
+    "diffPct": 29.295,
+    "required": true,
+    "minSimilarity": 70,
+    "diffPixelsFromReport": 460770,
+    "shareOfTotalDiff": 100
+  }
+]

@@ -1,0 +1,70 @@
+{
+  "schemaVersion": "1.0",
+  "role": "optional-reference",
+  "controls": [
+    {
+      "pageId": "sample",
+      "referenceId": "email-input",
+      "referenceIndex": 0,
+      "kind": "input",
+      "selector": "[data-vr-id=\"email-input\"]",
+      "text": "you@example.com"
+    },
+    {
+      "pageId": "sample",
+      "referenceId": "password-input",
+      "referenceIndex": 1,
+      "kind": "input",
+      "selector": "[data-vr-id=\"password-input\"]",
+      "text": "••••••••"
+    },
+    {
+      "pageId": "sample",
+      "referenceId": "login-button",
+      "referenceIndex": 2,
+      "kind": "button",
+      "selector": "[data-vr-id=\"login-button\"]",
+      "text": "登 录"
+    },
+    {
+      "pageId": "sample",
+      "referenceId": "signup-link",
+      "referenceIndex": 3,
+      "kind": "text",
+      "selector": "[data-vr-id=\"signup-link\"]",
+      "text": "立即注册"
+    },
+    {
+      "pageId": "suite-sample-detail",
+      "referenceId": "email-input",
+      "referenceIndex": 0,
+      "kind": "input",
+      "selector": "[data-vr-id=\"email-input\"]",
+      "text": "you@example.com"
+    },
+    {
+      "pageId": "suite-sample-detail",
+      "referenceId": "password-input",
+      "referenceIndex": 1,
+      "kind": "input",
+      "selector": "[data-vr-id=\"password-input\"]",
+      "text": "••••••••"
+    },
+    {
+      "pageId": "suite-sample-detail",
+      "referenceId": "login-button",
+      "referenceIndex": 2,
+      "kind": "button",
+      "selector": "[data-vr-id=\"login-button\"]",
+      "text": "登 录"
+    },
+    {
+      "pageId": "suite-sample-detail",
+      "referenceId": "signup-link",
+      "referenceIndex": 3,
+      "kind": "text",
+      "selector": "[data-vr-id=\"signup-link\"]",
+      "text": "立即注册"
+    }
+  ]
+}

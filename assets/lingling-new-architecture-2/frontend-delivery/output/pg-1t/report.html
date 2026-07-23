@@ -1,0 +1,166 @@
+<!doctype html>
+<html lang="zh">
+<head>
+<meta charset="utf-8">
+<title>pg-1t · 还原验证报告</title>
+<style>
+  :root { color-scheme: light; }
+  * { box-sizing: border-box; margin: 0; }
+  body { font: 14px/1.6 -apple-system, "PingFang SC", "Helvetica Neue", sans-serif; background: #f3f4f6; color: #111827; padding: 24px; }
+  header { display: flex; align-items: baseline; gap: 20px; flex-wrap: wrap; margin-bottom: 6px; }
+  h1 { font-size: 20px; }
+  .score { font-size: 40px; font-weight: 700; color: #dc2626; }
+  .meta { color: #6b7280; margin-bottom: 16px; }
+  nav { display: flex; gap: 8px; margin-bottom: 16px; }
+  nav button { padding: 6px 16px; border: 1px solid #d1d5db; background: #fff; border-radius: 8px; cursor: pointer; font-size: 14px; }
+  nav button.on { background: #111827; color: #fff; border-color: #111827; }
+  section { display: none; }
+  section.on { display: block; }
+  .cols { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; }
+  figure { background: #fff; border: 1px solid #e5e7eb; border-radius: 10px; padding: 10px; }
+  figcaption { font-weight: 600; margin-bottom: 8px; color: #374151; }
+  img { width: 100%; display: block; image-rendering: -webkit-optimize-contrast; }
+  .stage { position: relative; max-width: 1536px; background: #fff; border: 1px solid #e5e7eb; border-radius: 10px; overflow: hidden; }
+  .stage img { position: absolute; inset: 0; }
+  .stage img:first-child { position: relative; }
+  .bar { display: flex; align-items: center; gap: 12px; margin-bottom: 12px; }
+  input[type=range] { width: 240px; }
+</style>
+</head>
+<body>
+<header><h1>pg-1t</h1><div class="score">73.00%</div></header>
+<p class="meta">差异 424,685 px · 设计图 1536×1024 · 实现 1536×1024 · 尺寸一致 · dpr 1 · threshold 0.1</p>
+<nav>
+  <button data-t="side" class="on">并排</button>
+  <button data-t="overlay">叠加</button>
+  <button data-t="diffv">差异图</button>
+  <button data-t="deltav">色差热力</button>
+  <button data-t="pickv">取色对比</button>
+</nav>
+<section id="side" class="on">
+  <div class="cols">
+    <figure><figcaption>设计图</figcaption><img src="design.png"></figure>
+    <figure><figcaption>实现截图</figcaption><img src="actual.png"></figure>
+    <figure><figcaption>位置差异(红 = 超阈值像素)</figcaption><img src="diff.png"></figure>
+    <figure><figcaption>色差热力(蓝 6-20 轻微 → 黄 50 明显 → 红 120+ 严重,黑 = 一致)</figcaption><img src="delta.png"></figure>
+  </div>
+</section>
+<section id="overlay">
+  <div class="bar">
+    <label>实现层透明度 <input id="op" type="range" min="0" max="100" value="50"></label>
+    <button id="blink">闪烁对比</button>
+  </div>
+  <div class="stage">
+    <img src="design.png">
+    <img src="actual.png" id="top" style="opacity:.5">
+  </div>
+</section>
+<section id="diffv">
+  <figure style="max-width:1536px"><img src="diff.png"></figure>
+</section>
+<section id="deltav">
+  <p class="meta">逐像素 ΔRGB 色差(无阈值,轻微色偏也可见):
+    <b style="color:#1937be">■</b> 轻微(6-20)
+    <b style="color:#00c3d7">■</b> 可见(20)
+    <b style="color:#d4b800">■</b> 明显(50)
+    <b style="color:#ff2d00">■</b> 严重(120+)
+    · 黑色 = 可忽略(&lt;6)</p>
+  <figure style="max-width:1536px"><img src="delta.png"></figure>
+</section>
+<section id="pickv">
+  <div class="bar" id="pk-tip">底图为设计稿;鼠标悬停实时对比两图同一坐标的颜色,点击钉住采样点</div>
+  <div style="display:flex; gap:16px; align-items:flex-start;">
+    <div style="position:relative; flex:1; max-width:1536px; cursor: crosshair;">
+      <img src="design.png" id="pk-img" style="width:100%; display:block;">
+      <div id="pk-cross" style="position:absolute; width:11px; height:11px; margin:-6px 0 0 -6px; border:2px solid #f0f; border-radius:50%; pointer-events:none; display:none;"></div>
+    </div>
+    <div style="position:sticky; top:16px; width:250px; background:#fff; border:1px solid #e5e7eb; border-radius:10px; padding:14px; font-size:13px;">
+      <div style="color:#6b7280;">坐标 <b id="pk-xy">--</b></div>
+      <div style="display:flex; align-items:center; gap:8px; margin-top:10px;">
+        <span id="pk-c1" style="width:34px;height:24px;border-radius:5px;border:1px solid #d1d5db;"></span>
+        <div>设计稿 <b id="pk-v1">--</b></div>
+      </div>
+      <div style="display:flex; align-items:center; gap:8px; margin-top:8px;">
+        <span id="pk-c2" style="width:34px;height:24px;border-radius:5px;border:1px solid #d1d5db;"></span>
+        <div>实现 <b id="pk-v2">--</b></div>
+      </div>
+      <div style="margin-top:10px; color:#6b7280;">ΔRGB <b id="pk-dv">--</b></div>
+      <div id="pk-pins" style="margin-top:12px; border-top:1px solid #e5e7eb; padding-top:8px; display:none;">
+        <div style="color:#6b7280; margin-bottom:6px;">已钉住</div>
+        <div id="pk-pin-list" style="font-size:12px; line-height:1.9;"></div>
+      </div>
+    </div>
+  </div>
+</section>
+<script>
+  const secs = document.querySelectorAll('section');
+  document.querySelectorAll('nav button').forEach(b => b.onclick = () => {
+    document.querySelectorAll('nav button').forEach(x => x.classList.toggle('on', x === b));
+    secs.forEach(s => s.classList.toggle('on', s.id === b.dataset.t));
+  });
+  const topImg = document.getElementById('top');
+  let timer = null;
+  const stopBlink = () => { clearInterval(timer); timer = null; };
+  document.getElementById('op').oninput = e => { stopBlink(); topImg.style.opacity = e.target.value / 100; };
+  document.getElementById('blink').onclick = () => {
+    if (timer) { stopBlink(); return; }
+    timer = setInterval(() => { topImg.style.opacity = topImg.style.opacity === '0' ? '1' : '0'; }, 500);
+  };
+
+  // ---- 取色对比 ----
+  if (location.protocol === 'file:') {
+    document.getElementById('pk-tip').innerHTML =
+      '⚠ file:// 协议下浏览器禁止读取本地图片像素,取色不可用。请运行 <code>npm run serve</code>,' +
+      '按终端输出的地址访问 <code>/output/pg-1t/report.html</code>';
+  }
+  const pkData = {};
+  ['design', 'actual'].forEach((k) => {
+    const im = new Image();
+    im.onload = () => {
+      const cv = document.createElement('canvas');
+      cv.width = im.naturalWidth; cv.height = im.naturalHeight;
+      const cx = cv.getContext('2d', { willReadFrequently: true });
+      cx.drawImage(im, 0, 0);
+      pkData[k] = { ctx: cx, w: cv.width, h: cv.height };
+    };
+    im.src = k + '.png';
+  });
+  const pkImg = document.getElementById('pk-img');
+  const hex = (p) => '#' + [p[0], p[1], p[2]].map((v) => v.toString(16).padStart(2, '0')).join('');
+  const sample = (k, x, y) => pkData[k] ? pkData[k].ctx.getImageData(x, y, 1, 1).data : null;
+  function pkShow(x, y) {
+    const d = sample('design', x, y), a = sample('actual', x, y);
+    if (!d || !a) return null;
+    document.getElementById('pk-xy').textContent = '(' + x + ', ' + y + ')';
+    document.getElementById('pk-c1').style.background = hex(d);
+    document.getElementById('pk-c2').style.background = hex(a);
+    document.getElementById('pk-v1').textContent = hex(d) + ' rgb(' + d[0] + ',' + d[1] + ',' + d[2] + ')';
+    document.getElementById('pk-v2').textContent = hex(a) + ' rgb(' + a[0] + ',' + a[1] + ',' + a[2] + ')';
+    const dv = [a[0] - d[0], a[1] - d[1], a[2] - d[2]];
+    document.getElementById('pk-dv').textContent = dv.map((v) => (v >= 0 ? '+' : '') + v).join(', ');
+    return { d, a, dv };
+  }
+  const pkPos = (e) => {
+    const r = pkImg.getBoundingClientRect();
+    const x = Math.max(0, Math.min(pkData.design.w - 1, Math.round((e.clientX - r.left) / r.width * pkData.design.w)));
+    const y = Math.max(0, Math.min(pkData.design.h - 1, Math.round((e.clientY - r.top) / r.height * pkData.design.h)));
+    return { x, y, rx: e.clientX - r.left, ry: e.clientY - r.top };
+  };
+  pkImg.addEventListener('mousemove', (e) => { if (pkData.design) { const p = pkPos(e); pkShow(p.x, p.y); } });
+  pkImg.addEventListener('click', (e) => {
+    if (!pkData.design) return;
+    const p = pkPos(e);
+    const r = pkShow(p.x, p.y);
+    if (!r) return;
+    const cross = document.getElementById('pk-cross');
+    cross.style.display = 'block';
+    cross.style.left = p.rx + 'px';
+    cross.style.top = p.ry + 'px';
+    document.getElementById('pk-pins').style.display = 'block';
+    const li = document.createElement('div');
+    li.textContent = '(' + p.x + ',' + p.y + ') ' + hex(r.d) + ' → ' + hex(r.a) + '  Δ' + r.dv.join(',');
+    document.getElementById('pk-pin-list').prepend(li);
+  });
+</script>
+</body>
+</html>

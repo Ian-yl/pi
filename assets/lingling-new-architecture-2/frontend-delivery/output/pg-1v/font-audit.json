@@ -1,0 +1,2374 @@
+{
+  "version": 1,
+  "name": "pg-1v",
+  "generatedAt": "2026-07-22T13:56:27.499Z",
+  "dpr": 1,
+  "threshold": {
+    "maxFontDiff": 1.2
+  },
+  "summary": {
+    "visibleTextElements": 60,
+    "measured": 57,
+    "skipped": 3,
+    "aligned": 26,
+    "total": 31,
+    "open": 31,
+    "resolved": 0,
+    "bySeverity": {
+      "P1": 18,
+      "P2": 13
+    },
+    "byStatus": {
+      "open": 31
+    },
+    "byDimension": {
+      "typography": 31
+    },
+    "byDetector": {
+      "font-audit": 31
+    }
+  },
+  "measurements": [
+    {
+      "target": {
+        "selector": "body>div>div>div>div>main>header>button>span:nth-of-type(2)",
+        "displaySelector": "span",
+        "text": "灵灵生图站",
+        "rect": {
+          "x": 103,
+          "y": 40,
+          "width": 125,
+          "height": 36
+        }
+      },
+      "fontSize": 25,
+      "designFontSize": 20.83,
+      "delta": -4.17,
+      "actualInkHeight": 24,
+      "designInkHeight": 20,
+      "status": "fail"
+    },
+    {
+      "target": {
+        "selector": "body>div>div>div>div>main>header>nav>button:nth-of-type(1)",
+        "displaySelector": "button",
+        "text": "首页",
+        "rect": {
+          "x": 269,
+          "y": 16,
+          "width": 38,
+          "height": 84
+        }
+      },
+      "fontSize": 17,
+      "designFontSize": 15.94,
+      "delta": -1.06,
+      "actualInkHeight": 16,
+      "designInkHeight": 15,
+      "status": "pass"
+    },
+    {
+      "target": {
+        "selector": "body>div>div>div>div>main>header>nav>button:nth-of-type(2)",
+        "displaySelector": "button",
+        "text": "照片级AI商品图",
+        "rect": {
+          "x": 357,
+          "y": 16,
+          "width": 121.921875,
+          "height": 84
+        }
+      },
+      "fontSize": 17,
+      "designFontSize": 17,
+      "delta": 0,
+      "actualInkHeight": 16,
+      "designInkHeight": 16,
+      "status": "pass"
+    },
+    {
+      "target": {
+        "selector": "body>div>div>div>div>main>header>nav>button:nth-of-type(3)",
+        "displaySelector": "button",
+        "text": "万物穿搭上身",
+        "rect": {
+          "x": 528.921875,
+          "y": 16,
+          "width": 106,
+          "height": 84
+        }
+      },
+      "fontSize": 17,
+      "designFontSize": 17,
+      "delta": 0,
+      "actualInkHeight": 16,
+      "designInkHeight": 16,
+      "status": "pass"
+    },
+    {
+      "target": {
+        "selector": "body>div>div>div>div>main>header>nav>button:nth-of-type(4)",
+        "displaySelector": "button",
+        "text": "营销场景设计",
+        "rect": {
+          "x": 684.921875,
+          "y": 16,
+          "width": 106,
+          "height": 84
+        }
+      },
+      "fontSize": 17,
+      "designFontSize": 17,
+      "delta": 0,
+      "actualInkHeight": 16,
+      "designInkHeight": 16,
+      "status": "pass"
+    },
+    {
+      "target": {
+        "selector": "body>div>div>div>div>main>header>nav>button:nth-of-type(5)",
+        "displaySelector": "button.active",
+        "text": "电商素材生成",
+        "rect": {
+          "x": 840.921875,
+          "y": 16,
+          "width": 106,
+          "height": 84
+        }
+      },
+      "fontSize": 17,
+      "designFontSize": 17,
+      "delta": 0,
+      "actualInkHeight": 16,
+      "designInkHeight": 16,
+      "status": "pass"
+    },
+    {
+      "target": {
+        "selector": "body>div>div>div>div>main>section>aside>div>button:nth-of-type(1)>span",
+        "displaySelector": "span",
+        "text": "参数板块",
+        "rect": {
+          "x": 82,
+          "y": 144.5,
+          "width": 64,
+          "height": 22
+        }
+      },
+      "fontSize": 16,
+      "designFontSize": 10,
+      "delta": -6,
+      "actualInkHeight": 16,
+      "designInkHeight": 10,
+      "status": "fail"
+    },
+    {
+      "target": {
+        "selector": "body>div>div>div>div>main>section>aside>div>button:nth-of-type(4)>span",
+        "displaySelector": "span",
+        "text": "对比图",
+        "rect": {
+          "x": 81,
+          "y": 315.5,
+          "width": 48,
+          "height": 22
+        }
+      },
+      "fontSize": 16,
+      "designFontSize": 2,
+      "delta": -14,
+      "actualInkHeight": 16,
+      "designInkHeight": 2,
+      "status": "fail"
+    },
+    {
+      "target": {
+        "selector": "body>div>div>div>div>main>section>aside>div>button:nth-of-type(5)>span",
+        "displaySelector": "span",
+        "text": "尺码图",
+        "rect": {
+          "x": 81,
+          "y": 372.5,
+          "width": 48,
+          "height": 22
+        }
+      },
+      "fontSize": 16,
+      "designFontSize": 14.93,
+      "delta": -1.07,
+      "actualInkHeight": 15,
+      "designInkHeight": 14,
+      "status": "pass"
+    },
+    {
+      "target": {
+        "selector": "body>div>div>div>div>main>section>aside>div>button:nth-of-type(6)>span",
+        "displaySelector": "span",
+        "text": "我的生成记录",
+        "rect": {
+          "x": 81,
+          "y": 429.5,
+          "width": 96,
+          "height": 22
+        }
+      },
+      "fontSize": 16,
+      "designFontSize": 8,
+      "delta": -8,
+      "actualInkHeight": 16,
+      "designInkHeight": 8,
+      "status": "fail"
+    },
+    {
+      "target": {
+        "selector": "body>div>div>div>div>main>section>section:nth-of-type(1)>div:nth-of-type(1)>h2",
+        "displaySelector": "h2",
+        "text": "参数板块",
+        "rect": {
+          "x": 253,
+          "y": 131.90625,
+          "width": 84,
+          "height": 25.1875
+        }
+      },
+      "fontSize": 21,
+      "designFontSize": 17.85,
+      "delta": -3.15,
+      "actualInkHeight": 20,
+      "designInkHeight": 17,
+      "status": "fail"
+    },
+    {
+      "target": {
+        "selector": "body>div>div>div>div>main>section>section:nth-of-type(1)>div:nth-of-type(1)>button",
+        "displaySelector": "button.outline-red",
+        "text": "新建任务",
+        "rect": {
+          "x": 587,
+          "y": 129.5,
+          "width": 84,
+          "height": 30
+        }
+      },
+      "fontSize": 13,
+      "designFontSize": 13,
+      "delta": 0,
+      "actualInkHeight": 30,
+      "designInkHeight": 30,
+      "status": "pass"
+    },
+    {
+      "target": {
+        "selector": "body>div>div>div>div>main>section>section:nth-of-type(1)>div:nth-of-type(2)>div:nth-of-type(1)>div:nth-of-type(1)>h3",
+        "displaySelector": "h3",
+        "text": "1. 上传商品图",
+        "rect": {
+          "x": 255,
+          "y": 189,
+          "width": 132.265625,
+          "height": 20
+        }
+      },
+      "fontSize": 14,
+      "designFontSize": 13,
+      "delta": -1,
+      "actualInkHeight": 14,
+      "designInkHeight": 13,
+      "status": "pass"
+    },
+    {
+      "target": {
+        "selector": "body>div>div>div>div>main>section>section:nth-of-type(1)>div:nth-of-type(2)>div:nth-of-type(1)>div:nth-of-type(1)>h3>span",
+        "displaySelector": "span",
+        "text": "（必填）",
+        "rect": {
+          "x": 339.265625,
+          "y": 191,
+          "width": 48,
+          "height": 17
+        }
+      },
+      "fontSize": 12,
+      "designFontSize": 10,
+      "delta": -2,
+      "actualInkHeight": 12,
+      "designInkHeight": 10,
+      "status": "fail"
+    },
+    {
+      "target": {
+        "selector": "body>div>div>div>div>main>section>section:nth-of-type(1)>div:nth-of-type(2)>div:nth-of-type(1)>div:nth-of-type(2)>div>button>span",
+        "displaySelector": "span",
+        "text": "继续上传",
+        "rect": {
+          "x": 575,
+          "y": 255,
+          "width": 52,
+          "height": 18
+        }
+      },
+      "fontSize": 13,
+      "designFontSize": 10.83,
+      "delta": -2.17,
+      "actualInkHeight": 12,
+      "designInkHeight": 10,
+      "status": "fail"
+    },
+    {
+      "target": {
+        "selector": "body>div>div>div>div>main>section>section:nth-of-type(1)>div:nth-of-type(2)>div:nth-of-type(1)>div:nth-of-type(2)>p",
+        "displaySelector": "p",
+        "text": "建议上传正侧背等多角度视图",
+        "rect": {
+          "x": 255,
+          "y": 305,
+          "width": 412,
+          "height": 16.1875
+        }
+      },
+      "fontSize": 12,
+      "designFontSize": 12,
+      "delta": 0,
+      "actualInkHeight": 11,
+      "designInkHeight": 11,
+      "status": "pass"
+    },
+    {
+      "target": {
+        "selector": "body>div>div>div>div>main>section>section:nth-of-type(1)>div:nth-of-type(2)>div:nth-of-type(2)>div:nth-of-type(1)>h3",
+        "displaySelector": "h3",
+        "text": "2. 行业模板",
+        "rect": {
+          "x": 255,
+          "y": 349.1875,
+          "width": 120.921875,
+          "height": 20
+        }
+      },
+      "fontSize": 14,
+      "designFontSize": 14,
+      "delta": 0,
+      "actualInkHeight": 14,
+      "designInkHeight": 14,
+      "status": "pass"
+    },
+    {
+      "target": {
+        "selector": "body>div>div>div>div>main>section>section:nth-of-type(1)>div:nth-of-type(2)>div:nth-of-type(2)>div:nth-of-type(1)>h3>span",
+        "displaySelector": "span",
+        "text": "（必填）",
+        "rect": {
+          "x": 327.921875,
+          "y": 351.1875,
+          "width": 48,
+          "height": 17
+        }
+      },
+      "fontSize": 12,
+      "designFontSize": 12,
+      "delta": 0,
+      "actualInkHeight": 11,
+      "designInkHeight": 11,
+      "status": "pass"
+    },
+    {
+      "target": {
+        "selector": "body>div>div>div>div>main>section>section:nth-of-type(1)>div:nth-of-type(2)>div:nth-of-type(2)>div:nth-of-type(2)>button:nth-of-type(1)>span",
+        "displaySelector": "span",
+        "text": "女装上新",
+        "rect": {
+          "x": 263,
+          "y": 382.6875,
+          "width": 48,
+          "height": 17
+        }
+      },
+      "fontSize": 12,
+      "designFontSize": 12,
+      "delta": 0,
+      "actualInkHeight": 11,
+      "designInkHeight": 11,
+      "status": "pass"
+    },
+    {
+      "target": {
+        "selector": "body>div>div>div>div>main>section>section:nth-of-type(1)>div:nth-of-type(2)>div:nth-of-type(2)>div:nth-of-type(2)>button:nth-of-type(2)>span",
+        "displaySelector": "span",
+        "text": "轻食饮品",
+        "rect": {
+          "x": 333,
+          "y": 382.6875,
+          "width": 48,
+          "height": 17
+        }
+      },
+      "fontSize": 12,
+      "designFontSize": 12,
+      "delta": 0,
+      "actualInkHeight": 11,
+      "designInkHeight": 11,
+      "status": "pass"
+    },
+    {
+      "target": {
+        "selector": "body>div>div>div>div>main>section>section:nth-of-type(1)>div:nth-of-type(2)>div:nth-of-type(2)>div:nth-of-type(2)>button:nth-of-type(3)>span",
+        "displaySelector": "span",
+        "text": "家清日用",
+        "rect": {
+          "x": 403,
+          "y": 382.6875,
+          "width": 48,
+          "height": 17
+        }
+      },
+      "fontSize": 12,
+      "designFontSize": 12,
+      "delta": 0,
+      "actualInkHeight": 11,
+      "designInkHeight": 11,
+      "status": "pass"
+    },
+    {
+      "target": {
+        "selector": "body>div>div>div>div>main>section>section:nth-of-type(1)>div:nth-of-type(2)>div:nth-of-type(2)>div:nth-of-type(2)>button:nth-of-type(4)>span",
+        "displaySelector": "span",
+        "text": "户外装备",
+        "rect": {
+          "x": 473,
+          "y": 382.6875,
+          "width": 48,
+          "height": 17
+        }
+      },
+      "fontSize": 12,
+      "designFontSize": 11,
+      "delta": -1,
+      "actualInkHeight": 12,
+      "designInkHeight": 11,
+      "status": "pass"
+    },
+    {
+      "target": {
+        "selector": "body>div>div>div>div>main>section>section:nth-of-type(1)>div:nth-of-type(2)>div:nth-of-type(2)>div:nth-of-type(2)>button:nth-of-type(5)>span",
+        "displaySelector": "span",
+        "text": "母婴好物",
+        "rect": {
+          "x": 543,
+          "y": 382.6875,
+          "width": 48,
+          "height": 17
+        }
+      },
+      "fontSize": 12,
+      "designFontSize": 12,
+      "delta": 0,
+      "actualInkHeight": 11,
+      "designInkHeight": 11,
+      "status": "pass"
+    },
+    {
+      "target": {
+        "selector": "body>div>div>div>div>main>section>section:nth-of-type(1)>div:nth-of-type(2)>div:nth-of-type(2)>div:nth-of-type(2)>button:nth-of-type(6)>span",
+        "displaySelector": "span",
+        "text": "3C配件",
+        "rect": {
+          "x": 613,
+          "y": 382.6875,
+          "width": 39.984375,
+          "height": 17
+        }
+      },
+      "fontSize": 12,
+      "designFontSize": 12,
+      "delta": 0,
+      "actualInkHeight": 11,
+      "designInkHeight": 11,
+      "status": "pass"
+    },
+    {
+      "target": {
+        "selector": "body>div>div>div>div>main>section>section:nth-of-type(1)>div:nth-of-type(2)>div:nth-of-type(3)>div:nth-of-type(1)>h3",
+        "displaySelector": "h3",
+        "text": "3. 板式",
+        "rect": {
+          "x": 255,
+          "y": 433.1875,
+          "width": 44.921875,
+          "height": 20
+        }
+      },
+      "fontSize": 14,
+      "designFontSize": 14,
+      "delta": 0,
+      "actualInkHeight": 14,
+      "designInkHeight": 14,
+      "status": "pass"
+    },
+    {
+      "target": {
+        "selector": "body>div>div>div>div>main>section>section:nth-of-type(1)>div:nth-of-type(2)>div:nth-of-type(3)>div:nth-of-type(2)>button:nth-of-type(1)>span",
+        "displaySelector": "span",
+        "text": "九宫格",
+        "rect": {
+          "x": 283.25,
+          "y": 497.6875,
+          "width": 39,
+          "height": 18
+        }
+      },
+      "fontSize": 13,
+      "designFontSize": 11,
+      "delta": -2,
+      "actualInkHeight": 13,
+      "designInkHeight": 11,
+      "status": "fail"
+    },
+    {
+      "target": {
+        "selector": "body>div>div>div>div>main>section>section:nth-of-type(1)>div:nth-of-type(2)>div:nth-of-type(3)>div:nth-of-type(2)>button:nth-of-type(2)>span",
+        "displaySelector": "span",
+        "text": "横排卡片",
+        "rect": {
+          "x": 382.25,
+          "y": 497.6875,
+          "width": 52,
+          "height": 18
+        }
+      },
+      "fontSize": 13,
+      "designFontSize": 11,
+      "delta": -2,
+      "actualInkHeight": 13,
+      "designInkHeight": 11,
+      "status": "fail"
+    },
+    {
+      "target": {
+        "selector": "body>div>div>div>div>main>section>section:nth-of-type(1)>div:nth-of-type(2)>div:nth-of-type(3)>div:nth-of-type(2)>button:nth-of-type(3)>span",
+        "displaySelector": "span",
+        "text": "竖排列装",
+        "rect": {
+          "x": 487.75,
+          "y": 497.6875,
+          "width": 52,
+          "height": 18
+        }
+      },
+      "fontSize": 13,
+      "designFontSize": 11,
+      "delta": -2,
+      "actualInkHeight": 13,
+      "designInkHeight": 11,
+      "status": "fail"
+    },
+    {
+      "target": {
+        "selector": "body>div>div>div>div>main>section>section:nth-of-type(1)>div:nth-of-type(2)>div:nth-of-type(3)>div:nth-of-type(2)>button:nth-of-type(4)>span",
+        "displaySelector": "span",
+        "text": "左右分栏",
+        "rect": {
+          "x": 593.25,
+          "y": 497.6875,
+          "width": 52,
+          "height": 18
+        }
+      },
+      "fontSize": 13,
+      "designFontSize": 11,
+      "delta": -2,
+      "actualInkHeight": 13,
+      "designInkHeight": 11,
+      "status": "fail"
+    },
+    {
+      "target": {
+        "selector": "body>div>div>div>div>main>section>section:nth-of-type(1)>div:nth-of-type(2)>div:nth-of-type(4)>div:nth-of-type(1)>h3",
+        "displaySelector": "h3",
+        "text": "4. 配色主题",
+        "rect": {
+          "x": 255,
+          "y": 553.1875,
+          "width": 72.921875,
+          "height": 20
+        }
+      },
+      "fontSize": 14,
+      "designFontSize": 13,
+      "delta": -1,
+      "actualInkHeight": 14,
+      "designInkHeight": 13,
+      "status": "pass"
+    },
+    {
+      "target": {
+        "selector": "body>div>div>div>div>main>section>section:nth-of-type(1)>div:nth-of-type(2)>div:nth-of-type(4)>div:nth-of-type(2)>button:nth-of-type(1)>b",
+        "displaySelector": "b",
+        "text": "极简白灰黑",
+        "rect": {
+          "x": 264.328125,
+          "y": 608.6875,
+          "width": 45,
+          "height": 13
+        }
+      },
+      "fontSize": 9,
+      "designFontSize": 9,
+      "delta": 0,
+      "actualInkHeight": 9,
+      "designInkHeight": 9,
+      "status": "pass"
+    },
+    {
+      "target": {
+        "selector": "body>div>div>div>div>main>section>section:nth-of-type(1)>div:nth-of-type(2)>div:nth-of-type(4)>div:nth-of-type(2)>button:nth-of-type(2)>b",
+        "displaySelector": "b",
+        "text": "奶油卡咖",
+        "rect": {
+          "x": 338.484375,
+          "y": 608.6875,
+          "width": 36,
+          "height": 13
+        }
+      },
+      "fontSize": 9,
+      "designFontSize": 10,
+      "delta": 1,
+      "actualInkHeight": 9,
+      "designInkHeight": 10,
+      "status": "pass"
+    },
+    {
+      "target": {
+        "selector": "body>div>div>div>div>main>section>section:nth-of-type(1)>div:nth-of-type(2)>div:nth-of-type(4)>div:nth-of-type(2)>button:nth-of-type(3)>b",
+        "displaySelector": "b",
+        "text": "海盐蓝灰",
+        "rect": {
+          "x": 408.15625,
+          "y": 608.6875,
+          "width": 36,
+          "height": 13
+        }
+      },
+      "fontSize": 9,
+      "designFontSize": 17,
+      "delta": 8,
+      "actualInkHeight": 9,
+      "designInkHeight": 17,
+      "status": "fail"
+    },
+    {
+      "target": {
+        "selector": "body>div>div>div>div>main>section>section:nth-of-type(1)>div:nth-of-type(2)>div:nth-of-type(4)>div:nth-of-type(2)>button:nth-of-type(4)>b",
+        "displaySelector": "b",
+        "text": "豆沙棉粉",
+        "rect": {
+          "x": 477.828125,
+          "y": 608.6875,
+          "width": 36,
+          "height": 13
+        }
+      },
+      "fontSize": 9,
+      "designFontSize": 9,
+      "delta": 0,
+      "actualInkHeight": 9,
+      "designInkHeight": 9,
+      "status": "pass"
+    },
+    {
+      "target": {
+        "selector": "body>div>div>div>div>main>section>section:nth-of-type(1)>div:nth-of-type(2)>div:nth-of-type(4)>div:nth-of-type(2)>button:nth-of-type(5)>b",
+        "displaySelector": "b",
+        "text": "森林绿白",
+        "rect": {
+          "x": 547.484375,
+          "y": 608.6875,
+          "width": 36,
+          "height": 13
+        }
+      },
+      "fontSize": 9,
+      "designFontSize": 13,
+      "delta": 4,
+      "actualInkHeight": 9,
+      "designInkHeight": 13,
+      "status": "fail"
+    },
+    {
+      "target": {
+        "selector": "body>div>div>div>div>main>section>section:nth-of-type(1)>div:nth-of-type(2)>div:nth-of-type(4)>div:nth-of-type(2)>button:nth-of-type(6)>b",
+        "displaySelector": "b",
+        "text": "午夜黑银",
+        "rect": {
+          "x": 617.15625,
+          "y": 608.6875,
+          "width": 36,
+          "height": 13
+        }
+      },
+      "fontSize": 9,
+      "designFontSize": 12,
+      "delta": 3,
+      "actualInkHeight": 9,
+      "designInkHeight": 12,
+      "status": "fail"
+    },
+    {
+      "target": {
+        "selector": "body>div>div>div>div>main>section>section:nth-of-type(1)>div:nth-of-type(2)>div:nth-of-type(5)>div:nth-of-type(1)>h3",
+        "displaySelector": "h3",
+        "text": "参数项",
+        "rect": {
+          "x": 255,
+          "y": 655.6875,
+          "width": 42,
+          "height": 20
+        }
+      },
+      "fontSize": 14,
+      "designFontSize": 13,
+      "delta": -1,
+      "actualInkHeight": 14,
+      "designInkHeight": 13,
+      "status": "pass"
+    },
+    {
+      "target": {
+        "selector": "body>div>div>div>div>main>section>section:nth-of-type(1)>div:nth-of-type(2)>div:nth-of-type(5)>div:nth-of-type(1)>button",
+        "displaySelector": "button",
+        "text": "添加参数项",
+        "rect": {
+          "x": 568,
+          "y": 653.1875,
+          "width": 99,
+          "height": 25
+        }
+      },
+      "fontSize": 12,
+      "designFontSize": 12,
+      "delta": 0,
+      "actualInkHeight": 11,
+      "designInkHeight": 11,
+      "status": "pass"
+    },
+    {
+      "target": {
+        "selector": "body>div>div>div>div>main>section>section:nth-of-type(1)>div:nth-of-type(2)>div:nth-of-type(5)>div:nth-of-type(2)>div:nth-of-type(1)>span:nth-of-type(1)",
+        "displaySelector": "span",
+        "text": "图标",
+        "rect": {
+          "x": 256,
+          "y": 688.1875,
+          "width": 58,
+          "height": 16
+        }
+      },
+      "fontSize": 11,
+      "designFontSize": 11,
+      "delta": 0,
+      "actualInkHeight": 10,
+      "designInkHeight": 10,
+      "status": "pass"
+    },
+    {
+      "target": {
+        "selector": "body>div>div>div>div>main>section>section:nth-of-type(1)>div:nth-of-type(2)>div:nth-of-type(5)>div:nth-of-type(2)>div:nth-of-type(1)>span:nth-of-type(2)",
+        "displaySelector": "span",
+        "text": "名称",
+        "rect": {
+          "x": 314,
+          "y": 688.1875,
+          "width": 126,
+          "height": 16
+        }
+      },
+      "fontSize": 11,
+      "designFontSize": 11,
+      "delta": 0,
+      "actualInkHeight": 10,
+      "designInkHeight": 10,
+      "status": "pass"
+    },
+    {
+      "target": {
+        "selector": "body>div>div>div>div>main>section>section:nth-of-type(1)>div:nth-of-type(2)>div:nth-of-type(6)>div:nth-of-type(1)>h3",
+        "displaySelector": "h3",
+        "text": "6. 生成比例",
+        "rect": {
+          "x": 255,
+          "y": 823.1875,
+          "width": 120.921875,
+          "height": 20
+        }
+      },
+      "fontSize": 14,
+      "designFontSize": 11,
+      "delta": -3,
+      "actualInkHeight": 14,
+      "designInkHeight": 11,
+      "status": "fail"
+    },
+    {
+      "target": {
+        "selector": "body>div>div>div>div>main>section>section:nth-of-type(1)>div:nth-of-type(2)>div:nth-of-type(6)>div:nth-of-type(1)>h3>span",
+        "displaySelector": "span",
+        "text": "（必填）",
+        "rect": {
+          "x": 327.921875,
+          "y": 825.1875,
+          "width": 48,
+          "height": 17
+        }
+      },
+      "fontSize": 12,
+      "designFontSize": 8.73,
+      "delta": -3.27,
+      "actualInkHeight": 11,
+      "designInkHeight": 8,
+      "status": "fail"
+    },
+    {
+      "target": {
+        "selector": "body>div>div>div>div>main>section>section:nth-of-type(1)>div:nth-of-type(2)>div:nth-of-type(6)>div:nth-of-type(2)>button:nth-of-type(1)",
+        "displaySelector": "button.choice-pill",
+        "text": "1:1",
+        "rect": {
+          "x": 255,
+          "y": 851.1875,
+          "width": 60.328125,
+          "height": 28
+        }
+      },
+      "fontSize": 13,
+      "designFontSize": 11.7,
+      "delta": -1.3,
+      "actualInkHeight": 10,
+      "designInkHeight": 9,
+      "status": "fail"
+    },
+    {
+      "target": {
+        "selector": "body>div>div>div>div>main>section>section:nth-of-type(1)>div:nth-of-type(2)>div:nth-of-type(6)>div:nth-of-type(2)>button:nth-of-type(2)",
+        "displaySelector": "button.choice-pill",
+        "text": "4:5",
+        "rect": {
+          "x": 325.328125,
+          "y": 851.1875,
+          "width": 60.34375,
+          "height": 28
+        }
+      },
+      "fontSize": 13,
+      "designFontSize": 10.68,
+      "delta": -2.32,
+      "actualInkHeight": 28,
+      "designInkHeight": 23,
+      "status": "fail"
+    },
+    {
+      "target": {
+        "selector": "body>div>div>div>div>main>section>section:nth-of-type(1)>div:nth-of-type(2)>div:nth-of-type(6)>div:nth-of-type(2)>button:nth-of-type(3)",
+        "displaySelector": "button.choice-pill",
+        "text": "3:4",
+        "rect": {
+          "x": 395.671875,
+          "y": 851.1875,
+          "width": 60.328125,
+          "height": 28
+        }
+      },
+      "fontSize": 13,
+      "designFontSize": 11.7,
+      "delta": -1.3,
+      "actualInkHeight": 10,
+      "designInkHeight": 9,
+      "status": "fail"
+    },
+    {
+      "target": {
+        "selector": "body>div>div>div>div>main>section>section:nth-of-type(1)>div:nth-of-type(2)>div:nth-of-type(6)>div:nth-of-type(2)>button:nth-of-type(4)",
+        "displaySelector": "button.choice-pill",
+        "text": "9:16",
+        "rect": {
+          "x": 466,
+          "y": 851.1875,
+          "width": 60.34375,
+          "height": 28
+        }
+      },
+      "fontSize": 13,
+      "designFontSize": 11.7,
+      "delta": -1.3,
+      "actualInkHeight": 10,
+      "designInkHeight": 9,
+      "status": "fail"
+    },
+    {
+      "target": {
+        "selector": "body>div>div>div>div>main>section>section:nth-of-type(1)>div:nth-of-type(2)>div:nth-of-type(6)>div:nth-of-type(2)>button:nth-of-type(5)",
+        "displaySelector": "button.choice-pill",
+        "text": "2:3",
+        "rect": {
+          "x": 536.34375,
+          "y": 851.1875,
+          "width": 60.328125,
+          "height": 28
+        }
+      },
+      "fontSize": 13,
+      "designFontSize": 11.7,
+      "delta": -1.3,
+      "actualInkHeight": 10,
+      "designInkHeight": 9,
+      "status": "fail"
+    },
+    {
+      "target": {
+        "selector": "body>div>div>div>div>main>section>section:nth-of-type(1)>div:nth-of-type(2)>div:nth-of-type(6)>div:nth-of-type(2)>button:nth-of-type(6)",
+        "displaySelector": "button.choice-pill",
+        "text": "16:9",
+        "rect": {
+          "x": 606.671875,
+          "y": 851.1875,
+          "width": 60.328125,
+          "height": 28
+        }
+      },
+      "fontSize": 13,
+      "designFontSize": 11.7,
+      "delta": -1.3,
+      "actualInkHeight": 10,
+      "designInkHeight": 9,
+      "status": "fail"
+    },
+    {
+      "target": {
+        "selector": "body>div>div>div>div>main>section>section:nth-of-type(1)>div:nth-of-type(2)>div:nth-of-type(7)>div:nth-of-type(1)>h3",
+        "displaySelector": "h3",
+        "text": "7. 生成张数",
+        "rect": {
+          "x": 255,
+          "y": 906.1875,
+          "width": 72.265625,
+          "height": 20
+        }
+      },
+      "fontSize": 14,
+      "designFontSize": 9,
+      "delta": -5,
+      "actualInkHeight": 14,
+      "designInkHeight": 9,
+      "status": "fail"
+    },
+    {
+      "target": {
+        "selector": "body>div>div>div>div>main>section>section:nth-of-type(1)>div:nth-of-type(2)>div:nth-of-type(8)>div:nth-of-type(1)>h3",
+        "displaySelector": "h3",
+        "text": "8. 分辨率",
+        "rect": {
+          "x": 471,
+          "y": 906.1875,
+          "width": 58.921875,
+          "height": 20
+        }
+      },
+      "fontSize": 14,
+      "designFontSize": 9,
+      "delta": -5,
+      "actualInkHeight": 14,
+      "designInkHeight": 9,
+      "status": "fail"
+    },
+    {
+      "target": {
+        "selector": "body>div>div>div>div>main>section>section:nth-of-type(1)>div:nth-of-type(2)>div:nth-of-type(8)>div:nth-of-type(2)>button:nth-of-type(1)",
+        "displaySelector": "button.choice-pill",
+        "text": "标准 1024",
+        "rect": {
+          "x": 471,
+          "y": 934.1875,
+          "width": 60,
+          "height": 32
+        }
+      },
+      "fontSize": 12,
+      "designFontSize": 9.38,
+      "delta": -2.63,
+      "actualInkHeight": 32,
+      "designInkHeight": 25,
+      "status": "fail"
+    },
+    {
+      "target": {
+        "selector": "body>div>div>div>div>main>section>section:nth-of-type(1)>div:nth-of-type(2)>div:nth-of-type(8)>div:nth-of-type(2)>button:nth-of-type(2)",
+        "displaySelector": "button.choice-pill",
+        "text": "高清 1536",
+        "rect": {
+          "x": 537,
+          "y": 934.1875,
+          "width": 60,
+          "height": 32
+        }
+      },
+      "fontSize": 12,
+      "designFontSize": 8.82,
+      "delta": -3.18,
+      "actualInkHeight": 34,
+      "designInkHeight": 25,
+      "status": "fail"
+    },
+    {
+      "target": {
+        "selector": "body>div>div>div>div>main>section>section:nth-of-type(1)>div:nth-of-type(2)>div:nth-of-type(8)>div:nth-of-type(2)>button:nth-of-type(3)",
+        "displaySelector": "button.choice-pill",
+        "text": "超清 2048",
+        "rect": {
+          "x": 603,
+          "y": 934.1875,
+          "width": 60,
+          "height": 32
+        }
+      },
+      "fontSize": 12,
+      "designFontSize": 4.13,
+      "delta": -7.88,
+      "actualInkHeight": 32,
+      "designInkHeight": 11,
+      "status": "fail"
+    },
+    {
+      "target": {
+        "selector": "body>div>div>div>div>main>section>section:nth-of-type(1)>button",
+        "displaySelector": "button.red-button",
+        "text": "开始生成",
+        "rect": {
+          "x": 247,
+          "y": 936,
+          "width": 428,
+          "height": 43
+        }
+      },
+      "fontSize": 17,
+      "designFontSize": 12.84,
+      "delta": -4.16,
+      "actualInkHeight": 45,
+      "designInkHeight": 34,
+      "status": "fail"
+    },
+    {
+      "target": {
+        "selector": "body>div>div>div>div>main>section>section:nth-of-type(2)>div:nth-of-type(1)>h2",
+        "displaySelector": "h2",
+        "text": "创作结果",
+        "rect": {
+          "x": 734,
+          "y": 136.40625,
+          "width": 84,
+          "height": 25.1875
+        }
+      },
+      "fontSize": 21,
+      "designFontSize": 17,
+      "delta": -4,
+      "actualInkHeight": 21,
+      "designInkHeight": 17,
+      "status": "fail"
+    },
+    {
+      "target": {
+        "selector": "body>div>div>div>div>main>section>section:nth-of-type(2)>div:nth-of-type(2)>div",
+        "displaySelector": "div.state-card",
+        "text": "加载失败： Unexpect",
+        "rect": {
+          "x": 734,
+          "y": 178,
+          "width": 760,
+          "height": 586
+        }
+      },
+      "fontSize": 16,
+      "designFontSize": 545.88,
+      "delta": 529.88,
+      "actualInkHeight": 17,
+      "designInkHeight": 580,
+      "status": "fail"
+    },
+    {
+      "target": {
+        "selector": "body>div>div>div>div>main>section>section:nth-of-type(2)>button",
+        "displaySelector": "button.error-toast",
+        "text": "Unexpected tok",
+        "rect": {
+          "x": 912.5,
+          "y": 919,
+          "width": 403,
+          "height": 60
+        }
+      },
+      "fontSize": 16,
+      "designFontSize": 9.33,
+      "delta": -6.67,
+      "actualInkHeight": 60,
+      "designInkHeight": 35,
+      "status": "fail"
+    }
+  ],
+  "skipped": [
+    {
+      "target": {
+        "selector": "body>div>div>div>div>main>section>aside>div>button:nth-of-type(2)>span",
+        "displaySelector": "span",
+        "text": "卖点堆叠",
+        "rect": {
+          "x": 81,
+          "y": 201.5,
+          "width": 64,
+          "height": 22
+        }
+      },
+      "status": "skipped",
+      "reason": "文字墨迹不可稳定测量"
+    },
+    {
+      "target": {
+        "selector": "body>div>div>div>div>main>section>aside>div>button:nth-of-type(3)>span",
+        "displaySelector": "span",
+        "text": "使用场景",
+        "rect": {
+          "x": 81,
+          "y": 258.5,
+          "width": 64,
+          "height": 22
+        }
+      },
+      "status": "skipped",
+      "reason": "文字墨迹不可稳定测量"
+    },
+    {
+      "target": {
+        "selector": "body>div>div>div>div>main>section>section:nth-of-type(1)>div:nth-of-type(2)>div:nth-of-type(1)>div:nth-of-type(2)>div>button>small",
+        "displaySelector": "small",
+        "text": "支持多图上传",
+        "rect": {
+          "x": 568,
+          "y": 273,
+          "width": 66,
+          "height": 16
+        }
+      },
+      "status": "skipped",
+      "reason": "文字墨迹不可稳定测量"
+    }
+  ],
+  "findings": [
+    {
+      "id": "font-audit:typography:e0f24d5b5416",
+      "detector": "font-audit",
+      "code": "font-size-delta",
+      "dimension": "typography",
+      "severity": "P1",
+      "status": "open",
+      "title": "span 字号偏差 -4.2px",
+      "target": {
+        "selector": "body>div>div>div>div>main>header>button>span:nth-of-type(2)",
+        "displaySelector": "span",
+        "text": "灵灵生图站",
+        "rect": {
+          "x": 103,
+          "y": 40,
+          "width": 125,
+          "height": 36
+        }
+      },
+      "expected": {
+        "fontSize": 20.83,
+        "inkHeight": 20
+      },
+      "actual": {
+        "fontSize": 25,
+        "inkHeight": 24,
+        "delta": -4.17
+      },
+      "threshold": {
+        "maxFontDiff": 1.2
+      },
+      "confidence": 0.75,
+      "evidence": {},
+      "nextAction": "结合 inspect 与文字宽度复核后，批量修正同类字号并重新对位",
+      "reason": "",
+      "firstSeenAt": null,
+      "lastSeenAt": null,
+      "resolvedAt": null
+    },
+    {
+      "id": "font-audit:typography:ed3ced827968",
+      "detector": "font-audit",
+      "code": "font-size-delta",
+      "dimension": "typography",
+      "severity": "P1",
+      "status": "open",
+      "title": "span 字号偏差 -6.0px",
+      "target": {
+        "selector": "body>div>div>div>div>main>section>aside>div>button:nth-of-type(1)>span",
+        "displaySelector": "span",
+        "text": "参数板块",
+        "rect": {
+          "x": 82,
+          "y": 144.5,
+          "width": 64,
+          "height": 22
+        }
+      },
+      "expected": {
+        "fontSize": 10,
+        "inkHeight": 10
+      },
+      "actual": {
+        "fontSize": 16,
+        "inkHeight": 16,
+        "delta": -6
+      },
+      "threshold": {
+        "maxFontDiff": 1.2
+      },
+      "confidence": 0.75,
+      "evidence": {},
+      "nextAction": "结合 inspect 与文字宽度复核后，批量修正同类字号并重新对位",
+      "reason": "",
+      "firstSeenAt": null,
+      "lastSeenAt": null,
+      "resolvedAt": null
+    },
+    {
+      "id": "font-audit:typography:6e3aaf610562",
+      "detector": "font-audit",
+      "code": "font-size-delta",
+      "dimension": "typography",
+      "severity": "P1",
+      "status": "open",
+      "title": "span 字号偏差 -14.0px",
+      "target": {
+        "selector": "body>div>div>div>div>main>section>aside>div>button:nth-of-type(4)>span",
+        "displaySelector": "span",
+        "text": "对比图",
+        "rect": {
+          "x": 81,
+          "y": 315.5,
+          "width": 48,
+          "height": 22
+        }
+      },
+      "expected": {
+        "fontSize": 2,
+        "inkHeight": 2
+      },
+      "actual": {
+        "fontSize": 16,
+        "inkHeight": 16,
+        "delta": -14
+      },
+      "threshold": {
+        "maxFontDiff": 1.2
+      },
+      "confidence": 0.75,
+      "evidence": {},
+      "nextAction": "结合 inspect 与文字宽度复核后，批量修正同类字号并重新对位",
+      "reason": "",
+      "firstSeenAt": null,
+      "lastSeenAt": null,
+      "resolvedAt": null
+    },
+    {
+      "id": "font-audit:typography:e8814e92dd01",
+      "detector": "font-audit",
+      "code": "font-size-delta",
+      "dimension": "typography",
+      "severity": "P1",
+      "status": "open",
+      "title": "span 字号偏差 -8.0px",
+      "target": {
+        "selector": "body>div>div>div>div>main>section>aside>div>button:nth-of-type(6)>span",
+        "displaySelector": "span",
+        "text": "我的生成记录",
+        "rect": {
+          "x": 81,
+          "y": 429.5,
+          "width": 96,
+          "height": 22
+        }
+      },
+      "expected": {
+        "fontSize": 8,
+        "inkHeight": 8
+      },
+      "actual": {
+        "fontSize": 16,
+        "inkHeight": 16,
+        "delta": -8
+      },
+      "threshold": {
+        "maxFontDiff": 1.2
+      },
+      "confidence": 0.75,
+      "evidence": {},
+      "nextAction": "结合 inspect 与文字宽度复核后，批量修正同类字号并重新对位",
+      "reason": "",
+      "firstSeenAt": null,
+      "lastSeenAt": null,
+      "resolvedAt": null
+    },
+    {
+      "id": "font-audit:typography:aa4883ba15d5",
+      "detector": "font-audit",
+      "code": "font-size-delta",
+      "dimension": "typography",
+      "severity": "P1",
+      "status": "open",
+      "title": "h2 字号偏差 -3.1px",
+      "target": {
+        "selector": "body>div>div>div>div>main>section>section:nth-of-type(1)>div:nth-of-type(1)>h2",
+        "displaySelector": "h2",
+        "text": "参数板块",
+        "rect": {
+          "x": 253,
+          "y": 131.90625,
+          "width": 84,
+          "height": 25.1875
+        }
+      },
+      "expected": {
+        "fontSize": 17.85,
+        "inkHeight": 17
+      },
+      "actual": {
+        "fontSize": 21,
+        "inkHeight": 20,
+        "delta": -3.15
+      },
+      "threshold": {
+        "maxFontDiff": 1.2
+      },
+      "confidence": 0.75,
+      "evidence": {},
+      "nextAction": "结合 inspect 与文字宽度复核后，批量修正同类字号并重新对位",
+      "reason": "",
+      "firstSeenAt": null,
+      "lastSeenAt": null,
+      "resolvedAt": null
+    },
+    {
+      "id": "font-audit:typography:9735a7b9194e",
+      "detector": "font-audit",
+      "code": "font-size-delta",
+      "dimension": "typography",
+      "severity": "P2",
+      "status": "open",
+      "title": "span 字号偏差 -2.0px",
+      "target": {
+        "selector": "body>div>div>div>div>main>section>section:nth-of-type(1)>div:nth-of-type(2)>div:nth-of-type(1)>div:nth-of-type(1)>h3>span",
+        "displaySelector": "span",
+        "text": "（必填）",
+        "rect": {
+          "x": 339.265625,
+          "y": 191,
+          "width": 48,
+          "height": 17
+        }
+      },
+      "expected": {
+        "fontSize": 10,
+        "inkHeight": 10
+      },
+      "actual": {
+        "fontSize": 12,
+        "inkHeight": 12,
+        "delta": -2
+      },
+      "threshold": {
+        "maxFontDiff": 1.2
+      },
+      "confidence": 0.75,
+      "evidence": {},
+      "nextAction": "结合 inspect 与文字宽度复核后，批量修正同类字号并重新对位",
+      "reason": "",
+      "firstSeenAt": null,
+      "lastSeenAt": null,
+      "resolvedAt": null
+    },
+    {
+      "id": "font-audit:typography:68f4370c2602",
+      "detector": "font-audit",
+      "code": "font-size-delta",
+      "dimension": "typography",
+      "severity": "P2",
+      "status": "open",
+      "title": "span 字号偏差 -2.2px",
+      "target": {
+        "selector": "body>div>div>div>div>main>section>section:nth-of-type(1)>div:nth-of-type(2)>div:nth-of-type(1)>div:nth-of-type(2)>div>button>span",
+        "displaySelector": "span",
+        "text": "继续上传",
+        "rect": {
+          "x": 575,
+          "y": 255,
+          "width": 52,
+          "height": 18
+        }
+      },
+      "expected": {
+        "fontSize": 10.83,
+        "inkHeight": 10
+      },
+      "actual": {
+        "fontSize": 13,
+        "inkHeight": 12,
+        "delta": -2.17
+      },
+      "threshold": {
+        "maxFontDiff": 1.2
+      },
+      "confidence": 0.75,
+      "evidence": {},
+      "nextAction": "结合 inspect 与文字宽度复核后，批量修正同类字号并重新对位",
+      "reason": "",
+      "firstSeenAt": null,
+      "lastSeenAt": null,
+      "resolvedAt": null
+    },
+    {
+      "id": "font-audit:typography:b5346675124f",
+      "detector": "font-audit",
+      "code": "font-size-delta",
+      "dimension": "typography",
+      "severity": "P2",
+      "status": "open",
+      "title": "span 字号偏差 -2.0px",
+      "target": {
+        "selector": "body>div>div>div>div>main>section>section:nth-of-type(1)>div:nth-of-type(2)>div:nth-of-type(3)>div:nth-of-type(2)>button:nth-of-type(1)>span",
+        "displaySelector": "span",
+        "text": "九宫格",
+        "rect": {
+          "x": 283.25,
+          "y": 497.6875,
+          "width": 39,
+          "height": 18
+        }
+      },
+      "expected": {
+        "fontSize": 11,
+        "inkHeight": 11
+      },
+      "actual": {
+        "fontSize": 13,
+        "inkHeight": 13,
+        "delta": -2
+      },
+      "threshold": {
+        "maxFontDiff": 1.2
+      },
+      "confidence": 0.75,
+      "evidence": {},
+      "nextAction": "结合 inspect 与文字宽度复核后，批量修正同类字号并重新对位",
+      "reason": "",
+      "firstSeenAt": null,
+      "lastSeenAt": null,
+      "resolvedAt": null
+    },
+    {
+      "id": "font-audit:typography:98d2c17f685f",
+      "detector": "font-audit",
+      "code": "font-size-delta",
+      "dimension": "typography",
+      "severity": "P2",
+      "status": "open",
+      "title": "span 字号偏差 -2.0px",
+      "target": {
+        "selector": "body>div>div>div>div>main>section>section:nth-of-type(1)>div:nth-of-type(2)>div:nth-of-type(3)>div:nth-of-type(2)>button:nth-of-type(2)>span",
+        "displaySelector": "span",
+        "text": "横排卡片",
+        "rect": {
+          "x": 382.25,
+          "y": 497.6875,
+          "width": 52,
+          "height": 18
+        }
+      },
+      "expected": {
+        "fontSize": 11,
+        "inkHeight": 11
+      },
+      "actual": {
+        "fontSize": 13,
+        "inkHeight": 13,
+        "delta": -2
+      },
+      "threshold": {
+        "maxFontDiff": 1.2
+      },
+      "confidence": 0.75,
+      "evidence": {},
+      "nextAction": "结合 inspect 与文字宽度复核后，批量修正同类字号并重新对位",
+      "reason": "",
+      "firstSeenAt": null,
+      "lastSeenAt": null,
+      "resolvedAt": null
+    },
+    {
+      "id": "font-audit:typography:2afd2b0c8d56",
+      "detector": "font-audit",
+      "code": "font-size-delta",
+      "dimension": "typography",
+      "severity": "P2",
+      "status": "open",
+      "title": "span 字号偏差 -2.0px",
+      "target": {
+        "selector": "body>div>div>div>div>main>section>section:nth-of-type(1)>div:nth-of-type(2)>div:nth-of-type(3)>div:nth-of-type(2)>button:nth-of-type(3)>span",
+        "displaySelector": "span",
+        "text": "竖排列装",
+        "rect": {
+          "x": 487.75,
+          "y": 497.6875,
+          "width": 52,
+          "height": 18
+        }
+      },
+      "expected": {
+        "fontSize": 11,
+        "inkHeight": 11
+      },
+      "actual": {
+        "fontSize": 13,
+        "inkHeight": 13,
+        "delta": -2
+      },
+      "threshold": {
+        "maxFontDiff": 1.2
+      },
+      "confidence": 0.75,
+      "evidence": {},
+      "nextAction": "结合 inspect 与文字宽度复核后，批量修正同类字号并重新对位",
+      "reason": "",
+      "firstSeenAt": null,
+      "lastSeenAt": null,
+      "resolvedAt": null
+    },
+    {
+      "id": "font-audit:typography:9ee544b08325",
+      "detector": "font-audit",
+      "code": "font-size-delta",
+      "dimension": "typography",
+      "severity": "P2",
+      "status": "open",
+      "title": "span 字号偏差 -2.0px",
+      "target": {
+        "selector": "body>div>div>div>div>main>section>section:nth-of-type(1)>div:nth-of-type(2)>div:nth-of-type(3)>div:nth-of-type(2)>button:nth-of-type(4)>span",
+        "displaySelector": "span",
+        "text": "左右分栏",
+        "rect": {
+          "x": 593.25,
+          "y": 497.6875,
+          "width": 52,
+          "height": 18
+        }
+      },
+      "expected": {
+        "fontSize": 11,
+        "inkHeight": 11
+      },
+      "actual": {
+        "fontSize": 13,
+        "inkHeight": 13,
+        "delta": -2
+      },
+      "threshold": {
+        "maxFontDiff": 1.2
+      },
+      "confidence": 0.75,
+      "evidence": {},
+      "nextAction": "结合 inspect 与文字宽度复核后，批量修正同类字号并重新对位",
+      "reason": "",
+      "firstSeenAt": null,
+      "lastSeenAt": null,
+      "resolvedAt": null
+    },
+    {
+      "id": "font-audit:typography:c6878c1c3e00",
+      "detector": "font-audit",
+      "code": "font-size-delta",
+      "dimension": "typography",
+      "severity": "P1",
+      "status": "open",
+      "title": "b 字号偏差 +8.0px",
+      "target": {
+        "selector": "body>div>div>div>div>main>section>section:nth-of-type(1)>div:nth-of-type(2)>div:nth-of-type(4)>div:nth-of-type(2)>button:nth-of-type(3)>b",
+        "displaySelector": "b",
+        "text": "海盐蓝灰",
+        "rect": {
+          "x": 408.15625,
+          "y": 608.6875,
+          "width": 36,
+          "height": 13
+        }
+      },
+      "expected": {
+        "fontSize": 17,
+        "inkHeight": 17
+      },
+      "actual": {
+        "fontSize": 9,
+        "inkHeight": 9,
+        "delta": 8
+      },
+      "threshold": {
+        "maxFontDiff": 1.2
+      },
+      "confidence": 0.75,
+      "evidence": {},
+      "nextAction": "结合 inspect 与文字宽度复核后，批量修正同类字号并重新对位",
+      "reason": "",
+      "firstSeenAt": null,
+      "lastSeenAt": null,
+      "resolvedAt": null
+    },
+    {
+      "id": "font-audit:typography:fc6640735ee4",
+      "detector": "font-audit",
+      "code": "font-size-delta",
+      "dimension": "typography",
+      "severity": "P1",
+      "status": "open",
+      "title": "b 字号偏差 +4.0px",
+      "target": {
+        "selector": "body>div>div>div>div>main>section>section:nth-of-type(1)>div:nth-of-type(2)>div:nth-of-type(4)>div:nth-of-type(2)>button:nth-of-type(5)>b",
+        "displaySelector": "b",
+        "text": "森林绿白",
+        "rect": {
+          "x": 547.484375,
+          "y": 608.6875,
+          "width": 36,
+          "height": 13
+        }
+      },
+      "expected": {
+        "fontSize": 13,
+        "inkHeight": 13
+      },
+      "actual": {
+        "fontSize": 9,
+        "inkHeight": 9,
+        "delta": 4
+      },
+      "threshold": {
+        "maxFontDiff": 1.2
+      },
+      "confidence": 0.75,
+      "evidence": {},
+      "nextAction": "结合 inspect 与文字宽度复核后，批量修正同类字号并重新对位",
+      "reason": "",
+      "firstSeenAt": null,
+      "lastSeenAt": null,
+      "resolvedAt": null
+    },
+    {
+      "id": "font-audit:typography:c1593d572945",
+      "detector": "font-audit",
+      "code": "font-size-delta",
+      "dimension": "typography",
+      "severity": "P1",
+      "status": "open",
+      "title": "b 字号偏差 +3.0px",
+      "target": {
+        "selector": "body>div>div>div>div>main>section>section:nth-of-type(1)>div:nth-of-type(2)>div:nth-of-type(4)>div:nth-of-type(2)>button:nth-of-type(6)>b",
+        "displaySelector": "b",
+        "text": "午夜黑银",
+        "rect": {
+          "x": 617.15625,
+          "y": 608.6875,
+          "width": 36,
+          "height": 13
+        }
+      },
+      "expected": {
+        "fontSize": 12,
+        "inkHeight": 12
+      },
+      "actual": {
+        "fontSize": 9,
+        "inkHeight": 9,
+        "delta": 3
+      },
+      "threshold": {
+        "maxFontDiff": 1.2
+      },
+      "confidence": 0.75,
+      "evidence": {},
+      "nextAction": "结合 inspect 与文字宽度复核后，批量修正同类字号并重新对位",
+      "reason": "",
+      "firstSeenAt": null,
+      "lastSeenAt": null,
+      "resolvedAt": null
+    },
+    {
+      "id": "font-audit:typography:9b632bd40abb",
+      "detector": "font-audit",
+      "code": "font-size-delta",
+      "dimension": "typography",
+      "severity": "P1",
+      "status": "open",
+      "title": "h3 字号偏差 -3.0px",
+      "target": {
+        "selector": "body>div>div>div>div>main>section>section:nth-of-type(1)>div:nth-of-type(2)>div:nth-of-type(6)>div:nth-of-type(1)>h3",
+        "displaySelector": "h3",
+        "text": "6. 生成比例",
+        "rect": {
+          "x": 255,
+          "y": 823.1875,
+          "width": 120.921875,
+          "height": 20
+        }
+      },
+      "expected": {
+        "fontSize": 11,
+        "inkHeight": 11
+      },
+      "actual": {
+        "fontSize": 14,
+        "inkHeight": 14,
+        "delta": -3
+      },
+      "threshold": {
+        "maxFontDiff": 1.2
+      },
+      "confidence": 0.75,
+      "evidence": {},
+      "nextAction": "结合 inspect 与文字宽度复核后，批量修正同类字号并重新对位",
+      "reason": "",
+      "firstSeenAt": null,
+      "lastSeenAt": null,
+      "resolvedAt": null
+    },
+    {
+      "id": "font-audit:typography:3feb3aee594c",
+      "detector": "font-audit",
+      "code": "font-size-delta",
+      "dimension": "typography",
+      "severity": "P1",
+      "status": "open",
+      "title": "span 字号偏差 -3.3px",
+      "target": {
+        "selector": "body>div>div>div>div>main>section>section:nth-of-type(1)>div:nth-of-type(2)>div:nth-of-type(6)>div:nth-of-type(1)>h3>span",
+        "displaySelector": "span",
+        "text": "（必填）",
+        "rect": {
+          "x": 327.921875,
+          "y": 825.1875,
+          "width": 48,
+          "height": 17
+        }
+      },
+      "expected": {
+        "fontSize": 8.73,
+        "inkHeight": 8
+      },
+      "actual": {
+        "fontSize": 12,
+        "inkHeight": 11,
+        "delta": -3.27
+      },
+      "threshold": {
+        "maxFontDiff": 1.2
+      },
+      "confidence": 0.75,
+      "evidence": {},
+      "nextAction": "结合 inspect 与文字宽度复核后，批量修正同类字号并重新对位",
+      "reason": "",
+      "firstSeenAt": null,
+      "lastSeenAt": null,
+      "resolvedAt": null
+    },
+    {
+      "id": "font-audit:typography:3405062d6aa3",
+      "detector": "font-audit",
+      "code": "font-size-delta",
+      "dimension": "typography",
+      "severity": "P2",
+      "status": "open",
+      "title": "button.choice-pill 字号偏差 -1.3px",
+      "target": {
+        "selector": "body>div>div>div>div>main>section>section:nth-of-type(1)>div:nth-of-type(2)>div:nth-of-type(6)>div:nth-of-type(2)>button:nth-of-type(1)",
+        "displaySelector": "button.choice-pill",
+        "text": "1:1",
+        "rect": {
+          "x": 255,
+          "y": 851.1875,
+          "width": 60.328125,
+          "height": 28
+        }
+      },
+      "expected": {
+        "fontSize": 11.7,
+        "inkHeight": 9
+      },
+      "actual": {
+        "fontSize": 13,
+        "inkHeight": 10,
+        "delta": -1.3
+      },
+      "threshold": {
+        "maxFontDiff": 1.2
+      },
+      "confidence": 0.75,
+      "evidence": {},
+      "nextAction": "结合 inspect 与文字宽度复核后，批量修正同类字号并重新对位",
+      "reason": "",
+      "firstSeenAt": null,
+      "lastSeenAt": null,
+      "resolvedAt": null
+    },
+    {
+      "id": "font-audit:typography:b18decd71353",
+      "detector": "font-audit",
+      "code": "font-size-delta",
+      "dimension": "typography",
+      "severity": "P2",
+      "status": "open",
+      "title": "button.choice-pill 字号偏差 -2.3px",
+      "target": {
+        "selector": "body>div>div>div>div>main>section>section:nth-of-type(1)>div:nth-of-type(2)>div:nth-of-type(6)>div:nth-of-type(2)>button:nth-of-type(2)",
+        "displaySelector": "button.choice-pill",
+        "text": "4:5",
+        "rect": {
+          "x": 325.328125,
+          "y": 851.1875,
+          "width": 60.34375,
+          "height": 28
+        }
+      },
+      "expected": {
+        "fontSize": 10.68,
+        "inkHeight": 23
+      },
+      "actual": {
+        "fontSize": 13,
+        "inkHeight": 28,
+        "delta": -2.32
+      },
+      "threshold": {
+        "maxFontDiff": 1.2
+      },
+      "confidence": 0.75,
+      "evidence": {},
+      "nextAction": "结合 inspect 与文字宽度复核后，批量修正同类字号并重新对位",
+      "reason": "",
+      "firstSeenAt": null,
+      "lastSeenAt": null,
+      "resolvedAt": null
+    },
+    {
+      "id": "font-audit:typography:377fa92fefef",
+      "detector": "font-audit",
+      "code": "font-size-delta",
+      "dimension": "typography",
+      "severity": "P2",
+      "status": "open",
+      "title": "button.choice-pill 字号偏差 -1.3px",
+      "target": {
+        "selector": "body>div>div>div>div>main>section>section:nth-of-type(1)>div:nth-of-type(2)>div:nth-of-type(6)>div:nth-of-type(2)>button:nth-of-type(3)",
+        "displaySelector": "button.choice-pill",
+        "text": "3:4",
+        "rect": {
+          "x": 395.671875,
+          "y": 851.1875,
+          "width": 60.328125,
+          "height": 28
+        }
+      },
+      "expected": {
+        "fontSize": 11.7,
+        "inkHeight": 9
+      },
+      "actual": {
+        "fontSize": 13,
+        "inkHeight": 10,
+        "delta": -1.3
+      },
+      "threshold": {
+        "maxFontDiff": 1.2
+      },
+      "confidence": 0.75,
+      "evidence": {},
+      "nextAction": "结合 inspect 与文字宽度复核后，批量修正同类字号并重新对位",
+      "reason": "",
+      "firstSeenAt": null,
+      "lastSeenAt": null,
+      "resolvedAt": null
+    },
+    {
+      "id": "font-audit:typography:caeec742f6e8",
+      "detector": "font-audit",
+      "code": "font-size-delta",
+      "dimension": "typography",
+      "severity": "P2",
+      "status": "open",
+      "title": "button.choice-pill 字号偏差 -1.3px",
+      "target": {
+        "selector": "body>div>div>div>div>main>section>section:nth-of-type(1)>div:nth-of-type(2)>div:nth-of-type(6)>div:nth-of-type(2)>button:nth-of-type(4)",
+        "displaySelector": "button.choice-pill",
+        "text": "9:16",
+        "rect": {
+          "x": 466,
+          "y": 851.1875,
+          "width": 60.34375,
+          "height": 28
+        }
+      },
+      "expected": {
+        "fontSize": 11.7,
+        "inkHeight": 9
+      },
+      "actual": {
+        "fontSize": 13,
+        "inkHeight": 10,
+        "delta": -1.3
+      },
+      "threshold": {
+        "maxFontDiff": 1.2
+      },
+      "confidence": 0.75,
+      "evidence": {},
+      "nextAction": "结合 inspect 与文字宽度复核后，批量修正同类字号并重新对位",
+      "reason": "",
+      "firstSeenAt": null,
+      "lastSeenAt": null,
+      "resolvedAt": null
+    },
+    {
+      "id": "font-audit:typography:942379b8c2f6",
+      "detector": "font-audit",
+      "code": "font-size-delta",
+      "dimension": "typography",
+      "severity": "P2",
+      "status": "open",
+      "title": "button.choice-pill 字号偏差 -1.3px",
+      "target": {
+        "selector": "body>div>div>div>div>main>section>section:nth-of-type(1)>div:nth-of-type(2)>div:nth-of-type(6)>div:nth-of-type(2)>button:nth-of-type(5)",
+        "displaySelector": "button.choice-pill",
+        "text": "2:3",
+        "rect": {
+          "x": 536.34375,
+          "y": 851.1875,
+          "width": 60.328125,
+          "height": 28
+        }
+      },
+      "expected": {
+        "fontSize": 11.7,
+        "inkHeight": 9
+      },
+      "actual": {
+        "fontSize": 13,
+        "inkHeight": 10,
+        "delta": -1.3
+      },
+      "threshold": {
+        "maxFontDiff": 1.2
+      },
+      "confidence": 0.75,
+      "evidence": {},
+      "nextAction": "结合 inspect 与文字宽度复核后，批量修正同类字号并重新对位",
+      "reason": "",
+      "firstSeenAt": null,
+      "lastSeenAt": null,
+      "resolvedAt": null
+    },
+    {
+      "id": "font-audit:typography:c4b4c0fed639",
+      "detector": "font-audit",
+      "code": "font-size-delta",
+      "dimension": "typography",
+      "severity": "P2",
+      "status": "open",
+      "title": "button.choice-pill 字号偏差 -1.3px",
+      "target": {
+        "selector": "body>div>div>div>div>main>section>section:nth-of-type(1)>div:nth-of-type(2)>div:nth-of-type(6)>div:nth-of-type(2)>button:nth-of-type(6)",
+        "displaySelector": "button.choice-pill",
+        "text": "16:9",
+        "rect": {
+          "x": 606.671875,
+          "y": 851.1875,
+          "width": 60.328125,
+          "height": 28
+        }
+      },
+      "expected": {
+        "fontSize": 11.7,
+        "inkHeight": 9
+      },
+      "actual": {
+        "fontSize": 13,
+        "inkHeight": 10,
+        "delta": -1.3
+      },
+      "threshold": {
+        "maxFontDiff": 1.2
+      },
+      "confidence": 0.75,
+      "evidence": {},
+      "nextAction": "结合 inspect 与文字宽度复核后，批量修正同类字号并重新对位",
+      "reason": "",
+      "firstSeenAt": null,
+      "lastSeenAt": null,
+      "resolvedAt": null
+    },
+    {
+      "id": "font-audit:typography:ae843cd3ba70",
+      "detector": "font-audit",
+      "code": "font-size-delta",
+      "dimension": "typography",
+      "severity": "P1",
+      "status": "open",
+      "title": "h3 字号偏差 -5.0px",
+      "target": {
+        "selector": "body>div>div>div>div>main>section>section:nth-of-type(1)>div:nth-of-type(2)>div:nth-of-type(7)>div:nth-of-type(1)>h3",
+        "displaySelector": "h3",
+        "text": "7. 生成张数",
+        "rect": {
+          "x": 255,
+          "y": 906.1875,
+          "width": 72.265625,
+          "height": 20
+        }
+      },
+      "expected": {
+        "fontSize": 9,
+        "inkHeight": 9
+      },
+      "actual": {
+        "fontSize": 14,
+        "inkHeight": 14,
+        "delta": -5
+      },
+      "threshold": {
+        "maxFontDiff": 1.2
+      },
+      "confidence": 0.75,
+      "evidence": {},
+      "nextAction": "结合 inspect 与文字宽度复核后，批量修正同类字号并重新对位",
+      "reason": "",
+      "firstSeenAt": null,
+      "lastSeenAt": null,
+      "resolvedAt": null
+    },
+    {
+      "id": "font-audit:typography:d16d8b5b6092",
+      "detector": "font-audit",
+      "code": "font-size-delta",
+      "dimension": "typography",
+      "severity": "P1",
+      "status": "open",
+      "title": "h3 字号偏差 -5.0px",
+      "target": {
+        "selector": "body>div>div>div>div>main>section>section:nth-of-type(1)>div:nth-of-type(2)>div:nth-of-type(8)>div:nth-of-type(1)>h3",
+        "displaySelector": "h3",
+        "text": "8. 分辨率",
+        "rect": {
+          "x": 471,
+          "y": 906.1875,
+          "width": 58.921875,
+          "height": 20
+        }
+      },
+      "expected": {
+        "fontSize": 9,
+        "inkHeight": 9
+      },
+      "actual": {
+        "fontSize": 14,
+        "inkHeight": 14,
+        "delta": -5
+      },
+      "threshold": {
+        "maxFontDiff": 1.2
+      },
+      "confidence": 0.75,
+      "evidence": {},
+      "nextAction": "结合 inspect 与文字宽度复核后，批量修正同类字号并重新对位",
+      "reason": "",
+      "firstSeenAt": null,
+      "lastSeenAt": null,
+      "resolvedAt": null
+    },
+    {
+      "id": "font-audit:typography:3c8172d539a8",
+      "detector": "font-audit",
+      "code": "font-size-delta",
+      "dimension": "typography",
+      "severity": "P2",
+      "status": "open",
+      "title": "button.choice-pill 字号偏差 -2.6px",
+      "target": {
+        "selector": "body>div>div>div>div>main>section>section:nth-of-type(1)>div:nth-of-type(2)>div:nth-of-type(8)>div:nth-of-type(2)>button:nth-of-type(1)",
+        "displaySelector": "button.choice-pill",
+        "text": "标准 1024",
+        "rect": {
+          "x": 471,
+          "y": 934.1875,
+          "width": 60,
+          "height": 32
+        }
+      },
+      "expected": {
+        "fontSize": 9.38,
+        "inkHeight": 25
+      },
+      "actual": {
+        "fontSize": 12,
+        "inkHeight": 32,
+        "delta": -2.63
+      },
+      "threshold": {
+        "maxFontDiff": 1.2
+      },
+      "confidence": 0.75,
+      "evidence": {},
+      "nextAction": "结合 inspect 与文字宽度复核后，批量修正同类字号并重新对位",
+      "reason": "",
+      "firstSeenAt": null,
+      "lastSeenAt": null,
+      "resolvedAt": null
+    },
+    {
+      "id": "font-audit:typography:64eda7402a2f",
+      "detector": "font-audit",
+      "code": "font-size-delta",
+      "dimension": "typography",
+      "severity": "P1",
+      "status": "open",
+      "title": "button.choice-pill 字号偏差 -3.2px",
+      "target": {
+        "selector": "body>div>div>div>div>main>section>section:nth-of-type(1)>div:nth-of-type(2)>div:nth-of-type(8)>div:nth-of-type(2)>button:nth-of-type(2)",
+        "displaySelector": "button.choice-pill",
+        "text": "高清 1536",
+        "rect": {
+          "x": 537,
+          "y": 934.1875,
+          "width": 60,
+          "height": 32
+        }
+      },
+      "expected": {
+        "fontSize": 8.82,
+        "inkHeight": 25
+      },
+      "actual": {
+        "fontSize": 12,
+        "inkHeight": 34,
+        "delta": -3.18
+      },
+      "threshold": {
+        "maxFontDiff": 1.2
+      },
+      "confidence": 0.75,
+      "evidence": {},
+      "nextAction": "结合 inspect 与文字宽度复核后，批量修正同类字号并重新对位",
+      "reason": "",
+      "firstSeenAt": null,
+      "lastSeenAt": null,
+      "resolvedAt": null
+    },
+    {
+      "id": "font-audit:typography:71d7fa588e4d",
+      "detector": "font-audit",
+      "code": "font-size-delta",
+      "dimension": "typography",
+      "severity": "P1",
+      "status": "open",
+      "title": "button.choice-pill 字号偏差 -7.9px",
+      "target": {
+        "selector": "body>div>div>div>div>main>section>section:nth-of-type(1)>div:nth-of-type(2)>div:nth-of-type(8)>div:nth-of-type(2)>button:nth-of-type(3)",
+        "displaySelector": "button.choice-pill",
+        "text": "超清 2048",
+        "rect": {
+          "x": 603,
+          "y": 934.1875,
+          "width": 60,
+          "height": 32
+        }
+      },
+      "expected": {
+        "fontSize": 4.13,
+        "inkHeight": 11
+      },
+      "actual": {
+        "fontSize": 12,
+        "inkHeight": 32,
+        "delta": -7.88
+      },
+      "threshold": {
+        "maxFontDiff": 1.2
+      },
+      "confidence": 0.75,
+      "evidence": {},
+      "nextAction": "结合 inspect 与文字宽度复核后，批量修正同类字号并重新对位",
+      "reason": "",
+      "firstSeenAt": null,
+      "lastSeenAt": null,
+      "resolvedAt": null
+    },
+    {
+      "id": "font-audit:typography:221d124f1ca7",
+      "detector": "font-audit",
+      "code": "font-size-delta",
+      "dimension": "typography",
+      "severity": "P1",
+      "status": "open",
+      "title": "button.red-button 字号偏差 -4.2px",
+      "target": {
+        "selector": "body>div>div>div>div>main>section>section:nth-of-type(1)>button",
+        "displaySelector": "button.red-button",
+        "text": "开始生成",
+        "rect": {
+          "x": 247,
+          "y": 936,
+          "width": 428,
+          "height": 43
+        }
+      },
+      "expected": {
+        "fontSize": 12.84,
+        "inkHeight": 34
+      },
+      "actual": {
+        "fontSize": 17,
+        "inkHeight": 45,
+        "delta": -4.16
+      },
+      "threshold": {
+        "maxFontDiff": 1.2
+      },
+      "confidence": 0.75,
+      "evidence": {},
+      "nextAction": "结合 inspect 与文字宽度复核后，批量修正同类字号并重新对位",
+      "reason": "",
+      "firstSeenAt": null,
+      "lastSeenAt": null,
+      "resolvedAt": null
+    },
+    {
+      "id": "font-audit:typography:ea467b9702bc",
+      "detector": "font-audit",
+      "code": "font-size-delta",
+      "dimension": "typography",
+      "severity": "P1",
+      "status": "open",
+      "title": "h2 字号偏差 -4.0px",
+      "target": {
+        "selector": "body>div>div>div>div>main>section>section:nth-of-type(2)>div:nth-of-type(1)>h2",
+        "displaySelector": "h2",
+        "text": "创作结果",
+        "rect": {
+          "x": 734,
+          "y": 136.40625,
+          "width": 84,
+          "height": 25.1875
+        }
+      },
+      "expected": {
+        "fontSize": 17,
+        "inkHeight": 17
+      },
+      "actual": {
+        "fontSize": 21,
+        "inkHeight": 21,
+        "delta": -4
+      },
+      "threshold": {
+        "maxFontDiff": 1.2
+      },
+      "confidence": 0.75,
+      "evidence": {},
+      "nextAction": "结合 inspect 与文字宽度复核后，批量修正同类字号并重新对位",
+      "reason": "",
+      "firstSeenAt": null,
+      "lastSeenAt": null,
+      "resolvedAt": null
+    },
+    {
+      "id": "font-audit:typography:cede95aff57a",
+      "detector": "font-audit",
+      "code": "font-size-delta",
+      "dimension": "typography",
+      "severity": "P1",
+      "status": "open",
+      "title": "div.state-card 字号偏差 +529.9px",
+      "target": {
+        "selector": "body>div>div>div>div>main>section>section:nth-of-type(2)>div:nth-of-type(2)>div",
+        "displaySelector": "div.state-card",
+        "text": "加载失败： Unexpect",
+        "rect": {
+          "x": 734,
+          "y": 178,
+          "width": 760,
+          "height": 586
+        }
+      },
+      "expected": {
+        "fontSize": 545.88,
+        "inkHeight": 580
+      },
+      "actual": {
+        "fontSize": 16,
+        "inkHeight": 17,
+        "delta": 529.88
+      },
+      "threshold": {
+        "maxFontDiff": 1.2
+      },
+      "confidence": 0.75,
+      "evidence": {},
+      "nextAction": "结合 inspect 与文字宽度复核后，批量修正同类字号并重新对位",
+      "reason": "",
+      "firstSeenAt": null,
+      "lastSeenAt": null,
+      "resolvedAt": null
+    },
+    {
+      "id": "font-audit:typography:c06b806b7563",
+      "detector": "font-audit",
+      "code": "font-size-delta",
+      "dimension": "typography",
+      "severity": "P1",
+      "status": "open",
+      "title": "button.error-toast 字号偏差 -6.7px",
+      "target": {
+        "selector": "body>div>div>div>div>main>section>section:nth-of-type(2)>button",
+        "displaySelector": "button.error-toast",
+        "text": "Unexpected tok",
+        "rect": {
+          "x": 912.5,
+          "y": 919,
+          "width": 403,
+          "height": 60
+        }
+      },
+      "expected": {
+        "fontSize": 9.33,
+        "inkHeight": 35
+      },
+      "actual": {
+        "fontSize": 16,
+        "inkHeight": 60,
+        "delta": -6.67
+      },
+      "threshold": {
+        "maxFontDiff": 1.2
+      },
+      "confidence": 0.75,
+      "evidence": {},
+      "nextAction": "结合 inspect 与文字宽度复核后，批量修正同类字号并重新对位",
+      "reason": "",
+      "firstSeenAt": null,
+      "lastSeenAt": null,
+      "resolvedAt": null
+    }
+  ]
+}

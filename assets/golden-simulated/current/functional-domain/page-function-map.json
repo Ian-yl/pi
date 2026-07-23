@@ -1,0 +1,33 @@
+{
+  "schemaVersion": "2.0",
+  "pages": [
+    {
+      "pageId": "sample",
+      "navigationOnly": false,
+      "capabilityIds": [
+        "cap-sample"
+      ]
+    },
+    {
+      "pageId": "suite-sample-detail",
+      "navigationOnly": false,
+      "capabilityIds": [
+        "cap-suite-sample-detail"
+      ]
+    },
+    {
+      "pageId": "sample",
+      "navigationOnly": false,
+      "capabilityIds": [
+        "cap-sample-local-navigation"
+      ]
+    },
+    {
+      "pageId": "sample",
+      "navigationOnly": false,
+      "capabilityIds": [
+        "cap-sample-display-result"
+      ]
+    }
+  ]
+}

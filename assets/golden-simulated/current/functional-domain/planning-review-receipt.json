@@ -1,0 +1,7 @@
+{
+  "schemaVersion": "1.0",
+  "status": "approved",
+  "workflow": "fdd-bmad-planning",
+  "authorAgentId": "golden-domain-author",
+  "reviewerAgentId": "golden-domain-reviewer"
+}

@@ -1,0 +1,2103 @@
+{
+  "version": 3,
+  "name": "pg-1r",
+  "generatedAt": "2026-07-22T13:54:14.645Z",
+  "summary": {
+    "total": 69,
+    "byPriority": {
+      "P0": 2,
+      "P1": 26,
+      "P2": 41
+    },
+    "byType": {
+      "finding": 56,
+      "visual-dimension": 13
+    },
+    "byDimension": {
+      "content": 24,
+      "geometry": 33,
+      "typography": 3,
+      "textColor": 2,
+      "backgroundColor": 2,
+      "border": 5
+    }
+  },
+  "truncated": false,
+  "items": [
+    {
+      "priority": "P0",
+      "type": "finding",
+      "source": "content-audit",
+      "findingId": "content-audit:content:75ed2fca2905",
+      "title": "contentScope=all-visible 但 manifest 未启用 requireAllVisible",
+      "severity": "P0",
+      "status": "open",
+      "dimension": "content",
+      "selector": "",
+      "region": "",
+      "file": "pages/<name>/content-manifest.json",
+      "target": {
+        "file": "pages/<name>/content-manifest.json"
+      },
+      "expected": null,
+      "actual": null,
+      "evidence": {},
+      "confidence": null,
+      "nextAction": "设置 requireAllVisible=true 并登记审计发现的全部可见内容"
+    },
+    {
+      "priority": "P0",
+      "type": "finding",
+      "source": "content-audit",
+      "findingId": "content-audit:content:f2896af320a1",
+      "title": "pg-1r-primary-title: target element not found or not visible",
+      "severity": "P0",
+      "status": "open",
+      "dimension": "content",
+      "selector": ".hero-title",
+      "region": "",
+      "file": "",
+      "target": {
+        "elementId": "pg-1r-primary-title",
+        "selector": ".hero-title"
+      },
+      "expected": {
+        "text": "让商品视觉，随场景一键生长",
+        "policy": "exact"
+      },
+      "actual": {
+        "text": ""
+      },
+      "evidence": {},
+      "confidence": 1,
+      "nextAction": "修正前端文案或更新经人工确认的内容清单"
+    },
+    {
+      "priority": "P1",
+      "type": "visual-dimension",
+      "source": "visual-inventory",
+      "title": "button-007-1yhbr1 content pending",
+      "id": "button-007-1yhbr1",
+      "kind": "button",
+      "selector": "button.brand",
+      "text": "",
+      "dimension": "content",
+      "status": "pending",
+      "reason": "visible content must match or be documented as mock",
+      "nextAction": "确认 button.brand 文案可读性;不可辨认则语义 mock 并记录,不要用 blur"
+    },
+    {
+      "priority": "P1",
+      "type": "visual-dimension",
+      "source": "visual-inventory",
+      "title": "text-011-1yxsam content pending",
+      "id": "text-011-1yxsam",
+      "kind": "text",
+      "selector": "span:nth-of-type(2)",
+      "text": "灵灵生图站",
+      "dimension": "content",
+      "status": "pending",
+      "reason": "visible content must match or be documented as mock",
+      "nextAction": "确认 span:nth-of-type(2) 文案可读性;不可辨认则语义 mock 并记录,不要用 blur"
+    },
+    {
+      "priority": "P1",
+      "type": "visual-dimension",
+      "source": "visual-inventory",
+      "title": "text-012-1weow4 content pending",
+      "id": "text-012-1weow4",
+      "kind": "text",
+      "selector": "nav.nav-tabs",
+      "text": "",
+      "dimension": "content",
+      "status": "pending",
+      "reason": "visible content must match or be documented as mock",
+      "nextAction": "确认 nav.nav-tabs 文案可读性;不可辨认则语义 mock 并记录,不要用 blur"
+    },
+    {
+      "priority": "P1",
+      "type": "visual-dimension",
+      "source": "visual-inventory",
+      "title": "button-013-18cahi content pending",
+      "id": "button-013-18cahi",
+      "kind": "button",
+      "selector": "button.active:nth-of-type(1)",
+      "text": "首页",
+      "dimension": "content",
+      "status": "pending",
+      "reason": "visible content must match or be documented as mock",
+      "nextAction": "确认 button.active:nth-of-type(1) 文案可读性;不可辨认则语义 mock 并记录,不要用 blur"
+    },
+    {
+      "priority": "P1",
+      "type": "visual-dimension",
+      "source": "visual-inventory",
+      "title": "button-014-13m4tn content pending",
+      "id": "button-014-13m4tn",
+      "kind": "button",
+      "selector": "button:nth-of-type(2)",
+      "text": "照片级AI商品图",
+      "dimension": "content",
+      "status": "pending",
+      "reason": "visible content must match or be documented as mock",
+      "nextAction": "确认 button:nth-of-type(2) 文案可读性;不可辨认则语义 mock 并记录,不要用 blur"
+    },
+    {
+      "priority": "P1",
+      "type": "visual-dimension",
+      "source": "visual-inventory",
+      "title": "button-015-1o7l5o content pending",
+      "id": "button-015-1o7l5o",
+      "kind": "button",
+      "selector": "button:nth-of-type(3)",
+      "text": "万物穿搭上身",
+      "dimension": "content",
+      "status": "pending",
+      "reason": "visible content must match or be documented as mock",
+      "nextAction": "确认 button:nth-of-type(3) 文案可读性;不可辨认则语义 mock 并记录,不要用 blur"
+    },
+    {
+      "priority": "P1",
+      "type": "visual-dimension",
+      "source": "visual-inventory",
+      "title": "button-016-q97we1 content pending",
+      "id": "button-016-q97we1",
+      "kind": "button",
+      "selector": "button:nth-of-type(4)",
+      "text": "营销场景设计",
+      "dimension": "content",
+      "status": "pending",
+      "reason": "visible content must match or be documented as mock",
+      "nextAction": "确认 button:nth-of-type(4) 文案可读性;不可辨认则语义 mock 并记录,不要用 blur"
+    },
+    {
+      "priority": "P1",
+      "type": "visual-dimension",
+      "source": "visual-inventory",
+      "title": "button-017-11fsz8 content pending",
+      "id": "button-017-11fsz8",
+      "kind": "button",
+      "selector": "button:nth-of-type(5)",
+      "text": "电商素材生成",
+      "dimension": "content",
+      "status": "pending",
+      "reason": "visible content must match or be documented as mock",
+      "nextAction": "确认 button:nth-of-type(5) 文案可读性;不可辨认则语义 mock 并记录,不要用 blur"
+    },
+    {
+      "priority": "P1",
+      "type": "visual-dimension",
+      "source": "visual-inventory",
+      "title": "input-023-7gxtzm content pending",
+      "id": "input-023-7gxtzm",
+      "kind": "input",
+      "selector": "input",
+      "text": "",
+      "dimension": "content",
+      "status": "pending",
+      "reason": "visible content must match or be documented as mock",
+      "nextAction": "确认 input 文案可读性;不可辨认则语义 mock 并记录,不要用 blur"
+    },
+    {
+      "priority": "P1",
+      "type": "visual-dimension",
+      "source": "visual-inventory",
+      "title": "text-047-1j8quk content pending",
+      "id": "text-047-1j8quk",
+      "kind": "text",
+      "selector": "h1.hero-title",
+      "text": "首页加载失败",
+      "dimension": "content",
+      "status": "pending",
+      "reason": "visible content must match or be documented as mock",
+      "nextAction": "确认 h1.hero-title 文案可读性;不可辨认则语义 mock 并记录,不要用 blur"
+    },
+    {
+      "priority": "P1",
+      "type": "visual-dimension",
+      "source": "visual-inventory",
+      "title": "text-048-fa6dx7 content pending",
+      "id": "text-048-fa6dx7",
+      "kind": "text",
+      "selector": "p.hero-subtitle",
+      "text": "Unexpected token '<', \"<!doctype \"... is not valid JSON",
+      "dimension": "content",
+      "status": "pending",
+      "reason": "visible content must match or be documented as mock",
+      "nextAction": "确认 p.hero-subtitle 文案可读性;不可辨认则语义 mock 并记录,不要用 blur"
+    },
+    {
+      "priority": "P1",
+      "type": "finding",
+      "source": "diff-components",
+      "findingId": "diff-components:geometry:11dd6643cfa9",
+      "title": "Viewport 差异块 13055px",
+      "severity": "P1",
+      "status": "open",
+      "dimension": "geometry",
+      "selector": "",
+      "region": "Viewport",
+      "file": "",
+      "target": {
+        "region": "Viewport",
+        "rect": {
+          "x": 0,
+          "y": 153,
+          "width": 177,
+          "height": 202
+        }
+      },
+      "expected": null,
+      "actual": {
+        "pixels": 13055,
+        "share": 0.008300145467122396
+      },
+      "evidence": {
+        "diff": "diff.png",
+        "rect": {
+          "x": 0,
+          "y": 153,
+          "width": 177,
+          "height": 202
+        }
+      },
+      "confidence": 0.96,
+      "nextAction": "打开该坐标局部对比，定位对应 DOM 元素后修复"
+    },
+    {
+      "priority": "P1",
+      "type": "finding",
+      "source": "diff-components",
+      "findingId": "diff-components:geometry:1f5d98d5b910",
+      "title": "Viewport 差异块 73098px",
+      "severity": "P1",
+      "status": "open",
+      "dimension": "geometry",
+      "selector": "",
+      "region": "Viewport",
+      "file": "",
+      "target": {
+        "region": "Viewport",
+        "rect": {
+          "x": 1261,
+          "y": 376,
+          "width": 275,
+          "height": 483
+        }
+      },
+      "expected": null,
+      "actual": {
+        "pixels": 73098,
+        "share": 0.046474456787109375
+      },
+      "evidence": {
+        "diff": "diff.png",
+        "rect": {
+          "x": 1261,
+          "y": 376,
+          "width": 275,
+          "height": 483
+        }
+      },
+      "confidence": 0.96,
+      "nextAction": "打开该坐标局部对比，定位对应 DOM 元素后修复"
+    },
+    {
+      "priority": "P1",
+      "type": "finding",
+      "source": "diff-components",
+      "findingId": "diff-components:geometry:23f428f98880",
+      "title": "Viewport 差异块 47021px",
+      "severity": "P1",
+      "status": "open",
+      "dimension": "geometry",
+      "selector": "",
+      "region": "Viewport",
+      "file": "",
+      "target": {
+        "region": "Viewport",
+        "rect": {
+          "x": 778,
+          "y": 846,
+          "width": 758,
+          "height": 178
+        }
+      },
+      "expected": null,
+      "actual": {
+        "pixels": 47021,
+        "share": 0.02989514668782552
+      },
+      "evidence": {
+        "diff": "diff.png",
+        "rect": {
+          "x": 778,
+          "y": 846,
+          "width": 758,
+          "height": 178
+        }
+      },
+      "confidence": 0.96,
+      "nextAction": "打开该坐标局部对比，定位对应 DOM 元素后修复"
+    },
+    {
+      "priority": "P1",
+      "type": "finding",
+      "source": "diff-components",
+      "findingId": "diff-components:geometry:4e4ff49bb81e",
+      "title": "Viewport 差异块 9273px",
+      "severity": "P1",
+      "status": "open",
+      "dimension": "geometry",
+      "selector": "",
+      "region": "Viewport",
+      "file": "",
+      "target": {
+        "region": "Viewport",
+        "rect": {
+          "x": 1029,
+          "y": 348,
+          "width": 89,
+          "height": 252
+        }
+      },
+      "expected": null,
+      "actual": {
+        "pixels": 9273,
+        "share": 0.0058956146240234375
+      },
+      "evidence": {
+        "diff": "diff.png",
+        "rect": {
+          "x": 1029,
+          "y": 348,
+          "width": 89,
+          "height": 252
+        }
+      },
+      "confidence": 0.96,
+      "nextAction": "打开该坐标局部对比，定位对应 DOM 元素后修复"
+    },
+    {
+      "priority": "P1",
+      "type": "finding",
+      "source": "diff-components",
+      "findingId": "diff-components:geometry:62be70cc8d1f",
+      "title": "Viewport 差异块 23222px",
+      "severity": "P1",
+      "status": "open",
+      "dimension": "geometry",
+      "selector": "",
+      "region": "Viewport",
+      "file": "",
+      "target": {
+        "region": "Viewport",
+        "rect": {
+          "x": 1305,
+          "y": 230,
+          "width": 155,
+          "height": 235
+        }
+      },
+      "expected": null,
+      "actual": {
+        "pixels": 23222,
+        "share": 0.014764149983723959
+      },
+      "evidence": {
+        "diff": "diff.png",
+        "rect": {
+          "x": 1305,
+          "y": 230,
+          "width": 155,
+          "height": 235
+        }
+      },
+      "confidence": 0.96,
+      "nextAction": "打开该坐标局部对比，定位对应 DOM 元素后修复"
+    },
+    {
+      "priority": "P1",
+      "type": "finding",
+      "source": "diff-components",
+      "findingId": "diff-components:geometry:8d4cb20e92de",
+      "title": "Viewport 差异块 11237px",
+      "severity": "P1",
+      "status": "open",
+      "dimension": "geometry",
+      "selector": "",
+      "region": "Viewport",
+      "file": "",
+      "target": {
+        "region": "Viewport",
+        "rect": {
+          "x": 933,
+          "y": 108,
+          "width": 267,
+          "height": 84
+        }
+      },
+      "expected": null,
+      "actual": {
+        "pixels": 11237,
+        "share": 0.0071442921956380205
+      },
+      "evidence": {
+        "diff": "diff.png",
+        "rect": {
+          "x": 933,
+          "y": 108,
+          "width": 267,
+          "height": 84
+        }
+      },
+      "confidence": 0.96,
+      "nextAction": "打开该坐标局部对比，定位对应 DOM 元素后修复"
+    },
+    {
+      "priority": "P1",
+      "type": "finding",
+      "source": "diff-components",
+      "findingId": "diff-components:geometry:97c17e3d783f",
+      "title": "Viewport 差异块 26768px",
+      "severity": "P1",
+      "status": "open",
+      "dimension": "geometry",
+      "selector": "",
+      "region": "Viewport",
+      "file": "",
+      "target": {
+        "region": "Viewport",
+        "rect": {
+          "x": 0,
+          "y": 421,
+          "width": 142,
+          "height": 581
+        }
+      },
+      "expected": null,
+      "actual": {
+        "pixels": 26768,
+        "share": 0.017018636067708332
+      },
+      "evidence": {
+        "diff": "diff.png",
+        "rect": {
+          "x": 0,
+          "y": 421,
+          "width": 142,
+          "height": 581
+        }
+      },
+      "confidence": 0.96,
+      "nextAction": "打开该坐标局部对比，定位对应 DOM 元素后修复"
+    },
+    {
+      "priority": "P1",
+      "type": "finding",
+      "source": "diff-components",
+      "findingId": "diff-components:geometry:a500adaee175",
+      "title": "Viewport 差异块 14406px",
+      "severity": "P1",
+      "status": "open",
+      "dimension": "geometry",
+      "selector": "",
+      "region": "Viewport",
+      "file": "",
+      "target": {
+        "region": "Viewport",
+        "rect": {
+          "x": 213,
+          "y": 372,
+          "width": 362,
+          "height": 87
+        }
+      },
+      "expected": null,
+      "actual": {
+        "pixels": 14406,
+        "share": 0.009159088134765625
+      },
+      "evidence": {
+        "diff": "diff.png",
+        "rect": {
+          "x": 213,
+          "y": 372,
+          "width": 362,
+          "height": 87
+        }
+      },
+      "confidence": 0.96,
+      "nextAction": "打开该坐标局部对比，定位对应 DOM 元素后修复"
+    },
+    {
+      "priority": "P1",
+      "type": "finding",
+      "source": "diff-components",
+      "findingId": "diff-components:geometry:fa8d06b424e2",
+      "title": "Viewport 差异块 12380px",
+      "severity": "P1",
+      "status": "open",
+      "dimension": "geometry",
+      "selector": "",
+      "region": "Viewport",
+      "file": "",
+      "target": {
+        "region": "Viewport",
+        "rect": {
+          "x": 1139,
+          "y": 347,
+          "width": 102,
+          "height": 220
+        }
+      },
+      "expected": null,
+      "actual": {
+        "pixels": 12380,
+        "share": 0.007870992024739584
+      },
+      "evidence": {
+        "diff": "diff.png",
+        "rect": {
+          "x": 1139,
+          "y": 347,
+          "width": 102,
+          "height": 220
+        }
+      },
+      "confidence": 0.96,
+      "nextAction": "打开该坐标局部对比，定位对应 DOM 元素后修复"
+    },
+    {
+      "priority": "P1",
+      "type": "finding",
+      "source": "full-audit",
+      "findingId": "full-audit:geometry:29e72f26afa0",
+      "title": "p.hero-subtitle: 垂直位置偏差 20.0px",
+      "severity": "P1",
+      "status": "open",
+      "dimension": "geometry",
+      "selector": "body>div>div>div>div>main>section>div:nth-of-type(2)>p",
+      "region": "",
+      "file": "",
+      "target": {
+        "selector": "body>div>div>div>div>main>section>div:nth-of-type(2)>p",
+        "displaySelector": "p.hero-subtitle",
+        "text": "Unexpected t",
+        "rect": {
+          "x": 146,
+          "y": 463.03125,
+          "width": 650,
+          "height": 37.390625
+        }
+      },
+      "expected": {
+        "maxAbsDy": 1.5
+      },
+      "actual": {
+        "dy": 20
+      },
+      "evidence": {},
+      "confidence": 0.8,
+      "nextAction": "复核 geometry 测量并批量修正同类元素"
+    },
+    {
+      "priority": "P1",
+      "type": "finding",
+      "source": "full-audit",
+      "findingId": "full-audit:geometry:ca1388733f28",
+      "title": "h1.hero-title: 垂直位置偏差 19.0px",
+      "severity": "P1",
+      "status": "open",
+      "dimension": "geometry",
+      "selector": "body>div>div>div>div>main>section>div:nth-of-type(2)>h1",
+      "region": "",
+      "file": "",
+      "target": {
+        "selector": "body>div>div>div>div>main>section>div:nth-of-type(2)>h1",
+        "displaySelector": "h1.hero-title",
+        "text": "首页加载失败",
+        "rect": {
+          "x": 146,
+          "y": 360,
+          "width": 650,
+          "height": 87.03125
+        }
+      },
+      "expected": {
+        "maxAbsDy": 1.5
+      },
+      "actual": {
+        "dy": 19
+      },
+      "evidence": {},
+      "confidence": 0.8,
+      "nextAction": "复核 geometry 测量并批量修正同类元素"
+    },
+    {
+      "priority": "P1",
+      "type": "finding",
+      "source": "full-audit",
+      "findingId": "full-audit:geometry:eb132a018fe9",
+      "title": "span: 垂直位置偏差 6.0px",
+      "severity": "P1",
+      "status": "open",
+      "dimension": "geometry",
+      "selector": "body>div>div>div>div>main>header>button>span:nth-of-type(2)",
+      "region": "",
+      "file": "",
+      "target": {
+        "selector": "body>div>div>div>div>main>header>button>span:nth-of-type(2)",
+        "displaySelector": "span",
+        "text": "灵灵生图站",
+        "rect": {
+          "x": 103,
+          "y": 40,
+          "width": 125,
+          "height": 36
+        }
+      },
+      "expected": {
+        "maxAbsDy": 1.5
+      },
+      "actual": {
+        "dy": 6
+      },
+      "evidence": {},
+      "confidence": 0.8,
+      "nextAction": "复核 geometry 测量并批量修正同类元素"
+    },
+    {
+      "priority": "P1",
+      "type": "finding",
+      "source": "font-audit",
+      "findingId": "font-audit:typography:207d65b54bf7",
+      "title": "h1.hero-title 字号偏差 -3.1px",
+      "severity": "P1",
+      "status": "open",
+      "dimension": "typography",
+      "selector": "body>div>div>div>div>main>section>div:nth-of-type(2)>h1",
+      "region": "",
+      "file": "",
+      "target": {
+        "selector": "body>div>div>div>div>main>section>div:nth-of-type(2)>h1",
+        "displaySelector": "h1.hero-title",
+        "text": "首页加载失败",
+        "rect": {
+          "x": 146,
+          "y": 360,
+          "width": 650,
+          "height": 87.03125
+        }
+      },
+      "expected": {
+        "fontSize": 60.85,
+        "inkHeight": 58
+      },
+      "actual": {
+        "fontSize": 64,
+        "inkHeight": 61,
+        "delta": -3.15
+      },
+      "evidence": {},
+      "confidence": 0.75,
+      "nextAction": "结合 inspect 与文字宽度复核后，批量修正同类字号并重新对位"
+    },
+    {
+      "priority": "P1",
+      "type": "finding",
+      "source": "font-audit",
+      "findingId": "font-audit:typography:5133e78cdf97",
+      "title": "p.hero-subtitle 字号偏差 -12.0px",
+      "severity": "P1",
+      "status": "open",
+      "dimension": "typography",
+      "selector": "body>div>div>div>div>main>section>div:nth-of-type(2)>p",
+      "region": "",
+      "file": "",
+      "target": {
+        "selector": "body>div>div>div>div>main>section>div:nth-of-type(2)>p",
+        "displaySelector": "p.hero-subtitle",
+        "text": "Unexpected tok",
+        "rect": {
+          "x": 146,
+          "y": 463.03125,
+          "width": 650,
+          "height": 37.390625
+        }
+      },
+      "expected": {
+        "fontSize": 10,
+        "inkHeight": 10
+      },
+      "actual": {
+        "fontSize": 22,
+        "inkHeight": 22,
+        "delta": -12
+      },
+      "evidence": {},
+      "confidence": 0.75,
+      "nextAction": "结合 inspect 与文字宽度复核后，批量修正同类字号并重新对位"
+    },
+    {
+      "priority": "P1",
+      "type": "finding",
+      "source": "font-audit",
+      "findingId": "font-audit:typography:e0f24d5b5416",
+      "title": "span 字号偏差 -4.2px",
+      "severity": "P1",
+      "status": "open",
+      "dimension": "typography",
+      "selector": "body>div>div>div>div>main>header>button>span:nth-of-type(2)",
+      "region": "",
+      "file": "",
+      "target": {
+        "selector": "body>div>div>div>div>main>header>button>span:nth-of-type(2)",
+        "displaySelector": "span",
+        "text": "灵灵生图站",
+        "rect": {
+          "x": 103,
+          "y": 40,
+          "width": 125,
+          "height": 36
+        }
+      },
+      "expected": {
+        "fontSize": 20.83,
+        "inkHeight": 20
+      },
+      "actual": {
+        "fontSize": 25,
+        "inkHeight": 24,
+        "delta": -4.17
+      },
+      "evidence": {},
+      "confidence": 0.75,
+      "nextAction": "结合 inspect 与文字宽度复核后，批量修正同类字号并重新对位"
+    },
+    {
+      "priority": "P2",
+      "type": "finding",
+      "source": "content-audit",
+      "findingId": "content-audit:content:0c0305876e28",
+      "title": "可见内容未登记: 灵灵生图站",
+      "severity": "P2",
+      "status": "open",
+      "dimension": "content",
+      "selector": "body>div>div>div>div>main>header>button>span:nth-of-type(2)",
+      "region": "",
+      "file": "",
+      "target": {
+        "selector": "body>div>div>div>div>main>header>button>span:nth-of-type(2)"
+      },
+      "expected": null,
+      "actual": {
+        "text": "灵灵生图站"
+      },
+      "evidence": {},
+      "confidence": null,
+      "nextAction": "将该内容登记为 exact、contains 或 mock"
+    },
+    {
+      "priority": "P2",
+      "type": "finding",
+      "source": "content-audit",
+      "findingId": "content-audit:content:234ec8b2c628",
+      "title": "可见内容未登记: 电商素材生成",
+      "severity": "P2",
+      "status": "open",
+      "dimension": "content",
+      "selector": "body>div>div>div>div>main>header>nav>button:nth-of-type(5)",
+      "region": "",
+      "file": "",
+      "target": {
+        "selector": "body>div>div>div>div>main>header>nav>button:nth-of-type(5)"
+      },
+      "expected": null,
+      "actual": {
+        "text": "电商素材生成"
+      },
+      "evidence": {},
+      "confidence": null,
+      "nextAction": "将该内容登记为 exact、contains 或 mock"
+    },
+    {
+      "priority": "P2",
+      "type": "finding",
+      "source": "content-audit",
+      "findingId": "content-audit:content:2910df80b241",
+      "title": "可见内容未登记: 万物穿搭上身",
+      "severity": "P2",
+      "status": "open",
+      "dimension": "content",
+      "selector": "body>div>div>div>div>main>header>nav>button:nth-of-type(3)",
+      "region": "",
+      "file": "",
+      "target": {
+        "selector": "body>div>div>div>div>main>header>nav>button:nth-of-type(3)"
+      },
+      "expected": null,
+      "actual": {
+        "text": "万物穿搭上身"
+      },
+      "evidence": {},
+      "confidence": null,
+      "nextAction": "将该内容登记为 exact、contains 或 mock"
+    },
+    {
+      "priority": "P2",
+      "type": "finding",
+      "source": "content-audit",
+      "findingId": "content-audit:content:471fb078f26a",
+      "title": "可见内容未登记: 营销场景设计",
+      "severity": "P2",
+      "status": "open",
+      "dimension": "content",
+      "selector": "body>div>div>div>div>main>header>nav>button:nth-of-type(4)",
+      "region": "",
+      "file": "",
+      "target": {
+        "selector": "body>div>div>div>div>main>header>nav>button:nth-of-type(4)"
+      },
+      "expected": null,
+      "actual": {
+        "text": "营销场景设计"
+      },
+      "evidence": {},
+      "confidence": null,
+      "nextAction": "将该内容登记为 exact、contains 或 mock"
+    },
+    {
+      "priority": "P2",
+      "type": "finding",
+      "source": "content-audit",
+      "findingId": "content-audit:content:53260e4b0475",
+      "title": "可见内容未登记: 照片级AI商品图",
+      "severity": "P2",
+      "status": "open",
+      "dimension": "content",
+      "selector": "body>div>div>div>div>main>header>nav>button:nth-of-type(2)",
+      "region": "",
+      "file": "",
+      "target": {
+        "selector": "body>div>div>div>div>main>header>nav>button:nth-of-type(2)"
+      },
+      "expected": null,
+      "actual": {
+        "text": "照片级AI商品图"
+      },
+      "evidence": {},
+      "confidence": null,
+      "nextAction": "将该内容登记为 exact、contains 或 mock"
+    },
+    {
+      "priority": "P2",
+      "type": "finding",
+      "source": "content-audit",
+      "findingId": "content-audit:content:5ef78496536d",
+      "title": "可见内容未登记: 返回首页",
+      "severity": "P2",
+      "status": "open",
+      "dimension": "content",
+      "selector": "body>div>div>div>div>main>header>button",
+      "region": "",
+      "file": "",
+      "target": {
+        "selector": "body>div>div>div>div>main>header>button"
+      },
+      "expected": null,
+      "actual": {
+        "text": "返回首页"
+      },
+      "evidence": {},
+      "confidence": null,
+      "nextAction": "将该内容登记为 exact、contains 或 mock"
+    },
+    {
+      "priority": "P2",
+      "type": "finding",
+      "source": "content-audit",
+      "findingId": "content-audit:content:6558b22dc43d",
+      "title": "可见内容未登记: 主导航",
+      "severity": "P2",
+      "status": "open",
+      "dimension": "content",
+      "selector": "body>div>div>div>div>main>header>nav",
+      "region": "",
+      "file": "",
+      "target": {
+        "selector": "body>div>div>div>div>main>header>nav"
+      },
+      "expected": null,
+      "actual": {
+        "text": "主导航"
+      },
+      "evidence": {},
+      "confidence": null,
+      "nextAction": "将该内容登记为 exact、contains 或 mock"
+    },
+    {
+      "priority": "P2",
+      "type": "finding",
+      "source": "content-audit",
+      "findingId": "content-audit:content:749958ee4e86",
+      "title": "可见内容未登记: 搜索模板、场景、素材等",
+      "severity": "P2",
+      "status": "open",
+      "dimension": "content",
+      "selector": "body>div>div>div>div>main>header>div>form>input",
+      "region": "",
+      "file": "",
+      "target": {
+        "selector": "body>div>div>div>div>main>header>div>form>input"
+      },
+      "expected": null,
+      "actual": {
+        "text": "搜索模板、场景、素材等"
+      },
+      "evidence": {},
+      "confidence": null,
+      "nextAction": "将该内容登记为 exact、contains 或 mock"
+    },
+    {
+      "priority": "P2",
+      "type": "finding",
+      "source": "content-audit",
+      "findingId": "content-audit:content:88a4ba22330f",
+      "title": "可见内容未登记: 首页加载失败",
+      "severity": "P2",
+      "status": "open",
+      "dimension": "content",
+      "selector": "body>div>div>div>div>main>section>div:nth-of-type(2)>h1",
+      "region": "",
+      "file": "",
+      "target": {
+        "selector": "body>div>div>div>div>main>section>div:nth-of-type(2)>h1"
+      },
+      "expected": null,
+      "actual": {
+        "text": "首页加载失败"
+      },
+      "evidence": {},
+      "confidence": null,
+      "nextAction": "将该内容登记为 exact、contains 或 mock"
+    },
+    {
+      "priority": "P2",
+      "type": "finding",
+      "source": "content-audit",
+      "findingId": "content-audit:content:9122e7a4dff4",
+      "title": "可见内容未登记: Unexpected token '<', \"<!doctype \"... is",
+      "severity": "P2",
+      "status": "open",
+      "dimension": "content",
+      "selector": "body>div>div>div>div>main>section>div:nth-of-type(2)>p",
+      "region": "",
+      "file": "",
+      "target": {
+        "selector": "body>div>div>div>div>main>section>div:nth-of-type(2)>p"
+      },
+      "expected": null,
+      "actual": {
+        "text": "Unexpected token '<', \"<!doctype \"... is not valid JSON"
+      },
+      "evidence": {},
+      "confidence": null,
+      "nextAction": "将该内容登记为 exact、contains 或 mock"
+    },
+    {
+      "priority": "P2",
+      "type": "finding",
+      "source": "content-audit",
+      "findingId": "content-audit:content:d46f4f8c2718",
+      "title": "可见内容未登记: 首页",
+      "severity": "P2",
+      "status": "open",
+      "dimension": "content",
+      "selector": "body>div>div>div>div>main>header>nav>button:nth-of-type(1)",
+      "region": "",
+      "file": "",
+      "target": {
+        "selector": "body>div>div>div>div>main>header>nav>button:nth-of-type(1)"
+      },
+      "expected": null,
+      "actual": {
+        "text": "首页"
+      },
+      "evidence": {},
+      "confidence": null,
+      "nextAction": "将该内容登记为 exact、contains 或 mock"
+    },
+    {
+      "priority": "P2",
+      "type": "finding",
+      "source": "diff-components",
+      "findingId": "diff-components:geometry:01161222a775",
+      "title": "Viewport 差异块 1662px",
+      "severity": "P2",
+      "status": "open",
+      "dimension": "geometry",
+      "selector": "",
+      "region": "Viewport",
+      "file": "",
+      "target": {
+        "region": "Viewport",
+        "rect": {
+          "x": 149,
+          "y": 372,
+          "width": 58,
+          "height": 86
+        }
+      },
+      "expected": null,
+      "actual": {
+        "pixels": 1662,
+        "share": 0.001056671142578125
+      },
+      "evidence": {
+        "diff": "diff.png",
+        "rect": {
+          "x": 149,
+          "y": 372,
+          "width": 58,
+          "height": 86
+        }
+      },
+      "confidence": 0.96,
+      "nextAction": "打开该坐标局部对比，定位对应 DOM 元素后修复"
+    },
+    {
+      "priority": "P2",
+      "type": "finding",
+      "source": "diff-components",
+      "findingId": "diff-components:geometry:014e518a1d9f",
+      "title": "Viewport 差异块 2620px",
+      "severity": "P2",
+      "status": "open",
+      "dimension": "geometry",
+      "selector": "",
+      "region": "Viewport",
+      "file": "",
+      "target": {
+        "region": "Viewport",
+        "rect": {
+          "x": 220,
+          "y": 299,
+          "width": 64,
+          "height": 69
+        }
+      },
+      "expected": null,
+      "actual": {
+        "pixels": 2620,
+        "share": 0.0016657511393229167
+      },
+      "evidence": {
+        "diff": "diff.png",
+        "rect": {
+          "x": 220,
+          "y": 299,
+          "width": 64,
+          "height": 69
+        }
+      },
+      "confidence": 0.96,
+      "nextAction": "打开该坐标局部对比，定位对应 DOM 元素后修复"
+    },
+    {
+      "priority": "P2",
+      "type": "finding",
+      "source": "diff-components",
+      "findingId": "diff-components:geometry:14c1cf7c0d96",
+      "title": "Viewport 差异块 3358px",
+      "severity": "P2",
+      "status": "open",
+      "dimension": "geometry",
+      "selector": "",
+      "region": "Viewport",
+      "file": "",
+      "target": {
+        "region": "Viewport",
+        "rect": {
+          "x": 743,
+          "y": 496,
+          "width": 188,
+          "height": 70
+        }
+      },
+      "expected": null,
+      "actual": {
+        "pixels": 3358,
+        "share": 0.0021349589029947915
+      },
+      "evidence": {
+        "diff": "diff.png",
+        "rect": {
+          "x": 743,
+          "y": 496,
+          "width": 188,
+          "height": 70
+        }
+      },
+      "confidence": 0.96,
+      "nextAction": "打开该坐标局部对比，定位对应 DOM 元素后修复"
+    },
+    {
+      "priority": "P2",
+      "type": "finding",
+      "source": "diff-components",
+      "findingId": "diff-components:geometry:360ce39e0a61",
+      "title": "Viewport 差异块 3441px",
+      "severity": "P2",
+      "status": "open",
+      "dimension": "geometry",
+      "selector": "",
+      "region": "Viewport",
+      "file": "",
+      "target": {
+        "region": "Viewport",
+        "rect": {
+          "x": 1204,
+          "y": 402,
+          "width": 70,
+          "height": 79
+        }
+      },
+      "expected": null,
+      "actual": {
+        "pixels": 3441,
+        "share": 0.0021877288818359375
+      },
+      "evidence": {
+        "diff": "diff.png",
+        "rect": {
+          "x": 1204,
+          "y": 402,
+          "width": 70,
+          "height": 79
+        }
+      },
+      "confidence": 0.96,
+      "nextAction": "打开该坐标局部对比，定位对应 DOM 元素后修复"
+    },
+    {
+      "priority": "P2",
+      "type": "finding",
+      "source": "diff-components",
+      "findingId": "diff-components:geometry:42f1b177f91c",
+      "title": "Viewport 差异块 1581px",
+      "severity": "P2",
+      "status": "open",
+      "dimension": "geometry",
+      "selector": "",
+      "region": "Viewport",
+      "file": "",
+      "target": {
+        "region": "Viewport",
+        "rect": {
+          "x": 162,
+          "y": 391,
+          "width": 52,
+          "height": 67
+        }
+      },
+      "expected": null,
+      "actual": {
+        "pixels": 1581,
+        "share": 0.0010051727294921875
+      },
+      "evidence": {
+        "diff": "diff.png",
+        "rect": {
+          "x": 162,
+          "y": 391,
+          "width": 52,
+          "height": 67
+        }
+      },
+      "confidence": 0.96,
+      "nextAction": "打开该坐标局部对比，定位对应 DOM 元素后修复"
+    },
+    {
+      "priority": "P2",
+      "type": "finding",
+      "source": "diff-components",
+      "findingId": "diff-components:geometry:43cbd0f287f0",
+      "title": "Viewport 差异块 2411px",
+      "severity": "P2",
+      "status": "open",
+      "dimension": "geometry",
+      "selector": "",
+      "region": "Viewport",
+      "file": "",
+      "target": {
+        "region": "Viewport",
+        "rect": {
+          "x": 1303,
+          "y": 863,
+          "width": 56,
+          "height": 57
+        }
+      },
+      "expected": null,
+      "actual": {
+        "pixels": 2411,
+        "share": 0.0015328725179036458
+      },
+      "evidence": {
+        "diff": "diff.png",
+        "rect": {
+          "x": 1303,
+          "y": 863,
+          "width": 56,
+          "height": 57
+        }
+      },
+      "confidence": 0.96,
+      "nextAction": "打开该坐标局部对比，定位对应 DOM 元素后修复"
+    },
+    {
+      "priority": "P2",
+      "type": "finding",
+      "source": "diff-components",
+      "findingId": "diff-components:geometry:4c184bd3bf82",
+      "title": "Viewport 差异块 3739px",
+      "severity": "P2",
+      "status": "open",
+      "dimension": "geometry",
+      "selector": "",
+      "region": "Viewport",
+      "file": "",
+      "target": {
+        "region": "Viewport",
+        "rect": {
+          "x": 163,
+          "y": 944,
+          "width": 254,
+          "height": 23
+        }
+      },
+      "expected": null,
+      "actual": {
+        "pixels": 3739,
+        "share": 0.002377192179361979
+      },
+      "evidence": {
+        "diff": "diff.png",
+        "rect": {
+          "x": 163,
+          "y": 944,
+          "width": 254,
+          "height": 23
+        }
+      },
+      "confidence": 0.96,
+      "nextAction": "打开该坐标局部对比，定位对应 DOM 元素后修复"
+    },
+    {
+      "priority": "P2",
+      "type": "finding",
+      "source": "diff-components",
+      "findingId": "diff-components:geometry:6016b50aca31",
+      "title": "Viewport 差异块 6653px",
+      "severity": "P2",
+      "status": "open",
+      "dimension": "geometry",
+      "selector": "",
+      "region": "Viewport",
+      "file": "",
+      "target": {
+        "region": "Viewport",
+        "rect": {
+          "x": 595,
+          "y": 0,
+          "width": 593,
+          "height": 16
+        }
+      },
+      "expected": null,
+      "actual": {
+        "pixels": 6653,
+        "share": 0.0042298634847005205
+      },
+      "evidence": {
+        "diff": "diff.png",
+        "rect": {
+          "x": 595,
+          "y": 0,
+          "width": 593,
+          "height": 16
+        }
+      },
+      "confidence": 0.96,
+      "nextAction": "打开该坐标局部对比，定位对应 DOM 元素后修复"
+    },
+    {
+      "priority": "P2",
+      "type": "finding",
+      "source": "diff-components",
+      "findingId": "diff-components:geometry:6f3ebaf2453a",
+      "title": "Viewport 差异块 1675px",
+      "severity": "P2",
+      "status": "open",
+      "dimension": "geometry",
+      "selector": "",
+      "region": "Viewport",
+      "file": "",
+      "target": {
+        "region": "Viewport",
+        "rect": {
+          "x": 147,
+          "y": 301,
+          "width": 66,
+          "height": 64
+        }
+      },
+      "expected": null,
+      "actual": {
+        "pixels": 1675,
+        "share": 0.0010649363199869792
+      },
+      "evidence": {
+        "diff": "diff.png",
+        "rect": {
+          "x": 147,
+          "y": 301,
+          "width": 66,
+          "height": 64
+        }
+      },
+      "confidence": 0.96,
+      "nextAction": "打开该坐标局部对比，定位对应 DOM 元素后修复"
+    },
+    {
+      "priority": "P2",
+      "type": "finding",
+      "source": "diff-components",
+      "findingId": "diff-components:geometry:7b3ac3a2d378",
+      "title": "Viewport 差异块 5570px",
+      "severity": "P2",
+      "status": "open",
+      "dimension": "geometry",
+      "selector": "",
+      "region": "Viewport",
+      "file": "",
+      "target": {
+        "region": "Viewport",
+        "rect": {
+          "x": 476,
+          "y": 941,
+          "width": 278,
+          "height": 38
+        }
+      },
+      "expected": null,
+      "actual": {
+        "pixels": 5570,
+        "share": 0.0035413106282552085
+      },
+      "evidence": {
+        "diff": "diff.png",
+        "rect": {
+          "x": 476,
+          "y": 941,
+          "width": 278,
+          "height": 38
+        }
+      },
+      "confidence": 0.96,
+      "nextAction": "打开该坐标局部对比，定位对应 DOM 元素后修复"
+    },
+    {
+      "priority": "P2",
+      "type": "finding",
+      "source": "diff-components",
+      "findingId": "diff-components:geometry:7d41f8dc0f86",
+      "title": "Viewport 差异块 2515px",
+      "severity": "P2",
+      "status": "open",
+      "dimension": "geometry",
+      "selector": "",
+      "region": "Viewport",
+      "file": "",
+      "target": {
+        "region": "Viewport",
+        "rect": {
+          "x": 437,
+          "y": 299,
+          "width": 64,
+          "height": 70
+        }
+      },
+      "expected": null,
+      "actual": {
+        "pixels": 2515,
+        "share": 0.0015989939371744792
+      },
+      "evidence": {
+        "diff": "diff.png",
+        "rect": {
+          "x": 437,
+          "y": 299,
+          "width": 64,
+          "height": 70
+        }
+      },
+      "confidence": 0.96,
+      "nextAction": "打开该坐标局部对比，定位对应 DOM 元素后修复"
+    },
+    {
+      "priority": "P2",
+      "type": "finding",
+      "source": "diff-components",
+      "findingId": "diff-components:geometry:92b40803af9d",
+      "title": "Viewport 差异块 6671px",
+      "severity": "P2",
+      "status": "open",
+      "dimension": "geometry",
+      "selector": "",
+      "region": "Viewport",
+      "file": "",
+      "target": {
+        "region": "Viewport",
+        "rect": {
+          "x": 638,
+          "y": 108,
+          "width": 256,
+          "height": 58
+        }
+      },
+      "expected": null,
+      "actual": {
+        "pixels": 6671,
+        "share": 0.0042413075764973955
+      },
+      "evidence": {
+        "diff": "diff.png",
+        "rect": {
+          "x": 638,
+          "y": 108,
+          "width": 256,
+          "height": 58
+        }
+      },
+      "confidence": 0.96,
+      "nextAction": "打开该坐标局部对比，定位对应 DOM 元素后修复"
+    },
+    {
+      "priority": "P2",
+      "type": "finding",
+      "source": "diff-components",
+      "findingId": "diff-components:geometry:9302f9a66233",
+      "title": "Viewport 差异块 2410px",
+      "severity": "P2",
+      "status": "open",
+      "dimension": "geometry",
+      "selector": "",
+      "region": "Viewport",
+      "file": "",
+      "target": {
+        "region": "Viewport",
+        "rect": {
+          "x": 987,
+          "y": 863,
+          "width": 56,
+          "height": 57
+        }
+      },
+      "expected": null,
+      "actual": {
+        "pixels": 2410,
+        "share": 0.0015322367350260417
+      },
+      "evidence": {
+        "diff": "diff.png",
+        "rect": {
+          "x": 987,
+          "y": 863,
+          "width": 56,
+          "height": 57
+        }
+      },
+      "confidence": 0.96,
+      "nextAction": "打开该坐标局部对比，定位对应 DOM 元素后修复"
+    },
+    {
+      "priority": "P2",
+      "type": "finding",
+      "source": "diff-components",
+      "findingId": "diff-components:geometry:a55f2b1a7cec",
+      "title": "Viewport 差异块 2413px",
+      "severity": "P2",
+      "status": "open",
+      "dimension": "geometry",
+      "selector": "",
+      "region": "Viewport",
+      "file": "",
+      "target": {
+        "region": "Viewport",
+        "rect": {
+          "x": 352,
+          "y": 863,
+          "width": 57,
+          "height": 57
+        }
+      },
+      "expected": null,
+      "actual": {
+        "pixels": 2413,
+        "share": 0.0015341440836588542
+      },
+      "evidence": {
+        "diff": "diff.png",
+        "rect": {
+          "x": 352,
+          "y": 863,
+          "width": 57,
+          "height": 57
+        }
+      },
+      "confidence": 0.96,
+      "nextAction": "打开该坐标局部对比，定位对应 DOM 元素后修复"
+    },
+    {
+      "priority": "P2",
+      "type": "finding",
+      "source": "diff-components",
+      "findingId": "diff-components:geometry:aa929ca35b14",
+      "title": "Viewport 差异块 2368px",
+      "severity": "P2",
+      "status": "open",
+      "dimension": "geometry",
+      "selector": "",
+      "region": "Viewport",
+      "file": "",
+      "target": {
+        "region": "Viewport",
+        "rect": {
+          "x": 670,
+          "y": 863,
+          "width": 56,
+          "height": 57
+        }
+      },
+      "expected": null,
+      "actual": {
+        "pixels": 2368,
+        "share": 0.0015055338541666667
+      },
+      "evidence": {
+        "diff": "diff.png",
+        "rect": {
+          "x": 670,
+          "y": 863,
+          "width": 56,
+          "height": 57
+        }
+      },
+      "confidence": 0.96,
+      "nextAction": "打开该坐标局部对比，定位对应 DOM 元素后修复"
+    },
+    {
+      "priority": "P2",
+      "type": "finding",
+      "source": "diff-components",
+      "findingId": "diff-components:geometry:b5fec881652c",
+      "title": "Viewport 差异块 6373px",
+      "severity": "P2",
+      "status": "open",
+      "dimension": "geometry",
+      "selector": "",
+      "region": "Viewport",
+      "file": "",
+      "target": {
+        "region": "Viewport",
+        "rect": {
+          "x": 1389,
+          "y": 834,
+          "width": 147,
+          "height": 101
+        }
+      },
+      "expected": null,
+      "actual": {
+        "pixels": 6373,
+        "share": 0.0040518442789713545
+      },
+      "evidence": {
+        "diff": "diff.png",
+        "rect": {
+          "x": 1389,
+          "y": 834,
+          "width": 147,
+          "height": 101
+        }
+      },
+      "confidence": 0.96,
+      "nextAction": "打开该坐标局部对比，定位对应 DOM 元素后修复"
+    },
+    {
+      "priority": "P2",
+      "type": "finding",
+      "source": "diff-components",
+      "findingId": "diff-components:geometry:b653538e7b48",
+      "title": "Viewport 差异块 1784px",
+      "severity": "P2",
+      "status": "open",
+      "dimension": "geometry",
+      "selector": "",
+      "region": "Viewport",
+      "file": "",
+      "target": {
+        "region": "Viewport",
+        "rect": {
+          "x": 362,
+          "y": 300,
+          "width": 63,
+          "height": 67
+        }
+      },
+      "expected": null,
+      "actual": {
+        "pixels": 1784,
+        "share": 0.0011342366536458333
+      },
+      "evidence": {
+        "diff": "diff.png",
+        "rect": {
+          "x": 362,
+          "y": 300,
+          "width": 63,
+          "height": 67
+        }
+      },
+      "confidence": 0.96,
+      "nextAction": "打开该坐标局部对比，定位对应 DOM 元素后修复"
+    },
+    {
+      "priority": "P2",
+      "type": "finding",
+      "source": "diff-components",
+      "findingId": "diff-components:geometry:c876ef78419d",
+      "title": "Viewport 差异块 1974px",
+      "severity": "P2",
+      "status": "open",
+      "dimension": "geometry",
+      "selector": "",
+      "region": "Viewport",
+      "file": "",
+      "target": {
+        "region": "Viewport",
+        "rect": {
+          "x": 582,
+          "y": 391,
+          "width": 65,
+          "height": 68
+        }
+      },
+      "expected": null,
+      "actual": {
+        "pixels": 1974,
+        "share": 0.001255035400390625
+      },
+      "evidence": {
+        "diff": "diff.png",
+        "rect": {
+          "x": 582,
+          "y": 391,
+          "width": 65,
+          "height": 68
+        }
+      },
+      "confidence": 0.96,
+      "nextAction": "打开该坐标局部对比，定位对应 DOM 元素后修复"
+    },
+    {
+      "priority": "P2",
+      "type": "finding",
+      "source": "diff-components",
+      "findingId": "diff-components:geometry:d5b606cbcd07",
+      "title": "Viewport 差异块 3400px",
+      "severity": "P2",
+      "status": "open",
+      "dimension": "geometry",
+      "selector": "",
+      "region": "Viewport",
+      "file": "",
+      "target": {
+        "region": "Viewport",
+        "rect": {
+          "x": 114,
+          "y": 571,
+          "width": 43,
+          "height": 153
+        }
+      },
+      "expected": null,
+      "actual": {
+        "pixels": 3400,
+        "share": 0.0021616617838541665
+      },
+      "evidence": {
+        "diff": "diff.png",
+        "rect": {
+          "x": 114,
+          "y": 571,
+          "width": 43,
+          "height": 153
+        }
+      },
+      "confidence": 0.96,
+      "nextAction": "打开该坐标局部对比，定位对应 DOM 元素后修复"
+    },
+    {
+      "priority": "P2",
+      "type": "finding",
+      "source": "diff-components",
+      "findingId": "diff-components:geometry:eb0aff847f9d",
+      "title": "Viewport 差异块 2325px",
+      "severity": "P2",
+      "status": "open",
+      "dimension": "geometry",
+      "selector": "",
+      "region": "Viewport",
+      "file": "",
+      "target": {
+        "region": "Viewport",
+        "rect": {
+          "x": 752,
+          "y": 605,
+          "width": 29,
+          "height": 155
+        }
+      },
+      "expected": null,
+      "actual": {
+        "pixels": 2325,
+        "share": 0.0014781951904296875
+      },
+      "evidence": {
+        "diff": "diff.png",
+        "rect": {
+          "x": 752,
+          "y": 605,
+          "width": 29,
+          "height": 155
+        }
+      },
+      "confidence": 0.96,
+      "nextAction": "打开该坐标局部对比，定位对应 DOM 元素后修复"
+    },
+    {
+      "priority": "P2",
+      "type": "finding",
+      "source": "diff-components",
+      "findingId": "diff-components:geometry:f68f93ae6e16",
+      "title": "Viewport 差异块 3662px",
+      "severity": "P2",
+      "status": "open",
+      "dimension": "geometry",
+      "selector": "",
+      "region": "Viewport",
+      "file": "",
+      "target": {
+        "region": "Viewport",
+        "rect": {
+          "x": 1070,
+          "y": 144,
+          "width": 130,
+          "height": 60
+        }
+      },
+      "expected": null,
+      "actual": {
+        "pixels": 3662,
+        "share": 0.0023282368977864585
+      },
+      "evidence": {
+        "diff": "diff.png",
+        "rect": {
+          "x": 1070,
+          "y": 144,
+          "width": 130,
+          "height": 60
+        }
+      },
+      "confidence": 0.96,
+      "nextAction": "打开该坐标局部对比，定位对应 DOM 元素后修复"
+    },
+    {
+      "priority": "P2",
+      "type": "finding",
+      "source": "color-audit",
+      "findingId": "color-audit:textColor:89817bb7b787",
+      "title": "button.active 文字色 ΔE 9.2",
+      "severity": "P2",
+      "status": "open",
+      "dimension": "textColor",
+      "selector": "body>div>div>div>div>main>header>nav>button:nth-of-type(1)",
+      "region": "",
+      "file": "",
+      "target": {
+        "selector": "body>div>div>div>div>main>header>nav>button:nth-of-type(1)",
+        "displaySelector": "button.active",
+        "text": "首页",
+        "rect": {
+          "x": 269,
+          "y": 16,
+          "width": 38,
+          "height": 84
+        }
+      },
+      "expected": {
+        "color": "#fe1e0e"
+      },
+      "actual": {
+        "color": "#ff3328",
+        "cssColor": "#ff3328",
+        "deltaE": 9.22
+      },
+      "evidence": {},
+      "confidence": 0.82,
+      "nextAction": "使用 pick/inspect 复核笔画核心色，并批量修正同类文字"
+    },
+    {
+      "priority": "P2",
+      "type": "finding",
+      "source": "color-audit",
+      "findingId": "color-audit:textColor:a6036bff428e",
+      "title": "span 文字色 ΔE 4.3",
+      "severity": "P2",
+      "status": "open",
+      "dimension": "textColor",
+      "selector": "body>div>div>div>div>main>header>button>span:nth-of-type(2)",
+      "region": "",
+      "file": "",
+      "target": {
+        "selector": "body>div>div>div>div>main>header>button>span:nth-of-type(2)",
+        "displaySelector": "span",
+        "text": "灵灵生图站",
+        "rect": {
+          "x": 103,
+          "y": 40,
+          "width": 125,
+          "height": 36
+        }
+      },
+      "expected": {
+        "color": "#040303"
+      },
+      "actual": {
+        "color": "#111111",
+        "cssColor": "#111111",
+        "deltaE": 4.27
+      },
+      "evidence": {},
+      "confidence": 0.82,
+      "nextAction": "使用 pick/inspect 复核笔画核心色，并批量修正同类文字"
+    },
+    {
+      "priority": "P2",
+      "type": "visual-dimension",
+      "source": "visual-inventory",
+      "title": "container-005-9fhl8n backgroundColor pending",
+      "id": "container-005-9fhl8n",
+      "kind": "container",
+      "selector": "main.app.page-pg-1r",
+      "text": "",
+      "dimension": "backgroundColor",
+      "status": "pending",
+      "reason": "visible fill/background must be checked",
+      "nextAction": "对 main.app.page-pg-1r 用 color-audit/pick 取色,修正同类颜色并看 delta 热力"
+    },
+    {
+      "priority": "P2",
+      "type": "visual-dimension",
+      "source": "visual-inventory",
+      "title": "container-031-bxmtbs backgroundColor pending",
+      "id": "container-031-bxmtbs",
+      "kind": "container",
+      "selector": "section.home-page.home-page-error",
+      "text": "",
+      "dimension": "backgroundColor",
+      "status": "pending",
+      "reason": "visible fill/background must be checked",
+      "nextAction": "对 section.home-page.home-page-error 用 color-audit/pick 取色,修正同类颜色并看 delta 热力"
+    },
+    {
+      "priority": "P2",
+      "type": "finding",
+      "source": "full-audit",
+      "findingId": "full-audit:border:2f220f72f533",
+      "title": "span: 边框色 #f7f6f8 → #e0dee0",
+      "severity": "P2",
+      "status": "open",
+      "dimension": "border",
+      "selector": "body>div>div>div>div>main>section>div:nth-of-type(1)>div:nth-of-type(2)>span:nth-of-type(2)",
+      "region": "",
+      "file": "",
+      "target": {
+        "selector": "body>div>div>div>div>main>section>div:nth-of-type(1)>div:nth-of-type(2)>span:nth-of-type(2)",
+        "displaySelector": "span",
+        "text": "",
+        "rect": {
+          "x": 800.2139282226562,
+          "y": 598.4766845703125,
+          "width": 791.5722045898438,
+          "height": 383.046630859375
+        }
+      },
+      "expected": {
+        "color": "#e0dee0",
+        "maxDelta": 26
+      },
+      "actual": {
+        "color": "#f7f6f8",
+        "delta": 41
+      },
+      "evidence": {},
+      "confidence": 0.72,
+      "nextAction": "复核 border 测量并批量修正同类元素"
+    },
+    {
+      "priority": "P2",
+      "type": "finding",
+      "source": "full-audit",
+      "findingId": "full-audit:border:510cbe7e1773",
+      "title": "span: 边框色 #f6eef0 → #e0cbcb",
+      "severity": "P2",
+      "status": "open",
+      "dimension": "border",
+      "selector": "body>div>div>div>div>main>section>div:nth-of-type(1)>div:nth-of-type(2)>span:nth-of-type(3)",
+      "region": "",
+      "file": "",
+      "target": {
+        "selector": "body>div>div>div>div>main>section>div:nth-of-type(1)>div:nth-of-type(2)>span:nth-of-type(3)",
+        "displaySelector": "span",
+        "text": "",
+        "rect": {
+          "x": 1275.5400390625,
+          "y": 666.189697265625,
+          "width": 230.919921875,
+          "height": 192.62060546875
+        }
+      },
+      "expected": {
+        "color": "#e0cbcb",
+        "maxDelta": 26
+      },
+      "actual": {
+        "color": "#f6eef0",
+        "delta": 55.48
+      },
+      "evidence": {},
+      "confidence": 0.72,
+      "nextAction": "复核 border 测量并批量修正同类元素"
+    },
+    {
+      "priority": "P2",
+      "type": "finding",
+      "source": "full-audit",
+      "findingId": "full-audit:border:da774d16c64a",
+      "title": "span: 边框色 #f6eef0 → #dbc4c4",
+      "severity": "P2",
+      "status": "open",
+      "dimension": "border",
+      "selector": "body>div>div>div>div>main>section>div:nth-of-type(1)>div:nth-of-type(2)>span:nth-of-type(4)",
+      "region": "",
+      "file": "",
+      "target": {
+        "selector": "body>div>div>div>div>main>section>div:nth-of-type(1)>div:nth-of-type(2)>span:nth-of-type(4)",
+        "displaySelector": "span",
+        "text": "",
+        "rect": {
+          "x": 1323.28076171875,
+          "y": 737.3259887695312,
+          "width": 269.4384765625,
+          "height": 121.34808349609375
+        }
+      },
+      "expected": {
+        "color": "#dbc4c4",
+        "maxDelta": 26
+      },
+      "actual": {
+        "color": "#f6eef0",
+        "delta": 66.55
+      },
+      "evidence": {},
+      "confidence": 0.72,
+      "nextAction": "复核 border 测量并批量修正同类元素"
+    },
+    {
+      "priority": "P2",
+      "type": "finding",
+      "source": "full-audit",
+      "findingId": "full-audit:border:dc4923d59e8c",
+      "title": "span: 边框色 #f7f7f9 → #e0dcde",
+      "severity": "P2",
+      "status": "open",
+      "dimension": "border",
+      "selector": "body>div>div>div>div>main>section>div:nth-of-type(1)>div:nth-of-type(2)>span:nth-of-type(1)",
+      "region": "",
+      "file": "",
+      "target": {
+        "selector": "body>div>div>div>div>main>section>div:nth-of-type(1)>div:nth-of-type(2)>span:nth-of-type(1)",
+        "displaySelector": "span",
+        "text": "",
+        "rect": {
+          "x": 841.1190185546875,
+          "y": 509.8051452636719,
+          "width": 799.761962890625,
+          "height": 510.3897399902344
+        }
+      },
+      "expected": {
+        "color": "#e0dcde",
+        "maxDelta": 26
+      },
+      "actual": {
+        "color": "#f7f7f9",
+        "delta": 44.58
+      },
+      "evidence": {},
+      "confidence": 0.72,
+      "nextAction": "复核 border 测量并批量修正同类元素"
+    },
+    {
+      "priority": "P2",
+      "type": "finding",
+      "source": "full-audit",
+      "findingId": "full-audit:border:e9d53e36f4ab",
+      "title": "form.search-box: 边框色 #d9dee8 → #fcfcfc",
+      "severity": "P2",
+      "status": "open",
+      "dimension": "border",
+      "selector": "body>div>div>div>div>main>header>div>form",
+      "region": "",
+      "file": "",
+      "target": {
+        "selector": "body>div>div>div>div>main>header>div>form",
+        "displaySelector": "form.search-box",
+        "text": "",
+        "rect": {
+          "x": 1038,
+          "y": 32,
+          "width": 338,
+          "height": 52
+        }
+      },
+      "expected": {
+        "color": "#fcfcfc",
+        "maxDelta": 26
+      },
+      "actual": {
+        "color": "#d9dee8",
+        "delta": 50.25
+      },
+      "evidence": {},
+      "confidence": 0.72,
+      "nextAction": "复核 border 测量并批量修正同类元素"
+    }
+  ]
+}

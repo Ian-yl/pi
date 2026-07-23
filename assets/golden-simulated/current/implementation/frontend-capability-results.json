@@ -1,0 +1,58 @@
+{
+  "schemaVersion": "1.0",
+  "generatedBy": "project-implementation/verify-frontend-runtime",
+  "capabilities": [
+    {
+      "capabilityId": "cap-sample",
+      "status": "implemented",
+      "requiredBindingIds": [
+        "binding-cap-sample-submit-sample-body-email",
+        "binding-cap-sample-submit-sample-body-password",
+        "binding-cap-sample-submit-sample-command",
+        "binding-cap-sample-submit-sample-response-ok",
+        "binding-cap-sample-state-loading",
+        "binding-cap-sample-state-success",
+        "binding-cap-sample-state-failure",
+        "binding-cap-sample-state-empty"
+      ]
+    },
+    {
+      "capabilityId": "cap-suite-sample-detail",
+      "status": "implemented",
+      "requiredBindingIds": [
+        "binding-cap-suite-sample-detail-submit-suite-sample-detail-body-email",
+        "binding-cap-suite-sample-detail-submit-suite-sample-detail-body-password",
+        "binding-cap-suite-sample-detail-submit-suite-sample-detail-command",
+        "binding-cap-suite-sample-detail-submit-suite-sample-detail-response-ok",
+        "binding-cap-suite-sample-detail-state-loading",
+        "binding-cap-suite-sample-detail-state-success",
+        "binding-cap-suite-sample-detail-state-failure",
+        "binding-cap-suite-sample-detail-state-empty"
+      ]
+    },
+    {
+      "capabilityId": "cap-sample-local-navigation",
+      "status": "implemented",
+      "requiredBindingIds": [
+        "binding-cap-sample-local-navigation-state-loading",
+        "binding-cap-sample-local-navigation-state-success",
+        "binding-cap-sample-local-navigation-state-failure",
+        "binding-cap-sample-local-navigation-state-empty"
+      ]
+    },
+    {
+      "capabilityId": "cap-sample-display-result",
+      "status": "implemented",
+      "requiredBindingIds": [
+        "binding-cap-sample-display-result-query-sample-result-path-resultid",
+        "binding-cap-sample-display-result-query-sample-result-command",
+        "binding-cap-sample-display-result-query-sample-result-response-resultid",
+        "binding-cap-sample-display-result-query-sample-result-response-status",
+        "binding-cap-sample-display-result-state-loading",
+        "binding-cap-sample-display-result-state-success",
+        "binding-cap-sample-display-result-state-failure",
+        "binding-cap-sample-display-result-state-empty"
+      ]
+    }
+  ]
+}

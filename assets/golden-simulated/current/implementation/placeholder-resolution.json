@@ -1,0 +1,54 @@
+{
+  "schemaVersion": "1.0",
+  "status": "implemented",
+  "environment": "production",
+  "runtimeFallbacks": [],
+  "items": [
+    {
+      "id": "placeholder-cap-sample",
+      "capabilityId": "cap-sample",
+      "classification": "visual-placeholder",
+      "resolution": "replaced-by-api-data",
+      "states": {
+        "empty": true,
+        "loading": true,
+        "error": true,
+        "success": true
+      },
+      "evidenceId": "browser-cap-sample"
+    },
+    {
+      "id": "placeholder-cap-suite-sample-detail",
+      "capabilityId": "cap-suite-sample-detail",
+      "classification": "visual-placeholder",
+      "resolution": "replaced-by-api-data",
+      "states": {
+        "empty": true,
+        "loading": true,
+        "error": true,
+        "success": true
+      },
+      "evidenceId": "browser-cap-suite-sample-detail"
+    },
+    {
+      "id": "placeholder-cap-sample-local-navigation",
+      "capabilityId": "cap-sample-local-navigation",
+      "classification": "visual-placeholder",
+      "resolution": "replaced-by-user-input",
+      "evidenceId": "browser-cap-sample-local-navigation"
+    },
+    {
+      "id": "placeholder-cap-sample-display-result",
+      "capabilityId": "cap-sample-display-result",
+      "classification": "visual-placeholder",
+      "resolution": "replaced-by-api-data",
+      "states": {
+        "empty": true,
+        "loading": true,
+        "error": true,
+        "success": true
+      },
+      "evidenceId": "browser-cap-sample-display-result"
+    }
+  ]
+}

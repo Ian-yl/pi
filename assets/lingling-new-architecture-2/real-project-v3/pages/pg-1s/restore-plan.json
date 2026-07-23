@@ -1,0 +1,115 @@
+{
+  "version": 3,
+  "schemaVersion": "3.2",
+  "name": "pg-1s",
+  "source": "designs/pg-1s.png",
+  "platform": "web-desktop",
+  "viewport": {
+    "width": 1536,
+    "height": 1024,
+    "dpr": 1
+  },
+  "responsiveAudit": {
+    "enabled": true,
+    "mode": "desktop",
+    "profiles": "auto",
+    "rules": {
+      "maxHorizontalOverflow": 1,
+      "maxViewportDrift": 1,
+      "minTouchTarget": 0,
+      "minInlineTarget": 0,
+      "minInputFontSize": 0,
+      "requireSemanticControls": true,
+      "safeArea": "off"
+    }
+  },
+  "capture": {
+    "adapter": "static",
+    "path": "pages/pg-1s/index.html",
+    "url": "/pages/pg-1s/index.html",
+    "fullPage": true,
+    "timeoutMs": 45000,
+    "watch": []
+  },
+  "quality": {
+    "target": "png",
+    "thresholds": {
+      "pngSimilarity": 97,
+      "jpegSimilarity": 95,
+      "fullSimilarity": 97,
+      "foregroundSimilarity": 85,
+      "minRegionSimilarity": 95,
+      "maxStructureDx": 2,
+      "maxStructureDy": 1.5,
+      "maxColorDeltaE": 3,
+      "maxFontDiff": 1.2,
+      "maxRegression": 0.2
+    }
+  },
+  "convergence": {
+    "maxRounds": 12,
+    "plateauRounds": 3,
+    "plateauEpsilonPp": 0.1
+  },
+  "regions": [],
+  "auditPolicy": {
+    "scope": "all-visible-elements",
+    "dimensions": [
+      "geometry",
+      "typography",
+      "textColor",
+      "backgroundColor",
+      "border",
+      "radius",
+      "shadow",
+      "opacity",
+      "asset",
+      "content",
+      "responsive",
+      "interaction",
+      "semantics"
+    ],
+    "silentOmission": false,
+    "skippedRequiresReason": true,
+    "lowClarityTextRule": "render-clear-text-or-semantic-mock-no-blur",
+    "assetRule": "mask-first-clean-assets-no-ui-ghosts",
+    "contentRequired": true,
+    "contentScope": "all-visible",
+    "assetRequired": false,
+    "responsiveRequired": true,
+    "strictSkipped": false
+  },
+  "artifacts": {
+    "required": [
+      "output/pg-1s/design.png",
+      "output/pg-1s/actual.png",
+      "output/pg-1s/diff.png",
+      "output/pg-1s/delta.png",
+      "output/pg-1s/foreground-score.json",
+      "output/pg-1s/diff-components.json",
+      "output/pg-1s/region-score.json",
+      "output/pg-1s/structure-audit.json",
+      "output/pg-1s/visual-inventory.json",
+      "output/pg-1s/color-audit.json",
+      "output/pg-1s/font-audit.json",
+      "output/pg-1s/full-audit.json",
+      "output/pg-1s/content-audit.json",
+      "output/pg-1s/findings.json",
+      "output/pg-1s/audit-ledger.json",
+      "output/pg-1s/run-manifest.json",
+      "output/pg-1s/responsive-audit.json"
+    ],
+    "optional": [
+      "pages/pg-1s/asset-plan.json",
+      "output/pg-1s/assets/asset-report.json",
+      "output/pg-1s/assets/edge-audit.json"
+    ]
+  },
+  "notes": [
+    "Every visible DOM element must appear in visual-inventory.json.",
+    "Every audit dimension must be measured, pending, failed, or skipped with a reason.",
+    "Blur in the input screenshot is not a frontend blur requirement.",
+    "Mobile plans compare pixels only at the reference viewport and audit invariant robustness elsewhere.",
+    "Desktop plans must render a fluid application shell: the reference viewport is a comparison baseline, not a fixed production canvas."
+  ]
+}

@@ -1,0 +1,9 @@
+{
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "test": "node tests/unit.mjs",
+    "build": "node -e \"process.exit(0)\"",
+    "start": "node backend/server.mjs"
+  }
+}

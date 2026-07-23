@@ -1,0 +1,2434 @@
+{
+  "version": 1,
+  "name": "pg-1r",
+  "generatedAt": "2026-07-22T13:54:06.664Z",
+  "dpr": 1,
+  "summary": {
+    "elements": 47,
+    "measured": 14,
+    "skips": {
+      "无可测属性(纯布局容器/图标)": 28,
+      "多行文字(需人工比对)": 5
+    },
+    "total": 11,
+    "open": 11,
+    "resolved": 0,
+    "bySeverity": {
+      "P1": 3,
+      "P2": 8
+    },
+    "byStatus": {
+      "open": 11
+    },
+    "byDimension": {
+      "geometry": 3,
+      "typography": 3,
+      "border": 5
+    },
+    "byDetector": {
+      "full-audit": 11
+    }
+  },
+  "measurements": [
+    {
+      "target": {
+        "selector": "#root",
+        "displaySelector": "div",
+        "text": "",
+        "rect": {
+          "x": 0,
+          "y": 0,
+          "width": 1536,
+          "height": 1024
+        }
+      },
+      "dimensions": {
+        "geometry": {
+          "status": "skipped",
+          "reason": "非叶子文字元素由结构/局部 diff 审计",
+          "source": "full-audit"
+        },
+        "typography": {
+          "status": "skipped",
+          "reason": "无可独立测量的单行文字",
+          "source": "full-audit"
+        },
+        "textColor": {
+          "status": "skipped",
+          "reason": "无可独立测量的单行文字",
+          "source": "full-audit"
+        },
+        "backgroundColor": {
+          "status": "skipped",
+          "reason": "无可见背景填充",
+          "source": "full-audit"
+        },
+        "border": {
+          "status": "skipped",
+          "reason": "无可见边框或边框区域过小",
+          "source": "full-audit"
+        }
+      }
+    },
+    {
+      "target": {
+        "selector": "body>div>div",
+        "displaySelector": "div.viewport-lock",
+        "text": "",
+        "rect": {
+          "x": 0,
+          "y": 0,
+          "width": 1536,
+          "height": 1024
+        }
+      },
+      "dimensions": {
+        "geometry": {
+          "status": "skipped",
+          "reason": "非叶子文字元素由结构/局部 diff 审计",
+          "source": "full-audit"
+        },
+        "typography": {
+          "status": "skipped",
+          "reason": "无可独立测量的单行文字",
+          "source": "full-audit"
+        },
+        "textColor": {
+          "status": "skipped",
+          "reason": "无可独立测量的单行文字",
+          "source": "full-audit"
+        },
+        "backgroundColor": {
+          "status": "skipped",
+          "reason": "无可见背景填充",
+          "source": "full-audit"
+        },
+        "border": {
+          "status": "skipped",
+          "reason": "无可见边框或边框区域过小",
+          "source": "full-audit"
+        }
+      }
+    },
+    {
+      "target": {
+        "selector": "body>div>div>div",
+        "displaySelector": "div.stage-wrap",
+        "text": "",
+        "rect": {
+          "x": 0,
+          "y": 0,
+          "width": 1536,
+          "height": 1024
+        }
+      },
+      "dimensions": {
+        "geometry": {
+          "status": "skipped",
+          "reason": "非叶子文字元素由结构/局部 diff 审计",
+          "source": "full-audit"
+        },
+        "typography": {
+          "status": "skipped",
+          "reason": "无可独立测量的单行文字",
+          "source": "full-audit"
+        },
+        "textColor": {
+          "status": "skipped",
+          "reason": "无可独立测量的单行文字",
+          "source": "full-audit"
+        },
+        "backgroundColor": {
+          "status": "skipped",
+          "reason": "无可见背景填充",
+          "source": "full-audit"
+        },
+        "border": {
+          "status": "skipped",
+          "reason": "无可见边框或边框区域过小",
+          "source": "full-audit"
+        }
+      }
+    },
+    {
+      "target": {
+        "selector": "body>div>div>div>div",
+        "displaySelector": "div.stage",
+        "text": "",
+        "rect": {
+          "x": 0,
+          "y": 0,
+          "width": 1536,
+          "height": 1024
+        }
+      },
+      "dimensions": {
+        "geometry": {
+          "status": "skipped",
+          "reason": "非叶子文字元素由结构/局部 diff 审计",
+          "source": "full-audit"
+        },
+        "typography": {
+          "status": "skipped",
+          "reason": "无可独立测量的单行文字",
+          "source": "full-audit"
+        },
+        "textColor": {
+          "status": "skipped",
+          "reason": "无可独立测量的单行文字",
+          "source": "full-audit"
+        },
+        "backgroundColor": {
+          "status": "skipped",
+          "reason": "无可见背景填充",
+          "source": "full-audit"
+        },
+        "border": {
+          "status": "skipped",
+          "reason": "无可见边框或边框区域过小",
+          "source": "full-audit"
+        }
+      }
+    },
+    {
+      "target": {
+        "selector": "body>div>div>div>div>main",
+        "displaySelector": "main.app",
+        "text": "",
+        "rect": {
+          "x": 0,
+          "y": 0,
+          "width": 1536,
+          "height": 1024
+        }
+      },
+      "dimensions": {
+        "geometry": {
+          "status": "skipped",
+          "reason": "非叶子文字元素由结构/局部 diff 审计",
+          "source": "full-audit"
+        },
+        "typography": {
+          "status": "skipped",
+          "reason": "无可独立测量的单行文字",
+          "source": "full-audit"
+        },
+        "textColor": {
+          "status": "skipped",
+          "reason": "无可独立测量的单行文字",
+          "source": "full-audit"
+        },
+        "backgroundColor": {
+          "status": "pass",
+          "value": {
+            "designColor": "#f2f0f0",
+            "actualColor": "#f8f9fa",
+            "delta": 14.73
+          },
+          "threshold": {
+            "maxDelta": 22
+          },
+          "source": "full-audit"
+        },
+        "border": {
+          "status": "skipped",
+          "reason": "无可见边框或边框区域过小",
+          "source": "full-audit"
+        }
+      }
+    },
+    {
+      "target": {
+        "selector": "body>div>div>div>div>main>header",
+        "displaySelector": "header.topbar",
+        "text": "",
+        "rect": {
+          "x": 20,
+          "y": 16,
+          "width": 1496,
+          "height": 84
+        }
+      },
+      "dimensions": {
+        "geometry": {
+          "status": "skipped",
+          "reason": "非叶子文字元素由结构/局部 diff 审计",
+          "source": "full-audit"
+        },
+        "typography": {
+          "status": "skipped",
+          "reason": "无可独立测量的单行文字",
+          "source": "full-audit"
+        },
+        "textColor": {
+          "status": "skipped",
+          "reason": "无可独立测量的单行文字",
+          "source": "full-audit"
+        },
+        "backgroundColor": {
+          "status": "pass",
+          "value": {
+            "designColor": "#fbfafc",
+            "actualColor": "#ffffff",
+            "delta": 7.07
+          },
+          "threshold": {
+            "maxDelta": 22
+          },
+          "source": "full-audit"
+        },
+        "border": {
+          "status": "skipped",
+          "reason": "无可见边框或边框区域过小",
+          "source": "full-audit"
+        }
+      }
+    },
+    {
+      "target": {
+        "selector": "body>div>div>div>div>main>header>button",
+        "displaySelector": "button.brand",
+        "text": "",
+        "rect": {
+          "x": 48,
+          "y": 30,
+          "width": 187,
+          "height": 56
+        }
+      },
+      "dimensions": {
+        "geometry": {
+          "status": "skipped",
+          "reason": "非叶子文字元素由结构/局部 diff 审计",
+          "source": "full-audit"
+        },
+        "typography": {
+          "status": "skipped",
+          "reason": "无可独立测量的单行文字",
+          "source": "full-audit"
+        },
+        "textColor": {
+          "status": "skipped",
+          "reason": "无可独立测量的单行文字",
+          "source": "full-audit"
+        },
+        "backgroundColor": {
+          "status": "skipped",
+          "reason": "无可见背景填充",
+          "source": "full-audit"
+        },
+        "border": {
+          "status": "skipped",
+          "reason": "无可见边框或边框区域过小",
+          "source": "full-audit"
+        }
+      }
+    },
+    {
+      "target": {
+        "selector": "body>div>div>div>div>main>header>button>span:nth-of-type(1)",
+        "displaySelector": "span.brand-mark",
+        "text": "",
+        "rect": {
+          "x": 54,
+          "y": 40,
+          "width": 36,
+          "height": 36
+        }
+      },
+      "dimensions": {
+        "geometry": {
+          "status": "skipped",
+          "reason": "非叶子文字元素由结构/局部 diff 审计",
+          "source": "full-audit"
+        },
+        "typography": {
+          "status": "skipped",
+          "reason": "无可独立测量的单行文字",
+          "source": "full-audit"
+        },
+        "textColor": {
+          "status": "skipped",
+          "reason": "无可独立测量的单行文字",
+          "source": "full-audit"
+        },
+        "backgroundColor": {
+          "status": "skipped",
+          "reason": "无可见背景填充",
+          "source": "full-audit"
+        },
+        "border": {
+          "status": "skipped",
+          "reason": "无可见边框或边框区域过小",
+          "source": "full-audit"
+        }
+      }
+    },
+    {
+      "target": {
+        "selector": "body>div>div>div>div>main>header>button>span:nth-of-type(1)>svg",
+        "displaySelector": "svg",
+        "text": "",
+        "rect": {
+          "x": 59.5,
+          "y": 45.5,
+          "width": 25,
+          "height": 25
+        }
+      },
+      "dimensions": {
+        "geometry": {
+          "status": "skipped",
+          "reason": "非叶子文字元素由结构/局部 diff 审计",
+          "source": "full-audit"
+        },
+        "typography": {
+          "status": "skipped",
+          "reason": "无可独立测量的单行文字",
+          "source": "full-audit"
+        },
+        "textColor": {
+          "status": "skipped",
+          "reason": "无可独立测量的单行文字",
+          "source": "full-audit"
+        },
+        "backgroundColor": {
+          "status": "skipped",
+          "reason": "无可见背景填充",
+          "source": "full-audit"
+        },
+        "border": {
+          "status": "skipped",
+          "reason": "无可见边框或边框区域过小",
+          "source": "full-audit"
+        }
+      }
+    },
+    {
+      "target": {
+        "selector": "body>div>div>div>div>main>header>button>span:nth-of-type(1)>svg>path:nth-of-type(1)",
+        "displaySelector": "path",
+        "text": "",
+        "rect": {
+          "x": 61.584922790527344,
+          "y": 47.583072662353516,
+          "width": 20.833877563476562,
+          "height": 20.833858489990234
+        }
+      },
+      "dimensions": {
+        "geometry": {
+          "status": "skipped",
+          "reason": "非叶子文字元素由结构/局部 diff 审计",
+          "source": "full-audit"
+        },
+        "typography": {
+          "status": "skipped",
+          "reason": "无可独立测量的单行文字",
+          "source": "full-audit"
+        },
+        "textColor": {
+          "status": "skipped",
+          "reason": "无可独立测量的单行文字",
+          "source": "full-audit"
+        },
+        "backgroundColor": {
+          "status": "skipped",
+          "reason": "无可见背景填充",
+          "source": "full-audit"
+        },
+        "border": {
+          "status": "skipped",
+          "reason": "无可见边框或边框区域过小",
+          "source": "full-audit"
+        }
+      }
+    },
+    {
+      "target": {
+        "selector": "body>div>div>div>div>main>header>button>span:nth-of-type(2)",
+        "displaySelector": "span",
+        "text": "灵灵生图站",
+        "rect": {
+          "x": 103,
+          "y": 40,
+          "width": 125,
+          "height": 36
+        }
+      },
+      "dimensions": {
+        "geometry": {
+          "status": "fail",
+          "value": {
+            "dy": 6
+          },
+          "threshold": {
+            "maxAbsDy": 1.5
+          },
+          "source": "full-audit"
+        },
+        "typography": {
+          "status": "fail",
+          "value": {
+            "fontSize": 25,
+            "designFontSize": 20.83
+          },
+          "threshold": {
+            "maxFontDiff": 1.2
+          },
+          "source": "full-audit"
+        },
+        "textColor": {
+          "status": "pass",
+          "value": {
+            "designColor": "#100f0f",
+            "actualColor": "#111111",
+            "delta": 2.74
+          },
+          "threshold": {
+            "maxDelta": 55
+          },
+          "source": "full-audit"
+        },
+        "backgroundColor": {
+          "status": "skipped",
+          "reason": "无可见背景填充",
+          "source": "full-audit"
+        },
+        "border": {
+          "status": "skipped",
+          "reason": "无可见边框或边框区域过小",
+          "source": "full-audit"
+        }
+      }
+    },
+    {
+      "target": {
+        "selector": "body>div>div>div>div>main>header>nav",
+        "displaySelector": "nav.nav-tabs",
+        "text": "",
+        "rect": {
+          "x": 269,
+          "y": 16,
+          "width": 677.921875,
+          "height": 84
+        }
+      },
+      "dimensions": {
+        "geometry": {
+          "status": "skipped",
+          "reason": "非叶子文字元素由结构/局部 diff 审计",
+          "source": "full-audit"
+        },
+        "typography": {
+          "status": "skipped",
+          "reason": "无可独立测量的单行文字",
+          "source": "full-audit"
+        },
+        "textColor": {
+          "status": "skipped",
+          "reason": "无可独立测量的单行文字",
+          "source": "full-audit"
+        },
+        "backgroundColor": {
+          "status": "skipped",
+          "reason": "无可见背景填充",
+          "source": "full-audit"
+        },
+        "border": {
+          "status": "skipped",
+          "reason": "无可见边框或边框区域过小",
+          "source": "full-audit"
+        }
+      }
+    },
+    {
+      "target": {
+        "selector": "body>div>div>div>div>main>header>nav>button:nth-of-type(1)",
+        "displaySelector": "button.active",
+        "text": "首页",
+        "rect": {
+          "x": 269,
+          "y": 16,
+          "width": 38,
+          "height": 84
+        }
+      },
+      "dimensions": {
+        "geometry": {
+          "status": "skipped",
+          "reason": "多行文字需人工复核",
+          "source": "full-audit"
+        },
+        "typography": {
+          "status": "skipped",
+          "reason": "多行文字需人工复核",
+          "source": "full-audit"
+        },
+        "textColor": {
+          "status": "skipped",
+          "reason": "多行文字需人工复核",
+          "source": "full-audit"
+        },
+        "backgroundColor": {
+          "status": "skipped",
+          "reason": "无可见背景填充",
+          "source": "full-audit"
+        },
+        "border": {
+          "status": "skipped",
+          "reason": "无可见边框或边框区域过小",
+          "source": "full-audit"
+        }
+      }
+    },
+    {
+      "target": {
+        "selector": "body>div>div>div>div>main>header>nav>button:nth-of-type(2)",
+        "displaySelector": "button",
+        "text": "照片级AI商品图",
+        "rect": {
+          "x": 357,
+          "y": 16,
+          "width": 121.921875,
+          "height": 84
+        }
+      },
+      "dimensions": {
+        "geometry": {
+          "status": "skipped",
+          "reason": "多行文字需人工复核",
+          "source": "full-audit"
+        },
+        "typography": {
+          "status": "skipped",
+          "reason": "多行文字需人工复核",
+          "source": "full-audit"
+        },
+        "textColor": {
+          "status": "skipped",
+          "reason": "多行文字需人工复核",
+          "source": "full-audit"
+        },
+        "backgroundColor": {
+          "status": "skipped",
+          "reason": "无可见背景填充",
+          "source": "full-audit"
+        },
+        "border": {
+          "status": "skipped",
+          "reason": "无可见边框或边框区域过小",
+          "source": "full-audit"
+        }
+      }
+    },
+    {
+      "target": {
+        "selector": "body>div>div>div>div>main>header>nav>button:nth-of-type(3)",
+        "displaySelector": "button",
+        "text": "万物穿搭上身",
+        "rect": {
+          "x": 528.921875,
+          "y": 16,
+          "width": 106,
+          "height": 84
+        }
+      },
+      "dimensions": {
+        "geometry": {
+          "status": "skipped",
+          "reason": "多行文字需人工复核",
+          "source": "full-audit"
+        },
+        "typography": {
+          "status": "skipped",
+          "reason": "多行文字需人工复核",
+          "source": "full-audit"
+        },
+        "textColor": {
+          "status": "skipped",
+          "reason": "多行文字需人工复核",
+          "source": "full-audit"
+        },
+        "backgroundColor": {
+          "status": "skipped",
+          "reason": "无可见背景填充",
+          "source": "full-audit"
+        },
+        "border": {
+          "status": "skipped",
+          "reason": "无可见边框或边框区域过小",
+          "source": "full-audit"
+        }
+      }
+    },
+    {
+      "target": {
+        "selector": "body>div>div>div>div>main>header>nav>button:nth-of-type(4)",
+        "displaySelector": "button",
+        "text": "营销场景设计",
+        "rect": {
+          "x": 684.921875,
+          "y": 16,
+          "width": 106,
+          "height": 84
+        }
+      },
+      "dimensions": {
+        "geometry": {
+          "status": "skipped",
+          "reason": "多行文字需人工复核",
+          "source": "full-audit"
+        },
+        "typography": {
+          "status": "skipped",
+          "reason": "多行文字需人工复核",
+          "source": "full-audit"
+        },
+        "textColor": {
+          "status": "skipped",
+          "reason": "多行文字需人工复核",
+          "source": "full-audit"
+        },
+        "backgroundColor": {
+          "status": "skipped",
+          "reason": "无可见背景填充",
+          "source": "full-audit"
+        },
+        "border": {
+          "status": "skipped",
+          "reason": "无可见边框或边框区域过小",
+          "source": "full-audit"
+        }
+      }
+    },
+    {
+      "target": {
+        "selector": "body>div>div>div>div>main>header>nav>button:nth-of-type(5)",
+        "displaySelector": "button",
+        "text": "电商素材生成",
+        "rect": {
+          "x": 840.921875,
+          "y": 16,
+          "width": 106,
+          "height": 84
+        }
+      },
+      "dimensions": {
+        "geometry": {
+          "status": "skipped",
+          "reason": "多行文字需人工复核",
+          "source": "full-audit"
+        },
+        "typography": {
+          "status": "skipped",
+          "reason": "多行文字需人工复核",
+          "source": "full-audit"
+        },
+        "textColor": {
+          "status": "skipped",
+          "reason": "多行文字需人工复核",
+          "source": "full-audit"
+        },
+        "backgroundColor": {
+          "status": "skipped",
+          "reason": "无可见背景填充",
+          "source": "full-audit"
+        },
+        "border": {
+          "status": "skipped",
+          "reason": "无可见边框或边框区域过小",
+          "source": "full-audit"
+        }
+      }
+    },
+    {
+      "target": {
+        "selector": "body>div>div>div>div>main>header>div",
+        "displaySelector": "div.header-actions",
+        "text": "",
+        "rect": {
+          "x": 1038,
+          "y": 32,
+          "width": 453,
+          "height": 52
+        }
+      },
+      "dimensions": {
+        "geometry": {
+          "status": "skipped",
+          "reason": "非叶子文字元素由结构/局部 diff 审计",
+          "source": "full-audit"
+        },
+        "typography": {
+          "status": "skipped",
+          "reason": "无可独立测量的单行文字",
+          "source": "full-audit"
+        },
+        "textColor": {
+          "status": "skipped",
+          "reason": "无可独立测量的单行文字",
+          "source": "full-audit"
+        },
+        "backgroundColor": {
+          "status": "skipped",
+          "reason": "无可见背景填充",
+          "source": "full-audit"
+        },
+        "border": {
+          "status": "skipped",
+          "reason": "无可见边框或边框区域过小",
+          "source": "full-audit"
+        }
+      }
+    },
+    {
+      "target": {
+        "selector": "body>div>div>div>div>main>header>div>form",
+        "displaySelector": "form.search-box",
+        "text": "",
+        "rect": {
+          "x": 1038,
+          "y": 32,
+          "width": 338,
+          "height": 52
+        }
+      },
+      "dimensions": {
+        "geometry": {
+          "status": "skipped",
+          "reason": "非叶子文字元素由结构/局部 diff 审计",
+          "source": "full-audit"
+        },
+        "typography": {
+          "status": "skipped",
+          "reason": "无可独立测量的单行文字",
+          "source": "full-audit"
+        },
+        "textColor": {
+          "status": "skipped",
+          "reason": "无可独立测量的单行文字",
+          "source": "full-audit"
+        },
+        "backgroundColor": {
+          "status": "pass",
+          "value": {
+            "designColor": "#fafafb",
+            "actualColor": "#ffffff",
+            "delta": 8.12
+          },
+          "threshold": {
+            "maxDelta": 22
+          },
+          "source": "full-audit"
+        },
+        "border": {
+          "status": "fail",
+          "value": {
+            "designColor": "#fcfcfc",
+            "actualColor": "#d9dee8",
+            "delta": 50.25
+          },
+          "threshold": {
+            "maxDelta": 26
+          },
+          "source": "full-audit"
+        }
+      }
+    },
+    {
+      "target": {
+        "selector": "body>div>div>div>div>main>header>div>form>svg",
+        "displaySelector": "svg",
+        "text": "",
+        "rect": {
+          "x": 1057,
+          "y": 47,
+          "width": 22,
+          "height": 22
+        }
+      },
+      "dimensions": {
+        "geometry": {
+          "status": "skipped",
+          "reason": "非叶子文字元素由结构/局部 diff 审计",
+          "source": "full-audit"
+        },
+        "typography": {
+          "status": "skipped",
+          "reason": "无可独立测量的单行文字",
+          "source": "full-audit"
+        },
+        "textColor": {
+          "status": "skipped",
+          "reason": "无可独立测量的单行文字",
+          "source": "full-audit"
+        },
+        "backgroundColor": {
+          "status": "skipped",
+          "reason": "无可见背景填充",
+          "source": "full-audit"
+        },
+        "border": {
+          "status": "skipped",
+          "reason": "无可见边框或边框区域过小",
+          "source": "full-audit"
+        }
+      }
+    },
+    {
+      "target": {
+        "selector": "body>div>div>div>div>main>header>div>form>svg>circle",
+        "displaySelector": "circle",
+        "text": "",
+        "rect": {
+          "x": 1059.75,
+          "y": 49.75,
+          "width": 14.6666259765625,
+          "height": 14.666664123535156
+        }
+      },
+      "dimensions": {
+        "geometry": {
+          "status": "skipped",
+          "reason": "非叶子文字元素由结构/局部 diff 审计",
+          "source": "full-audit"
+        },
+        "typography": {
+          "status": "skipped",
+          "reason": "无可独立测量的单行文字",
+          "source": "full-audit"
+        },
+        "textColor": {
+          "status": "skipped",
+          "reason": "无可独立测量的单行文字",
+          "source": "full-audit"
+        },
+        "backgroundColor": {
+          "status": "skipped",
+          "reason": "无可见背景填充",
+          "source": "full-audit"
+        },
+        "border": {
+          "status": "skipped",
+          "reason": "无可见边框或边框区域过小",
+          "source": "full-audit"
+        }
+      }
+    },
+    {
+      "target": {
+        "selector": "body>div>div>div>div>main>header>div>form>input",
+        "displaySelector": "input",
+        "text": "",
+        "rect": {
+          "x": 1091,
+          "y": 46.5,
+          "width": 266,
+          "height": 23
+        }
+      },
+      "dimensions": {
+        "geometry": {
+          "status": "skipped",
+          "reason": "非叶子文字元素由结构/局部 diff 审计",
+          "source": "full-audit"
+        },
+        "typography": {
+          "status": "skipped",
+          "reason": "无可独立测量的单行文字",
+          "source": "full-audit"
+        },
+        "textColor": {
+          "status": "skipped",
+          "reason": "无可独立测量的单行文字",
+          "source": "full-audit"
+        },
+        "backgroundColor": {
+          "status": "skipped",
+          "reason": "无可见背景填充",
+          "source": "full-audit"
+        },
+        "border": {
+          "status": "skipped",
+          "reason": "无可见边框或边框区域过小",
+          "source": "full-audit"
+        }
+      }
+    },
+    {
+      "target": {
+        "selector": "body>div>div>div>div>main>header>div>button",
+        "displaySelector": "button.profile-button",
+        "text": "",
+        "rect": {
+          "x": 1398,
+          "y": 33,
+          "width": 93,
+          "height": 50
+        }
+      },
+      "dimensions": {
+        "geometry": {
+          "status": "skipped",
+          "reason": "非叶子文字元素由结构/局部 diff 审计",
+          "source": "full-audit"
+        },
+        "typography": {
+          "status": "skipped",
+          "reason": "无可独立测量的单行文字",
+          "source": "full-audit"
+        },
+        "textColor": {
+          "status": "skipped",
+          "reason": "无可独立测量的单行文字",
+          "source": "full-audit"
+        },
+        "backgroundColor": {
+          "status": "pass",
+          "value": {
+            "designColor": "#eeeff0",
+            "actualColor": "#f7f8fa",
+            "delta": 16.19
+          },
+          "threshold": {
+            "maxDelta": 22
+          },
+          "source": "full-audit"
+        },
+        "border": {
+          "status": "skipped",
+          "reason": "无可见边框或边框区域过小",
+          "source": "full-audit"
+        }
+      }
+    },
+    {
+      "target": {
+        "selector": "body>div>div>div>div>main>header>div>button>span",
+        "displaySelector": "span.avatar",
+        "text": "",
+        "rect": {
+          "x": 1398,
+          "y": 36.5,
+          "width": 43,
+          "height": 43
+        }
+      },
+      "dimensions": {
+        "geometry": {
+          "status": "skipped",
+          "reason": "非叶子文字元素由结构/局部 diff 审计",
+          "source": "full-audit"
+        },
+        "typography": {
+          "status": "skipped",
+          "reason": "无可独立测量的单行文字",
+          "source": "full-audit"
+        },
+        "textColor": {
+          "status": "skipped",
+          "reason": "无可独立测量的单行文字",
+          "source": "full-audit"
+        },
+        "backgroundColor": {
+          "status": "skipped",
+          "reason": "无可见背景填充",
+          "source": "full-audit"
+        },
+        "border": {
+          "status": "skipped",
+          "reason": "无可见边框或边框区域过小",
+          "source": "full-audit"
+        }
+      }
+    },
+    {
+      "target": {
+        "selector": "body>div>div>div>div>main>header>div>button>span>svg",
+        "displaySelector": "svg",
+        "text": "",
+        "rect": {
+          "x": 1408,
+          "y": 46.5,
+          "width": 23,
+          "height": 23
+        }
+      },
+      "dimensions": {
+        "geometry": {
+          "status": "skipped",
+          "reason": "非叶子文字元素由结构/局部 diff 审计",
+          "source": "full-audit"
+        },
+        "typography": {
+          "status": "skipped",
+          "reason": "无可独立测量的单行文字",
+          "source": "full-audit"
+        },
+        "textColor": {
+          "status": "skipped",
+          "reason": "无可独立测量的单行文字",
+          "source": "full-audit"
+        },
+        "backgroundColor": {
+          "status": "skipped",
+          "reason": "无可见背景填充",
+          "source": "full-audit"
+        },
+        "border": {
+          "status": "skipped",
+          "reason": "无可见边框或边框区域过小",
+          "source": "full-audit"
+        }
+      }
+    },
+    {
+      "target": {
+        "selector": "body>div>div>div>div>main>header>div>button>span>svg>circle",
+        "displaySelector": "circle",
+        "text": "",
+        "rect": {
+          "x": 1414.7083740234375,
+          "y": 49.375,
+          "width": 9.583251953125,
+          "height": 9.583332061767578
+        }
+      },
+      "dimensions": {
+        "geometry": {
+          "status": "skipped",
+          "reason": "非叶子文字元素由结构/局部 diff 审计",
+          "source": "full-audit"
+        },
+        "typography": {
+          "status": "skipped",
+          "reason": "无可独立测量的单行文字",
+          "source": "full-audit"
+        },
+        "textColor": {
+          "status": "skipped",
+          "reason": "无可独立测量的单行文字",
+          "source": "full-audit"
+        },
+        "backgroundColor": {
+          "status": "skipped",
+          "reason": "无可见背景填充",
+          "source": "full-audit"
+        },
+        "border": {
+          "status": "skipped",
+          "reason": "无可见边框或边框区域过小",
+          "source": "full-audit"
+        }
+      }
+    },
+    {
+      "target": {
+        "selector": "body>div>div>div>div>main>header>div>button>span>svg>path",
+        "displaySelector": "path",
+        "text": "",
+        "rect": {
+          "x": 1411.8333740234375,
+          "y": 58.95833206176758,
+          "width": 15.333251953125,
+          "height": 7.666667938232422
+        }
+      },
+      "dimensions": {
+        "geometry": {
+          "status": "skipped",
+          "reason": "非叶子文字元素由结构/局部 diff 审计",
+          "source": "full-audit"
+        },
+        "typography": {
+          "status": "skipped",
+          "reason": "无可独立测量的单行文字",
+          "source": "full-audit"
+        },
+        "textColor": {
+          "status": "skipped",
+          "reason": "无可独立测量的单行文字",
+          "source": "full-audit"
+        },
+        "backgroundColor": {
+          "status": "skipped",
+          "reason": "无可见背景填充",
+          "source": "full-audit"
+        },
+        "border": {
+          "status": "skipped",
+          "reason": "无可见边框或边框区域过小",
+          "source": "full-audit"
+        }
+      }
+    },
+    {
+      "target": {
+        "selector": "body>div>div>div>div>main>header>div>button>svg",
+        "displaySelector": "svg",
+        "text": "",
+        "rect": {
+          "x": 1452,
+          "y": 48,
+          "width": 20,
+          "height": 20
+        }
+      },
+      "dimensions": {
+        "geometry": {
+          "status": "skipped",
+          "reason": "非叶子文字元素由结构/局部 diff 审计",
+          "source": "full-audit"
+        },
+        "typography": {
+          "status": "skipped",
+          "reason": "无可独立测量的单行文字",
+          "source": "full-audit"
+        },
+        "textColor": {
+          "status": "skipped",
+          "reason": "无可独立测量的单行文字",
+          "source": "full-audit"
+        },
+        "backgroundColor": {
+          "status": "skipped",
+          "reason": "无可见背景填充",
+          "source": "full-audit"
+        },
+        "border": {
+          "status": "skipped",
+          "reason": "无可见边框或边框区域过小",
+          "source": "full-audit"
+        }
+      }
+    },
+    {
+      "target": {
+        "selector": "body>div>div>div>div>main>header>div>button>svg>path",
+        "displaySelector": "path",
+        "text": "",
+        "rect": {
+          "x": 1457,
+          "y": 55.5,
+          "width": 10,
+          "height": 5
+        }
+      },
+      "dimensions": {
+        "geometry": {
+          "status": "skipped",
+          "reason": "非叶子文字元素由结构/局部 diff 审计",
+          "source": "full-audit"
+        },
+        "typography": {
+          "status": "skipped",
+          "reason": "无可独立测量的单行文字",
+          "source": "full-audit"
+        },
+        "textColor": {
+          "status": "skipped",
+          "reason": "无可独立测量的单行文字",
+          "source": "full-audit"
+        },
+        "backgroundColor": {
+          "status": "skipped",
+          "reason": "无可见背景填充",
+          "source": "full-audit"
+        },
+        "border": {
+          "status": "skipped",
+          "reason": "无可见边框或边框区域过小",
+          "source": "full-audit"
+        }
+      }
+    },
+    {
+      "target": {
+        "selector": "body>div>div>div>div>main>section",
+        "displaySelector": "section.home-page",
+        "text": "",
+        "rect": {
+          "x": 0,
+          "y": 0,
+          "width": 1536,
+          "height": 1024
+        }
+      },
+      "dimensions": {
+        "geometry": {
+          "status": "skipped",
+          "reason": "非叶子文字元素由结构/局部 diff 审计",
+          "source": "full-audit"
+        },
+        "typography": {
+          "status": "skipped",
+          "reason": "无可独立测量的单行文字",
+          "source": "full-audit"
+        },
+        "textColor": {
+          "status": "skipped",
+          "reason": "无可独立测量的单行文字",
+          "source": "full-audit"
+        },
+        "backgroundColor": {
+          "status": "pass",
+          "value": {
+            "designColor": "#f2f0f0",
+            "actualColor": "#f8f9fa",
+            "delta": 14.73
+          },
+          "threshold": {
+            "maxDelta": 22
+          },
+          "source": "full-audit"
+        },
+        "border": {
+          "status": "skipped",
+          "reason": "无可见边框或边框区域过小",
+          "source": "full-audit"
+        }
+      }
+    },
+    {
+      "target": {
+        "selector": "body>div>div>div>div>main>section>div:nth-of-type(1)",
+        "displaySelector": "div.home-atmosphere",
+        "text": "",
+        "rect": {
+          "x": 0,
+          "y": 0,
+          "width": 1536,
+          "height": 1024
+        }
+      },
+      "dimensions": {
+        "geometry": {
+          "status": "skipped",
+          "reason": "非叶子文字元素由结构/局部 diff 审计",
+          "source": "full-audit"
+        },
+        "typography": {
+          "status": "skipped",
+          "reason": "无可独立测量的单行文字",
+          "source": "full-audit"
+        },
+        "textColor": {
+          "status": "skipped",
+          "reason": "无可独立测量的单行文字",
+          "source": "full-audit"
+        },
+        "backgroundColor": {
+          "status": "skipped",
+          "reason": "无可见背景填充",
+          "source": "full-audit"
+        },
+        "border": {
+          "status": "skipped",
+          "reason": "无可见边框或边框区域过小",
+          "source": "full-audit"
+        }
+      }
+    },
+    {
+      "target": {
+        "selector": "body>div>div>div>div>main>section>div:nth-of-type(1)>div:nth-of-type(1)",
+        "displaySelector": "div.home-studio-left",
+        "text": "",
+        "rect": {
+          "x": 0,
+          "y": 120,
+          "width": 380,
+          "height": 780
+        }
+      },
+      "dimensions": {
+        "geometry": {
+          "status": "skipped",
+          "reason": "非叶子文字元素由结构/局部 diff 审计",
+          "source": "full-audit"
+        },
+        "typography": {
+          "status": "skipped",
+          "reason": "无可独立测量的单行文字",
+          "source": "full-audit"
+        },
+        "textColor": {
+          "status": "skipped",
+          "reason": "无可独立测量的单行文字",
+          "source": "full-audit"
+        },
+        "backgroundColor": {
+          "status": "skipped",
+          "reason": "无可见背景填充",
+          "source": "full-audit"
+        },
+        "border": {
+          "status": "skipped",
+          "reason": "无可见边框或边框区域过小",
+          "source": "full-audit"
+        }
+      }
+    },
+    {
+      "target": {
+        "selector": "body>div>div>div>div>main>section>div:nth-of-type(1)>div:nth-of-type(1)>span:nth-of-type(1)",
+        "displaySelector": "span.studio-softbox",
+        "text": "",
+        "rect": {
+          "x": 38,
+          "y": 162,
+          "width": 205,
+          "height": 180
+        }
+      },
+      "dimensions": {
+        "geometry": {
+          "status": "skipped",
+          "reason": "非叶子文字元素由结构/局部 diff 审计",
+          "source": "full-audit"
+        },
+        "typography": {
+          "status": "skipped",
+          "reason": "无可独立测量的单行文字",
+          "source": "full-audit"
+        },
+        "textColor": {
+          "status": "skipped",
+          "reason": "无可独立测量的单行文字",
+          "source": "full-audit"
+        },
+        "backgroundColor": {
+          "status": "skipped",
+          "reason": "无可见背景填充",
+          "source": "full-audit"
+        },
+        "border": {
+          "status": "pass",
+          "value": {
+            "designColor": "#f3f2f2",
+            "actualColor": "#f7f8f9",
+            "delta": 10.05
+          },
+          "threshold": {
+            "maxDelta": 26
+          },
+          "source": "full-audit"
+        }
+      }
+    },
+    {
+      "target": {
+        "selector": "body>div>div>div>div>main>section>div:nth-of-type(1)>div:nth-of-type(1)>span:nth-of-type(2)",
+        "displaySelector": "span.studio-light-arm",
+        "text": "",
+        "rect": {
+          "x": 75.0769271850586,
+          "y": 339.0860595703125,
+          "width": 71.84613800048828,
+          "height": 391.827880859375
+        }
+      },
+      "dimensions": {
+        "geometry": {
+          "status": "skipped",
+          "reason": "非叶子文字元素由结构/局部 diff 审计",
+          "source": "full-audit"
+        },
+        "typography": {
+          "status": "skipped",
+          "reason": "无可独立测量的单行文字",
+          "source": "full-audit"
+        },
+        "textColor": {
+          "status": "skipped",
+          "reason": "无可独立测量的单行文字",
+          "source": "full-audit"
+        },
+        "backgroundColor": {
+          "status": "skipped",
+          "reason": "无可见背景填充",
+          "source": "full-audit"
+        },
+        "border": {
+          "status": "skipped",
+          "reason": "无可见边框或边框区域过小",
+          "source": "full-audit"
+        }
+      }
+    },
+    {
+      "target": {
+        "selector": "body>div>div>div>div>main>section>div:nth-of-type(1)>div:nth-of-type(1)>span:nth-of-type(3)",
+        "displaySelector": "span.studio-clothes-rack",
+        "text": "",
+        "rect": {
+          "x": 0,
+          "y": 540,
+          "width": 215,
+          "height": 210
+        }
+      },
+      "dimensions": {
+        "geometry": {
+          "status": "skipped",
+          "reason": "非叶子文字元素由结构/局部 diff 审计",
+          "source": "full-audit"
+        },
+        "typography": {
+          "status": "skipped",
+          "reason": "无可独立测量的单行文字",
+          "source": "full-audit"
+        },
+        "textColor": {
+          "status": "skipped",
+          "reason": "无可独立测量的单行文字",
+          "source": "full-audit"
+        },
+        "backgroundColor": {
+          "status": "skipped",
+          "reason": "无可见背景填充",
+          "source": "full-audit"
+        },
+        "border": {
+          "status": "pass",
+          "value": {
+            "designColor": "#ebeaed",
+            "actualColor": "#f6f7f9",
+            "delta": 20.83
+          },
+          "threshold": {
+            "maxDelta": 26
+          },
+          "source": "full-audit"
+        }
+      }
+    },
+    {
+      "target": {
+        "selector": "body>div>div>div>div>main>section>div:nth-of-type(1)>div:nth-of-type(1)>span:nth-of-type(3)>i:nth-of-type(1)",
+        "displaySelector": "i",
+        "text": "",
+        "rect": {
+          "x": 4,
+          "y": 544,
+          "width": 43,
+          "height": 180
+        }
+      },
+      "dimensions": {
+        "geometry": {
+          "status": "skipped",
+          "reason": "非叶子文字元素由结构/局部 diff 审计",
+          "source": "full-audit"
+        },
+        "typography": {
+          "status": "skipped",
+          "reason": "无可独立测量的单行文字",
+          "source": "full-audit"
+        },
+        "textColor": {
+          "status": "skipped",
+          "reason": "无可独立测量的单行文字",
+          "source": "full-audit"
+        },
+        "backgroundColor": {
+          "status": "skipped",
+          "reason": "无可见背景填充",
+          "source": "full-audit"
+        },
+        "border": {
+          "status": "skipped",
+          "reason": "无可见边框或边框区域过小",
+          "source": "full-audit"
+        }
+      }
+    },
+    {
+      "target": {
+        "selector": "body>div>div>div>div>main>section>div:nth-of-type(1)>div:nth-of-type(1)>span:nth-of-type(3)>i:nth-of-type(2)",
+        "displaySelector": "i",
+        "text": "",
+        "rect": {
+          "x": 59,
+          "y": 544,
+          "width": 43,
+          "height": 180
+        }
+      },
+      "dimensions": {
+        "geometry": {
+          "status": "skipped",
+          "reason": "非叶子文字元素由结构/局部 diff 审计",
+          "source": "full-audit"
+        },
+        "typography": {
+          "status": "skipped",
+          "reason": "无可独立测量的单行文字",
+          "source": "full-audit"
+        },
+        "textColor": {
+          "status": "skipped",
+          "reason": "无可独立测量的单行文字",
+          "source": "full-audit"
+        },
+        "backgroundColor": {
+          "status": "skipped",
+          "reason": "无可见背景填充",
+          "source": "full-audit"
+        },
+        "border": {
+          "status": "skipped",
+          "reason": "无可见边框或边框区域过小",
+          "source": "full-audit"
+        }
+      }
+    },
+    {
+      "target": {
+        "selector": "body>div>div>div>div>main>section>div:nth-of-type(1)>div:nth-of-type(1)>span:nth-of-type(3)>i:nth-of-type(3)",
+        "displaySelector": "i",
+        "text": "",
+        "rect": {
+          "x": 114,
+          "y": 544,
+          "width": 43,
+          "height": 180
+        }
+      },
+      "dimensions": {
+        "geometry": {
+          "status": "skipped",
+          "reason": "非叶子文字元素由结构/局部 diff 审计",
+          "source": "full-audit"
+        },
+        "typography": {
+          "status": "skipped",
+          "reason": "无可独立测量的单行文字",
+          "source": "full-audit"
+        },
+        "textColor": {
+          "status": "skipped",
+          "reason": "无可独立测量的单行文字",
+          "source": "full-audit"
+        },
+        "backgroundColor": {
+          "status": "skipped",
+          "reason": "无可见背景填充",
+          "source": "full-audit"
+        },
+        "border": {
+          "status": "skipped",
+          "reason": "无可见边框或边框区域过小",
+          "source": "full-audit"
+        }
+      }
+    },
+    {
+      "target": {
+        "selector": "body>div>div>div>div>main>section>div:nth-of-type(1)>div:nth-of-type(1)>span:nth-of-type(3)>i:nth-of-type(4)",
+        "displaySelector": "i",
+        "text": "",
+        "rect": {
+          "x": 169,
+          "y": 544,
+          "width": 43,
+          "height": 180
+        }
+      },
+      "dimensions": {
+        "geometry": {
+          "status": "skipped",
+          "reason": "非叶子文字元素由结构/局部 diff 审计",
+          "source": "full-audit"
+        },
+        "typography": {
+          "status": "skipped",
+          "reason": "无可独立测量的单行文字",
+          "source": "full-audit"
+        },
+        "textColor": {
+          "status": "skipped",
+          "reason": "无可独立测量的单行文字",
+          "source": "full-audit"
+        },
+        "backgroundColor": {
+          "status": "skipped",
+          "reason": "无可见背景填充",
+          "source": "full-audit"
+        },
+        "border": {
+          "status": "skipped",
+          "reason": "无可见边框或边框区域过小",
+          "source": "full-audit"
+        }
+      }
+    },
+    {
+      "target": {
+        "selector": "body>div>div>div>div>main>section>div:nth-of-type(1)>div:nth-of-type(2)",
+        "displaySelector": "div.home-red-lines",
+        "text": "",
+        "rect": {
+          "x": 816,
+          "y": 490,
+          "width": 800,
+          "height": 480
+        }
+      },
+      "dimensions": {
+        "geometry": {
+          "status": "skipped",
+          "reason": "非叶子文字元素由结构/局部 diff 审计",
+          "source": "full-audit"
+        },
+        "typography": {
+          "status": "skipped",
+          "reason": "无可独立测量的单行文字",
+          "source": "full-audit"
+        },
+        "textColor": {
+          "status": "skipped",
+          "reason": "无可独立测量的单行文字",
+          "source": "full-audit"
+        },
+        "backgroundColor": {
+          "status": "skipped",
+          "reason": "无可见背景填充",
+          "source": "full-audit"
+        },
+        "border": {
+          "status": "skipped",
+          "reason": "无可见边框或边框区域过小",
+          "source": "full-audit"
+        }
+      }
+    },
+    {
+      "target": {
+        "selector": "body>div>div>div>div>main>section>div:nth-of-type(1)>div:nth-of-type(2)>span:nth-of-type(1)",
+        "displaySelector": "span",
+        "text": "",
+        "rect": {
+          "x": 841.1190185546875,
+          "y": 509.8051452636719,
+          "width": 799.761962890625,
+          "height": 510.3897399902344
+        }
+      },
+      "dimensions": {
+        "geometry": {
+          "status": "skipped",
+          "reason": "非叶子文字元素由结构/局部 diff 审计",
+          "source": "full-audit"
+        },
+        "typography": {
+          "status": "skipped",
+          "reason": "无可独立测量的单行文字",
+          "source": "full-audit"
+        },
+        "textColor": {
+          "status": "skipped",
+          "reason": "无可独立测量的单行文字",
+          "source": "full-audit"
+        },
+        "backgroundColor": {
+          "status": "skipped",
+          "reason": "无可见背景填充",
+          "source": "full-audit"
+        },
+        "border": {
+          "status": "fail",
+          "value": {
+            "designColor": "#e0dcde",
+            "actualColor": "#f7f7f9",
+            "delta": 44.58
+          },
+          "threshold": {
+            "maxDelta": 26
+          },
+          "source": "full-audit"
+        }
+      }
+    },
+    {
+      "target": {
+        "selector": "body>div>div>div>div>main>section>div:nth-of-type(1)>div:nth-of-type(2)>span:nth-of-type(2)",
+        "displaySelector": "span",
+        "text": "",
+        "rect": {
+          "x": 800.2139282226562,
+          "y": 598.4766845703125,
+          "width": 791.5722045898438,
+          "height": 383.046630859375
+        }
+      },
+      "dimensions": {
+        "geometry": {
+          "status": "skipped",
+          "reason": "非叶子文字元素由结构/局部 diff 审计",
+          "source": "full-audit"
+        },
+        "typography": {
+          "status": "skipped",
+          "reason": "无可独立测量的单行文字",
+          "source": "full-audit"
+        },
+        "textColor": {
+          "status": "skipped",
+          "reason": "无可独立测量的单行文字",
+          "source": "full-audit"
+        },
+        "backgroundColor": {
+          "status": "skipped",
+          "reason": "无可见背景填充",
+          "source": "full-audit"
+        },
+        "border": {
+          "status": "fail",
+          "value": {
+            "designColor": "#e0dee0",
+            "actualColor": "#f7f6f8",
+            "delta": 41
+          },
+          "threshold": {
+            "maxDelta": 26
+          },
+          "source": "full-audit"
+        }
+      }
+    },
+    {
+      "target": {
+        "selector": "body>div>div>div>div>main>section>div:nth-of-type(1)>div:nth-of-type(2)>span:nth-of-type(3)",
+        "displaySelector": "span",
+        "text": "",
+        "rect": {
+          "x": 1275.5400390625,
+          "y": 666.189697265625,
+          "width": 230.919921875,
+          "height": 192.62060546875
+        }
+      },
+      "dimensions": {
+        "geometry": {
+          "status": "skipped",
+          "reason": "非叶子文字元素由结构/局部 diff 审计",
+          "source": "full-audit"
+        },
+        "typography": {
+          "status": "skipped",
+          "reason": "无可独立测量的单行文字",
+          "source": "full-audit"
+        },
+        "textColor": {
+          "status": "skipped",
+          "reason": "无可独立测量的单行文字",
+          "source": "full-audit"
+        },
+        "backgroundColor": {
+          "status": "skipped",
+          "reason": "无可见背景填充",
+          "source": "full-audit"
+        },
+        "border": {
+          "status": "fail",
+          "value": {
+            "designColor": "#e0cbcb",
+            "actualColor": "#f6eef0",
+            "delta": 55.48
+          },
+          "threshold": {
+            "maxDelta": 26
+          },
+          "source": "full-audit"
+        }
+      }
+    },
+    {
+      "target": {
+        "selector": "body>div>div>div>div>main>section>div:nth-of-type(1)>div:nth-of-type(2)>span:nth-of-type(4)",
+        "displaySelector": "span",
+        "text": "",
+        "rect": {
+          "x": 1323.28076171875,
+          "y": 737.3259887695312,
+          "width": 269.4384765625,
+          "height": 121.34808349609375
+        }
+      },
+      "dimensions": {
+        "geometry": {
+          "status": "skipped",
+          "reason": "非叶子文字元素由结构/局部 diff 审计",
+          "source": "full-audit"
+        },
+        "typography": {
+          "status": "skipped",
+          "reason": "无可独立测量的单行文字",
+          "source": "full-audit"
+        },
+        "textColor": {
+          "status": "skipped",
+          "reason": "无可独立测量的单行文字",
+          "source": "full-audit"
+        },
+        "backgroundColor": {
+          "status": "skipped",
+          "reason": "无可见背景填充",
+          "source": "full-audit"
+        },
+        "border": {
+          "status": "fail",
+          "value": {
+            "designColor": "#dbc4c4",
+            "actualColor": "#f6eef0",
+            "delta": 66.55
+          },
+          "threshold": {
+            "maxDelta": 26
+          },
+          "source": "full-audit"
+        }
+      }
+    },
+    {
+      "target": {
+        "selector": "body>div>div>div>div>main>section>div:nth-of-type(2)",
+        "displaySelector": "div.home-hero",
+        "text": "",
+        "rect": {
+          "x": 146,
+          "y": 360,
+          "width": 650,
+          "height": 140.421875
+        }
+      },
+      "dimensions": {
+        "geometry": {
+          "status": "skipped",
+          "reason": "非叶子文字元素由结构/局部 diff 审计",
+          "source": "full-audit"
+        },
+        "typography": {
+          "status": "skipped",
+          "reason": "无可独立测量的单行文字",
+          "source": "full-audit"
+        },
+        "textColor": {
+          "status": "skipped",
+          "reason": "无可独立测量的单行文字",
+          "source": "full-audit"
+        },
+        "backgroundColor": {
+          "status": "skipped",
+          "reason": "无可见背景填充",
+          "source": "full-audit"
+        },
+        "border": {
+          "status": "skipped",
+          "reason": "无可见边框或边框区域过小",
+          "source": "full-audit"
+        }
+      }
+    },
+    {
+      "target": {
+        "selector": "body>div>div>div>div>main>section>div:nth-of-type(2)>h1",
+        "displaySelector": "h1.hero-title",
+        "text": "首页加载失败",
+        "rect": {
+          "x": 146,
+          "y": 360,
+          "width": 650,
+          "height": 87.03125
+        }
+      },
+      "dimensions": {
+        "geometry": {
+          "status": "fail",
+          "value": {
+            "dy": 19
+          },
+          "threshold": {
+            "maxAbsDy": 1.5
+          },
+          "source": "full-audit"
+        },
+        "typography": {
+          "status": "fail",
+          "value": {
+            "fontSize": 64,
+            "designFontSize": 60.85
+          },
+          "threshold": {
+            "maxFontDiff": 1.2
+          },
+          "source": "full-audit"
+        },
+        "textColor": {
+          "status": "pass",
+          "value": {
+            "designColor": "#020202",
+            "actualColor": "#050505",
+            "delta": 5.15
+          },
+          "threshold": {
+            "maxDelta": 55
+          },
+          "source": "full-audit"
+        },
+        "backgroundColor": {
+          "status": "skipped",
+          "reason": "无可见背景填充",
+          "source": "full-audit"
+        },
+        "border": {
+          "status": "skipped",
+          "reason": "无可见边框或边框区域过小",
+          "source": "full-audit"
+        }
+      }
+    },
+    {
+      "target": {
+        "selector": "body>div>div>div>div>main>section>div:nth-of-type(2)>p",
+        "displaySelector": "p.hero-subtitle",
+        "text": "Unexpected t",
+        "rect": {
+          "x": 146,
+          "y": 463.03125,
+          "width": 650,
+          "height": 37.390625
+        }
+      },
+      "dimensions": {
+        "geometry": {
+          "status": "fail",
+          "value": {
+            "dy": 20
+          },
+          "threshold": {
+            "maxAbsDy": 1.5
+          },
+          "source": "full-audit"
+        },
+        "typography": {
+          "status": "fail",
+          "value": {
+            "fontSize": 22,
+            "designFontSize": 10
+          },
+          "threshold": {
+            "maxFontDiff": 1.2
+          },
+          "source": "full-audit"
+        },
+        "textColor": {
+          "status": "skipped",
+          "reason": "文字核心色不可稳定测量",
+          "source": "full-audit"
+        },
+        "backgroundColor": {
+          "status": "skipped",
+          "reason": "无可见背景填充",
+          "source": "full-audit"
+        },
+        "border": {
+          "status": "skipped",
+          "reason": "无可见边框或边框区域过小",
+          "source": "full-audit"
+        }
+      }
+    }
+  ],
+  "findings": [
+    {
+      "id": "full-audit:geometry:eb132a018fe9",
+      "detector": "full-audit",
+      "code": "vertical-position-delta",
+      "dimension": "geometry",
+      "severity": "P1",
+      "status": "open",
+      "title": "span: 垂直位置偏差 6.0px",
+      "target": {
+        "selector": "body>div>div>div>div>main>header>button>span:nth-of-type(2)",
+        "displaySelector": "span",
+        "text": "灵灵生图站",
+        "rect": {
+          "x": 103,
+          "y": 40,
+          "width": 125,
+          "height": 36
+        }
+      },
+      "expected": {
+        "maxAbsDy": 1.5
+      },
+      "actual": {
+        "dy": 6
+      },
+      "threshold": null,
+      "confidence": 0.8,
+      "evidence": {},
+      "nextAction": "复核 geometry 测量并批量修正同类元素",
+      "reason": "",
+      "firstSeenAt": null,
+      "lastSeenAt": null,
+      "resolvedAt": null
+    },
+    {
+      "id": "full-audit:geometry:ca1388733f28",
+      "detector": "full-audit",
+      "code": "vertical-position-delta",
+      "dimension": "geometry",
+      "severity": "P1",
+      "status": "open",
+      "title": "h1.hero-title: 垂直位置偏差 19.0px",
+      "target": {
+        "selector": "body>div>div>div>div>main>section>div:nth-of-type(2)>h1",
+        "displaySelector": "h1.hero-title",
+        "text": "首页加载失败",
+        "rect": {
+          "x": 146,
+          "y": 360,
+          "width": 650,
+          "height": 87.03125
+        }
+      },
+      "expected": {
+        "maxAbsDy": 1.5
+      },
+      "actual": {
+        "dy": 19
+      },
+      "threshold": null,
+      "confidence": 0.8,
+      "evidence": {},
+      "nextAction": "复核 geometry 测量并批量修正同类元素",
+      "reason": "",
+      "firstSeenAt": null,
+      "lastSeenAt": null,
+      "resolvedAt": null
+    },
+    {
+      "id": "full-audit:geometry:29e72f26afa0",
+      "detector": "full-audit",
+      "code": "vertical-position-delta",
+      "dimension": "geometry",
+      "severity": "P1",
+      "status": "open",
+      "title": "p.hero-subtitle: 垂直位置偏差 20.0px",
+      "target": {
+        "selector": "body>div>div>div>div>main>section>div:nth-of-type(2)>p",
+        "displaySelector": "p.hero-subtitle",
+        "text": "Unexpected t",
+        "rect": {
+          "x": 146,
+          "y": 463.03125,
+          "width": 650,
+          "height": 37.390625
+        }
+      },
+      "expected": {
+        "maxAbsDy": 1.5
+      },
+      "actual": {
+        "dy": 20
+      },
+      "threshold": null,
+      "confidence": 0.8,
+      "evidence": {},
+      "nextAction": "复核 geometry 测量并批量修正同类元素",
+      "reason": "",
+      "firstSeenAt": null,
+      "lastSeenAt": null,
+      "resolvedAt": null
+    },
+    {
+      "id": "full-audit:typography:8bb006a12d23",
+      "detector": "full-audit",
+      "code": "font-size-delta",
+      "dimension": "typography",
+      "severity": "P2",
+      "status": "open",
+      "title": "span: 字号 25 → 20.8",
+      "target": {
+        "selector": "body>div>div>div>div>main>header>button>span:nth-of-type(2)",
+        "displaySelector": "span",
+        "text": "灵灵生图站",
+        "rect": {
+          "x": 103,
+          "y": 40,
+          "width": 125,
+          "height": 36
+        }
+      },
+      "expected": {
+        "designFontSize": 20.83,
+        "maxFontDiff": 1.2
+      },
+      "actual": {
+        "fontSize": 25
+      },
+      "threshold": null,
+      "confidence": 0.72,
+      "evidence": {},
+      "nextAction": "复核 typography 测量并批量修正同类元素",
+      "reason": "",
+      "firstSeenAt": null,
+      "lastSeenAt": null,
+      "resolvedAt": null
+    },
+    {
+      "id": "full-audit:typography:d20cb2ce5e3e",
+      "detector": "full-audit",
+      "code": "font-size-delta",
+      "dimension": "typography",
+      "severity": "P2",
+      "status": "open",
+      "title": "h1.hero-title: 字号 64 → 60.9",
+      "target": {
+        "selector": "body>div>div>div>div>main>section>div:nth-of-type(2)>h1",
+        "displaySelector": "h1.hero-title",
+        "text": "首页加载失败",
+        "rect": {
+          "x": 146,
+          "y": 360,
+          "width": 650,
+          "height": 87.03125
+        }
+      },
+      "expected": {
+        "designFontSize": 60.85,
+        "maxFontDiff": 1.2
+      },
+      "actual": {
+        "fontSize": 64
+      },
+      "threshold": null,
+      "confidence": 0.72,
+      "evidence": {},
+      "nextAction": "复核 typography 测量并批量修正同类元素",
+      "reason": "",
+      "firstSeenAt": null,
+      "lastSeenAt": null,
+      "resolvedAt": null
+    },
+    {
+      "id": "full-audit:typography:9b142e68a1d4",
+      "detector": "full-audit",
+      "code": "font-size-delta",
+      "dimension": "typography",
+      "severity": "P2",
+      "status": "open",
+      "title": "p.hero-subtitle: 字号 22 → 10.0",
+      "target": {
+        "selector": "body>div>div>div>div>main>section>div:nth-of-type(2)>p",
+        "displaySelector": "p.hero-subtitle",
+        "text": "Unexpected t",
+        "rect": {
+          "x": 146,
+          "y": 463.03125,
+          "width": 650,
+          "height": 37.390625
+        }
+      },
+      "expected": {
+        "designFontSize": 10,
+        "maxFontDiff": 1.2
+      },
+      "actual": {
+        "fontSize": 22
+      },
+      "threshold": null,
+      "confidence": 0.72,
+      "evidence": {},
+      "nextAction": "复核 typography 测量并批量修正同类元素",
+      "reason": "",
+      "firstSeenAt": null,
+      "lastSeenAt": null,
+      "resolvedAt": null
+    },
+    {
+      "id": "full-audit:border:e9d53e36f4ab",
+      "detector": "full-audit",
+      "code": "border-color-delta",
+      "dimension": "border",
+      "severity": "P2",
+      "status": "open",
+      "title": "form.search-box: 边框色 #d9dee8 → #fcfcfc",
+      "target": {
+        "selector": "body>div>div>div>div>main>header>div>form",
+        "displaySelector": "form.search-box",
+        "text": "",
+        "rect": {
+          "x": 1038,
+          "y": 32,
+          "width": 338,
+          "height": 52
+        }
+      },
+      "expected": {
+        "color": "#fcfcfc",
+        "maxDelta": 26
+      },
+      "actual": {
+        "color": "#d9dee8",
+        "delta": 50.25
+      },
+      "threshold": null,
+      "confidence": 0.72,
+      "evidence": {},
+      "nextAction": "复核 border 测量并批量修正同类元素",
+      "reason": "",
+      "firstSeenAt": null,
+      "lastSeenAt": null,
+      "resolvedAt": null
+    },
+    {
+      "id": "full-audit:border:dc4923d59e8c",
+      "detector": "full-audit",
+      "code": "border-color-delta",
+      "dimension": "border",
+      "severity": "P2",
+      "status": "open",
+      "title": "span: 边框色 #f7f7f9 → #e0dcde",
+      "target": {
+        "selector": "body>div>div>div>div>main>section>div:nth-of-type(1)>div:nth-of-type(2)>span:nth-of-type(1)",
+        "displaySelector": "span",
+        "text": "",
+        "rect": {
+          "x": 841.1190185546875,
+          "y": 509.8051452636719,
+          "width": 799.761962890625,
+          "height": 510.3897399902344
+        }
+      },
+      "expected": {
+        "color": "#e0dcde",
+        "maxDelta": 26
+      },
+      "actual": {
+        "color": "#f7f7f9",
+        "delta": 44.58
+      },
+      "threshold": null,
+      "confidence": 0.72,
+      "evidence": {},
+      "nextAction": "复核 border 测量并批量修正同类元素",
+      "reason": "",
+      "firstSeenAt": null,
+      "lastSeenAt": null,
+      "resolvedAt": null
+    },
+    {
+      "id": "full-audit:border:2f220f72f533",
+      "detector": "full-audit",
+      "code": "border-color-delta",
+      "dimension": "border",
+      "severity": "P2",
+      "status": "open",
+      "title": "span: 边框色 #f7f6f8 → #e0dee0",
+      "target": {
+        "selector": "body>div>div>div>div>main>section>div:nth-of-type(1)>div:nth-of-type(2)>span:nth-of-type(2)",
+        "displaySelector": "span",
+        "text": "",
+        "rect": {
+          "x": 800.2139282226562,
+          "y": 598.4766845703125,
+          "width": 791.5722045898438,
+          "height": 383.046630859375
+        }
+      },
+      "expected": {
+        "color": "#e0dee0",
+        "maxDelta": 26
+      },
+      "actual": {
+        "color": "#f7f6f8",
+        "delta": 41
+      },
+      "threshold": null,
+      "confidence": 0.72,
+      "evidence": {},
+      "nextAction": "复核 border 测量并批量修正同类元素",
+      "reason": "",
+      "firstSeenAt": null,
+      "lastSeenAt": null,
+      "resolvedAt": null
+    },
+    {
+      "id": "full-audit:border:510cbe7e1773",
+      "detector": "full-audit",
+      "code": "border-color-delta",
+      "dimension": "border",
+      "severity": "P2",
+      "status": "open",
+      "title": "span: 边框色 #f6eef0 → #e0cbcb",
+      "target": {
+        "selector": "body>div>div>div>div>main>section>div:nth-of-type(1)>div:nth-of-type(2)>span:nth-of-type(3)",
+        "displaySelector": "span",
+        "text": "",
+        "rect": {
+          "x": 1275.5400390625,
+          "y": 666.189697265625,
+          "width": 230.919921875,
+          "height": 192.62060546875
+        }
+      },
+      "expected": {
+        "color": "#e0cbcb",
+        "maxDelta": 26
+      },
+      "actual": {
+        "color": "#f6eef0",
+        "delta": 55.48
+      },
+      "threshold": null,
+      "confidence": 0.72,
+      "evidence": {},
+      "nextAction": "复核 border 测量并批量修正同类元素",
+      "reason": "",
+      "firstSeenAt": null,
+      "lastSeenAt": null,
+      "resolvedAt": null
+    },
+    {
+      "id": "full-audit:border:da774d16c64a",
+      "detector": "full-audit",
+      "code": "border-color-delta",
+      "dimension": "border",
+      "severity": "P2",
+      "status": "open",
+      "title": "span: 边框色 #f6eef0 → #dbc4c4",
+      "target": {
+        "selector": "body>div>div>div>div>main>section>div:nth-of-type(1)>div:nth-of-type(2)>span:nth-of-type(4)",
+        "displaySelector": "span",
+        "text": "",
+        "rect": {
+          "x": 1323.28076171875,
+          "y": 737.3259887695312,
+          "width": 269.4384765625,
+          "height": 121.34808349609375
+        }
+      },
+      "expected": {
+        "color": "#dbc4c4",
+        "maxDelta": 26
+      },
+      "actual": {
+        "color": "#f6eef0",
+        "delta": 66.55
+      },
+      "threshold": null,
+      "confidence": 0.72,
+      "evidence": {},
+      "nextAction": "复核 border 测量并批量修正同类元素",
+      "reason": "",
+      "firstSeenAt": null,
+      "lastSeenAt": null,
+      "resolvedAt": null
+    }
+  ]
+}

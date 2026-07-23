@@ -1,0 +1,535 @@
+{
+  "schemaVersion": "1.0",
+  "projectId": "golden-simulated",
+  "status": "ready",
+  "authority": "approved-functional-domain-only",
+  "planningSource": {
+    "workflow": "fdd-bmad-planning",
+    "digest": "a5204f0cac088f133f575727289cfb9215c888f65bed354043c5bf4cfab2fdc2",
+    "semanticChangesAllowed": false
+  },
+  "implementationWorkflow": "pi-implementation-bmad",
+  "units": [
+    {
+      "id": "persistence-entity-submission",
+      "type": "persistence",
+      "entityIds": [
+        "entity-submission"
+      ],
+      "dependsOn": [],
+      "acceptance": [
+        "migration applies to a clean database",
+        "entity effects are observable"
+      ]
+    },
+    {
+      "id": "persistence-entity-submission-event",
+      "type": "persistence",
+      "entityIds": [
+        "entity-submission-event"
+      ],
+      "dependsOn": [],
+      "acceptance": [
+        "migration applies to a clean database",
+        "entity effects are observable"
+      ]
+    },
+    {
+      "id": "relationship-relation-submission-events",
+      "type": "relation-migration",
+      "relationshipIds": [
+        "relation-submission-events"
+      ],
+      "entityIds": [
+        "entity-submission",
+        "entity-submission-event"
+      ],
+      "dependsOn": [
+        "persistence-entity-submission",
+        "persistence-entity-submission-event"
+      ],
+      "acceptance": [
+        "association key and cardinality are enforced",
+        "delete behavior is cascade",
+        "relationship invariants have dedicated tests"
+      ]
+    },
+    {
+      "id": "consistency-boundary-submission",
+      "type": "consistency",
+      "consistencyBoundaryIds": [
+        "boundary-submission"
+      ],
+      "entityIds": [
+        "entity-submission",
+        "entity-submission-event"
+      ],
+      "dependsOn": [
+        "relationship-relation-submission-events"
+      ],
+      "acceptance": [
+        "atomic consistency boundary is verified",
+        "rollback or convergence behavior is tested"
+      ]
+    },
+    {
+      "id": "capability-cap-sample",
+      "type": "capability",
+      "capabilityIds": [
+        "cap-sample"
+      ],
+      "dependsOn": [
+        "persistence-entity-submission"
+      ],
+      "acceptance": [
+        "valid input creates a submission"
+      ]
+    },
+    {
+      "id": "capability-cap-suite-sample-detail",
+      "type": "capability",
+      "capabilityIds": [
+        "cap-suite-sample-detail"
+      ],
+      "dependsOn": [
+        "persistence-entity-submission"
+      ],
+      "acceptance": [
+        "valid input creates a submission"
+      ]
+    },
+    {
+      "id": "capability-cap-sample-local-navigation",
+      "type": "capability",
+      "capabilityIds": [
+        "cap-sample-local-navigation"
+      ],
+      "dependsOn": [],
+      "acceptance": [
+        "help opens without a server request"
+      ]
+    },
+    {
+      "id": "capability-cap-sample-display-result",
+      "type": "capability",
+      "capabilityIds": [
+        "cap-sample-display-result"
+      ],
+      "dependsOn": [
+        "persistence-entity-submission"
+      ],
+      "acceptance": [
+        "task completion renders the queried result"
+      ]
+    },
+    {
+      "id": "presentation-cap-sample",
+      "type": "ui-presentation",
+      "capabilityIds": [
+        "cap-sample"
+      ],
+      "presentation": {
+        "mode": "add-control",
+        "targetPageId": "sample",
+        "preferredRegion": "form-actions",
+        "control": {
+          "type": "primary-button",
+          "label": "Submit sample"
+        }
+      },
+      "dependsOn": [
+        "capability-cap-sample"
+      ],
+      "acceptance": [
+        "runtime DOM contains one visible presentation binding",
+        "functional and visual regression evidence is recorded"
+      ]
+    },
+    {
+      "id": "interaction-cap-sample",
+      "type": "ui-interaction",
+      "capabilityIds": [
+        "cap-sample"
+      ],
+      "presentation": {
+        "mode": "add-control",
+        "targetPageId": "sample",
+        "preferredRegion": "form-actions",
+        "control": {
+          "type": "primary-button",
+          "label": "Submit sample"
+        }
+      },
+      "dependsOn": [
+        "presentation-cap-sample"
+      ],
+      "acceptance": [
+        "runtime event produces the declared server request or client state change"
+      ]
+    },
+    {
+      "id": "frontend-state-cap-sample",
+      "type": "ui-state",
+      "capabilityIds": [
+        "cap-sample"
+      ],
+      "presentation": {
+        "mode": "add-control",
+        "targetPageId": "sample",
+        "preferredRegion": "form-actions",
+        "control": {
+          "type": "primary-button",
+          "label": "Submit sample"
+        }
+      },
+      "dependsOn": [
+        "interaction-cap-sample"
+      ],
+      "acceptance": [
+        "applicable idle, loading, empty, error, disabled, and success states are browser-tested"
+      ]
+    },
+    {
+      "id": "frontend-data-cap-sample",
+      "type": "ui-data",
+      "capabilityIds": [
+        "cap-sample"
+      ],
+      "presentation": {
+        "mode": "add-control",
+        "targetPageId": "sample",
+        "preferredRegion": "form-actions",
+        "control": {
+          "type": "primary-button",
+          "label": "Submit sample"
+        }
+      },
+      "dependsOn": [
+        "frontend-state-cap-sample"
+      ],
+      "acceptance": [
+        "business content comes from an operation, user input, authenticated context, or explicit empty state",
+        "visual placeholders have an approved resolution"
+      ]
+    },
+    {
+      "id": "presentation-cap-suite-sample-detail",
+      "type": "ui-presentation",
+      "capabilityIds": [
+        "cap-suite-sample-detail"
+      ],
+      "presentation": {
+        "mode": "add-control",
+        "targetPageId": "suite-sample-detail",
+        "preferredRegion": "form-actions",
+        "control": {
+          "type": "primary-button",
+          "label": "Submit suite-sample-detail"
+        }
+      },
+      "dependsOn": [
+        "capability-cap-suite-sample-detail"
+      ],
+      "acceptance": [
+        "runtime DOM contains one visible presentation binding",
+        "functional and visual regression evidence is recorded"
+      ]
+    },
+    {
+      "id": "interaction-cap-suite-sample-detail",
+      "type": "ui-interaction",
+      "capabilityIds": [
+        "cap-suite-sample-detail"
+      ],
+      "presentation": {
+        "mode": "add-control",
+        "targetPageId": "suite-sample-detail",
+        "preferredRegion": "form-actions",
+        "control": {
+          "type": "primary-button",
+          "label": "Submit suite-sample-detail"
+        }
+      },
+      "dependsOn": [
+        "presentation-cap-suite-sample-detail"
+      ],
+      "acceptance": [
+        "runtime event produces the declared server request or client state change"
+      ]
+    },
+    {
+      "id": "frontend-state-cap-suite-sample-detail",
+      "type": "ui-state",
+      "capabilityIds": [
+        "cap-suite-sample-detail"
+      ],
+      "presentation": {
+        "mode": "add-control",
+        "targetPageId": "suite-sample-detail",
+        "preferredRegion": "form-actions",
+        "control": {
+          "type": "primary-button",
+          "label": "Submit suite-sample-detail"
+        }
+      },
+      "dependsOn": [
+        "interaction-cap-suite-sample-detail"
+      ],
+      "acceptance": [
+        "applicable idle, loading, empty, error, disabled, and success states are browser-tested"
+      ]
+    },
+    {
+      "id": "frontend-data-cap-suite-sample-detail",
+      "type": "ui-data",
+      "capabilityIds": [
+        "cap-suite-sample-detail"
+      ],
+      "presentation": {
+        "mode": "add-control",
+        "targetPageId": "suite-sample-detail",
+        "preferredRegion": "form-actions",
+        "control": {
+          "type": "primary-button",
+          "label": "Submit suite-sample-detail"
+        }
+      },
+      "dependsOn": [
+        "frontend-state-cap-suite-sample-detail"
+      ],
+      "acceptance": [
+        "business content comes from an operation, user input, authenticated context, or explicit empty state",
+        "visual placeholders have an approved resolution"
+      ]
+    },
+    {
+      "id": "presentation-cap-sample-local-navigation",
+      "type": "ui-presentation",
+      "capabilityIds": [
+        "cap-sample-local-navigation"
+      ],
+      "presentation": {
+        "mode": "reuse-control",
+        "targetPageId": "sample",
+        "visualHint": {
+          "text": "Help",
+          "kind": "button"
+        }
+      },
+      "dependsOn": [
+        "capability-cap-sample-local-navigation"
+      ],
+      "acceptance": [
+        "runtime DOM contains one visible presentation binding",
+        "functional and visual regression evidence is recorded"
+      ]
+    },
+    {
+      "id": "interaction-cap-sample-local-navigation",
+      "type": "ui-interaction",
+      "capabilityIds": [
+        "cap-sample-local-navigation"
+      ],
+      "presentation": {
+        "mode": "reuse-control",
+        "targetPageId": "sample",
+        "visualHint": {
+          "text": "Help",
+          "kind": "button"
+        }
+      },
+      "dependsOn": [
+        "presentation-cap-sample-local-navigation"
+      ],
+      "acceptance": [
+        "runtime event produces the declared server request or client state change"
+      ]
+    },
+    {
+      "id": "frontend-state-cap-sample-local-navigation",
+      "type": "ui-state",
+      "capabilityIds": [
+        "cap-sample-local-navigation"
+      ],
+      "presentation": {
+        "mode": "reuse-control",
+        "targetPageId": "sample",
+        "visualHint": {
+          "text": "Help",
+          "kind": "button"
+        }
+      },
+      "dependsOn": [
+        "interaction-cap-sample-local-navigation"
+      ],
+      "acceptance": [
+        "applicable idle, loading, empty, error, disabled, and success states are browser-tested"
+      ]
+    },
+    {
+      "id": "frontend-data-cap-sample-local-navigation",
+      "type": "ui-data",
+      "capabilityIds": [
+        "cap-sample-local-navigation"
+      ],
+      "presentation": {
+        "mode": "reuse-control",
+        "targetPageId": "sample",
+        "visualHint": {
+          "text": "Help",
+          "kind": "button"
+        }
+      },
+      "dependsOn": [
+        "frontend-state-cap-sample-local-navigation"
+      ],
+      "acceptance": [
+        "business content comes from an operation, user input, authenticated context, or explicit empty state",
+        "visual placeholders have an approved resolution"
+      ]
+    },
+    {
+      "id": "presentation-cap-sample-display-result",
+      "type": "ui-presentation",
+      "capabilityIds": [
+        "cap-sample-display-result"
+      ],
+      "presentation": {
+        "mode": "display-only",
+        "targetPageId": "sample",
+        "region": "result-panel",
+        "content": {
+          "type": "submission-result"
+        }
+      },
+      "dependsOn": [
+        "capability-cap-sample-display-result"
+      ],
+      "acceptance": [
+        "runtime DOM contains one visible presentation binding",
+        "functional and visual regression evidence is recorded"
+      ]
+    },
+    {
+      "id": "interaction-cap-sample-display-result",
+      "type": "ui-interaction",
+      "capabilityIds": [
+        "cap-sample-display-result"
+      ],
+      "presentation": {
+        "mode": "display-only",
+        "targetPageId": "sample",
+        "region": "result-panel",
+        "content": {
+          "type": "submission-result"
+        }
+      },
+      "dependsOn": [
+        "presentation-cap-sample-display-result"
+      ],
+      "acceptance": [
+        "data-render trigger updates the runtime DOM"
+      ]
+    },
+    {
+      "id": "frontend-state-cap-sample-display-result",
+      "type": "ui-state",
+      "capabilityIds": [
+        "cap-sample-display-result"
+      ],
+      "presentation": {
+        "mode": "display-only",
+        "targetPageId": "sample",
+        "region": "result-panel",
+        "content": {
+          "type": "submission-result"
+        }
+      },
+      "dependsOn": [
+        "interaction-cap-sample-display-result"
+      ],
+      "acceptance": [
+        "applicable idle, loading, empty, error, disabled, and success states are browser-tested"
+      ]
+    },
+    {
+      "id": "frontend-data-cap-sample-display-result",
+      "type": "ui-data",
+      "capabilityIds": [
+        "cap-sample-display-result"
+      ],
+      "presentation": {
+        "mode": "display-only",
+        "targetPageId": "sample",
+        "region": "result-panel",
+        "content": {
+          "type": "submission-result"
+        }
+      },
+      "dependsOn": [
+        "frontend-state-cap-sample-display-result"
+      ],
+      "acceptance": [
+        "business content comes from an operation, user input, authenticated context, or explicit empty state",
+        "visual placeholders have an approved resolution"
+      ]
+    },
+    {
+      "id": "operation-submit-sample",
+      "type": "api",
+      "operationIds": [
+        "submit-sample"
+      ],
+      "capabilityIds": [
+        "cap-sample"
+      ],
+      "ruleIds": [],
+      "dependsOn": [
+        "persistence-entity-submission",
+        "relationship-relation-submission-events"
+      ],
+      "acceptance": [
+        "operation is live",
+        "response and errors match contract",
+        "declared effects and transaction behavior are verified"
+      ]
+    },
+    {
+      "id": "operation-submit-suite-sample-detail",
+      "type": "api",
+      "operationIds": [
+        "submit-suite-sample-detail"
+      ],
+      "capabilityIds": [
+        "cap-suite-sample-detail"
+      ],
+      "ruleIds": [],
+      "dependsOn": [
+        "persistence-entity-submission",
+        "relationship-relation-submission-events"
+      ],
+      "acceptance": [
+        "operation is live",
+        "response and errors match contract",
+        "declared effects and transaction behavior are verified"
+      ]
+    },
+    {
+      "id": "operation-query-sample-result",
+      "type": "api",
+      "operationIds": [
+        "query-sample-result"
+      ],
+      "capabilityIds": [
+        "cap-sample-display-result"
+      ],
+      "ruleIds": [],
+      "dependsOn": [],
+      "acceptance": [
+        "operation is live",
+        "response and errors match contract",
+        "declared effects and transaction behavior are verified"
+      ]
+    }
+  ]
+}

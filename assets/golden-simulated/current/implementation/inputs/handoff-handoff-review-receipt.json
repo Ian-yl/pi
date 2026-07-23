@@ -1,0 +1,9 @@
+{
+  "schemaVersion": "1.0",
+  "status": "approved",
+  "authorAgentId": "golden-handoff-author",
+  "reviewerAgentId": "golden-handoff-reviewer",
+  "functionalPackageDigest": "9a551a5ade15279761a5cb45073077e9bb989b3fe979493ef3be974699ff52ae",
+  "visualReleaseDigest": "7cccdced81725094a67ce6c6c2928ea66354b733fdda12674f9bb775be5d361f",
+  "reviewedAt": "2026-07-23T10:29:02.978Z"
+}

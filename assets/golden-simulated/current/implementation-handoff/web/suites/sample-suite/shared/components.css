@@ -1,0 +1,6 @@
+[data-vr-id="welcome-title"] {
+  color: var(--sample-suite-title-color);
+  font-family: var(--sample-suite-title-font-family);
+  font-size: var(--sample-suite-title-font-size);
+  font-weight: var(--sample-suite-title-font-weight);
+}

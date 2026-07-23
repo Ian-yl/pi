@@ -1,0 +1,4 @@
+interface:
+  display_name: "项目实现"
+  short_description: "锁定FDD规划产物，通过实施BMAD完成全栈实现与验收"
+  default_prompt: "Use $project-implementation to lock approved FDD planning and domain artifacts, run the separate PI implementation BMAD workflow, and deliver a runnable verified project."

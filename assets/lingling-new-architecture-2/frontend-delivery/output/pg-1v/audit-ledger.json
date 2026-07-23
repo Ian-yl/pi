@@ -1,0 +1,3954 @@
+{
+  "version": 3,
+  "name": "pg-1v",
+  "generatedAt": "2026-07-22T13:56:37.458Z",
+  "convergence": {
+    "status": "converging",
+    "rounds": 2,
+    "maxRounds": 12,
+    "plateauRounds": 3,
+    "plateauEpsilonPp": 0.1,
+    "bestScore": 75.8226,
+    "latestScore": 75.8226,
+    "windowImprovementPp": null,
+    "evaluatedAt": "2026-07-22T13:56:37.458Z"
+  },
+  "run": {
+    "dpr": 1,
+    "threshold": 0.1,
+    "skipAssets": false,
+    "config": {
+      "source": "designs/pg-1v.png",
+      "target": "png",
+      "fullSimilarity": 70,
+      "foregroundSimilarity": 65,
+      "minRegionSimilarity": 70,
+      "responsiveEnabled": true,
+      "responsiveProfiles": [
+        {
+          "id": "compact-1024x768",
+          "width": 1024,
+          "height": 768,
+          "reference": false
+        },
+        {
+          "id": "laptop-1280x720",
+          "width": 1280,
+          "height": 720,
+          "reference": false
+        },
+        {
+          "id": "laptop-1366x768",
+          "width": 1366,
+          "height": 768,
+          "reference": false
+        },
+        {
+          "id": "desktop-1440x900",
+          "width": 1440,
+          "height": 900,
+          "reference": false
+        },
+        {
+          "id": "wide-1920x1080",
+          "width": 1920,
+          "height": 1080,
+          "reference": false
+        },
+        {
+          "id": "reference-1536x1024",
+          "width": 1536,
+          "height": 1024,
+          "reference": true
+        }
+      ]
+    }
+  },
+  "commands": [
+    {
+      "id": "verify",
+      "command": "node scripts/verify.mjs pg-1v --dpr=1 --threshold=0.1",
+      "status": "pass",
+      "exitCode": 0,
+      "optional": false,
+      "durationMs": 4192,
+      "log": "output/pg-1v/audit-logs/verify.log",
+      "stdoutTail": [
+        "设计图 1536×1024 @1x → viewport 1536×1024",
+        "🔴 pg-1v 相似度 75.82%(差异 380,278 / 1,572,864 px)",
+        "报告: output/pg-1v/report.html"
+      ],
+      "stderrTail": []
+    },
+    {
+      "id": "foreground-score",
+      "command": "node scripts/foreground-score.mjs pg-1v --threshold=0.1",
+      "status": "pass",
+      "exitCode": 0,
+      "optional": false,
+      "durationMs": 401,
+      "log": "output/pg-1v/audit-logs/foreground-score.log",
+      "stdoutTail": [
+        "前景相似度: 49.80% · 全图 75.82% · salient 48.16%",
+        "报告: output/pg-1v/foreground-score.json"
+      ],
+      "stderrTail": []
+    },
+    {
+      "id": "diff-components",
+      "command": "node scripts/diff-components.mjs pg-1v",
+      "status": "pass",
+      "exitCode": 0,
+      "optional": false,
+      "durationMs": 97,
+      "log": "output/pg-1v/audit-logs/diff-components.log",
+      "stdoutTail": [
+        "   861 px  Viewport  x=262, y=185, w=77, h=21",
+        "   836 px  Viewport  x=305, y=306, w=110, h=12",
+        "   790 px  Viewport  x=255, y=554, w=73, h=16",
+        "   770 px  Viewport  x=82, y=148, w=52, h=26",
+        "   761 px  Viewport  x=530, y=49, w=69, h=17",
+        "   730 px  Viewport  x=153, y=47, w=48, h=23",
+        "   724 px  Viewport  x=92, y=47, w=61, h=23",
+        "   712 px  Viewport  x=889, y=369, w=41, h=47"
+      ],
+      "stderrTail": []
+    },
+    {
+      "id": "region-score",
+      "command": "node scripts/region-score.mjs pg-1v --threshold=0.1",
+      "status": "pass",
+      "exitCode": 0,
+      "optional": false,
+      "durationMs": 213,
+      "log": "output/pg-1v/audit-logs/region-score.log",
+      "stdoutTail": [
+        "分区相似度(已写 output/pg-1v/region-score.json)",
+        " 75.82%   380278 / 1572864  px  100.0% diff  Viewport"
+      ],
+      "stderrTail": []
+    },
+    {
+      "id": "structure-audit",
+      "command": "node scripts/structure-audit.mjs pg-1v --dpr=1",
+      "status": "pass",
+      "exitCode": 0,
+      "optional": false,
+      "durationMs": 1399,
+      "log": "output/pg-1v/audit-logs/structure-audit.log",
+      "stdoutTail": [
+        "  Button   .icon-button dom=(1219,125,56×48) dx=0,0 dy=0,0",
+        "  Button   .icon-button dom=(1292,125,56×48) dx=0,0 dy=0,0",
+        "  Button   .icon-button dom=(1365,125,56×48) dx=0,0 dy=0,0",
+        "  Button   .icon-button dom=(1438,125,56×48) dx=0,0 dy=0,0",
+        "  Button   .thumb-arrow.left dom=(728,840,42×42) dx=0,0 dy=0,0",
+        "  Button   .thumb-arrow.right dom=(1458,840,42×42) dx=0,0 dy=0,0",
+        "  Button   .error-toast dom=(913,919,403×60) dx=0,0 dy=0,0",
+        "  Card     .state-card.error dom=(734,178,760×586) dx=0,0 dy=0,0"
+      ],
+      "stderrTail": []
+    },
+    {
+      "id": "visual-inventory",
+      "command": "node scripts/visual-inventory.mjs pg-1v --dpr=1",
+      "status": "pass",
+      "exitCode": 0,
+      "optional": false,
+      "durationMs": 2367,
+      "log": "output/pg-1v/audit-logs/visual-inventory.log",
+      "stdoutTail": [
+        "视觉盘点: 280 个可见元素, 已写 output/pg-1v/visual-inventory.json",
+        "类型: container×131, button×59, icon×28, text×43, card×5, input×11, image×3",
+        "未闭环维度: 884 项(pending/fail/missing; skipped 均含原因)"
+      ],
+      "stderrTail": []
+    },
+    {
+      "id": "color-audit",
+      "command": "node scripts/color-audit.mjs pg-1v --dpr=1",
+      "status": "pass",
+      "exitCode": 0,
+      "optional": false,
+      "durationMs": 2984,
+      "log": "output/pg-1v/audit-logs/color-audit.log",
+      "stdoutTail": [
+        " 30.3  i                               bg    #d7ba9d     #8f6a4a",
+        " 18.6  i                               bg    #688595     #365865",
+        " 18.0  i                               bg    #456a7d     #7895a0",
+        " 16.5  i                               bg    #b28d83     #8c625c",
+        " 12.6  i                               bg    #bec9b2     #a8b98f",
+        " 11.2  i                               bg    #3d5f2b     #2f6e36",
+        " 10.9  div.result-main                 bg    #ede3d8     #f8fafc",
+        "共审计 139 个元素(文字 36 / 背景·填充 91)。建议:文字色以 design实测 为准修 css;小字(<13px)受 JPEG 侵蚀,design实测 会偏向背景色,酌情参考。"
+      ],
+      "stderrTail": []
+    },
+    {
+      "id": "font-audit",
+      "command": "node scripts/font-audit.mjs pg-1v --dpr=1",
+      "status": "pass",
+      "exitCode": 0,
+      "optional": false,
+      "durationMs": 1596,
+      "log": "output/pg-1v/audit-logs/font-audit.log",
+      "stdoutTail": [
+        " -2.0      13 →  11.0    13/11     span                    竖排列装",
+        " -2.0      13 →  11.0    13/11     span                    左右分栏",
+        " -1.3      13 →  11.7    10/9      button.choice-pill      1:1",
+        " -1.3      13 →  11.7    10/9      button.choice-pill      3:4",
+        " -1.3      13 →  11.7    10/9      button.choice-pill      9:16",
+        " -1.3      13 →  11.7    10/9      button.choice-pill      2:3",
+        " -1.3      13 →  11.7    10/9      button.choice-pill      16:9",
+        "共测 57 段单行文字,已对齐(|Δ|<1.2)26 段;多行元素 0 段未测(需人工)"
+      ],
+      "stderrTail": []
+    },
+    {
+      "id": "full-audit",
+      "command": "node scripts/full-audit.mjs pg-1v --dpr=1",
+      "status": "pass",
+      "exitCode": 0,
+      "optional": false,
+      "durationMs": 2319,
+      "log": "output/pg-1v/audit-logs/full-audit.log",
+      "stdoutTail": [
+        "  button.choice-pill                #dfe4ec → #fefefe",
+        "  button.choice-pill                #dfe4ec → #fdfdfe",
+        "  div.form-section                  #e7ebf1 → #fefefe",
+        "  button.color-theme                #dfe4ec → #fbfbfb",
+        "  span                              #e2e6ec → #f9f9f8",
+        "  button.color-theme                #ff3328 → #fef9f8",
+        "  span                              #e2e6ec → #fbf7f3",
+        "  ...余 25 项"
+      ],
+      "stderrTail": []
+    },
+    {
+      "id": "content-audit",
+      "command": "node scripts/content-audit.mjs pg-1v --dpr=1",
+      "status": "pass",
+      "exitCode": 0,
+      "optional": false,
+      "durationMs": 1311,
+      "log": "output/pg-1v/audit-logs/content-audit.log",
+      "stdoutTail": [
+        "内容审计: fail, manifest present, findings 93"
+      ],
+      "stderrTail": []
+    },
+    {
+      "id": "responsive-audit",
+      "command": "node scripts/responsive-audit.mjs pg-1v",
+      "status": "pass",
+      "exitCode": 0,
+      "optional": false,
+      "durationMs": 6018,
+      "log": "output/pg-1v/audit-logs/responsive-audit.log",
+      "stdoutTail": [
+        "响应式审计: fail, 6 profiles, 48 blocking, 48 findings",
+        "  compact-1024x768 1024x768: 8 findings",
+        "  laptop-1280x720 1280x720: 8 findings",
+        "  laptop-1366x768 1366x768: 8 findings",
+        "  desktop-1440x900 1440x900: 8 findings",
+        "  wide-1920x1080 1920x1080: 8 findings",
+        "  reference-1536x1024 1536x1024: 8 findings"
+      ],
+      "stderrTail": []
+    },
+    {
+      "id": "asset-plan",
+      "command": "",
+      "status": "skipped",
+      "optional": true,
+      "exitCode": null,
+      "durationMs": 0,
+      "reason": "pages/<name>/asset-plan.json missing"
+    },
+    {
+      "id": "asset-edge-audit",
+      "command": "node scripts/asset-edge-audit.mjs pg-1v",
+      "status": "pass",
+      "exitCode": 0,
+      "optional": false,
+      "durationMs": 64,
+      "log": "output/pg-1v/audit-logs/asset-edge-audit.log",
+      "stdoutTail": [
+        "资源边缘审计: 0 个 PNG, 失败 0 个, 已写 output/pg-1v/assets/edge-audit.json"
+      ],
+      "stderrTail": []
+    },
+    {
+      "id": "audit-fusion",
+      "command": "node scripts/audit-fusion.mjs pg-1v",
+      "status": "pass",
+      "exitCode": 0,
+      "optional": false,
+      "durationMs": 222,
+      "log": "output/pg-1v/audit-logs/audit-fusion.log",
+      "stdoutTail": [
+        "审计融合: open 361, resolved 2, inventory unresolved 336"
+      ],
+      "stderrTail": []
+    }
+  ],
+  "artifacts": {
+    "required": [
+      {
+        "path": "output/pg-1v/design.png",
+        "exists": true
+      },
+      {
+        "path": "output/pg-1v/actual.png",
+        "exists": true
+      },
+      {
+        "path": "output/pg-1v/diff.png",
+        "exists": true
+      },
+      {
+        "path": "output/pg-1v/delta.png",
+        "exists": true
+      },
+      {
+        "path": "output/pg-1v/report.html",
+        "exists": true
+      },
+      {
+        "path": "output/pg-1v/history.jsonl",
+        "exists": true
+      },
+      {
+        "path": "output/pg-1v/diff-components.json",
+        "exists": true
+      },
+      {
+        "path": "output/pg-1v/region-score.json",
+        "exists": true
+      },
+      {
+        "path": "output/pg-1v/foreground-score.json",
+        "exists": true
+      },
+      {
+        "path": "output/pg-1v/structure-audit.json",
+        "exists": true
+      },
+      {
+        "path": "output/pg-1v/visual-inventory.json",
+        "exists": true
+      },
+      {
+        "path": "output/pg-1v/color-audit.json",
+        "exists": true
+      },
+      {
+        "path": "output/pg-1v/font-audit.json",
+        "exists": true
+      },
+      {
+        "path": "output/pg-1v/full-audit.json",
+        "exists": true
+      },
+      {
+        "path": "output/pg-1v/content-audit.json",
+        "exists": true
+      },
+      {
+        "path": "output/pg-1v/findings.json",
+        "exists": true
+      },
+      {
+        "path": "output/pg-1v/run-manifest.json",
+        "exists": true
+      },
+      {
+        "path": "output/pg-1v/responsive-audit.json",
+        "exists": true
+      },
+      {
+        "path": "output/pg-1v/responsive/compact-1024x768.png",
+        "exists": true
+      },
+      {
+        "path": "output/pg-1v/responsive/laptop-1280x720.png",
+        "exists": true
+      },
+      {
+        "path": "output/pg-1v/responsive/laptop-1366x768.png",
+        "exists": true
+      },
+      {
+        "path": "output/pg-1v/responsive/desktop-1440x900.png",
+        "exists": true
+      },
+      {
+        "path": "output/pg-1v/responsive/wide-1920x1080.png",
+        "exists": true
+      },
+      {
+        "path": "output/pg-1v/responsive/reference-1536x1024.png",
+        "exists": true
+      }
+    ],
+    "optional": [
+      {
+        "path": "pages/pg-1v/restore-plan.json",
+        "exists": true
+      },
+      {
+        "path": "pages/pg-1v/asset-plan.json",
+        "exists": false
+      },
+      {
+        "path": "output/pg-1v/assets/asset-report.json",
+        "exists": false
+      },
+      {
+        "path": "output/pg-1v/assets/edge-audit.json",
+        "exists": true
+      }
+    ]
+  },
+  "summary": {
+    "score": {
+      "ts": "2026-07-22T13:56:18.439Z",
+      "name": "pg-1v",
+      "similarity": 75.8226,
+      "mismatch": 380278,
+      "pixels": 1572864,
+      "design": {
+        "width": 1536,
+        "height": 1024
+      },
+      "actual": {
+        "width": 1536,
+        "height": 1024
+      },
+      "dpr": 1,
+      "threshold": 0.1
+    },
+    "foreground": {
+      "version": 3,
+      "name": "pg-1v",
+      "generatedAt": "2026-07-22T13:56:18.552Z",
+      "threshold": 0.1,
+      "width": 1536,
+      "height": 1024,
+      "pixels": 1572864,
+      "fullMismatch": 380278,
+      "fullSimilarity": 75.8226,
+      "salientPixels": 757522,
+      "salientRatio": 48.162,
+      "foregroundMismatch": 380278,
+      "foregroundSimilarity": 49.7997
+    },
+    "inventory": {
+      "total": 280,
+      "byKind": {
+        "container": 131,
+        "button": 59,
+        "icon": 28,
+        "text": 43,
+        "card": 5,
+        "input": 11,
+        "image": 3
+      },
+      "dimensions": {
+        "geometry": {
+          "pass": 7,
+          "fail": 31,
+          "pending": 0,
+          "skipped": 242,
+          "missing": 0
+        },
+        "typography": {
+          "pass": 20,
+          "fail": 30,
+          "pending": 24,
+          "skipped": 206,
+          "missing": 0
+        },
+        "textColor": {
+          "pass": 0,
+          "fail": 36,
+          "pending": 24,
+          "skipped": 220,
+          "missing": 0
+        },
+        "backgroundColor": {
+          "pass": 45,
+          "fail": 40,
+          "pending": 10,
+          "skipped": 185,
+          "missing": 0
+        },
+        "border": {
+          "pass": 12,
+          "fail": 50,
+          "pending": 9,
+          "skipped": 209,
+          "missing": 0
+        },
+        "radius": {
+          "pass": 0,
+          "fail": 0,
+          "pending": 0,
+          "skipped": 280,
+          "missing": 0
+        },
+        "shadow": {
+          "pass": 0,
+          "fail": 0,
+          "pending": 0,
+          "skipped": 280,
+          "missing": 0
+        },
+        "opacity": {
+          "pass": 0,
+          "fail": 0,
+          "pending": 0,
+          "skipped": 280,
+          "missing": 0
+        },
+        "asset": {
+          "pass": 0,
+          "fail": 0,
+          "pending": 0,
+          "skipped": 280,
+          "missing": 0
+        },
+        "content": {
+          "pass": 0,
+          "fail": 0,
+          "pending": 82,
+          "skipped": 198,
+          "missing": 0
+        }
+      },
+      "unresolved": {
+        "count": 336,
+        "items": [
+          {
+            "id": "container-005-9fhl8n",
+            "kind": "container",
+            "selector": "main.app.page-pg-1v",
+            "text": "",
+            "dimension": "backgroundColor",
+            "status": "pending",
+            "reason": "visible fill/background must be checked",
+            "findingId": ""
+          },
+          {
+            "id": "button-007-1yhbr1",
+            "kind": "button",
+            "selector": "button.brand",
+            "text": "",
+            "dimension": "content",
+            "status": "pending",
+            "reason": "visible content must match or be documented as mock",
+            "findingId": ""
+          },
+          {
+            "id": "text-011-1yxsam",
+            "kind": "text",
+            "selector": "span:nth-of-type(2)",
+            "text": "灵灵生图站",
+            "dimension": "typography",
+            "status": "pending",
+            "reason": "text-bearing element",
+            "findingId": ""
+          },
+          {
+            "id": "text-011-1yxsam",
+            "kind": "text",
+            "selector": "span:nth-of-type(2)",
+            "text": "灵灵生图站",
+            "dimension": "textColor",
+            "status": "pending",
+            "reason": "text color must be checked against design sample",
+            "findingId": ""
+          },
+          {
+            "id": "text-011-1yxsam",
+            "kind": "text",
+            "selector": "span:nth-of-type(2)",
+            "text": "灵灵生图站",
+            "dimension": "content",
+            "status": "pending",
+            "reason": "visible content must match or be documented as mock",
+            "findingId": ""
+          },
+          {
+            "id": "text-012-1weow4",
+            "kind": "text",
+            "selector": "nav.nav-tabs",
+            "text": "",
+            "dimension": "content",
+            "status": "pending",
+            "reason": "visible content must match or be documented as mock",
+            "findingId": ""
+          },
+          {
+            "id": "button-013-18cahi",
+            "kind": "button",
+            "selector": "button:nth-of-type(1)",
+            "text": "首页",
+            "dimension": "typography",
+            "status": "pending",
+            "reason": "text-bearing element",
+            "findingId": ""
+          },
+          {
+            "id": "button-013-18cahi",
+            "kind": "button",
+            "selector": "button:nth-of-type(1)",
+            "text": "首页",
+            "dimension": "textColor",
+            "status": "pending",
+            "reason": "text color must be checked against design sample",
+            "findingId": ""
+          },
+          {
+            "id": "button-013-18cahi",
+            "kind": "button",
+            "selector": "button:nth-of-type(1)",
+            "text": "首页",
+            "dimension": "content",
+            "status": "pending",
+            "reason": "visible content must match or be documented as mock",
+            "findingId": ""
+          },
+          {
+            "id": "button-014-13m4tn",
+            "kind": "button",
+            "selector": "button:nth-of-type(2)",
+            "text": "照片级AI商品图",
+            "dimension": "typography",
+            "status": "pending",
+            "reason": "text-bearing element",
+            "findingId": ""
+          },
+          {
+            "id": "button-014-13m4tn",
+            "kind": "button",
+            "selector": "button:nth-of-type(2)",
+            "text": "照片级AI商品图",
+            "dimension": "textColor",
+            "status": "pending",
+            "reason": "text color must be checked against design sample",
+            "findingId": ""
+          },
+          {
+            "id": "button-014-13m4tn",
+            "kind": "button",
+            "selector": "button:nth-of-type(2)",
+            "text": "照片级AI商品图",
+            "dimension": "content",
+            "status": "pending",
+            "reason": "visible content must match or be documented as mock",
+            "findingId": ""
+          },
+          {
+            "id": "button-015-1o7l5o",
+            "kind": "button",
+            "selector": "button:nth-of-type(3)",
+            "text": "万物穿搭上身",
+            "dimension": "typography",
+            "status": "pending",
+            "reason": "text-bearing element",
+            "findingId": ""
+          },
+          {
+            "id": "button-015-1o7l5o",
+            "kind": "button",
+            "selector": "button:nth-of-type(3)",
+            "text": "万物穿搭上身",
+            "dimension": "textColor",
+            "status": "pending",
+            "reason": "text color must be checked against design sample",
+            "findingId": ""
+          },
+          {
+            "id": "button-015-1o7l5o",
+            "kind": "button",
+            "selector": "button:nth-of-type(3)",
+            "text": "万物穿搭上身",
+            "dimension": "content",
+            "status": "pending",
+            "reason": "visible content must match or be documented as mock",
+            "findingId": ""
+          },
+          {
+            "id": "button-016-q97we1",
+            "kind": "button",
+            "selector": "button:nth-of-type(4)",
+            "text": "营销场景设计",
+            "dimension": "typography",
+            "status": "pending",
+            "reason": "text-bearing element",
+            "findingId": ""
+          },
+          {
+            "id": "button-016-q97we1",
+            "kind": "button",
+            "selector": "button:nth-of-type(4)",
+            "text": "营销场景设计",
+            "dimension": "textColor",
+            "status": "pending",
+            "reason": "text color must be checked against design sample",
+            "findingId": ""
+          },
+          {
+            "id": "button-016-q97we1",
+            "kind": "button",
+            "selector": "button:nth-of-type(4)",
+            "text": "营销场景设计",
+            "dimension": "content",
+            "status": "pending",
+            "reason": "visible content must match or be documented as mock",
+            "findingId": ""
+          },
+          {
+            "id": "button-017-11fsz8",
+            "kind": "button",
+            "selector": "button.active:nth-of-type(5)",
+            "text": "电商素材生成",
+            "dimension": "textColor",
+            "status": "fail",
+            "reason": "button.active 文字色 ΔE 8.9",
+            "findingId": "color-audit:textColor:f65832321768"
+          },
+          {
+            "id": "button-017-11fsz8",
+            "kind": "button",
+            "selector": "button.active:nth-of-type(5)",
+            "text": "电商素材生成",
+            "dimension": "content",
+            "status": "pending",
+            "reason": "visible content must match or be documented as mock",
+            "findingId": ""
+          },
+          {
+            "id": "card-019-1h3aih",
+            "kind": "card",
+            "selector": "form.search-box",
+            "text": "",
+            "dimension": "border",
+            "status": "fail",
+            "reason": "form.search-box: 边框色 #d9dee8 → #fefefe",
+            "findingId": "full-audit:border:e9d53e36f4ab"
+          },
+          {
+            "id": "input-023-7gxtzm",
+            "kind": "input",
+            "selector": "input",
+            "text": "",
+            "dimension": "content",
+            "status": "pending",
+            "reason": "visible content must match or be documented as mock",
+            "findingId": ""
+          },
+          {
+            "id": "card-032-15psiy",
+            "kind": "card",
+            "selector": "aside.tool-menu.panel",
+            "text": "",
+            "dimension": "border",
+            "status": "fail",
+            "reason": "aside.tool-menu: 边框色 #eceef1 → #fefdfe",
+            "findingId": "full-audit:border:34bdaa70c692"
+          },
+          {
+            "id": "button-034-p8iomj",
+            "kind": "button",
+            "selector": "button.active:nth-of-type(1)",
+            "text": "",
+            "dimension": "border",
+            "status": "fail",
+            "reason": "button.active: 边框色 #fea9a4 → #fefdfd",
+            "findingId": "full-audit:border:3ae0fa295960"
+          },
+          {
+            "id": "text-038-1wpfzl",
+            "kind": "text",
+            "selector": "span",
+            "text": "参数板块",
+            "dimension": "geometry",
+            "status": "fail",
+            "reason": "span: 垂直位置偏差 11.0px",
+            "findingId": "full-audit:geometry:b93a5f7f5655"
+          },
+          {
+            "id": "text-038-1wpfzl",
+            "kind": "text",
+            "selector": "span",
+            "text": "参数板块",
+            "dimension": "typography",
+            "status": "fail",
+            "reason": "span 字号偏差 -6.0px",
+            "findingId": "font-audit:typography:ed3ced827968"
+          },
+          {
+            "id": "text-038-1wpfzl",
+            "kind": "text",
+            "selector": "span",
+            "text": "参数板块",
+            "dimension": "textColor",
+            "status": "fail",
+            "reason": "span 文字色 ΔE 5.7",
+            "findingId": "color-audit:textColor:a74a1c3dbd0f"
+          },
+          {
+            "id": "text-038-1wpfzl",
+            "kind": "text",
+            "selector": "span",
+            "text": "参数板块",
+            "dimension": "content",
+            "status": "pending",
+            "reason": "visible content must match or be documented as mock",
+            "findingId": ""
+          },
+          {
+            "id": "button-039-1uln1b",
+            "kind": "button",
+            "selector": "button:nth-of-type(2)",
+            "text": "",
+            "dimension": "typography",
+            "status": "pending",
+            "reason": "text-bearing element",
+            "findingId": ""
+          },
+          {
+            "id": "button-039-1uln1b",
+            "kind": "button",
+            "selector": "button:nth-of-type(2)",
+            "text": "",
+            "dimension": "textColor",
+            "status": "pending",
+            "reason": "text color must be checked against design sample",
+            "findingId": ""
+          },
+          {
+            "id": "text-045-1fi7q4",
+            "kind": "text",
+            "selector": "span",
+            "text": "卖点堆叠",
+            "dimension": "content",
+            "status": "pending",
+            "reason": "visible content must match or be documented as mock",
+            "findingId": ""
+          },
+          {
+            "id": "button-046-1147u1",
+            "kind": "button",
+            "selector": "button:nth-of-type(3)",
+            "text": "",
+            "dimension": "typography",
+            "status": "pending",
+            "reason": "text-bearing element",
+            "findingId": ""
+          },
+          {
+            "id": "button-046-1147u1",
+            "kind": "button",
+            "selector": "button:nth-of-type(3)",
+            "text": "",
+            "dimension": "textColor",
+            "status": "pending",
+            "reason": "text color must be checked against design sample",
+            "findingId": ""
+          },
+          {
+            "id": "text-051-8ftfcm",
+            "kind": "text",
+            "selector": "span",
+            "text": "使用场景",
+            "dimension": "content",
+            "status": "pending",
+            "reason": "visible content must match or be documented as mock",
+            "findingId": ""
+          },
+          {
+            "id": "button-052-xv9r1c",
+            "kind": "button",
+            "selector": "button:nth-of-type(4)",
+            "text": "",
+            "dimension": "typography",
+            "status": "pending",
+            "reason": "text-bearing element",
+            "findingId": ""
+          },
+          {
+            "id": "button-052-xv9r1c",
+            "kind": "button",
+            "selector": "button:nth-of-type(4)",
+            "text": "",
+            "dimension": "textColor",
+            "status": "pending",
+            "reason": "text color must be checked against design sample",
+            "findingId": ""
+          },
+          {
+            "id": "text-058-uoe4yu",
+            "kind": "text",
+            "selector": "span",
+            "text": "对比图",
+            "dimension": "geometry",
+            "status": "fail",
+            "reason": "span: 垂直位置偏差 -5.0px",
+            "findingId": "full-audit:geometry:fcd9415f125d"
+          },
+          {
+            "id": "text-058-uoe4yu",
+            "kind": "text",
+            "selector": "span",
+            "text": "对比图",
+            "dimension": "typography",
+            "status": "fail",
+            "reason": "span 字号偏差 -14.0px",
+            "findingId": "font-audit:typography:6e3aaf610562"
+          },
+          {
+            "id": "text-058-uoe4yu",
+            "kind": "text",
+            "selector": "span",
+            "text": "对比图",
+            "dimension": "content",
+            "status": "pending",
+            "reason": "visible content must match or be documented as mock",
+            "findingId": ""
+          },
+          {
+            "id": "button-059-47mnr3",
+            "kind": "button",
+            "selector": "button:nth-of-type(5)",
+            "text": "",
+            "dimension": "typography",
+            "status": "pending",
+            "reason": "text-bearing element",
+            "findingId": ""
+          },
+          {
+            "id": "button-059-47mnr3",
+            "kind": "button",
+            "selector": "button:nth-of-type(5)",
+            "text": "",
+            "dimension": "textColor",
+            "status": "pending",
+            "reason": "text color must be checked against design sample",
+            "findingId": ""
+          },
+          {
+            "id": "text-065-acjae9",
+            "kind": "text",
+            "selector": "span",
+            "text": "尺码图",
+            "dimension": "geometry",
+            "status": "fail",
+            "reason": "span: 垂直位置偏差 -3.0px",
+            "findingId": "full-audit:geometry:e5955ef85d73"
+          },
+          {
+            "id": "text-065-acjae9",
+            "kind": "text",
+            "selector": "span",
+            "text": "尺码图",
+            "dimension": "textColor",
+            "status": "fail",
+            "reason": "span 文字色 ΔE 17.4",
+            "findingId": "color-audit:textColor:8918fb4de26b"
+          },
+          {
+            "id": "text-065-acjae9",
+            "kind": "text",
+            "selector": "span",
+            "text": "尺码图",
+            "dimension": "content",
+            "status": "pending",
+            "reason": "visible content must match or be documented as mock",
+            "findingId": ""
+          },
+          {
+            "id": "button-066-19g478",
+            "kind": "button",
+            "selector": "button:nth-of-type(6)",
+            "text": "",
+            "dimension": "typography",
+            "status": "pending",
+            "reason": "text-bearing element",
+            "findingId": ""
+          },
+          {
+            "id": "button-066-19g478",
+            "kind": "button",
+            "selector": "button:nth-of-type(6)",
+            "text": "",
+            "dimension": "textColor",
+            "status": "pending",
+            "reason": "text color must be checked against design sample",
+            "findingId": ""
+          },
+          {
+            "id": "text-070-1nl9lg",
+            "kind": "text",
+            "selector": "span",
+            "text": "我的生成记录",
+            "dimension": "geometry",
+            "status": "fail",
+            "reason": "span: 垂直位置偏差 13.0px",
+            "findingId": "full-audit:geometry:0204608044ba"
+          },
+          {
+            "id": "text-070-1nl9lg",
+            "kind": "text",
+            "selector": "span",
+            "text": "我的生成记录",
+            "dimension": "typography",
+            "status": "fail",
+            "reason": "span 字号偏差 -8.0px",
+            "findingId": "font-audit:typography:e8814e92dd01"
+          },
+          {
+            "id": "text-070-1nl9lg",
+            "kind": "text",
+            "selector": "span",
+            "text": "我的生成记录",
+            "dimension": "content",
+            "status": "pending",
+            "reason": "visible content must match or be documented as mock",
+            "findingId": ""
+          },
+          {
+            "id": "text-073-4k8rsy",
+            "kind": "text",
+            "selector": "h2",
+            "text": "参数板块",
+            "dimension": "typography",
+            "status": "fail",
+            "reason": "h2 字号偏差 -3.1px",
+            "findingId": "font-audit:typography:aa4883ba15d5"
+          },
+          {
+            "id": "text-073-4k8rsy",
+            "kind": "text",
+            "selector": "h2",
+            "text": "参数板块",
+            "dimension": "textColor",
+            "status": "fail",
+            "reason": "h2 文字色 ΔE 13.1",
+            "findingId": "color-audit:textColor:1ccb728fcc04"
+          },
+          {
+            "id": "text-073-4k8rsy",
+            "kind": "text",
+            "selector": "h2",
+            "text": "参数板块",
+            "dimension": "content",
+            "status": "pending",
+            "reason": "visible content must match or be documented as mock",
+            "findingId": ""
+          },
+          {
+            "id": "button-074-1153ag",
+            "kind": "button",
+            "selector": "button.outline-red.new-task",
+            "text": "新建任务",
+            "dimension": "textColor",
+            "status": "fail",
+            "reason": "button.outline-red.new-task 文字色 ΔE 102.0",
+            "findingId": "color-audit:textColor:4dd1548b6a6e"
+          },
+          {
+            "id": "button-074-1153ag",
+            "kind": "button",
+            "selector": "button.outline-red.new-task",
+            "text": "新建任务",
+            "dimension": "backgroundColor",
+            "status": "fail",
+            "reason": "button.outline-red.new-task 背景色 ΔE 109.3",
+            "findingId": "color-audit:backgroundColor:11bdabf656c4"
+          },
+          {
+            "id": "button-074-1153ag",
+            "kind": "button",
+            "selector": "button.outline-red.new-task",
+            "text": "新建任务",
+            "dimension": "border",
+            "status": "fail",
+            "reason": "button.outline-red: 边框色 #ff3328 → #fcf9fa",
+            "findingId": "full-audit:border:e4fa80293212"
+          },
+          {
+            "id": "button-074-1153ag",
+            "kind": "button",
+            "selector": "button.outline-red.new-task",
+            "text": "新建任务",
+            "dimension": "content",
+            "status": "pending",
+            "reason": "visible content must match or be documented as mock",
+            "findingId": ""
+          },
+          {
+            "id": "container-076-1yyqv6",
+            "kind": "container",
+            "selector": "div.form-section.upload-section:nth-of-type(1)",
+            "text": "",
+            "dimension": "border",
+            "status": "fail",
+            "reason": "div.form-section: 边框色 #e7ebf1 → #fdfdfd",
+            "findingId": "full-audit:border:b34452507ef4"
+          },
+          {
+            "id": "text-078-1vmvto",
+            "kind": "text",
+            "selector": "h3",
+            "text": "1. 上传商品图",
+            "dimension": "textColor",
+            "status": "fail",
+            "reason": "h3 文字色 ΔE 7.0",
+            "findingId": "color-audit:textColor:0fbb2910b5ff"
+          },
+          {
+            "id": "text-078-1vmvto",
+            "kind": "text",
+            "selector": "h3",
+            "text": "1. 上传商品图",
+            "dimension": "content",
+            "status": "pending",
+            "reason": "visible content must match or be documented as mock",
+            "findingId": ""
+          },
+          {
+            "id": "text-079-60qe4t",
+            "kind": "text",
+            "selector": "span",
+            "text": "（必填）",
+            "dimension": "geometry",
+            "status": "fail",
+            "reason": "span: 垂直位置偏差 -4.0px",
+            "findingId": "full-audit:geometry:b9d87eeec1a7"
+          },
+          {
+            "id": "text-079-60qe4t",
+            "kind": "text",
+            "selector": "span",
+            "text": "（必填）",
+            "dimension": "typography",
+            "status": "fail",
+            "reason": "span 字号偏差 -2.0px",
+            "findingId": "font-audit:typography:9735a7b9194e"
+          },
+          {
+            "id": "text-079-60qe4t",
+            "kind": "text",
+            "selector": "span",
+            "text": "（必填）",
+            "dimension": "textColor",
+            "status": "fail",
+            "reason": "span 文字色 ΔE 92.1",
+            "findingId": "color-audit:textColor:8d4e4d062967"
+          },
+          {
+            "id": "text-079-60qe4t",
+            "kind": "text",
+            "selector": "span",
+            "text": "（必填）",
+            "dimension": "content",
+            "status": "pending",
+            "reason": "visible content must match or be documented as mock",
+            "findingId": ""
+          },
+          {
+            "id": "input-081-tcd2q7",
+            "kind": "input",
+            "selector": "input.sr-only",
+            "text": "",
+            "dimension": "typography",
+            "status": "pending",
+            "reason": "text-bearing element",
+            "findingId": ""
+          },
+          {
+            "id": "input-081-tcd2q7",
+            "kind": "input",
+            "selector": "input.sr-only",
+            "text": "",
+            "dimension": "textColor",
+            "status": "pending",
+            "reason": "text color must be checked against design sample",
+            "findingId": ""
+          },
+          {
+            "id": "container-083-acqdk3",
+            "kind": "container",
+            "selector": "div.upload-thumb:nth-of-type(1)",
+            "text": "",
+            "dimension": "backgroundColor",
+            "status": "fail",
+            "reason": "div.upload-thumb 背景色 ΔE 8.4",
+            "findingId": "color-audit:backgroundColor:0bbd6a8e3b41"
+          },
+          {
+            "id": "container-083-acqdk3",
+            "kind": "container",
+            "selector": "div.upload-thumb:nth-of-type(1)",
+            "text": "",
+            "dimension": "border",
+            "status": "fail",
+            "reason": "div.upload-thumb: 边框色 #dee3ea → #fdfcfd",
+            "findingId": "full-audit:border:5090c19fc950"
+          },
+          {
+            "id": "image-084-1akxaa",
+            "kind": "image",
+            "selector": "img",
+            "text": "",
+            "dimension": "backgroundColor",
+            "status": "fail",
+            "reason": "img 背景色 ΔE 8.4",
+            "findingId": "color-audit:backgroundColor:dd74f820d37a"
+          },
+          {
+            "id": "image-084-1akxaa",
+            "kind": "image",
+            "selector": "img",
+            "text": "",
+            "dimension": "content",
+            "status": "pending",
+            "reason": "visible content must match or be documented as mock",
+            "findingId": ""
+          },
+          {
+            "id": "button-085-e0kn8v",
+            "kind": "button",
+            "selector": "button",
+            "text": "",
+            "dimension": "backgroundColor",
+            "status": "fail",
+            "reason": "button 背景色 ΔE 7.7",
+            "findingId": "color-audit:backgroundColor:97fc11603e6d"
+          },
+          {
+            "id": "button-085-e0kn8v",
+            "kind": "button",
+            "selector": "button",
+            "text": "",
+            "dimension": "content",
+            "status": "pending",
+            "reason": "visible content must match or be documented as mock",
+            "findingId": ""
+          },
+          {
+            "id": "container-089-1fpuq9",
+            "kind": "container",
+            "selector": "div.upload-thumb:nth-of-type(2)",
+            "text": "",
+            "dimension": "backgroundColor",
+            "status": "fail",
+            "reason": "div.upload-thumb 背景色 ΔE 4.4",
+            "findingId": "color-audit:backgroundColor:7261183ea410"
+          },
+          {
+            "id": "container-089-1fpuq9",
+            "kind": "container",
+            "selector": "div.upload-thumb:nth-of-type(2)",
+            "text": "",
+            "dimension": "border",
+            "status": "fail",
+            "reason": "div.upload-thumb: 边框色 #dee3ea → #fcfcfd",
+            "findingId": "full-audit:border:196a062cbbdf"
+          },
+          {
+            "id": "image-090-1vmiaz",
+            "kind": "image",
+            "selector": "img",
+            "text": "",
+            "dimension": "backgroundColor",
+            "status": "fail",
+            "reason": "img 背景色 ΔE 4.1",
+            "findingId": "color-audit:backgroundColor:350f86967d70"
+          },
+          {
+            "id": "image-090-1vmiaz",
+            "kind": "image",
+            "selector": "img",
+            "text": "",
+            "dimension": "content",
+            "status": "pending",
+            "reason": "visible content must match or be documented as mock",
+            "findingId": ""
+          },
+          {
+            "id": "button-091-1l0oce",
+            "kind": "button",
+            "selector": "button",
+            "text": "",
+            "dimension": "backgroundColor",
+            "status": "fail",
+            "reason": "button 背景色 ΔE 5.6",
+            "findingId": "color-audit:backgroundColor:33514fdc64b6"
+          },
+          {
+            "id": "button-091-1l0oce",
+            "kind": "button",
+            "selector": "button",
+            "text": "",
+            "dimension": "content",
+            "status": "pending",
+            "reason": "visible content must match or be documented as mock",
+            "findingId": ""
+          },
+          {
+            "id": "container-095-m8fiyt",
+            "kind": "container",
+            "selector": "div.upload-thumb:nth-of-type(3)",
+            "text": "",
+            "dimension": "backgroundColor",
+            "status": "fail",
+            "reason": "div.upload-thumb 背景色 ΔE 6.6",
+            "findingId": "color-audit:backgroundColor:8b65545ca914"
+          },
+          {
+            "id": "container-095-m8fiyt",
+            "kind": "container",
+            "selector": "div.upload-thumb:nth-of-type(3)",
+            "text": "",
+            "dimension": "border",
+            "status": "fail",
+            "reason": "div.upload-thumb: 边框色 #dee3ea → #fdfdfe",
+            "findingId": "full-audit:border:677cf33a8a69"
+          },
+          {
+            "id": "image-096-ypjkp4",
+            "kind": "image",
+            "selector": "img",
+            "text": "",
+            "dimension": "backgroundColor",
+            "status": "fail",
+            "reason": "img 背景色 ΔE 6.9",
+            "findingId": "color-audit:backgroundColor:a611444cf87f"
+          },
+          {
+            "id": "image-096-ypjkp4",
+            "kind": "image",
+            "selector": "img",
+            "text": "",
+            "dimension": "content",
+            "status": "pending",
+            "reason": "visible content must match or be documented as mock",
+            "findingId": ""
+          },
+          {
+            "id": "button-097-1f7en7",
+            "kind": "button",
+            "selector": "button",
+            "text": "",
+            "dimension": "backgroundColor",
+            "status": "fail",
+            "reason": "button 背景色 ΔE 10.8",
+            "findingId": "color-audit:backgroundColor:69a07ff212eb"
+          },
+          {
+            "id": "button-097-1f7en7",
+            "kind": "button",
+            "selector": "button",
+            "text": "",
+            "dimension": "content",
+            "status": "pending",
+            "reason": "visible content must match or be documented as mock",
+            "findingId": ""
+          },
+          {
+            "id": "button-101-1suyki",
+            "kind": "button",
+            "selector": "button.upload-add",
+            "text": "",
+            "dimension": "border",
+            "status": "fail",
+            "reason": "button.upload-add: 边框色 #dee3ea → #fdfdfd",
+            "findingId": "full-audit:border:e06026c83c65"
+          },
+          {
+            "id": "button-101-1suyki",
+            "kind": "button",
+            "selector": "button.upload-add",
+            "text": "",
+            "dimension": "content",
+            "status": "pending",
+            "reason": "visible content must match or be documented as mock",
+            "findingId": ""
+          },
+          {
+            "id": "text-103-1izxtc",
+            "kind": "text",
+            "selector": "span",
+            "text": "继续上传",
+            "dimension": "geometry",
+            "status": "fail",
+            "reason": "span: 垂直位置偏差 -5.0px",
+            "findingId": "full-audit:geometry:051de2e97a8b"
+          },
+          {
+            "id": "text-103-1izxtc",
+            "kind": "text",
+            "selector": "span",
+            "text": "继续上传",
+            "dimension": "typography",
+            "status": "fail",
+            "reason": "span 字号偏差 -2.2px",
+            "findingId": "font-audit:typography:68f4370c2602"
+          },
+          {
+            "id": "text-103-1izxtc",
+            "kind": "text",
+            "selector": "span",
+            "text": "继续上传",
+            "dimension": "content",
+            "status": "pending",
+            "reason": "visible content must match or be documented as mock",
+            "findingId": ""
+          },
+          {
+            "id": "text-104-15dlos",
+            "kind": "text",
+            "selector": "small",
+            "text": "支持多图上传",
+            "dimension": "content",
+            "status": "pending",
+            "reason": "visible content must match or be documented as mock",
+            "findingId": ""
+          },
+          {
+            "id": "text-105-kge2bv",
+            "kind": "text",
+            "selector": "p",
+            "text": "建议上传正侧背等多角度视图",
+            "dimension": "textColor",
+            "status": "fail",
+            "reason": "p 文字色 ΔE 9.9",
+            "findingId": "color-audit:textColor:1be8336b23e3"
+          },
+          {
+            "id": "text-105-kge2bv",
+            "kind": "text",
+            "selector": "p",
+            "text": "建议上传正侧背等多角度视图",
+            "dimension": "content",
+            "status": "pending",
+            "reason": "visible content must match or be documented as mock",
+            "findingId": ""
+          },
+          {
+            "id": "text-108-15blsi",
+            "kind": "text",
+            "selector": "h3",
+            "text": "2. 行业模板",
+            "dimension": "textColor",
+            "status": "fail",
+            "reason": "h3 文字色 ΔE 5.7",
+            "findingId": "color-audit:textColor:27623ef7030f"
+          },
+          {
+            "id": "text-108-15blsi",
+            "kind": "text",
+            "selector": "h3",
+            "text": "2. 行业模板",
+            "dimension": "content",
+            "status": "pending",
+            "reason": "visible content must match or be documented as mock",
+            "findingId": ""
+          },
+          {
+            "id": "text-109-1xl30e",
+            "kind": "text",
+            "selector": "span",
+            "text": "（必填）",
+            "dimension": "textColor",
+            "status": "fail",
+            "reason": "span 文字色 ΔE 92.7",
+            "findingId": "color-audit:textColor:c65e6960d7d7"
+          },
+          {
+            "id": "text-109-1xl30e",
+            "kind": "text",
+            "selector": "span",
+            "text": "（必填）",
+            "dimension": "content",
+            "status": "pending",
+            "reason": "visible content must match or be documented as mock",
+            "findingId": ""
+          },
+          {
+            "id": "button-111-1oy2ue",
+            "kind": "button",
+            "selector": "button.choice-pill.active:nth-of-type(1)",
+            "text": "",
+            "dimension": "border",
+            "status": "fail",
+            "reason": "button.choice-pill: 边框色 #ff3328 → #fefdfc",
+            "findingId": "full-audit:border:fa0b81fa7524"
+          },
+          {
+            "id": "text-112-1rh8dm",
+            "kind": "text",
+            "selector": "span",
+            "text": "女装上新",
+            "dimension": "geometry",
+            "status": "fail",
+            "reason": "span: 垂直位置偏差 -2.0px",
+            "findingId": "full-audit:geometry:22e7a7ce6030"
+          },
+          {
+            "id": "text-112-1rh8dm",
+            "kind": "text",
+            "selector": "span",
+            "text": "女装上新",
+            "dimension": "textColor",
+            "status": "fail",
+            "reason": "span 文字色 ΔE 4.8",
+            "findingId": "color-audit:textColor:78c802369918"
+          },
+          {
+            "id": "text-112-1rh8dm",
+            "kind": "text",
+            "selector": "span",
+            "text": "女装上新",
+            "dimension": "content",
+            "status": "pending",
+            "reason": "visible content must match or be documented as mock",
+            "findingId": ""
+          },
+          {
+            "id": "button-113-7zp7wk",
+            "kind": "button",
+            "selector": "button.choice-pill:nth-of-type(2)",
+            "text": "",
+            "dimension": "border",
+            "status": "fail",
+            "reason": "button.choice-pill: 边框色 #dfe4ec → #fefefe",
+            "findingId": "full-audit:border:16e1db193191"
+          },
+          {
+            "id": "text-114-1983wv",
+            "kind": "text",
+            "selector": "span",
+            "text": "轻食饮品",
+            "dimension": "geometry",
+            "status": "fail",
+            "reason": "span: 垂直位置偏差 -2.0px",
+            "findingId": "full-audit:geometry:68233a65a6da"
+          },
+          {
+            "id": "text-114-1983wv",
+            "kind": "text",
+            "selector": "span",
+            "text": "轻食饮品",
+            "dimension": "textColor",
+            "status": "fail",
+            "reason": "span 文字色 ΔE 10.8",
+            "findingId": "color-audit:textColor:c3e31cadb0cb"
+          },
+          {
+            "id": "text-114-1983wv",
+            "kind": "text",
+            "selector": "span",
+            "text": "轻食饮品",
+            "dimension": "content",
+            "status": "pending",
+            "reason": "visible content must match or be documented as mock",
+            "findingId": ""
+          },
+          {
+            "id": "button-115-1der9e",
+            "kind": "button",
+            "selector": "button.choice-pill:nth-of-type(3)",
+            "text": "",
+            "dimension": "border",
+            "status": "fail",
+            "reason": "button.choice-pill: 边框色 #dfe4ec → #fefefe",
+            "findingId": "full-audit:border:310fe499fd6d"
+          },
+          {
+            "id": "text-116-nd4k04",
+            "kind": "text",
+            "selector": "span",
+            "text": "家清日用",
+            "dimension": "geometry",
+            "status": "fail",
+            "reason": "span: 垂直位置偏差 -2.0px",
+            "findingId": "full-audit:geometry:9356165f5264"
+          },
+          {
+            "id": "text-116-nd4k04",
+            "kind": "text",
+            "selector": "span",
+            "text": "家清日用",
+            "dimension": "textColor",
+            "status": "fail",
+            "reason": "span 文字色 ΔE 8.9",
+            "findingId": "color-audit:textColor:185937ebb795"
+          },
+          {
+            "id": "text-116-nd4k04",
+            "kind": "text",
+            "selector": "span",
+            "text": "家清日用",
+            "dimension": "content",
+            "status": "pending",
+            "reason": "visible content must match or be documented as mock",
+            "findingId": ""
+          },
+          {
+            "id": "button-117-1xd0y0",
+            "kind": "button",
+            "selector": "button.choice-pill:nth-of-type(4)",
+            "text": "",
+            "dimension": "border",
+            "status": "fail",
+            "reason": "button.choice-pill: 边框色 #dfe4ec → #fefefe",
+            "findingId": "full-audit:border:61cde44573da"
+          },
+          {
+            "id": "text-118-lomoa6",
+            "kind": "text",
+            "selector": "span",
+            "text": "户外装备",
+            "dimension": "geometry",
+            "status": "fail",
+            "reason": "span: 垂直位置偏差 -2.0px",
+            "findingId": "full-audit:geometry:bb06f7cdbed5"
+          },
+          {
+            "id": "text-118-lomoa6",
+            "kind": "text",
+            "selector": "span",
+            "text": "户外装备",
+            "dimension": "textColor",
+            "status": "fail",
+            "reason": "span 文字色 ΔE 8.3",
+            "findingId": "color-audit:textColor:264d75d8feac"
+          },
+          {
+            "id": "text-118-lomoa6",
+            "kind": "text",
+            "selector": "span",
+            "text": "户外装备",
+            "dimension": "content",
+            "status": "pending",
+            "reason": "visible content must match or be documented as mock",
+            "findingId": ""
+          },
+          {
+            "id": "button-119-13pg2c",
+            "kind": "button",
+            "selector": "button.choice-pill:nth-of-type(5)",
+            "text": "",
+            "dimension": "border",
+            "status": "fail",
+            "reason": "button.choice-pill: 边框色 #dfe4ec → #fefefe",
+            "findingId": "full-audit:border:5c7c515d1025"
+          },
+          {
+            "id": "text-120-he8yjp",
+            "kind": "text",
+            "selector": "span",
+            "text": "母婴好物",
+            "dimension": "geometry",
+            "status": "fail",
+            "reason": "span: 垂直位置偏差 -2.0px",
+            "findingId": "full-audit:geometry:3df5e6ce8909"
+          },
+          {
+            "id": "text-120-he8yjp",
+            "kind": "text",
+            "selector": "span",
+            "text": "母婴好物",
+            "dimension": "textColor",
+            "status": "fail",
+            "reason": "span 文字色 ΔE 9.2",
+            "findingId": "color-audit:textColor:4cb5993478da"
+          },
+          {
+            "id": "text-120-he8yjp",
+            "kind": "text",
+            "selector": "span",
+            "text": "母婴好物",
+            "dimension": "content",
+            "status": "pending",
+            "reason": "visible content must match or be documented as mock",
+            "findingId": ""
+          },
+          {
+            "id": "button-121-1lp2jt",
+            "kind": "button",
+            "selector": "button.choice-pill:nth-of-type(6)",
+            "text": "",
+            "dimension": "border",
+            "status": "fail",
+            "reason": "button.choice-pill: 边框色 #dfe4ec → #fefefe",
+            "findingId": "full-audit:border:77bac6937c4d"
+          },
+          {
+            "id": "text-122-twr1mo",
+            "kind": "text",
+            "selector": "span",
+            "text": "3C配件",
+            "dimension": "geometry",
+            "status": "fail",
+            "reason": "span: 垂直位置偏差 -2.0px",
+            "findingId": "full-audit:geometry:dd45e2acbebf"
+          },
+          {
+            "id": "text-122-twr1mo",
+            "kind": "text",
+            "selector": "span",
+            "text": "3C配件",
+            "dimension": "textColor",
+            "status": "fail",
+            "reason": "span 文字色 ΔE 11.7",
+            "findingId": "color-audit:textColor:a0113332a8e9"
+          },
+          {
+            "id": "text-122-twr1mo",
+            "kind": "text",
+            "selector": "span",
+            "text": "3C配件",
+            "dimension": "content",
+            "status": "pending",
+            "reason": "visible content must match or be documented as mock",
+            "findingId": ""
+          },
+          {
+            "id": "container-123-1n1iuk",
+            "kind": "container",
+            "selector": "div.form-section.layout-section:nth-of-type(3)",
+            "text": "",
+            "dimension": "border",
+            "status": "fail",
+            "reason": "div.form-section: 边框色 #e7ebf1 → #fefefe",
+            "findingId": "full-audit:border:b03d18ff6ee7"
+          },
+          {
+            "id": "text-125-15rxrp",
+            "kind": "text",
+            "selector": "h3",
+            "text": "3. 板式",
+            "dimension": "textColor",
+            "status": "fail",
+            "reason": "h3 文字色 ΔE 6.7",
+            "findingId": "color-audit:textColor:9d1719897e35"
+          },
+          {
+            "id": "text-125-15rxrp",
+            "kind": "text",
+            "selector": "h3",
+            "text": "3. 板式",
+            "dimension": "content",
+            "status": "pending",
+            "reason": "visible content must match or be documented as mock",
+            "findingId": ""
+          },
+          {
+            "id": "button-127-18cbl1",
+            "kind": "button",
+            "selector": "button.choice-pill.active:nth-of-type(1)",
+            "text": "",
+            "dimension": "border",
+            "status": "fail",
+            "reason": "button.choice-pill: 边框色 #ff3328 → #fffcfc",
+            "findingId": "full-audit:border:3376ea99bc6c"
+          },
+          {
+            "id": "text-133-7t00s3",
+            "kind": "text",
+            "selector": "span",
+            "text": "九宫格",
+            "dimension": "geometry",
+            "status": "fail",
+            "reason": "span: 垂直位置偏差 3.0px",
+            "findingId": "full-audit:geometry:bdbb99d1d8f4"
+          },
+          {
+            "id": "text-133-7t00s3",
+            "kind": "text",
+            "selector": "span",
+            "text": "九宫格",
+            "dimension": "typography",
+            "status": "fail",
+            "reason": "span 字号偏差 -2.0px",
+            "findingId": "font-audit:typography:b5346675124f"
+          },
+          {
+            "id": "text-133-7t00s3",
+            "kind": "text",
+            "selector": "span",
+            "text": "九宫格",
+            "dimension": "textColor",
+            "status": "fail",
+            "reason": "span 文字色 ΔE 3.7",
+            "findingId": "color-audit:textColor:892961bf0b11"
+          },
+          {
+            "id": "text-133-7t00s3",
+            "kind": "text",
+            "selector": "span",
+            "text": "九宫格",
+            "dimension": "content",
+            "status": "pending",
+            "reason": "visible content must match or be documented as mock",
+            "findingId": ""
+          },
+          {
+            "id": "button-134-qlypyp",
+            "kind": "button",
+            "selector": "button.choice-pill:nth-of-type(2)",
+            "text": "",
+            "dimension": "border",
+            "status": "fail",
+            "reason": "button.choice-pill: 边框色 #dfe4ec → #fefefe",
+            "findingId": "full-audit:border:a74294c8ed82"
+          },
+          {
+            "id": "text-136-ml5v5u",
+            "kind": "text",
+            "selector": "span",
+            "text": "横排卡片",
+            "dimension": "geometry",
+            "status": "fail",
+            "reason": "span: 垂直位置偏差 3.0px",
+            "findingId": "full-audit:geometry:328b31134e66"
+          },
+          {
+            "id": "text-136-ml5v5u",
+            "kind": "text",
+            "selector": "span",
+            "text": "横排卡片",
+            "dimension": "typography",
+            "status": "fail",
+            "reason": "span 字号偏差 -2.0px",
+            "findingId": "font-audit:typography:98d2c17f685f"
+          },
+          {
+            "id": "text-136-ml5v5u",
+            "kind": "text",
+            "selector": "span",
+            "text": "横排卡片",
+            "dimension": "textColor",
+            "status": "fail",
+            "reason": "span 文字色 ΔE 9.6",
+            "findingId": "color-audit:textColor:8c3399505142"
+          },
+          {
+            "id": "text-136-ml5v5u",
+            "kind": "text",
+            "selector": "span",
+            "text": "横排卡片",
+            "dimension": "content",
+            "status": "pending",
+            "reason": "visible content must match or be documented as mock",
+            "findingId": ""
+          },
+          {
+            "id": "button-137-1k9jln",
+            "kind": "button",
+            "selector": "button.choice-pill:nth-of-type(3)",
+            "text": "",
+            "dimension": "border",
+            "status": "fail",
+            "reason": "button.choice-pill: 边框色 #dfe4ec → #fefefe",
+            "findingId": "full-audit:border:5a13a6ec5b95"
+          },
+          {
+            "id": "text-139-3m4v6b",
+            "kind": "text",
+            "selector": "span",
+            "text": "竖排列装",
+            "dimension": "geometry",
+            "status": "fail",
+            "reason": "span: 垂直位置偏差 3.0px",
+            "findingId": "full-audit:geometry:18cd066caf2e"
+          },
+          {
+            "id": "text-139-3m4v6b",
+            "kind": "text",
+            "selector": "span",
+            "text": "竖排列装",
+            "dimension": "typography",
+            "status": "fail",
+            "reason": "span 字号偏差 -2.0px",
+            "findingId": "font-audit:typography:2afd2b0c8d56"
+          },
+          {
+            "id": "text-139-3m4v6b",
+            "kind": "text",
+            "selector": "span",
+            "text": "竖排列装",
+            "dimension": "textColor",
+            "status": "fail",
+            "reason": "span 文字色 ΔE 9.3",
+            "findingId": "color-audit:textColor:81ef832f10b5"
+          },
+          {
+            "id": "text-139-3m4v6b",
+            "kind": "text",
+            "selector": "span",
+            "text": "竖排列装",
+            "dimension": "content",
+            "status": "pending",
+            "reason": "visible content must match or be documented as mock",
+            "findingId": ""
+          },
+          {
+            "id": "button-140-1020am",
+            "kind": "button",
+            "selector": "button.choice-pill:nth-of-type(4)",
+            "text": "",
+            "dimension": "border",
+            "status": "fail",
+            "reason": "button.choice-pill: 边框色 #dfe4ec → #fdfdfe",
+            "findingId": "full-audit:border:2e6ab820f855"
+          },
+          {
+            "id": "text-146-gmlp0s",
+            "kind": "text",
+            "selector": "span",
+            "text": "左右分栏",
+            "dimension": "geometry",
+            "status": "fail",
+            "reason": "span: 垂直位置偏差 3.0px",
+            "findingId": "full-audit:geometry:d26e11237359"
+          },
+          {
+            "id": "text-146-gmlp0s",
+            "kind": "text",
+            "selector": "span",
+            "text": "左右分栏",
+            "dimension": "typography",
+            "status": "fail",
+            "reason": "span 字号偏差 -2.0px",
+            "findingId": "font-audit:typography:9ee544b08325"
+          },
+          {
+            "id": "text-146-gmlp0s",
+            "kind": "text",
+            "selector": "span",
+            "text": "左右分栏",
+            "dimension": "textColor",
+            "status": "fail",
+            "reason": "span 文字色 ΔE 10.4",
+            "findingId": "color-audit:textColor:d28a87ba1f9b"
+          },
+          {
+            "id": "text-146-gmlp0s",
+            "kind": "text",
+            "selector": "span",
+            "text": "左右分栏",
+            "dimension": "content",
+            "status": "pending",
+            "reason": "visible content must match or be documented as mock",
+            "findingId": ""
+          },
+          {
+            "id": "container-147-1eqsqk",
+            "kind": "container",
+            "selector": "div.form-section.color-section:nth-of-type(4)",
+            "text": "",
+            "dimension": "border",
+            "status": "fail",
+            "reason": "div.form-section: 边框色 #e7ebf1 → #fefefe",
+            "findingId": "full-audit:border:28400070edcd"
+          },
+          {
+            "id": "text-149-1aq9rt",
+            "kind": "text",
+            "selector": "h3",
+            "text": "4. 配色主题",
+            "dimension": "geometry",
+            "status": "fail",
+            "reason": "h3: 垂直位置偏差 -2.0px",
+            "findingId": "full-audit:geometry:0a20ee27b2a5"
+          },
+          {
+            "id": "text-149-1aq9rt",
+            "kind": "text",
+            "selector": "h3",
+            "text": "4. 配色主题",
+            "dimension": "textColor",
+            "status": "fail",
+            "reason": "h3 文字色 ΔE 6.6",
+            "findingId": "color-audit:textColor:25ad53bc1e72"
+          },
+          {
+            "id": "text-149-1aq9rt",
+            "kind": "text",
+            "selector": "h3",
+            "text": "4. 配色主题",
+            "dimension": "content",
+            "status": "pending",
+            "reason": "visible content must match or be documented as mock",
+            "findingId": ""
+          },
+          {
+            "id": "button-151-4gy11z",
+            "kind": "button",
+            "selector": "button.color-theme:nth-of-type(1)",
+            "text": "",
+            "dimension": "border",
+            "status": "fail",
+            "reason": "button.color-theme: 边框色 #dfe4ec → #fbfbfb",
+            "findingId": "full-audit:border:1f6ffd984fb1"
+          },
+          {
+            "id": "container-152-zy6kau",
+            "kind": "container",
+            "selector": "span",
+            "text": "",
+            "dimension": "border",
+            "status": "fail",
+            "reason": "span: 边框色 #e2e6ec → #f9f9f8",
+            "findingId": "full-audit:border:5b521f7d8bbc"
+          },
+          {
+            "id": "container-153-1ncq6j",
+            "kind": "container",
+            "selector": "i:nth-of-type(1)",
+            "text": "",
+            "dimension": "backgroundColor",
+            "status": "fail",
+            "reason": "i 背景色 ΔE 8.8",
+            "findingId": "color-audit:backgroundColor:a8007d34d158"
+          },
+          {
+            "id": "container-155-8u55u",
+            "kind": "container",
+            "selector": "i:nth-of-type(3)",
+            "text": "",
+            "dimension": "backgroundColor",
+            "status": "fail",
+            "reason": "i 背景色 ΔE 3.0",
+            "findingId": "color-audit:backgroundColor:bdac46ec73cc"
+          },
+          {
+            "id": "text-156-lipj2p",
+            "kind": "text",
+            "selector": "b",
+            "text": "极简白灰黑",
+            "dimension": "geometry",
+            "status": "fail",
+            "reason": "b: 垂直位置偏差 4.0px",
+            "findingId": "full-audit:geometry:a41f611a345d"
+          },
+          {
+            "id": "text-156-lipj2p",
+            "kind": "text",
+            "selector": "b",
+            "text": "极简白灰黑",
+            "dimension": "textColor",
+            "status": "fail",
+            "reason": "b 文字色 ΔE 15.5",
+            "findingId": "color-audit:textColor:52f130f43b1f"
+          },
+          {
+            "id": "text-156-lipj2p",
+            "kind": "text",
+            "selector": "b",
+            "text": "极简白灰黑",
+            "dimension": "content",
+            "status": "pending",
+            "reason": "visible content must match or be documented as mock",
+            "findingId": ""
+          },
+          {
+            "id": "button-157-19yp6y",
+            "kind": "button",
+            "selector": "button.color-theme.active:nth-of-type(2)",
+            "text": "",
+            "dimension": "border",
+            "status": "fail",
+            "reason": "button.color-theme: 边框色 #ff3328 → #fef9f8",
+            "findingId": "full-audit:border:1c7e37b4c042"
+          },
+          {
+            "id": "container-158-y44dax",
+            "kind": "container",
+            "selector": "span",
+            "text": "",
+            "dimension": "border",
+            "status": "fail",
+            "reason": "span: 边框色 #e2e6ec → #fbf7f3",
+            "findingId": "full-audit:border:2947504e2627"
+          },
+          {
+            "id": "container-159-r0g3zl",
+            "kind": "container",
+            "selector": "i:nth-of-type(1)",
+            "text": "",
+            "dimension": "backgroundColor",
+            "status": "fail",
+            "reason": "i 背景色 ΔE 4.4",
+            "findingId": "color-audit:backgroundColor:08c5809725d3"
+          },
+          {
+            "id": "container-160-18qsz2",
+            "kind": "container",
+            "selector": "i:nth-of-type(2)",
+            "text": "",
+            "dimension": "backgroundColor",
+            "status": "fail",
+            "reason": "i 背景色 ΔE 9.7",
+            "findingId": "color-audit:backgroundColor:00e843de61ac"
+          },
+          {
+            "id": "container-161-f383dr",
+            "kind": "container",
+            "selector": "i:nth-of-type(3)",
+            "text": "",
+            "dimension": "backgroundColor",
+            "status": "fail",
+            "reason": "i 背景色 ΔE 30.3",
+            "findingId": "color-audit:backgroundColor:b3ddf229d63d"
+          },
+          {
+            "id": "text-162-1galqt",
+            "kind": "text",
+            "selector": "b",
+            "text": "奶油卡咖",
+            "dimension": "textColor",
+            "status": "fail",
+            "reason": "b 文字色 ΔE 16.7",
+            "findingId": "color-audit:textColor:9534ddcc85fd"
+          },
+          {
+            "id": "text-162-1galqt",
+            "kind": "text",
+            "selector": "b",
+            "text": "奶油卡咖",
+            "dimension": "content",
+            "status": "pending",
+            "reason": "visible content must match or be documented as mock",
+            "findingId": ""
+          },
+          {
+            "id": "button-163-g4wf9l",
+            "kind": "button",
+            "selector": "button.color-theme:nth-of-type(3)",
+            "text": "",
+            "dimension": "border",
+            "status": "fail",
+            "reason": "button.color-theme: 边框色 #dfe4ec → #fcfbfb",
+            "findingId": "full-audit:border:b8d6123996c4"
+          },
+          {
+            "id": "container-164-19ahv2",
+            "kind": "container",
+            "selector": "span",
+            "text": "",
+            "dimension": "border",
+            "status": "fail",
+            "reason": "span: 边框色 #e2e6ec → #fafbfa",
+            "findingId": "full-audit:border:1d3c17193cc2"
+          },
+          {
+            "id": "container-165-80vx3m",
+            "kind": "container",
+            "selector": "i:nth-of-type(1)",
+            "text": "",
+            "dimension": "backgroundColor",
+            "status": "fail",
+            "reason": "i 背景色 ΔE 10.2",
+            "findingId": "color-audit:backgroundColor:35642768ae74"
+          },
+          {
+            "id": "container-166-11h4v6",
+            "kind": "container",
+            "selector": "i:nth-of-type(2)",
+            "text": "",
+            "dimension": "backgroundColor",
+            "status": "fail",
+            "reason": "i 背景色 ΔE 18.0",
+            "findingId": "color-audit:backgroundColor:80ff1093edb7"
+          },
+          {
+            "id": "container-167-1v4ryg",
+            "kind": "container",
+            "selector": "i:nth-of-type(3)",
+            "text": "",
+            "dimension": "backgroundColor",
+            "status": "fail",
+            "reason": "i 背景色 ΔE 18.6",
+            "findingId": "color-audit:backgroundColor:ea3a41714c17"
+          },
+          {
+            "id": "text-168-otmhzi",
+            "kind": "text",
+            "selector": "b",
+            "text": "海盐蓝灰",
+            "dimension": "geometry",
+            "status": "fail",
+            "reason": "b: 垂直位置偏差 -4.0px",
+            "findingId": "full-audit:geometry:350ae78c020c"
+          },
+          {
+            "id": "text-168-otmhzi",
+            "kind": "text",
+            "selector": "b",
+            "text": "海盐蓝灰",
+            "dimension": "typography",
+            "status": "fail",
+            "reason": "b 字号偏差 +8.0px",
+            "findingId": "font-audit:typography:c6878c1c3e00"
+          },
+          {
+            "id": "text-168-otmhzi",
+            "kind": "text",
+            "selector": "b",
+            "text": "海盐蓝灰",
+            "dimension": "textColor",
+            "status": "fail",
+            "reason": "b 文字色 ΔE 19.0",
+            "findingId": "color-audit:textColor:7c5e8b5e38e1"
+          },
+          {
+            "id": "text-168-otmhzi",
+            "kind": "text",
+            "selector": "b",
+            "text": "海盐蓝灰",
+            "dimension": "content",
+            "status": "pending",
+            "reason": "visible content must match or be documented as mock",
+            "findingId": ""
+          },
+          {
+            "id": "button-169-1ja3ye",
+            "kind": "button",
+            "selector": "button.color-theme:nth-of-type(4)",
+            "text": "",
+            "dimension": "border",
+            "status": "fail",
+            "reason": "button.color-theme: 边框色 #dfe4ec → #fcfbfc",
+            "findingId": "full-audit:border:b75b6fb477f1"
+          },
+          {
+            "id": "container-170-tix9xn",
+            "kind": "container",
+            "selector": "span",
+            "text": "",
+            "dimension": "border",
+            "status": "fail",
+            "reason": "span: 边框色 #e2e6ec → #faf4f3",
+            "findingId": "full-audit:border:b598b1d96e96"
+          },
+          {
+            "id": "container-171-1okq8a",
+            "kind": "container",
+            "selector": "i:nth-of-type(1)",
+            "text": "",
+            "dimension": "backgroundColor",
+            "status": "fail",
+            "reason": "i 背景色 ΔE 5.6",
+            "findingId": "color-audit:backgroundColor:5f7149c26e1c"
+          },
+          {
+            "id": "container-173-12xrcd",
+            "kind": "container",
+            "selector": "i:nth-of-type(3)",
+            "text": "",
+            "dimension": "backgroundColor",
+            "status": "fail",
+            "reason": "i 背景色 ΔE 16.5",
+            "findingId": "color-audit:backgroundColor:4fcae9d840df"
+          },
+          {
+            "id": "text-174-8kp6xa",
+            "kind": "text",
+            "selector": "b",
+            "text": "豆沙棉粉",
+            "dimension": "geometry",
+            "status": "fail",
+            "reason": "b: 垂直位置偏差 4.0px",
+            "findingId": "full-audit:geometry:22e4d414acc3"
+          },
+          {
+            "id": "text-174-8kp6xa",
+            "kind": "text",
+            "selector": "b",
+            "text": "豆沙棉粉",
+            "dimension": "textColor",
+            "status": "fail",
+            "reason": "b 文字色 ΔE 18.7",
+            "findingId": "color-audit:textColor:78eaa7fec713"
+          },
+          {
+            "id": "text-174-8kp6xa",
+            "kind": "text",
+            "selector": "b",
+            "text": "豆沙棉粉",
+            "dimension": "content",
+            "status": "pending",
+            "reason": "visible content must match or be documented as mock",
+            "findingId": ""
+          },
+          {
+            "id": "button-175-pu7mbn",
+            "kind": "button",
+            "selector": "button.color-theme:nth-of-type(5)",
+            "text": "",
+            "dimension": "border",
+            "status": "fail",
+            "reason": "button.color-theme: 边框色 #dfe4ec → #fbfcfb",
+            "findingId": "full-audit:border:29754c13ae0a"
+          },
+          {
+            "id": "container-176-mppenu",
+            "kind": "container",
+            "selector": "span",
+            "text": "",
+            "dimension": "border",
+            "status": "fail",
+            "reason": "span: 边框色 #e2e6ec → #f6f8f6",
+            "findingId": "full-audit:border:9992079195b6"
+          },
+          {
+            "id": "container-177-13y9vo",
+            "kind": "container",
+            "selector": "i:nth-of-type(1)",
+            "text": "",
+            "dimension": "backgroundColor",
+            "status": "fail",
+            "reason": "i 背景色 ΔE 70.2",
+            "findingId": "color-audit:backgroundColor:76950113c05d"
+          },
+          {
+            "id": "container-178-m1p4lh",
+            "kind": "container",
+            "selector": "i:nth-of-type(2)",
+            "text": "",
+            "dimension": "backgroundColor",
+            "status": "fail",
+            "reason": "i 背景色 ΔE 11.2",
+            "findingId": "color-audit:backgroundColor:62da8675d472"
+          },
+          {
+            "id": "container-179-1fj4bv",
+            "kind": "container",
+            "selector": "i:nth-of-type(3)",
+            "text": "",
+            "dimension": "backgroundColor",
+            "status": "fail",
+            "reason": "i 背景色 ΔE 12.6",
+            "findingId": "color-audit:backgroundColor:ec7f1f2c2c56"
+          },
+          {
+            "id": "text-180-19aj6j",
+            "kind": "text",
+            "selector": "b",
+            "text": "森林绿白",
+            "dimension": "typography",
+            "status": "fail",
+            "reason": "b 字号偏差 +4.0px",
+            "findingId": "font-audit:typography:fc6640735ee4"
+          },
+          {
+            "id": "text-180-19aj6j",
+            "kind": "text",
+            "selector": "b",
+            "text": "森林绿白",
+            "dimension": "textColor",
+            "status": "fail",
+            "reason": "b 文字色 ΔE 13.5",
+            "findingId": "color-audit:textColor:2cbc9c4a9e15"
+          },
+          {
+            "id": "text-180-19aj6j",
+            "kind": "text",
+            "selector": "b",
+            "text": "森林绿白",
+            "dimension": "content",
+            "status": "pending",
+            "reason": "visible content must match or be documented as mock",
+            "findingId": ""
+          },
+          {
+            "id": "button-181-1v7bz0",
+            "kind": "button",
+            "selector": "button.color-theme:nth-of-type(6)",
+            "text": "",
+            "dimension": "border",
+            "status": "fail",
+            "reason": "button.color-theme: 边框色 #dfe4ec → #fcfbfb",
+            "findingId": "full-audit:border:e483f669ea1c"
+          },
+          {
+            "id": "container-182-ukedvx",
+            "kind": "container",
+            "selector": "span",
+            "text": "",
+            "dimension": "border",
+            "status": "fail",
+            "reason": "span: 边框色 #e2e6ec → #f7f8f7",
+            "findingId": "full-audit:border:71c12d45c266"
+          },
+          {
+            "id": "container-183-6vl15h",
+            "kind": "container",
+            "selector": "i:nth-of-type(1)",
+            "text": "",
+            "dimension": "backgroundColor",
+            "status": "fail",
+            "reason": "i 背景色 ΔE 3.2",
+            "findingId": "color-audit:backgroundColor:ac0c0b01ea6c"
+          },
+          {
+            "id": "container-184-olxw84",
+            "kind": "container",
+            "selector": "i:nth-of-type(2)",
+            "text": "",
+            "dimension": "backgroundColor",
+            "status": "fail",
+            "reason": "i 背景色 ΔE 91.6",
+            "findingId": "color-audit:backgroundColor:8c579f1d51f5"
+          },
+          {
+            "id": "container-185-1u0zxp",
+            "kind": "container",
+            "selector": "i:nth-of-type(3)",
+            "text": "",
+            "dimension": "backgroundColor",
+            "status": "fail",
+            "reason": "i 背景色 ΔE 7.7",
+            "findingId": "color-audit:backgroundColor:7a1b09fe9dec"
+          },
+          {
+            "id": "text-186-1kh8kp",
+            "kind": "text",
+            "selector": "b",
+            "text": "午夜黑银",
+            "dimension": "typography",
+            "status": "fail",
+            "reason": "b 字号偏差 +3.0px",
+            "findingId": "font-audit:typography:c1593d572945"
+          },
+          {
+            "id": "text-186-1kh8kp",
+            "kind": "text",
+            "selector": "b",
+            "text": "午夜黑银",
+            "dimension": "textColor",
+            "status": "fail",
+            "reason": "b 文字色 ΔE 13.7",
+            "findingId": "color-audit:textColor:d05db1eddc36"
+          },
+          {
+            "id": "text-186-1kh8kp",
+            "kind": "text",
+            "selector": "b",
+            "text": "午夜黑银",
+            "dimension": "content",
+            "status": "pending",
+            "reason": "visible content must match or be documented as mock",
+            "findingId": ""
+          },
+          {
+            "id": "container-187-l35na5",
+            "kind": "container",
+            "selector": "div.form-section.params-section:nth-of-type(5)",
+            "text": "",
+            "dimension": "border",
+            "status": "fail",
+            "reason": "div.form-section: 边框色 #e7ebf1 → #fdfdfd",
+            "findingId": "full-audit:border:5e2920721d23"
+          },
+          {
+            "id": "text-189-1s7uck",
+            "kind": "text",
+            "selector": "h3",
+            "text": "参数项",
+            "dimension": "geometry",
+            "status": "fail",
+            "reason": "h3: 垂直位置偏差 6.0px",
+            "findingId": "full-audit:geometry:eecfd0b1c1f8"
+          },
+          {
+            "id": "text-189-1s7uck",
+            "kind": "text",
+            "selector": "h3",
+            "text": "参数项",
+            "dimension": "textColor",
+            "status": "fail",
+            "reason": "h3 文字色 ΔE 4.4",
+            "findingId": "color-audit:textColor:0f5699541693"
+          },
+          {
+            "id": "text-189-1s7uck",
+            "kind": "text",
+            "selector": "h3",
+            "text": "参数项",
+            "dimension": "content",
+            "status": "pending",
+            "reason": "visible content must match or be documented as mock",
+            "findingId": ""
+          },
+          {
+            "id": "button-190-1s09w8",
+            "kind": "button",
+            "selector": "button",
+            "text": "添加参数项",
+            "dimension": "textColor",
+            "status": "fail",
+            "reason": "button 文字色 ΔE 10.6",
+            "findingId": "color-audit:textColor:721a73db8ebf"
+          },
+          {
+            "id": "button-190-1s09w8",
+            "kind": "button",
+            "selector": "button",
+            "text": "添加参数项",
+            "dimension": "border",
+            "status": "fail",
+            "reason": "button: 边框色 #dfe4ec → #fefefe",
+            "findingId": "full-audit:border:97624f00cc4c"
+          },
+          {
+            "id": "button-190-1s09w8",
+            "kind": "button",
+            "selector": "button",
+            "text": "添加参数项",
+            "dimension": "content",
+            "status": "pending",
+            "reason": "visible content must match or be documented as mock",
+            "findingId": ""
+          },
+          {
+            "id": "container-192-lwchjw",
+            "kind": "container",
+            "selector": "div.params-table:nth-of-type(2)",
+            "text": "",
+            "dimension": "border",
+            "status": "fail",
+            "reason": "div.params-table: 边框色 #e4e8ef → #fefefe",
+            "findingId": "full-audit:border:23a67c26ae23"
+          },
+          {
+            "id": "text-194-zld9j6",
+            "kind": "text",
+            "selector": "span:nth-of-type(1)",
+            "text": "图标",
+            "dimension": "typography",
+            "status": "pending",
+            "reason": "text-bearing element",
+            "findingId": ""
+          },
+          {
+            "id": "text-194-zld9j6",
+            "kind": "text",
+            "selector": "span:nth-of-type(1)",
+            "text": "图标",
+            "dimension": "textColor",
+            "status": "pending",
+            "reason": "text color must be checked against design sample",
+            "findingId": ""
+          },
+          {
+            "id": "text-194-zld9j6",
+            "kind": "text",
+            "selector": "span:nth-of-type(1)",
+            "text": "图标",
+            "dimension": "content",
+            "status": "pending",
+            "reason": "visible content must match or be documented as mock",
+            "findingId": ""
+          },
+          {
+            "id": "text-195-d4m8ip",
+            "kind": "text",
+            "selector": "span:nth-of-type(2)",
+            "text": "名称",
+            "dimension": "typography",
+            "status": "pending",
+            "reason": "text-bearing element",
+            "findingId": ""
+          },
+          {
+            "id": "text-195-d4m8ip",
+            "kind": "text",
+            "selector": "span:nth-of-type(2)",
+            "text": "名称",
+            "dimension": "textColor",
+            "status": "pending",
+            "reason": "text color must be checked against design sample",
+            "findingId": ""
+          },
+          {
+            "id": "text-195-d4m8ip",
+            "kind": "text",
+            "selector": "span:nth-of-type(2)",
+            "text": "名称",
+            "dimension": "content",
+            "status": "pending",
+            "reason": "visible content must match or be documented as mock",
+            "findingId": ""
+          },
+          {
+            "id": "text-196-z19db1",
+            "kind": "text",
+            "selector": "span:nth-of-type(3)",
+            "text": "值",
+            "dimension": "typography",
+            "status": "pending",
+            "reason": "text-bearing element",
+            "findingId": ""
+          },
+          {
+            "id": "text-196-z19db1",
+            "kind": "text",
+            "selector": "span:nth-of-type(3)",
+            "text": "值",
+            "dimension": "textColor",
+            "status": "pending",
+            "reason": "text color must be checked against design sample",
+            "findingId": ""
+          },
+          {
+            "id": "text-196-z19db1",
+            "kind": "text",
+            "selector": "span:nth-of-type(3)",
+            "text": "值",
+            "dimension": "content",
+            "status": "pending",
+            "reason": "visible content must match or be documented as mock",
+            "findingId": ""
+          },
+          {
+            "id": "input-198-5u44ip",
+            "kind": "input",
+            "selector": "input:nth-of-type(1)",
+            "text": "",
+            "dimension": "typography",
+            "status": "pending",
+            "reason": "text-bearing element",
+            "findingId": ""
+          },
+          {
+            "id": "input-198-5u44ip",
+            "kind": "input",
+            "selector": "input:nth-of-type(1)",
+            "text": "",
+            "dimension": "textColor",
+            "status": "pending",
+            "reason": "text color must be checked against design sample",
+            "findingId": ""
+          },
+          {
+            "id": "input-198-5u44ip",
+            "kind": "input",
+            "selector": "input:nth-of-type(1)",
+            "text": "",
+            "dimension": "backgroundColor",
+            "status": "pending",
+            "reason": "visible fill/background must be checked",
+            "findingId": ""
+          },
+          {
+            "id": "input-198-5u44ip",
+            "kind": "input",
+            "selector": "input:nth-of-type(1)",
+            "text": "",
+            "dimension": "border",
+            "status": "pending",
+            "reason": "visible border must be checked",
+            "findingId": ""
+          },
+          {
+            "id": "input-199-nqovlc",
+            "kind": "input",
+            "selector": "input:nth-of-type(2)",
+            "text": "",
+            "dimension": "typography",
+            "status": "pending",
+            "reason": "text-bearing element",
+            "findingId": ""
+          },
+          {
+            "id": "input-199-nqovlc",
+            "kind": "input",
+            "selector": "input:nth-of-type(2)",
+            "text": "",
+            "dimension": "textColor",
+            "status": "pending",
+            "reason": "text color must be checked against design sample",
+            "findingId": ""
+          },
+          {
+            "id": "input-199-nqovlc",
+            "kind": "input",
+            "selector": "input:nth-of-type(2)",
+            "text": "",
+            "dimension": "backgroundColor",
+            "status": "pending",
+            "reason": "visible fill/background must be checked",
+            "findingId": ""
+          },
+          {
+            "id": "input-199-nqovlc",
+            "kind": "input",
+            "selector": "input:nth-of-type(2)",
+            "text": "",
+            "dimension": "border",
+            "status": "pending",
+            "reason": "visible border must be checked",
+            "findingId": ""
+          },
+          {
+            "id": "input-200-1sy05v",
+            "kind": "input",
+            "selector": "input:nth-of-type(3)",
+            "text": "",
+            "dimension": "typography",
+            "status": "pending",
+            "reason": "text-bearing element",
+            "findingId": ""
+          },
+          {
+            "id": "input-200-1sy05v",
+            "kind": "input",
+            "selector": "input:nth-of-type(3)",
+            "text": "",
+            "dimension": "textColor",
+            "status": "pending",
+            "reason": "text color must be checked against design sample",
+            "findingId": ""
+          },
+          {
+            "id": "input-200-1sy05v",
+            "kind": "input",
+            "selector": "input:nth-of-type(3)",
+            "text": "",
+            "dimension": "backgroundColor",
+            "status": "pending",
+            "reason": "visible fill/background must be checked",
+            "findingId": ""
+          },
+          {
+            "id": "input-200-1sy05v",
+            "kind": "input",
+            "selector": "input:nth-of-type(3)",
+            "text": "",
+            "dimension": "border",
+            "status": "pending",
+            "reason": "visible border must be checked",
+            "findingId": ""
+          },
+          {
+            "id": "button-201-1mo010",
+            "kind": "button",
+            "selector": "button",
+            "text": "",
+            "dimension": "content",
+            "status": "pending",
+            "reason": "visible content must match or be documented as mock",
+            "findingId": ""
+          },
+          {
+            "id": "input-206-uxkbrg",
+            "kind": "input",
+            "selector": "input:nth-of-type(1)",
+            "text": "",
+            "dimension": "typography",
+            "status": "pending",
+            "reason": "text-bearing element",
+            "findingId": ""
+          },
+          {
+            "id": "input-206-uxkbrg",
+            "kind": "input",
+            "selector": "input:nth-of-type(1)",
+            "text": "",
+            "dimension": "textColor",
+            "status": "pending",
+            "reason": "text color must be checked against design sample",
+            "findingId": ""
+          },
+          {
+            "id": "input-206-uxkbrg",
+            "kind": "input",
+            "selector": "input:nth-of-type(1)",
+            "text": "",
+            "dimension": "backgroundColor",
+            "status": "pending",
+            "reason": "visible fill/background must be checked",
+            "findingId": ""
+          },
+          {
+            "id": "input-206-uxkbrg",
+            "kind": "input",
+            "selector": "input:nth-of-type(1)",
+            "text": "",
+            "dimension": "border",
+            "status": "pending",
+            "reason": "visible border must be checked",
+            "findingId": ""
+          },
+          {
+            "id": "input-207-cxvmot",
+            "kind": "input",
+            "selector": "input:nth-of-type(2)",
+            "text": "",
+            "dimension": "typography",
+            "status": "pending",
+            "reason": "text-bearing element",
+            "findingId": ""
+          },
+          {
+            "id": "input-207-cxvmot",
+            "kind": "input",
+            "selector": "input:nth-of-type(2)",
+            "text": "",
+            "dimension": "textColor",
+            "status": "pending",
+            "reason": "text color must be checked against design sample",
+            "findingId": ""
+          },
+          {
+            "id": "input-207-cxvmot",
+            "kind": "input",
+            "selector": "input:nth-of-type(2)",
+            "text": "",
+            "dimension": "backgroundColor",
+            "status": "pending",
+            "reason": "visible fill/background must be checked",
+            "findingId": ""
+          },
+          {
+            "id": "input-207-cxvmot",
+            "kind": "input",
+            "selector": "input:nth-of-type(2)",
+            "text": "",
+            "dimension": "border",
+            "status": "pending",
+            "reason": "visible border must be checked",
+            "findingId": ""
+          },
+          {
+            "id": "input-208-16lipz",
+            "kind": "input",
+            "selector": "input:nth-of-type(3)",
+            "text": "",
+            "dimension": "typography",
+            "status": "pending",
+            "reason": "text-bearing element",
+            "findingId": ""
+          },
+          {
+            "id": "input-208-16lipz",
+            "kind": "input",
+            "selector": "input:nth-of-type(3)",
+            "text": "",
+            "dimension": "textColor",
+            "status": "pending",
+            "reason": "text color must be checked against design sample",
+            "findingId": ""
+          },
+          {
+            "id": "input-208-16lipz",
+            "kind": "input",
+            "selector": "input:nth-of-type(3)",
+            "text": "",
+            "dimension": "backgroundColor",
+            "status": "pending",
+            "reason": "visible fill/background must be checked",
+            "findingId": ""
+          },
+          {
+            "id": "input-208-16lipz",
+            "kind": "input",
+            "selector": "input:nth-of-type(3)",
+            "text": "",
+            "dimension": "border",
+            "status": "pending",
+            "reason": "visible border must be checked",
+            "findingId": ""
+          },
+          {
+            "id": "button-209-p27nqb",
+            "kind": "button",
+            "selector": "button",
+            "text": "",
+            "dimension": "content",
+            "status": "pending",
+            "reason": "visible content must match or be documented as mock",
+            "findingId": ""
+          },
+          {
+            "id": "input-214-1tydtc",
+            "kind": "input",
+            "selector": "input:nth-of-type(1)",
+            "text": "",
+            "dimension": "typography",
+            "status": "pending",
+            "reason": "text-bearing element",
+            "findingId": ""
+          },
+          {
+            "id": "input-214-1tydtc",
+            "kind": "input",
+            "selector": "input:nth-of-type(1)",
+            "text": "",
+            "dimension": "textColor",
+            "status": "pending",
+            "reason": "text color must be checked against design sample",
+            "findingId": ""
+          },
+          {
+            "id": "input-214-1tydtc",
+            "kind": "input",
+            "selector": "input:nth-of-type(1)",
+            "text": "",
+            "dimension": "backgroundColor",
+            "status": "pending",
+            "reason": "visible fill/background must be checked",
+            "findingId": ""
+          },
+          {
+            "id": "input-214-1tydtc",
+            "kind": "input",
+            "selector": "input:nth-of-type(1)",
+            "text": "",
+            "dimension": "border",
+            "status": "pending",
+            "reason": "visible border must be checked",
+            "findingId": ""
+          },
+          {
+            "id": "input-215-1048fo",
+            "kind": "input",
+            "selector": "input:nth-of-type(2)",
+            "text": "",
+            "dimension": "typography",
+            "status": "pending",
+            "reason": "text-bearing element",
+            "findingId": ""
+          },
+          {
+            "id": "input-215-1048fo",
+            "kind": "input",
+            "selector": "input:nth-of-type(2)",
+            "text": "",
+            "dimension": "textColor",
+            "status": "pending",
+            "reason": "text color must be checked against design sample",
+            "findingId": ""
+          },
+          {
+            "id": "input-215-1048fo",
+            "kind": "input",
+            "selector": "input:nth-of-type(2)",
+            "text": "",
+            "dimension": "backgroundColor",
+            "status": "pending",
+            "reason": "visible fill/background must be checked",
+            "findingId": ""
+          },
+          {
+            "id": "input-215-1048fo",
+            "kind": "input",
+            "selector": "input:nth-of-type(2)",
+            "text": "",
+            "dimension": "border",
+            "status": "pending",
+            "reason": "visible border must be checked",
+            "findingId": ""
+          },
+          {
+            "id": "input-216-6glce5",
+            "kind": "input",
+            "selector": "input:nth-of-type(3)",
+            "text": "",
+            "dimension": "typography",
+            "status": "pending",
+            "reason": "text-bearing element",
+            "findingId": ""
+          },
+          {
+            "id": "input-216-6glce5",
+            "kind": "input",
+            "selector": "input:nth-of-type(3)",
+            "text": "",
+            "dimension": "textColor",
+            "status": "pending",
+            "reason": "text color must be checked against design sample",
+            "findingId": ""
+          },
+          {
+            "id": "input-216-6glce5",
+            "kind": "input",
+            "selector": "input:nth-of-type(3)",
+            "text": "",
+            "dimension": "backgroundColor",
+            "status": "pending",
+            "reason": "visible fill/background must be checked",
+            "findingId": ""
+          },
+          {
+            "id": "input-216-6glce5",
+            "kind": "input",
+            "selector": "input:nth-of-type(3)",
+            "text": "",
+            "dimension": "border",
+            "status": "pending",
+            "reason": "visible border must be checked",
+            "findingId": ""
+          },
+          {
+            "id": "button-217-c728vo",
+            "kind": "button",
+            "selector": "button",
+            "text": "",
+            "dimension": "content",
+            "status": "pending",
+            "reason": "visible content must match or be documented as mock",
+            "findingId": ""
+          },
+          {
+            "id": "container-221-132ucc",
+            "kind": "container",
+            "selector": "div.form-section.ratio-section.flat-ratio-section:nth-of-type(6)",
+            "text": "",
+            "dimension": "border",
+            "status": "fail",
+            "reason": "div.form-section: 边框色 #e7ebf1 → #fefefe",
+            "findingId": "full-audit:border:d4bce3e74130"
+          },
+          {
+            "id": "text-223-bhxn4d",
+            "kind": "text",
+            "selector": "h3",
+            "text": "6. 生成比例",
+            "dimension": "typography",
+            "status": "fail",
+            "reason": "h3 字号偏差 -3.0px",
+            "findingId": "font-audit:typography:9b632bd40abb"
+          },
+          {
+            "id": "text-223-bhxn4d",
+            "kind": "text",
+            "selector": "h3",
+            "text": "6. 生成比例",
+            "dimension": "textColor",
+            "status": "fail",
+            "reason": "h3 文字色 ΔE 6.6",
+            "findingId": "color-audit:textColor:66d8b5ea7a6a"
+          },
+          {
+            "id": "text-223-bhxn4d",
+            "kind": "text",
+            "selector": "h3",
+            "text": "6. 生成比例",
+            "dimension": "content",
+            "status": "pending",
+            "reason": "visible content must match or be documented as mock",
+            "findingId": ""
+          },
+          {
+            "id": "text-224-kerf36",
+            "kind": "text",
+            "selector": "span",
+            "text": "（必填）",
+            "dimension": "geometry",
+            "status": "fail",
+            "reason": "span: 垂直位置偏差 8.0px",
+            "findingId": "full-audit:geometry:9f88719df7a9"
+          },
+          {
+            "id": "text-224-kerf36",
+            "kind": "text",
+            "selector": "span",
+            "text": "（必填）",
+            "dimension": "typography",
+            "status": "fail",
+            "reason": "span 字号偏差 -3.3px",
+            "findingId": "font-audit:typography:3feb3aee594c"
+          },
+          {
+            "id": "text-224-kerf36",
+            "kind": "text",
+            "selector": "span",
+            "text": "（必填）",
+            "dimension": "textColor",
+            "status": "fail",
+            "reason": "",
+            "findingId": ""
+          },
+          {
+            "id": "text-224-kerf36",
+            "kind": "text",
+            "selector": "span",
+            "text": "（必填）",
+            "dimension": "content",
+            "status": "pending",
+            "reason": "visible content must match or be documented as mock",
+            "findingId": ""
+          },
+          {
+            "id": "button-226-7l3805",
+            "kind": "button",
+            "selector": "button.choice-pill:nth-of-type(1)",
+            "text": "1:1",
+            "dimension": "geometry",
+            "status": "fail",
+            "reason": "button.choice-pill: 垂直位置偏差 8.0px",
+            "findingId": "full-audit:geometry:1e46b262faf1"
+          },
+          {
+            "id": "button-226-7l3805",
+            "kind": "button",
+            "selector": "button.choice-pill:nth-of-type(1)",
+            "text": "1:1",
+            "dimension": "typography",
+            "status": "fail",
+            "reason": "button.choice-pill 字号偏差 -1.3px",
+            "findingId": "font-audit:typography:3405062d6aa3"
+          },
+          {
+            "id": "button-226-7l3805",
+            "kind": "button",
+            "selector": "button.choice-pill:nth-of-type(1)",
+            "text": "1:1",
+            "dimension": "border",
+            "status": "fail",
+            "reason": "button.choice-pill: 边框色 #dfe4ec → #fefefe",
+            "findingId": "full-audit:border:99c31d664f51"
+          },
+          {
+            "id": "button-226-7l3805",
+            "kind": "button",
+            "selector": "button.choice-pill:nth-of-type(1)",
+            "text": "1:1",
+            "dimension": "content",
+            "status": "pending",
+            "reason": "visible content must match or be documented as mock",
+            "findingId": ""
+          },
+          {
+            "id": "button-227-13zfws",
+            "kind": "button",
+            "selector": "button.choice-pill.active:nth-of-type(2)",
+            "text": "4:5",
+            "dimension": "geometry",
+            "status": "fail",
+            "reason": "button.choice-pill: 垂直位置偏差 7.0px",
+            "findingId": "full-audit:geometry:a6d667b4ce3c"
+          },
+          {
+            "id": "button-227-13zfws",
+            "kind": "button",
+            "selector": "button.choice-pill.active:nth-of-type(2)",
+            "text": "4:5",
+            "dimension": "typography",
+            "status": "fail",
+            "reason": "button.choice-pill 字号偏差 -2.3px",
+            "findingId": "font-audit:typography:b18decd71353"
+          },
+          {
+            "id": "button-227-13zfws",
+            "kind": "button",
+            "selector": "button.choice-pill.active:nth-of-type(2)",
+            "text": "4:5",
+            "dimension": "textColor",
+            "status": "fail",
+            "reason": "",
+            "findingId": ""
+          },
+          {
+            "id": "button-227-13zfws",
+            "kind": "button",
+            "selector": "button.choice-pill.active:nth-of-type(2)",
+            "text": "4:5",
+            "dimension": "border",
+            "status": "fail",
+            "reason": "button.choice-pill: 边框色 #ff3328 → #fefdfd",
+            "findingId": "full-audit:border:56660d768f10"
+          },
+          {
+            "id": "button-227-13zfws",
+            "kind": "button",
+            "selector": "button.choice-pill.active:nth-of-type(2)",
+            "text": "4:5",
+            "dimension": "content",
+            "status": "pending",
+            "reason": "visible content must match or be documented as mock",
+            "findingId": ""
+          },
+          {
+            "id": "button-228-1iefgi",
+            "kind": "button",
+            "selector": "button.choice-pill:nth-of-type(3)",
+            "text": "3:4",
+            "dimension": "geometry",
+            "status": "fail",
+            "reason": "button.choice-pill: 垂直位置偏差 8.0px",
+            "findingId": "full-audit:geometry:5b1cbce58e26"
+          },
+          {
+            "id": "button-228-1iefgi",
+            "kind": "button",
+            "selector": "button.choice-pill:nth-of-type(3)",
+            "text": "3:4",
+            "dimension": "typography",
+            "status": "fail",
+            "reason": "button.choice-pill 字号偏差 -1.3px",
+            "findingId": "font-audit:typography:377fa92fefef"
+          },
+          {
+            "id": "button-228-1iefgi",
+            "kind": "button",
+            "selector": "button.choice-pill:nth-of-type(3)",
+            "text": "3:4",
+            "dimension": "border",
+            "status": "fail",
+            "reason": "button.choice-pill: 边框色 #dfe4ec → #fefefe",
+            "findingId": "full-audit:border:7d6f7129dcb0"
+          },
+          {
+            "id": "button-228-1iefgi",
+            "kind": "button",
+            "selector": "button.choice-pill:nth-of-type(3)",
+            "text": "3:4",
+            "dimension": "content",
+            "status": "pending",
+            "reason": "visible content must match or be documented as mock",
+            "findingId": ""
+          },
+          {
+            "id": "button-229-1o361y",
+            "kind": "button",
+            "selector": "button.choice-pill:nth-of-type(4)",
+            "text": "9:16",
+            "dimension": "geometry",
+            "status": "fail",
+            "reason": "button.choice-pill: 垂直位置偏差 8.0px",
+            "findingId": "full-audit:geometry:427867945d9c"
+          },
+          {
+            "id": "button-229-1o361y",
+            "kind": "button",
+            "selector": "button.choice-pill:nth-of-type(4)",
+            "text": "9:16",
+            "dimension": "typography",
+            "status": "fail",
+            "reason": "button.choice-pill 字号偏差 -1.3px",
+            "findingId": "font-audit:typography:caeec742f6e8"
+          },
+          {
+            "id": "button-229-1o361y",
+            "kind": "button",
+            "selector": "button.choice-pill:nth-of-type(4)",
+            "text": "9:16",
+            "dimension": "border",
+            "status": "fail",
+            "reason": "button.choice-pill: 边框色 #dfe4ec → #fefefe",
+            "findingId": "full-audit:border:722c89ee03c3"
+          },
+          {
+            "id": "button-229-1o361y",
+            "kind": "button",
+            "selector": "button.choice-pill:nth-of-type(4)",
+            "text": "9:16",
+            "dimension": "content",
+            "status": "pending",
+            "reason": "visible content must match or be documented as mock",
+            "findingId": ""
+          },
+          {
+            "id": "button-230-aou51m",
+            "kind": "button",
+            "selector": "button.choice-pill:nth-of-type(5)",
+            "text": "2:3",
+            "dimension": "geometry",
+            "status": "fail",
+            "reason": "button.choice-pill: 垂直位置偏差 8.0px",
+            "findingId": "full-audit:geometry:3662b009e6ff"
+          },
+          {
+            "id": "button-230-aou51m",
+            "kind": "button",
+            "selector": "button.choice-pill:nth-of-type(5)",
+            "text": "2:3",
+            "dimension": "typography",
+            "status": "fail",
+            "reason": "button.choice-pill 字号偏差 -1.3px",
+            "findingId": "font-audit:typography:942379b8c2f6"
+          },
+          {
+            "id": "button-230-aou51m",
+            "kind": "button",
+            "selector": "button.choice-pill:nth-of-type(5)",
+            "text": "2:3",
+            "dimension": "border",
+            "status": "fail",
+            "reason": "button.choice-pill: 边框色 #dfe4ec → #fefefe",
+            "findingId": "full-audit:border:3b5ffa247d4c"
+          },
+          {
+            "id": "button-230-aou51m",
+            "kind": "button",
+            "selector": "button.choice-pill:nth-of-type(5)",
+            "text": "2:3",
+            "dimension": "content",
+            "status": "pending",
+            "reason": "visible content must match or be documented as mock",
+            "findingId": ""
+          },
+          {
+            "id": "button-231-aldaha",
+            "kind": "button",
+            "selector": "button.choice-pill:nth-of-type(6)",
+            "text": "16:9",
+            "dimension": "geometry",
+            "status": "fail",
+            "reason": "button.choice-pill: 垂直位置偏差 8.0px",
+            "findingId": "full-audit:geometry:a4f92906aed1"
+          },
+          {
+            "id": "button-231-aldaha",
+            "kind": "button",
+            "selector": "button.choice-pill:nth-of-type(6)",
+            "text": "16:9",
+            "dimension": "typography",
+            "status": "fail",
+            "reason": "button.choice-pill 字号偏差 -1.3px",
+            "findingId": "font-audit:typography:c4b4c0fed639"
+          },
+          {
+            "id": "button-231-aldaha",
+            "kind": "button",
+            "selector": "button.choice-pill:nth-of-type(6)",
+            "text": "16:9",
+            "dimension": "border",
+            "status": "fail",
+            "reason": "button.choice-pill: 边框色 #dfe4ec → #fefefe",
+            "findingId": "full-audit:border:e35e8eaf6a11"
+          },
+          {
+            "id": "button-231-aldaha",
+            "kind": "button",
+            "selector": "button.choice-pill:nth-of-type(6)",
+            "text": "16:9",
+            "dimension": "content",
+            "status": "pending",
+            "reason": "visible content must match or be documented as mock",
+            "findingId": ""
+          },
+          {
+            "id": "container-232-97iph7",
+            "kind": "container",
+            "selector": "div.compact-control:nth-of-type(7)",
+            "text": "",
+            "dimension": "backgroundColor",
+            "status": "fail",
+            "reason": "div.compact-control 背景色 ΔE 47.0",
+            "findingId": "color-audit:backgroundColor:9875f15ec0ff"
+          },
+          {
+            "id": "text-234-1vm2va",
+            "kind": "text",
+            "selector": "h3",
+            "text": "7. 生成张数",
+            "dimension": "geometry",
+            "status": "fail",
+            "reason": "h3: 垂直位置偏差 10.0px",
+            "findingId": "full-audit:geometry:bb9520e8a3a4"
+          },
+          {
+            "id": "text-234-1vm2va",
+            "kind": "text",
+            "selector": "h3",
+            "text": "7. 生成张数",
+            "dimension": "typography",
+            "status": "fail",
+            "reason": "h3 字号偏差 -5.0px",
+            "findingId": "font-audit:typography:ae843cd3ba70"
+          },
+          {
+            "id": "text-234-1vm2va",
+            "kind": "text",
+            "selector": "h3",
+            "text": "7. 生成张数",
+            "dimension": "textColor",
+            "status": "fail",
+            "reason": "h3 文字色 ΔE 5.1",
+            "findingId": "color-audit:textColor:80447042c3d1"
+          },
+          {
+            "id": "text-234-1vm2va",
+            "kind": "text",
+            "selector": "h3",
+            "text": "7. 生成张数",
+            "dimension": "content",
+            "status": "pending",
+            "reason": "visible content must match or be documented as mock",
+            "findingId": ""
+          },
+          {
+            "id": "button-236-1dy61c",
+            "kind": "button",
+            "selector": "button.choice-pill:nth-of-type(1)",
+            "text": "1",
+            "dimension": "backgroundColor",
+            "status": "fail",
+            "reason": "button.choice-pill 背景色 ΔE 100.7",
+            "findingId": "color-audit:backgroundColor:596140544e09"
+          },
+          {
+            "id": "button-236-1dy61c",
+            "kind": "button",
+            "selector": "button.choice-pill:nth-of-type(1)",
+            "text": "1",
+            "dimension": "border",
+            "status": "fail",
+            "reason": "button.choice-pill: 边框色 #ffe0e7 → #fdfdfd",
+            "findingId": "full-audit:border:65ec7a6dbdc3"
+          },
+          {
+            "id": "button-236-1dy61c",
+            "kind": "button",
+            "selector": "button.choice-pill:nth-of-type(1)",
+            "text": "1",
+            "dimension": "content",
+            "status": "pending",
+            "reason": "visible content must match or be documented as mock",
+            "findingId": ""
+          },
+          {
+            "id": "button-237-de1hh1",
+            "kind": "button",
+            "selector": "button.choice-pill.active:nth-of-type(2)",
+            "text": "2",
+            "dimension": "backgroundColor",
+            "status": "fail",
+            "reason": "button.choice-pill.active 背景色 ΔE 100.3",
+            "findingId": "color-audit:backgroundColor:46bebb549b9b"
+          },
+          {
+            "id": "button-237-de1hh1",
+            "kind": "button",
+            "selector": "button.choice-pill.active:nth-of-type(2)",
+            "text": "2",
+            "dimension": "border",
+            "status": "fail",
+            "reason": "button.choice-pill: 边框色 #ff3327 → #fefefe",
+            "findingId": "full-audit:border:30ec382edced"
+          },
+          {
+            "id": "button-237-de1hh1",
+            "kind": "button",
+            "selector": "button.choice-pill.active:nth-of-type(2)",
+            "text": "2",
+            "dimension": "content",
+            "status": "pending",
+            "reason": "visible content must match or be documented as mock",
+            "findingId": ""
+          },
+          {
+            "id": "button-238-1j01mg",
+            "kind": "button",
+            "selector": "button.choice-pill:nth-of-type(3)",
+            "text": "4",
+            "dimension": "backgroundColor",
+            "status": "fail",
+            "reason": "button.choice-pill 背景色 ΔE 100.7",
+            "findingId": "color-audit:backgroundColor:eb7a06921355"
+          },
+          {
+            "id": "button-238-1j01mg",
+            "kind": "button",
+            "selector": "button.choice-pill:nth-of-type(3)",
+            "text": "4",
+            "dimension": "border",
+            "status": "fail",
+            "reason": "button.choice-pill: 边框色 #ffe0e7 → #fefeff",
+            "findingId": "full-audit:border:520d31f85add"
+          },
+          {
+            "id": "button-238-1j01mg",
+            "kind": "button",
+            "selector": "button.choice-pill:nth-of-type(3)",
+            "text": "4",
+            "dimension": "content",
+            "status": "pending",
+            "reason": "visible content must match or be documented as mock",
+            "findingId": ""
+          },
+          {
+            "id": "button-239-124ykc",
+            "kind": "button",
+            "selector": "button.choice-pill:nth-of-type(4)",
+            "text": "6",
+            "dimension": "backgroundColor",
+            "status": "fail",
+            "reason": "button.choice-pill 背景色 ΔE 100.3",
+            "findingId": "color-audit:backgroundColor:cc8e1436959a"
+          },
+          {
+            "id": "button-239-124ykc",
+            "kind": "button",
+            "selector": "button.choice-pill:nth-of-type(4)",
+            "text": "6",
+            "dimension": "border",
+            "status": "fail",
+            "reason": "button.choice-pill: 边框色 #ffe0e7 → #fefefe",
+            "findingId": "full-audit:border:79ee54ff0579"
+          },
+          {
+            "id": "button-239-124ykc",
+            "kind": "button",
+            "selector": "button.choice-pill:nth-of-type(4)",
+            "text": "6",
+            "dimension": "content",
+            "status": "pending",
+            "reason": "visible content must match or be documented as mock",
+            "findingId": ""
+          },
+          {
+            "id": "container-240-wslgq",
+            "kind": "container",
+            "selector": "div.compact-control:nth-of-type(8)",
+            "text": "",
+            "dimension": "backgroundColor",
+            "status": "fail",
+            "reason": "div.compact-control 背景色 ΔE 31.7",
+            "findingId": "color-audit:backgroundColor:b9e69681af70"
+          },
+          {
+            "id": "text-242-1vuxxt",
+            "kind": "text",
+            "selector": "h3",
+            "text": "8. 分辨率",
+            "dimension": "geometry",
+            "status": "fail",
+            "reason": "h3: 垂直位置偏差 10.0px",
+            "findingId": "full-audit:geometry:b5f1f6efbc2f"
+          },
+          {
+            "id": "text-242-1vuxxt",
+            "kind": "text",
+            "selector": "h3",
+            "text": "8. 分辨率",
+            "dimension": "typography",
+            "status": "fail",
+            "reason": "h3 字号偏差 -5.0px",
+            "findingId": "font-audit:typography:d16d8b5b6092"
+          },
+          {
+            "id": "text-242-1vuxxt",
+            "kind": "text",
+            "selector": "h3",
+            "text": "8. 分辨率",
+            "dimension": "content",
+            "status": "pending",
+            "reason": "visible content must match or be documented as mock",
+            "findingId": ""
+          },
+          {
+            "id": "button-244-1daylk",
+            "kind": "button",
+            "selector": "button.choice-pill:nth-of-type(1)",
+            "text": "标准 1024",
+            "dimension": "typography",
+            "status": "fail",
+            "reason": "button.choice-pill 字号偏差 -2.6px",
+            "findingId": "font-audit:typography:3c8172d539a8"
+          },
+          {
+            "id": "button-244-1daylk",
+            "kind": "button",
+            "selector": "button.choice-pill:nth-of-type(1)",
+            "text": "标准 1024",
+            "dimension": "textColor",
+            "status": "fail",
+            "reason": "button.choice-pill 文字色 ΔE 55.2",
+            "findingId": "color-audit:textColor:59f119234776"
+          },
+          {
+            "id": "button-244-1daylk",
+            "kind": "button",
+            "selector": "button.choice-pill:nth-of-type(1)",
+            "text": "标准 1024",
+            "dimension": "backgroundColor",
+            "status": "fail",
+            "reason": "button.choice-pill 背景色 ΔE 99.9",
+            "findingId": "color-audit:backgroundColor:bd5b13792cfb"
+          },
+          {
+            "id": "button-244-1daylk",
+            "kind": "button",
+            "selector": "button.choice-pill:nth-of-type(1)",
+            "text": "标准 1024",
+            "dimension": "border",
+            "status": "fail",
+            "reason": "button.choice-pill: 边框色 #ffe0e7 → #fefefe",
+            "findingId": "full-audit:border:0524fb22418a"
+          },
+          {
+            "id": "button-244-1daylk",
+            "kind": "button",
+            "selector": "button.choice-pill:nth-of-type(1)",
+            "text": "标准 1024",
+            "dimension": "content",
+            "status": "pending",
+            "reason": "visible content must match or be documented as mock",
+            "findingId": ""
+          },
+          {
+            "id": "button-245-1tczy5",
+            "kind": "button",
+            "selector": "button.choice-pill.active:nth-of-type(2)",
+            "text": "高清 1536",
+            "dimension": "typography",
+            "status": "fail",
+            "reason": "button.choice-pill 字号偏差 -3.2px",
+            "findingId": "font-audit:typography:64eda7402a2f"
+          },
+          {
+            "id": "button-245-1tczy5",
+            "kind": "button",
+            "selector": "button.choice-pill.active:nth-of-type(2)",
+            "text": "高清 1536",
+            "dimension": "backgroundColor",
+            "status": "fail",
+            "reason": "button.choice-pill.active 背景色 ΔE 99.9",
+            "findingId": "color-audit:backgroundColor:f523351f6c74"
+          },
+          {
+            "id": "button-245-1tczy5",
+            "kind": "button",
+            "selector": "button.choice-pill.active:nth-of-type(2)",
+            "text": "高清 1536",
+            "dimension": "border",
+            "status": "fail",
+            "reason": "button.choice-pill: 边框色 #ff3327 → #fefeff",
+            "findingId": "full-audit:border:22df83b545d6"
+          },
+          {
+            "id": "button-245-1tczy5",
+            "kind": "button",
+            "selector": "button.choice-pill.active:nth-of-type(2)",
+            "text": "高清 1536",
+            "dimension": "content",
+            "status": "pending",
+            "reason": "visible content must match or be documented as mock",
+            "findingId": ""
+          },
+          {
+            "id": "button-246-1gn462",
+            "kind": "button",
+            "selector": "button.choice-pill:nth-of-type(3)",
+            "text": "超清 2048",
+            "dimension": "typography",
+            "status": "fail",
+            "reason": "button.choice-pill 字号偏差 -7.9px",
+            "findingId": "font-audit:typography:71d7fa588e4d"
+          },
+          {
+            "id": "button-246-1gn462",
+            "kind": "button",
+            "selector": "button.choice-pill:nth-of-type(3)",
+            "text": "超清 2048",
+            "dimension": "backgroundColor",
+            "status": "fail",
+            "reason": "button.choice-pill 背景色 ΔE 100.7",
+            "findingId": "color-audit:backgroundColor:b323e2d2413e"
+          },
+          {
+            "id": "button-246-1gn462",
+            "kind": "button",
+            "selector": "button.choice-pill:nth-of-type(3)",
+            "text": "超清 2048",
+            "dimension": "border",
+            "status": "fail",
+            "reason": "button.choice-pill: 边框色 #ffe0e7 → #fefefe",
+            "findingId": "full-audit:border:673fa022a420"
+          },
+          {
+            "id": "button-246-1gn462",
+            "kind": "button",
+            "selector": "button.choice-pill:nth-of-type(3)",
+            "text": "超清 2048",
+            "dimension": "content",
+            "status": "pending",
+            "reason": "visible content must match or be documented as mock",
+            "findingId": ""
+          },
+          {
+            "id": "button-247-fbh829",
+            "kind": "button",
+            "selector": "button.red-button.primary-generate",
+            "text": "开始生成",
+            "dimension": "typography",
+            "status": "fail",
+            "reason": "button.red-button 字号偏差 -4.2px",
+            "findingId": "font-audit:typography:221d124f1ca7"
+          },
+          {
+            "id": "button-247-fbh829",
+            "kind": "button",
+            "selector": "button.red-button.primary-generate",
+            "text": "开始生成",
+            "dimension": "content",
+            "status": "pending",
+            "reason": "visible content must match or be documented as mock",
+            "findingId": ""
+          },
+          {
+            "id": "card-248-1jwp3o",
+            "kind": "card",
+            "selector": "section.result-panel.panel:nth-of-type(2)",
+            "text": "",
+            "dimension": "backgroundColor",
+            "status": "fail",
+            "reason": "",
+            "findingId": ""
+          },
+          {
+            "id": "text-250-j0s1uv",
+            "kind": "text",
+            "selector": "h2",
+            "text": "创作结果",
+            "dimension": "geometry",
+            "status": "fail",
+            "reason": "h2: 垂直位置偏差 -4.0px",
+            "findingId": "full-audit:geometry:7467e00c588e"
+          },
+          {
+            "id": "text-250-j0s1uv",
+            "kind": "text",
+            "selector": "h2",
+            "text": "创作结果",
+            "dimension": "typography",
+            "status": "fail",
+            "reason": "h2 字号偏差 -4.0px",
+            "findingId": "font-audit:typography:ea467b9702bc"
+          },
+          {
+            "id": "text-250-j0s1uv",
+            "kind": "text",
+            "selector": "h2",
+            "text": "创作结果",
+            "dimension": "textColor",
+            "status": "fail",
+            "reason": "h2 文字色 ΔE 13.2",
+            "findingId": "color-audit:textColor:32f26760e28a"
+          },
+          {
+            "id": "text-250-j0s1uv",
+            "kind": "text",
+            "selector": "h2",
+            "text": "创作结果",
+            "dimension": "content",
+            "status": "pending",
+            "reason": "visible content must match or be documented as mock",
+            "findingId": ""
+          },
+          {
+            "id": "button-252-1nzlwu",
+            "kind": "button",
+            "selector": "button.icon-button:nth-of-type(1)",
+            "text": "",
+            "dimension": "content",
+            "status": "pending",
+            "reason": "visible content must match or be documented as mock",
+            "findingId": ""
+          },
+          {
+            "id": "button-256-piswrv",
+            "kind": "button",
+            "selector": "button.icon-button:nth-of-type(2)",
+            "text": "",
+            "dimension": "content",
+            "status": "pending",
+            "reason": "visible content must match or be documented as mock",
+            "findingId": ""
+          },
+          {
+            "id": "button-260-fucizc",
+            "kind": "button",
+            "selector": "button.icon-button:nth-of-type(3)",
+            "text": "",
+            "dimension": "content",
+            "status": "pending",
+            "reason": "visible content must match or be documented as mock",
+            "findingId": ""
+          },
+          {
+            "id": "button-264-hrjtob",
+            "kind": "button",
+            "selector": "button.icon-button:nth-of-type(4)",
+            "text": "",
+            "dimension": "content",
+            "status": "pending",
+            "reason": "visible content must match or be documented as mock",
+            "findingId": ""
+          },
+          {
+            "id": "container-270-107nnj",
+            "kind": "container",
+            "selector": "div.result-main:nth-of-type(2)",
+            "text": "",
+            "dimension": "typography",
+            "status": "fail",
+            "reason": "div.state-card 字号偏差 +529.9px",
+            "findingId": "font-audit:typography:cede95aff57a"
+          },
+          {
+            "id": "container-270-107nnj",
+            "kind": "container",
+            "selector": "div.result-main:nth-of-type(2)",
+            "text": "",
+            "dimension": "backgroundColor",
+            "status": "fail",
+            "reason": "div.result-main 背景色 ΔE 10.9",
+            "findingId": "color-audit:backgroundColor:4e1dd364617a"
+          },
+          {
+            "id": "card-271-8u02m3",
+            "kind": "card",
+            "selector": "div.state-card.error",
+            "text": "加载失败： Unexpected token '<', \"<!doctype \"... is not valid JSON",
+            "dimension": "typography",
+            "status": "pending",
+            "reason": "text-bearing element",
+            "findingId": ""
+          },
+          {
+            "id": "card-271-8u02m3",
+            "kind": "card",
+            "selector": "div.state-card.error",
+            "text": "加载失败： Unexpected token '<', \"<!doctype \"... is not valid JSON",
+            "dimension": "textColor",
+            "status": "pending",
+            "reason": "text color must be checked against design sample",
+            "findingId": ""
+          },
+          {
+            "id": "card-271-8u02m3",
+            "kind": "card",
+            "selector": "div.state-card.error",
+            "text": "加载失败： Unexpected token '<', \"<!doctype \"... is not valid JSON",
+            "dimension": "backgroundColor",
+            "status": "fail",
+            "reason": "div.state-card.error 背景色 ΔE 10.9",
+            "findingId": "color-audit:backgroundColor:ca10c5914c5e"
+          },
+          {
+            "id": "card-271-8u02m3",
+            "kind": "card",
+            "selector": "div.state-card.error",
+            "text": "加载失败： Unexpected token '<', \"<!doctype \"... is not valid JSON",
+            "dimension": "content",
+            "status": "pending",
+            "reason": "visible content must match or be documented as mock",
+            "findingId": ""
+          },
+          {
+            "id": "button-273-1smxvi",
+            "kind": "button",
+            "selector": "button.thumb-arrow.left:nth-of-type(1)",
+            "text": "",
+            "dimension": "backgroundColor",
+            "status": "fail",
+            "reason": "button.thumb-arrow.left 背景色 ΔE 10.1",
+            "findingId": "color-audit:backgroundColor:b43e28ecaff4"
+          },
+          {
+            "id": "button-280-1yu3za",
+            "kind": "button",
+            "selector": "button.error-toast",
+            "text": "Unexpected token '<', \"<!doctype \"... is not valid JSON",
+            "dimension": "typography",
+            "status": "fail",
+            "reason": "button.error-toast 字号偏差 -6.7px",
+            "findingId": "font-audit:typography:c06b806b7563"
+          },
+          {
+            "id": "button-280-1yu3za",
+            "kind": "button",
+            "selector": "button.error-toast",
+            "text": "Unexpected token '<', \"<!doctype \"... is not valid JSON",
+            "dimension": "backgroundColor",
+            "status": "fail",
+            "reason": "button.error-toast 背景色 ΔE 98.1",
+            "findingId": "color-audit:backgroundColor:f0c27bb2e6c1"
+          },
+          {
+            "id": "button-280-1yu3za",
+            "kind": "button",
+            "selector": "button.error-toast",
+            "text": "Unexpected token '<', \"<!doctype \"... is not valid JSON",
+            "dimension": "content",
+            "status": "pending",
+            "reason": "visible content must match or be documented as mock",
+            "findingId": ""
+          }
+        ]
+      }
+    },
+    "assets": null,
+    "assetEdges": {
+      "totalAssets": 0,
+      "passAssets": 0,
+      "failAssets": 0,
+      "findings": []
+    },
+    "findings": {
+      "total": 363,
+      "open": 361,
+      "resolved": 2,
+      "bySeverity": {
+        "P0": 2,
+        "P1": 139,
+        "P2": 222
+      },
+      "byStatus": {
+        "open": 361,
+        "fixed": 2
+      },
+      "byDimension": {
+        "content": 93,
+        "backgroundColor": 39,
+        "textColor": 36,
+        "geometry": 64,
+        "typography": 31,
+        "interaction": 48,
+        "responsive": 2,
+        "border": 50
+      },
+      "byDetector": {
+        "content-audit": 93,
+        "color-audit": 75,
+        "diff-components": 30,
+        "font-audit": 31,
+        "full-audit": 84,
+        "responsive-audit": 50
+      }
+    },
+    "responsive": {
+      "status": "fail",
+      "profiles": 6,
+      "passedProfiles": 0,
+      "failedProfiles": 6,
+      "findings": 48,
+      "blockingFindings": 48,
+      "bySeverity": {
+        "P1": 48
+      },
+      "byDimension": {
+        "interaction": 48
+      }
+    },
+    "warnings": [
+      "asset-plan skipped: pages/<name>/asset-plan.json missing",
+      "visual inventory has 336 pending/fail/missing dimension entries",
+      "audit findings open: 361",
+      "responsive audit has 48 blocking findings"
+    ]
+  }
+}

@@ -1,0 +1,100 @@
+{
+  "version": 3,
+  "schemaVersion": "3.1",
+  "name": "sample",
+  "source": "designs/sample.png",
+  "platform": "web-desktop",
+  "viewport": {
+    "width": 1200,
+    "height": 800,
+    "dpr": 1
+  },
+  "capture": {
+    "adapter": "static",
+    "path": "pages/sample/index.html",
+    "url": "/pages/sample/index.html",
+    "watch": [
+      "suites/sample-suite/shared/tokens.css",
+      "suites/sample-suite/shared/components.css"
+    ]
+  },
+  "quality": {
+    "target": "png",
+    "thresholds": {
+      "fullSimilarity": 99.9,
+      "pngSimilarity": 99.9,
+      "jpegSimilarity": 95,
+      "foregroundSimilarity": 99.5,
+      "minRegionSimilarity": 99.5,
+      "maxStructureDx": 2,
+      "maxStructureDy": 1.5,
+      "maxColorDeltaE": 3,
+      "maxFontDiff": 1.2,
+      "maxRegression": 0.05
+    }
+  },
+  "regions": [
+    {
+      "name": "Canvas",
+      "x": 0,
+      "y": 0,
+      "width": 1200,
+      "height": 800,
+      "required": true,
+      "minSimilarity": 99.5
+    },
+    {
+      "name": "LoginCard",
+      "x": 390,
+      "y": 154,
+      "width": 420,
+      "height": 492,
+      "required": true,
+      "minSimilarity": 99.5
+    }
+  ],
+  "auditPolicy": {
+    "scope": "all-visible-elements",
+    "dimensions": [
+      "geometry",
+      "typography",
+      "textColor",
+      "backgroundColor",
+      "border",
+      "radius",
+      "shadow",
+      "opacity",
+      "asset",
+      "content"
+    ],
+    "silentOmission": false,
+    "skippedRequiresReason": true,
+    "contentRequired": true,
+    "contentScope": "all-visible",
+    "assetRequired": false,
+    "strictSkipped": false,
+    "lowClarityTextRule": "render-clear-text-or-semantic-mock-no-blur",
+    "assetRule": "mask-first-clean-assets-no-ui-ghosts"
+  },
+  "artifacts": {
+    "required": [
+      "output/sample/design.png",
+      "output/sample/actual.png",
+      "output/sample/diff.png",
+      "output/sample/delta.png",
+      "output/sample/foreground-score.json",
+      "output/sample/diff-components.json",
+      "output/sample/region-score.json",
+      "output/sample/structure-audit.json",
+      "output/sample/visual-inventory.json",
+      "output/sample/color-audit.json",
+      "output/sample/font-audit.json",
+      "output/sample/full-audit.json",
+      "output/sample/content-audit.json",
+      "output/sample/findings.json",
+      "output/sample/audit-ledger.json",
+      "output/sample/run-manifest.json"
+    ],
+    "optional": []
+  }
+}

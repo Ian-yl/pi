@@ -1,0 +1,13 @@
+{
+  "version": 1,
+  "requireAllVisible": false,
+  "entries": [
+    {
+      "id": "pg-1s-primary-title",
+      "selector": ".config-head h2",
+      "expected": "商品套图",
+      "policy": "exact",
+      "confidence": 1
+    }
+  ]
+}

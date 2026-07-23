@@ -1,0 +1,446 @@
+{
+  "version": 1,
+  "name": "pg-1t",
+  "generatedAt": "2026-07-22T13:55:28.423Z",
+  "digest": "21ea5ccb1b9c8e5b66ffdf054084714dac16ad5a949ae1726578bbaabc3468ba",
+  "files": [
+    {
+      "path": ".visual-restore-v3/scripts/asset-edge-audit.mjs",
+      "size": 13499,
+      "mtimeMs": 1784728297987,
+      "sha256": "a572e585eed4f951e563536fb44812c271faa46a95d8f7fc40dc74014c241ceb"
+    },
+    {
+      "path": ".visual-restore-v3/scripts/asset-plan.mjs",
+      "size": 15467,
+      "mtimeMs": 1784728297987,
+      "sha256": "e744d504eca5fc9bce6a7153688e1b6695e18f2a17ed08f13e63ddd6fbce42d5"
+    },
+    {
+      "path": ".visual-restore-v3/scripts/audit-fusion.mjs",
+      "size": 15861,
+      "mtimeMs": 1784728297987,
+      "sha256": "c39dfe417039812b6a9b4f2df91213b3fbc4b3b34cd108d5deefa6427d7bcf10"
+    },
+    {
+      "path": ".visual-restore-v3/scripts/audit-queue.mjs",
+      "size": 9173,
+      "mtimeMs": 1784728297988,
+      "sha256": "74feacfe669961426954ecc686028ad531a7afb0ac23f369544e7ce77f2b07f5"
+    },
+    {
+      "path": ".visual-restore-v3/scripts/audit-runner.mjs",
+      "size": 15010,
+      "mtimeMs": 1784728297988,
+      "sha256": "222ebbf8b0fe5f79f812770c7f7e323849dcfb3e7ebe8495ac7e5648063a5971"
+    },
+    {
+      "path": ".visual-restore-v3/scripts/bbox.mjs",
+      "size": 2355,
+      "mtimeMs": 1784728297988,
+      "sha256": "52205670af6c80d3298b2eb559b60fdb174c38e102ddaafbf173de3ad420e6f3"
+    },
+    {
+      "path": ".visual-restore-v3/scripts/color-audit.mjs",
+      "size": 11818,
+      "mtimeMs": 1784728297988,
+      "sha256": "3087a360c1e696adbc9b010463964f41a0c3ac0b9680b0ee8025f2ac05c2a6b5"
+    },
+    {
+      "path": ".visual-restore-v3/scripts/content-audit.mjs",
+      "size": 9978,
+      "mtimeMs": 1784728297988,
+      "sha256": "257052efab39224c014d46216090947b8b54c2e8bda743df7287303d4b7a2ec5"
+    },
+    {
+      "path": ".visual-restore-v3/scripts/coverage-gate.mjs",
+      "size": 12081,
+      "mtimeMs": 1784728297988,
+      "sha256": "a6aace1fe77b01ca8e6a6298c320737e765e4283af24d43fe53842b42a3d415f"
+    },
+    {
+      "path": ".visual-restore-v3/scripts/cut.mjs",
+      "size": 1262,
+      "mtimeMs": 1784728297989,
+      "sha256": "097974b6fa7845aab8293ec7f69b538b0457346a974fa55e0adc980dfa972848"
+    },
+    {
+      "path": ".visual-restore-v3/scripts/diff-components.mjs",
+      "size": 2268,
+      "mtimeMs": 1784728297989,
+      "sha256": "99eb4b65235bc39a997c18558c64d66f80423cfd447d9059c6ac4d68303f43ad"
+    },
+    {
+      "path": ".visual-restore-v3/scripts/diffmap.mjs",
+      "size": 2649,
+      "mtimeMs": 1784728297989,
+      "sha256": "858206a009cfb31a9caff5e997af68129c575336fa321d731f8d14aae1c26c72"
+    },
+    {
+      "path": ".visual-restore-v3/scripts/extract-icon.mjs",
+      "size": 15413,
+      "mtimeMs": 1784728297989,
+      "sha256": "c52068dfcf17bb3e64145b338fcb5623b9dcde0990f26c2fb9d7e3cf74b33238"
+    },
+    {
+      "path": ".visual-restore-v3/scripts/font-audit.mjs",
+      "size": 8141,
+      "mtimeMs": 1784728297989,
+      "sha256": "4c15329f402b2cdd7ce5f1137b54cf8e7346f0791c9c0fc805b56b4afa6b8f2f"
+    },
+    {
+      "path": ".visual-restore-v3/scripts/foreground-score.mjs",
+      "size": 6277,
+      "mtimeMs": 1784728297989,
+      "sha256": "b97c12d3147f02e6da3e6ebbaca7200b6f6b8587243527014a417a8ef1a456fa"
+    },
+    {
+      "path": ".visual-restore-v3/scripts/full-audit.mjs",
+      "size": 14829,
+      "mtimeMs": 1784728297989,
+      "sha256": "3ef2be3099942ef69383681b86573ebd43b814991916e879c5de058ceba1b6cc"
+    },
+    {
+      "path": ".visual-restore-v3/scripts/gen-icons.mjs",
+      "size": 8350,
+      "mtimeMs": 1784728297990,
+      "sha256": "a2bd9e51fbb6c669b62ac4178122307962ba00902843e54cbd8e9f1a1af2abc2"
+    },
+    {
+      "path": ".visual-restore-v3/scripts/glass.mjs",
+      "size": 2623,
+      "mtimeMs": 1784728297990,
+      "sha256": "b5dd9af7d2a1e3a2b36d90de4f42bbf06e87ee43169b8f6182aeefffc6f093ec"
+    },
+    {
+      "path": ".visual-restore-v3/scripts/init-restore.mjs",
+      "size": 7311,
+      "mtimeMs": 1784728297990,
+      "sha256": "cbf7465d62b11b95182151358f4520a9b22848ff90b79d164a68e8e379b4ba17"
+    },
+    {
+      "path": ".visual-restore-v3/scripts/init-suite.mjs",
+      "size": 15094,
+      "mtimeMs": 1784728297990,
+      "sha256": "541687b4f2d2a99ce9d7f9221d4f411ceea902bcbfa0560c7fa9f9920ffe2b7c"
+    },
+    {
+      "path": ".visual-restore-v3/scripts/inspect.mjs",
+      "size": 1373,
+      "mtimeMs": 1784728297990,
+      "sha256": "075138a45e205228c26fa9dbd9ab343d5a9063c0225e91e4b42bfc0c71b0fdc7"
+    },
+    {
+      "path": ".visual-restore-v3/scripts/lib/browser-target.mjs",
+      "size": 4638,
+      "mtimeMs": 1784728297991,
+      "sha256": "092409735aaedf28b5e19229f2fc3e6fa125ee343823cd4a14130b380c731527"
+    },
+    {
+      "path": ".visual-restore-v3/scripts/lib/capture-target-mode.mjs",
+      "size": 354,
+      "mtimeMs": 1784728297991,
+      "sha256": "ab6729fd38b23b356672e59ac5f0fbba6ff0373b9f55c29dbd5749a248e9e231"
+    },
+    {
+      "path": ".visual-restore-v3/scripts/lib/convergence.mjs",
+      "size": 8876,
+      "mtimeMs": 1784728297991,
+      "sha256": "0e4a17b96d991e6e21649b859bf19e5f6701b6a6b1632c2993d7dfb87d8de31a"
+    },
+    {
+      "path": ".visual-restore-v3/scripts/lib/findings.mjs",
+      "size": 4085,
+      "mtimeMs": 1784728297991,
+      "sha256": "df989a2d0aab12cd02cba888f5ad418549e541ba66c4b5132c1620a641c6cbcb"
+    },
+    {
+      "path": ".visual-restore-v3/scripts/lib/freshness.mjs",
+      "size": 3602,
+      "mtimeMs": 1784728297991,
+      "sha256": "3f2bfb9037c36b40c2c90142c31c48591bfe2ebc259814ff53268c3653492344"
+    },
+    {
+      "path": ".visual-restore-v3/scripts/lib/image-metrics.mjs",
+      "size": 8691,
+      "mtimeMs": 1784728297991,
+      "sha256": "316b1f9a0280ec6cb4094ac97e2f38509de4e5802e593cc32c09f296729d590f"
+    },
+    {
+      "path": ".visual-restore-v3/scripts/lib/page-output-lock.mjs",
+      "size": 4759,
+      "mtimeMs": 1784728297992,
+      "sha256": "7ffc56ac4bf20455024269844ba63060e4e9f8469bd9c4c0ee6b3c7ac18490b6"
+    },
+    {
+      "path": ".visual-restore-v3/scripts/lib/raster-image.mjs",
+      "size": 2363,
+      "mtimeMs": 1784728297992,
+      "sha256": "b349fc82bc994ae12e7403655d64256d14bca6e8f0a26095f3e6c93ae1eab566"
+    },
+    {
+      "path": ".visual-restore-v3/scripts/lib/restore-config.mjs",
+      "size": 10475,
+      "mtimeMs": 1784728297992,
+      "sha256": "bcaf406aa67d1bbc185d4dcdb2144dd2e568346081a81695231123fe27f807ff"
+    },
+    {
+      "path": ".visual-restore-v3/scripts/lib/suite-artifacts.mjs",
+      "size": 6052,
+      "mtimeMs": 1784728297992,
+      "sha256": "0c503316747807d396441a8006dd544516a0319fae41b29c02fdc356139d0b9d"
+    },
+    {
+      "path": ".visual-restore-v3/scripts/lib/suite-audit.mjs",
+      "size": 30369,
+      "mtimeMs": 1784728297992,
+      "sha256": "1581bafd48e5958bae0b05b83b46ecdef707def1b6fc21136e50ed199e82fb87"
+    },
+    {
+      "path": ".visual-restore-v3/scripts/lib/suite-config.mjs",
+      "size": 16672,
+      "mtimeMs": 1784728297992,
+      "sha256": "366593c9e8ee407317e459f6628f97741123d3be33252306afd581be06ff0e96"
+    },
+    {
+      "path": ".visual-restore-v3/scripts/lib/suite-consistency.mjs",
+      "size": 20185,
+      "mtimeMs": 1784728297992,
+      "sha256": "8412d0d71fb3b557b37da7bfb63ca55cedb61e9dbf64741f7812664f25dc3694"
+    },
+    {
+      "path": ".visual-restore-v3/scripts/lib/suite-digest.mjs",
+      "size": 14973,
+      "mtimeMs": 1784728297993,
+      "sha256": "d2a68554d6ef0b63b475196933a0862931e4d3d62f67b2e8eaccebcc18b88b52"
+    },
+    {
+      "path": ".visual-restore-v3/scripts/lib/suite-fusion.mjs",
+      "size": 8704,
+      "mtimeMs": 1784728297993,
+      "sha256": "13721aa20d79ae55fb5764487ecd2d3e9a3bee2e06247abc2e7b418dfc24a7a4"
+    },
+    {
+      "path": ".visual-restore-v3/scripts/lib/suite-gate.mjs",
+      "size": 18914,
+      "mtimeMs": 1784728297993,
+      "sha256": "de50cec7cd92016afc95009dd274873a5131131daaeeab3f2e8b2513eea1b52a"
+    },
+    {
+      "path": ".visual-restore-v3/scripts/lib/suite-release.mjs",
+      "size": 35673,
+      "mtimeMs": 1784728297993,
+      "sha256": "6e5cdc2dfc4258ee820cbe1b2614bc0623ae7ac59814f18721a652d82a429ce9"
+    },
+    {
+      "path": ".visual-restore-v3/scripts/lib/suite-runner.mjs",
+      "size": 2704,
+      "mtimeMs": 1784728297993,
+      "sha256": "d1bd56e6d1f8dae1a12b56b09ec2b7af913b9f083d7fa3cd36737a86f2d937ab"
+    },
+    {
+      "path": ".visual-restore-v3/scripts/make-bg.mjs",
+      "size": 10485,
+      "mtimeMs": 1784728297993,
+      "sha256": "2462bf55fbedf91c18660de2806ad9d9802e97f9bfc2c7b3f03c30771574ebbe"
+    },
+    {
+      "path": ".visual-restore-v3/scripts/pick.mjs",
+      "size": 1831,
+      "mtimeMs": 1784728297994,
+      "sha256": "f442b759b189162ae27af11f2a473c4d890c0b58e3e71005c7104653dcc18763"
+    },
+    {
+      "path": ".visual-restore-v3/scripts/region-score.mjs",
+      "size": 3009,
+      "mtimeMs": 1784728297994,
+      "sha256": "c0edfbdd62c621d94c9bc1ccae3aba690034a9120114dbb59dd9b6d15c345d8c"
+    },
+    {
+      "path": ".visual-restore-v3/scripts/responsive-audit.mjs",
+      "size": 29733,
+      "mtimeMs": 1784728297994,
+      "sha256": "80d60b4bb4c56bfebfd6d8da0f22d48fec5152a2a8599cec08a63618698a2310"
+    },
+    {
+      "path": ".visual-restore-v3/scripts/serve.mjs",
+      "size": 3501,
+      "mtimeMs": 1784728297994,
+      "sha256": "5a3e497cbba4f26799c2ed3f19f5f4c70a531f66d733f88f00406499f72bc080"
+    },
+    {
+      "path": ".visual-restore-v3/scripts/snapshot.mjs",
+      "size": 1247,
+      "mtimeMs": 1784728297994,
+      "sha256": "7d7ca254b791c03bd508ffbcd220f1e08d49a403611c967c4bf4dd81c20e2ac3"
+    },
+    {
+      "path": ".visual-restore-v3/scripts/structure-audit.mjs",
+      "size": 8868,
+      "mtimeMs": 1784728297994,
+      "sha256": "9e84557c7c28c0dd26af82e2d0cc36a7a3d55e34ab63834b016b6a8332b03746"
+    },
+    {
+      "path": ".visual-restore-v3/scripts/suite-approve.mjs",
+      "size": 2415,
+      "mtimeMs": 1784728297994,
+      "sha256": "c4bfd3b3da9b6b2315181b4cb94416f80bcaf26fe9c8259f35477c2e33028b77"
+    },
+    {
+      "path": ".visual-restore-v3/scripts/suite-audit.mjs",
+      "size": 1739,
+      "mtimeMs": 1784728297994,
+      "sha256": "298bbba87985e057b1c0b9ae3f09eff0f6eb37da505787c0fab4366218492196"
+    },
+    {
+      "path": ".visual-restore-v3/scripts/suite-consistency-audit.mjs",
+      "size": 3558,
+      "mtimeMs": 1784728297995,
+      "sha256": "914b5079b74edb229d380ec499e10683a7df16558e2dc7cad5c1a66c43d5a60e"
+    },
+    {
+      "path": ".visual-restore-v3/scripts/suite-gate.mjs",
+      "size": 3817,
+      "mtimeMs": 1784728297995,
+      "sha256": "08f000454d2df106d05b3a3bc8ebad4450dd13b678d3a054b86e9b7a5c0964ad"
+    },
+    {
+      "path": ".visual-restore-v3/scripts/suite-publish.mjs",
+      "size": 2346,
+      "mtimeMs": 1784728297995,
+      "sha256": "1047bef51ca23834dd687bb3e091d379209490b38ab055255652f09bb59e6a7b"
+    },
+    {
+      "path": ".visual-restore-v3/scripts/suite-token-audit.mjs",
+      "size": 23286,
+      "mtimeMs": 1784728297995,
+      "sha256": "df14f2f406870e6aa92059ffe08da5906216ecc8a3f61e8fe99c9b0735c22709"
+    },
+    {
+      "path": ".visual-restore-v3/scripts/sweep-css.mjs",
+      "size": 5265,
+      "mtimeMs": 1784728297995,
+      "sha256": "4edcc9ebfff7c9e53931fdc1e4d58d921d73d496325e4f3316d040d6c67b9205"
+    },
+    {
+      "path": ".visual-restore-v3/scripts/verify.mjs",
+      "size": 16292,
+      "mtimeMs": 1784728297995,
+      "sha256": "2531e432caed1953f04eff34f385bd37fc18614affca68c9ab3e9b04c47094b1"
+    },
+    {
+      "path": ".visual-restore-v3/scripts/visual-inventory.mjs",
+      "size": 16038,
+      "mtimeMs": 1784728297995,
+      "sha256": "415f7cce66b5f5fde87e74c3ce3520af6a1f1bc560b4a5e9d8691393b6d9b503"
+    },
+    {
+      "path": "designs/pg-1t.png",
+      "size": 1589034,
+      "mtimeMs": 1784728239559,
+      "sha256": "667684e730c5c39a273759b65e8ce604b0110eb67ebeb9d6cc7311a023928905"
+    },
+    {
+      "path": "package-lock.json",
+      "size": 2892,
+      "mtimeMs": 1784728302653,
+      "sha256": "346fcbedec2c8b08155e11f55c7f95367c1d1e2be4fa22375d1764c08c9b2d2d"
+    },
+    {
+      "path": "package.json",
+      "size": 1353,
+      "mtimeMs": 1784728297996,
+      "sha256": "ba502363ed0e660c1f1666678057c84fc212da27d50cda5300ceef7a099a81dd"
+    },
+    {
+      "path": "pages/pg-1t/content-manifest.json",
+      "size": 234,
+      "mtimeMs": 1784728428629,
+      "sha256": "c6b06857a1522e1864ec45b5b324cda6e29f74577cff8f6e1dca098be0a70131"
+    },
+    {
+      "path": "pages/pg-1t/restore-plan.json",
+      "size": 3516,
+      "mtimeMs": 1784728428629,
+      "sha256": "0e888cd5d694777d6beca281ae7078de3c1f1ce784e8f0963a5104f90b513c55"
+    },
+    {
+      "path": "web/index.html",
+      "size": 305,
+      "mtimeMs": 1784707360000,
+      "sha256": "d9323fcc76f438c126a710a2b37d124302fc5a4bc49840212db6b6f38b475f2c"
+    },
+    {
+      "path": "web/src/App.jsx",
+      "size": 7560,
+      "mtimeMs": 1784710559000,
+      "sha256": "0a4af86a70fce048018aee21a123cb3f8c43f70e3da4bcad6ea9a0c45e655be9"
+    },
+    {
+      "path": "web/src/data/apiClient.js",
+      "size": 5450,
+      "mtimeMs": 1784716067000,
+      "sha256": "106c27d6201bbadc1c724475ff16d9a039639ab79b4f83c84adbed226888c9d0"
+    },
+    {
+      "path": "web/src/data/imageFactory.js",
+      "size": 6409,
+      "mtimeMs": 1784707360000,
+      "sha256": "df2d611c9f49045d4db75e1a1e29c9712f69ff58b74b08d0d02792bde20345c1"
+    },
+    {
+      "path": "web/src/data/mockData.js",
+      "size": 3732,
+      "mtimeMs": 1784708165000,
+      "sha256": "9b4f67a9cc7acd7a2b93df026557da1acf104fe38896086570f72fe912a1b822"
+    },
+    {
+      "path": "web/src/main.jsx",
+      "size": 1020,
+      "mtimeMs": 1784707360000,
+      "sha256": "5c0ea31dd81d39c06610c150bedb45cd7aced6416a6355fec62840f1b645625d"
+    },
+    {
+      "path": "web/src/pages/configs/marketingAssetsConfigs.js",
+      "size": 8657,
+      "mtimeMs": 1784719246000,
+      "sha256": "cef45fba8a9d969ea062bc3e1e2392210b9c573cac6571b48788010a4fa71400"
+    },
+    {
+      "path": "web/src/pages/configs/productTryonConfigs.js",
+      "size": 8489,
+      "mtimeMs": 1784719087000,
+      "sha256": "4a15784f9702d34afd69c0e3e4b6c76026c21bde41677554e3db7c2b6c9f15a9"
+    },
+    {
+      "path": "web/src/pages/GeneratorPage.jsx",
+      "size": 41467,
+      "mtimeMs": 1784713847000,
+      "sha256": "12728965ba68548429c2b45b9e0f31f33af88c8a24b634c191995130d535aee9"
+    },
+    {
+      "path": "web/src/pages/HomePage.jsx",
+      "size": 5605,
+      "mtimeMs": 1784707630000,
+      "sha256": "1ad469da11fff836757f2a74cd3dd686dc176113546d3a98bab81941a48247cb"
+    },
+    {
+      "path": "web/src/shared/components.css",
+      "size": 5495,
+      "mtimeMs": 1784708165000,
+      "sha256": "4ad7d6d078cf3e561d17f9750a1e4ced287477c947b4010afca63699440ef416"
+    },
+    {
+      "path": "web/src/shared/tokens.css",
+      "size": 1159,
+      "mtimeMs": 1784708165000,
+      "sha256": "f2ef6882559205067e7679d50e9096da984bf02df7620d4137f3f3b44fc738ae"
+    },
+    {
+      "path": "web/src/styles.css",
+      "size": 27408,
+      "mtimeMs": 1784712039000,
+      "sha256": "9f1947b93aaa97fb7481c794e8c26ac99cbace62514cd996546522c46f7adf27"
+    }
+  ]
+}

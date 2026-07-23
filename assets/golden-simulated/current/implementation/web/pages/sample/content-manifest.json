@@ -1,0 +1,69 @@
+{
+  "version": 1,
+  "requireAllVisible": true,
+  "entries": [
+    {
+      "id": "welcome-title",
+      "selector": "[data-vr-id=\"welcome-title\"]",
+      "expected": "欢迎回来",
+      "policy": "exact",
+      "confidence": 1
+    },
+    {
+      "id": "welcome-subtitle",
+      "selector": "[data-vr-id=\"welcome-subtitle\"]",
+      "expected": "登录 AI Restore,继续你的还原验证之旅",
+      "policy": "exact",
+      "confidence": 1
+    },
+    {
+      "id": "email-label",
+      "selector": "[data-vr-id=\"email-label\"]",
+      "expected": "邮箱",
+      "policy": "exact",
+      "confidence": 1
+    },
+    {
+      "id": "email-input",
+      "selector": "[data-vr-id=\"email-input\"]",
+      "expected": "you@example.com",
+      "policy": "exact",
+      "confidence": 1
+    },
+    {
+      "id": "password-input",
+      "selector": "[data-vr-id=\"password-input\"]",
+      "expected": "••••••••",
+      "policy": "exact",
+      "confidence": 1
+    },
+    {
+      "id": "password-label",
+      "selector": "[data-vr-id=\"password-label\"]",
+      "expected": "密码",
+      "policy": "exact",
+      "confidence": 1
+    },
+    {
+      "id": "login-button",
+      "selector": "[data-vr-id=\"login-button\"]",
+      "expected": "登 录",
+      "policy": "exact",
+      "confidence": 1
+    },
+    {
+      "id": "signup-link",
+      "selector": "[data-vr-id=\"signup-link\"]",
+      "expected": "立即注册",
+      "policy": "exact",
+      "confidence": 1
+    },
+    {
+      "id": "signup-prompt",
+      "selector": "[data-vr-id=\"signup-prompt\"]",
+      "expected": "还没有账号?",
+      "policy": "exact",
+      "confidence": 1
+    }
+  ]
+}

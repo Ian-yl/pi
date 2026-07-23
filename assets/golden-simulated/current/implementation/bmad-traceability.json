@@ -1,0 +1,483 @@
+{
+  "schemaVersion": "1.0",
+  "method": "bmad-v6",
+  "workflow": "pi-implementation-bmad",
+  "domainAuthority": "inputs/functional-functional-spec.json",
+  "fddPlanningSource": "inputs/functional-planning-artifacts.json",
+  "output": "_bmad-output",
+  "stories": [
+    {
+      "unitId": "persistence-entity-submission",
+      "storyId": "1.1",
+      "storyPath": "implementation-artifacts/stories/1.1-persistence-entity-submission.md",
+      "contract": {
+        "unitId": "persistence-entity-submission",
+        "type": "persistence",
+        "dependsOn": [],
+        "acceptance": [
+          "migration applies to a clean database",
+          "entity effects are observable"
+        ]
+      },
+      "contractDigest": "cf222e5ae8761256c2e801f1dd03289da81e8d898972784bdaf12fbc2abb155c",
+      "status": "ready-for-dev"
+    },
+    {
+      "unitId": "persistence-entity-submission-event",
+      "storyId": "1.2",
+      "storyPath": "implementation-artifacts/stories/1.2-persistence-entity-submission-event.md",
+      "contract": {
+        "unitId": "persistence-entity-submission-event",
+        "type": "persistence",
+        "dependsOn": [],
+        "acceptance": [
+          "migration applies to a clean database",
+          "entity effects are observable"
+        ]
+      },
+      "contractDigest": "351ab20c086cc43251374efad0215a194562ff475da336ceea6877a8daafe5be",
+      "status": "ready-for-dev"
+    },
+    {
+      "unitId": "relationship-relation-submission-events",
+      "storyId": "1.3",
+      "storyPath": "implementation-artifacts/stories/1.3-relationship-relation-submission-events.md",
+      "contract": {
+        "unitId": "relationship-relation-submission-events",
+        "type": "relation-migration",
+        "dependsOn": [
+          "persistence-entity-submission",
+          "persistence-entity-submission-event"
+        ],
+        "acceptance": [
+          "association key and cardinality are enforced",
+          "delete behavior is cascade",
+          "relationship invariants have dedicated tests"
+        ]
+      },
+      "contractDigest": "14a214e118f60da0ee94c511050825d2a2b825fc11c05717bfc572daaee5d1a3",
+      "status": "ready-for-dev"
+    },
+    {
+      "unitId": "consistency-boundary-submission",
+      "storyId": "1.4",
+      "storyPath": "implementation-artifacts/stories/1.4-consistency-boundary-submission.md",
+      "contract": {
+        "unitId": "consistency-boundary-submission",
+        "type": "consistency",
+        "dependsOn": [
+          "relationship-relation-submission-events"
+        ],
+        "acceptance": [
+          "atomic consistency boundary is verified",
+          "rollback or convergence behavior is tested"
+        ]
+      },
+      "contractDigest": "d79bddb7c6fcfa025e9eb90406c3addb2a3831bc2a9fa1bd981e89f3dc7f3591",
+      "status": "ready-for-dev"
+    },
+    {
+      "unitId": "capability-cap-sample",
+      "storyId": "1.5",
+      "storyPath": "implementation-artifacts/stories/1.5-capability-cap-sample.md",
+      "contract": {
+        "unitId": "capability-cap-sample",
+        "type": "capability",
+        "dependsOn": [
+          "persistence-entity-submission"
+        ],
+        "acceptance": [
+          "valid input creates a submission"
+        ]
+      },
+      "contractDigest": "253aeaa44be876f5835f5b9e5c8578b076c6ae0fb53bf97fc8c45877e538d112",
+      "status": "ready-for-dev"
+    },
+    {
+      "unitId": "capability-cap-suite-sample-detail",
+      "storyId": "1.6",
+      "storyPath": "implementation-artifacts/stories/1.6-capability-cap-suite-sample-detail.md",
+      "contract": {
+        "unitId": "capability-cap-suite-sample-detail",
+        "type": "capability",
+        "dependsOn": [
+          "persistence-entity-submission"
+        ],
+        "acceptance": [
+          "valid input creates a submission"
+        ]
+      },
+      "contractDigest": "c275c73647fab95fb98c23749a9e3db700ecf5bdc341295c87d25c8eb92a4c9f",
+      "status": "ready-for-dev"
+    },
+    {
+      "unitId": "capability-cap-sample-local-navigation",
+      "storyId": "1.7",
+      "storyPath": "implementation-artifacts/stories/1.7-capability-cap-sample-local-navigation.md",
+      "contract": {
+        "unitId": "capability-cap-sample-local-navigation",
+        "type": "capability",
+        "dependsOn": [],
+        "acceptance": [
+          "help opens without a server request"
+        ]
+      },
+      "contractDigest": "156ea2b1e13238457183c5967e1b435eb11883d40471a64a9aa315d5860b4db9",
+      "status": "ready-for-dev"
+    },
+    {
+      "unitId": "capability-cap-sample-display-result",
+      "storyId": "1.8",
+      "storyPath": "implementation-artifacts/stories/1.8-capability-cap-sample-display-result.md",
+      "contract": {
+        "unitId": "capability-cap-sample-display-result",
+        "type": "capability",
+        "dependsOn": [
+          "persistence-entity-submission"
+        ],
+        "acceptance": [
+          "task completion renders the queried result"
+        ]
+      },
+      "contractDigest": "56514089b37190649747d25713b87711a042b9e49e6f92adadad2d03d5c96071",
+      "status": "ready-for-dev"
+    },
+    {
+      "unitId": "presentation-cap-sample",
+      "storyId": "1.9",
+      "storyPath": "implementation-artifacts/stories/1.9-presentation-cap-sample.md",
+      "contract": {
+        "unitId": "presentation-cap-sample",
+        "type": "ui-presentation",
+        "dependsOn": [
+          "capability-cap-sample"
+        ],
+        "acceptance": [
+          "runtime DOM contains one visible presentation binding",
+          "functional and visual regression evidence is recorded"
+        ]
+      },
+      "contractDigest": "27ceff26637212ac5a4e89fcebdd6ca5b42c7b0107e7c99f1faa36c64a988403",
+      "status": "ready-for-dev"
+    },
+    {
+      "unitId": "interaction-cap-sample",
+      "storyId": "1.10",
+      "storyPath": "implementation-artifacts/stories/1.10-interaction-cap-sample.md",
+      "contract": {
+        "unitId": "interaction-cap-sample",
+        "type": "ui-interaction",
+        "dependsOn": [
+          "presentation-cap-sample"
+        ],
+        "acceptance": [
+          "runtime event produces the declared server request or client state change"
+        ]
+      },
+      "contractDigest": "5bfc5bcb95cb6a732720e1a16f68c1d89a16c313aca1f4f23de21218236e88bb",
+      "status": "ready-for-dev"
+    },
+    {
+      "unitId": "frontend-state-cap-sample",
+      "storyId": "1.11",
+      "storyPath": "implementation-artifacts/stories/1.11-frontend-state-cap-sample.md",
+      "contract": {
+        "unitId": "frontend-state-cap-sample",
+        "type": "ui-state",
+        "dependsOn": [
+          "interaction-cap-sample"
+        ],
+        "acceptance": [
+          "applicable idle, loading, empty, error, disabled, and success states are browser-tested"
+        ]
+      },
+      "contractDigest": "95db2a523f08526375fd80ce94753b0f3cc8a0df549fec298522055320dba681",
+      "status": "ready-for-dev"
+    },
+    {
+      "unitId": "frontend-data-cap-sample",
+      "storyId": "1.12",
+      "storyPath": "implementation-artifacts/stories/1.12-frontend-data-cap-sample.md",
+      "contract": {
+        "unitId": "frontend-data-cap-sample",
+        "type": "ui-data",
+        "dependsOn": [
+          "frontend-state-cap-sample"
+        ],
+        "acceptance": [
+          "business content comes from an operation, user input, authenticated context, or explicit empty state",
+          "visual placeholders have an approved resolution"
+        ]
+      },
+      "contractDigest": "ea78425f2f885334960b19637b979458b81d959ab708cef53cf22d12b4a1e2c2",
+      "status": "ready-for-dev"
+    },
+    {
+      "unitId": "presentation-cap-suite-sample-detail",
+      "storyId": "1.13",
+      "storyPath": "implementation-artifacts/stories/1.13-presentation-cap-suite-sample-detail.md",
+      "contract": {
+        "unitId": "presentation-cap-suite-sample-detail",
+        "type": "ui-presentation",
+        "dependsOn": [
+          "capability-cap-suite-sample-detail"
+        ],
+        "acceptance": [
+          "runtime DOM contains one visible presentation binding",
+          "functional and visual regression evidence is recorded"
+        ]
+      },
+      "contractDigest": "26ff55165781d23cda8ed18fe741b580fee5bbe0c155d93187c2046cb71cf6f9",
+      "status": "ready-for-dev"
+    },
+    {
+      "unitId": "interaction-cap-suite-sample-detail",
+      "storyId": "1.14",
+      "storyPath": "implementation-artifacts/stories/1.14-interaction-cap-suite-sample-detail.md",
+      "contract": {
+        "unitId": "interaction-cap-suite-sample-detail",
+        "type": "ui-interaction",
+        "dependsOn": [
+          "presentation-cap-suite-sample-detail"
+        ],
+        "acceptance": [
+          "runtime event produces the declared server request or client state change"
+        ]
+      },
+      "contractDigest": "8e081995b5c3a69d11869ee4165d1ed88eacd9b0a1faed661d3a7accd47e7ac4",
+      "status": "ready-for-dev"
+    },
+    {
+      "unitId": "frontend-state-cap-suite-sample-detail",
+      "storyId": "1.15",
+      "storyPath": "implementation-artifacts/stories/1.15-frontend-state-cap-suite-sample-detail.md",
+      "contract": {
+        "unitId": "frontend-state-cap-suite-sample-detail",
+        "type": "ui-state",
+        "dependsOn": [
+          "interaction-cap-suite-sample-detail"
+        ],
+        "acceptance": [
+          "applicable idle, loading, empty, error, disabled, and success states are browser-tested"
+        ]
+      },
+      "contractDigest": "392907c78a054e7ece53b7f28576ed8c1e711f49f8f99d24b08c1adc531f4669",
+      "status": "ready-for-dev"
+    },
+    {
+      "unitId": "frontend-data-cap-suite-sample-detail",
+      "storyId": "1.16",
+      "storyPath": "implementation-artifacts/stories/1.16-frontend-data-cap-suite-sample-detail.md",
+      "contract": {
+        "unitId": "frontend-data-cap-suite-sample-detail",
+        "type": "ui-data",
+        "dependsOn": [
+          "frontend-state-cap-suite-sample-detail"
+        ],
+        "acceptance": [
+          "business content comes from an operation, user input, authenticated context, or explicit empty state",
+          "visual placeholders have an approved resolution"
+        ]
+      },
+      "contractDigest": "da751b9f4ff5d51a3c10cd0fcf1ccdb0a590e2c48c022c88826441039907c57c",
+      "status": "ready-for-dev"
+    },
+    {
+      "unitId": "presentation-cap-sample-local-navigation",
+      "storyId": "1.17",
+      "storyPath": "implementation-artifacts/stories/1.17-presentation-cap-sample-local-navigation.md",
+      "contract": {
+        "unitId": "presentation-cap-sample-local-navigation",
+        "type": "ui-presentation",
+        "dependsOn": [
+          "capability-cap-sample-local-navigation"
+        ],
+        "acceptance": [
+          "runtime DOM contains one visible presentation binding",
+          "functional and visual regression evidence is recorded"
+        ]
+      },
+      "contractDigest": "2c6af525f99345cf633a4deca29cd3244bf5a56956920b179153263bff38810f",
+      "status": "ready-for-dev"
+    },
+    {
+      "unitId": "interaction-cap-sample-local-navigation",
+      "storyId": "1.18",
+      "storyPath": "implementation-artifacts/stories/1.18-interaction-cap-sample-local-navigation.md",
+      "contract": {
+        "unitId": "interaction-cap-sample-local-navigation",
+        "type": "ui-interaction",
+        "dependsOn": [
+          "presentation-cap-sample-local-navigation"
+        ],
+        "acceptance": [
+          "runtime event produces the declared server request or client state change"
+        ]
+      },
+      "contractDigest": "75ee2e1576b5dbb41b830c17cb20174e4717fcbc1ace9874e9e8b8ec28fa3480",
+      "status": "ready-for-dev"
+    },
+    {
+      "unitId": "frontend-state-cap-sample-local-navigation",
+      "storyId": "1.19",
+      "storyPath": "implementation-artifacts/stories/1.19-frontend-state-cap-sample-local-navigation.md",
+      "contract": {
+        "unitId": "frontend-state-cap-sample-local-navigation",
+        "type": "ui-state",
+        "dependsOn": [
+          "interaction-cap-sample-local-navigation"
+        ],
+        "acceptance": [
+          "applicable idle, loading, empty, error, disabled, and success states are browser-tested"
+        ]
+      },
+      "contractDigest": "ffdba902a5f7a42265f0d24883966ffa857c3baa3fcadfa4165baa71435124df",
+      "status": "ready-for-dev"
+    },
+    {
+      "unitId": "frontend-data-cap-sample-local-navigation",
+      "storyId": "1.20",
+      "storyPath": "implementation-artifacts/stories/1.20-frontend-data-cap-sample-local-navigation.md",
+      "contract": {
+        "unitId": "frontend-data-cap-sample-local-navigation",
+        "type": "ui-data",
+        "dependsOn": [
+          "frontend-state-cap-sample-local-navigation"
+        ],
+        "acceptance": [
+          "business content comes from an operation, user input, authenticated context, or explicit empty state",
+          "visual placeholders have an approved resolution"
+        ]
+      },
+      "contractDigest": "e5d239165105cd8e7fc9487301c8261f169baf7b6c2046c16efa6db971a3cd86",
+      "status": "ready-for-dev"
+    },
+    {
+      "unitId": "presentation-cap-sample-display-result",
+      "storyId": "1.21",
+      "storyPath": "implementation-artifacts/stories/1.21-presentation-cap-sample-display-result.md",
+      "contract": {
+        "unitId": "presentation-cap-sample-display-result",
+        "type": "ui-presentation",
+        "dependsOn": [
+          "capability-cap-sample-display-result"
+        ],
+        "acceptance": [
+          "runtime DOM contains one visible presentation binding",
+          "functional and visual regression evidence is recorded"
+        ]
+      },
+      "contractDigest": "b17008c12f0156d1bce0fac7a338b244b75a2bd36184929f939ea43ca545b200",
+      "status": "ready-for-dev"
+    },
+    {
+      "unitId": "interaction-cap-sample-display-result",
+      "storyId": "1.22",
+      "storyPath": "implementation-artifacts/stories/1.22-interaction-cap-sample-display-result.md",
+      "contract": {
+        "unitId": "interaction-cap-sample-display-result",
+        "type": "ui-interaction",
+        "dependsOn": [
+          "presentation-cap-sample-display-result"
+        ],
+        "acceptance": [
+          "data-render trigger updates the runtime DOM"
+        ]
+      },
+      "contractDigest": "5a5a75c89a710739f58c13d87df85b71c480d60a143ccd8387f68fd14c9906b3",
+      "status": "ready-for-dev"
+    },
+    {
+      "unitId": "frontend-state-cap-sample-display-result",
+      "storyId": "1.23",
+      "storyPath": "implementation-artifacts/stories/1.23-frontend-state-cap-sample-display-result.md",
+      "contract": {
+        "unitId": "frontend-state-cap-sample-display-result",
+        "type": "ui-state",
+        "dependsOn": [
+          "interaction-cap-sample-display-result"
+        ],
+        "acceptance": [
+          "applicable idle, loading, empty, error, disabled, and success states are browser-tested"
+        ]
+      },
+      "contractDigest": "e65bf2a51da236b4a0050f403cdfc5e5882ac70022ab15af0b3151e8a0afcd6b",
+      "status": "ready-for-dev"
+    },
+    {
+      "unitId": "frontend-data-cap-sample-display-result",
+      "storyId": "1.24",
+      "storyPath": "implementation-artifacts/stories/1.24-frontend-data-cap-sample-display-result.md",
+      "contract": {
+        "unitId": "frontend-data-cap-sample-display-result",
+        "type": "ui-data",
+        "dependsOn": [
+          "frontend-state-cap-sample-display-result"
+        ],
+        "acceptance": [
+          "business content comes from an operation, user input, authenticated context, or explicit empty state",
+          "visual placeholders have an approved resolution"
+        ]
+      },
+      "contractDigest": "d2c3b5b1fdeb5b70595907e6e8684332433b8f2c3f0d83dea53d9717f529ceaf",
+      "status": "ready-for-dev"
+    },
+    {
+      "unitId": "operation-submit-sample",
+      "storyId": "1.25",
+      "storyPath": "implementation-artifacts/stories/1.25-operation-submit-sample.md",
+      "contract": {
+        "unitId": "operation-submit-sample",
+        "type": "api",
+        "dependsOn": [
+          "persistence-entity-submission",
+          "relationship-relation-submission-events"
+        ],
+        "acceptance": [
+          "operation is live",
+          "response and errors match contract",
+          "declared effects and transaction behavior are verified"
+        ]
+      },
+      "contractDigest": "7ae2aafac6826d352957a4bfea8bff0301e79bc21bf2d5e75a742cf026670b83",
+      "status": "ready-for-dev"
+    },
+    {
+      "unitId": "operation-submit-suite-sample-detail",
+      "storyId": "1.26",
+      "storyPath": "implementation-artifacts/stories/1.26-operation-submit-suite-sample-detail.md",
+      "contract": {
+        "unitId": "operation-submit-suite-sample-detail",
+        "type": "api",
+        "dependsOn": [
+          "persistence-entity-submission",
+          "relationship-relation-submission-events"
+        ],
+        "acceptance": [
+          "operation is live",
+          "response and errors match contract",
+          "declared effects and transaction behavior are verified"
+        ]
+      },
+      "contractDigest": "bab4e384913396005d2b32e2c8c0b2083bf071db29726f02f4b88a431b6f05fb",
+      "status": "ready-for-dev"
+    },
+    {
+      "unitId": "operation-query-sample-result",
+      "storyId": "1.27",
+      "storyPath": "implementation-artifacts/stories/1.27-operation-query-sample-result.md",
+      "contract": {
+        "unitId": "operation-query-sample-result",
+        "type": "api",
+        "dependsOn": [],
+        "acceptance": [
+          "operation is live",
+          "response and errors match contract",
+          "declared effects and transaction behavior are verified"
+        ]
+      },
+      "contractDigest": "b440fed79c3a365407a43ddc5c9de0049ccccf0f8924c353a10a571d3fb8ba98",
+      "status": "ready-for-dev"
+    }
+  ]
+}

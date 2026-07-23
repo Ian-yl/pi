@@ -1,0 +1,5 @@
+$ npm test
+
+> test
+> node tests/unit.mjs
+

@@ -1,0 +1,53 @@
+{
+  "runId": "run-11",
+  "status": "passed",
+  "error": null,
+  "durationMs": 5852,
+  "functionalPackage": "run-11/functional-domain",
+  "implementation": "run-11/implementation",
+  "implementationUnits": 25,
+  "steps": [
+    {
+      "id": "functional-scaffold",
+      "status": "passed",
+      "durationMs": 59,
+      "command": "node /Users/ylzs/Documents/ylzs/functional-domain-design/scripts/scaffold-package.mjs --input /Users/ylzs/Documents/ylzs/functional-domain-design/assets/lingling-new-architecture-2/architecture-input --output /Users/ylzs/Documents/ylzs/project-implementation/assets/lingling-new-architecture-2/validation-runs/run-11/functional-domain --approve",
+      "log": "logs/functional-scaffold.log"
+    },
+    {
+      "id": "functional-validate",
+      "status": "passed",
+      "durationMs": 53,
+      "command": "node /Users/ylzs/Documents/ylzs/functional-domain-design/scripts/validate-package.mjs /Users/ylzs/Documents/ylzs/project-implementation/assets/lingling-new-architecture-2/validation-runs/run-11/functional-domain --require-approved",
+      "log": "logs/functional-validate.log"
+    },
+    {
+      "id": "implementation-prepare",
+      "status": "passed",
+      "durationMs": 61,
+      "command": "node /Users/ylzs/Documents/ylzs/project-implementation/scripts/prepare-implementation.mjs --functional /Users/ylzs/Documents/ylzs/project-implementation/assets/lingling-new-architecture-2/validation-runs/run-11/functional-domain --frontend /Users/ylzs/Documents/ylzs/project-implementation/assets/lingling-new-architecture-2/frontend-delivery --output /Users/ylzs/Documents/ylzs/project-implementation/assets/lingling-new-architecture-2/validation-runs/run-11/implementation",
+      "log": "logs/implementation-prepare.log"
+    },
+    {
+      "id": "implementation-finalize",
+      "status": "passed",
+      "durationMs": 1162,
+      "command": "node /Users/ylzs/Documents/ylzs/project-implementation/scripts/finalize-implementation.mjs --dir /Users/ylzs/Documents/ylzs/project-implementation/assets/lingling-new-architecture-2/validation-runs/run-11/implementation",
+      "log": "logs/implementation-finalize.log"
+    },
+    {
+      "id": "implementation-verify",
+      "status": "passed",
+      "durationMs": 50,
+      "command": "node /Users/ylzs/Documents/ylzs/project-implementation/scripts/verify-implementation.mjs /Users/ylzs/Documents/ylzs/project-implementation/assets/lingling-new-architecture-2/validation-runs/run-11/implementation",
+      "log": "logs/implementation-verify.log"
+    },
+    {
+      "id": "runtime-browser-e2e",
+      "status": "passed",
+      "durationMs": 4462,
+      "command": "BASE_URL=http://127.0.0.1:5223 node web/tests/full-app.e2e.mjs",
+      "log": "logs/browser-e2e.log"
+    }
+  ]
+}

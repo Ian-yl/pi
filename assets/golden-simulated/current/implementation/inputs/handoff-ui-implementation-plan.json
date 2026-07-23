@@ -1,0 +1,83 @@
+{
+  "schemaVersion": "1.0",
+  "capabilities": [
+    {
+      "capabilityId": "cap-sample",
+      "specificationStatus": "complete",
+      "presentation": {
+        "mode": "add-control",
+        "targetPageId": "sample",
+        "preferredRegion": "form-actions",
+        "control": {
+          "type": "primary-button",
+          "label": "Submit sample"
+        }
+      },
+      "deliveryPolicy": {
+        "requiredForCompletion": true,
+        "allowedIncompleteState": "planned"
+      },
+      "planningReason": null,
+      "missingDecisions": [],
+      "aliasOf": null
+    },
+    {
+      "capabilityId": "cap-suite-sample-detail",
+      "specificationStatus": "complete",
+      "presentation": {
+        "mode": "add-control",
+        "targetPageId": "suite-sample-detail",
+        "preferredRegion": "form-actions",
+        "control": {
+          "type": "primary-button",
+          "label": "Submit suite-sample-detail"
+        }
+      },
+      "deliveryPolicy": {
+        "requiredForCompletion": true,
+        "allowedIncompleteState": "planned"
+      },
+      "planningReason": null,
+      "missingDecisions": [],
+      "aliasOf": null
+    },
+    {
+      "capabilityId": "cap-sample-local-navigation",
+      "specificationStatus": "complete",
+      "presentation": {
+        "mode": "reuse-control",
+        "targetPageId": "sample",
+        "visualHint": {
+          "text": "Help",
+          "kind": "button"
+        }
+      },
+      "deliveryPolicy": {
+        "requiredForCompletion": true,
+        "allowedIncompleteState": "planned"
+      },
+      "planningReason": null,
+      "missingDecisions": [],
+      "aliasOf": null
+    },
+    {
+      "capabilityId": "cap-sample-display-result",
+      "specificationStatus": "complete",
+      "presentation": {
+        "mode": "display-only",
+        "targetPageId": "sample",
+        "region": "result-panel",
+        "content": {
+          "type": "submission-result"
+        }
+      },
+      "deliveryPolicy": {
+        "requiredForCompletion": true,
+        "allowedIncompleteState": "planned"
+      },
+      "planningReason": null,
+      "missingDecisions": [],
+      "aliasOf": null
+    }
+  ]
+}

@@ -1,0 +1,29 @@
+{
+  "name": "frontend-delivery",
+  "private": true,
+  "scripts": {
+    "vr:init": "node .visual-restore-v3/run.mjs init-restore",
+    "vr:verify": "node .visual-restore-v3/run.mjs verify",
+    "vr:audit": "node .visual-restore-v3/run.mjs audit-runner",
+    "vr:gate": "node .visual-restore-v3/run.mjs coverage-gate",
+    "vr:queue": "node .visual-restore-v3/run.mjs audit-queue",
+    "vr:sweep": "node .visual-restore-v3/run.mjs sweep-css",
+    "vr:asset-plan": "node .visual-restore-v3/run.mjs asset-plan",
+    "vr:asset-edge": "node .visual-restore-v3/run.mjs asset-edge-audit",
+    "vr:extract-icon": "node .visual-restore-v3/run.mjs extract-icon",
+    "vr:content-audit": "node .visual-restore-v3/run.mjs content-audit",
+    "vr:responsive-audit": "node .visual-restore-v3/run.mjs responsive-audit",
+    "vr:serve": "node .visual-restore-v3/run.mjs serve",
+    "vr:suite:init": "node .visual-restore-v3/run.mjs init-suite",
+    "vr:suite:audit": "node .visual-restore-v3/run.mjs suite-audit",
+    "vr:suite:gate": "node .visual-restore-v3/run.mjs suite-gate",
+    "vr:suite:approve": "node .visual-restore-v3/run.mjs suite-approve",
+    "vr:suite:publish": "node .visual-restore-v3/run.mjs suite-publish"
+  },
+  "devDependencies": {
+    "imagetracerjs": "^1.2.6",
+    "pixelmatch": "^7.2.0",
+    "playwright": "^1.61.1",
+    "pngjs": "^7.0.0"
+  }
+}

@@ -1,0 +1,198 @@
+{
+  "schemaVersion": "1.0",
+  "projectId": "golden-simulated",
+  "status": "simulated",
+  "verificationLevel": "simulated",
+  "deliveryStatus": "implemented",
+  "units": [
+    {
+      "id": "persistence-entity-submission",
+      "status": "succeeded",
+      "testIds": [
+        "test-persistence-entity-submission"
+      ]
+    },
+    {
+      "id": "persistence-entity-submission-event",
+      "status": "succeeded",
+      "testIds": [
+        "test-persistence-entity-submission-event"
+      ]
+    },
+    {
+      "id": "relationship-relation-submission-events",
+      "status": "succeeded",
+      "testIds": [
+        "test-relationship-relation-submission-events"
+      ]
+    },
+    {
+      "id": "consistency-boundary-submission",
+      "status": "succeeded",
+      "testIds": [
+        "test-consistency-boundary-submission"
+      ]
+    },
+    {
+      "id": "capability-cap-sample",
+      "status": "succeeded",
+      "testIds": [
+        "test-capability-cap-sample"
+      ]
+    },
+    {
+      "id": "capability-cap-suite-sample-detail",
+      "status": "succeeded",
+      "testIds": [
+        "test-capability-cap-suite-sample-detail"
+      ]
+    },
+    {
+      "id": "capability-cap-sample-local-navigation",
+      "status": "succeeded",
+      "testIds": [
+        "test-capability-cap-sample-local-navigation"
+      ]
+    },
+    {
+      "id": "capability-cap-sample-display-result",
+      "status": "succeeded",
+      "testIds": [
+        "test-capability-cap-sample-display-result"
+      ]
+    },
+    {
+      "id": "presentation-cap-sample",
+      "status": "succeeded",
+      "testIds": [
+        "runtime-presentation-cap-sample"
+      ]
+    },
+    {
+      "id": "interaction-cap-sample",
+      "status": "succeeded",
+      "testIds": [
+        "runtime-interaction-cap-sample"
+      ]
+    },
+    {
+      "id": "frontend-state-cap-sample",
+      "status": "succeeded",
+      "testIds": [
+        "runtime-frontend-state-cap-sample"
+      ]
+    },
+    {
+      "id": "frontend-data-cap-sample",
+      "status": "succeeded",
+      "testIds": [
+        "runtime-frontend-data-cap-sample"
+      ]
+    },
+    {
+      "id": "presentation-cap-suite-sample-detail",
+      "status": "succeeded",
+      "testIds": [
+        "runtime-presentation-cap-suite-sample-detail"
+      ]
+    },
+    {
+      "id": "interaction-cap-suite-sample-detail",
+      "status": "succeeded",
+      "testIds": [
+        "runtime-interaction-cap-suite-sample-detail"
+      ]
+    },
+    {
+      "id": "frontend-state-cap-suite-sample-detail",
+      "status": "succeeded",
+      "testIds": [
+        "runtime-frontend-state-cap-suite-sample-detail"
+      ]
+    },
+    {
+      "id": "frontend-data-cap-suite-sample-detail",
+      "status": "succeeded",
+      "testIds": [
+        "runtime-frontend-data-cap-suite-sample-detail"
+      ]
+    },
+    {
+      "id": "presentation-cap-sample-local-navigation",
+      "status": "succeeded",
+      "testIds": [
+        "runtime-presentation-cap-sample-local-navigation"
+      ]
+    },
+    {
+      "id": "interaction-cap-sample-local-navigation",
+      "status": "succeeded",
+      "testIds": [
+        "runtime-interaction-cap-sample-local-navigation"
+      ]
+    },
+    {
+      "id": "frontend-state-cap-sample-local-navigation",
+      "status": "succeeded",
+      "testIds": [
+        "runtime-frontend-state-cap-sample-local-navigation"
+      ]
+    },
+    {
+      "id": "frontend-data-cap-sample-local-navigation",
+      "status": "succeeded",
+      "testIds": [
+        "runtime-frontend-data-cap-sample-local-navigation"
+      ]
+    },
+    {
+      "id": "presentation-cap-sample-display-result",
+      "status": "succeeded",
+      "testIds": [
+        "runtime-presentation-cap-sample-display-result"
+      ]
+    },
+    {
+      "id": "interaction-cap-sample-display-result",
+      "status": "succeeded",
+      "testIds": [
+        "runtime-interaction-cap-sample-display-result"
+      ]
+    },
+    {
+      "id": "frontend-state-cap-sample-display-result",
+      "status": "succeeded",
+      "testIds": [
+        "runtime-frontend-state-cap-sample-display-result"
+      ]
+    },
+    {
+      "id": "frontend-data-cap-sample-display-result",
+      "status": "succeeded",
+      "testIds": [
+        "runtime-frontend-data-cap-sample-display-result"
+      ]
+    },
+    {
+      "id": "operation-submit-sample",
+      "status": "succeeded",
+      "testIds": [
+        "test-operation-submit-sample"
+      ]
+    },
+    {
+      "id": "operation-submit-suite-sample-detail",
+      "status": "succeeded",
+      "testIds": [
+        "test-operation-submit-suite-sample-detail"
+      ]
+    },
+    {
+      "id": "operation-query-sample-result",
+      "status": "succeeded",
+      "testIds": [
+        "test-operation-query-sample-result"
+      ]
+    }
+  ]
+}

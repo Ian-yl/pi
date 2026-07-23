@@ -1,0 +1,1 @@
+$ node /Users/ylzs/Documents/ylzs/project-implementation/scripts/build-operation-receipts.mjs /Users/ylzs/Documents/ylzs/project-implementation/assets/golden-simulated/current/implementation
