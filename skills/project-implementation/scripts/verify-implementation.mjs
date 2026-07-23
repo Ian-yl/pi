@@ -232,6 +232,7 @@ function verifyFieldBindingPlan(bindingPlan, apiContract, items) {
     if (binding.operationId && !operations.has(binding.operationId)) items.push(`field binding references unknown operation: ${binding.id}`);
     if (binding.kind === 'input' && !binding.requestPath) items.push(`input binding has no request path: ${binding.id}`);
     if (binding.kind === 'display' && !binding.responsePath) items.push(`display binding has no response path: ${binding.id}`);
+    if (binding.kind === 'result' && (!binding.responsePath || !binding.regionId || !binding.elementSemantic || !binding.count?.mode || !binding.resultStates?.processing || !binding.resultStates?.success || !binding.resultStates?.failure)) items.push(`result presentation binding is incomplete: ${binding.id}`);
   }
   for (const operation of operations.values()) {
     const expectedInputs = requestContractPaths(operation.request || {}).sort(); const actualInputs = bindingPlan.bindings.filter((item) => item.operationId === operation.id && item.kind === 'input').map((item) => item.requestPath).sort();
