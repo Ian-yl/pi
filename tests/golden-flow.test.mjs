@@ -19,25 +19,42 @@ test('golden fixture completes the current simulated flow', () => {
     const result = spawnSync('node', [script, '--output', output], { encoding: 'utf8' });
     assert.equal(result.status, 0, `${result.stdout}\n${result.stderr}`);
     assert.equal(JSON.parse(readFileSync(`${output}/summary.json`, 'utf8')).status, 'verified');
-    const interactions = JSON.parse(readFileSync(`${output}/implementation/interaction-manifest.json`, 'utf8')).interactions;
-    const localNavigation = interactions.find((item) => item.capabilityId === 'cap-sample-local-navigation');
-    assert.ok(localNavigation);
-    assert.equal(Object.hasOwn(localNavigation, 'operationId'), false);
-    assert.equal(interactions.some((item) => item.capabilityId === 'cap-sample-display-result'), false);
-    const bindings = JSON.parse(readFileSync(`${output}/implementation/control-bindings.json`, 'utf8')).bindings;
-    const dataRender = bindings.find((item) => item.capabilityId === 'cap-sample-display-result');
-    assert.equal(dataRender.bindingType, 'data-render');
-    assert.equal(dataRender.operationId, 'query-sample-result');
-    assert.equal(dataRender.trigger, 'task-succeeded');
+    const functional = JSON.parse(readFileSync(`${output}/functional-domain/functional-spec.json`, 'utf8'));
+    const aggregate = functional.capabilities.find((item) => item.aggregateSubmission);
+    const upload = functional.capabilities.find((item) => item.operations?.some((operation) => operation.resourceTransfer));
+    const planned = functional.capabilities.find((item) => item.specificationStatus === 'planned');
+    assert.ok(aggregate && upload && planned);
+    assert.equal(aggregate.operations.length, 1);
+    assert.ok(aggregate.operations[0].dataDependencies.some((item) => item.sourceOperationId === upload.operations[0].id));
+    assert.equal(upload.operations[0].resourceTransfer.interaction, 'file-selection');
+    for (const field of ['submission-title', 'submission-category', 'result-quantity']) assert.ok(aggregate.operations[0].request.bodySchema.properties[field]);
+    const runtime = JSON.parse(readFileSync(`${output}/implementation/frontend-runtime-report.json`, 'utf8'));
+    for (const id of ['initial-submission', 'browser-upload', 'browser-submit', 'browser-planned']) assert.ok(runtime.cases.some((item) => item.id === id));
+    assert.ok(runtime.cases.find((item) => item.id === 'browser-submit').observed.resultEvidence.some((item) => item.actualCount === item.responseCount && item.actualCount > 0));
+    assert.ok(runtime.cases.find((item) => item.id === 'browser-upload').observed.fileSelectionEvidence.challengeDigestMatched);
+    assert.equal(runtime.cases.find((item) => item.id === 'browser-planned').observed.networkRequests.length, 0);
     const plan = JSON.parse(readFileSync(`${output}/implementation/implementation-plan.json`, 'utf8'));
     assert.equal(plan.planningSource.workflow, 'fdd-bmad-planning');
     assert.equal(plan.planningSource.semanticChangesAllowed, false);
     assert.equal(plan.implementationWorkflow, 'pi-implementation-bmad');
+    const controlMap = JSON.parse(readFileSync(`${output}/functional-domain/control-capability-map.json`, 'utf8'));
+    const worklist = JSON.parse(readFileSync(`${output}/implementation/implementation-worklist.json`, 'utf8'));
+    const nonHeadless = new Set(functional.capabilities.filter((item) => item.presentation?.mode !== 'headless').map((item) => item.id));
+    assert.equal(worklist.advisory, true);
+    assert.equal(worklist.items.length, controlMap.mappings.length);
+    assert.deepEqual(new Set(worklist.items.filter((item) => nonHeadless.has(item.capabilityId)).map((item) => item.capabilityId)), nonHeadless);
     const inputLock = JSON.parse(readFileSync(`${output}/implementation/input-lock.json`, 'utf8'));
     assert.ok(inputLock.sources.fddPlanningDigest);
+    for (const file of ['evidence-index.json', 'evidence-dispositions.json']) {
+      assert.equal(existsSync(`${output}/implementation/inputs/functional-${file}`), true);
+      assert.ok(inputLock.digests[`functional/${file}`]);
+    }
+    const semanticArtifacts = JSON.parse(readFileSync(`${output}/implementation/inputs/functional-manifest.json`, 'utf8')).semanticArtifacts || [];
+    for (const artifact of semanticArtifacts) { assert.ok(inputLock.digests[`functional/${artifact}`]); assert.ok(inputLock.digests[`handoff/${artifact}`]); assert.equal(existsSync(`${output}/implementation/inputs/handoff-${artifact}`), true); }
+    if (semanticArtifacts.includes('asset-role-inventory.json')) assert.equal(existsSync(`${output}/implementation/placeholder-audit-report.json`), true);
     for (const file of ['functional-planning-manifest.json', 'functional-planning-artifacts.json', 'functional-capability-definitions.json', 'functional-planning-review-receipt.json']) assert.equal(existsSync(`${output}/implementation/inputs/${file}`), true);
-    assert.ok(plan.units.some((unit) => unit.id === 'relationship-relation-submission-events'));
-    assert.ok(plan.units.some((unit) => unit.id === 'consistency-boundary-submission'));
+    assert.ok(plan.units.some((unit) => unit.type === 'consistency'));
+    assert.ok(plan.units.some((unit) => unit.type === 'cross-operation-data-flow'));
     const lock = JSON.parse(readFileSync(`${output}/implementation/implementation-lock.json`, 'utf8'));
     assert.ok(lock.sourceDigests.backend);
     assert.ok(lock.sourceDigests.frontend);
@@ -62,15 +79,53 @@ test('formal all-headless fixture completes without browser runtime evidence', (
   } finally { rmSync(output, { recursive: true, force: true }); }
 });
 
+test('implementation verifier recomputes operation receipts from locked runtime events', () => {
+  const source = path.resolve(import.meta.dirname, '../assets/golden-simulated/current/implementation');
+  const dir = mkdtempSync(path.join(os.tmpdir(), 'forged-operation-receipt-'));
+  try {
+    cpSync(source, dir, { recursive: true });
+    rmSync(`${dir}/implementation-lock.json`);
+    patch(dir, 'operation-receipts.json', (value) => { value.receipts[0].eventIds = ['forged-event']; return value; });
+    const check = spawnSync('node', [path.resolve(import.meta.dirname, '../scripts/verify-implementation.mjs'), dir, '--require-level', 'simulated'], { encoding: 'utf8' });
+    assert.notEqual(check.status, 0);
+    assert.match(`${check.stdout}${check.stderr}`, /receipts differ from receipts recomputed/);
+  } finally { rmSync(dir, { recursive: true, force: true }); }
+});
+
 test('result presentation bindings verify response values, region, and cardinality', () => {
   const source = path.resolve(import.meta.dirname, '../assets/golden-simulated/current/implementation'); const root = mkdtempSync(path.join(os.tmpdir(), 'result-presentation-'));
   try {
-    const make = (name) => { const dir = `${root}/${name}`; cpSync(source, dir, { recursive: true });
-      patch(dir, 'inputs/handoff-ui-implementation-plan.json', (value) => { const contract = value.capabilities.find((item) => item.capabilityId === 'cap-sample'); contract.presentation.surface ||= { type: 'same-page-workspace', requiredRegions: ['result-panel'], contentContract: { heading: 'Sample result', inputIds: ['email', 'password'], primaryAction: 'Submit sample', primaryOperationId: 'submit-sample', emptyState: 'No sample result' } }; contract.presentation.surface.contentContract.resultContract = { targetRegion: 'result-panel', bindings: [{ id: 'assets', responsePath: 'response.assets', element: { semantic: 'media-item' }, count: { mode: 'response-cardinality', responsePath: 'response.assets' } }], states: { processing: { regionStatus: 'processing', elementSemantic: 'progress-indicator' }, success: { regionStatus: 'success', elementSemantic: 'bound-result-elements', requiresBoundElements: true }, failure: { regionStatus: 'error', elementSemantic: 'error-message' } } }; return value; });
-      patch(dir, 'field-binding-plan.json', (value) => { value.bindings.push({ id: 'binding-cap-sample-result-assets', kind: 'result', controlId: 'result-cap-sample-assets', capabilityId: 'cap-sample', statePath: 'capabilities.cap-sample.result.assets', operationId: 'submit-sample', requestPath: null, responsePath: 'assets', effectIds: [], required: true, regionId: 'result-panel', elementSemantic: 'media-item', count: { mode: 'response-cardinality', responsePath: 'response.assets' }, resultStates: { processing: {}, success: {}, failure: {} } }); return value; });
-      patchRuntimeReceipt(dir, (value) => { const runtimeCase = value.cases.find((item) => item.id === 'browser-cap-sample'); runtimeCase.surfaceFingerprint = { heading: 'Sample result', inputIds: ['email', 'password'], primaryAction: 'Submit sample', primaryOperationId: 'submit-sample', emptyState: 'No sample result', requiredRegions: ['result-panel'] }; runtimeCase.observed.resultEvidence = [{ bindingId: 'binding-cap-sample-result-assets', operationId: 'submit-sample', regionId: 'result-panel', elementSemantic: 'media-item', regionPresent: true, regionVisible: true, regionStatus: 'success', expectedCount: 1, actualCount: 1, expectedValues: ['fixture-result'], actualValues: ['fixture-result'] }]; return value; }); return dir; };
+    const make = (name) => { const dir = `${root}/${name}`; cpSync(source, dir, { recursive: true }); return dir; };
     const positive = make('positive'); const success = spawnSync('node', [path.resolve(import.meta.dirname, '../scripts/verify-frontend-runtime.mjs'), positive], { encoding: 'utf8' }); assert.equal(success.status, 0, `${success.stdout}${success.stderr}`);
-    for (const [name, mutate] of [['status-only', (e) => { e.actualCount = 0; e.actualValues = []; }], ['wrong-region', (e) => { e.regionId = 'other-region'; }], ['wrong-count', (e) => { e.expectedCount = 4; e.expectedValues = ['a', 'b', 'c', 'd']; e.actualCount = 1; e.actualValues = ['a']; }]]) { const dir = make(name); patchRuntimeReceipt(dir, (value) => { const evidence = value.cases.find((item) => item.id === 'browser-cap-sample').observed.resultEvidence[0]; mutate(evidence); if (name === 'wrong-count') value.cases.find((item) => item.id === 'browser-cap-sample').observed.networkRequests[0].responseBody.assets = ['a', 'b', 'c', 'd']; return value; }); const check = spawnSync('node', [path.resolve(import.meta.dirname, '../scripts/verify-frontend-runtime.mjs'), dir], { encoding: 'utf8' }); assert.notEqual(check.status, 0, name); assert.match(`${check.stdout}${check.stderr}`, /required result binding/, name); }
+    const uploadWithoutSelection = `${root}/upload-without-selection`; cpSync(source, uploadWithoutSelection, { recursive: true }); patchRuntimeReceipt(uploadWithoutSelection, (value) => { delete value.cases.find((item) => item.observed?.fileSelectionEvidence).observed.fileSelectionEvidence; return value; }); const uploadCheck = spawnSync('node', [path.resolve(import.meta.dirname, '../scripts/verify-frontend-runtime.mjs'), uploadWithoutSelection], { encoding: 'utf8' }); assert.notEqual(uploadCheck.status, 0); assert.match(`${uploadCheck.stdout}${uploadCheck.stderr}`, /unique control-bound multipart file-selection evidence/);
+    const dirtyInitial = `${root}/dirty-initial`; cpSync(source, dirtyInitial, { recursive: true }); writeFileSync(`${dirtyInitial}/inputs/handoff-asset-role-inventory.json`, `${JSON.stringify({ schemaVersion: '1.0', releaseDigest: 'fixture', assets: [{ id: 'sample-asset', path: 'assets/stage-result.png', digest: 'sample-digest', role: 'business-sample', requiredReplacement: 'api-data' }] }, null, 2)}\n`); const pages = [...new Set(JSON.parse(readFileSync(`${dirtyInitial}/inputs/handoff-ui-implementation-plan.json`, 'utf8')).capabilities.filter((item) => item.presentation.mode !== 'headless').map((item) => item.presentation.targetPageId))]; patchRuntimeReceipt(dirtyInitial, (value) => { value.cases.push(...pages.map((pageId, index) => ({ id: `initial-${pageId}`, capabilityId: `initial:${pageId}`, bindingId: `initial-${pageId}`, locator: 'main', pageId, pageUrl: `http://127.0.0.1/${pageId}`, event: 'initial-state', observed: { matchCount: 1, visible: true, cleanSession: true, networkRequests: [], visibleText: index === 0 ? ['assets/stage-result.png'] : [] }, status: 'passed' }))); return value; }); const dirtyCheck = spawnSync('node', [path.resolve(import.meta.dirname, '../scripts/verify-frontend-runtime.mjs'), dirtyInitial], { encoding: 'utf8' }); assert.notEqual(dirtyCheck.status, 0); assert.match(`${dirtyCheck.stdout}${dirtyCheck.stderr}`, /business-sample asset appears/);
+    for (const [name, mutate] of [['status-only', (e) => { e.actualCount = 0; e.actualValues = []; }], ['test-dom-injection', (e) => { e.testDomMutationFree = false; }], ['hidden-result', (e) => { e.allElementsVisible = false; }], ['wrong-semantic', (e) => { e.semanticMatches = false; }], ['wrong-region', (e) => { e.regionId = 'other-region'; }], ['wrong-count', (e) => { e.expectedCount = 4; e.responseCount = 4; e.expectedValues = ['a', 'b', 'c', 'd']; e.actualCount = 1; e.actualValues = ['a']; }]]) { const dir = make(name); patchRuntimeReceipt(dir, (value) => { mutate(value.cases.find((item) => item.observed?.resultEvidence?.length).observed.resultEvidence[0]); return value; }); const check = spawnSync('node', [path.resolve(import.meta.dirname, '../scripts/verify-frontend-runtime.mjs'), dir], { encoding: 'utf8' }); assert.notEqual(check.status, 0, name); assert.match(`${check.stdout}${check.stderr}`, /required result binding/, name); }
+  } finally { rmSync(root, { recursive: true, force: true }); }
+});
+
+test('planned capabilities require unavailable feedback and stay exempt from implemented fingerprint uniqueness', () => {
+  const source = path.resolve(import.meta.dirname, '../assets/golden-simulated/current/implementation'); const root = mkdtempSync(path.join(os.tmpdir(), 'planned-capability-'));
+  try {
+    const targetPageId = JSON.parse(readFileSync(`${source}/inputs/handoff-ui-implementation-plan.json`, 'utf8')).capabilities[0].presentation.targetPageId;
+    const make = (name, transformCases) => { const dir = `${root}/${name}`; cpSync(source, dir, { recursive: true });
+      patch(dir, 'inputs/handoff-ui-implementation-plan.json', (value) => { value.capabilities.push(
+        { capabilityId: 'cap-planned-a', specificationStatus: 'planned', presentation: { mode: 'add-control', targetPageId, plannedState: { title: 'Planned A' } }, deliveryPolicy: { requiredForCompletion: false } },
+        { capabilityId: 'cap-planned-b', specificationStatus: 'planned', presentation: { mode: 'add-control', targetPageId, plannedState: { title: 'Planned B' } }, deliveryPolicy: { requiredForCompletion: false } }); return value; });
+      patch(dir, 'field-binding-plan.json', (value) => { value.bindings.push(
+        { id: 'binding-cap-planned-a-state', kind: 'planned-state', capabilityId: 'cap-planned-a', required: true },
+        { id: 'binding-cap-planned-b-state', kind: 'planned-state', capabilityId: 'cap-planned-b', required: true }); return value; });
+      patchRuntimeReceipt(dir, (value) => { const plannedCase = (id, title) => ({ id: `browser-${id}`, capabilityId: id, bindingId: `binding-${id}-state`, locator: `planned-${id}`, pageId: targetPageId, event: 'click', observed: { matchCount: 1, visible: true, enabled: true, activeCapabilityId: id, capabilityStatus: 'planned', domChanged: true, visibleText: [title, '功能待实现'], networkRequests: [] }, surfaceFingerprint: { heading: title, inputIds: [], requiredRegions: [] }, status: 'passed' });
+        value.cases.push(plannedCase('cap-planned-a', 'Planned A'), plannedCase('cap-planned-b', 'Planned B')); if (transformCases) transformCases(value); return value; }); return dir; };
+    const exemption = make('fingerprint-exemption');
+    const pass = spawnSync('node', [path.resolve(import.meta.dirname, '../scripts/verify-frontend-runtime.mjs'), exemption], { encoding: 'utf8' });
+    assert.equal(pass.status, 0, `${pass.stdout}${pass.stderr}`);
+    const results = JSON.parse(readFileSync(`${exemption}/frontend-capability-results.json`, 'utf8'));
+    assert.deepEqual(results.capabilities.filter((item) => item.capabilityId.startsWith('cap-planned')).map((item) => item.status), ['planned', 'planned']);
+    for (const [name, transformCases, pattern] of [
+      ['planned-business-request', (value) => { value.cases.find((item) => item.capabilityId === 'cap-planned-a').observed.networkRequests = [{ method: 'POST', path: '/api/sample', status: 201 }]; }, /planned capability performs a business request/],
+      ['planned-claims-implemented', (value) => { value.cases.find((item) => item.capabilityId === 'cap-planned-b').observed.capabilityStatus = 'implemented'; }, /performs a business request or claims implementation/],
+      ['planned-silent-click', (value) => { const item = value.cases.find((entry) => entry.capabilityId === 'cap-planned-a'); item.observed.domChanged = false; item.observed.visibleText = []; }, /does not open its capability-specific planned surface/],
+    ]) { const dir = make(name, transformCases); const check = spawnSync('node', [path.resolve(import.meta.dirname, '../scripts/verify-frontend-runtime.mjs'), dir], { encoding: 'utf8' }); assert.notEqual(check.status, 0, name); assert.match(`${check.stdout}${check.stderr}`, pattern, name); }
   } finally { rmSync(root, { recursive: true, force: true }); }
 });
 
@@ -84,11 +139,13 @@ test('frontend runtime gates reject false implementation evidence', () => {
     const source = `${generated}/implementation`;
     checkMutation('fake-runner', (dir) => patch(dir, 'frontend-runtime-report.json', (value) => ({ ...value, generatedBy: 'candidate-script' })), /not generated by the runtime runner/);
     checkMutation('missing-interaction-evidence', (dir) => patch(dir, 'interaction-manifest.json', (value) => { delete value.interactions[0].evidenceId; return value; }), /interaction has no browser evidence/);
-    checkMutation('wrong-operation-path', (dir) => patchRuntime(dir, (value) => { value.cases.find((item) => item.observed.networkRequests.length).observed.networkRequests[0].path = '/api/wrong'; return value; }), /no matching successful API request evidence/);
+    checkMutation('wrong-operation-path', (dir) => patchRuntime(dir, (value) => { const runtimeCase = value.cases.find((item) => item.id === 'browser-submit'); runtimeCase.observed.networkRequests.find((request) => request.method === 'POST').path = '/api/wrong'; return value; }), /no matching successful API request evidence/);
     checkMutation('unsuccessful-operation-status', (dir) => patchRuntime(dir, (value) => { for (const item of value.cases) for (const request of item.observed.networkRequests || []) request.status = 404; return value; }), /no matching successful API request evidence/);
-    checkMutation('constant-required-input', (dir) => patchRuntime(dir, (value) => { const evidence = value.cases.flatMap((item) => item.observed.inputBindings || []).find((item) => item.dynamic); evidence.dynamic = false; evidence.observedValue = 'fixed-constant'; return value; }), /required input binding has no operation-bound dynamic UI-to-request evidence/);
+    checkMutation('constant-required-input', (dir) => patchRuntime(dir, (value) => { const evidence = value.cases.flatMap((item) => item.observed.inputBindings || []).find((item) => item.dynamic); evidence.dynamic = false; evidence.observedValue = 'fixed-constant'; return value; }), /required input binding has no operation-bound dynamic state-to-request evidence/);
+    checkMutation('hardcoded-application-state', (dir) => { let bindingId; patch(dir, 'field-binding-plan.json', (value) => { const binding = value.bindings.find((item) => item.kind === 'input' && item.source === 'user-input'); binding.source = 'application-state'; bindingId = binding.id; return value; }); patchRuntime(dir, (value) => { for (const item of value.cases) for (const evidence of item.observed.inputBindings || []) if (evidence.bindingId === bindingId) evidence.dynamic = false; return value; }); }, /required input binding has no operation-bound dynamic state-to-request evidence/);
+    checkMutation('display-without-value-binding', (dir) => patchRuntime(dir, (value) => { const evidence = value.cases.flatMap((item) => item.observed.displayEvidence || [])[0]; evidence.actualValues = []; evidence.allElementsVisible = false; return value; }), /required display binding has no mutation-free browser-computed visible response-value evidence/);
     checkMutation('ambiguous-locator', (dir) => patchRuntime(dir, (value) => { value.cases[0].observed.matchCount = 2; return value; }), /locator is absent, ambiguous/);
-    checkMutation('planned-capability', (dir) => patchRuntime(dir, (value) => { value.cases[0].observed.capabilityStatus = 'planned'; return value; }), /not active and implemented|planned state/);
+    checkMutation('complete-capability-downgraded-to-planned', (dir) => patchRuntime(dir, (value) => { value.cases.find((item) => item.id === 'browser-submit').observed.capabilityStatus = 'planned'; return value; }), /not active and implemented|planned state/);
     checkMutation('title-only-capability-switch', (dir) => {
       const contracts = JSON.parse(readFileSync(`${dir}/inputs/handoff-ui-implementation-plan.json`, 'utf8')).capabilities.slice(0, 2);
       patch(dir, 'inputs/handoff-ui-implementation-plan.json', (value) => { for (const [index, contract] of value.capabilities.slice(0, 2).entries()) contract.presentation.surface = { type: 'same-page-workspace', requiredRegions: ['configuration-panel', 'result-panel'], contentContract: { heading: `Heading ${index}`, inputIds: ['same-input'], primaryAction: 'Run', primaryOperationId: 'same-operation', emptyState: 'Same empty state' } }; return value; });
@@ -97,7 +154,7 @@ test('frontend runtime gates reject false implementation evidence', () => {
     checkMutation('missing-placeholder-states', (dir) => patch(dir, 'placeholder-resolution.json', (value) => { delete value.items.find((item) => item.resolution === 'replaced-by-api-data').states.error; return value; }), /lacks complete runtime states/, 'scripts/audit-placeholders.mjs');
     checkMutation('missing-browser-report', (dir) => rmSync(`${dir}/browser-e2e-report.json`), /missing browser-e2e-report/);
     const noClick = `${root}/no-click-handler`; cpSync(source, noClick, { recursive: true });
-    const serverFile = `${noClick}/backend/server.mjs`; writeFileSync(serverFile, readFileSync(serverFile, 'utf8').replace("addEventListener('click'", "addEventListener('unreachable'"));
+    const pageFile = `${noClick}/web/pages/submission/index.html`; writeFileSync(pageFile, readFileSync(pageFile, 'utf8').replace("addEventListener('click'", "addEventListener('unreachable'"));
     patch(noClick, 'frontend-runtime-config.json', (value) => ({ ...value, e2e: { ...value.e2e, timeoutMs: 3000 } }));
     const finalize = spawnSync('node', [path.resolve(import.meta.dirname, '../scripts/finalize-implementation.mjs'), '--dir', noClick], { encoding: 'utf8', timeout: 15000 });
     assert.notEqual(finalize.status, 0, 'button without click handler must fail finalization');
@@ -120,7 +177,7 @@ test('frontend runtime gates reject false implementation evidence', () => {
     assert.equal(duplicateCheck.signal, null, 'duplicate-action verifier must not be terminated by a signal or timeout');
     assert.notEqual(duplicateCheck.status, null, 'duplicate-action verifier must exit normally');
     assert.notEqual(duplicateCheck.status, 0, 'one trace action must not attest two cases with the same locator');
-    assert.match(readFileSync(`${duplicateAction}/evidence/browser-runtime-runner.txt`, 'utf8'), /trace has no .*case locator/);
+    assert.match(readFileSync(`${duplicateAction}/evidence/browser-runtime-runner.txt`, 'utf8'), /trace has no .*case locator|no case screenshot action|unique visible enabled binding/);
     const noBmad = `${root}/missing-bmad`; cpSync(source, noBmad, { recursive: true });
     rmSync(`${noBmad}/bmad-traceability.json`); rmSync(`${noBmad}/implementation-lock.json`);
     const bmadCheck = spawnSync('node', [path.resolve(import.meta.dirname, '../scripts/verify-implementation.mjs'), noBmad, '--require-level', 'simulated'], { encoding: 'utf8' });
@@ -156,9 +213,9 @@ test('frontend runtime gates reject false implementation evidence', () => {
     const downgradedCheck = spawnSync('node', [path.resolve(import.meta.dirname, '../scripts/verify-implementation.mjs'), downgradedBmad, '--require-level', 'simulated'], { encoding: 'utf8' });
     assert.notEqual(downgradedCheck.status, 0); assert.match(`${downgradedCheck.stdout}${downgradedCheck.stderr}`, /missing bmad|BMAD requirement was removed/);
     const legacyOptionCheck = spawnSync('node', [path.resolve(import.meta.dirname, '../scripts/verify-implementation.mjs'), source, '--legacy', '--require-level', 'simulated'], { encoding: 'utf8' });
-    assert.notEqual(legacyOptionCheck.status, 0); assert.match(`${legacyOptionCheck.stdout}${legacyOptionCheck.stderr}`, /legacy archive inspection is not a completion-verification mode/);
+    assert.notEqual(legacyOptionCheck.status, 0); assert.match(`${legacyOptionCheck.stdout}${legacyOptionCheck.stderr}`, /legacy verification modes are unsupported/);
     const internalLegacyOptionCheck = spawnSync('node', [path.resolve(import.meta.dirname, '../scripts/verify-implementation.mjs'), source, '--legacy-archive-internal', '--require-level', 'simulated'], { encoding: 'utf8' });
-    assert.notEqual(internalLegacyOptionCheck.status, 0); assert.match(`${internalLegacyOptionCheck.stdout}${internalLegacyOptionCheck.stderr}`, /legacy archive inspection is not a completion-verification mode/);
+    assert.notEqual(internalLegacyOptionCheck.status, 0); assert.match(`${internalLegacyOptionCheck.stdout}${internalLegacyOptionCheck.stderr}`, /legacy verification modes are unsupported/);
     const disguisedLegacy = `${root}/disguised-legacy`; cpSync(source, disguisedLegacy, { recursive: true }); rmSync(`${disguisedLegacy}/implementation-lock.json`); rmSync(`${disguisedLegacy}/bmad-traceability.json`); rmSync(`${disguisedLegacy}/bmad-completion.json`);
     patch(disguisedLegacy, 'input-lock.json', (value) => { value.schemaVersion = '1.0'; delete value.bmadRequired; delete value.bmad; delete value.sources.handoffPackageDigest; delete value.digests['handoff/handoff-manifest.json']; delete value.digests['handoff/ui-implementation-plan.json']; return value; });
     rmSync(`${disguisedLegacy}/inputs/handoff-handoff-manifest.json`); rmSync(`${disguisedLegacy}/inputs/handoff-ui-implementation-plan.json`);

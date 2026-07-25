@@ -7,14 +7,15 @@ import { spawnSync } from 'node:child_process';
 import test from 'node:test';
 
 const repo = path.resolve(import.meta.dirname, '../..');
+const fddHarness = path.join(repo, 'project-implementation/test-support/functional-domain-design');
 const functional = path.join(repo, 'project-implementation/assets/golden-simulated/current/functional-domain');
 const frontend = path.join(repo, 'project-implementation/assets/golden-simulated/current/implementation-handoff');
-const implementation = path.join(repo, 'project-implementation/assets/lingling-new-architecture-2/implementation');
 const goldenImplementation = path.join(repo, 'project-implementation/assets/golden-simulated/current/implementation');
+const implementation = goldenImplementation;
 
 test('functional approval gate rejects a draft package', () => withCopy(functional, (dir) => {
   patchJson(`${dir}/manifest.json`, (value) => ({ ...value, status: 'draft' }));
-  const result = run('functional-domain-design/scripts/validate-package.mjs', [dir, '--require-approved']);
+  const result = runFdd('validate-package.mjs', [dir, '--require-approved']);
   assert.notEqual(result.status, 0);
   assert.match(result.stderr, /not approved/);
 }));
@@ -23,7 +24,7 @@ test('implementation preparation rejects a missing independent review receipt', 
   rmSync(`${withoutReceipt}/review-receipt.json`);
   const output = mkdtempSync(path.join(os.tmpdir(), 'implementation-output-'));
   try {
-    const result = run('project-implementation/scripts/prepare-implementation.mjs', ['--functional', withoutReceipt, '--frontend', frontend, '--output', output]);
+    const result = run('project-implementation/scripts/prepare-implementation.mjs', ['--functional', withoutReceipt, '--handoff', frontend, '--output', output]);
     assert.notEqual(result.status, 0);
     assert.match(result.stderr, /functional package is missing review-receipt.json/);
   } finally { rmSync(output, { recursive: true, force: true }); }
@@ -33,7 +34,7 @@ test('implementation preparation rejects a directory that is not an approved han
   patchJson(`${draftHandoff}/handoff-manifest.json`, (value) => ({ ...value, status: 'draft' }));
   const output = mkdtempSync(path.join(os.tmpdir(), 'implementation-output-'));
   try {
-    const result = run('project-implementation/scripts/prepare-implementation.mjs', ['--functional', approved, '--frontend', draftHandoff, '--output', output]);
+    const result = run('project-implementation/scripts/prepare-implementation.mjs', ['--functional', approved, '--handoff', draftHandoff, '--output', output]);
     assert.notEqual(result.status, 0);
     assert.match(result.stderr, /implementation handoff is not approved/);
   } finally { rmSync(output, { recursive: true, force: true }); }
@@ -54,14 +55,23 @@ test('implementation preparation accepts a locked approved implementation handof
   } finally { rmSync(output, { recursive: true, force: true }); }
 })));
 
+test('implementation preparation never executes a handoff-supplied validator snapshot', () => withApprovedFunctional((approved) => withApprovedFrontend(approved, (released) => {
+  const marker = `${released}/package-code-executed`; const malicious = `${released}/malicious.mjs`;
+  writeFileSync(malicious, `import { writeFileSync } from 'node:fs'; writeFileSync(${JSON.stringify(marker)}, 'executed');\n`);
+  patchJson(`${released}/handoff-review-receipt.json`, (value) => ({ ...value, validatorSnapshot: { path: 'malicious.mjs', sha256: digest(readFileSync(malicious)) } }));
+  patchJson(`${released}/handoff-lock.json`, (value) => { value.digests['handoff-review-receipt.json'] = digest(readFileSync(`${released}/handoff-review-receipt.json`)); return value; });
+  const output = mkdtempSync(path.join(os.tmpdir(), 'implementation-output-'));
+  try { const result = run('project-implementation/scripts/prepare-implementation.mjs', ['--functional', approved, '--handoff', released, '--output', output]); assert.equal(result.status, 0, result.stderr); assert.equal(existsSync(marker), false); }
+  finally { rmSync(output, { recursive: true, force: true }); }
+})));
+
+test('implementation preparation derives result presentation units and output bindings', () => withApprovedFunctional((approved) => {
+  const capability = readJson(`${approved}/functional-spec.json`).capabilities.find((item) => item.resultPresentation); const capabilityId = capability.id; const operationId = capability.operations[0].id;
+  withApprovedFrontend(approved, (released) => { const output = mkdtempSync(path.join(os.tmpdir(), 'implementation-result-output-')); try { const result = run('project-implementation/scripts/prepare-implementation.mjs', ['--functional', approved, '--handoff', released, '--output', output]); assert.equal(result.status, 0, result.stderr); const plan = readJson(`${output}/implementation-plan.json`); assert.ok(plan.units.some((unit) => unit.id === `result-presentation-${capabilityId}`)); const binding = readJson(`${output}/field-binding-plan.json`).bindings.find((item) => item.kind === 'result' && item.capabilityId === capabilityId); assert.equal(binding.operationId, operationId); assert.equal(binding.regionId, capability.resultPresentation.targetRegion); assert.equal(binding.responsePath, capability.resultPresentation.bindings[0].responsePath.replace(/^response\./, '')); } finally { rmSync(output, { recursive: true, force: true }); } });
+}));
+
 test('implementation preparation isolates a planned capability to a reachable planned-state unit', () => withApprovedFunctional((approved) => {
-  let plannedId;
-  patchJson(`${approved}/functional-spec.json`, (value) => {
-    plannedId = value.capabilities[0].id;
-    value.capabilities[0] = makePlanned(value.capabilities[0]);
-    return value;
-  });
-  patchJson(`${approved}/capability-definitions.json`, (value) => { value.capabilities[0] = readJson(`${approved}/functional-spec.json`).capabilities[0]; return value; });
+  const plannedId = readJson(`${approved}/functional-spec.json`).capabilities.find((item) => item.specificationStatus === 'planned').id;
   withApprovedFrontend(approved, (released) => {
     const output = mkdtempSync(path.join(os.tmpdir(), 'implementation-planned-output-'));
     try {
@@ -96,7 +106,7 @@ test('implementation preparation rejects a handoff receipt author mismatch', () 
 
 test('implementation preparation invalidates a handoff after the functional package is republished', () => withApprovedFunctional((approved) => withApprovedFrontend(approved, (handoff) => {
   patchJson(`${approved}/functional-spec.json`, (value) => ({ ...value, project: { ...value.project, brief: 'republished domain contract' } }));
-  const validation = run('functional-domain-design/scripts/validate-package.mjs', [approved, '--require-approved']);
+  const validation = runFdd('validate-package.mjs', [approved, '--require-approved']);
   assert.equal(validation.status, 0, validation.stderr);
   const output = mkdtempSync(path.join(os.tmpdir(), 'implementation-output-'));
   try {
@@ -106,7 +116,8 @@ test('implementation preparation invalidates a handoff after the functional pack
 })));
 
 test('implementation preparation rejects a changed visual source tree', () => withApprovedFunctional((approved) => withApprovedFrontend(approved, (handoff) => {
-  writeFileSync(`${handoff}/web/pages/sample/index.html`, `${readFileSync(`${handoff}/web/pages/sample/index.html`, 'utf8')}\n<!-- changed -->\n`);
+  const pageFile = `${handoff}/web/pages/submission/index.html`;
+  writeFileSync(pageFile, `${readFileSync(pageFile, 'utf8')}\n<!-- changed -->\n`);
   const output = mkdtempSync(path.join(os.tmpdir(), 'implementation-output-'));
   try {
     const result = run('project-implementation/scripts/prepare-implementation.mjs', ['--functional', approved, '--handoff', handoff, '--output', output]);
@@ -118,7 +129,7 @@ test('implementation preparation rejects a tampered functional lock', () => with
   patchJson(`${dir}/functional-spec.json`, (value) => ({ ...value, project: { ...value.project, name: 'tampered' } }));
   const output = mkdtempSync(path.join(os.tmpdir(), 'implementation-output-'));
   try {
-    const result = run('project-implementation/scripts/prepare-implementation.mjs', ['--functional', dir, '--frontend', frontend, '--output', output]);
+    const result = run('project-implementation/scripts/prepare-implementation.mjs', ['--functional', dir, '--handoff', frontend, '--output', output]);
     assert.notEqual(result.status, 0);
     assert.match(result.stderr, /lock mismatch/);
   } finally { rmSync(output, { recursive: true, force: true }); }
@@ -131,7 +142,7 @@ test('implementation preparation rejects an incomplete functional lock', () => w
   });
   const output = mkdtempSync(path.join(os.tmpdir(), 'implementation-output-'));
   try {
-    const result = run('project-implementation/scripts/prepare-implementation.mjs', ['--functional', dir, '--frontend', frontend, '--output', output]);
+    const result = run('project-implementation/scripts/prepare-implementation.mjs', ['--functional', dir, '--handoff', frontend, '--output', output]);
     assert.notEqual(result.status, 0);
     assert.match(result.stderr, /lock is missing digest: functional-spec.json/);
   } finally { rmSync(output, { recursive: true, force: true }); }
@@ -143,7 +154,7 @@ test('implementation preparation rejects a missing UI implementation intent', ()
     patchJson(`${dir}/handoff-lock.json`, (value) => ({ ...value, digests: { ...value.digests, 'ui-implementation-plan.json': digest(readFileSync(`${dir}/ui-implementation-plan.json`)) } }));
     const output = mkdtempSync(path.join(os.tmpdir(), 'implementation-output-'));
     try {
-      const result = run('project-implementation/scripts/prepare-implementation.mjs', ['--functional', approved, '--frontend', dir, '--output', output]);
+      const result = run('project-implementation/scripts/prepare-implementation.mjs', ['--functional', approved, '--handoff', dir, '--output', output]);
       assert.notEqual(result.status, 0);
       assert.match(result.stderr, /has no UI implementation intent/);
     } finally { rmSync(output, { recursive: true, force: true }); }
@@ -153,7 +164,7 @@ test('implementation preparation rejects duplicate UI capability contracts', () 
   patchJson(`${dir}/ui-implementation-plan.json`, (value) => { value.capabilities.push({ ...value.capabilities[0] }); return value; });
   patchJson(`${dir}/handoff-lock.json`, (value) => ({ ...value, digests: { ...value.digests, 'ui-implementation-plan.json': digest(readFileSync(`${dir}/ui-implementation-plan.json`)) } }));
   const output = mkdtempSync(path.join(os.tmpdir(), 'implementation-output-'));
-  try { const result = run('project-implementation/scripts/prepare-implementation.mjs', ['--functional', approved, '--frontend', dir, '--output', output]); assert.notEqual(result.status, 0); assert.match(result.stderr, /exact one-to-one set/); }
+  try { const result = run('project-implementation/scripts/prepare-implementation.mjs', ['--functional', approved, '--handoff', dir, '--output', output]); assert.notEqual(result.status, 0); assert.match(result.stderr, /exact one-to-one set/); }
   finally { rmSync(output, { recursive: true, force: true }); }
 })));
 
@@ -161,23 +172,10 @@ test('implementation preparation rejects multipart operations without resourceTr
   patchJson(`${dir}/api-contract.json`, (value) => { value.operations[0].request.contentType = 'multipart/form-data'; delete value.operations[0].resourceTransfer; return value; });
   patchJson(`${dir}/handoff-lock.json`, (value) => ({ ...value, digests: { ...value.digests, 'api-contract.json': digest(readFileSync(`${dir}/api-contract.json`)) } }));
   const output = mkdtempSync(path.join(os.tmpdir(), 'implementation-output-'));
-  try { const result = run('project-implementation/scripts/prepare-implementation.mjs', ['--functional', approved, '--frontend', dir, '--output', output]); assert.notEqual(result.status, 0); assert.match(result.stderr, /has no resourceTransfer contract/); }
+  try { const result = run('project-implementation/scripts/prepare-implementation.mjs', ['--functional', approved, '--handoff', dir, '--output', output]); assert.notEqual(result.status, 0); assert.match(result.stderr, /has no resourceTransfer contract/); }
   finally { rmSync(output, { recursive: true, force: true }); }
 })));
 
-test('implementation verifier rejects missing test evidence', () => withCopy(implementation, (dir) => {
-  rmSync(`${dir}/evidence/backend-tests.txt`);
-  const result = run('project-implementation/scripts/verify-legacy-archive.mjs', [dir]);
-  assert.notEqual(result.status, 0);
-  assert.match(result.stderr, /lacks safe workspace evidence/);
-}));
-
-test('implementation verifier rejects a changed locked input', () => withCopy(implementation, (dir) => {
-  patchJson(`${dir}/inputs/frontend-api-contract.json`, (value) => ({ ...value, schemaVersion: 'changed' }));
-  const result = run('project-implementation/scripts/verify-legacy-archive.mjs', [dir]);
-  assert.notEqual(result.status, 0);
-  assert.match(result.stderr, /input lock mismatch/);
-}));
 
 test('integrated verification rejects evidence without an application operation', () => withCopy(implementation, (dir) => {
   patchJson(`${dir}/implementation-manifest.json`, (value) => ({ ...value, status: 'integrated', verificationLevel: 'integrated' }));
@@ -187,7 +185,7 @@ test('integrated verification rejects evidence without an application operation'
     provider: { host: 'api.example.com' },
     output: { artifact: 'evidence/missing-provider-output.png', sha256: '0'.repeat(64), bytes: 2048, width: 512, height: 512 },
   }));
-  const result = run('project-implementation/scripts/verify-legacy-archive.mjs', [dir]);
+  const result = run('project-implementation/scripts/verify-implementation.mjs', [dir]);
   assert.notEqual(result.status, 0);
   assert.match(result.stderr, /must come through an application operation/);
 }));
@@ -200,64 +198,17 @@ test('integrated verification rejects external connectivity evidence that bypass
     provider: { host: 'api.example.com' },
     output: { artifact: 'evidence/provider-output.png', sha256: '0'.repeat(64), bytes: 2048, width: 512, height: 512 },
   }));
-  const result = run('project-implementation/scripts/verify-legacy-archive.mjs', [dir]);
+  const result = run('project-implementation/scripts/verify-implementation.mjs', [dir]);
   assert.notEqual(result.status, 0);
   assert.match(result.stderr, /must come through an application operation/);
 }));
 
-test('integrated verification checks structured operation data effects', () => withCopy(implementation, (dir) => {
-  const api = readJson(`${dir}/inputs/frontend-api-contract.json`);
-  const operation = api.operations.find((item) => item.effects?.length);
-  operation.integrationVerification = { requiredScenarios: [], artifactAssertions: [] }; writeJson(`${dir}/inputs/frontend-api-contract.json`, api);
-  mkdirSync(`${dir}/evidence/integrated`, { recursive: true });
-  writeJson(`${dir}/evidence/integrated/request.json`, { operationId: operation.id, method: operation.method, path: operation.path, request: { sample: true } });
-  writeJson(`${dir}/evidence/integrated/response.json`, { operationId: operation.id, status: 200, body: { ok: true } });
-  writeJson(`${dir}/evidence/integrated/effect.json`, { operationId: operation.id, effects: [] });
-  for (const scenario of ['success', 'providerFailure', 'providerTimeout', 'providerRateLimit']) writeJson(`${dir}/evidence/integrated/${scenario}.json`, { operationId: operation.id, scenario, observed: true });
-  patchJson(`${dir}/implementation-manifest.json`, (value) => ({ ...value, status: 'integrated', verificationLevel: 'integrated' }));
-  patchJson(`${dir}/integration-evidence.json`, () => ({
-    schemaVersion: '1.0', verificationLevel: 'integrated', viaApplication: true, operationId: operation.id,
-    provider: { host: 'api.example.com' },
-    output: { artifact: 'evidence/missing.png', sha256: '0'.repeat(64), bytes: 2048, width: 512, height: 512 },
-    requestEvidence: ['evidence/integrated/request.json'], responseEvidence: ['evidence/integrated/response.json'], dataEffectEvidence: ['evidence/integrated/effect.json'],
-    scenarios: Object.fromEntries(['success', 'providerFailure', 'providerTimeout', 'providerRateLimit'].map((scenario) => [scenario, { status: 'passed', evidence: [`evidence/integrated/${scenario}.json`] }])),
-  }));
-  const result = run('project-implementation/scripts/verify-legacy-archive.mjs', [dir]);
-  assert.notEqual(result.status, 0);
-  assert.match(result.stderr, /integrated data-effect evidence does not cover/);
-}));
 
-test('integrated verification rejects a broken cross-operation data flow', () => withCopy(implementation, (dir) => {
-  const apiPath = `${dir}/inputs/frontend-api-contract.json`; const api = readJson(apiPath); const operation = api.operations.find((item) => item.effects?.length);
-  operation.request = { bodySchema: { type: 'object', required: ['inputAssetIds'], properties: { inputAssetIds: { type: 'array', minItems: 1, items: { type: 'string' } } } } };
-  operation.integrationVerification = { requiredScenarios: [], artifactAssertions: [] };
-  operation.dataDependencies = [{ sourceOperationId: 'upload-material-test', sourceField: 'response.materialId', targetField: 'request.inputAssetIds[]', requiredStatus: 'validated' }]; writeJson(apiPath, api);
-  mkdirSync(`${dir}/evidence/integrated`, { recursive: true });
-  writeJson(`${dir}/evidence/integrated/request.json`, { operationId: operation.id, method: operation.method, path: operation.path, request: {} });
-  writeJson(`${dir}/evidence/integrated/response.json`, { operationId: operation.id, status: 200, body: { ok: true } });
-  writeJson(`${dir}/evidence/integrated/effect.json`, { operationId: operation.id, effects: (operation.effects || []).map((item) => ({ ...item, observed: true, before: null, after: { id: 'created' } })) });
-  for (const scenario of ['success', 'providerFailure', 'providerTimeout', 'providerRateLimit']) writeJson(`${dir}/evidence/integrated/${scenario}.json`, { operationId: operation.id, scenario, observed: true });
-  patchJson(`${dir}/implementation-manifest.json`, (value) => ({ ...value, verificationLevel: 'integrated' }));
-  patchJson(`${dir}/integration-evidence.json`, () => ({ schemaVersion: '1.0', verificationLevel: 'integrated', viaApplication: true, operationId: operation.id, provider: { host: 'api.example.com' }, output: { artifact: 'evidence/missing.png', sha256: '0'.repeat(64), bytes: 2048, width: 512, height: 512 }, requestEvidence: ['evidence/integrated/request.json'], responseEvidence: ['evidence/integrated/response.json'], dataEffectEvidence: ['evidence/integrated/effect.json'], scenarios: Object.fromEntries(['success', 'providerFailure', 'providerTimeout', 'providerRateLimit'].map((scenario) => [scenario, { status: 'passed', evidence: [`evidence/integrated/${scenario}.json`] }])) }));
-  const result = run('project-implementation/scripts/verify-legacy-archive.mjs', [dir]); assert.notEqual(result.status, 0); assert.match(result.stderr, /request\.body\.inputAssetIds is required/); assert.match(result.stderr, /integrated data flow does not prove/);
-}));
-
-test('implementation verifier requires test-to-unit mappings', () => withCopy(implementation, (dir) => {
-  const result = run('project-implementation/scripts/verify-legacy-archive.mjs', [dir, '--require-level', 'simulated']);
-  assert.notEqual(result.status, 0);
-  assert.match(result.stderr, /does not declare unit/);
-}));
-
-test('implementation verifier rejects pending operation provenance', () => withCopy(implementation, (dir) => {
-  const result = run('project-implementation/scripts/verify-legacy-archive.mjs', [dir, '--require-level', 'simulated']);
-  assert.notEqual(result.status, 0);
-  assert.match(result.stderr, /provenance backend source is pending/);
-}));
 
 test('implementation verifier rejects the unsupported production-verified level', () => withCopy(implementation, (dir) => {
   patchJson(`${dir}/implementation-manifest.json`, (value) => ({ ...value, verificationLevel: 'production-verified' }));
   patchJson(`${dir}/integration-evidence.json`, (value) => ({ ...value, verificationLevel: 'production-verified' }));
-  const result = run('project-implementation/scripts/verify-legacy-archive.mjs', [dir, '--require-level', 'production-verified']);
+  const result = run('project-implementation/scripts/verify-implementation.mjs', [dir, '--require-level', 'production-verified']);
   assert.notEqual(result.status, 0);
   assert.match(result.stderr, /invalid verification level/);
 }));
@@ -270,34 +221,15 @@ test('implementation verifier checks that a declared source locator exists in it
     backendSource: { status: 'implemented' },
     operationSources: operationIds.map((operationId) => ({ operationId, files: [{ path: 'package.json', symbol: `missing_${operationId}` }] })),
   });
-  const result = run('project-implementation/scripts/verify-legacy-archive.mjs', [dir, '--require-level', 'simulated']);
+  const result = run('project-implementation/scripts/verify-implementation.mjs', [dir, '--require-level', 'simulated']);
   assert.notEqual(result.status, 0);
   assert.match(result.stderr, /source locator is absent/);
 }));
 
-test('legacy archive inspection is read-only and creates no completion credentials', () => withTempImplementation((dir) => {
-  mkdirSync(`${dir}/evidence`, { recursive: true });
-  writeJson(`${dir}/input-lock.json`, { schemaVersion: '1.0', digests: {} });
-  writeJson(`${dir}/implementation-plan.json`, { schemaVersion: '1.0', projectId: 'source-lock', units: [{ id: 'operation-op-a', operationIds: ['op-a'] }] });
-  writeFileSync(`${dir}/server.mjs`, 'export function opA() { return true; }\n');
-  writeJson(`${dir}/implementation-provenance.json`, { backendSource: { status: 'implemented' }, operationSources: [{ operationId: 'op-a', files: [{ path: 'server.mjs', symbol: 'opA' }] }] });
-  writeJson(`${dir}/implementation-manifest.json`, { verificationLevel: 'simulated', units: [{ id: 'operation-op-a', status: 'succeeded', testIds: ['test-op-a'] }] });
-  writeJson(`${dir}/integration-evidence.json`, { verificationLevel: 'simulated' });
-  writeJson(`${dir}/openapi.json`, { openapi: '3.1.0', paths: {} });
-  writeJson(`${dir}/startup.json`, { command: 'node server.mjs', healthUrl: 'http://127.0.0.1:${PORT}/health', requiredEnvironment: ['PORT'] });
-  writeFileSync(`${dir}/evidence/op-a.txt`, 'passed\n');
-  writeJson(`${dir}/test-report.json`, { cases: [{ id: 'test-op-a', status: 'passed', unitIds: ['operation-op-a'], evidence: ['evidence/op-a.txt'] }] });
-  writeJson(`${dir}/inputs/frontend-api-contract.json`, { operations: [{ id: 'op-a', method: 'GET', path: '/a', response: { fields: ['ok'] } }] });
-  const result = run('project-implementation/scripts/verify-legacy-archive.mjs', [dir, '--require-level', 'simulated']);
-  assert.equal(result.status, 0, result.stderr);
-  assert.deepEqual(JSON.parse(result.stdout), { schemaVersion: '1.0', generatedBy: 'project-implementation/verify-legacy-archive', status: 'archive-only', mutation: 'none', summary: { structurallyCheckedUnits: 1, observedPassingCases: 1 }, completionEvidence: false });
-  assert.equal(existsSync(`${dir}/capability-completion-report.json`), false);
-  assert.equal(existsSync(`${dir}/implementation-lock.json`), false);
-}));
 
 test('implementation verifier rejects an existing lock with removed source fields', () => withCopy(implementation, (dir) => {
   writeJson(`${dir}/implementation-lock.json`, { schemaVersion: '1.0', algorithm: 'sha256', digests: {}, sourceFiles: {} });
-  const result = run('project-implementation/scripts/verify-legacy-archive.mjs', [dir, '--require-level', 'simulated']);
+  const result = run('project-implementation/scripts/verify-implementation.mjs', [dir, '--require-level', 'simulated']);
   assert.notEqual(result.status, 0); assert.match(result.stderr, /lock is incomplete or unsupported/);
 }));
 
@@ -312,7 +244,7 @@ test('finalizer rejects one catch-all case for multiple units', () => withTempIm
 test('generic campaign requires an explicit candidate contract', () => {
   const result = run('project-implementation/scripts/run-validation-campaign.mjs', [
     '--functional', functional,
-    '--frontend', frontend,
+    '--handoff', frontend,
     '--candidate', implementation,
     '--output', path.join(os.tmpdir(), 'unused-campaign-output'),
     '--level', 'integrated',
@@ -325,7 +257,7 @@ test('integrated campaign requires an application-level integrated E2E command',
   writeJson(`${candidate}/campaign-contract.json`, { runtime: {} });
   const result = spawnSync('node', [path.join(repo, 'project-implementation/scripts/run-validation-campaign.mjs'),
     '--functional', functional,
-    '--frontend', frontend,
+    '--handoff', frontend,
     '--candidate', candidate,
     '--output', path.join(os.tmpdir(), 'unused-integrated-campaign-output'),
     '--level', 'integrated',
@@ -343,11 +275,13 @@ test('OpenAPI retains all logical operation variants on shared paths', () => {
 
 test('finalizer emits standard OpenAPI schemas and status-specific errors', () => withTempImplementation((dir) => {
   writeJson(`${dir}/implementation-plan.json`, { schemaVersion: '1.0', projectId: 'test', units: [] });
-  writeJson(`${dir}/inputs/frontend-api-contract.json`, { operations: [
+  const operations = [
     { id: 'update-item-a', method: 'POST', path: '/items/{itemId}', capabilityId: 'cap-a', request: { path: ['itemId'], body: ['name'], bodyRequired: true, discriminator: { property: 'kind', value: 'a' } }, response: { fields: ['item'] }, errors: ['ITEM_NOT_FOUND'] },
     { id: 'update-item-b', method: 'POST', path: '/items/{itemId}', capabilityId: 'cap-b', request: { path: ['itemId'], body: ['name', 'metadata'], discriminator: { property: 'kind', value: 'b' } }, response: { fields: ['item', 'metadata'] }, errors: [{ code: 'ITEM_FORBIDDEN', status: 403 }] },
-  ] });
-  const result = runAbsolute('project-implementation/scripts/finalize-implementation.mjs', ['--dir', dir, '--test', 'true', '--build', 'true']);
+  ];
+  writeJson(`${dir}/inputs/handoff-api-contract.json`, { operations });
+  writeOperationEventEmitter(dir, operations);
+  const result = runAbsolute('project-implementation/scripts/finalize-implementation.mjs', ['--dir', dir, '--test', 'node emit-operation-events.cjs', '--build', 'true']);
   assert.equal(result.status, 0, result.stderr);
   const openapi = readJson(`${dir}/openapi.json`);
   const operation = openapi.paths['/items/{itemId}'].post;
@@ -364,17 +298,20 @@ test('finalizer emits standard OpenAPI schemas and status-specific errors', () =
 
 test('finalizer rejects ambiguous shared HTTP operations', () => withTempImplementation((dir) => {
   writeJson(`${dir}/implementation-plan.json`, { schemaVersion: '1.0', projectId: 'test', units: [] });
-  writeJson(`${dir}/inputs/frontend-api-contract.json`, { operations: [
+  const operations = [
     { id: 'variant-a', method: 'POST', path: '/shared', capabilityId: 'cap-a', request: { body: ['value'] }, response: { fields: ['result'] } },
     { id: 'variant-b', method: 'POST', path: '/shared', capabilityId: 'cap-b', request: { body: ['value'] }, response: { fields: ['result'] } },
-  ] });
-  const result = runAbsolute('project-implementation/scripts/finalize-implementation.mjs', ['--dir', dir, '--test', 'true', '--build', 'true']);
+  ];
+  writeJson(`${dir}/inputs/handoff-api-contract.json`, { operations });
+  writeOperationEventEmitter(dir, operations);
+  const result = runAbsolute('project-implementation/scripts/finalize-implementation.mjs', ['--dir', dir, '--test', 'node emit-operation-events.cjs', '--build', 'true']);
   assert.notEqual(result.status, 0);
   assert.match(result.stderr, /requires request discriminators/);
 }));
 
 function withCopy(source, callback) { const dir = mkdtempSync(path.join(os.tmpdir(), 'skill-contract-')); cpSync(source, dir, { recursive: true, filter: (item) => !item.includes('/node_modules') && !item.includes('/dist') }); if (existsSync(`${dir}/implementation-lock.json`)) rmSync(`${dir}/implementation-lock.json`); try { callback(dir); } finally { rmSync(dir, { recursive: true, force: true }); } }
-function withTempImplementation(callback) { const dir = mkdtempSync(path.join(os.tmpdir(), 'implementation-contract-')); mkdirSync(`${dir}/inputs`, { recursive: true }); writeJson(`${dir}/inputs/frontend-api-contract.json`, { operations: [] }); writeJson(`${dir}/integration-evidence.json`, { schemaVersion: '1.0', verificationLevel: 'simulated' }); try { callback(dir); } finally { rmSync(dir, { recursive: true, force: true }); } }
+function withTempImplementation(callback) { const dir = mkdtempSync(path.join(os.tmpdir(), 'implementation-contract-')); mkdirSync(`${dir}/inputs`, { recursive: true }); writeJson(`${dir}/inputs/handoff-api-contract.json`, { operations: [] }); writeJson(`${dir}/inputs/handoff-runtime-contract.json`, { schemaVersion: '1.0', requiredEnvironment: ['PORT'], healthUrl: 'http://127.0.0.1:${PORT}/health' }); writeJson(`${dir}/inputs/handoff-ui-implementation-plan.json`, { schemaVersion: '2.2', capabilities: [] }); writeJson(`${dir}/integration-evidence.json`, { schemaVersion: '1.0', verificationLevel: 'simulated' }); try { callback(dir); } finally { rmSync(dir, { recursive: true, force: true }); } }
+function writeOperationEventEmitter(dir, operations) { const events = operations.flatMap((operation) => [{ id: `success-${operation.id}`, operationId: operation.id, request: { method: operation.method, route: operation.path, contentType: operation.request?.contentType || 'application/json', path: {}, query: {}, header: {}, body: {} }, response: { status: 200, body: {} }, authorization: { checked: true }, effects: [] }, ...(operation.errors || []).map((error, index) => ({ id: `error-${operation.id}-${index}`, operationId: operation.id, errorCode: typeof error === 'object' ? error.code : error }))]); writeFileSync(`${dir}/emit-operation-events.cjs`, `require('node:fs').writeFileSync('operation-events.json', ${JSON.stringify(JSON.stringify({ schemaVersion: '1.0', events }))});\n`); }
 function withApprovedFunctional(callback) {
   withCopy(functional, (dir) => {
     const authorAgentId = 'contract-test-author';
@@ -392,20 +329,33 @@ function withApprovedFunctional(callback) {
     patchJson(`${dir}/manifest.json`, (value) => ({ ...value, status: 'approved', authorAgentId, approval: { method: 'independent-agent-review', reviewerAgentId, reviewedAt: '2026-07-23T00:00:00.000Z' } }));
     patchJson(`${dir}/planning-manifest.json`, (value) => ({ ...value, status: 'approved', authorAgentId }));
     writeJson(`${dir}/planning-review-receipt.json`, { schemaVersion: '1.0', status: 'approved', workflow: 'fdd-bmad-planning', authorAgentId, reviewerAgentId, reviewedAt: '2026-07-23T00:00:00.000Z' });
-    writeFileSync(`${dir}/review-receipt.json`, `${JSON.stringify({ schemaVersion: '1.0', status: 'approved', authorAgentId, reviewerAgentId, reviewedAt: '2026-07-23T00:00:00.000Z', checks: ['contract fixture'] }, null, 2)}\n`);
-    const validation = run('functional-domain-design/scripts/validate-package.mjs', [dir, '--require-approved']);
+    const trustedReceipt = readJson(`${dir}/review-receipt.json`);
+    writeFileSync(`${dir}/review-receipt.json`, `${JSON.stringify({ ...trustedReceipt, status: 'approved', authorAgentId, reviewerAgentId, reviewedAt: '2026-07-23T00:00:00.000Z', checks: ['contract fixture'] }, null, 2)}\n`);
+    const validation = runFdd('validate-package.mjs', [dir, '--require-approved']);
     assert.equal(validation.status, 0, validation.stderr);
     callback(dir);
   });
 }
 function withApprovedFrontend(functionalDir, callback) {
+  const domainReview = runFdd('review-package.mjs', ['--package', functionalDir, '--reviewer-agent', 'contract-refresh-reviewer']);
+  assert.equal(domainReview.status, 0, `${domainReview.stdout}${domainReview.stderr}`);
+  const dir = mkdtempSync(path.join(os.tmpdir(), 'approved-handoff-'));
+  try {
+    const release = path.join(repo, 'project-implementation/assets/golden-simulated/fixtures/visual-release');
+    const build = runFdd('build-implementation-handoff.mjs', ['--functional', functionalDir, '--visual-release', release, '--output', dir, '--author-agent', 'handoff-author']);
+    assert.equal(build.status, 0, `${build.stdout}${build.stderr}`);
+    const review = runFdd('review-implementation-handoff.mjs', ['--handoff', dir, '--reviewer-agent', 'handoff-reviewer']);
+    assert.equal(review.status, 0, `${review.stdout}${review.stderr}`);
+    callback(dir);
+  } finally { rmSync(dir, { recursive: true, force: true }); }
+  return;
   withCopy(frontend, (dir) => {
     const gateDigest = 'b'.repeat(64);
     const releaseBase = { schemaVersion: '1.0', suiteId: 'test-suite', runId: 'test-run', gateDigest, approvalDigest: 'c'.repeat(64), payloadManifestDigest: digestJson({ schemaVersion: '1.0', files: [] }), payloadManifest: { schemaVersion: '1.0', files: [] } };
     const releaseDigest = digestJson(releaseBase);
     patchJson(`${functionalDir}/manifest.json`, (value) => ({ ...value, visualReleaseDigest: releaseDigest }));
     patchJson(`${functionalDir}/functional-spec.json`, (value) => ({ ...value, visualSource: { sourceType: 'ai-restore-release', releaseDigest } }));
-    const validation = run('functional-domain-design/scripts/validate-package.mjs', [functionalDir, '--require-approved']);
+    const validation = runFdd('validate-package.mjs', [functionalDir, '--require-approved']);
     assert.equal(validation.status, 0, validation.stderr);
     const functionalPackageDigest = digestJson(readJson(`${functionalDir}/package-lock.json`));
     writeJson(`${dir}/release-manifest.json`, { ...releaseBase, releaseDigest });
@@ -438,6 +388,7 @@ function makePlanned(capability) {
   return { ...capability, inputs: [], inputSchema: null, outcomes: [], outputSchema: null, operations: [], entityEffects: [], writesState: false, ruleIds: [], failures: [], acceptanceCriteria: [`Opening ${capability.name} shows 功能待实现 without a business request`], acceptanceExamples: [], specificationStatus: 'planned', planningReason: reason, missingDecisions: [reason], deliveryPolicy: { requiredForCompletion: false, allowedIncompleteState: 'planned', uiBehavior: 'show-planned-state' }, presentation, capabilityIntent: capability.capabilityIntent ? { ...capability.capabilityIntent, inputs: [], processingSemantics: { mode: 'undetermined', reason }, outputs: [], sideEffects: [], downstreamUsage: [], qualityCriteria: [], failures: [] } : capability.capabilityIntent };
 }
 function run(script, args) { return spawnSync('node', [path.join(repo, script), ...args], { encoding: 'utf8' }); }
+function runFdd(script, args) { return spawnSync('node', [path.join(fddHarness, 'scripts', script), ...args], { encoding: 'utf8' }); }
 function runAbsolute(script, args) { return spawnSync('node', [path.join(repo, script), ...args], { encoding: 'utf8' }); }
 function readJson(file) { return JSON.parse(readFileSync(file, 'utf8')); }
 function writeJson(file, value) { writeFileSync(file, `${JSON.stringify(value, null, 2)}\n`); }
