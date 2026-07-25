@@ -6,7 +6,7 @@
   "status": "approved",
   "authorAgentId": "golden-domain-author",
   "reviewerAgentId": "golden-domain-reviewer",
-  "reviewedAt": "2026-07-25T03:30:10.418Z",
+  "reviewedAt": "2026-07-25T03:55:05.556Z",
   "checks": [
     "all blockers resolved",
     "all capability specifications complete",

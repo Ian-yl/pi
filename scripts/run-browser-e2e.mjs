@@ -313,7 +313,12 @@ async function verifyItemIndependence(cases, baseUrl) {
     if (Number.isFinite(requestCount) && requestCount !== collection.length) findings.push(`independent-media collection length (${collection.length}) does not equal the requested quantity (${requestCount}): ${capabilityId}`);
     const nonDefault = plan.controlDefault === undefined ? null : String(requestCount) !== String(plan.controlDefault);
     if (plan.nonDefaultValueRequired && nonDefault === false) findings.push(`independent-media quantity used the control default value (${plan.controlDefault}); a non-default quantity is required so a page default cannot masquerade as an explicit choice: ${capabilityId}`);
-    kase.observed.itemIndependence = { capabilityId, count: collection.length, requestCount, nonDefault, uniqueUrls: new Set(urls).size, uniqueIds: new Set(ids).size, uniqueDigests: new Set(digests).size, fetched: digests.length };
+    // Interaction correspondence: activating each rendered item resolves that item's own resource, so a
+    // single result cannot stand in for the whole collection at the interaction layer. Trace-derived only.
+    const itemPaths = new Set(urls.map((url) => { try { return new URL(url, baseUrl).pathname; } catch { return url; } }));
+    const revealed = new Set((kase.observed?.networkRequests || []).filter((item) => String(item.method).toUpperCase() === 'GET' && itemPaths.has(item.path) && item.status >= 200 && item.status < 300).map((item) => item.path)).size;
+    if (contract.uniqueFileRequired && revealed !== itemPaths.size) findings.push(`independent-media items do not each resolve their own resource on interaction: ${capabilityId} (${revealed} distinct item interactions for ${itemPaths.size} items)`);
+    kase.observed.itemIndependence = { capabilityId, count: collection.length, requestCount, nonDefault, revealed, uniqueUrls: new Set(urls).size, uniqueIds: new Set(ids).size, uniqueDigests: new Set(digests).size, fetched: digests.length };
   }
   return findings;
 }

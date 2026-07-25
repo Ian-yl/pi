@@ -123,8 +123,8 @@ test('layout integrity gate rejects a business action that removes release ancho
     const page = `${dir}/web/pages/submission/index.html`;
     let html = readFileSync(page, 'utf8');
     html = html.replace(
-      "document.querySelector('[data-history-state]').textContent=data.submissionId})",
-      "document.querySelectorAll('main input[data-vr-id]').forEach(el=>el.remove());document.querySelector('[data-history-state]').textContent=data.submissionId})"
+      "document.querySelector('[data-history-state]').textContent=data.submissionId",
+      "document.querySelectorAll('main input[data-vr-id]').forEach(el=>el.remove());document.querySelector('[data-history-state]').textContent=data.submissionId"
     );
     writeFileSync(page, html);
     const check = spawnSync('node', [runBrowser, '--dir', dir], { encoding: 'utf8', timeout: 60000 });

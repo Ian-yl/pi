@@ -1,11 +1,11 @@
 {
   "schemaVersion": "1.0",
   "algorithm": "sha256",
-  "functionalPackageDigest": "533b8a4a24d149d6166b64cdfaef553b266475bca27879a5d52f49b8a4fbaf0f",
+  "functionalPackageDigest": "520ca6916002af4c76d550dbcac84ab2922a24a7f0c9444e0f34023dfec2bfd8",
   "visualReleaseDigest": "961069a7aa1f6c1f88f6806588230c530095905f80281efd7bacaa4f2310d1ec",
   "sourceTreeDigest": "1c351538968e657d634275343d892ba8389790f33472e922b3798b806e85787e",
   "digests": {
-    "handoff-manifest.json": "8ecbcd9564857acd29f5246d57db2d1876f762c1000799f29c4e75ec3ec1baa7",
+    "handoff-manifest.json": "5b95e7cf6e39dcd515cdcb80c4283d93cbc84c169da86644494ed5a926df266c",
     "visual-source.json": "195b5d4cb640bceec677acbf07e783b1de16ddf4590a2aa9310f1a664936a651",
     "release-manifest.json": "b84c01e3d11e90bf1c27d65a77c8040fce27dd3e3facde114ec120ac8ba4a97e",
     "suite-gate.json": "df3a61c8f089be157f194cc94090a4a8240bd27b2064017ddfb060d32591bd1f",
@@ -20,9 +20,9 @@
     "visual-controls.json": "b04b26bcd36a82f2a6dd1a18abf29315296cce3f7a010806e32309f674a9db34",
     "ui-implementation-plan.json": "9ecce2ce2c5669ae7666542650c5dd555f7182c3e729be3b21455a8db87c2584",
     "api-contract.json": "8024f88c16a4843beeffab81fc4ae04d6ae70132ba57264605809a844759d06c",
-    "domain-bindings.json": "915f47341d2933988188ff1067102eb5ae5e3f41188bee00d7d659db58ba6b5d",
+    "domain-bindings.json": "a35c6c8492c985af8a08361a88b312c03f4c1730df4a03a23b4fe55db44425b4",
     "runtime-contract.json": "bdf3bbcd4f6abbb0bfeec14bd0730e3714b3006c6d8e540140c6971e33ca3739",
-    "handoff-review-receipt.json": "930c2c0dc15fff8a38b61b5419294c42c80d0f98d3a3b7aab257019056eea5f7",
+    "handoff-review-receipt.json": "519301eb894c5b3247cd8e8f06738e31615d9a24b9a8018c9ac01285dd44091e",
     "web": "1c351538968e657d634275343d892ba8389790f33472e922b3798b806e85787e"
   }
 }

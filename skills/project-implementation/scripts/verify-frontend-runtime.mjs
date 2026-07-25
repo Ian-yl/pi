@@ -31,6 +31,7 @@ for (const capability of (functionalSpec.capabilities || []).filter((item) => it
   if (contract.uniqueUrlRequired && evidence.uniqueUrls !== evidence.count) errors.push(`independent-media items do not all resolve to unique resource locators: ${capability.id}`);
   if (contract.uniqueIdRequired && evidence.uniqueIds !== evidence.count) errors.push(`independent-media items do not all resolve to unique identifiers: ${capability.id}`);
   if (contract.uniqueFileRequired && (evidence.fetched !== evidence.count || evidence.uniqueDigests !== evidence.count)) errors.push(`independent-media items do not all fetch a distinct resource: ${capability.id}`);
+  if (contract.uniqueFileRequired && evidence.revealed !== evidence.count) errors.push(`independent-media items do not each resolve their own resource on interaction: ${capability.id}`);
   if (nonDefaultRequired && evidence.nonDefault !== true) errors.push(`independent-media quantity used the control default value rather than an explicit non-default choice: ${capability.id}`);
 }
 for (const item of cases.values()) {

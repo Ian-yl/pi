@@ -50,6 +50,10 @@ test('N3b: collection items reusing a resource locator are rejected (unique-URL 
   rejects(withMutatedEvidence((evidence) => { evidence.uniqueUrls = evidence.count - 1; }), /do not all resolve to unique resource locators/);
 });
 
+test('N5: collection items not each individually resolved in the live app are rejected (interaction correspondence)', () => {
+  rejects(withMutatedEvidence((evidence) => { evidence.revealed = evidence.count - 1; }), /do not each resolve their own resource on interaction/);
+});
+
 test('N4: a simulated-level workspace cannot claim integrated-level completion', () => {
   const result = spawnSync('node', [path.join(root, 'scripts/verify-implementation.mjs'), golden, '--require-level', 'integrated'], { encoding: 'utf8' });
   assert.notEqual(result.status, 0);
