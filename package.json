@@ -3,12 +3,12 @@
   "private": true,
   "type": "module",
   "engines": { "node": ">=20" },
+  "devDependencies": { "playwright": "^1.61.1" },
   "scripts": {
     "implementation:prepare": "node scripts/prepare-implementation.mjs",
     "bmad:export": "node scripts/export-bmad-stories.mjs",
     "implementation:finalize": "node scripts/finalize-implementation.mjs",
     "implementation:verify": "node scripts/verify-implementation.mjs",
-    "legacy:audit": "node scripts/verify-legacy-archive.mjs",
     "frontend:run-e2e": "node scripts/run-browser-e2e.mjs",
     "frontend:audit-placeholders": "node scripts/audit-placeholders.mjs",
     "frontend:verify-runtime": "node scripts/verify-frontend-runtime.mjs",

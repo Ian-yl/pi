@@ -8,12 +8,15 @@
     "scripts/finalize-implementation.mjs",
     "scripts/build-operation-receipts.mjs",
     "scripts/verify-implementation.mjs",
-    "scripts/verify-legacy-archive.mjs",
     "scripts/run-browser-e2e.mjs",
     "scripts/verify-frontend-runtime.mjs",
     "scripts/audit-placeholders.mjs",
     "scripts/run-validation-campaign.mjs",
-    "scripts/lib/handoff.mjs"
+    "scripts/lib/handoff.mjs",
+    "scripts/lib/origin-proxy.mjs",
+    "scripts/lib/asset-references.mjs",
+    "validators/fdd-2.2.0/validate-package.mjs",
+    "validators/handoff-2.2/review-handoff.mjs"
   ],
   "references": ["references/input-contract.md", "references/campaign-contract.md"]
 }

@@ -7,9 +7,9 @@ const args = parseArgs(process.argv.slice(2));
 if (!args.dir) usage();
 const dir = resolve(args.dir);
 const plan = readJSON(`${dir}/implementation-plan.json`);
-const api = readJSON(exists(`${dir}/inputs/handoff-api-contract.json`) ? `${dir}/inputs/handoff-api-contract.json` : `${dir}/inputs/frontend-api-contract.json`);
-const runtime = exists(`${dir}/inputs/handoff-runtime-contract.json`) ? readJSON(`${dir}/inputs/handoff-runtime-contract.json`) : {};
-const uiPlan = exists(`${dir}/inputs/handoff-ui-implementation-plan.json`) ? readJSON(`${dir}/inputs/handoff-ui-implementation-plan.json`) : { capabilities: [] };
+const api = readJSON(`${dir}/inputs/handoff-api-contract.json`);
+const runtime = readJSON(`${dir}/inputs/handoff-runtime-contract.json`);
+const uiPlan = readJSON(`${dir}/inputs/handoff-ui-implementation-plan.json`);
 const requiresFrontendRuntime = (uiPlan.capabilities || []).some((item) => item.presentation?.mode !== 'headless');
 const integrationEvidence = exists(`${dir}/integration-evidence.json`)
   ? readJSON(`${dir}/integration-evidence.json`)
@@ -18,6 +18,7 @@ const verificationLevel = integrationEvidence.verificationLevel || 'simulated';
 if (!exists(`${dir}/integration-evidence.json`)) writeJSON(`${dir}/integration-evidence.json`, integrationEvidence);
 mkdirSync(`${dir}/evidence`, { recursive: true });
 if (existsSync(`${dir}/unit-test-report.json`)) rmSync(`${dir}/unit-test-report.json`);
+if (existsSync(`${dir}/operation-events.json`)) rmSync(`${dir}/operation-events.json`);
 
 const backend = run(args.test || 'npm test', 'backend-tests.txt');
 const frontend = requiresFrontendRuntime ? run(args.build || 'npm run build', 'frontend-build.txt') : { status: 'passed', command: 'not applicable: all presentations are headless' };
@@ -34,7 +35,7 @@ const commandCases = [
   ] : [])
 ];
 const unitReport = exists(`${dir}/unit-test-report.json`) ? readJSON(`${dir}/unit-test-report.json`) : { cases: [] };
-const operationReceipts = exists(`${dir}/inputs/handoff-api-contract.json`) ? runNode('build-operation-receipts.mjs', 'operation-receipts.txt', [dir]) : { status: 'passed', command: 'not applicable: archive compatibility input' };
+const operationReceipts = runNode('build-operation-receipts.mjs', 'operation-receipts.txt', [dir]);
 const browserUnitIds = new Set((plan.units || []).filter((unit) => String(unit.type).startsWith('ui-')).map((unit) => unit.id));
 const unitCases = (Array.isArray(unitReport.cases) ? unitReport.cases : []).filter((item) => !item.unitIds?.some((id) => browserUnitIds.has(id)));
 const browserUnitCases = [...browserUnitIds].map((unitId) => ({ id: `runtime-${unitId}`, status: frontendRuntime.status, unitIds: [unitId], evidence: ['frontend-runtime-report.json', 'browser-e2e-report.json', 'placeholder-audit-report.json'] }));

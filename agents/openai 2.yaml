@@ -1,0 +1,4 @@
+interface:
+  display_name: "项目实现"
+  short_description: "消费功能领域规格和前端交付包，完成全栈实现与独立验收"
+  default_prompt: "Use $project-implementation to implement and verify a full project from approved functional and frontend delivery packages."
