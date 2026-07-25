@@ -122,7 +122,13 @@ write('planning-manifest.json', planningManifest);
 write('planning-artifacts.json', planningArtifacts);
 write('planning-review-receipt.json', { schemaVersion: '1.0', status: 'approved', workflow: 'fdd-bmad-planning', authorAgentId: manifest.authorAgentId, reviewerAgentId, reviewedAt: manifest.approval.reviewedAt, checks: ['project understanding reviewed', 'requirements analysis reviewed', 'domain design matches capability definitions', 'formal package semantics reviewed'] });
 if (existsSync(`${dir}/approval-runtime`)) rmSync(`${dir}/approval-runtime`, { recursive: true, force: true });
-const trustedValidatorId = 'fdd-validator-2.2.0';
+// Signing pins the latest immutable validator revision. A new approval can never be minted against a
+// superseded revision to evade its added rules — an explicit downgrade request is rejected, so the only
+// way to keep an older revision is to already hold an older approval receipt (never to sign a new one).
+const LATEST_VALIDATOR_ID = 'fdd-validator-2.2.1';
+const requestedValidatorId = args['validator-version'] ? `fdd-validator-${args['validator-version']}` : LATEST_VALIDATOR_ID;
+if (requestedValidatorId !== LATEST_VALIDATOR_ID) { console.error(`cannot sign an approval with the superseded validator revision ${requestedValidatorId}; new approvals are pinned to the latest ${LATEST_VALIDATOR_ID}`); process.exit(1); }
+const trustedValidatorId = LATEST_VALIDATOR_ID;
 const trustedValidatorPath = resolve(import.meta.dirname, `../validators/${trustedValidatorId.replace('fdd-validator-', 'fdd-')}/validate-package.mjs`);
 write('review-receipt.json', { schemaVersion: '1.4', contractVersion: `functional-domain/${manifest.schemaVersion}`, trustedValidatorId, validatorDigest: treeDigest(resolve(trustedValidatorPath, '..')), status: 'approved', authorAgentId: manifest.authorAgentId, reviewerAgentId, reviewedAt: manifest.approval.reviewedAt, checks: ['all blockers resolved', 'all capability specifications complete', 'evidence statuses reviewed', 'acceptance criteria executable'] });
 const validation = spawnSync('node', [resolve(import.meta.dirname, 'validate-package.mjs'), dir, '--require-approved'], { encoding: 'utf8' });

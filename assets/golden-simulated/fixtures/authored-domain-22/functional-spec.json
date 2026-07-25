@@ -1935,6 +1935,11 @@
               "singleItemPerCall": true,
               "distinctMediaPerCall": true,
               "outputSemantic": "each provider invocation returns exactly one independent media item with its own media resource URL"
+            },
+            "concurrency": {
+              "maxParallel": 2,
+              "ordering": "unordered",
+              "failurePolicy": "fail-fast"
             }
           },
           "integrationBindings": [
@@ -2173,7 +2178,84 @@
             "page-module:options-section",
             "product-context:goals"
           ]
-        }
+        },
+        "inputUtilization": [
+          {
+            "inputId": "submission-title",
+            "disposition": "application-only",
+            "evidenceAnchors": [
+              "page:submission",
+              "page-module:submit-submission",
+              "system-node:submit-node",
+              "page-module:identity-section",
+              "page-module:options-section",
+              "page-module:title-field",
+              "page-module:category-field",
+              "page-module:quantity-field",
+              "product-context:users",
+              "product-context:needs"
+            ],
+            "reason": "used only by the application (submission metadata / item count), not forwarded to the external provider"
+          },
+          {
+            "inputId": "submission-category",
+            "disposition": "application-only",
+            "evidenceAnchors": [
+              "page:submission",
+              "page-module:submit-submission",
+              "system-node:submit-node",
+              "page-module:identity-section",
+              "page-module:options-section",
+              "page-module:title-field",
+              "page-module:category-field",
+              "page-module:quantity-field",
+              "product-context:users",
+              "product-context:needs"
+            ],
+            "reason": "used only by the application (submission metadata / item count), not forwarded to the external provider"
+          },
+          {
+            "inputId": "result-quantity",
+            "disposition": "application-only",
+            "evidenceAnchors": [
+              "page:submission",
+              "page-module:submit-submission",
+              "system-node:submit-node",
+              "page-module:identity-section",
+              "page-module:options-section",
+              "page-module:title-field",
+              "page-module:category-field",
+              "page-module:quantity-field",
+              "product-context:users",
+              "product-context:needs"
+            ],
+            "reason": "used only by the application (submission metadata / item count), not forwarded to the external provider"
+          },
+          {
+            "inputId": "upload-source-file-assetIds",
+            "disposition": "provider-mapped",
+            "mapping": {
+              "providerParam": "provider.inputs",
+              "transform": "identity"
+            },
+            "evidenceAnchors": [
+              "page:submission",
+              "page-module:submit-submission",
+              "system-node:submit-node",
+              "page-module:identity-section",
+              "page-module:options-section",
+              "page-module:title-field",
+              "page-module:category-field",
+              "page-module:quantity-field",
+              "product-context:users",
+              "product-context:needs"
+            ],
+            "resourceResolution": {
+              "method": "asset-id-dereference",
+              "detail": "resolve each uploaded asset id to its stored bytes and hand the resource to the provider as a generation source"
+            }
+          }
+        ]
       }
     },
     {

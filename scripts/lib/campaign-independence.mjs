@@ -27,3 +27,37 @@ export function independentItemsCampaignFindings(operation, ingress, externalObs
   else if (incorporated !== responseCount) findings.push(`independent-items operation ${operation.id} response does not incorporate a distinct external result per item (${incorporated} of ${responseCount})`);
   return findings;
 }
+
+// Concurrency teeth: the campaign injects a fixed upstream delay so overlap is deterministic, then judges
+// only the observable maximum in-flight external-call count against the declared contract — never how the
+// app schedules (Promise.all, queue, worker pool are all fine). Ceiling: in-flight never exceeds
+// maxParallel. Floor: when quantity>=2 and maxParallel>=2, real parallelism must be observed (>=2 in
+// flight) so a declared-parallel-but-actually-serial provider cannot pass by timing luck.
+export function concurrencyFindings(provider, quantity, maxInFlight) {
+  if (provider?.outputMode !== 'independent-items') return [];
+  const findings = [];
+  const declared = Number(provider.concurrency?.maxParallel);
+  const observed = Number(maxInFlight);
+  if (Number.isFinite(declared) && Number.isFinite(observed) && observed > declared) findings.push(`independent-items provider ran ${observed} external calls in flight, exceeding its declared maxParallel ${declared}`);
+  if (Number(quantity) >= 2 && declared >= 2 && observed < 2) findings.push(`independent-items provider declared maxParallel ${declared} but was observed running serially (max ${observed} in flight) under delay injection — the declared parallelism was never exercised`);
+  return findings;
+}
+
+// Visual sampling receipt: the "content-level collage" boundary is not machine-detectable, so integrated
+// qualification carries a process gate rather than an image judgment. The machine checks only that a
+// receipt exists, its sampled digests align one-to-one with the campaign's own sampling sheet, and an
+// auditor identity/time are recorded — the independent/suspected-composite verdict is rendered by a mind
+// that can see the images, never by this code.
+export function visualAuditFindings(samplingSheet, auditReceipt) {
+  if (!Array.isArray(samplingSheet) || !samplingSheet.length) return [];
+  const findings = [];
+  if (!auditReceipt || typeof auditReceipt !== 'object') { findings.push('integrated independent-items delivery has no visual-audit-receipt for its produced sample'); return findings; }
+  if (!String(auditReceipt.auditorIdentity || '').trim()) findings.push('visual-audit-receipt lacks an auditor identity');
+  if (!String(auditReceipt.auditedAt || '').trim()) findings.push('visual-audit-receipt lacks an audited-at timestamp');
+  const sheetDigests = samplingSheet.map((item) => item.digest).filter(Boolean);
+  const receiptDigests = new Set(auditReceipt.sampleDigests || []);
+  if (receiptDigests.size !== sheetDigests.length || sheetDigests.some((digest) => !receiptDigests.has(digest))) findings.push('visual-audit-receipt sample digests do not align one-to-one with the campaign visual sampling sheet');
+  const verdicts = Array.isArray(auditReceipt.verdictPerItem) ? auditReceipt.verdictPerItem : [];
+  if (verdicts.length !== sheetDigests.length || !verdicts.every((entry) => ['independent', 'suspected-composite'].includes(entry?.verdict ?? entry))) findings.push('visual-audit-receipt lacks a recognized verdict (independent|suspected-composite) for each sampled item');
+  return findings;
+}

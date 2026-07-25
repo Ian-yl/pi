@@ -305,6 +305,11 @@
           "singleItemPerCall": true,
           "distinctMediaPerCall": true,
           "outputSemantic": "each provider invocation returns exactly one independent media item with its own media resource URL"
+        },
+        "concurrency": {
+          "maxParallel": 2,
+          "ordering": "unordered",
+          "failurePolicy": "fail-fast"
         }
       },
       "integrationBindings": [

@@ -4,11 +4,11 @@
   "status": "approved",
   "authorAgentId": "golden-handoff-author",
   "functionalProjectId": "neutral-submission",
-  "functionalPackageDigest": "4a77e32dac835656bdcc0676050243533c39ccc970adb3249a1836e114541f4d",
+  "functionalPackageDigest": "297a9af160eaf75d89c3649428cc3af76b63c4cbdc6d52010ebf641f435c528c",
   "visualReleaseDigest": "961069a7aa1f6c1f88f6806588230c530095905f80281efd7bacaa4f2310d1ec",
   "sourceDirectory": "visual-release",
   "approval": {
     "reviewerAgentId": "golden-handoff-reviewer",
-    "reviewedAt": "2026-07-25T05:44:56.033Z"
+    "reviewedAt": "2026-07-25T06:32:27.155Z"
   }
 }
