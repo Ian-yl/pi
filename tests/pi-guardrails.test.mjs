@@ -133,6 +133,22 @@ test('layout integrity gate rejects a business action that removes release ancho
   } finally { rmSync(dir, { recursive: true, force: true }); }
 });
 
+test('layout integrity gate rejects a business action that removes a region-level layout anchor', () => {
+  const dir = copyGolden('layout-region-anchor-drop');
+  try {
+    const page = `${dir}/web/pages/submission/index.html`;
+    let html = readFileSync(page, 'utf8');
+    html = html.replace(
+      "document.querySelector('[data-history-state]').textContent=data.submissionId",
+      "document.querySelector('[data-vr-id=\"result-panel\"]').removeAttribute('data-vr-id');document.querySelector('[data-history-state]').textContent=data.submissionId"
+    );
+    writeFileSync(page, html);
+    const check = spawnSync('node', [runBrowser, '--dir', dir], { encoding: 'utf8', timeout: 60000 });
+    assert.notEqual(check.status, 0);
+    assert.match(`${check.stdout}${check.stderr}`, /release layout anchors disappeared after the action/);
+  } finally { rmSync(dir, { recursive: true, force: true }); }
+});
+
 test('add-control gate rejects a control rendered outside its declared region', () => {
   const dir = copyGolden('add-control-out-of-region');
   try {

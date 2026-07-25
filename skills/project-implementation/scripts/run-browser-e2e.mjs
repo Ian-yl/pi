@@ -27,6 +27,10 @@ const itemContracts = new Map((functionalSpec.capabilities || []).filter((item) 
 const visualControls = existsSync(`${dir}/inputs/handoff-visual-controls.json`) ? readJSON(`${dir}/inputs/handoff-visual-controls.json`) : { controls: [] };
 const pageAnchors = new Map();
 for (const control of visualControls.controls || []) { if (!pageAnchors.has(control.pageId)) pageAnchors.set(control.pageId, new Set()); pageAnchors.get(control.pageId).add(control.referenceId); }
+// Consume the region+control two-level anchors from the handoff anchor manifest, not just the control
+// level: a delivered action that drops a declared layout region is rejected the same as a dropped control.
+const anchorManifest = existsSync(`${dir}/inputs/handoff-handoff-anchor-manifest.json`) ? readJSON(`${dir}/inputs/handoff-handoff-anchor-manifest.json`) : { pages: [] };
+for (const page of anchorManifest.pages || []) { if (!pageAnchors.has(page.pageId)) pageAnchors.set(page.pageId, new Set()); for (const anchor of page.anchors || []) pageAnchors.get(page.pageId).add(anchor.id); }
 const functionalManifest = existsSync(`${dir}/inputs/functional-manifest.json`) ? readJSON(`${dir}/inputs/functional-manifest.json`) : {}; const assetInventoryRequired = functionalManifest.schemaVersion === '2.2'; const assetInventoryPath = `${dir}/inputs/handoff-asset-role-inventory.json`;
 if (assetInventoryRequired && !existsSync(assetInventoryPath)) fail('locked asset role inventory is missing from browser runtime inputs');
 const assetInventory = existsSync(assetInventoryPath) ? readJSON(assetInventoryPath) : { assets: [] };

@@ -34,6 +34,19 @@ for (const capability of (functionalSpec.capabilities || []).filter((item) => it
   if (contract.uniqueFileRequired && evidence.revealed !== evidence.count) errors.push(`independent-media items do not each resolve their own resource on interaction: ${capability.id}`);
   if (nonDefaultRequired && evidence.nonDefault !== true) errors.push(`independent-media quantity used the control default value rather than an explicit non-default choice: ${capability.id}`);
 }
+// Re-enforce the trusted runner's field-assist backfill evidence: a targetKind:field result must prove the
+// browser value written into the declared target field equals the operation response value (replace) or
+// contains it (append), across the declared states. Contract-driven (targetFieldId/writeBehavior/states
+// from the closure), no product field names.
+for (const capability of (functionalSpec.capabilities || []).filter((item) => item.closure?.resultDestination?.targetKind === 'field')) {
+  const destination = capability.closure.resultDestination;
+  const evidence = (runtime.cases || []).find((item) => item.capabilityId === capability.id && item.expectedOutcome !== 'failure' && item.observed?.fieldBackfill)?.observed?.fieldBackfill;
+  if (!evidence) { errors.push(`field-assist capability has no runner backfill evidence: ${capability.id} — a targetKind:field result must prove the value written into its target field`); continue; }
+  if (evidence.targetFieldId !== destination.targetFieldId) errors.push(`field-assist backfill targeted a field other than the declared target: ${capability.id}`);
+  if (evidence.backfillValue == null || evidence.backfillValue === '') errors.push(`field-assist wrote no value into the target field: ${capability.id} — a result that only updates status text is not a field backfill`);
+  else if (!(destination.writeBehavior === 'append' ? String(evidence.backfillValue).includes(String(evidence.responseValue)) : String(evidence.backfillValue) === String(evidence.responseValue))) errors.push(`field-assist backfilled value does not satisfy the declared ${destination.writeBehavior || 'replace'} behavior against the operation response: ${capability.id}`);
+  for (const state of ['processing', 'success', 'failure']) if (destination.states?.[state] && evidence.states?.[state] !== true) errors.push(`field-assist did not observe the declared ${state} state: ${capability.id}`);
+}
 for (const item of cases.values()) {
   if (item.observed?.matchCount !== 1 || item.observed?.visible !== true || (item.mode !== 'display-only' && item.event !== 'initial-state' && item.observed?.enabled !== true)) errors.push(`runtime locator is absent, ambiguous, hidden, or disabled: ${item.id}`);
 }

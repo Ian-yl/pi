@@ -3,14 +3,14 @@
   "algorithm": "sha256",
   "bmadRequired": true,
   "sources": {
-    "functionalPackageDigest": "520ca6916002af4c76d550dbcac84ab2922a24a7f0c9444e0f34023dfec2bfd8",
-    "fddPlanningDigest": "a2731db23b0f6e7e694cd37a28c7ea3415d4a922c3087920a337f27dbb30aa4c",
+    "functionalPackageDigest": "97609e890456da067dfd090c4e1ac7f3150a4cdb310ba2150a858c1ab3b06b2c",
+    "fddPlanningDigest": "ef11af6382e82643400dd8c31f2b36fbeca6dac9dc6d8b01f8344d87ac8a5038",
     "visualReleaseDigest": "961069a7aa1f6c1f88f6806588230c530095905f80281efd7bacaa4f2310d1ec",
-    "handoffPackageDigest": "331a1109b3c735a9d7057c53845c42353b091d41702b771a75aca6f018eda2ee"
+    "handoffPackageDigest": "a5ae8b9fbe1e1a3b150f5bc303fb44803d83fe19a76e09d0c054a3f749612f27"
   },
   "implementationFrontendDigest": "1c351538968e657d634275343d892ba8389790f33472e922b3798b806e85787e",
   "digests": {
-    "functional/manifest.json": "47e41021eef8bf10164252c7b6e533598261bff096acb4d8eec8bc5b8afabf63",
+    "functional/manifest.json": "5490f7b31e11b86f2262f9f0b816eb8581745fdc1b70ee75a02160bad2f94f58",
     "functional/planning-manifest.json": "7886990d18ca7aa559ebe13817a74f5553480214d7e2010dafddbdb7ddaa2ffa",
     "functional/planning-artifacts.json": "34e83852d2208087c9a33194cb62d2dcdde0e383be1e7a0f9e6ed5cbf0c3cf7a",
     "functional/capability-definitions.json": "6899dfa5ec4868c1cf83084686fd54509a989dc9b4a8710b317954957059e82a",
@@ -23,10 +23,10 @@
     "functional/functional-spec.json": "9ba4078f044952962730098cbd73da6a7fe35545eda583430abd7d29f27ff3bb",
     "functional/page-function-map.json": "4ae66b5d034a104cd55a62086a0a621005b13eea1635f90740084978b458d09e",
     "functional/unresolved-items.json": "c5a806923d469809549988a1c83273c4d80614efad2d1300bf7a58d30e0db0b6",
-    "functional/planning-review-receipt.json": "aafc3ac89685514b1df8359658ae4a17071ca254310e491fe72844cbb129acd1",
-    "functional/review-receipt.json": "9ffbd945116563ba5ada46c04ddd85a6c807bab0160c24a8fd7c6cde443cacc5",
-    "functional/package-lock.json": "12e2a24460c908b6b87e3a61811170cb545c42b729550e742bd3e5167de42430",
-    "handoff/handoff-manifest.json": "5b95e7cf6e39dcd515cdcb80c4283d93cbc84c169da86644494ed5a926df266c",
+    "functional/planning-review-receipt.json": "1c19d84902e3ea1fb1dc27e25f5a0d7b26a9ea19ef11bf5b1543b8eedaf3fd33",
+    "functional/review-receipt.json": "4f9867020898bcc056a2a3f428ee2c4e8463b13adb966056d5dba42fc73b0e97",
+    "functional/package-lock.json": "509991b27cdd1d14b475044a63e89656a3450004b225c15b39a9d327854b727d",
+    "handoff/handoff-manifest.json": "ae373ae31706ce0ea59d66def046f78f1c8d8caad29f4231ff123616a4dca5e8",
     "handoff/visual-source.json": "195b5d4cb640bceec677acbf07e783b1de16ddf4590a2aa9310f1a664936a651",
     "handoff/release-manifest.json": "b84c01e3d11e90bf1c27d65a77c8040fce27dd3e3facde114ec120ac8ba4a97e",
     "handoff/suite-gate.json": "df3a61c8f089be157f194cc94090a4a8240bd27b2064017ddfb060d32591bd1f",
@@ -41,10 +41,10 @@
     "handoff/visual-controls.json": "b04b26bcd36a82f2a6dd1a18abf29315296cce3f7a010806e32309f674a9db34",
     "handoff/ui-implementation-plan.json": "9ecce2ce2c5669ae7666542650c5dd555f7182c3e729be3b21455a8db87c2584",
     "handoff/api-contract.json": "8024f88c16a4843beeffab81fc4ae04d6ae70132ba57264605809a844759d06c",
-    "handoff/domain-bindings.json": "a35c6c8492c985af8a08361a88b312c03f4c1730df4a03a23b4fe55db44425b4",
+    "handoff/domain-bindings.json": "b335642ee3a794c5bfe750f6eb8e1ea9fb0019a5e6405701111c8b4a852ae045",
     "handoff/runtime-contract.json": "bdf3bbcd4f6abbb0bfeec14bd0730e3714b3006c6d8e540140c6971e33ca3739",
-    "handoff/handoff-review-receipt.json": "519301eb894c5b3247cd8e8f06738e31615d9a24b9a8018c9ac01285dd44091e",
-    "handoff/handoff-lock.json": "dcce23251c25adefc45ceaf03578c14be70ed52ef8f106316905ca98e8f5e55b"
+    "handoff/handoff-review-receipt.json": "2162931acf04940d4c6a39c7d2dca4021715b8c9d5b6c5f99cfa3f5ca42696a1",
+    "handoff/handoff-lock.json": "e01d6dc4781cf66839696c22e029af235970ec1d10aba5bd00e802ee52d8822d"
   },
   "bmad": {
     "contracts": {
