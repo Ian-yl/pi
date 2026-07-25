@@ -125,7 +125,7 @@ if (existsSync(`${dir}/approval-runtime`)) rmSync(`${dir}/approval-runtime`, { r
 // Signing pins the latest immutable validator revision. A new approval can never be minted against a
 // superseded revision to evade its added rules — an explicit downgrade request is rejected, so the only
 // way to keep an older revision is to already hold an older approval receipt (never to sign a new one).
-const LATEST_VALIDATOR_ID = 'fdd-validator-2.2.1';
+const LATEST_VALIDATOR_ID = 'fdd-validator-2.2.2';
 const requestedValidatorId = args['validator-version'] ? `fdd-validator-${args['validator-version']}` : LATEST_VALIDATOR_ID;
 if (requestedValidatorId !== LATEST_VALIDATOR_ID) { console.error(`cannot sign an approval with the superseded validator revision ${requestedValidatorId}; new approvals are pinned to the latest ${LATEST_VALIDATOR_ID}`); process.exit(1); }
 const trustedValidatorId = LATEST_VALIDATOR_ID;

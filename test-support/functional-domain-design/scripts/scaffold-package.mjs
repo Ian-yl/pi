@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 import { createHash } from 'node:crypto';
-import { mkdirSync, readFileSync, writeFileSync } from 'node:fs';
+import { cpSync, existsSync, mkdirSync, readdirSync, readFileSync, writeFileSync } from 'node:fs';
 import { basename, resolve } from 'node:path';
 import { bindVisualRelease, verifyVisualRelease } from './lib/visual-release.mjs';
 import { extractFrontendSemantics } from './lib/frontend-semantics.mjs';
@@ -82,7 +82,8 @@ const semanticArtifacts = ['frontend-semantic-inventory.json', 'observed-interac
 const groups = ['capabilities', 'entities', 'valueObjects', 'relationships', 'consistencyBoundaries', 'journeys', 'rules', 'permissions', 'integrations'];
 
 mkdirSync(output, { recursive: true });
-writeJSON(`${output}/evidence-index.json`, buildEvidenceIndex({ pageDocument, system, product, observedInteractions: frontend.interactions, releaseDigest: visual.releaseDigest, synthesisInputDigest }));
+const designs = args.designs ? buildDesignManifest(resolve(args.designs), output) : null;
+writeJSON(`${output}/evidence-index.json`, buildEvidenceIndex({ pageDocument, system, product, observedInteractions: frontend.interactions, designs, releaseDigest: visual.releaseDigest, synthesisInputDigest }));
 writeJSON(`${output}/evidence-dispositions.json`, { schemaVersion: '1.0', dispositions: [] });
 writeJSON(`${output}/frontend-semantic-inventory.json`, frontend.inventory);
 writeJSON(`${output}/observed-interactions.json`, frontend.interactions);
@@ -128,4 +129,21 @@ function digest(value) { return createHash('sha256').update(JSON.stringify(value
 function readKnownJSON(dir, names) { for (const name of names) { try { return JSON.parse(readFileSync(`${dir}/${name}`, 'utf8')); } catch (error) { if (error.code !== 'ENOENT') throw error; } } throw new Error(`missing required architecture JSON: ${names.join(' or ')}`); }
 function writeJSON(path, value) { writeFileSync(path, `${JSON.stringify(value, null, 2)}\n`); }
 function parseArgs(values) { const result = {}; for (let index = 0; index < values.length; index++) if (values[index].startsWith('--')) result[values[index].slice(2)] = values[++index]; return result; }
-function usage() { console.error('Usage: scaffold-package.mjs --input <three-json-directory> --visual-release <ai-restore-release> --output <package-dir> --author-agent <stable-agent-id> [--decisions <user-business-decisions.json>]'); process.exit(2); }
+// The design input is a finalized-export directory: one selected design per page (named by page id), with an
+// optional designBoard.json recording the selection provenance. Only these upstream-selected exports are
+// indexed; exploration proposals never enter. Mechanical only — copy each file, hash it, take the page hint
+// from the filename; no pixel is read here (that belongs to the authoring vision-mind).
+function buildDesignManifest(designDir, outputDir) {
+  const boardPath = `${designDir}/designBoard.json`;
+  const provenance = existsSync(boardPath) ? { source: 'designBoard.json', selection: JSON.parse(readFileSync(boardPath, 'utf8')) } : { source: 'design-export-directory' };
+  mkdirSync(`${outputDir}/designs`, { recursive: true });
+  const images = readdirSync(designDir).filter((name) => !name.endsWith('.json')).sort().map((name) => {
+    const bytes = readFileSync(`${designDir}/${name}`);
+    cpSync(`${designDir}/${name}`, `${outputDir}/designs/${name}`);
+    const id = name.replace(/\.[^.]+$/, '');
+    return { id, path: `designs/${name}`, sha256: createHash('sha256').update(bytes).digest('hex'), pageHint: id };
+  });
+  writeFileSync(`${outputDir}/design-manifest.json`, `${JSON.stringify({ schemaVersion: '1.0', generatedBy: 'functional-domain-design/scaffold', provenance, images }, null, 2)}\n`);
+  return { images };
+}
+function usage() { console.error('Usage: scaffold-package.mjs --input <three-json-directory> --visual-release <ai-restore-release> --output <package-dir> --author-agent <stable-agent-id> [--decisions <user-business-decisions.json>] [--designs <finalized-design-export-directory>]'); process.exit(2); }

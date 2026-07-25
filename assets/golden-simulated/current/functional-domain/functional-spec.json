@@ -2081,7 +2081,8 @@
             "page-module:category-field",
             "page-module:quantity-field",
             "product-context:users",
-            "product-context:needs"
+            "product-context:needs",
+            "design:submission"
           ]
         },
         "systemBehavior": {
@@ -2826,7 +2827,8 @@
           "evidenceAnchors": [
             "page:submission",
             "page-module:upload-resource",
-            "system-node:upload-node"
+            "system-node:upload-node",
+            "design:submission"
           ]
         },
         "systemBehavior": {

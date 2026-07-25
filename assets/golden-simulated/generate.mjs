@@ -17,7 +17,7 @@ const implementation = `${output}/implementation`;
 
 rmSync(output, { recursive: true, force: true });
 mkdirSync(output, { recursive: true });
-run(`${fddRoot}/scripts/scaffold-package.mjs`, ['--input', architecture, '--visual-release', release, '--output', functional, '--author-agent', 'golden-domain-author']);
+run(`${fddRoot}/scripts/scaffold-package.mjs`, ['--input', architecture, '--visual-release', release, '--output', functional, '--author-agent', 'golden-domain-author', '--designs', `${fixtures}/designs`]);
 overlayAuthoredClosure(functional);
 if (headlessOnly) convertToHeadlessPreservingContracts(functional);
 run(`${fddRoot}/scripts/review-package.mjs`, ['--package', functional, '--reviewer-agent', 'golden-domain-reviewer']);

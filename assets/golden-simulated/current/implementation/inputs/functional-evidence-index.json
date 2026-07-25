@@ -188,6 +188,17 @@
         "controlId": "planned-export",
         "event": "request"
       }
+    },
+    {
+      "id": "design:submission",
+      "kind": "design",
+      "text": "design export for submission",
+      "source": {
+        "file": "design-manifest.json",
+        "designId": "submission",
+        "path": "designs/submission.svg",
+        "pageHint": "submission"
+      }
     }
   ]
 }
