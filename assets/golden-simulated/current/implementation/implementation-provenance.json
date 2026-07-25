@@ -5,29 +5,20 @@
   },
   "operationSources": [
     {
-      "operationId": "submit-sample",
+      "operationId": "create-submission-submit-submission",
       "files": [
         {
           "path": "backend/server.mjs",
-          "symbol": "submitSample"
+          "symbol": "createSubmission"
         }
       ]
     },
     {
-      "operationId": "submit-suite-sample-detail",
+      "operationId": "upload-submission-upload-resource",
       "files": [
         {
           "path": "backend/server.mjs",
-          "symbol": "submitDetail"
-        }
-      ]
-    },
-    {
-      "operationId": "query-sample-result",
-      "files": [
-        {
-          "path": "backend/server.mjs",
-          "symbol": "querySampleResult"
+          "symbol": "uploadResource"
         }
       ]
     }

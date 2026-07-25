@@ -1,18 +1,26 @@
 {
-  "schemaVersion": "1.0",
-  "functionalPackageDigest": "9a551a5ade15279761a5cb45073077e9bb989b3fe979493ef3be974699ff52ae",
+  "schemaVersion": "1.1",
+  "functionalPackageDigest": "533b8a4a24d149d6166b64cdfaef553b266475bca27879a5d52f49b8a4fbaf0f",
   "capabilityIds": [
-    "cap-sample",
-    "cap-suite-sample-detail",
-    "cap-sample-local-navigation",
-    "cap-sample-display-result"
+    "cap-submission-submit-submission",
+    "cap-submission-upload-resource",
+    "cap-submission-planned-export"
   ],
   "completeCapabilityIds": [
-    "cap-sample",
-    "cap-suite-sample-detail",
-    "cap-sample-local-navigation",
-    "cap-sample-display-result"
+    "cap-submission-submit-submission",
+    "cap-submission-upload-resource"
   ],
-  "plannedCapabilityIds": [],
-  "ruleIds": []
+  "plannedCapabilityIds": [
+    "cap-submission-planned-export"
+  ],
+  "ruleIds": [
+    "rule-cap-submission-submit-submission",
+    "rule-cap-submission-upload-resource"
+  ],
+  "semanticArtifacts": [
+    "frontend-semantic-inventory.json",
+    "observed-interactions.json",
+    "control-capability-map.json",
+    "asset-role-inventory.json"
+  ]
 }

@@ -1,21 +1,23 @@
 {
   "schemaVersion": "1.0",
   "generatedBy": "project-implementation/run-browser-e2e",
-  "generatedAt": "2026-07-23T10:29:04.324Z",
+  "generatedAt": "2026-07-25T03:30:12.646Z",
   "command": {
     "executable": "node",
     "args": [
       "tests/browser-runtime.mjs"
     ]
   },
-  "healthUrl": "http://127.0.0.1:52819/health",
-  "rawReportDigest": "64c81b1ab35dca8182347d56d2aa428128f52ef3fbcf7cb44fb08d9586eadd9d",
-  "runtimeCasesDigest": "ba7ac7a675673ddabf7e5bfe43e7c00467b1ede4338c179ec19f1ccc4eda745d",
+  "healthUrl": "http://127.0.0.1:62918/health",
+  "rawReportDigest": "6bede24809ae8ea852f1bf3c25913050406d13d2afae5a4e367e2135bbd6aa81",
+  "runtimeCasesDigest": "fb3fb8f47caf3306ea8dcc38a936eedde4350aa97efd2a91db754d4f7063a186",
   "artifactDigests": {
-    "evidence/frontend/browser-cap-sample.png": "2ad1298c2880748dfee25a1caa0c562b4dfe536a6b5f6ca62f519f1ffb5f59a9",
-    "evidence/frontend/browser-cap-suite-sample-detail.png": "8a3b91cb0d1db52b65f827f20cbcff1f62ede014bdb19e1d094b4f5732b66b40",
-    "evidence/frontend/browser-cap-sample-local-navigation.png": "1e47aeb9db555cbbc7d6acc3bfa194657ee8b32f6890840292034769849c6077",
-    "evidence/frontend/browser-cap-sample-display-result.png": "2592d42cdf9369db77fdf3910bd005c3bc060f1abf68baab5f3d5835403846b8"
+    "evidence/frontend/initial-submission.png": "f96979c5f772952fbb4109be67f8d1708b2e7c3a0f7330dd84077f5bd280793b",
+    "evidence/frontend/browser-upload-failure.png": "932e9f8c9fa4a18559dc3ebd38033f875e93b61d144a9a2a3cc3bf089315979e",
+    "evidence/frontend/browser-upload.png": "1a2cfd9e13143795de014fcee50622a97ec38941f2ec8dd95c1171e01b5f5d33",
+    "evidence/frontend/browser-submit-failure.png": "c79a411c754005b6a2cc6a3153551923c331b644db1db5f5522ab4ab956aec72",
+    "evidence/frontend/browser-submit.png": "2056e5aea39d2522332014cd46268643201be27186d9625571dd09f82305703b",
+    "evidence/frontend/browser-planned.png": "f4b536fb82591f12b60b8e9b2c2ef860189801f873c0c918294ceb7de8c711e6"
   },
   "status": "passed"
 }

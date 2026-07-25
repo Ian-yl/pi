@@ -1,2 +1,2 @@
 $ node /Users/ylzs/Documents/ylzs/project-implementation/scripts/verify-frontend-runtime.mjs /Users/ylzs/Documents/ylzs/project-implementation/assets/golden-simulated/current/implementation
-Frontend runtime valid (4 browser cases)
+Frontend runtime valid (6 browser cases)

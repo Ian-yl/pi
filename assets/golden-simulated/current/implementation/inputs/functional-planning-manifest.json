@@ -1,10 +1,24 @@
 {
-  "schemaVersion": "1.0",
+  "schemaVersion": "2.2",
   "packageType": "fdd-bmad-planning",
   "status": "approved",
   "authorAgentId": "golden-domain-author",
+  "synthesisInputDigest": "101a2b132c45babf36ef23057ba545ba4e21c3bc53ab200f110cc082fa85d6d4",
+  "inputDigests": {
+    "pageArchitecture": "f096a6aeff05ec0c3ba27f5ef09a7d8ec88ad475088d15eaa81705fd1516887b",
+    "systemArchitecture": "da91dfdc9e2a99efa91187366d84af9cf216ca85849339622af9e9ea4743041e",
+    "productContext": "72d3f360e8e99d63351d9775b683aa3b8f4232af89d0ff75a4fdeb754ba93982",
+    "visualRelease": "961069a7aa1f6c1f88f6806588230c530095905f80281efd7bacaa4f2310d1ec",
+    "userDecisions": null
+  },
   "artifacts": [
+    "evidence-index.json",
+    "evidence-dispositions.json",
     "planning-artifacts.json",
-    "capability-definitions.json"
+    "capability-definitions.json",
+    "frontend-semantic-inventory.json",
+    "observed-interactions.json",
+    "control-capability-map.json",
+    "asset-role-inventory.json"
   ]
 }

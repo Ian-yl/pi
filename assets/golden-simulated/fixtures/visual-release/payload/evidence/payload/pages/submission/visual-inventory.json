@@ -1,0 +1,160 @@
+{
+  "version": 3,
+  "name": "submission",
+  "items": [
+    {
+      "id": "workspace",
+      "auditId": "workspace",
+      "kind": "main",
+      "tag": "main",
+      "selector": "[data-vr-id=\"workspace\"]",
+      "domPath": "body>main",
+      "text": "Submission workspace",
+      "attrs": {
+        "dataVrId": "workspace"
+      }
+    },
+    {
+      "id": "identity-section",
+      "auditId": "identity-section",
+      "kind": "section",
+      "tag": "section",
+      "selector": "[data-vr-id=\"identity-section\"]",
+      "domPath": "body>main>section:nth-of-type(1)",
+      "text": "Identity section",
+      "attrs": {
+        "dataVrId": "identity-section"
+      }
+    },
+    {
+      "id": "title-input",
+      "auditId": "title-input",
+      "kind": "input",
+      "tag": "input",
+      "selector": "[data-vr-id=\"title-input\"]",
+      "domPath": "body>main>section:nth-of-type(1)>label>input",
+      "text": "Submission title",
+      "attrs": {
+        "dataVrId": "title-input",
+        "required": true
+      },
+      "placeholder": "Submission title"
+    },
+    {
+      "id": "options-section",
+      "auditId": "options-section",
+      "kind": "section",
+      "tag": "section",
+      "selector": "[data-vr-id=\"options-section\"]",
+      "domPath": "body>main>section:nth-of-type(2)",
+      "text": "Options section",
+      "attrs": {
+        "dataVrId": "options-section"
+      }
+    },
+    {
+      "id": "category-select",
+      "auditId": "category-select",
+      "kind": "select",
+      "tag": "select",
+      "selector": "[data-vr-id=\"category-select\"]",
+      "domPath": "body>main>section:nth-of-type(2)>label:nth-of-type(1)>select",
+      "text": "Submission category",
+      "attrs": {
+        "dataVrId": "category-select"
+      },
+      "placeholder": "Submission category"
+    },
+    {
+      "id": "quantity-input",
+      "auditId": "quantity-input",
+      "kind": "input",
+      "tag": "input",
+      "selector": "[data-vr-id=\"quantity-input\"]",
+      "domPath": "body>main>section:nth-of-type(2)>label:nth-of-type(2)>input",
+      "text": "Result quantity",
+      "attrs": {
+        "dataVrId": "quantity-input",
+        "required": true
+      },
+      "placeholder": "Result quantity"
+    },
+    {
+      "id": "upload-panel",
+      "auditId": "upload-panel",
+      "kind": "section",
+      "tag": "section",
+      "selector": "[data-vr-id=\"upload-panel\"]",
+      "domPath": "body>main>section:nth-of-type(3)",
+      "text": "Upload source",
+      "attrs": {
+        "dataVrId": "upload-panel"
+      }
+    },
+    {
+      "id": "upload-input",
+      "auditId": "upload-input",
+      "kind": "input",
+      "tag": "input",
+      "selector": "[data-vr-id=\"upload-input\"]",
+      "domPath": "body>main>section:nth-of-type(3)>input",
+      "text": "Upload source file",
+      "attrs": {
+        "dataVrId": "upload-input",
+        "type": "file",
+        "accept": "text/plain"
+      },
+      "placeholder": "Upload source file"
+    },
+    {
+      "id": "submit-button",
+      "auditId": "submit-button",
+      "kind": "button",
+      "tag": "button",
+      "selector": "[data-vr-id=\"submit-button\"]",
+      "domPath": "body>main>button:nth-of-type(1)",
+      "text": "Create submission",
+      "attrs": {
+        "dataVrId": "submit-button"
+      },
+      "placeholder": "Create submission"
+    },
+    {
+      "id": "planned-export",
+      "auditId": "planned-export",
+      "kind": "button",
+      "tag": "button",
+      "selector": "[data-vr-id=\"planned-export\"]",
+      "domPath": "body>main>button:nth-of-type(2)",
+      "text": "External submission review",
+      "attrs": {
+        "dataVrId": "planned-export"
+      },
+      "placeholder": "External submission review"
+    },
+    {
+      "id": "result-panel",
+      "auditId": "result-panel",
+      "kind": "container",
+      "tag": "section",
+      "selector": "[data-vr-id=\"result-panel\"]",
+      "domPath": "body>main>section:nth-of-type(4)",
+      "text": "No submission result",
+      "attrs": {
+        "dataVrId": "result-panel"
+      }
+    },
+    {
+      "id": "history-panel",
+      "auditId": "history-panel",
+      "kind": "container",
+      "tag": "section",
+      "selector": "[data-vr-id=\"history-panel\"]",
+      "domPath": "body>main>section:nth-of-type(5)",
+      "text": "No submission history",
+      "attrs": {
+        "dataVrId": "history-panel"
+      }
+    }
+  ]
+}

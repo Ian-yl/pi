@@ -3,5 +3,12 @@
   "status": "approved",
   "workflow": "fdd-bmad-planning",
   "authorAgentId": "golden-domain-author",
-  "reviewerAgentId": "golden-domain-reviewer"
+  "reviewerAgentId": "golden-domain-reviewer",
+  "reviewedAt": "2026-07-25T03:30:10.418Z",
+  "checks": [
+    "project understanding reviewed",
+    "requirements analysis reviewed",
+    "domain design matches capability definitions",
+    "formal package semantics reviewed"
+  ]
 }

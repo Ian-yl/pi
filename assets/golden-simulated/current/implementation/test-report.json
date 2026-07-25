@@ -1,6 +1,6 @@
 {
   "schemaVersion": "1.0",
-  "generatedAt": "2026-07-23T10:29:04.505Z",
+  "generatedAt": "2026-07-25T03:30:12.835Z",
   "cases": [
     {
       "id": "backend-contract-tests",
@@ -46,30 +46,40 @@
       ]
     },
     {
-      "id": "test-persistence-entity-submission",
+      "id": "test-persistence-entity-submission-resource",
       "status": "passed",
       "unitIds": [
-        "persistence-entity-submission"
+        "persistence-entity-submission-resource"
       ],
       "evidence": [
         "evidence/golden-units.txt"
       ]
     },
     {
-      "id": "test-persistence-entity-submission-event",
+      "id": "test-persistence-entity-submission-asset",
       "status": "passed",
       "unitIds": [
-        "persistence-entity-submission-event"
+        "persistence-entity-submission-asset"
       ],
       "evidence": [
         "evidence/golden-units.txt"
       ]
     },
     {
-      "id": "test-relationship-relation-submission-events",
+      "id": "test-persistence-entity-cap-submission-submit-submission-configuration",
       "status": "passed",
       "unitIds": [
-        "relationship-relation-submission-events"
+        "persistence-entity-cap-submission-submit-submission-configuration"
+      ],
+      "evidence": [
+        "evidence/golden-units.txt"
+      ]
+    },
+    {
+      "id": "test-consistency-boundary-cap-submission-submit-submission-configuration",
+      "status": "passed",
+      "unitIds": [
+        "consistency-boundary-cap-submission-submit-submission-configuration"
       ],
       "evidence": [
         "evidence/golden-units.txt"
@@ -86,80 +96,140 @@
       ]
     },
     {
-      "id": "test-capability-cap-sample",
+      "id": "test-capability-cap-submission-submit-submission",
       "status": "passed",
       "unitIds": [
-        "capability-cap-sample"
+        "capability-cap-submission-submit-submission"
       ],
       "evidence": [
         "evidence/golden-units.txt"
       ]
     },
     {
-      "id": "test-capability-cap-suite-sample-detail",
+      "id": "test-capability-cap-submission-upload-resource",
       "status": "passed",
       "unitIds": [
-        "capability-cap-suite-sample-detail"
+        "capability-cap-submission-upload-resource"
       ],
       "evidence": [
         "evidence/golden-units.txt"
       ]
     },
     {
-      "id": "test-capability-cap-sample-local-navigation",
+      "id": "test-rule-rule-cap-submission-submit-submission",
       "status": "passed",
       "unitIds": [
-        "capability-cap-sample-local-navigation"
+        "rule-rule-cap-submission-submit-submission"
       ],
       "evidence": [
         "evidence/golden-units.txt"
       ]
     },
     {
-      "id": "test-capability-cap-sample-display-result",
+      "id": "test-rule-rule-cap-submission-upload-resource",
       "status": "passed",
       "unitIds": [
-        "capability-cap-sample-display-result"
+        "rule-rule-cap-submission-upload-resource"
       ],
       "evidence": [
         "evidence/golden-units.txt"
       ]
     },
     {
-      "id": "test-operation-submit-sample",
+      "id": "test-operation-create-submission-submit-submission",
       "status": "passed",
       "unitIds": [
-        "operation-submit-sample"
+        "operation-create-submission-submit-submission"
       ],
       "evidence": [
         "evidence/golden-units.txt"
       ]
     },
     {
-      "id": "test-operation-submit-suite-sample-detail",
+      "id": "test-data-dependency-create-submission-submit-submission",
       "status": "passed",
       "unitIds": [
-        "operation-submit-suite-sample-detail"
+        "data-dependency-create-submission-submit-submission"
       ],
       "evidence": [
         "evidence/golden-units.txt"
       ]
     },
     {
-      "id": "test-operation-query-sample-result",
+      "id": "test-integration-binding-create-submission-submit-submission",
       "status": "passed",
       "unitIds": [
-        "operation-query-sample-result"
+        "integration-binding-create-submission-submit-submission"
       ],
       "evidence": [
         "evidence/golden-units.txt"
       ]
     },
     {
-      "id": "runtime-presentation-cap-sample",
+      "id": "test-external-effect-create-submission-submit-submission",
       "status": "passed",
       "unitIds": [
-        "presentation-cap-sample"
+        "external-effect-create-submission-submit-submission"
+      ],
+      "evidence": [
+        "evidence/golden-units.txt"
+      ]
+    },
+    {
+      "id": "test-operation-upload-submission-upload-resource",
+      "status": "passed",
+      "unitIds": [
+        "operation-upload-submission-upload-resource"
+      ],
+      "evidence": [
+        "evidence/golden-units.txt"
+      ]
+    },
+    {
+      "id": "test-resource-transfer-upload-submission-upload-resource",
+      "status": "passed",
+      "unitIds": [
+        "resource-transfer-upload-submission-upload-resource"
+      ],
+      "evidence": [
+        "evidence/golden-units.txt"
+      ]
+    },
+    {
+      "id": "test-resource-validation-upload-submission-upload-resource",
+      "status": "passed",
+      "unitIds": [
+        "resource-validation-upload-submission-upload-resource"
+      ],
+      "evidence": [
+        "evidence/golden-units.txt"
+      ]
+    },
+    {
+      "id": "test-resource-persistence-upload-submission-upload-resource",
+      "status": "passed",
+      "unitIds": [
+        "resource-persistence-upload-submission-upload-resource"
+      ],
+      "evidence": [
+        "evidence/golden-units.txt"
+      ]
+    },
+    {
+      "id": "test-journey-journey-submission",
+      "status": "passed",
+      "unitIds": [
+        "journey-journey-submission"
+      ],
+      "evidence": [
+        "evidence/golden-units.txt"
+      ]
+    },
+    {
+      "id": "runtime-presentation-cap-submission-submit-submission",
+      "status": "passed",
+      "unitIds": [
+        "presentation-cap-submission-submit-submission"
       ],
       "evidence": [
         "frontend-runtime-report.json",
@@ -168,10 +238,10 @@
       ]
     },
     {
-      "id": "runtime-interaction-cap-sample",
+      "id": "runtime-activation-cap-submission-submit-submission",
       "status": "passed",
       "unitIds": [
-        "interaction-cap-sample"
+        "activation-cap-submission-submit-submission"
       ],
       "evidence": [
         "frontend-runtime-report.json",
@@ -180,10 +250,10 @@
       ]
     },
     {
-      "id": "runtime-frontend-state-cap-sample",
+      "id": "runtime-surface-cap-submission-submit-submission",
       "status": "passed",
       "unitIds": [
-        "frontend-state-cap-sample"
+        "surface-cap-submission-submit-submission"
       ],
       "evidence": [
         "frontend-runtime-report.json",
@@ -192,10 +262,10 @@
       ]
     },
     {
-      "id": "runtime-frontend-data-cap-sample",
+      "id": "runtime-result-presentation-cap-submission-submit-submission",
       "status": "passed",
       "unitIds": [
-        "frontend-data-cap-sample"
+        "result-presentation-cap-submission-submit-submission"
       ],
       "evidence": [
         "frontend-runtime-report.json",
@@ -204,10 +274,10 @@
       ]
     },
     {
-      "id": "runtime-presentation-cap-suite-sample-detail",
+      "id": "runtime-interaction-cap-submission-submit-submission",
       "status": "passed",
       "unitIds": [
-        "presentation-cap-suite-sample-detail"
+        "interaction-cap-submission-submit-submission"
       ],
       "evidence": [
         "frontend-runtime-report.json",
@@ -216,10 +286,10 @@
       ]
     },
     {
-      "id": "runtime-interaction-cap-suite-sample-detail",
+      "id": "runtime-frontend-state-cap-submission-submit-submission",
       "status": "passed",
       "unitIds": [
-        "interaction-cap-suite-sample-detail"
+        "frontend-state-cap-submission-submit-submission"
       ],
       "evidence": [
         "frontend-runtime-report.json",
@@ -228,10 +298,10 @@
       ]
     },
     {
-      "id": "runtime-frontend-state-cap-suite-sample-detail",
+      "id": "runtime-frontend-data-cap-submission-submit-submission",
       "status": "passed",
       "unitIds": [
-        "frontend-state-cap-suite-sample-detail"
+        "frontend-data-cap-submission-submit-submission"
       ],
       "evidence": [
         "frontend-runtime-report.json",
@@ -240,10 +310,10 @@
       ]
     },
     {
-      "id": "runtime-frontend-data-cap-suite-sample-detail",
+      "id": "runtime-presentation-cap-submission-upload-resource",
       "status": "passed",
       "unitIds": [
-        "frontend-data-cap-suite-sample-detail"
+        "presentation-cap-submission-upload-resource"
       ],
       "evidence": [
         "frontend-runtime-report.json",
@@ -252,10 +322,10 @@
       ]
     },
     {
-      "id": "runtime-presentation-cap-sample-local-navigation",
+      "id": "runtime-interaction-cap-submission-upload-resource",
       "status": "passed",
       "unitIds": [
-        "presentation-cap-sample-local-navigation"
+        "interaction-cap-submission-upload-resource"
       ],
       "evidence": [
         "frontend-runtime-report.json",
@@ -264,10 +334,10 @@
       ]
     },
     {
-      "id": "runtime-interaction-cap-sample-local-navigation",
+      "id": "runtime-frontend-state-cap-submission-upload-resource",
       "status": "passed",
       "unitIds": [
-        "interaction-cap-sample-local-navigation"
+        "frontend-state-cap-submission-upload-resource"
       ],
       "evidence": [
         "frontend-runtime-report.json",
@@ -276,10 +346,10 @@
       ]
     },
     {
-      "id": "runtime-frontend-state-cap-sample-local-navigation",
+      "id": "runtime-frontend-data-cap-submission-upload-resource",
       "status": "passed",
       "unitIds": [
-        "frontend-state-cap-sample-local-navigation"
+        "frontend-data-cap-submission-upload-resource"
       ],
       "evidence": [
         "frontend-runtime-report.json",
@@ -288,58 +358,10 @@
       ]
     },
     {
-      "id": "runtime-frontend-data-cap-sample-local-navigation",
+      "id": "runtime-planned-capability-cap-submission-planned-export",
       "status": "passed",
       "unitIds": [
-        "frontend-data-cap-sample-local-navigation"
-      ],
-      "evidence": [
-        "frontend-runtime-report.json",
-        "browser-e2e-report.json",
-        "placeholder-audit-report.json"
-      ]
-    },
-    {
-      "id": "runtime-presentation-cap-sample-display-result",
-      "status": "passed",
-      "unitIds": [
-        "presentation-cap-sample-display-result"
-      ],
-      "evidence": [
-        "frontend-runtime-report.json",
-        "browser-e2e-report.json",
-        "placeholder-audit-report.json"
-      ]
-    },
-    {
-      "id": "runtime-interaction-cap-sample-display-result",
-      "status": "passed",
-      "unitIds": [
-        "interaction-cap-sample-display-result"
-      ],
-      "evidence": [
-        "frontend-runtime-report.json",
-        "browser-e2e-report.json",
-        "placeholder-audit-report.json"
-      ]
-    },
-    {
-      "id": "runtime-frontend-state-cap-sample-display-result",
-      "status": "passed",
-      "unitIds": [
-        "frontend-state-cap-sample-display-result"
-      ],
-      "evidence": [
-        "frontend-runtime-report.json",
-        "browser-e2e-report.json",
-        "placeholder-audit-report.json"
-      ]
-    },
-    {
-      "id": "runtime-frontend-data-cap-sample-display-result",
-      "status": "passed",
-      "unitIds": [
-        "frontend-data-cap-sample-display-result"
+        "planned-capability-cap-submission-planned-export"
       ],
       "evidence": [
         "frontend-runtime-report.json",

@@ -1,7 +1,6 @@
 {
-  "schemaVersion": "1.0",
+  "schemaVersion": "1.1",
   "status": "implemented",
-  "baseUrl": "http://127.0.0.1:${PORT}",
   "start": {
     "command": "node",
     "args": [
@@ -13,6 +12,13 @@
     "command": "node",
     "args": [
       "tests/browser-runtime.mjs"
-    ]
-  }
+    ],
+    "timeoutMs": 60000
+  },
+  "evidenceProtocol": {
+    "version": "playwright-computed-render-v1",
+    "uploadChallengesEnv": "FRONTEND_UPLOAD_CHALLENGES",
+    "renderObserverSource": "elements => elements.map(element => { const style = getComputedStyle(element); const rect = element.getBoundingClientRect(); return { visible: style.display !== 'none' && style.visibility !== 'hidden' && Number(style.opacity) > 0 && rect.width > 0 && rect.height > 0, tag: element.tagName.toLowerCase(), text: element.textContent.trim(), src: element.currentSrc || element.src || null, href: element.href || null, value: 'value' in element ? element.value : null }; })"
+  },
+  "baseUrl": "http://127.0.0.1:${PORT}"
 }

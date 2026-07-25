@@ -1,60 +1,52 @@
 {
   "schemaVersion": "1.1",
   "generatedBy": "project-implementation/verify-implementation",
-  "productStatus": "implemented",
+  "productStatus": "delivered-with-planned-capabilities",
   "counts": {
-    "implemented": 4,
-    "planned": 0
+    "implemented": 2,
+    "planned": 1
   },
   "capabilities": [
     {
-      "capabilityId": "cap-sample",
+      "capabilityId": "cap-submission-submit-submission",
       "status": "implemented",
       "unitIds": [
-        "capability-cap-sample",
-        "presentation-cap-sample",
-        "interaction-cap-sample",
-        "frontend-state-cap-sample",
-        "frontend-data-cap-sample",
-        "operation-submit-sample"
+        "capability-cap-submission-submit-submission",
+        "presentation-cap-submission-submit-submission",
+        "activation-cap-submission-submit-submission",
+        "surface-cap-submission-submit-submission",
+        "result-presentation-cap-submission-submit-submission",
+        "interaction-cap-submission-submit-submission",
+        "frontend-state-cap-submission-submit-submission",
+        "frontend-data-cap-submission-submit-submission",
+        "operation-create-submission-submit-submission",
+        "data-dependency-create-submission-submit-submission",
+        "integration-binding-create-submission-submit-submission",
+        "external-effect-create-submission-submit-submission",
+        "journey-journey-submission"
       ],
       "frontendRequired": true
     },
     {
-      "capabilityId": "cap-suite-sample-detail",
+      "capabilityId": "cap-submission-upload-resource",
       "status": "implemented",
       "unitIds": [
-        "capability-cap-suite-sample-detail",
-        "presentation-cap-suite-sample-detail",
-        "interaction-cap-suite-sample-detail",
-        "frontend-state-cap-suite-sample-detail",
-        "frontend-data-cap-suite-sample-detail",
-        "operation-submit-suite-sample-detail"
+        "capability-cap-submission-upload-resource",
+        "presentation-cap-submission-upload-resource",
+        "interaction-cap-submission-upload-resource",
+        "frontend-state-cap-submission-upload-resource",
+        "frontend-data-cap-submission-upload-resource",
+        "operation-upload-submission-upload-resource",
+        "resource-transfer-upload-submission-upload-resource",
+        "journey-journey-submission"
       ],
       "frontendRequired": true
     },
     {
-      "capabilityId": "cap-sample-local-navigation",
-      "status": "implemented",
+      "capabilityId": "cap-submission-planned-export",
+      "status": "planned",
       "unitIds": [
-        "capability-cap-sample-local-navigation",
-        "presentation-cap-sample-local-navigation",
-        "interaction-cap-sample-local-navigation",
-        "frontend-state-cap-sample-local-navigation",
-        "frontend-data-cap-sample-local-navigation"
-      ],
-      "frontendRequired": true
-    },
-    {
-      "capabilityId": "cap-sample-display-result",
-      "status": "implemented",
-      "unitIds": [
-        "capability-cap-sample-display-result",
-        "presentation-cap-sample-display-result",
-        "interaction-cap-sample-display-result",
-        "frontend-state-cap-sample-display-result",
-        "frontend-data-cap-sample-display-result",
-        "operation-query-sample-result"
+        "planned-capability-cap-submission-planned-export"
       ],
       "frontendRequired": true
     }

@@ -1,0 +1,63 @@
+{
+  "schemaVersion": "1.0",
+  "advisory": true,
+  "generatedFrom": [
+    "control-capability-map.json",
+    "frontend-semantic-inventory.json",
+    "field-binding-plan.json"
+  ],
+  "items": [
+    {
+      "pageId": "submission",
+      "controlId": "submit-button",
+      "dataVrId": "submit-button",
+      "capabilityId": "cap-submission-submit-submission",
+      "operationId": "create-submission-submit-submission",
+      "bindingIds": [
+        "binding-cap-submission-submit-submission-create-submission-submit-submission-body-submission-title",
+        "binding-cap-submission-submit-submission-create-submission-submit-submission-body-submission-category",
+        "binding-cap-submission-submit-submission-create-submission-submit-submission-body-result-quantity",
+        "binding-cap-submission-submit-submission-create-submission-submit-submission-body-upload-source-file-assetids",
+        "binding-cap-submission-submit-submission-create-submission-submit-submission-command",
+        "binding-cap-submission-submit-submission-create-submission-submit-submission-response-submissionid",
+        "binding-cap-submission-submit-submission-create-submission-submit-submission-response-status",
+        "binding-cap-submission-submit-submission-create-submission-submit-submission-response-items",
+        "binding-cap-submission-submit-submission-result-result-submit-submission",
+        "binding-cap-submission-submit-submission-state-loading",
+        "binding-cap-submission-submit-submission-state-success",
+        "binding-cap-submission-submit-submission-state-failure",
+        "binding-cap-submission-submit-submission-state-empty"
+      ],
+      "resultTarget": "result-panel"
+    },
+    {
+      "pageId": "submission",
+      "controlId": "upload-input",
+      "dataVrId": "upload-input",
+      "capabilityId": "cap-submission-upload-resource",
+      "operationId": "upload-submission-upload-resource",
+      "bindingIds": [
+        "binding-cap-submission-upload-resource-upload-submission-upload-resource-body-files",
+        "binding-cap-submission-upload-resource-upload-submission-upload-resource-command",
+        "binding-cap-submission-upload-resource-upload-submission-upload-resource-response-assetids",
+        "binding-cap-submission-upload-resource-upload-submission-upload-resource-response-assets",
+        "binding-cap-submission-upload-resource-state-loading",
+        "binding-cap-submission-upload-resource-state-success",
+        "binding-cap-submission-upload-resource-state-failure",
+        "binding-cap-submission-upload-resource-state-empty"
+      ],
+      "resultTarget": null
+    },
+    {
+      "pageId": "submission",
+      "controlId": "planned-export",
+      "dataVrId": "planned-export",
+      "capabilityId": "cap-submission-planned-export",
+      "operationId": null,
+      "bindingIds": [
+        "binding-cap-submission-planned-export-state-planned"
+      ],
+      "resultTarget": null
+    }
+  ]
+}

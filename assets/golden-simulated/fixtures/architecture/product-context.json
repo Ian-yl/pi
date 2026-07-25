@@ -1,0 +1,8 @@
+{
+  "projectId": "neutral-submission",
+  "name": "Neutral submission workspace",
+  "brief": "Create an owned submission from multiple configuration sections and an uploaded source file.",
+  "goals": ["Submit complete configuration", "Present generated submission items", "Keep an empty initial workspace"],
+  "users": ["operator"],
+  "needs": ["upload a source", "configure a submission", "observe its result"]
+}

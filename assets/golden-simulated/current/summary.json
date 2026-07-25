@@ -2,6 +2,8 @@
   "schemaVersion": "1.0",
   "status": "verified",
   "verificationLevel": "simulated",
+  "deliveryStatus": "simulated-verified",
+  "deliveryStatusNote": "Capabilities carrying an external providerContract require campaign-qualified integrated evidence before a completion declaration; simulated-verified is a prerequisite qualification.",
   "functional": "functional-domain",
   "handoff": "implementation-handoff",
   "implementation": "implementation"

@@ -3,408 +3,543 @@
   "status": "completed",
   "records": [
     {
-      "unitId": "persistence-entity-submission",
+      "unitId": "persistence-entity-submission-resource",
       "storyId": "1.1",
-      "storyDigest": "59cd1e039f09066b71feb2237e80e4ac3f7b9b579333fe5fe73dad929cbcf724",
+      "storyDigest": "2d4aa50a5f4186d8db06ca95e1e016781601ad2f8bf941c77122e5130453b159",
       "devStory": {
         "status": "completed",
         "agentId": "golden-dev",
-        "completedAt": "2026-07-23T10:29:03.119Z"
+        "completedAt": "2026-01-01T00:00:00.000Z",
+        "changedFiles": [
+          "migrations/001-submissions.sql"
+        ]
       },
       "codeReview": {
         "status": "approved",
         "reviewerAgentId": "golden-reviewer",
-        "reviewedAt": "2026-07-23T10:29:03.120Z"
+        "reviewedAt": "2026-01-01T00:01:00.000Z"
       }
     },
     {
-      "unitId": "persistence-entity-submission-event",
+      "unitId": "persistence-entity-submission-asset",
       "storyId": "1.2",
-      "storyDigest": "b175ae124cba0ce504703fe532e753513b72c8ce092756bd71f61d7342fa91ec",
+      "storyDigest": "2d7e5265d5d579a7893f9ac8f81ec3dd6ecc9055d64237ad7ca692b639649cdf",
       "devStory": {
         "status": "completed",
         "agentId": "golden-dev",
-        "completedAt": "2026-07-23T10:29:03.120Z"
+        "completedAt": "2026-01-01T00:00:00.000Z",
+        "changedFiles": [
+          "migrations/001-submissions.sql"
+        ]
       },
       "codeReview": {
         "status": "approved",
         "reviewerAgentId": "golden-reviewer",
-        "reviewedAt": "2026-07-23T10:29:03.120Z"
+        "reviewedAt": "2026-01-01T00:01:00.000Z"
       }
     },
     {
-      "unitId": "relationship-relation-submission-events",
+      "unitId": "persistence-entity-cap-submission-submit-submission-configuration",
       "storyId": "1.3",
-      "storyDigest": "7c7c051287bd949b89ff88eeecef9c9d3d8ab39ac31ac60fb290776c1a55a90e",
+      "storyDigest": "6ee906bda7728b30f8778cc66cdbe6f77524d4ae20760567abbf42e6ac2e3271",
       "devStory": {
         "status": "completed",
         "agentId": "golden-dev",
-        "completedAt": "2026-07-23T10:29:03.120Z"
+        "completedAt": "2026-01-01T00:00:00.000Z",
+        "changedFiles": [
+          "migrations/001-submissions.sql"
+        ]
       },
       "codeReview": {
         "status": "approved",
         "reviewerAgentId": "golden-reviewer",
-        "reviewedAt": "2026-07-23T10:29:03.120Z"
+        "reviewedAt": "2026-01-01T00:01:00.000Z"
+      }
+    },
+    {
+      "unitId": "consistency-boundary-cap-submission-submit-submission-configuration",
+      "storyId": "1.4",
+      "storyDigest": "10be152901bbae301e0772a0394f75e4d41f54e9e746938500bcbea606ee3e35",
+      "devStory": {
+        "status": "completed",
+        "agentId": "golden-dev",
+        "completedAt": "2026-01-01T00:00:00.000Z",
+        "changedFiles": [
+          "migrations/001-submissions.sql"
+        ]
+      },
+      "codeReview": {
+        "status": "approved",
+        "reviewerAgentId": "golden-reviewer",
+        "reviewedAt": "2026-01-01T00:01:00.000Z"
       }
     },
     {
       "unitId": "consistency-boundary-submission",
-      "storyId": "1.4",
-      "storyDigest": "1a5a92333d5c8404bd89c49cf1ef28a7a79923034ccae18fc570eb9c1b91f7c0",
-      "devStory": {
-        "status": "completed",
-        "agentId": "golden-dev",
-        "completedAt": "2026-07-23T10:29:03.120Z"
-      },
-      "codeReview": {
-        "status": "approved",
-        "reviewerAgentId": "golden-reviewer",
-        "reviewedAt": "2026-07-23T10:29:03.120Z"
-      }
-    },
-    {
-      "unitId": "capability-cap-sample",
       "storyId": "1.5",
-      "storyDigest": "bd9373b65873cd5dc7ddee8704514bfd112d2cf19e5a17bde4afe1de48bfd97d",
+      "storyDigest": "b6f6dd0b84279a81b7e69ccb4bd2c7d54bac01fa7ee9968cd78f1a9640f40802",
       "devStory": {
         "status": "completed",
         "agentId": "golden-dev",
-        "completedAt": "2026-07-23T10:29:03.120Z"
+        "completedAt": "2026-01-01T00:00:00.000Z",
+        "changedFiles": [
+          "migrations/001-submissions.sql"
+        ]
       },
       "codeReview": {
         "status": "approved",
         "reviewerAgentId": "golden-reviewer",
-        "reviewedAt": "2026-07-23T10:29:03.120Z"
+        "reviewedAt": "2026-01-01T00:01:00.000Z"
       }
     },
     {
-      "unitId": "capability-cap-suite-sample-detail",
+      "unitId": "capability-cap-submission-submit-submission",
       "storyId": "1.6",
-      "storyDigest": "32f5c4546db4f467ca99ce83118233b8a7a045891ad5f1db9e756149a5b96f02",
+      "storyDigest": "eaec7825ec30d0fc3d41c0af6a512737a5ca8138419cf78663086d889755515e",
       "devStory": {
         "status": "completed",
         "agentId": "golden-dev",
-        "completedAt": "2026-07-23T10:29:03.120Z"
+        "completedAt": "2026-01-01T00:00:00.000Z",
+        "changedFiles": [
+          "backend/server.mjs"
+        ]
       },
       "codeReview": {
         "status": "approved",
         "reviewerAgentId": "golden-reviewer",
-        "reviewedAt": "2026-07-23T10:29:03.120Z"
+        "reviewedAt": "2026-01-01T00:01:00.000Z"
       }
     },
     {
-      "unitId": "capability-cap-sample-local-navigation",
+      "unitId": "capability-cap-submission-upload-resource",
       "storyId": "1.7",
-      "storyDigest": "8dd56260c48104faf3e59fdd4eeb21c9635abb4da0e68d02bdbb4bce2cf6641d",
+      "storyDigest": "2acc9a728b84e8ce9860a4996cfe296c3e87e248640d7d797403ef38ff9d52b5",
       "devStory": {
         "status": "completed",
         "agentId": "golden-dev",
-        "completedAt": "2026-07-23T10:29:03.120Z"
+        "completedAt": "2026-01-01T00:00:00.000Z",
+        "changedFiles": [
+          "backend/server.mjs"
+        ]
       },
       "codeReview": {
         "status": "approved",
         "reviewerAgentId": "golden-reviewer",
-        "reviewedAt": "2026-07-23T10:29:03.120Z"
+        "reviewedAt": "2026-01-01T00:01:00.000Z"
       }
     },
     {
-      "unitId": "capability-cap-sample-display-result",
+      "unitId": "presentation-cap-submission-submit-submission",
       "storyId": "1.8",
-      "storyDigest": "02d288f2e775cb3f6a018ab632db7edbe361a8be80950545a546a1c2a568b23f",
+      "storyDigest": "8635a4bbbf7c584b527afa2c6f1e6446a493c27301b4436f42c7564cad078ee1",
       "devStory": {
         "status": "completed",
         "agentId": "golden-dev",
-        "completedAt": "2026-07-23T10:29:03.120Z"
+        "completedAt": "2026-01-01T00:00:00.000Z",
+        "changedFiles": [
+          "web/pages/submission/index.html"
+        ]
       },
       "codeReview": {
         "status": "approved",
         "reviewerAgentId": "golden-reviewer",
-        "reviewedAt": "2026-07-23T10:29:03.120Z"
+        "reviewedAt": "2026-01-01T00:01:00.000Z"
       }
     },
     {
-      "unitId": "presentation-cap-sample",
+      "unitId": "activation-cap-submission-submit-submission",
       "storyId": "1.9",
-      "storyDigest": "53453bd0aca6af5f532654ac1997cbcd8e7d2b6f25b20ec9838e9a68f6271d40",
+      "storyDigest": "e0339054f766172489cdc59c0e62f7bfe58487e4f5aeaec04f3b0ce3dd6fb08f",
       "devStory": {
         "status": "completed",
         "agentId": "golden-dev",
-        "completedAt": "2026-07-23T10:29:03.120Z"
+        "completedAt": "2026-01-01T00:00:00.000Z",
+        "changedFiles": [
+          "web/pages/submission/index.html"
+        ]
       },
       "codeReview": {
         "status": "approved",
         "reviewerAgentId": "golden-reviewer",
-        "reviewedAt": "2026-07-23T10:29:03.120Z"
+        "reviewedAt": "2026-01-01T00:01:00.000Z"
       }
     },
     {
-      "unitId": "interaction-cap-sample",
+      "unitId": "surface-cap-submission-submit-submission",
       "storyId": "1.10",
-      "storyDigest": "62dbb9e37206edf5abb1eb1823edd7b867a3af48206e9d5468a177758de038c8",
+      "storyDigest": "d7335080d4e50e2e84726544afd3e88528867bb937bf0b9dc041b96e67c220ac",
       "devStory": {
         "status": "completed",
         "agentId": "golden-dev",
-        "completedAt": "2026-07-23T10:29:03.121Z"
+        "completedAt": "2026-01-01T00:00:00.000Z",
+        "changedFiles": [
+          "web/pages/submission/index.html"
+        ]
       },
       "codeReview": {
         "status": "approved",
         "reviewerAgentId": "golden-reviewer",
-        "reviewedAt": "2026-07-23T10:29:03.121Z"
+        "reviewedAt": "2026-01-01T00:01:00.000Z"
       }
     },
     {
-      "unitId": "frontend-state-cap-sample",
+      "unitId": "result-presentation-cap-submission-submit-submission",
       "storyId": "1.11",
-      "storyDigest": "87dcd253ae55bc89e78d95d915e5b33b39d2c25bfee3a47e807e64d0b9aa6e5e",
+      "storyDigest": "be69531b5915586fc2260787e5b233ea09cf10d8b7e2400fd74d038a2e532f5e",
       "devStory": {
         "status": "completed",
         "agentId": "golden-dev",
-        "completedAt": "2026-07-23T10:29:03.121Z"
+        "completedAt": "2026-01-01T00:00:00.000Z",
+        "changedFiles": [
+          "web/pages/submission/index.html"
+        ]
       },
       "codeReview": {
         "status": "approved",
         "reviewerAgentId": "golden-reviewer",
-        "reviewedAt": "2026-07-23T10:29:03.121Z"
+        "reviewedAt": "2026-01-01T00:01:00.000Z"
       }
     },
     {
-      "unitId": "frontend-data-cap-sample",
+      "unitId": "interaction-cap-submission-submit-submission",
       "storyId": "1.12",
-      "storyDigest": "f9e940fee3660d3c470e8bf7e7ea4cb8fd21bfb80b8283dcd988a6312b93e258",
+      "storyDigest": "f16a2af0d2a6390623de305a3802c88305beea16d03557b175f1e6fed770fe51",
       "devStory": {
         "status": "completed",
         "agentId": "golden-dev",
-        "completedAt": "2026-07-23T10:29:03.121Z"
+        "completedAt": "2026-01-01T00:00:00.000Z",
+        "changedFiles": [
+          "web/pages/submission/index.html"
+        ]
       },
       "codeReview": {
         "status": "approved",
         "reviewerAgentId": "golden-reviewer",
-        "reviewedAt": "2026-07-23T10:29:03.121Z"
+        "reviewedAt": "2026-01-01T00:01:00.000Z"
       }
     },
     {
-      "unitId": "presentation-cap-suite-sample-detail",
+      "unitId": "frontend-state-cap-submission-submit-submission",
       "storyId": "1.13",
-      "storyDigest": "98da0c6a6d80e852344f0572dcde983e45304f0270c5ffcac328895dd66b81b2",
+      "storyDigest": "9ca5b965f1f763b2c15913d6839bc3d6e28cf04fb020463df1c9c8d219ddadca",
       "devStory": {
         "status": "completed",
         "agentId": "golden-dev",
-        "completedAt": "2026-07-23T10:29:03.121Z"
+        "completedAt": "2026-01-01T00:00:00.000Z",
+        "changedFiles": [
+          "web/pages/submission/index.html"
+        ]
       },
       "codeReview": {
         "status": "approved",
         "reviewerAgentId": "golden-reviewer",
-        "reviewedAt": "2026-07-23T10:29:03.121Z"
+        "reviewedAt": "2026-01-01T00:01:00.000Z"
       }
     },
     {
-      "unitId": "interaction-cap-suite-sample-detail",
+      "unitId": "frontend-data-cap-submission-submit-submission",
       "storyId": "1.14",
-      "storyDigest": "4b93c61411afd9dde82708c3543f159c3c6f2b0fd58e50f7f943530f789428a8",
+      "storyDigest": "1f97c058bd3157b21b878004e25df8364d90597baeb3c32a2ea0e4f5d26fdec3",
       "devStory": {
         "status": "completed",
         "agentId": "golden-dev",
-        "completedAt": "2026-07-23T10:29:03.121Z"
+        "completedAt": "2026-01-01T00:00:00.000Z",
+        "changedFiles": [
+          "web/pages/submission/index.html"
+        ]
       },
       "codeReview": {
         "status": "approved",
         "reviewerAgentId": "golden-reviewer",
-        "reviewedAt": "2026-07-23T10:29:03.121Z"
+        "reviewedAt": "2026-01-01T00:01:00.000Z"
       }
     },
     {
-      "unitId": "frontend-state-cap-suite-sample-detail",
+      "unitId": "presentation-cap-submission-upload-resource",
       "storyId": "1.15",
-      "storyDigest": "2905bd5dd79a8c04084fc9228fcc7ff60b1248aced469b9a93f1e5680a36cbea",
+      "storyDigest": "96809d90b61fe99c3449f4b8a0873e8c7968641cf6ec54dff6d42f6fd8c50c20",
       "devStory": {
         "status": "completed",
         "agentId": "golden-dev",
-        "completedAt": "2026-07-23T10:29:03.121Z"
+        "completedAt": "2026-01-01T00:00:00.000Z",
+        "changedFiles": [
+          "web/pages/submission/index.html"
+        ]
       },
       "codeReview": {
         "status": "approved",
         "reviewerAgentId": "golden-reviewer",
-        "reviewedAt": "2026-07-23T10:29:03.121Z"
+        "reviewedAt": "2026-01-01T00:01:00.000Z"
       }
     },
     {
-      "unitId": "frontend-data-cap-suite-sample-detail",
+      "unitId": "interaction-cap-submission-upload-resource",
       "storyId": "1.16",
-      "storyDigest": "ac76f59933df86595e351c25593f3c2f486e295a0dd9781208229713f893a9d2",
+      "storyDigest": "f75296dc983ba8b1a16db90d651d7e9ccfb5a6b2bc59595691ebfb251f56bb7e",
       "devStory": {
         "status": "completed",
         "agentId": "golden-dev",
-        "completedAt": "2026-07-23T10:29:03.121Z"
+        "completedAt": "2026-01-01T00:00:00.000Z",
+        "changedFiles": [
+          "web/pages/submission/index.html"
+        ]
       },
       "codeReview": {
         "status": "approved",
         "reviewerAgentId": "golden-reviewer",
-        "reviewedAt": "2026-07-23T10:29:03.121Z"
+        "reviewedAt": "2026-01-01T00:01:00.000Z"
       }
     },
     {
-      "unitId": "presentation-cap-sample-local-navigation",
+      "unitId": "frontend-state-cap-submission-upload-resource",
       "storyId": "1.17",
-      "storyDigest": "95856796f02198c023afdd4fb1e0133f96223ba60f958937783f75bac33ad008",
+      "storyDigest": "8e358938d25e3c04c0f890470af439313db27864a0ffc10c8d9077c756883f05",
       "devStory": {
         "status": "completed",
         "agentId": "golden-dev",
-        "completedAt": "2026-07-23T10:29:03.121Z"
+        "completedAt": "2026-01-01T00:00:00.000Z",
+        "changedFiles": [
+          "web/pages/submission/index.html"
+        ]
       },
       "codeReview": {
         "status": "approved",
         "reviewerAgentId": "golden-reviewer",
-        "reviewedAt": "2026-07-23T10:29:03.121Z"
+        "reviewedAt": "2026-01-01T00:01:00.000Z"
       }
     },
     {
-      "unitId": "interaction-cap-sample-local-navigation",
+      "unitId": "frontend-data-cap-submission-upload-resource",
       "storyId": "1.18",
-      "storyDigest": "f9a5daf12c7b5ef191ff510865f034e4d5e4b00ccacabb036c3235b5280e8250",
+      "storyDigest": "439397433f772a8f54629aeec6cea89ab50737d03fb777ab62ba6203308ec546",
       "devStory": {
         "status": "completed",
         "agentId": "golden-dev",
-        "completedAt": "2026-07-23T10:29:03.121Z"
+        "completedAt": "2026-01-01T00:00:00.000Z",
+        "changedFiles": [
+          "web/pages/submission/index.html"
+        ]
       },
       "codeReview": {
         "status": "approved",
         "reviewerAgentId": "golden-reviewer",
-        "reviewedAt": "2026-07-23T10:29:03.121Z"
+        "reviewedAt": "2026-01-01T00:01:00.000Z"
       }
     },
     {
-      "unitId": "frontend-state-cap-sample-local-navigation",
+      "unitId": "planned-capability-cap-submission-planned-export",
       "storyId": "1.19",
-      "storyDigest": "b5af4443eb09b72d8bc7edd09814fdc13eddba265a999930be07365661e6fb6d",
+      "storyDigest": "15b0edfcfcdaf98057dadda6c10f969ed83374205710636808abd0339725d1b4",
       "devStory": {
         "status": "completed",
         "agentId": "golden-dev",
-        "completedAt": "2026-07-23T10:29:03.121Z"
+        "completedAt": "2026-01-01T00:00:00.000Z",
+        "changedFiles": [
+          "web/pages/submission/index.html"
+        ]
       },
       "codeReview": {
         "status": "approved",
         "reviewerAgentId": "golden-reviewer",
-        "reviewedAt": "2026-07-23T10:29:03.121Z"
+        "reviewedAt": "2026-01-01T00:01:00.000Z"
       }
     },
     {
-      "unitId": "frontend-data-cap-sample-local-navigation",
+      "unitId": "rule-rule-cap-submission-submit-submission",
       "storyId": "1.20",
-      "storyDigest": "611e49291964f41fe47740ff02fd63d19fdf1fe3aee2491ae87a671ed18a5284",
+      "storyDigest": "232faeaff934b762a4805f3d0a16edf2e0aa9ec346a0054fdfdfb95eaf49f31a",
       "devStory": {
         "status": "completed",
         "agentId": "golden-dev",
-        "completedAt": "2026-07-23T10:29:03.121Z"
+        "completedAt": "2026-01-01T00:00:00.000Z",
+        "changedFiles": [
+          "backend/server.mjs"
+        ]
       },
       "codeReview": {
         "status": "approved",
         "reviewerAgentId": "golden-reviewer",
-        "reviewedAt": "2026-07-23T10:29:03.121Z"
+        "reviewedAt": "2026-01-01T00:01:00.000Z"
       }
     },
     {
-      "unitId": "presentation-cap-sample-display-result",
+      "unitId": "rule-rule-cap-submission-upload-resource",
       "storyId": "1.21",
-      "storyDigest": "6274367e816b265cec7b377a4f3d39c3cba507d64b0cd01b7469611584692d6b",
+      "storyDigest": "e9fe6aa9eaf6c2d073d12bdc586930a90389962ba6f173c42e3b8184d69ad629",
       "devStory": {
         "status": "completed",
         "agentId": "golden-dev",
-        "completedAt": "2026-07-23T10:29:03.121Z"
+        "completedAt": "2026-01-01T00:00:00.000Z",
+        "changedFiles": [
+          "backend/server.mjs"
+        ]
       },
       "codeReview": {
         "status": "approved",
         "reviewerAgentId": "golden-reviewer",
-        "reviewedAt": "2026-07-23T10:29:03.121Z"
+        "reviewedAt": "2026-01-01T00:01:00.000Z"
       }
     },
     {
-      "unitId": "interaction-cap-sample-display-result",
+      "unitId": "operation-create-submission-submit-submission",
       "storyId": "1.22",
-      "storyDigest": "e9e788127f68fc5ed41b0f258be265bb19fc1a35486d4b369918ccfbf202d7ec",
+      "storyDigest": "5311efad5bef55d2a9e0fd7fd83affe67d9e2ad39c933411eb161f0ed43dd77c",
       "devStory": {
         "status": "completed",
         "agentId": "golden-dev",
-        "completedAt": "2026-07-23T10:29:03.121Z"
+        "completedAt": "2026-01-01T00:00:00.000Z",
+        "changedFiles": [
+          "backend/server.mjs"
+        ]
       },
       "codeReview": {
         "status": "approved",
         "reviewerAgentId": "golden-reviewer",
-        "reviewedAt": "2026-07-23T10:29:03.121Z"
+        "reviewedAt": "2026-01-01T00:01:00.000Z"
       }
     },
     {
-      "unitId": "frontend-state-cap-sample-display-result",
+      "unitId": "data-dependency-create-submission-submit-submission",
       "storyId": "1.23",
-      "storyDigest": "045cad94103c1483109867d73d6efe2ad6fd853886a0a2c8bd233ae1aedd27f4",
+      "storyDigest": "2f26e8046ea684e12a0668f7a1af10c508719cc1ae2d875ed841c1cb3e817878",
       "devStory": {
         "status": "completed",
         "agentId": "golden-dev",
-        "completedAt": "2026-07-23T10:29:03.122Z"
+        "completedAt": "2026-01-01T00:00:00.000Z",
+        "changedFiles": [
+          "backend/server.mjs"
+        ]
       },
       "codeReview": {
         "status": "approved",
         "reviewerAgentId": "golden-reviewer",
-        "reviewedAt": "2026-07-23T10:29:03.122Z"
+        "reviewedAt": "2026-01-01T00:01:00.000Z"
       }
     },
     {
-      "unitId": "frontend-data-cap-sample-display-result",
+      "unitId": "integration-binding-create-submission-submit-submission",
       "storyId": "1.24",
-      "storyDigest": "cacb3eaf8746541e3f89ae4126ec597d4d89782b595cc31cbdd46f81bf5b902d",
+      "storyDigest": "7893f64d6a64ff387229ed347b2a2b1284623303565ef7a4f19ae9f283d4fa0e",
       "devStory": {
         "status": "completed",
         "agentId": "golden-dev",
-        "completedAt": "2026-07-23T10:29:03.122Z"
+        "completedAt": "2026-01-01T00:00:00.000Z",
+        "changedFiles": [
+          "backend/server.mjs"
+        ]
       },
       "codeReview": {
         "status": "approved",
         "reviewerAgentId": "golden-reviewer",
-        "reviewedAt": "2026-07-23T10:29:03.122Z"
+        "reviewedAt": "2026-01-01T00:01:00.000Z"
       }
     },
     {
-      "unitId": "operation-submit-sample",
+      "unitId": "external-effect-create-submission-submit-submission",
       "storyId": "1.25",
-      "storyDigest": "00a6e2c3f17b3d1b4e1f6c35e0d39408049b09ef7d8d3d3ceadf8f91306601c2",
+      "storyDigest": "9fd2a5d159b6f7fa84088f31fca99f56f8ee2e67c06a15e27c059179d397c17e",
       "devStory": {
         "status": "completed",
         "agentId": "golden-dev",
-        "completedAt": "2026-07-23T10:29:03.122Z"
+        "completedAt": "2026-01-01T00:00:00.000Z",
+        "changedFiles": [
+          "backend/server.mjs"
+        ]
       },
       "codeReview": {
         "status": "approved",
         "reviewerAgentId": "golden-reviewer",
-        "reviewedAt": "2026-07-23T10:29:03.122Z"
+        "reviewedAt": "2026-01-01T00:01:00.000Z"
       }
     },
     {
-      "unitId": "operation-submit-suite-sample-detail",
+      "unitId": "operation-upload-submission-upload-resource",
       "storyId": "1.26",
-      "storyDigest": "403a5b08c59be4de7eb4b90aeda282b292c6629412f34c1f04926a0cd07e6634",
+      "storyDigest": "7753b6d3112de95cc753e58821787129e6832dc52f0f84f54058242c79ab0c42",
       "devStory": {
         "status": "completed",
         "agentId": "golden-dev",
-        "completedAt": "2026-07-23T10:29:03.122Z"
+        "completedAt": "2026-01-01T00:00:00.000Z",
+        "changedFiles": [
+          "backend/server.mjs"
+        ]
       },
       "codeReview": {
         "status": "approved",
         "reviewerAgentId": "golden-reviewer",
-        "reviewedAt": "2026-07-23T10:29:03.122Z"
+        "reviewedAt": "2026-01-01T00:01:00.000Z"
       }
     },
     {
-      "unitId": "operation-query-sample-result",
+      "unitId": "resource-transfer-upload-submission-upload-resource",
       "storyId": "1.27",
-      "storyDigest": "932bacf2a90eac3ffcc0345f1008103a17b2c853b17157c4f0cbb22954a68d6b",
+      "storyDigest": "09b8916cf59262bfd16a4fb697d41c3a54a8891c38647b4b93f1774f01a1a0aa",
       "devStory": {
         "status": "completed",
         "agentId": "golden-dev",
-        "completedAt": "2026-07-23T10:29:03.122Z"
+        "completedAt": "2026-01-01T00:00:00.000Z",
+        "changedFiles": [
+          "backend/server.mjs"
+        ]
       },
       "codeReview": {
         "status": "approved",
         "reviewerAgentId": "golden-reviewer",
-        "reviewedAt": "2026-07-23T10:29:03.122Z"
+        "reviewedAt": "2026-01-01T00:01:00.000Z"
+      }
+    },
+    {
+      "unitId": "resource-validation-upload-submission-upload-resource",
+      "storyId": "1.28",
+      "storyDigest": "03fdd9890e6f4bf52b9ad1169da5076e6f395b53439da0f338c5c9253ef952f9",
+      "devStory": {
+        "status": "completed",
+        "agentId": "golden-dev",
+        "completedAt": "2026-01-01T00:00:00.000Z",
+        "changedFiles": [
+          "backend/server.mjs"
+        ]
+      },
+      "codeReview": {
+        "status": "approved",
+        "reviewerAgentId": "golden-reviewer",
+        "reviewedAt": "2026-01-01T00:01:00.000Z"
+      }
+    },
+    {
+      "unitId": "resource-persistence-upload-submission-upload-resource",
+      "storyId": "1.29",
+      "storyDigest": "412ff11257f1032830ad91f10a20c88c064ae3b636e26295448471ad48572eb7",
+      "devStory": {
+        "status": "completed",
+        "agentId": "golden-dev",
+        "completedAt": "2026-01-01T00:00:00.000Z",
+        "changedFiles": [
+          "backend/server.mjs"
+        ]
+      },
+      "codeReview": {
+        "status": "approved",
+        "reviewerAgentId": "golden-reviewer",
+        "reviewedAt": "2026-01-01T00:01:00.000Z"
+      }
+    },
+    {
+      "unitId": "journey-journey-submission",
+      "storyId": "1.30",
+      "storyDigest": "5c8d01a7ff4e3694140efffca1b34034da7a5a066bb87723baa9a64987d4a7e0",
+      "devStory": {
+        "status": "completed",
+        "agentId": "golden-dev",
+        "completedAt": "2026-01-01T00:00:00.000Z",
+        "changedFiles": [
+          "tests/browser-runtime.mjs"
+        ]
+      },
+      "codeReview": {
+        "status": "approved",
+        "reviewerAgentId": "golden-reviewer",
+        "reviewedAt": "2026-01-01T00:01:00.000Z"
       }
     }
   ]

@@ -7,11 +7,11 @@
   "output": "_bmad-output",
   "stories": [
     {
-      "unitId": "persistence-entity-submission",
+      "unitId": "persistence-entity-submission-resource",
       "storyId": "1.1",
-      "storyPath": "implementation-artifacts/stories/1.1-persistence-entity-submission.md",
+      "storyPath": "implementation-artifacts/stories/1.1-persistence-entity-submission-resource.md",
       "contract": {
-        "unitId": "persistence-entity-submission",
+        "unitId": "persistence-entity-submission-resource",
         "type": "persistence",
         "dependsOn": [],
         "acceptance": [
@@ -19,15 +19,15 @@
           "entity effects are observable"
         ]
       },
-      "contractDigest": "cf222e5ae8761256c2e801f1dd03289da81e8d898972784bdaf12fbc2abb155c",
+      "contractDigest": "693e1639530c1c04d342a17788eba7b9d7009f25f59d94512e0ba982c8358fc0",
       "status": "ready-for-dev"
     },
     {
-      "unitId": "persistence-entity-submission-event",
+      "unitId": "persistence-entity-submission-asset",
       "storyId": "1.2",
-      "storyPath": "implementation-artifacts/stories/1.2-persistence-entity-submission-event.md",
+      "storyPath": "implementation-artifacts/stories/1.2-persistence-entity-submission-asset.md",
       "contract": {
-        "unitId": "persistence-entity-submission-event",
+        "unitId": "persistence-entity-submission-asset",
         "type": "persistence",
         "dependsOn": [],
         "acceptance": [
@@ -35,448 +35,518 @@
           "entity effects are observable"
         ]
       },
-      "contractDigest": "351ab20c086cc43251374efad0215a194562ff475da336ceea6877a8daafe5be",
+      "contractDigest": "a17887f69a5e6a32815ad0f1d37ce4da7e3f4ba648ab4b011260fe5091b44eba",
       "status": "ready-for-dev"
     },
     {
-      "unitId": "relationship-relation-submission-events",
+      "unitId": "persistence-entity-cap-submission-submit-submission-configuration",
       "storyId": "1.3",
-      "storyPath": "implementation-artifacts/stories/1.3-relationship-relation-submission-events.md",
+      "storyPath": "implementation-artifacts/stories/1.3-persistence-entity-cap-submission-submit-submission-configuration.md",
       "contract": {
-        "unitId": "relationship-relation-submission-events",
-        "type": "relation-migration",
-        "dependsOn": [
-          "persistence-entity-submission",
-          "persistence-entity-submission-event"
-        ],
+        "unitId": "persistence-entity-cap-submission-submit-submission-configuration",
+        "type": "persistence",
+        "dependsOn": [],
         "acceptance": [
-          "association key and cardinality are enforced",
-          "delete behavior is cascade",
-          "relationship invariants have dedicated tests"
+          "migration applies to a clean database",
+          "entity effects are observable"
         ]
       },
-      "contractDigest": "14a214e118f60da0ee94c511050825d2a2b825fc11c05717bfc572daaee5d1a3",
+      "contractDigest": "a1057d7582738d0993ad1583c93a8a099bfac70d51e5b7f68c1ca4460402589a",
       "status": "ready-for-dev"
     },
     {
-      "unitId": "consistency-boundary-submission",
+      "unitId": "consistency-boundary-cap-submission-submit-submission-configuration",
       "storyId": "1.4",
-      "storyPath": "implementation-artifacts/stories/1.4-consistency-boundary-submission.md",
+      "storyPath": "implementation-artifacts/stories/1.4-consistency-boundary-cap-submission-submit-submission-configuration.md",
       "contract": {
-        "unitId": "consistency-boundary-submission",
+        "unitId": "consistency-boundary-cap-submission-submit-submission-configuration",
         "type": "consistency",
-        "dependsOn": [
-          "relationship-relation-submission-events"
-        ],
+        "dependsOn": [],
         "acceptance": [
           "atomic consistency boundary is verified",
           "rollback or convergence behavior is tested"
         ]
       },
-      "contractDigest": "d79bddb7c6fcfa025e9eb90406c3addb2a3831bc2a9fa1bd981e89f3dc7f3591",
+      "contractDigest": "2a5806259747635805fa6da09d7a6e0848ba2541974074e4243f5ffbf2de572b",
       "status": "ready-for-dev"
     },
     {
-      "unitId": "capability-cap-sample",
+      "unitId": "consistency-boundary-submission",
       "storyId": "1.5",
-      "storyPath": "implementation-artifacts/stories/1.5-capability-cap-sample.md",
+      "storyPath": "implementation-artifacts/stories/1.5-consistency-boundary-submission.md",
       "contract": {
-        "unitId": "capability-cap-sample",
-        "type": "capability",
-        "dependsOn": [
-          "persistence-entity-submission"
-        ],
+        "unitId": "consistency-boundary-submission",
+        "type": "consistency",
+        "dependsOn": [],
         "acceptance": [
-          "valid input creates a submission"
+          "atomic consistency boundary is verified",
+          "rollback or convergence behavior is tested"
         ]
       },
-      "contractDigest": "253aeaa44be876f5835f5b9e5c8578b076c6ae0fb53bf97fc8c45877e538d112",
+      "contractDigest": "f5f7daef969e4d6ed61dd80a03f11db6ae7adb1a765a31644f506760b310444d",
       "status": "ready-for-dev"
     },
     {
-      "unitId": "capability-cap-suite-sample-detail",
+      "unitId": "capability-cap-submission-submit-submission",
       "storyId": "1.6",
-      "storyPath": "implementation-artifacts/stories/1.6-capability-cap-suite-sample-detail.md",
+      "storyPath": "implementation-artifacts/stories/1.6-capability-cap-submission-submit-submission.md",
       "contract": {
-        "unitId": "capability-cap-suite-sample-detail",
+        "unitId": "capability-cap-submission-submit-submission",
         "type": "capability",
         "dependsOn": [
-          "persistence-entity-submission"
+          "persistence-entity-cap-submission-submit-submission-configuration"
         ],
         "acceptance": [
-          "valid input creates a submission"
+          "Create submission consumes each required field with its declared type and constraint",
+          "Create submission produces its operation-specific output and observable UI state",
+          "Runtime output from the prerequisite operation is propagated without a fixed substitute",
+          "Create submission exposes its declared recovery behavior for each business failure"
         ]
       },
-      "contractDigest": "c275c73647fab95fb98c23749a9e3db700ecf5bdc341295c87d25c8eb92a4c9f",
+      "contractDigest": "67f4e710b119d9ea8cc39f34c561ba73a49fefdfd22109656363b265cc05f6ed",
       "status": "ready-for-dev"
     },
     {
-      "unitId": "capability-cap-sample-local-navigation",
+      "unitId": "capability-cap-submission-upload-resource",
       "storyId": "1.7",
-      "storyPath": "implementation-artifacts/stories/1.7-capability-cap-sample-local-navigation.md",
+      "storyPath": "implementation-artifacts/stories/1.7-capability-cap-submission-upload-resource.md",
       "contract": {
-        "unitId": "capability-cap-sample-local-navigation",
+        "unitId": "capability-cap-submission-upload-resource",
         "type": "capability",
-        "dependsOn": [],
+        "dependsOn": [
+          "persistence-entity-submission-asset"
+        ],
         "acceptance": [
-          "help opens without a server request"
+          "Upload source file consumes each required field with its declared type and constraint",
+          "Upload source file produces its operation-specific output and observable UI state",
+          "Upload source file exposes its declared recovery behavior for each business failure"
         ]
       },
-      "contractDigest": "156ea2b1e13238457183c5967e1b435eb11883d40471a64a9aa315d5860b4db9",
+      "contractDigest": "67d36cf82ea8de655486f906c9eac46dda77f86a9aea2f11e41b56063ea2bc63",
       "status": "ready-for-dev"
     },
     {
-      "unitId": "capability-cap-sample-display-result",
+      "unitId": "presentation-cap-submission-submit-submission",
       "storyId": "1.8",
-      "storyPath": "implementation-artifacts/stories/1.8-capability-cap-sample-display-result.md",
+      "storyPath": "implementation-artifacts/stories/1.8-presentation-cap-submission-submit-submission.md",
       "contract": {
-        "unitId": "capability-cap-sample-display-result",
-        "type": "capability",
+        "unitId": "presentation-cap-submission-submit-submission",
+        "type": "ui-presentation",
         "dependsOn": [
-          "persistence-entity-submission"
+          "capability-cap-submission-submit-submission"
         ],
         "acceptance": [
-          "task completion renders the queried result"
+          "runtime DOM contains one visible presentation binding",
+          "functional and visual regression evidence is recorded"
         ]
       },
-      "contractDigest": "56514089b37190649747d25713b87711a042b9e49e6f92adadad2d03d5c96071",
+      "contractDigest": "97758c1e4d290c36bc9d9edc49f41a945958a7698ccef1ce08c701f2892a06ca",
       "status": "ready-for-dev"
     },
     {
-      "unitId": "presentation-cap-sample",
+      "unitId": "activation-cap-submission-submit-submission",
       "storyId": "1.9",
-      "storyPath": "implementation-artifacts/stories/1.9-presentation-cap-sample.md",
+      "storyPath": "implementation-artifacts/stories/1.9-activation-cap-submission-submit-submission.md",
       "contract": {
-        "unitId": "presentation-cap-sample",
-        "type": "ui-presentation",
+        "unitId": "activation-cap-submission-submit-submission",
+        "type": "ui-activation",
         "dependsOn": [
-          "capability-cap-sample"
+          "presentation-cap-submission-submit-submission"
         ],
         "acceptance": [
-          "runtime DOM contains one visible presentation binding",
-          "functional and visual regression evidence is recorded"
+          "browser activation sets the declared active capability",
+          "development planned state is explicit and final completion is implemented"
         ]
       },
-      "contractDigest": "27ceff26637212ac5a4e89fcebdd6ca5b42c7b0107e7c99f1faa36c64a988403",
+      "contractDigest": "a5ed051c110739c54fba17013fa30d1e590da43b0cd8b389f8f6b361b9a30221",
       "status": "ready-for-dev"
     },
     {
-      "unitId": "interaction-cap-sample",
+      "unitId": "surface-cap-submission-submit-submission",
       "storyId": "1.10",
-      "storyPath": "implementation-artifacts/stories/1.10-interaction-cap-sample.md",
+      "storyPath": "implementation-artifacts/stories/1.10-surface-cap-submission-submit-submission.md",
       "contract": {
-        "unitId": "interaction-cap-sample",
-        "type": "ui-interaction",
+        "unitId": "surface-cap-submission-submit-submission",
+        "type": "ui-surface",
         "dependsOn": [
-          "presentation-cap-sample"
+          "activation-cap-submission-submit-submission"
         ],
         "acceptance": [
-          "runtime event produces the declared server request or client state change"
+          "runtime content fingerprint matches the domain surface contract",
+          "workspace content, inputs, operation, empty state, and results belong to the active capability"
         ]
       },
-      "contractDigest": "5bfc5bcb95cb6a732720e1a16f68c1d89a16c313aca1f4f23de21218236e88bb",
+      "contractDigest": "4c168e595af03bd39661bb994d5f90fbe1e0c40f654ebb9f4bfa89604a3c06f3",
       "status": "ready-for-dev"
     },
     {
-      "unitId": "frontend-state-cap-sample",
+      "unitId": "result-presentation-cap-submission-submit-submission",
       "storyId": "1.11",
-      "storyPath": "implementation-artifacts/stories/1.11-frontend-state-cap-sample.md",
+      "storyPath": "implementation-artifacts/stories/1.11-result-presentation-cap-submission-submit-submission.md",
       "contract": {
-        "unitId": "frontend-state-cap-sample",
-        "type": "ui-state",
+        "unitId": "result-presentation-cap-submission-submit-submission",
+        "type": "ui-result-presentation",
         "dependsOn": [
-          "interaction-cap-sample"
+          "interaction-cap-submission-submit-submission"
         ],
         "acceptance": [
-          "applicable idle, loading, empty, error, disabled, and success states are browser-tested"
+          "the successful operation response is rendered in the declared semantic region",
+          "rendered element values and cardinality match the runtime response",
+          "processing, success, and failure region states are observable without pixel assertions"
         ]
       },
-      "contractDigest": "95db2a523f08526375fd80ce94753b0f3cc8a0df549fec298522055320dba681",
+      "contractDigest": "e0592a91801b93eb07f550a63d27cb80f735af414681ec4e28712caffcf298af",
       "status": "ready-for-dev"
     },
     {
-      "unitId": "frontend-data-cap-sample",
+      "unitId": "interaction-cap-submission-submit-submission",
       "storyId": "1.12",
-      "storyPath": "implementation-artifacts/stories/1.12-frontend-data-cap-sample.md",
+      "storyPath": "implementation-artifacts/stories/1.12-interaction-cap-submission-submit-submission.md",
       "contract": {
-        "unitId": "frontend-data-cap-sample",
-        "type": "ui-data",
+        "unitId": "interaction-cap-submission-submit-submission",
+        "type": "ui-interaction",
         "dependsOn": [
-          "frontend-state-cap-sample"
+          "surface-cap-submission-submit-submission"
         ],
         "acceptance": [
-          "business content comes from an operation, user input, authenticated context, or explicit empty state",
-          "visual placeholders have an approved resolution"
+          "runtime event produces the declared server request or client state change"
         ]
       },
-      "contractDigest": "ea78425f2f885334960b19637b979458b81d959ab708cef53cf22d12b4a1e2c2",
+      "contractDigest": "bd4b49fa5a8ba6a8994c411d8687670c99e6c49bc424f43943432a0206faabb9",
       "status": "ready-for-dev"
     },
     {
-      "unitId": "presentation-cap-suite-sample-detail",
+      "unitId": "frontend-state-cap-submission-submit-submission",
       "storyId": "1.13",
-      "storyPath": "implementation-artifacts/stories/1.13-presentation-cap-suite-sample-detail.md",
+      "storyPath": "implementation-artifacts/stories/1.13-frontend-state-cap-submission-submit-submission.md",
       "contract": {
-        "unitId": "presentation-cap-suite-sample-detail",
-        "type": "ui-presentation",
+        "unitId": "frontend-state-cap-submission-submit-submission",
+        "type": "ui-state",
         "dependsOn": [
-          "capability-cap-suite-sample-detail"
+          "interaction-cap-submission-submit-submission"
         ],
         "acceptance": [
-          "runtime DOM contains one visible presentation binding",
-          "functional and visual regression evidence is recorded"
+          "applicable idle, loading, empty, error, disabled, and success states are browser-tested"
         ]
       },
-      "contractDigest": "26ff55165781d23cda8ed18fe741b580fee5bbe0c155d93187c2046cb71cf6f9",
+      "contractDigest": "180b480311898c98dd27985aabafcdb99746a335cef70beb6f3727c90ec32f00",
       "status": "ready-for-dev"
     },
     {
-      "unitId": "interaction-cap-suite-sample-detail",
+      "unitId": "frontend-data-cap-submission-submit-submission",
       "storyId": "1.14",
-      "storyPath": "implementation-artifacts/stories/1.14-interaction-cap-suite-sample-detail.md",
+      "storyPath": "implementation-artifacts/stories/1.14-frontend-data-cap-submission-submit-submission.md",
       "contract": {
-        "unitId": "interaction-cap-suite-sample-detail",
-        "type": "ui-interaction",
+        "unitId": "frontend-data-cap-submission-submit-submission",
+        "type": "ui-data",
         "dependsOn": [
-          "presentation-cap-suite-sample-detail"
+          "frontend-state-cap-submission-submit-submission"
         ],
         "acceptance": [
-          "runtime event produces the declared server request or client state change"
+          "business content comes from an operation, user input, authenticated context, or explicit empty state",
+          "visual placeholders have an approved resolution"
         ]
       },
-      "contractDigest": "8e081995b5c3a69d11869ee4165d1ed88eacd9b0a1faed661d3a7accd47e7ac4",
+      "contractDigest": "7516538e53d618f1932a52cffde9720b5375f927d97e7efc56be4760068e9ada",
       "status": "ready-for-dev"
     },
     {
-      "unitId": "frontend-state-cap-suite-sample-detail",
+      "unitId": "presentation-cap-submission-upload-resource",
       "storyId": "1.15",
-      "storyPath": "implementation-artifacts/stories/1.15-frontend-state-cap-suite-sample-detail.md",
+      "storyPath": "implementation-artifacts/stories/1.15-presentation-cap-submission-upload-resource.md",
       "contract": {
-        "unitId": "frontend-state-cap-suite-sample-detail",
-        "type": "ui-state",
-        "dependsOn": [
-          "interaction-cap-suite-sample-detail"
-        ],
-        "acceptance": [
-          "applicable idle, loading, empty, error, disabled, and success states are browser-tested"
-        ]
-      },
-      "contractDigest": "392907c78a054e7ece53b7f28576ed8c1e711f49f8f99d24b08c1adc531f4669",
-      "status": "ready-for-dev"
-    },
-    {
-      "unitId": "frontend-data-cap-suite-sample-detail",
-      "storyId": "1.16",
-      "storyPath": "implementation-artifacts/stories/1.16-frontend-data-cap-suite-sample-detail.md",
-      "contract": {
-        "unitId": "frontend-data-cap-suite-sample-detail",
-        "type": "ui-data",
-        "dependsOn": [
-          "frontend-state-cap-suite-sample-detail"
-        ],
-        "acceptance": [
-          "business content comes from an operation, user input, authenticated context, or explicit empty state",
-          "visual placeholders have an approved resolution"
-        ]
-      },
-      "contractDigest": "da751b9f4ff5d51a3c10cd0fcf1ccdb0a590e2c48c022c88826441039907c57c",
-      "status": "ready-for-dev"
-    },
-    {
-      "unitId": "presentation-cap-sample-local-navigation",
-      "storyId": "1.17",
-      "storyPath": "implementation-artifacts/stories/1.17-presentation-cap-sample-local-navigation.md",
-      "contract": {
-        "unitId": "presentation-cap-sample-local-navigation",
+        "unitId": "presentation-cap-submission-upload-resource",
         "type": "ui-presentation",
         "dependsOn": [
-          "capability-cap-sample-local-navigation"
+          "capability-cap-submission-upload-resource"
         ],
         "acceptance": [
           "runtime DOM contains one visible presentation binding",
           "functional and visual regression evidence is recorded"
         ]
       },
-      "contractDigest": "2c6af525f99345cf633a4deca29cd3244bf5a56956920b179153263bff38810f",
+      "contractDigest": "53ed63dd1c2a1fcb4941bb0cbc5ae0f2ade000580b2ff786224b0025b483d4b7",
       "status": "ready-for-dev"
     },
     {
-      "unitId": "interaction-cap-sample-local-navigation",
-      "storyId": "1.18",
-      "storyPath": "implementation-artifacts/stories/1.18-interaction-cap-sample-local-navigation.md",
+      "unitId": "interaction-cap-submission-upload-resource",
+      "storyId": "1.16",
+      "storyPath": "implementation-artifacts/stories/1.16-interaction-cap-submission-upload-resource.md",
       "contract": {
-        "unitId": "interaction-cap-sample-local-navigation",
+        "unitId": "interaction-cap-submission-upload-resource",
         "type": "ui-interaction",
         "dependsOn": [
-          "presentation-cap-sample-local-navigation"
+          "presentation-cap-submission-upload-resource"
         ],
         "acceptance": [
           "runtime event produces the declared server request or client state change"
         ]
       },
-      "contractDigest": "75ee2e1576b5dbb41b830c17cb20174e4717fcbc1ace9874e9e8b8ec28fa3480",
+      "contractDigest": "7cfbeb6da81197775aa56c88283ac6f9091dbb22d0d0858dfaca3d7da0c83774",
       "status": "ready-for-dev"
     },
     {
-      "unitId": "frontend-state-cap-sample-local-navigation",
+      "unitId": "frontend-state-cap-submission-upload-resource",
+      "storyId": "1.17",
+      "storyPath": "implementation-artifacts/stories/1.17-frontend-state-cap-submission-upload-resource.md",
+      "contract": {
+        "unitId": "frontend-state-cap-submission-upload-resource",
+        "type": "ui-state",
+        "dependsOn": [
+          "interaction-cap-submission-upload-resource"
+        ],
+        "acceptance": [
+          "applicable idle, loading, empty, error, disabled, and success states are browser-tested"
+        ]
+      },
+      "contractDigest": "b3c63ffb96ad2906bcbb320d50860e4a25de4764fceb1f59a103fcb16f98e0c5",
+      "status": "ready-for-dev"
+    },
+    {
+      "unitId": "frontend-data-cap-submission-upload-resource",
+      "storyId": "1.18",
+      "storyPath": "implementation-artifacts/stories/1.18-frontend-data-cap-submission-upload-resource.md",
+      "contract": {
+        "unitId": "frontend-data-cap-submission-upload-resource",
+        "type": "ui-data",
+        "dependsOn": [
+          "frontend-state-cap-submission-upload-resource"
+        ],
+        "acceptance": [
+          "business content comes from an operation, user input, authenticated context, or explicit empty state",
+          "visual placeholders have an approved resolution"
+        ]
+      },
+      "contractDigest": "dcaed1ae215252a441207c2193cf8489104eea22a9879c991f6575a8071aabb6",
+      "status": "ready-for-dev"
+    },
+    {
+      "unitId": "planned-capability-cap-submission-planned-export",
       "storyId": "1.19",
-      "storyPath": "implementation-artifacts/stories/1.19-frontend-state-cap-sample-local-navigation.md",
+      "storyPath": "implementation-artifacts/stories/1.19-planned-capability-cap-submission-planned-export.md",
       "contract": {
-        "unitId": "frontend-state-cap-sample-local-navigation",
-        "type": "ui-state",
-        "dependsOn": [
-          "interaction-cap-sample-local-navigation"
-        ],
-        "acceptance": [
-          "applicable idle, loading, empty, error, disabled, and success states are browser-tested"
-        ]
-      },
-      "contractDigest": "ffdba902a5f7a42265f0d24883966ffa857c3baa3fcadfa4165baa71435124df",
-      "status": "ready-for-dev"
-    },
-    {
-      "unitId": "frontend-data-cap-sample-local-navigation",
-      "storyId": "1.20",
-      "storyPath": "implementation-artifacts/stories/1.20-frontend-data-cap-sample-local-navigation.md",
-      "contract": {
-        "unitId": "frontend-data-cap-sample-local-navigation",
-        "type": "ui-data",
-        "dependsOn": [
-          "frontend-state-cap-sample-local-navigation"
-        ],
-        "acceptance": [
-          "business content comes from an operation, user input, authenticated context, or explicit empty state",
-          "visual placeholders have an approved resolution"
-        ]
-      },
-      "contractDigest": "e5d239165105cd8e7fc9487301c8261f169baf7b6c2046c16efa6db971a3cd86",
-      "status": "ready-for-dev"
-    },
-    {
-      "unitId": "presentation-cap-sample-display-result",
-      "storyId": "1.21",
-      "storyPath": "implementation-artifacts/stories/1.21-presentation-cap-sample-display-result.md",
-      "contract": {
-        "unitId": "presentation-cap-sample-display-result",
-        "type": "ui-presentation",
-        "dependsOn": [
-          "capability-cap-sample-display-result"
-        ],
-        "acceptance": [
-          "runtime DOM contains one visible presentation binding",
-          "functional and visual regression evidence is recorded"
-        ]
-      },
-      "contractDigest": "b17008c12f0156d1bce0fac7a338b244b75a2bd36184929f939ea43ca545b200",
-      "status": "ready-for-dev"
-    },
-    {
-      "unitId": "interaction-cap-sample-display-result",
-      "storyId": "1.22",
-      "storyPath": "implementation-artifacts/stories/1.22-interaction-cap-sample-display-result.md",
-      "contract": {
-        "unitId": "interaction-cap-sample-display-result",
-        "type": "ui-interaction",
-        "dependsOn": [
-          "presentation-cap-sample-display-result"
-        ],
-        "acceptance": [
-          "data-render trigger updates the runtime DOM"
-        ]
-      },
-      "contractDigest": "5a5a75c89a710739f58c13d87df85b71c480d60a143ccd8387f68fd14c9906b3",
-      "status": "ready-for-dev"
-    },
-    {
-      "unitId": "frontend-state-cap-sample-display-result",
-      "storyId": "1.23",
-      "storyPath": "implementation-artifacts/stories/1.23-frontend-state-cap-sample-display-result.md",
-      "contract": {
-        "unitId": "frontend-state-cap-sample-display-result",
-        "type": "ui-state",
-        "dependsOn": [
-          "interaction-cap-sample-display-result"
-        ],
-        "acceptance": [
-          "applicable idle, loading, empty, error, disabled, and success states are browser-tested"
-        ]
-      },
-      "contractDigest": "e65bf2a51da236b4a0050f403cdfc5e5882ac70022ab15af0b3151e8a0afcd6b",
-      "status": "ready-for-dev"
-    },
-    {
-      "unitId": "frontend-data-cap-sample-display-result",
-      "storyId": "1.24",
-      "storyPath": "implementation-artifacts/stories/1.24-frontend-data-cap-sample-display-result.md",
-      "contract": {
-        "unitId": "frontend-data-cap-sample-display-result",
-        "type": "ui-data",
-        "dependsOn": [
-          "frontend-state-cap-sample-display-result"
-        ],
-        "acceptance": [
-          "business content comes from an operation, user input, authenticated context, or explicit empty state",
-          "visual placeholders have an approved resolution"
-        ]
-      },
-      "contractDigest": "d2c3b5b1fdeb5b70595907e6e8684332433b8f2c3f0d83dea53d9717f529ceaf",
-      "status": "ready-for-dev"
-    },
-    {
-      "unitId": "operation-submit-sample",
-      "storyId": "1.25",
-      "storyPath": "implementation-artifacts/stories/1.25-operation-submit-sample.md",
-      "contract": {
-        "unitId": "operation-submit-sample",
-        "type": "api",
-        "dependsOn": [
-          "persistence-entity-submission",
-          "relationship-relation-submission-events"
-        ],
-        "acceptance": [
-          "operation is live",
-          "response and errors match contract",
-          "declared effects and transaction behavior are verified"
-        ]
-      },
-      "contractDigest": "7ae2aafac6826d352957a4bfea8bff0301e79bc21bf2d5e75a742cf026670b83",
-      "status": "ready-for-dev"
-    },
-    {
-      "unitId": "operation-submit-suite-sample-detail",
-      "storyId": "1.26",
-      "storyPath": "implementation-artifacts/stories/1.26-operation-submit-suite-sample-detail.md",
-      "contract": {
-        "unitId": "operation-submit-suite-sample-detail",
-        "type": "api",
-        "dependsOn": [
-          "persistence-entity-submission",
-          "relationship-relation-submission-events"
-        ],
-        "acceptance": [
-          "operation is live",
-          "response and errors match contract",
-          "declared effects and transaction behavior are verified"
-        ]
-      },
-      "contractDigest": "bab4e384913396005d2b32e2c8c0b2083bf071db29726f02f4b88a431b6f05fb",
-      "status": "ready-for-dev"
-    },
-    {
-      "unitId": "operation-query-sample-result",
-      "storyId": "1.27",
-      "storyPath": "implementation-artifacts/stories/1.27-operation-query-sample-result.md",
-      "contract": {
-        "unitId": "operation-query-sample-result",
-        "type": "api",
+        "unitId": "planned-capability-cap-submission-planned-export",
+        "type": "ui-planned-state",
         "dependsOn": [],
         "acceptance": [
+          "the declared entry is reachable by a real user interaction",
+          "activation replaces the active workspace with capability-specific planned content",
+          "the visible state identifies this capability and says 功能待实现",
+          "activation emits no business API request and renders no fabricated success result"
+        ]
+      },
+      "contractDigest": "7a9e5060269ef97a552a42e7a7d4f1248c4ebfecef0d393ee9bce7e8b78ac80c",
+      "status": "ready-for-dev"
+    },
+    {
+      "unitId": "rule-rule-cap-submission-submit-submission",
+      "storyId": "1.20",
+      "storyPath": "implementation-artifacts/stories/1.20-rule-rule-cap-submission-submit-submission.md",
+      "contract": {
+        "unitId": "rule-rule-cap-submission-submit-submission",
+        "type": "rule",
+        "dependsOn": [
+          "capability-cap-submission-submit-submission"
+        ],
+        "acceptance": [
+          "condition: authenticated actor",
+          "condition: required inputs are valid",
+          "assertion: observable result is specific to Create submission",
+          "assertion: required values are preserved end to end",
+          "assertion: actor lacks ownership or permission",
+          "assertion: input violates the operation schema or business rule",
+          "assertion: lifecycle or concurrency precondition is not satisfied"
+        ]
+      },
+      "contractDigest": "8ca3fdb506314996592ad5ae83305843c8126590f5fc066ef5c3bac10950e2ed",
+      "status": "ready-for-dev"
+    },
+    {
+      "unitId": "rule-rule-cap-submission-upload-resource",
+      "storyId": "1.21",
+      "storyPath": "implementation-artifacts/stories/1.21-rule-rule-cap-submission-upload-resource.md",
+      "contract": {
+        "unitId": "rule-rule-cap-submission-upload-resource",
+        "type": "rule",
+        "dependsOn": [
+          "capability-cap-submission-upload-resource"
+        ],
+        "acceptance": [
+          "condition: authenticated actor",
+          "condition: selected resources satisfy declared transfer constraints",
+          "assertion: transferred bytes match the recorded checksum",
+          "assertion: only validated owned resources become available",
+          "assertion: actor lacks ownership or permission",
+          "assertion: input violates the operation schema or business rule",
+          "assertion: file type, count, size, or checksum is invalid",
+          "assertion: durable storage is unavailable"
+        ]
+      },
+      "contractDigest": "0fec059c28ad0bad8326dcfce136518143c435d46166a376b04106e8338e53bc",
+      "status": "ready-for-dev"
+    },
+    {
+      "unitId": "operation-create-submission-submit-submission",
+      "storyId": "1.22",
+      "storyPath": "implementation-artifacts/stories/1.22-operation-create-submission-submit-submission.md",
+      "contract": {
+        "unitId": "operation-create-submission-submit-submission",
+        "type": "api",
+        "dependsOn": [
+          "persistence-entity-cap-submission-submit-submission-configuration",
+          "consistency-boundary-cap-submission-submit-submission-configuration"
+        ],
+        "acceptance": [
           "operation is live",
           "response and errors match contract",
           "declared effects and transaction behavior are verified"
         ]
       },
-      "contractDigest": "b440fed79c3a365407a43ddc5c9de0049ccccf0f8924c353a10a571d3fb8ba98",
+      "contractDigest": "46dbd31c5b7760a6fd6dfff0cf5bda2ae357d622d5cedb2f826752c8eb86a7bc",
+      "status": "ready-for-dev"
+    },
+    {
+      "unitId": "data-dependency-create-submission-submit-submission",
+      "storyId": "1.23",
+      "storyPath": "implementation-artifacts/stories/1.23-data-dependency-create-submission-submit-submission.md",
+      "contract": {
+        "unitId": "data-dependency-create-submission-submit-submission",
+        "type": "cross-operation-data-flow",
+        "dependsOn": [
+          "operation-create-submission-submit-submission",
+          "resource-persistence-upload-submission-upload-resource"
+        ],
+        "acceptance": [
+          "each declared source response value is reused in the target request at runtime",
+          "hard-coded or independently fabricated correlation values are rejected"
+        ]
+      },
+      "contractDigest": "afbd8c13917d0d17e7bdb4c14b6294e7662f03fa569fd157abf8ec7639e4ff45",
+      "status": "ready-for-dev"
+    },
+    {
+      "unitId": "integration-binding-create-submission-submit-submission",
+      "storyId": "1.24",
+      "storyPath": "implementation-artifacts/stories/1.24-integration-binding-create-submission-submit-submission.md",
+      "contract": {
+        "unitId": "integration-binding-create-submission-submit-submission",
+        "type": "integration-binding",
+        "dependsOn": [
+          "data-dependency-create-submission-submit-submission"
+        ],
+        "acceptance": [
+          "integration adapter evidence contains the same runtime-generated value or safe digest",
+          "unsupported external capability returns the declared operation-specific error"
+        ]
+      },
+      "contractDigest": "e5066f6583920befccd64496f6e0774b02e135eb3ba47e8a1c598a4f8a14ca5b",
+      "status": "ready-for-dev"
+    },
+    {
+      "unitId": "external-effect-create-submission-submit-submission",
+      "storyId": "1.25",
+      "storyPath": "implementation-artifacts/stories/1.25-external-effect-create-submission-submit-submission.md",
+      "contract": {
+        "unitId": "external-effect-create-submission-submit-submission",
+        "type": "external-effect",
+        "dependsOn": [
+          "integration-binding-create-submission-submit-submission"
+        ],
+        "acceptance": [
+          "declared external effects and subsequent observable reads preserve the data lineage"
+        ]
+      },
+      "contractDigest": "54578c5ceb70ae6f82d0b0e0fe8ed6a3ac836e662426467180e55109688b94c0",
+      "status": "ready-for-dev"
+    },
+    {
+      "unitId": "operation-upload-submission-upload-resource",
+      "storyId": "1.26",
+      "storyPath": "implementation-artifacts/stories/1.26-operation-upload-submission-upload-resource.md",
+      "contract": {
+        "unitId": "operation-upload-submission-upload-resource",
+        "type": "api",
+        "dependsOn": [
+          "persistence-entity-submission-asset",
+          "consistency-boundary-submission"
+        ],
+        "acceptance": [
+          "operation is live",
+          "response and errors match contract",
+          "declared effects and transaction behavior are verified"
+        ]
+      },
+      "contractDigest": "8acdcaa0035f5c7e6e5842a7a95c211d29f78ff878f8538c3e24229ea52fc147",
+      "status": "ready-for-dev"
+    },
+    {
+      "unitId": "resource-transfer-upload-submission-upload-resource",
+      "storyId": "1.27",
+      "storyPath": "implementation-artifacts/stories/1.27-resource-transfer-upload-submission-upload-resource.md",
+      "contract": {
+        "unitId": "resource-transfer-upload-submission-upload-resource",
+        "type": "resource-transfer",
+        "dependsOn": [
+          "operation-upload-submission-upload-resource"
+        ],
+        "acceptance": [
+          "the declared client transfer reaches the application operation",
+          "the response returns the declared resource reference and integrity metadata"
+        ]
+      },
+      "contractDigest": "9e8ea4ce3157dac018c10c0a751b41a69c9a95ee57f853bc0ff4d040739eb2b8",
+      "status": "ready-for-dev"
+    },
+    {
+      "unitId": "resource-validation-upload-submission-upload-resource",
+      "storyId": "1.28",
+      "storyPath": "implementation-artifacts/stories/1.28-resource-validation-upload-submission-upload-resource.md",
+      "contract": {
+        "unitId": "resource-validation-upload-submission-upload-resource",
+        "type": "resource-validation",
+        "dependsOn": [
+          "resource-transfer-upload-submission-upload-resource"
+        ],
+        "acceptance": [
+          "declared media, size, count, purpose, integrity, ownership, and rejection constraints are tested"
+        ]
+      },
+      "contractDigest": "22fdf4d16fe48173ff9e97147d14ec4d6256610b321d9d502848aaa23936b635",
+      "status": "ready-for-dev"
+    },
+    {
+      "unitId": "resource-persistence-upload-submission-upload-resource",
+      "storyId": "1.29",
+      "storyPath": "implementation-artifacts/stories/1.29-resource-persistence-upload-submission-upload-resource.md",
+      "contract": {
+        "unitId": "resource-persistence-upload-submission-upload-resource",
+        "type": "resource-persistence",
+        "dependsOn": [
+          "resource-validation-upload-submission-upload-resource"
+        ],
+        "acceptance": [
+          "validated resource metadata and storage reference persist under the declared ownership scope"
+        ]
+      },
+      "contractDigest": "32d46ecb411fea5c8d33ed9e54272a2625ccb1ed55ef1f5c8de09ba5e8530084",
+      "status": "ready-for-dev"
+    },
+    {
+      "unitId": "journey-journey-submission",
+      "storyId": "1.30",
+      "storyPath": "implementation-artifacts/stories/1.30-journey-journey-submission.md",
+      "contract": {
+        "unitId": "journey-journey-submission",
+        "type": "e2e",
+        "dependsOn": [
+          "operation-create-submission-submit-submission",
+          "operation-upload-submission-upload-resource"
+        ],
+        "acceptance": [
+          "A user can progress from Submission workspace input through processing to an observable result without substituting fixed identifiers."
+        ]
+      },
+      "contractDigest": "8edadf6cb27944617ed4aca9dd747185aa0dc5100ca9fcef87e63a192a802586",
       "status": "ready-for-dev"
     }
   ]

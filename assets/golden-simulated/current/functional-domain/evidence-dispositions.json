@@ -1,0 +1,10 @@
+{
+  "schemaVersion": "1.0",
+  "dispositions": [
+    {
+      "evidenceId": "page-module:submission-actions",
+      "reason": "out-of-scope",
+      "rationale": "Container module (功能列表) that only groups the action leaves; each owned action is authored as its own capability, so the container carries no separate business behavior."
+    }
+  ]
+}

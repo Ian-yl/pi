@@ -4,142 +4,83 @@
   "traceArtifact": "evidence/frontend/playwright-trace.zip",
   "cases": [
     {
-      "id": "browser-cap-sample",
-      "capabilityId": "cap-sample",
-      "bindingId": "binding-cap-sample",
-      "locator": "implementation-control-cap-sample",
-      "pageUrl": "http://127.0.0.1:52819",
-      "mode": "add-control",
-      "event": "click",
-      "observed": {
-        "matchCount": 1,
-        "visible": true,
-        "enabled": true,
-        "activeCapabilityId": "cap-sample",
-        "capabilityStatus": "implemented",
-        "networkRequests": [
-          {
-            "method": "POST",
-            "path": "/api/forms/sample",
-            "status": 200
-          }
-        ],
-        "stateTransitions": [
-          "idle",
-          "loading",
-          "succeeded"
-        ],
-        "domChanged": true,
-        "visibleText": [
-          "Submit sample\nSubmit suite-sample-detail\nOpen local help\nDisplay result\nSubmit sample completed"
-        ]
-      },
+      "id": "initial-submission",
+      "capabilityId": "initial:submission",
+      "bindingId": "initial-submission",
+      "locator": "main",
+      "pageId": "submission",
+      "pageUrl": "http://127.0.0.1:62918/submission",
+      "mode": "display-only",
+      "event": "initial-state",
       "artifacts": [
-        "evidence/frontend/browser-cap-sample.png"
+        "evidence/frontend/initial-submission.png"
       ],
       "status": "passed"
     },
     {
-      "id": "browser-cap-suite-sample-detail",
-      "capabilityId": "cap-suite-sample-detail",
-      "bindingId": "binding-cap-suite-sample-detail",
-      "locator": "implementation-control-cap-suite-sample-detail",
-      "pageUrl": "http://127.0.0.1:52819",
-      "mode": "add-control",
-      "event": "click",
-      "observed": {
-        "matchCount": 1,
-        "visible": true,
-        "enabled": true,
-        "activeCapabilityId": "cap-suite-sample-detail",
-        "capabilityStatus": "implemented",
-        "networkRequests": [
-          {
-            "method": "POST",
-            "path": "/api/forms/suite-sample-detail",
-            "status": 200
-          }
-        ],
-        "stateTransitions": [
-          "idle",
-          "loading",
-          "succeeded"
-        ],
-        "domChanged": true,
-        "visibleText": [
-          "Submit sample\nSubmit suite-sample-detail\nOpen local help\nDisplay result\nSubmit suite-sample-detail completed"
-        ]
-      },
+      "id": "browser-upload-failure",
+      "capabilityId": "cap-submission-upload-resource",
+      "bindingId": "binding-cap-submission-upload-resource",
+      "locator": "input-cap-submission-upload-resource-body-files",
+      "pageUrl": "http://127.0.0.1:62918/submission",
+      "mode": "reuse-control",
+      "event": "upload",
+      "expectedOutcome": "failure",
       "artifacts": [
-        "evidence/frontend/browser-cap-suite-sample-detail.png"
+        "evidence/frontend/browser-upload-failure.png"
       ],
       "status": "passed"
     },
     {
-      "id": "browser-cap-sample-local-navigation",
-      "capabilityId": "cap-sample-local-navigation",
-      "bindingId": "binding-cap-sample-local-navigation",
-      "locator": "implementation-control-cap-sample-local-navigation",
-      "pageUrl": "http://127.0.0.1:52819",
+      "id": "browser-upload",
+      "capabilityId": "cap-submission-upload-resource",
+      "bindingId": "binding-cap-submission-upload-resource",
+      "locator": "input-cap-submission-upload-resource-body-files",
+      "pageUrl": "http://127.0.0.1:62918/submission",
+      "mode": "reuse-control",
+      "event": "upload",
+      "artifacts": [
+        "evidence/frontend/browser-upload.png"
+      ],
+      "status": "passed"
+    },
+    {
+      "id": "browser-submit-failure",
+      "capabilityId": "cap-submission-submit-submission",
+      "bindingId": "binding-cap-submission-submit-submission",
+      "locator": "control-cap-submission-submit-submission",
+      "pageUrl": "http://127.0.0.1:62918/submission",
       "mode": "reuse-control",
       "event": "click",
-      "observed": {
-        "matchCount": 1,
-        "visible": true,
-        "enabled": true,
-        "activeCapabilityId": "cap-sample-local-navigation",
-        "capabilityStatus": "implemented",
-        "networkRequests": [],
-        "stateTransitions": [
-          "idle",
-          "loading",
-          "succeeded"
-        ],
-        "domChanged": true,
-        "visibleText": [
-          "Submit sample\nSubmit suite-sample-detail\nOpen local help\nDisplay result\nOpen local help completed"
-        ]
-      },
+      "expectedOutcome": "failure",
       "artifacts": [
-        "evidence/frontend/browser-cap-sample-local-navigation.png"
+        "evidence/frontend/browser-submit-failure.png"
       ],
       "status": "passed"
     },
     {
-      "id": "browser-cap-sample-display-result",
-      "capabilityId": "cap-sample-display-result",
-      "bindingId": "binding-cap-sample-display-result",
-      "locator": "implementation-control-cap-sample-display-result",
-      "pageUrl": "http://127.0.0.1:52819",
-      "mode": "display-only",
+      "id": "browser-submit",
+      "capabilityId": "cap-submission-submit-submission",
+      "bindingId": "binding-cap-submission-submit-submission",
+      "locator": "control-cap-submission-submit-submission",
+      "pageUrl": "http://127.0.0.1:62918/submission",
+      "mode": "reuse-control",
       "event": "click",
-      "bindingType": "data-render",
-      "trigger": "task-succeeded",
-      "observed": {
-        "matchCount": 1,
-        "visible": true,
-        "enabled": true,
-        "activeCapabilityId": "cap-sample-display-result",
-        "capabilityStatus": "implemented",
-        "networkRequests": [
-          {
-            "method": "GET",
-            "path": "/api/forms/sample/results/fixture",
-            "status": 200
-          }
-        ],
-        "stateTransitions": [
-          "idle",
-          "loading",
-          "succeeded"
-        ],
-        "domChanged": true,
-        "visibleText": [
-          "Submit sample\nSubmit suite-sample-detail\nOpen local help\nDisplay result\nDisplay result completed"
-        ]
-      },
       "artifacts": [
-        "evidence/frontend/browser-cap-sample-display-result.png"
+        "evidence/frontend/browser-submit.png"
+      ],
+      "status": "passed"
+    },
+    {
+      "id": "browser-planned",
+      "capabilityId": "cap-submission-planned-export",
+      "bindingId": "binding-cap-submission-planned-export",
+      "locator": "control-cap-submission-planned-export",
+      "pageUrl": "http://127.0.0.1:62918/submission",
+      "mode": "reuse-control",
+      "event": "click",
+      "artifacts": [
+        "evidence/frontend/browser-planned.png"
       ],
       "status": "passed"
     }

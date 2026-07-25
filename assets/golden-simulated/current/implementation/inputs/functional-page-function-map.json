@@ -1,32 +1,14 @@
 {
-  "schemaVersion": "2.0",
+  "schemaVersion": "2.2",
   "pages": [
     {
-      "pageId": "sample",
+      "pageId": "submission",
+      "title": "Submission workspace",
       "navigationOnly": false,
       "capabilityIds": [
-        "cap-sample"
-      ]
-    },
-    {
-      "pageId": "suite-sample-detail",
-      "navigationOnly": false,
-      "capabilityIds": [
-        "cap-suite-sample-detail"
-      ]
-    },
-    {
-      "pageId": "sample",
-      "navigationOnly": false,
-      "capabilityIds": [
-        "cap-sample-local-navigation"
-      ]
-    },
-    {
-      "pageId": "sample",
-      "navigationOnly": false,
-      "capabilityIds": [
-        "cap-sample-display-result"
+        "cap-submission-submit-submission",
+        "cap-submission-upload-resource",
+        "cap-submission-planned-export"
       ]
     }
   ]

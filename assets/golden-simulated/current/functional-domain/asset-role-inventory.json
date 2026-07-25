@@ -1,0 +1,41 @@
+{
+  "schemaVersion": "1.0",
+  "releaseDigest": "961069a7aa1f6c1f88f6806588230c530095905f80281efd7bacaa4f2310d1ec",
+  "assets": [
+    {
+      "id": "asset-7dcdc474a3831c08",
+      "path": "pages/submission/assets/icon.svg",
+      "digest": "e16dfafc4998ecf49296a524a6279c27deb1bcd161e5f8b1a7414ad21982798f",
+      "bytes": 111,
+      "role": "decorative",
+      "classificationStatus": "evidence-backed",
+      "evidence": {
+        "status": "observed",
+        "sources": [
+          "frontend-source:pages/submission/index.html",
+          "visual-release:961069a7aa1f6c1f88f6806588230c530095905f80281efd7bacaa4f2310d1ec"
+        ],
+        "rationale": "Referenced only as visual chrome and carries no observed business-data meaning.",
+        "candidateHint": null
+      }
+    },
+    {
+      "id": "asset-84c88ce136fc4b45",
+      "path": "pages/submission/assets/sample-result.svg",
+      "digest": "6e4d0e53cff87602e1077ad251179e574445261405f11597db0a867274d8192a",
+      "bytes": 144,
+      "role": "business-sample",
+      "classificationStatus": "evidence-backed",
+      "requiredReplacement": "user-input",
+      "evidence": {
+        "status": "observed",
+        "sources": [
+          "frontend-source:pages/submission/index.html",
+          "visual-release:961069a7aa1f6c1f88f6806588230c530095905f80281efd7bacaa4f2310d1ec"
+        ],
+        "rationale": "Referenced in a business input, result, history, material, or sample context.",
+        "candidateHint": null
+      }
+    }
+  ]
+}

@@ -3,27 +3,27 @@
   "status": "implemented",
   "interactions": [
     {
-      "id": "interaction-cap-sample",
-      "capabilityId": "cap-sample",
-      "operationId": "submit-sample",
+      "id": "interaction-cap-submission-submit-submission",
+      "capabilityId": "cap-submission-submit-submission",
+      "operationId": "create-submission-submit-submission",
       "event": "submit",
-      "evidenceId": "browser-cap-sample",
+      "evidenceId": "browser-submit",
       "status": "verified"
     },
     {
-      "id": "interaction-cap-suite-sample-detail",
-      "capabilityId": "cap-suite-sample-detail",
-      "operationId": "submit-suite-sample-detail",
-      "event": "submit",
-      "evidenceId": "browser-cap-suite-sample-detail",
+      "id": "interaction-cap-submission-upload-resource",
+      "capabilityId": "cap-submission-upload-resource",
+      "operationId": "upload-submission-upload-resource",
+      "event": "upload",
+      "evidenceId": "browser-upload",
       "status": "verified"
     },
     {
-      "id": "interaction-cap-sample-local-navigation",
-      "capabilityId": "cap-sample-local-navigation",
+      "id": "interaction-cap-submission-planned-export",
+      "capabilityId": "cap-submission-planned-export",
       "event": "click",
-      "evidenceId": "browser-cap-sample-local-navigation",
-      "status": "verified"
+      "evidenceId": "browser-planned",
+      "status": "planned"
     }
   ]
 }

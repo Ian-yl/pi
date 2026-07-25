@@ -1,0 +1,41 @@
+{
+  "schemaVersion": "1.0",
+  "releaseDigest": "961069a7aa1f6c1f88f6806588230c530095905f80281efd7bacaa4f2310d1ec",
+  "interactions": [
+    {
+      "id": "interaction-1",
+      "kind": "network",
+      "pageId": "submission",
+      "controlId": "planned-export",
+      "event": "request",
+      "handlerSummary": "fetch('/api/submissions',{method:'POST',headers:{'content-type':'application/json'},body:JSON.stringify({title:document.querySelector('[data-vr-id=title-input]').value,category:document.querySelector('[data-vr-id=category-select]').value,quantity:document.querySelector('[data-vr-id=quantity-input]').value})})}document.querySelector('[data-vr-id=submit-button]').addEventListener('click',submit)",
+      "stateReads": [
+        "data",
+        "input",
+        "value"
+      ],
+      "stateWrites": [],
+      "network": {
+        "method": "POST",
+        "url": "/api/submissions",
+        "requestFields": [
+          "title",
+          "category",
+          "quantity"
+        ]
+      },
+      "source": {
+        "file": "pages/submission/index.html",
+        "offset": 984,
+        "digest": "b67b8a509702dba60969d8c74fa5ff3f9a545b77f5e76c2c963de2fe80809646"
+      },
+      "evidence": {
+        "status": "observed",
+        "sources": [
+          "frontend-source:pages/submission/index.html",
+          "visual-release:961069a7aa1f6c1f88f6806588230c530095905f80281efd7bacaa4f2310d1ec"
+        ]
+      }
+    }
+  ]
+}

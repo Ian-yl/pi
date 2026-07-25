@@ -1,0 +1,110 @@
+{
+  "schemaVersion": "1.0",
+  "releaseDigest": "961069a7aa1f6c1f88f6806588230c530095905f80281efd7bacaa4f2310d1ec",
+  "mappings": [
+    {
+      "capabilityId": "cap-submission-submit-submission",
+      "pageId": "submission",
+      "controlId": "submit-button",
+      "mappingType": "observed-trigger",
+      "fieldBindings": [
+        {
+          "controlId": "title-input",
+          "inputId": "submission-title",
+          "statePath": "form.submission-title",
+          "requestPath": "request.submission-title",
+          "required": true,
+          "ownership": {
+            "type": "aggregate-section",
+            "scopeId": "submission-scope",
+            "sectionId": "identity-section",
+            "regionId": "identity-section",
+            "capabilityModuleId": "submit-submission"
+          }
+        },
+        {
+          "controlId": "category-select",
+          "inputId": "submission-category",
+          "statePath": "form.submission-category",
+          "requestPath": "request.submission-category",
+          "required": false,
+          "ownership": {
+            "type": "aggregate-section",
+            "scopeId": "submission-scope",
+            "sectionId": "options-section",
+            "regionId": "options-section",
+            "capabilityModuleId": "submit-submission"
+          }
+        },
+        {
+          "controlId": "quantity-input",
+          "inputId": "result-quantity",
+          "statePath": "form.result-quantity",
+          "requestPath": "request.result-quantity",
+          "required": true,
+          "ownership": {
+            "type": "aggregate-section",
+            "scopeId": "submission-scope",
+            "sectionId": "options-section",
+            "regionId": "options-section",
+            "capabilityModuleId": "submit-submission"
+          }
+        }
+      ],
+      "primaryOperationId": "create-submission-submit-submission",
+      "evidence": {
+        "status": "designed",
+        "sources": [
+          "page:submission",
+          "page-module:submit-submission",
+          "system-node:submit-node",
+          "frontend-control:submit-button",
+          "visual-release:961069a7aa1f6c1f88f6806588230c530095905f80281efd7bacaa4f2310d1ec",
+          "page:submission",
+          "page-module:submit-submission",
+          "page-module:identity-section",
+          "page-module:options-section"
+        ],
+        "rationale": "Synthesized as create from architecture responsibility and observed frontend semantics."
+      }
+    },
+    {
+      "capabilityId": "cap-submission-upload-resource",
+      "pageId": "submission",
+      "controlId": "upload-input",
+      "mappingType": "observed-trigger",
+      "fieldBindings": [],
+      "primaryOperationId": "upload-submission-upload-resource",
+      "evidence": {
+        "status": "designed",
+        "sources": [
+          "page:submission",
+          "page-module:upload-resource",
+          "system-node:upload-node",
+          "frontend-control:upload-input",
+          "visual-release:961069a7aa1f6c1f88f6806588230c530095905f80281efd7bacaa4f2310d1ec"
+        ],
+        "rationale": "Synthesized as upload from architecture responsibility and observed frontend semantics."
+      }
+    },
+    {
+      "capabilityId": "cap-submission-planned-export",
+      "pageId": "submission",
+      "controlId": "planned-export",
+      "mappingType": "observed-trigger",
+      "fieldBindings": [],
+      "primaryOperationId": null,
+      "evidence": {
+        "status": "designed",
+        "sources": [
+          "page:submission",
+          "page-module:planned-export",
+          "system-node:export-node",
+          "frontend-control:planned-export",
+          "visual-release:961069a7aa1f6c1f88f6806588230c530095905f80281efd7bacaa4f2310d1ec"
+        ],
+        "rationale": "Synthesized as external-operation from architecture responsibility and observed frontend semantics."
+      }
+    }
+  ]
+}

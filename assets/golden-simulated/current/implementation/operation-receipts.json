@@ -2,32 +2,28 @@
   "schemaVersion": "1.0",
   "generatedBy": "project-implementation/build-operation-receipts",
   "trustLevel": "self-reported-runtime-events",
-  "sourceDigest": "b9389d74246a1a94091f9a2d9a418711fb74f552ebfedbf0f95d42dbe3a065da",
+  "sourceDigest": "71cd82ce3b405240fe833a6ef648141494af0651456494ba75eabc1be98eaa17",
   "receipts": [
     {
-      "operationId": "submit-sample",
+      "operationId": "create-submission-submit-submission",
       "status": "passed",
       "eventIds": [
-        "event-submit-sample-0",
-        "event-submit-sample-1"
+        "event-create-submission-submit-submission-0",
+        "event-create-submission-submit-submission-1",
+        "event-create-submission-submit-submission-2",
+        "event-create-submission-submit-submission-3"
       ],
       "findings": []
     },
     {
-      "operationId": "submit-suite-sample-detail",
+      "operationId": "upload-submission-upload-resource",
       "status": "passed",
       "eventIds": [
-        "event-submit-suite-sample-detail-0",
-        "event-submit-suite-sample-detail-1"
-      ],
-      "findings": []
-    },
-    {
-      "operationId": "query-sample-result",
-      "status": "passed",
-      "eventIds": [
-        "event-query-sample-result-0",
-        "event-query-sample-result-1"
+        "event-upload-submission-upload-resource-0",
+        "event-upload-submission-upload-resource-1",
+        "event-upload-submission-upload-resource-2",
+        "event-upload-submission-upload-resource-3",
+        "event-upload-submission-upload-resource-4"
       ],
       "findings": []
     }

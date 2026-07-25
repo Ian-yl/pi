@@ -1,6 +1,6 @@
 {
   "schemaVersion": "1.0",
-  "command": "node backend/server.mjs",
+  "command": "npm start",
   "healthUrl": "http://127.0.0.1:${PORT}/health",
   "requiredEnvironment": [
     "PORT"

@@ -3,68 +3,52 @@
   "role": "optional-reference",
   "controls": [
     {
-      "pageId": "sample",
-      "referenceId": "email-input",
+      "pageId": "submission",
+      "referenceId": "title-input",
       "referenceIndex": 0,
       "kind": "input",
-      "selector": "[data-vr-id=\"email-input\"]",
-      "text": "you@example.com"
+      "selector": "[data-vr-id=\"title-input\"]",
+      "text": "Submission title"
     },
     {
-      "pageId": "sample",
-      "referenceId": "password-input",
+      "pageId": "submission",
+      "referenceId": "category-select",
       "referenceIndex": 1,
-      "kind": "input",
-      "selector": "[data-vr-id=\"password-input\"]",
-      "text": "••••••••"
+      "kind": "select",
+      "selector": "[data-vr-id=\"category-select\"]",
+      "text": "Submission category"
     },
     {
-      "pageId": "sample",
-      "referenceId": "login-button",
+      "pageId": "submission",
+      "referenceId": "quantity-input",
       "referenceIndex": 2,
-      "kind": "button",
-      "selector": "[data-vr-id=\"login-button\"]",
-      "text": "登 录"
-    },
-    {
-      "pageId": "sample",
-      "referenceId": "signup-link",
-      "referenceIndex": 3,
-      "kind": "text",
-      "selector": "[data-vr-id=\"signup-link\"]",
-      "text": "立即注册"
-    },
-    {
-      "pageId": "suite-sample-detail",
-      "referenceId": "email-input",
-      "referenceIndex": 0,
       "kind": "input",
-      "selector": "[data-vr-id=\"email-input\"]",
-      "text": "you@example.com"
+      "selector": "[data-vr-id=\"quantity-input\"]",
+      "text": "Result quantity"
     },
     {
-      "pageId": "suite-sample-detail",
-      "referenceId": "password-input",
-      "referenceIndex": 1,
-      "kind": "input",
-      "selector": "[data-vr-id=\"password-input\"]",
-      "text": "••••••••"
-    },
-    {
-      "pageId": "suite-sample-detail",
-      "referenceId": "login-button",
-      "referenceIndex": 2,
-      "kind": "button",
-      "selector": "[data-vr-id=\"login-button\"]",
-      "text": "登 录"
-    },
-    {
-      "pageId": "suite-sample-detail",
-      "referenceId": "signup-link",
+      "pageId": "submission",
+      "referenceId": "upload-input",
       "referenceIndex": 3,
-      "kind": "text",
-      "selector": "[data-vr-id=\"signup-link\"]",
-      "text": "立即注册"
+      "kind": "input",
+      "selector": "[data-vr-id=\"upload-input\"]",
+      "text": "Upload source file"
+    },
+    {
+      "pageId": "submission",
+      "referenceId": "submit-button",
+      "referenceIndex": 4,
+      "kind": "button",
+      "selector": "[data-vr-id=\"submit-button\"]",
+      "text": "Create submission"
+    },
+    {
+      "pageId": "submission",
+      "referenceId": "planned-export",
+      "referenceIndex": 5,
+      "kind": "button",
+      "selector": "[data-vr-id=\"planned-export\"]",
+      "text": "External submission review"
     }
   ]
 }

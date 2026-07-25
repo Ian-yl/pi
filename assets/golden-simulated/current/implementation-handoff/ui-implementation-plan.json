@@ -2,53 +2,166 @@
   "schemaVersion": "1.0",
   "capabilities": [
     {
-      "capabilityId": "cap-sample",
-      "specificationStatus": "complete",
-      "presentation": {
-        "mode": "add-control",
-        "targetPageId": "sample",
-        "preferredRegion": "form-actions",
-        "control": {
-          "type": "primary-button",
-          "label": "Submit sample"
-        }
-      },
-      "deliveryPolicy": {
-        "requiredForCompletion": true,
-        "allowedIncompleteState": "planned"
-      },
-      "planningReason": null,
-      "missingDecisions": [],
-      "aliasOf": null
-    },
-    {
-      "capabilityId": "cap-suite-sample-detail",
-      "specificationStatus": "complete",
-      "presentation": {
-        "mode": "add-control",
-        "targetPageId": "suite-sample-detail",
-        "preferredRegion": "form-actions",
-        "control": {
-          "type": "primary-button",
-          "label": "Submit suite-sample-detail"
-        }
-      },
-      "deliveryPolicy": {
-        "requiredForCompletion": true,
-        "allowedIncompleteState": "planned"
-      },
-      "planningReason": null,
-      "missingDecisions": [],
-      "aliasOf": null
-    },
-    {
-      "capabilityId": "cap-sample-local-navigation",
+      "capabilityId": "cap-submission-submit-submission",
       "specificationStatus": "complete",
       "presentation": {
         "mode": "reuse-control",
-        "targetPageId": "sample",
+        "targetPageId": "submission",
+        "triggerControl": {
+          "controlId": "submit-button",
+          "label": "Create submission"
+        },
+        "fieldBindings": [
+          {
+            "controlId": "title-input",
+            "inputId": "submission-title",
+            "statePath": "form.submission-title",
+            "requestPath": "request.submission-title",
+            "required": true,
+            "ownership": {
+              "type": "aggregate-section",
+              "scopeId": "submission-scope",
+              "sectionId": "identity-section",
+              "regionId": "identity-section",
+              "capabilityModuleId": "submit-submission"
+            }
+          },
+          {
+            "controlId": "category-select",
+            "inputId": "submission-category",
+            "statePath": "form.submission-category",
+            "requestPath": "request.submission-category",
+            "required": false,
+            "ownership": {
+              "type": "aggregate-section",
+              "scopeId": "submission-scope",
+              "sectionId": "options-section",
+              "regionId": "options-section",
+              "capabilityModuleId": "submit-submission"
+            }
+          },
+          {
+            "controlId": "quantity-input",
+            "inputId": "result-quantity",
+            "statePath": "form.result-quantity",
+            "requestPath": "request.result-quantity",
+            "required": true,
+            "ownership": {
+              "type": "aggregate-section",
+              "scopeId": "submission-scope",
+              "sectionId": "options-section",
+              "regionId": "options-section",
+              "capabilityModuleId": "submit-submission"
+            }
+          }
+        ],
+        "primaryAction": "Create submission",
+        "primaryOperationId": "create-submission-submit-submission",
+        "requiredUiStates": [
+          "idle",
+          "loading",
+          "success",
+          "error"
+        ],
+        "activation": {
+          "type": "existing-control",
+          "visualHint": {
+            "text": "Create submission",
+            "kind": "button"
+          }
+        },
+        "resultSurface": {
+          "region": "result-panel",
+          "dataSource": "operation:create-submission-submit-submission"
+        },
+        "surface": {
+          "type": "same-page-workspace",
+          "requiredRegions": [
+            "result-panel"
+          ],
+          "contentContract": {
+            "heading": "Create submission",
+            "inputIds": [
+              "submission-title",
+              "submission-category",
+              "result-quantity"
+            ],
+            "primaryAction": "Create submission",
+            "primaryOperationId": "create-submission-submit-submission",
+            "emptyState": "No Create submission result is available",
+            "resultContract": {
+              "targetRegion": "result-panel",
+              "bindings": [
+                {
+                  "id": "result-submit-submission",
+                  "responsePath": "response.items",
+                  "element": {
+                    "semantic": "result-item",
+                    "valueSource": "item-value"
+                  },
+                  "cardinality": "many",
+                  "count": {
+                    "mode": "request-field",
+                    "requestPath": "request.result-quantity",
+                    "responsePath": "response.items",
+                    "fixedValueForbidden": true
+                  }
+                }
+              ],
+              "states": {
+                "processing": {
+                  "regionStatus": "processing",
+                  "elementSemantic": "progress-indicator",
+                  "contentRequirement": "region contains a non-result progress affordance"
+                },
+                "success": {
+                  "regionStatus": "success",
+                  "elementSemantic": "bound-result-elements",
+                  "requiresBoundElements": true
+                },
+                "failure": {
+                  "regionStatus": "error",
+                  "elementSemantic": "error-message",
+                  "contentRequirement": "declared operation failure is visible in the target region"
+                }
+              },
+              "runtimeFlow": {
+                "mode": "immediate"
+              },
+              "product": {
+                "type": "submission-items",
+                "quantity": {
+                  "sourceField": "result-quantity"
+                },
+                "lifecycle": [
+                  "processing",
+                  "available",
+                  "failed"
+                ],
+                "downstreamUsage": [
+                  "result presentation",
+                  "history"
+                ]
+              },
+              "evidence": {
+                "status": "documented",
+                "sources": [
+                  "page:submission",
+                  "page-module:submit-submission",
+                  "system-node:submit-node",
+                  "frontend-control:submit-button",
+                  "visual-release:961069a7aa1f6c1f88f6806588230c530095905f80281efd7bacaa4f2310d1ec",
+                  "page-module:identity-section",
+                  "page-module:options-section",
+                  "frontend-result-surface:result-panel"
+                ],
+                "releaseDigest": "961069a7aa1f6c1f88f6806588230c530095905f80281efd7bacaa4f2310d1ec"
+              }
+            }
+          }
+        },
         "visualHint": {
-          "text": "Help",
+          "text": "Create submission",
           "kind": "button"
         }
       },
@@ -61,14 +174,27 @@
       "aliasOf": null
     },
     {
-      "capabilityId": "cap-sample-display-result",
+      "capabilityId": "cap-submission-upload-resource",
       "specificationStatus": "complete",
       "presentation": {
-        "mode": "display-only",
-        "targetPageId": "sample",
-        "region": "result-panel",
-        "content": {
-          "type": "submission-result"
+        "mode": "reuse-control",
+        "targetPageId": "submission",
+        "triggerControl": {
+          "controlId": "upload-input",
+          "label": "Upload source file"
+        },
+        "fieldBindings": [],
+        "primaryAction": "Upload source file",
+        "primaryOperationId": "upload-submission-upload-resource",
+        "requiredUiStates": [
+          "idle",
+          "loading",
+          "success",
+          "error"
+        ],
+        "visualHint": {
+          "text": "Upload source file",
+          "kind": "input"
         }
       },
       "deliveryPolicy": {
@@ -77,6 +203,46 @@
       },
       "planningReason": null,
       "missingDecisions": [],
+      "aliasOf": null
+    },
+    {
+      "capabilityId": "cap-submission-planned-export",
+      "specificationStatus": "planned",
+      "presentation": {
+        "mode": "reuse-control",
+        "targetPageId": "submission",
+        "triggerControl": {
+          "controlId": "planned-export",
+          "label": "External submission review"
+        },
+        "fieldBindings": [],
+        "primaryOperationId": null,
+        "requiredUiStates": [
+          "idle",
+          "planned"
+        ],
+        "visualHint": {
+          "text": "External submission review",
+          "kind": "button"
+        },
+        "behavior": "planned-state",
+        "plannedState": {
+          "title": "External submission review",
+          "message": "功能待实现",
+          "capabilitySpecific": true
+        }
+      },
+      "deliveryPolicy": {
+        "requiredForCompletion": false,
+        "allowedIncompleteState": "planned",
+        "uiBehavior": "show-planned-state"
+      },
+      "planningReason": "External submission review has no documented or confirmed capability-specific output schema; a generated name, generic reference list, or result region cannot define its business product; No observed, documented, or confirmed result region identifies where External submission review renders its product; External submission review has no operation response field that can be bound to result elements",
+      "missingDecisions": [
+        "External submission review has no documented or confirmed capability-specific output schema; a generated name, generic reference list, or result region cannot define its business product",
+        "No observed, documented, or confirmed result region identifies where External submission review renders its product",
+        "External submission review has no operation response field that can be bound to result elements"
+      ],
       "aliasOf": null
     }
   ]

@@ -1,104 +1,210 @@
 #!/usr/bin/env node
-import { cpSync, existsSync, mkdirSync, readFileSync, rmSync, writeFileSync } from 'node:fs';
 import { createHash } from 'node:crypto';
+import { cpSync, existsSync, mkdirSync, readdirSync, readFileSync, rmSync, writeFileSync } from 'node:fs';
 import { spawnSync } from 'node:child_process';
 import { resolve } from 'node:path';
 
-const repo = resolve(import.meta.dirname, '../../..');
-const outputArg = option('--output');
-const output = resolve(outputArg || `${import.meta.dirname}/current`);
+const piRoot = resolve(import.meta.dirname, '../..');
+const fddRoot = resolve(process.env.FDD_HARNESS_ROOT || `${piRoot}/test-support/functional-domain-design`);
+const fixtures = `${import.meta.dirname}/fixtures`;
+const architecture = `${fixtures}/architecture`;
+const release = `${fixtures}/visual-release`;
+const output = resolve(option('--output') || `${import.meta.dirname}/current`);
 const headlessOnly = process.argv.includes('--headless');
-const release = `${repo}/ai-restore/releases/sample-suite/843a1541f8b1517dd996580cb467fa1534df8a320ce059e097910f01d92cb957`;
-const releaseDigest = readJSON(`${release}/release-manifest.json`).releaseDigest;
-const functional = `${output}/functional-domain`; const handoff = `${output}/implementation-handoff`; const implementation = `${output}/implementation`;
-rmSync(output, { recursive: true, force: true }); mkdirSync(functional, { recursive: true });
+const functional = `${output}/functional-domain`;
+const handoff = `${output}/implementation-handoff`;
+const implementation = `${output}/implementation`;
 
-const capabilities = ['sample', 'suite-sample-detail'].map((pageId, index) => ({
-  id: `cap-${pageId}`, name: `Submit ${pageId}`, purpose: 'Submit the restored form', actor: 'user', pageIds: [pageId],
-  presentation: headlessOnly ? { mode: 'headless' } : { mode: 'add-control', targetPageId: pageId, preferredRegion: 'form-actions', control: { type: 'primary-button', label: `Submit ${pageId}` } },
-  operations: [{ id: `submit-${pageId}`, method: 'POST', path: `/api/forms/${pageId}`, request: { body: ['email', 'password'] }, response: { fields: ['ok'] }, effects: [{ entityId: 'entity-submission', effect: 'create' }], errors: ['INVALID_INPUT'] }],
-  inputs: ['email', 'password'], outcomes: ['submitted'], entityEffects: [{ entityId: 'entity-submission', effect: 'create' }], writesState: true, ruleIds: [], failures: ['invalid input'], acceptanceCriteria: ['valid input creates a submission'], specificationStatus: 'complete', evidence: { status: 'documented', sources: ['golden-fixture'] }, sourceSymbol: index === 0 ? 'submitSample' : 'submitDetail',
-}));
-capabilities.push({ id: 'cap-sample-local-navigation', name: 'Open local help', purpose: 'Open a local help panel', actor: 'user', pageIds: ['sample'], presentation: { mode: 'reuse-control', targetPageId: 'sample', visualHint: { text: 'Help', kind: 'button' } }, operations: [], inputs: [], outcomes: ['help panel opens'], entityEffects: [], writesState: false, ruleIds: [], failures: [], acceptanceCriteria: ['help opens without a server request'], specificationStatus: 'complete', evidence: { status: 'designed', sources: ['golden-fixture'], rationale: 'Exercises local-only UI behavior.' } });
-capabilities.push({ id: 'cap-sample-display-result', name: 'Display result', purpose: 'Render the current result after task completion', actor: 'user', pageIds: ['sample'], presentation: { mode: 'display-only', targetPageId: 'sample', region: 'result-panel', content: { type: 'submission-result' } }, operations: [{ id: 'query-sample-result', method: 'GET', path: '/api/forms/sample/results/{resultId}', request: { path: ['resultId'] }, response: { fields: ['resultId', 'status'] }, effects: [], errors: ['NOT_FOUND'] }], inputs: [], outcomes: ['result is rendered'], entityEffects: [{ entityId: 'entity-submission', effect: 'read' }], writesState: false, ruleIds: [], failures: ['result unavailable'], acceptanceCriteria: ['task completion renders the queried result'], specificationStatus: 'complete', evidence: { status: 'designed', sources: ['golden-fixture'], rationale: 'Exercises automatic data rendering.' } });
-if (headlessOnly) for (const capability of capabilities) capability.presentation = { mode: 'headless' };
-for (const capability of capabilities) {
-  const operation = capability.operations[0]; const bodyFields = operation?.request?.body || [];
-  capability.inputSchema = objectSchema(bodyFields); capability.outputSchema = operation ? objectSchema(operation.response.fields || []) : objectSchema([]); capability.acceptanceExamples = [{ given: Object.fromEntries(bodyFields.map((field) => [field, `unique-${field}`])), when: capability.name, then: [{ assertion: 'status', equals: 'succeeded' }] }];
-  for (const item of capability.operations || []) { item.request.contentType = 'application/json'; if (item.request.body?.length) item.request.bodySchema = objectSchema(item.request.body); if (item.request.path?.length) item.request.pathSchema = objectSchema(item.request.path); if (item.request.query?.length) item.request.querySchema = objectSchema(item.request.query); if (item.request.header?.length) item.request.headerSchema = objectSchema(item.request.header); item.response.bodySchema = objectSchema(item.response.fields || []); }
-}
-writeJSON(`${functional}/manifest.json`, { schemaVersion: '2.0', packageType: 'functional-domain', projectId: 'golden-simulated', projectName: 'Golden Simulated', status: 'approved', authorAgentId: 'golden-domain-author', visualReleaseDigest: releaseDigest, planning: { manifest: 'planning-manifest.json', artifacts: 'planning-artifacts.json', capabilityDefinitions: 'capability-definitions.json' }, approval: { reviewerAgentId: 'golden-domain-reviewer' } });
-const goldenSpec = { schemaVersion: '2.0', project: { id: 'golden-simulated', name: 'Golden Simulated' }, visualSource: { sourceType: 'ai-restore-release', releaseDigest }, runtime: { command: 'node backend/server.mjs', healthUrl: 'http://127.0.0.1:${PORT}/health', requiredEnvironment: ['PORT'] }, domains: [{ id: 'domain-submission', pageIds: [...new Set(capabilities.flatMap((item) => item.pageIds))], entityIds: ['entity-submission', 'entity-submission-event'] }], entities: [{ id: 'entity-submission', domainId: 'domain-submission', identity: { fields: ['id'] }, aggregateRoot: true, lifecycle: ['created', 'submitted'], constraints: { required: ['id'], unique: [['id']], status: { field: 'status', allowed: ['created', 'submitted'] } }, accessScope: { ownerActor: 'user', scope: 'owner', ownershipField: 'userId' } }, { id: 'entity-submission-event', domainId: 'domain-submission', identity: { fields: ['id'] }, aggregateRoot: false, aggregateRootEntityId: 'entity-submission', lifecycle: ['recorded'], constraints: { required: ['id', 'submissionId'], unique: [['id']], status: { field: 'status', allowed: ['recorded'] } }, accessScope: { ownerActor: 'user', scope: 'owner', ownershipField: 'userId' } }], relationships: [{ id: 'relation-submission-events', fromEntityId: 'entity-submission', toEntityId: 'entity-submission-event', cardinality: 'one-to-many', ownership: 'aggregate', required: false, onDelete: 'cascade', associationKey: { fromFields: ['id'], toFields: ['submissionId'] }, invariants: ['event.submissionId references an existing submission'] }], consistencyBoundaries: [{ id: 'boundary-submission', aggregateRootEntityId: 'entity-submission', entityIds: ['entity-submission', 'entity-submission-event'], strategy: 'atomic' }], capabilities, journeys: [], rules: [], permissions: [{ id: 'permission-submission-owner', actor: 'user', resourceIds: ['entity-submission', 'entity-submission-event'], actions: ['create', 'read'], decision: 'allow' }], integrations: [] };
-writeJSON(`${functional}/functional-spec.json`, goldenSpec);
-const planningGroups = ['capabilities', 'entities', 'relationships', 'consistencyBoundaries', 'journeys', 'rules', 'permissions', 'integrations'];
-writeJSON(`${functional}/planning-manifest.json`, { schemaVersion: '1.0', packageType: 'fdd-bmad-planning', status: 'approved', authorAgentId: 'golden-domain-author', artifacts: ['planning-artifacts.json', 'capability-definitions.json'] });
-writeJSON(`${functional}/planning-artifacts.json`, { schemaVersion: '1.0', method: 'bmad-planning', phases: ['project-understanding', 'requirements-analysis', 'domain-design', 'independent-domain-review'].map((id) => ({ id, status: 'completed', outputs: {} })) });
-writeJSON(`${functional}/capability-definitions.json`, { schemaVersion: '1.0', generatedBy: 'functional-domain-design/bmad-planning', ...Object.fromEntries(planningGroups.map((group) => [group, goldenSpec[group] || []])) });
-writeJSON(`${functional}/page-function-map.json`, { schemaVersion: '2.0', pages: capabilities.map((item) => ({ pageId: item.pageIds[0], navigationOnly: false, capabilityIds: [item.id] })) });
-writeJSON(`${functional}/unresolved-items.json`, { schemaVersion: '2.0', items: [] });
-writeJSON(`${functional}/review-receipt.json`, { schemaVersion: '1.0', status: 'approved', authorAgentId: 'golden-domain-author', reviewerAgentId: 'golden-domain-reviewer' });
-writeJSON(`${functional}/planning-review-receipt.json`, { schemaVersion: '1.0', status: 'approved', workflow: 'fdd-bmad-planning', authorAgentId: 'golden-domain-author', reviewerAgentId: 'golden-domain-reviewer' });
-run(`${repo}/functional-domain-design/scripts/validate-package.mjs`, [functional, '--require-approved']);
-run(`${repo}/functional-domain-design/scripts/build-implementation-handoff.mjs`, ['--functional', functional, '--visual-release', release, '--output', handoff, '--author-agent', 'golden-handoff-author']);
-run(`${repo}/functional-domain-design/scripts/review-implementation-handoff.mjs`, ['--handoff', handoff, '--reviewer-agent', 'golden-handoff-reviewer']);
-run(`${repo}/project-implementation/scripts/prepare-implementation.mjs`, ['--functional', functional, '--handoff', handoff, '--output', implementation]);
-const bmadTraceability = readJSON(`${implementation}/bmad-traceability.json`); const bmadRecords = [];
-for (const story of bmadTraceability.stories) {
-  const storyFile = `${implementation}/${bmadTraceability.output}/${story.storyPath}`;
-  const completed = readFileSync(storyFile, 'utf8').replace('Status: ready-for-dev', 'Status: done').replaceAll('- [ ]', '- [x]') + `\n## Dev Agent Record\n\n- Agent: golden-dev\n- Status: completed\n\n## Code Review Record\n\n- Reviewer: golden-reviewer\n- Status: approved\n`;
-  writeFileSync(storyFile, completed);
-  bmadRecords.push({ unitId: story.unitId, storyId: story.storyId, storyDigest: shaText(completed), devStory: { status: 'completed', agentId: 'golden-dev', completedAt: new Date().toISOString() }, codeReview: { status: 'approved', reviewerAgentId: 'golden-reviewer', reviewedAt: new Date().toISOString() } });
-}
-const sprintFile = `${implementation}/${bmadTraceability.output}/implementation-artifacts/sprint-status.yaml`; writeFileSync(sprintFile, readFileSync(sprintFile, 'utf8').replaceAll('ready-for-dev', 'done'));
-writeJSON(`${implementation}/bmad-completion.json`, { schemaVersion: '1.0', status: 'completed', records: bmadRecords });
+rmSync(output, { recursive: true, force: true });
+mkdirSync(output, { recursive: true });
+run(`${fddRoot}/scripts/scaffold-package.mjs`, ['--input', architecture, '--visual-release', release, '--output', functional, '--author-agent', 'golden-domain-author']);
+overlayAuthoredClosure(functional);
+if (headlessOnly) convertToHeadlessPreservingContracts(functional);
+run(`${fddRoot}/scripts/review-package.mjs`, ['--package', functional, '--reviewer-agent', 'golden-domain-reviewer']);
+run(`${fddRoot}/scripts/build-implementation-handoff.mjs`, ['--functional', functional, '--visual-release', release, '--output', handoff, '--author-agent', 'golden-handoff-author']);
+run(`${fddRoot}/scripts/review-implementation-handoff.mjs`, ['--handoff', handoff, '--reviewer-agent', 'golden-handoff-reviewer']);
+run(`${piRoot}/scripts/prepare-implementation.mjs`, ['--functional', functional, '--handoff', handoff, '--output', implementation]);
 
-mkdirSync(`${implementation}/backend`, { recursive: true }); mkdirSync(`${implementation}/tests`, { recursive: true }); mkdirSync(`${implementation}/migrations`, { recursive: true });
-for (const capability of capabilities) {
-  const file = `${implementation}/web/pages/${capability.pageIds[0]}/index.html`;
-  const locator = `implementation-control-${capability.id}`;
-  writeFileSync(file, `${readFileSync(file, 'utf8')}\n<button data-implementation-control="${locator}">${capability.name}</button>\n`);
-}
-writeFileSync(`${implementation}/backend/server.mjs`, `import { createServer } from 'node:http';
-export function submitSample() { return { ok: true }; }
-export function submitDetail() { return { ok: true }; }
-export function querySampleResult() { return { status: 'available' }; }
-const capabilities = ${JSON.stringify(capabilities.map((item) => ({ id: item.id, name: item.name, mode: item.presentation.mode, operation: item.operations[0] || null })))};
-createServer((request, response) => {
-  if (request.url === '/health') { response.writeHead(200); response.end('ok'); return; }
-  if (request.url.startsWith('/api/')) { response.writeHead(200, { 'content-type': 'application/json' }); response.end(JSON.stringify({ ok: true, status: 'succeeded', resultId: 'fixture', assets: ['fixture-result'] })); return; }
-  response.writeHead(200, { 'content-type': 'text/html' });
-  response.end(\`<!doctype html><main data-active-capability-id="" data-capability-status="implemented">\${capabilities.map((item) => \`<section data-capability-form="\${item.id}">\${(item.operation?.request?.body || []).map((field) => \`<input data-domain-input-id="input-\${item.id}-body-\${field}" value="">\`).join('')}<button data-implementation-control="implementation-control-\${item.id}" data-capability="\${item.id}">\${item.name}</button></section>\`).join('')}<section id="result" data-state="idle"></section></main><script>const capabilities=\${JSON.stringify(capabilities)};for(const item of capabilities){document.querySelector('[data-capability="'+item.id+'"]').addEventListener('click',async()=>{const main=document.querySelector('main');main.dataset.activeCapabilityId=item.id;main.dataset.capabilityStatus='implemented';const result=document.querySelector('#result');result.dataset.state='loading';if(item.operation){const path=item.operation.path.replace(/\\{[^}]+\\}/g,'fixture');const body=Object.fromEntries((item.operation.request.body||[]).map((field)=>[field,document.querySelector('[data-domain-input-id="input-'+item.id+'-body-'+field+'"]').value]));const apiResponse=await fetch(path,{method:item.operation.method,headers:{'content-type':'application/json'},body:item.operation.method==='GET'?undefined:JSON.stringify(body)});result.dataset.response=JSON.stringify(await apiResponse.json());}result.dataset.state='succeeded';result.textContent=item.name+' completed';});}</script>\`);
-}).listen(Number(process.env.PORT || 4173));
-`);
-writeFileSync(`${implementation}/tests/unit.mjs`, `import {mkdirSync,readFileSync,writeFileSync} from 'node:fs';
-const plan=JSON.parse(readFileSync('implementation-plan.json'));const api=JSON.parse(readFileSync('inputs/handoff-api-contract.json'));
-const sample=(schema)=>schema?.const??schema?.enum?.[0]??(schema?.type==='object'?Object.fromEntries(Object.entries(schema.properties||{}).map(([key,value])=>[key,sample(value)])):schema?.type==='array'?[sample(schema.items)]:schema?.type==='integer'?1:schema?.type==='number'?1:schema?.type==='boolean'?true:'observed');
-const event=(operation,index,errorCode=null)=>({id:'event-'+operation.id+'-'+index,operationId:operation.id,request:{method:operation.method,route:operation.path,contentType:operation.request?.contentType||'application/json',path:sample(operation.request?.pathSchema),query:sample(operation.request?.querySchema),header:sample(operation.request?.headerSchema),body:sample(operation.request?.bodySchema)},response:{status:errorCode?400:200,body:errorCode?{error:errorCode}:sample(operation.response?.bodySchema)},authorization:{checked:true,allowed:!errorCode},...(errorCode?{errorCode}:{}),effects:errorCode?[]:(operation.effects||[]).map((item)=>({...item,observed:true,before:null,after:{id:'observed'}})),transaction:{observed:true}});
-const events=api.operations.flatMap((operation)=>[event(operation,0),...(operation.errors||[]).map((error,index)=>event(operation,index+1,typeof error==='object'?error.code:error))]);
-mkdirSync('evidence',{recursive:true});writeFileSync('evidence/golden-units.txt','passed\\n');writeFileSync('operation-events.json',JSON.stringify({schemaVersion:'1.0',events}));writeFileSync('unit-test-report.json',JSON.stringify({cases:plan.units.map((unit)=>({id:'test-'+unit.id,status:'passed',unitIds:[unit.id],evidence:['evidence/golden-units.txt']}))}));
-`);
-writeFileSync(`${implementation}/migrations/001-submissions.sql`, 'CREATE TABLE submissions (id TEXT PRIMARY KEY, created_at TEXT NOT NULL);\nCREATE TABLE submission_events (id TEXT PRIMARY KEY, submissionId TEXT NOT NULL, FOREIGN KEY (submissionId) REFERENCES submissions(id) ON DELETE CASCADE);\nCREATE INDEX idx_submission_events_submission ON submission_events(submissionId);\n');
+const spec = readJSON(`${functional}/functional-spec.json`);
+const capabilities = spec.capabilities || [];
+const api = readJSON(`${implementation}/inputs/handoff-api-contract.json`);
+const fieldPlan = readJSON(`${implementation}/field-binding-plan.json`);
+const uiPlan = readJSON(`${implementation}/inputs/handoff-ui-implementation-plan.json`);
+const uiByCapability = new Map((uiPlan.capabilities || []).map((item) => [item.capabilityId, item]));
+const releaseControl = (capability) => uiByCapability.get(capability?.id)?.presentation?.triggerControl?.controlId;
+const releaseControlByInput = new Map((uiPlan.capabilities || []).flatMap((item) => (item.presentation?.fieldBindings || []).map((binding) => [binding.inputId, binding.controlId])));
+const submit = capabilities.find((item) => item.aggregateSubmission);
+const upload = capabilities.find((item) => item.operations?.[0]?.resourceTransfer);
+const planned = capabilities.find((item) => item.specificationStatus === 'planned');
+if (!headlessOnly && (!submit || !upload || !planned)) throw new Error('neutral schema 2.2 authored fixture lacks aggregate, upload, or planned capabilities');
+
+mkdirSync(`${implementation}/backend`, { recursive: true });
+mkdirSync(`${implementation}/tests`, { recursive: true });
+mkdirSync(`${implementation}/migrations`, { recursive: true });
+if (!headlessOnly) writeFrontendImplementation();
+writeBackendImplementation();
+writeUnitEvidence();
+writeFileSync(`${implementation}/migrations/001-submissions.sql`, 'CREATE TABLE resources (id TEXT PRIMARY KEY, checksum TEXT NOT NULL);\nCREATE TABLE submissions (id TEXT PRIMARY KEY, resource_ids TEXT NOT NULL, status TEXT NOT NULL);\n');
 writeFileSync(`${implementation}/Dockerfile`, 'FROM node:20-alpine\nWORKDIR /app\nCOPY . .\nCMD ["node", "backend/server.mjs"]\n');
 writeJSON(`${implementation}/package.json`, { private: true, type: 'module', scripts: { test: 'node tests/unit.mjs', build: 'node -e "process.exit(0)"', start: 'node backend/server.mjs' } });
-writeFileSync(`${implementation}/tests/browser-runtime.mjs`, `import { createRequire } from 'node:module'; import { mkdirSync, writeFileSync } from 'node:fs';
-const require=createRequire(${JSON.stringify(`${repo}/ai-restore/package.json`)}); const { chromium }=require('playwright');
-const capabilities=${JSON.stringify(capabilities.map((item) => ({ id: item.id, mode: item.presentation.mode, operation: item.operations[0] || null })))}; const browser=await chromium.launch({headless:true}); const context=await browser.newContext(); await context.tracing.start({screenshots:true,snapshots:true,sources:true}); const page=await context.newPage(); const cases=[]; mkdirSync('evidence/frontend',{recursive:true});
-for(const item of capabilities){await page.goto(process.env.BASE_URL);for(const field of item.operation?.request?.body||[]){await page.locator('[data-domain-input-id="input-'+item.id+'-body-'+field+'"]').fill('unique-'+item.id+'-'+field+'-'+Date.now());}const locator='implementation-control-'+item.id;const control=page.locator('[data-implementation-control="'+locator+'"]');const requests=[];const listener=(response)=>{const url=new URL(response.url());if(url.pathname.startsWith('/api/'))requests.push({method:response.request().method(),path:url.pathname,status:response.status()});};page.on('response',listener);await control.click();await page.waitForFunction((id)=>document.querySelector('main').dataset.activeCapabilityId===id&&document.querySelector('#result').dataset.state==='succeeded',item.id);page.off('response',listener);for(const state of ['loading','empty','failed','succeeded']){await page.locator('#result').evaluate((node,value)=>node.dataset.state=value,state);await page.content();}const artifact='evidence/frontend/browser-'+item.id+'.png';await page.screenshot({path:artifact,fullPage:true});cases.push({id:'browser-'+item.id,capabilityId:item.id,bindingId:'binding-'+item.id,locator,pageUrl:process.env.BASE_URL,mode:item.mode,event:'click',...(item.mode==='display-only'?{bindingType:'data-render',trigger:'task-succeeded'}:{}),observed:{matchCount:await control.count(),visible:await control.isVisible(),enabled:await control.isEnabled(),activeCapabilityId:await page.locator('main').getAttribute('data-active-capability-id'),capabilityStatus:await page.locator('main').getAttribute('data-capability-status'),networkRequests:requests,stateTransitions:['idle','loading','succeeded'],domChanged:true,visibleText:[await page.locator('body').innerText()]},artifacts:[artifact],status:'passed'});}
-const traceArtifact='evidence/frontend/playwright-trace.zip';await context.tracing.stop({path:traceArtifact});await browser.close();writeFileSync(process.env.FRONTEND_RAW_REPORT,JSON.stringify({schemaVersion:'1.0',engine:'playwright',traceArtifact,cases},null,2));
-`);
-writeJSON(`${implementation}/implementation-provenance.json`, { schemaVersion: '1.0', backendSource: { status: 'implemented' }, operationSources: [{ operationId: 'submit-sample', files: [{ path: 'backend/server.mjs', symbol: 'submitSample' }] }, { operationId: 'submit-suite-sample-detail', files: [{ path: 'backend/server.mjs', symbol: 'submitDetail' }] }, { operationId: 'query-sample-result', files: [{ path: 'backend/server.mjs', symbol: 'querySampleResult' }] }] });
-writeJSON(`${implementation}/interaction-manifest.json`, { schemaVersion: '1.0', status: 'implemented', interactions: capabilities.filter((item) => item.presentation.mode !== 'display-only').map((item) => ({ id: `interaction-${item.id}`, capabilityId: item.id, ...(item.operations[0] ? { operationId: item.operations[0].id } : {}), event: item.operations[0] ? 'submit' : 'click', evidenceId: `browser-${item.id}`, status: 'verified' })) });
-writeJSON(`${implementation}/control-bindings.json`, { schemaVersion: '1.0', status: 'implemented', bindings: capabilities.map((item) => ({ id: `binding-${item.id}`, capabilityId: item.id, ...(item.operations[0] ? { operationId: item.operations[0].id } : {}), mode: item.presentation.mode, ...(item.presentation.mode === 'display-only' ? { bindingType: 'data-render', trigger: 'task-succeeded' } : {}), runtimeEvidenceId: `browser-${item.id}`, source: { path: `web/pages/${item.pageIds[0]}/index.html`, locator: `implementation-control-${item.id}` } })) });
-writeJSON(`${implementation}/frontend-runtime-config.json`, { schemaVersion: '1.0', status: 'implemented', baseUrl: 'http://127.0.0.1:${PORT}', start: { command: 'node', args: ['backend/server.mjs'] }, healthUrl: 'http://127.0.0.1:${PORT}/health', e2e: { command: 'node', args: ['tests/browser-runtime.mjs'] } });
-writeJSON(`${implementation}/placeholder-resolution.json`, { schemaVersion: '1.0', status: 'implemented', environment: 'production', runtimeFallbacks: [], items: capabilities.map((item) => ({ id: `placeholder-${item.id}`, capabilityId: item.id, classification: 'visual-placeholder', resolution: item.operations[0] ? 'replaced-by-api-data' : 'replaced-by-user-input', ...(item.operations[0] ? { states: { empty: true, loading: true, error: true, success: true } } : {}), evidenceId: `browser-${item.id}` })) });
-run(`${repo}/project-implementation/scripts/finalize-implementation.mjs`, ['--dir', implementation]);
-run(`${repo}/project-implementation/scripts/verify-implementation.mjs`, [implementation, '--require-level', 'simulated']);
-writeJSON(`${output}/summary.json`, { schemaVersion: '1.0', status: 'verified', verificationLevel: 'simulated', functional: 'functional-domain', handoff: 'implementation-handoff', implementation: 'implementation' });
+writeProvenance();
+completeBmad(implementation);
+if (!headlessOnly) writeFrontendContracts();
+
+run(`${piRoot}/scripts/finalize-implementation.mjs`, ['--dir', implementation]);
+run(`${piRoot}/scripts/verify-implementation.mjs`, [implementation, '--require-level', 'simulated']);
+writeJSON(`${output}/summary.json`, { schemaVersion: '1.0', status: 'verified', verificationLevel: 'simulated', deliveryStatus: 'simulated-verified', deliveryStatusNote: 'Capabilities carrying an external providerContract require campaign-qualified integrated evidence before a completion declaration; simulated-verified is a prerequisite qualification.', functional: 'functional-domain', handoff: 'implementation-handoff', implementation: 'implementation' });
 console.log(`Golden simulated flow generated: ${output}`);
 
+function writeFrontendImplementation() {
+  const submitOperation = submit.operations[0]; const uploadOperation = upload.operations[0];
+  const submitBindings = fieldPlan.bindings.filter((item) => item.capabilityId === submit.id);
+  const uploadBindings = fieldPlan.bindings.filter((item) => item.capabilityId === upload.id);
+  const inputBindings = submitBindings.filter((item) => item.kind === 'input' && item.source === 'user-input');
+  const uploadInput = uploadBindings.find((item) => item.kind === 'input');
+  const submitCommand = submitBindings.find((item) => item.kind === 'command');
+  const resultBinding = submitBindings.find((item) => item.kind === 'result');
+  const displayBindings = [...submitBindings, ...uploadBindings].filter((item) => item.kind === 'display');
+  const uploadCommand = uploadBindings.find((item) => item.kind === 'command');
+  const pagePath = `${implementation}/web/pages/submission/index.html`;
+  const controls = { submit: `control-${submit.id}`, upload: uploadInput.controlId, planned: `control-${planned.id}` };
+  const vr = { submit: releaseControl(submit), upload: releaseControl(upload), planned: releaseControl(planned) };
+  const html = `<!doctype html><html><body><main data-clean-session="true" data-active-capability-id="${submit.id}" data-capability-status="implemented" data-surface-heading="${submit.name}" data-primary-action="${submit.name}" data-primary-operation-id="${submitOperation.id}" data-empty-state="${submit.presentation.surface.contentContract.emptyState}"><img src="/assets/icon.svg" alt="" width="16" height="16"><section data-region="identity-section">${inputBindings.slice(0, 1).map(inputHtml).join('')}</section><section data-region="options-section">${inputBindings.slice(1).map(inputHtml).join('')}</section><section data-region="upload-panel" data-upload-state="empty"><input id="${uploadInput.controlId}" data-vr-id="${vr.upload}" data-domain-input-id="files" type="file"><div id="upload-status" data-state="empty"></div>${displayBindings.filter((item) => item.capabilityId === upload.id).map((item) => `<div data-display-host-id="${item.id}"></div>`).join('')}</section><button id="${controls.submit}" data-vr-id="${vr.submit}">${submit.name}</button><button id="${controls.planned}" data-vr-id="${vr.planned}">${planned.name}</button><section data-region="result-panel" data-result-region-id="${resultBinding.regionId}" data-result-status="empty"><span>${submit.presentation.surface.contentContract.emptyState}</span></section><section data-region="history-panel" data-history-state="empty">No submission history</section>${displayBindings.filter((item) => item.capabilityId === submit.id).map((item) => `<div data-display-host-id="${item.id}"></div>`).join('')}</main><script>const submitId=${JSON.stringify(submit.id)},uploadId=${JSON.stringify(upload.id)},plannedId=${JSON.stringify(planned.id)};let resourceIds=JSON.parse(localStorage.getItem('resourceIds')||'[]');const main=document.querySelector('main'),uploadStatus=document.querySelector('#upload-status'),result=document.querySelector('[data-result-region-id]');function state(value){const marker=document.createElement('i');marker.dataset.state=value;marker.hidden=true;main.append(marker)}function renderDisplays(capabilityId,data){for(const binding of ${JSON.stringify(displayBindings)}){if(binding.capabilityId!==capabilityId)continue;const host=document.querySelector('[data-display-host-id="'+binding.id+'"]');const value=data[binding.responsePath];host.replaceChildren(...(Array.isArray(value)?value:[value]).map(item=>{const node=document.createElement('span');node.dataset.displayBindingId=binding.id;node.textContent=typeof item==='object'?JSON.stringify(item):String(item);return node}))}}document.querySelector('#${uploadInput.controlId}').addEventListener('change',async event=>{main.dataset.activeCapabilityId=uploadId;main.dataset.capabilityStatus='implemented';state('empty');state('loading');uploadStatus.dataset.state='loading';const body=new FormData();body.append(${JSON.stringify(uploadOperation.resourceTransfer.fileField)},event.target.files[0]);const response=await fetch(${JSON.stringify(uploadOperation.path)}+(new URL(location.href).search.includes('uploadFailure=1')?'?fail=1':''),{method:'POST',body});const data=await response.json();if(!response.ok){state('failure');uploadStatus.dataset.state='failure';uploadStatus.textContent=data.error;return}resourceIds=data.assetIds;localStorage.setItem('resourceIds',JSON.stringify(resourceIds));state('success');uploadStatus.dataset.state='success';uploadStatus.textContent='Upload available';renderDisplays(uploadId,data)});document.querySelector('#${controls.submit}').addEventListener('click',async()=>{main.dataset.activeCapabilityId=submitId;main.dataset.capabilityStatus='implemented';state('empty');state('loading');result.dataset.resultStatus='processing';result.textContent='Processing submission';const body={${inputBindings.map((item) => `${JSON.stringify(item.requestPath.replace(/^body\./, ''))}:document.querySelector('#${item.controlId}').value`).join(',')},${JSON.stringify(submitOperation.dataDependencies[0].targetField.replace(/^request\./, ''))}:resourceIds};const response=await fetch(${JSON.stringify(submitOperation.path)},{method:'POST',headers:{'content-type':'application/json'},body:JSON.stringify(body)});const data=await response.json();if(!response.ok){state('failure');result.dataset.resultStatus='error';result.innerHTML='<span data-result-error="true">'+data.error+'</span>';return}state('success');result.dataset.resultStatus='success';result.replaceChildren(...data.items.map(value=>{const node=document.createElement('span');node.dataset.resultRegionId=${JSON.stringify(resultBinding.regionId)};node.dataset.resultBindingId=${JSON.stringify(resultBinding.id)};node.textContent=value;return node}));renderDisplays(submitId,data);document.querySelector('[data-history-state]').dataset.historyState='populated';document.querySelector('[data-history-state]').textContent=data.submissionId});document.querySelector('#${controls.planned}').addEventListener('click',()=>{main.dataset.activeCapabilityId=plannedId;main.dataset.capabilityStatus='planned';main.removeAttribute('data-primary-action');main.removeAttribute('data-primary-operation-id');main.removeAttribute('data-empty-state');main.dataset.surfaceHeading=${JSON.stringify(planned.name)};main.innerHTML='<section data-planned-surface="true"><h1>${planned.name}</h1><p>功能待实现（暂未开放）</p><button id="${controls.planned}" data-vr-id="${vr.planned}">${planned.name}</button></section>'});</script></body></html>\n`;
+  writeFileSync(pagePath, html.replace(` data-domain-input-id="files" type="file"`, ` type="file"`));
+  const sampleAsset = `${implementation}/web/pages/submission/assets/sample-result.svg`;
+  if (existsSync(sampleAsset)) rmSync(sampleAsset);
+  writeBrowserTest({ controls, inputBindings, uploadInput, submitCommand, uploadCommand, resultBinding, displayBindings, submitOperation, uploadOperation });
+}
+
+function writeBrowserTest(data) {
+  const render = `elements => elements.map(element => { const style = getComputedStyle(element); const rect = element.getBoundingClientRect(); return { visible: style.display !== 'none' && style.visibility !== 'hidden' && Number(style.opacity) > 0 && rect.width > 0 && rect.height > 0, tag: element.tagName.toLowerCase(), text: element.textContent.trim(), src: element.currentSrc || element.src || null, href: element.href || null, value: 'value' in element ? element.value : null }; })`;
+  const script = `import { createRequire } from 'node:module';import { mkdirSync,writeFileSync } from 'node:fs';const require=createRequire(${JSON.stringify(`${piRoot}/package.json`)});const {chromium}=require('playwright');const challenge=JSON.parse(process.env.FRONTEND_UPLOAD_CHALLENGES)[${JSON.stringify(data.uploadOperation.id)}];const browser=await chromium.launch({headless:true});const context=await browser.newContext();await context.tracing.start({screenshots:true,snapshots:true,sources:true});const page=await context.newPage();const cases=[];mkdirSync('evidence/frontend',{recursive:true});const capture=async(item,control)=>{const artifact='evidence/frontend/'+item.id+'.png';await page.screenshot({path:artifact,fullPage:true});await control.count();await control.isVisible();if(item.event!=='initial-state')await control.isEnabled();await page.content();item.artifacts=[artifact];item.status='passed';cases.push(item)};await page.goto(process.env.BASE_URL+'/submission');await page.waitForSelector('[data-clean-session="true"]');await capture({id:'initial-submission',capabilityId:'initial:submission',bindingId:'initial-submission',locator:'main',pageId:'submission',pageUrl:process.env.BASE_URL+'/submission',mode:'display-only',event:'initial-state'},page.locator('main'));await page.goto(process.env.BASE_URL+'/submission?uploadFailure=1');const upload=page.locator('#${data.uploadInput.controlId}');await upload.setInputFiles(challenge.path);await page.waitForSelector('[data-upload-state] [data-state="failure"]');await capture({id:'browser-upload-failure',capabilityId:${JSON.stringify(upload.id)},bindingId:'binding-${upload.id}',locator:${JSON.stringify(data.uploadInput.controlId)},pageUrl:process.env.BASE_URL+'/submission',mode:'reuse-control',event:'upload',expectedOutcome:'failure'},upload);await page.goto(process.env.BASE_URL+'/submission');const uploadSuccess=page.locator('#${data.uploadInput.controlId}');await uploadSuccess.setInputFiles(challenge.path);await page.waitForSelector('[data-upload-state] [data-state="success"]');${data.displayBindings.filter((item) => item.capabilityId === upload.id).map((item) => `await page.locator('[data-display-binding-id="${item.id}"]').evaluateAll(${render});`).join('')}await capture({id:'browser-upload',capabilityId:${JSON.stringify(upload.id)},bindingId:'binding-${upload.id}',locator:${JSON.stringify(data.uploadInput.controlId)},pageUrl:process.env.BASE_URL+'/submission',mode:'reuse-control',event:'upload'},uploadSuccess);await page.goto(process.env.BASE_URL+'/submission');${data.inputBindings.map((item, index) => `await page.locator('#${item.controlId}').fill(${JSON.stringify(index === 0 ? 'brand-icon' : index === 1 ? 'submit-button' : '2')});`).join('')}const submitFailure=page.locator('#${data.controls.submit}');await submitFailure.click();await page.waitForSelector('[data-result-status="error"] [data-result-error="true"]');await capture({id:'browser-submit-failure',capabilityId:${JSON.stringify(submit.id)},bindingId:'binding-${submit.id}',locator:${JSON.stringify(data.controls.submit)},pageUrl:process.env.BASE_URL+'/submission',mode:'reuse-control',event:'click',expectedOutcome:'failure'},submitFailure);await page.goto(process.env.BASE_URL+'/submission');${data.inputBindings.map((item, index) => `await page.locator('#${item.controlId}').fill(${JSON.stringify(index === 0 ? 'workspace' : index === 1 ? 'submit-button' : '3')});`).join('')}const submitSuccess=page.locator('#${data.controls.submit}');await submitSuccess.click();await page.waitForSelector('[data-result-status="success"] [data-result-binding-id]');${data.displayBindings.filter((item) => item.capabilityId === submit.id).map((item) => `await page.locator('[data-display-binding-id="${item.id}"]').evaluateAll(${render});`).join('')}await page.locator('[data-result-binding-id="${data.resultBinding.id}"]').evaluateAll(${render});await page.locator('[data-result-region-id="${data.resultBinding.regionId}"]:not([data-result-binding-id])').evaluateAll(${render});await capture({id:'browser-submit',capabilityId:${JSON.stringify(submit.id)},bindingId:'binding-${submit.id}',locator:${JSON.stringify(data.controls.submit)},pageUrl:process.env.BASE_URL+'/submission',mode:'reuse-control',event:'click'},submitSuccess);await page.goto(process.env.BASE_URL+'/submission');const planned=page.locator('#${data.controls.planned}');await planned.click();await page.waitForSelector('[data-planned-surface="true"]');await capture({id:'browser-planned',capabilityId:${JSON.stringify(planned.id)},bindingId:'binding-${planned.id}',locator:${JSON.stringify(data.controls.planned)},pageUrl:process.env.BASE_URL+'/submission',mode:'reuse-control',event:'click'},planned);const traceArtifact='evidence/frontend/playwright-trace.zip';await context.tracing.stop({path:traceArtifact});await browser.close();writeFileSync(process.env.FRONTEND_RAW_REPORT,JSON.stringify({schemaVersion:'1.0',engine:'playwright',traceArtifact,cases},null,2));\n`;
+  writeFileSync(`${implementation}/tests/browser-runtime.mjs`, script);
+}
+
+function writeBackendImplementation() {
+  const submitOperation = submit?.operations?.[0]; const uploadOperation = upload?.operations?.[0];
+  const source = `import {createHash,randomUUID} from 'node:crypto';import {createServer} from 'node:http';import {readFileSync} from 'node:fs';const web=readFileSync(new URL('../web/pages/submission/index.html',import.meta.url));const icon=readFileSync(new URL('../web/pages/submission/assets/icon.svg',import.meta.url));const readBody=request=>new Promise(resolve=>{const chunks=[];request.on('data',chunk=>chunks.push(chunk));request.on('end',()=>resolve(Buffer.concat(chunks)))});function multipartFile(bytes,contentType){const boundary=contentType.match(/boundary=([^;]+)/i)?.[1];if(!boundary)return bytes;const marker=Buffer.from('\\r\\n--'+boundary);const headerEnd=bytes.indexOf(Buffer.from('\\r\\n\\r\\n'));return headerEnd<0?bytes:bytes.subarray(headerEnd+4,bytes.indexOf(marker,headerEnd+4))}export async function uploadResource(request,response){const bytes=await readBody(request);if(new URL(request.url,'http://local').searchParams.has('fail'))return json(response,422,{error:'INVALID_INPUT'});const file=multipartFile(bytes,String(request.headers['content-type']||''));const checksum=createHash('sha256').update(file).digest('hex');const id='resource-'+checksum.slice(0,12);return json(response,201,{assetIds:[id],assets:[{id,status:'available',checksum}]})}export async function createSubmission(request,response){const body=JSON.parse((await readBody(request)).toString());if(body['submission-title']==='brand-icon')return json(response,422,{error:'INVALID_INPUT'});const count=Number(body['result-quantity']);if(!Array.isArray(body[${JSON.stringify(submitOperation?.dataDependencies?.[0]?.targetField?.replace(/^request\./, '') || 'resourceIds')}])||!count)return json(response,422,{error:'INVALID_INPUT'});const submissionId='submission-'+randomUUID().slice(0,8);return json(response,201,{submissionId,status:'succeeded',items:Array.from({length:count},(_,index)=>'/media/'+submissionId+'-'+(index+1)+'.txt')})}function json(response,status,value){response.writeHead(status,{'content-type':'application/json'});response.end(JSON.stringify(value))}createServer(async(request,response)=>{const path=new URL(request.url,'http://local').pathname;if(path==='/health')return json(response,200,{ok:true});if(path===${JSON.stringify(uploadOperation?.path)}&&request.method==='POST')return uploadResource(request,response);if(path===${JSON.stringify(submitOperation?.path)}&&request.method==='POST')return createSubmission(request,response);if(path.startsWith('/media/')){response.writeHead(200,{'content-type':'text/plain; charset=utf-8'});return response.end('independent-media-item:'+path.slice(7))}if(path==='/assets/icon.svg'){response.writeHead(200,{'content-type':'image/svg+xml'});return response.end(icon)}response.writeHead(200,{'content-type':'text/html; charset=utf-8'});response.end(web)}).listen(Number(process.env.PORT||4173));\n`;
+  writeFileSync(`${implementation}/backend/server.mjs`, source);
+}
+
+function writeUnitEvidence() {
+  const script = `import {mkdirSync,readFileSync,writeFileSync} from 'node:fs';const plan=JSON.parse(readFileSync('implementation-plan.json'));const api=JSON.parse(readFileSync('inputs/handoff-api-contract.json'));const sample=schema=>schema?.const??schema?.enum?.[0]??(schema?.type==='object'?Object.fromEntries(Object.entries(schema.properties||{}).map(([key,value])=>[key,sample(value)])):schema?.type==='array'?[sample(schema.items)]:schema?.type==='integer'?1:schema?.type==='number'?1:schema?.type==='boolean'?true:'observed');const numeric=schema=>{const found=(schema?.enum||[]).find(value=>Number.isFinite(Number(value))&&Number(value)>=1);return found!==undefined?String(found):'2'};const countField=operation=>operation.finalProduct?.quantity?.sourceField;const requestBody=operation=>{const schema=operation.request?.bodySchema;if(schema?.type!=='object')return sample(schema);const field=countField(operation);return Object.fromEntries(Object.entries(schema.properties||{}).map(([key,value])=>[key,key===field?numeric(value):sample(value)]))};const responseBody=operation=>{const base=sample(operation.response?.bodySchema);const field=countField(operation);if(field&&base&&typeof base==='object'&&!Array.isArray(base)){const n=Number(numeric(operation.request?.bodySchema?.properties?.[field]));for(const[key,value]of Object.entries(base))if(Array.isArray(value))base[key]=Array.from({length:n},(_,index)=>value[0]&&typeof value[0]==='object'?value[0]:key+'-'+(index+1))}return base};const event=(operation,index,errorCode=null)=>({id:'event-'+operation.id+'-'+index,operationId:operation.id,request:{method:operation.method,route:operation.path,contentType:operation.request?.contentType||'application/json',path:sample(operation.request?.pathSchema),query:sample(operation.request?.querySchema),header:sample(operation.request?.headerSchema),body:requestBody(operation)},response:{status:errorCode?400:(operation.response?.successStatuses?.[0]||200),body:errorCode?{error:errorCode}:responseBody(operation)},authorization:{checked:true,allowed:!errorCode},...(errorCode?{errorCode}:{}),effects:errorCode?[]:(operation.effects||[]).map(item=>({...item,observed:true,before:null,after:{id:'observed'}})),...(operation.providerContract?.outputMode==='independent-items'&&!errorCode?{providerCalls:(Object.values(responseBody(operation)).filter(Array.isArray).sort((a,b)=>b.length-a.length)[0]||[]).map((_,index)=>({index,status:'succeeded'}))}:{}),transaction:{observed:true}});const events=api.operations.flatMap(operation=>[event(operation,0),...(operation.errors||[]).map((error,index)=>event(operation,index+1,typeof error==='object'?error.code:error))]);mkdirSync('evidence',{recursive:true});writeFileSync('evidence/golden-units.txt','passed\\n');writeFileSync('operation-events.json',JSON.stringify({schemaVersion:'1.0',events}));writeFileSync('unit-test-report.json',JSON.stringify({cases:plan.units.map(unit=>({id:'test-'+unit.id,status:'passed',unitIds:[unit.id],evidence:['evidence/golden-units.txt']}))}));\n`;
+  writeFileSync(`${implementation}/tests/unit.mjs`, script);
+}
+
+function writeProvenance() { writeJSON(`${implementation}/implementation-provenance.json`, { schemaVersion: '1.0', backendSource: { status: 'implemented' }, operationSources: api.operations.map((operation) => ({ operationId: operation.id, files: [{ path: 'backend/server.mjs', symbol: operation.resourceTransfer ? 'uploadResource' : 'createSubmission' }] })) }); }
+
+function writeFrontendContracts() {
+  const submitOperation = submit.operations[0]; const uploadOperation = upload.operations[0];
+  const submitInput = fieldPlan.bindings.find((item) => item.capabilityId === submit.id && item.kind === 'command'); const uploadInput = fieldPlan.bindings.find((item) => item.capabilityId === upload.id && item.kind === 'input');
+  const bindings = [
+    { id: `binding-${submit.id}`, capabilityId: submit.id, operationId: submitOperation.id, mode: submit.presentation.mode, runtimeEvidenceId: 'browser-submit', source: { path: 'web/pages/submission/index.html', locator: `control-${submit.id}` } },
+    { id: `binding-${upload.id}`, capabilityId: upload.id, operationId: uploadOperation.id, mode: upload.presentation.mode, runtimeEvidenceId: 'browser-upload', source: { path: 'web/pages/submission/index.html', locator: uploadInput.controlId } },
+    { id: `binding-${planned.id}`, capabilityId: planned.id, bindingType: 'activation', mode: planned.presentation.mode, runtimeEvidenceId: 'browser-planned', source: { path: 'web/pages/submission/index.html', locator: `control-${planned.id}` } }
+  ];
+  writeJSON(`${implementation}/control-bindings.json`, { schemaVersion: '1.0', status: 'implemented', bindings });
+  writeJSON(`${implementation}/interaction-manifest.json`, { schemaVersion: '1.0', status: 'implemented', interactions: [
+    { id: `interaction-${submit.id}`, capabilityId: submit.id, operationId: submitOperation.id, event: 'submit', evidenceId: 'browser-submit', status: 'verified' },
+    { id: `interaction-${upload.id}`, capabilityId: upload.id, operationId: uploadOperation.id, event: 'upload', evidenceId: 'browser-upload', status: 'verified' },
+    { id: `interaction-${planned.id}`, capabilityId: planned.id, event: 'click', evidenceId: 'browser-planned', status: 'planned' }
+  ] });
+  const config = readJSON(`${implementation}/frontend-runtime-config.json`); Object.assign(config, { status: 'implemented', baseUrl: 'http://127.0.0.1:${PORT}', start: { command: 'node', args: ['backend/server.mjs'] }, healthUrl: 'http://127.0.0.1:${PORT}/health', e2e: { command: 'node', args: ['tests/browser-runtime.mjs'], timeoutMs: 60000 } }); writeJSON(`${implementation}/frontend-runtime-config.json`, config);
+  const resolution = readJSON(`${implementation}/placeholder-resolution.json`); resolution.status = 'implemented'; for (const item of resolution.items) if (item.resolution === 'pending') item.resolution = ({ 'api-data': 'replaced-by-api-data', 'user-input': 'replaced-by-user-input', 'empty-state': 'converted-to-empty-state' })[item.requiredReplacement]; resolution.items.push({ id: `placeholder-${submit.id}`, capabilityId: submit.id, classification: 'visual-placeholder', resolution: 'replaced-by-api-data', states: { empty: true, loading: true, error: true, success: true }, evidenceId: 'browser-submit' }, { id: `placeholder-${upload.id}`, capabilityId: upload.id, classification: 'visual-placeholder', resolution: 'replaced-by-user-input', evidenceId: 'browser-upload' }); writeJSON(`${implementation}/placeholder-resolution.json`, resolution);
+}
+
+function completeBmad(dir) {
+  const trace = readJSON(`${dir}/bmad-traceability.json`);
+  const units = new Map((readJSON(`${dir}/implementation-plan.json`).units || []).map((unit) => [unit.id, unit]));
+  const provenanceFiles = new Map((readJSON(`${dir}/implementation-provenance.json`).operationSources || []).map((source) => [source.operationId, (source.files || []).map((location) => location.path)]));
+  const records = [];
+  for (const story of trace.stories) {
+    const file = `${dir}/${trace.output}/${story.storyPath}`;
+    const original = readFileSync(file, 'utf8');
+    const changedFiles = unitChangedFiles(dir, units.get(story.unitId) || {}, provenanceFiles);
+    const acceptance = ([...original.matchAll(/- \[[ x]\] (.+)/g)].map((match) => match[1].trim())[0]) || 'Unit contract is implemented';
+    const completed = original.replace('Status: ready-for-dev', 'Status: done').replaceAll('- [ ]', '- [x]') + `\n## Dev Agent Record\n\n- Agent: golden-dev\n- Status: completed\n- Files: ${changedFiles.map((path) => `\`${path}\``).join(', ')}\n\n## Code Review Record\n\n- Reviewer: golden-reviewer\n- Status: approved\n- Verified acceptance: ${acceptance}\n`;
+    writeFileSync(file, completed);
+    records.push({ unitId: story.unitId, storyId: story.storyId, storyDigest: sha(completed), devStory: { status: 'completed', agentId: 'golden-dev', completedAt: '2026-01-01T00:00:00.000Z', changedFiles }, codeReview: { status: 'approved', reviewerAgentId: 'golden-reviewer', reviewedAt: '2026-01-01T00:01:00.000Z' } });
+  }
+  const sprint = `${dir}/${trace.output}/implementation-artifacts/sprint-status.yaml`;
+  writeFileSync(sprint, readFileSync(sprint, 'utf8').replaceAll('ready-for-dev', 'done'));
+  writeJSON(`${dir}/bmad-completion.json`, { schemaVersion: '1.0', status: 'completed', records });
+}
+function unitChangedFiles(dir, unit, provenanceFiles) {
+  const fromProvenance = [...new Set((unit.operationIds || []).flatMap((id) => provenanceFiles.get(id) || []))];
+  if (fromProvenance.length) return fromProvenance;
+  const type = String(unit.type || '');
+  if (type.startsWith('ui-') && existsSync(`${dir}/web/pages/submission/index.html`)) return ['web/pages/submission/index.html'];
+  if (['persistence', 'consistency'].includes(type)) return ['migrations/001-submissions.sql'];
+  if (type === 'e2e' && existsSync(`${dir}/tests/browser-runtime.mjs`)) return ['tests/browser-runtime.mjs'];
+  return ['backend/server.mjs'];
+}
+function convertToHeadless(dir) { const spec = readJSON(`${dir}/functional-spec.json`); spec.capabilities = spec.capabilities.filter((item) => item.specificationStatus === 'complete'); for (const capability of spec.capabilities) capability.presentation = { mode: 'headless' }; const ids = new Set(spec.capabilities.map((item) => item.id)); spec.journeys = (spec.journeys || []).map((journey) => ({ ...journey, capabilityIds: journey.capabilityIds.filter((id) => ids.has(id)), operationIds: journey.operationIds.filter((id) => spec.capabilities.some((capability) => capability.operations.some((operation) => operation.id === id))), steps: journey.steps.filter((step) => ids.has(step.capabilityId)) })); writeJSON(`${dir}/functional-spec.json`, spec); const definitions = readJSON(`${dir}/capability-definitions.json`); definitions.capabilities = spec.capabilities; definitions.journeys = spec.journeys; writeJSON(`${dir}/capability-definitions.json`, definitions); const map = readJSON(`${dir}/page-function-map.json`); for (const page of map.pages) page.capabilityIds = page.capabilityIds.filter((id) => ids.has(id)); writeJSON(`${dir}/page-function-map.json`, map); const controls = readJSON(`${dir}/control-capability-map.json`); controls.mappings = controls.mappings.filter((item) => ids.has(item.capabilityId)); writeJSON(`${dir}/control-capability-map.json`, controls); const manifest = readJSON(`${dir}/manifest.json`); manifest.deliveryMode = 'complete'; manifest.productCompletionClaim = 'complete'; manifest.capabilitySummary = { ...manifest.capabilitySummary, total: spec.capabilities.length, complete: spec.capabilities.length, planned: 0 }; writeJSON(`${dir}/manifest.json`, manifest); }
+function inputHtml(item) { const field = item.requestPath.replace(/^body\./, ''); return `<label>${item.controlId}<input id="${item.controlId}" data-vr-id="${releaseControlByInput.get(field) || field}" data-domain-input-id="${field}"></label>`; }
+function convertToHeadlessPreservingContracts(dir) {
+  const spec = readJSON(`${dir}/functional-spec.json`);
+  spec.capabilities = spec.capabilities.filter((item) => item.specificationStatus === 'complete');
+  for (const capability of spec.capabilities) capability.presentation = { ...capability.presentation, mode: 'headless' };
+  const ids = new Set(spec.capabilities.map((item) => item.id));
+  spec.journeys = (spec.journeys || []).map((journey) => ({ ...journey, capabilityIds: journey.capabilityIds.filter((id) => ids.has(id)), operationIds: journey.operationIds.filter((id) => spec.capabilities.some((capability) => capability.operations.some((operation) => operation.id === id))), steps: journey.steps.filter((step) => ids.has(step.capabilityId)) }));
+  writeJSON(`${dir}/functional-spec.json`, spec);
+  const definitions = readJSON(`${dir}/capability-definitions.json`); definitions.capabilities = spec.capabilities; definitions.journeys = spec.journeys; writeJSON(`${dir}/capability-definitions.json`, definitions);
+  const map = readJSON(`${dir}/page-function-map.json`); for (const page of map.pages) page.capabilityIds = page.capabilityIds.filter((id) => ids.has(id)); writeJSON(`${dir}/page-function-map.json`, map);
+  const controls = readJSON(`${dir}/control-capability-map.json`); controls.mappings = controls.mappings.filter((item) => ids.has(item.capabilityId)); writeJSON(`${dir}/control-capability-map.json`, controls);
+  // Bookkeeping: dropping planned/non-complete capabilities orphans the evidence they anchored.
+  // Disposition each now-unanchored indexed item (with a rationale) so the gate stays satisfied
+  // for the reduced all-headless fixture.
+  const index = readJSON(`${dir}/evidence-index.json`);
+  const anchored = new Set();
+  for (const capability of spec.capabilities) { for (const anchor of capability.evidenceAnchors || []) anchored.add(anchor); for (const question of ['userInput', 'systemBehavior', 'output', 'resultDestination', 'failures', 'downstreamUse']) for (const anchor of capability.closure?.[question]?.evidenceAnchors || []) anchored.add(anchor); }
+  const dispositions = readJSON(`${dir}/evidence-dispositions.json`);
+  const dispositioned = new Set(dispositions.dispositions.map((item) => item.evidenceId));
+  for (const item of index.evidence) if (!anchored.has(item.id) && !dispositioned.has(item.id)) dispositions.dispositions.push({ evidenceId: item.id, reason: 'out-of-scope', rationale: 'Evidence for a capability excluded from the all-headless subset (planned or non-complete); retained in the index but owned by no headless capability closure.' });
+  writeJSON(`${dir}/evidence-dispositions.json`, dispositions);
+  const manifest = readJSON(`${dir}/manifest.json`); manifest.deliveryMode = 'complete'; manifest.productCompletionClaim = 'complete'; manifest.capabilitySummary = { ...manifest.capabilitySummary, total: spec.capabilities.length, complete: spec.capabilities.length, planned: 0 }; writeJSON(`${dir}/manifest.json`, manifest);
+}
+function overlayAuthoredClosure(dir) {
+  const authored = `${fixtures}/authored-domain-22`;
+  for (const file of ['functional-spec.json', 'capability-definitions.json', 'page-function-map.json', 'unresolved-items.json', 'evidence-dispositions.json', 'control-capability-map.json']) cpSync(`${authored}/${file}`, `${dir}/${file}`);
+  const manifest = readJSON(`${dir}/manifest.json`);
+  const spec = readJSON(`${dir}/functional-spec.json`);
+  manifest.schemaVersion = '2.2';
+  manifest.evidenceIndex = 'evidence-index.json';
+  manifest.authoringStatus = 'completed';
+  manifest.deliveryMode = 'mixed';
+  manifest.productCompletionClaim = 'partial';
+  manifest.capabilitySummary = {
+    total: spec.capabilities.length,
+    complete: spec.capabilities.filter((item) => item.specificationStatus === 'complete').length,
+    planned: spec.capabilities.filter((item) => item.specificationStatus === 'planned').length,
+    draftPendingAuthoring: 0,
+    blockedCapabilities: 0,
+    openBlockers: 0,
+  };
+  writeJSON(`${dir}/manifest.json`, manifest);
+  // The observed-interaction evidence ids are content-derived from the immutable release (F3), so
+  // the static authored fixture cannot hardcode them. Anchor each observed interaction to the
+  // capability that owns its trigger control, keeping the bookkeeping honest (an observed behavior
+  // is evidence for the capability it drives, not an out-of-scope discard).
+  const evidenceIndex = readJSON(`${dir}/evidence-index.json`);
+  const controlMap = readJSON(`${dir}/control-capability-map.json`);
+  const capabilityByControl = new Map((controlMap.mappings || []).filter((item) => item.controlId).map((item) => [item.controlId, item.capabilityId]));
+  for (const item of evidenceIndex.evidence.filter((entry) => entry.kind === 'observed-interaction')) {
+    const capability = spec.capabilities.find((entry) => entry.id === capabilityByControl.get(item.source?.controlId));
+    if (capability?.closure?.systemBehavior && !capability.closure.systemBehavior.evidenceAnchors.includes(item.id)) capability.closure.systemBehavior.evidenceAnchors.push(item.id);
+  }
+  writeJSON(`${dir}/functional-spec.json`, spec);
+  const definitions = readJSON(`${dir}/capability-definitions.json`);
+  definitions.capabilities = spec.capabilities;
+  writeJSON(`${dir}/capability-definitions.json`, definitions);
+  const planning = readJSON(`${dir}/planning-artifacts.json`);
+  planning.method = 'bmad-planning';
+  for (const phase of planning.phases || []) if (phase.id !== 'independent-domain-review') phase.status = 'completed';
+  writeJSON(`${dir}/planning-artifacts.json`, planning);
+}
 function run(script, args) { const result = spawnSync('node', [script, ...args], { encoding: 'utf8' }); if (result.status !== 0) throw new Error(`${script} failed\n${result.stdout}${result.stderr}`); }
 function readJSON(path) { return JSON.parse(readFileSync(path, 'utf8')); }
 function writeJSON(path, value) { mkdirSync(resolve(path, '..'), { recursive: true }); writeFileSync(path, `${JSON.stringify(value, null, 2)}\n`); }
-function objectSchema(fields) { return { type: 'object', required: fields, properties: Object.fromEntries(fields.map((field) => [field, { type: 'string' }])) }; }
-function shaText(value) { return createHash('sha256').update(value).digest('hex'); }
+function sha(value) { return createHash('sha256').update(value).digest('hex'); }
 function option(name) { const index = process.argv.indexOf(name); return index >= 0 ? process.argv[index + 1] : null; }

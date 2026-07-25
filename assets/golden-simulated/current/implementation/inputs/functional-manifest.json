@@ -1,17 +1,47 @@
 {
-  "schemaVersion": "2.0",
+  "schemaVersion": "2.2",
   "packageType": "functional-domain",
-  "projectId": "golden-simulated",
-  "projectName": "Golden Simulated",
+  "projectId": "neutral-submission",
+  "projectName": "Neutral submission workspace",
   "status": "approved",
+  "authoringStatus": "completed",
   "authorAgentId": "golden-domain-author",
-  "visualReleaseDigest": "7cccdced81725094a67ce6c6c2928ea66354b733fdda12674f9bb775be5d361f",
+  "sourceDirectory": "architecture",
+  "sourceContract": {
+    "requiredFiles": [
+      "page architecture JSON",
+      "system architecture JSON",
+      "product context JSON",
+      "AI Restore release"
+    ],
+    "optionalFiles": []
+  },
   "planning": {
     "manifest": "planning-manifest.json",
     "artifacts": "planning-artifacts.json",
     "capabilityDefinitions": "capability-definitions.json"
   },
+  "evidenceIndex": "evidence-index.json",
+  "semanticArtifacts": [
+    "frontend-semantic-inventory.json",
+    "observed-interactions.json",
+    "control-capability-map.json",
+    "asset-role-inventory.json"
+  ],
+  "capabilitySummary": {
+    "total": 3,
+    "complete": 2,
+    "planned": 1,
+    "draftPendingAuthoring": 0,
+    "blockedCapabilities": 0,
+    "openBlockers": 0
+  },
+  "visualReleaseDigest": "961069a7aa1f6c1f88f6806588230c530095905f80281efd7bacaa4f2310d1ec",
+  "deliveryMode": "mixed",
+  "productCompletionClaim": "partial",
   "approval": {
-    "reviewerAgentId": "golden-domain-reviewer"
+    "method": "independent-agent-review",
+    "reviewerAgentId": "golden-domain-reviewer",
+    "reviewedAt": "2026-07-25T03:30:10.418Z"
   }
 }

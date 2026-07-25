@@ -1,12 +1,30 @@
 {
-  "schemaVersion": "1.0",
+  "schemaVersion": "1.1",
   "status": "implemented",
   "environment": "production",
-  "runtimeFallbacks": [],
   "items": [
     {
-      "id": "placeholder-cap-sample",
-      "capabilityId": "cap-sample",
+      "id": "placeholder-asset-7dcdc474a3831c08",
+      "assetId": "asset-7dcdc474a3831c08",
+      "sourcePath": "pages/submission/assets/icon.svg",
+      "sourceDigest": "e16dfafc4998ecf49296a524a6279c27deb1bcd161e5f8b1a7414ad21982798f",
+      "classification": "decorative",
+      "requiredReplacement": null,
+      "resolution": "retained-as-static-decoration",
+      "businessRole": "decoration"
+    },
+    {
+      "id": "placeholder-asset-84c88ce136fc4b45",
+      "assetId": "asset-84c88ce136fc4b45",
+      "sourcePath": "pages/submission/assets/sample-result.svg",
+      "sourceDigest": "6e4d0e53cff87602e1077ad251179e574445261405f11597db0a867274d8192a",
+      "classification": "business-sample",
+      "requiredReplacement": "user-input",
+      "resolution": "replaced-by-user-input"
+    },
+    {
+      "id": "placeholder-cap-submission-submit-submission",
+      "capabilityId": "cap-submission-submit-submission",
       "classification": "visual-placeholder",
       "resolution": "replaced-by-api-data",
       "states": {
@@ -15,40 +33,15 @@
         "error": true,
         "success": true
       },
-      "evidenceId": "browser-cap-sample"
+      "evidenceId": "browser-submit"
     },
     {
-      "id": "placeholder-cap-suite-sample-detail",
-      "capabilityId": "cap-suite-sample-detail",
-      "classification": "visual-placeholder",
-      "resolution": "replaced-by-api-data",
-      "states": {
-        "empty": true,
-        "loading": true,
-        "error": true,
-        "success": true
-      },
-      "evidenceId": "browser-cap-suite-sample-detail"
-    },
-    {
-      "id": "placeholder-cap-sample-local-navigation",
-      "capabilityId": "cap-sample-local-navigation",
+      "id": "placeholder-cap-submission-upload-resource",
+      "capabilityId": "cap-submission-upload-resource",
       "classification": "visual-placeholder",
       "resolution": "replaced-by-user-input",
-      "evidenceId": "browser-cap-sample-local-navigation"
-    },
-    {
-      "id": "placeholder-cap-sample-display-result",
-      "capabilityId": "cap-sample-display-result",
-      "classification": "visual-placeholder",
-      "resolution": "replaced-by-api-data",
-      "states": {
-        "empty": true,
-        "loading": true,
-        "error": true,
-        "success": true
-      },
-      "evidenceId": "browser-cap-sample-display-result"
+      "evidenceId": "browser-upload"
     }
-  ]
+  ],
+  "runtimeFallbacks": []
 }

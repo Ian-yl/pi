@@ -1,0 +1,75 @@
+{
+  "schemaVersion": "1.0",
+  "pages": [
+    {
+      "pageId": "submission",
+      "anchors": [
+        {
+          "id": "workspace",
+          "kind": "region",
+          "source": "frontend-semantic-inventory"
+        },
+        {
+          "id": "identity-section",
+          "kind": "region",
+          "source": "frontend-semantic-inventory"
+        },
+        {
+          "id": "options-section",
+          "kind": "region",
+          "source": "frontend-semantic-inventory"
+        },
+        {
+          "id": "upload-panel",
+          "kind": "region",
+          "source": "frontend-semantic-inventory"
+        },
+        {
+          "id": "result-panel",
+          "kind": "region",
+          "source": "frontend-semantic-inventory"
+        },
+        {
+          "id": "history-panel",
+          "kind": "region",
+          "source": "frontend-semantic-inventory"
+        },
+        {
+          "id": "quantity-input",
+          "kind": "region",
+          "source": "frontend-semantic-inventory"
+        },
+        {
+          "id": "title-input",
+          "kind": "control",
+          "source": "visual-controls"
+        },
+        {
+          "id": "category-select",
+          "kind": "control",
+          "source": "visual-controls"
+        },
+        {
+          "id": "quantity-input",
+          "kind": "control",
+          "source": "visual-controls"
+        },
+        {
+          "id": "upload-input",
+          "kind": "control",
+          "source": "visual-controls"
+        },
+        {
+          "id": "submit-button",
+          "kind": "control",
+          "source": "visual-controls"
+        },
+        {
+          "id": "planned-export",
+          "kind": "control",
+          "source": "visual-controls"
+        }
+      ]
+    }
+  ]
+}

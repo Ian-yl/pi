@@ -1,0 +1,395 @@
+{
+  "schemaVersion": "1.0",
+  "release": {
+    "releaseDigest": "961069a7aa1f6c1f88f6806588230c530095905f80281efd7bacaa4f2310d1ec",
+    "payloadManifestDigest": "4e922081bc69492c096700ce2210e6d9536d787374cec0183c116e04d31cc03e",
+    "sourceTreeDigest": "1c351538968e657d634275343d892ba8389790f33472e922b3798b806e85787e",
+    "suiteGateDigest": "671b5da89cba71925cf574111ad3ce8f3cec1c722c7f3e247cf1291a45c12010"
+  },
+  "pages": [
+    {
+      "pageId": "submission",
+      "route": "/submission",
+      "regions": [
+        {
+          "regionId": "workspace",
+          "kind": "main",
+          "label": "Submission workspace",
+          "selector": "[data-vr-id=\"workspace\"]",
+          "parentPath": "body>main"
+        },
+        {
+          "regionId": "identity-section",
+          "kind": "section",
+          "label": "Identity section",
+          "selector": "[data-vr-id=\"identity-section\"]",
+          "parentPath": "body>main>section:nth-of-type(1)"
+        },
+        {
+          "regionId": "options-section",
+          "kind": "section",
+          "label": "Options section",
+          "selector": "[data-vr-id=\"options-section\"]",
+          "parentPath": "body>main>section:nth-of-type(2)"
+        },
+        {
+          "regionId": "upload-panel",
+          "kind": "section",
+          "label": "Upload source",
+          "selector": "[data-vr-id=\"upload-panel\"]",
+          "parentPath": "body>main>section:nth-of-type(3)"
+        },
+        {
+          "regionId": "result-panel",
+          "kind": "section",
+          "label": "No submission result",
+          "selector": "[data-vr-id=\"result-panel\"]",
+          "parentPath": "body>main>section:nth-of-type(4)"
+        },
+        {
+          "regionId": "history-panel",
+          "kind": "section",
+          "label": "No submission history",
+          "selector": "[data-vr-id=\"history-panel\"]",
+          "parentPath": "body>main>section:nth-of-type(5)"
+        }
+      ],
+      "controls": [
+        {
+          "controlId": "title-input",
+          "stableId": "title-input",
+          "pageId": "submission",
+          "kind": "input",
+          "selector": "[data-vr-id=\"title-input\"]",
+          "label": "Submission title",
+          "placeholder": "Submission title",
+          "required": true,
+          "multiple": false,
+          "accept": null,
+          "defaultValue": "2",
+          "options": [
+            "workspace",
+            "brand-icon",
+            "quantity-input",
+            "number",
+            "2",
+            "upload-panel",
+            "upload-input",
+            "file",
+            "sample-result",
+            "Sample result"
+          ],
+          "region": {
+            "id": "identity-section",
+            "label": "Identity section",
+            "selector": "[data-vr-id=\"identity-section\"]"
+          },
+          "hierarchy": [
+            "body",
+            "main",
+            "section:nth-of-type(1)",
+            "label",
+            "input"
+          ],
+          "observedHandler": null,
+          "sourceReference": {
+            "type": "source-fragment",
+            "digest": "1733f6430117750822536a9000e15ac289a309c7966f4a7189d24563340a4ad0",
+            "excerpt": "<!doctype html><html><body><main data-vr-id=\"workspace\"><img class=\"brand-icon\" src=\"assets/icon.svg\" alt=\"\"><section data-vr-id=\"identity-section\"><label>Submission title<input data-vr-id=\"title-input\" required></label></section><section data-vr-id=\"options-section\"><label>Submission category<selec"
+          },
+          "evidence": {
+            "status": "observed",
+            "sources": [
+              "frontend-page:submission",
+              "frontend-control:title-input"
+            ]
+          }
+        },
+        {
+          "controlId": "category-select",
+          "stableId": "category-select",
+          "pageId": "submission",
+          "kind": "select",
+          "selector": "[data-vr-id=\"category-select\"]",
+          "label": "Submission category",
+          "placeholder": "Submission category",
+          "required": null,
+          "multiple": false,
+          "accept": null,
+          "defaultValue": "2",
+          "options": [
+            "workspace",
+            "brand-icon",
+            "quantity-input",
+            "number",
+            "2",
+            "upload-panel",
+            "upload-input",
+            "file",
+            "sample-result",
+            "Sample result",
+            "submit-button",
+            "planned-export"
+          ],
+          "region": {
+            "id": "options-section",
+            "label": "Options section",
+            "selector": "[data-vr-id=\"options-section\"]"
+          },
+          "hierarchy": [
+            "body",
+            "main",
+            "section:nth-of-type(2)",
+            "label:nth-of-type(1)",
+            "select"
+          ],
+          "observedHandler": null,
+          "sourceReference": {
+            "type": "source-fragment",
+            "digest": "6a7ea9d1eed3b2599d6be5ef63f329be5d417a21d92faaef65a352c2e76f4d80",
+            "excerpt": "<!doctype html><html><body><main data-vr-id=\"workspace\"><img class=\"brand-icon\" src=\"assets/icon.svg\" alt=\"\"><section data-vr-id=\"identity-section\"><label>Submission title<input data-vr-id=\"title-input\" required></label></section><section data-vr-id=\"options-section\"><label>Submission category<selec"
+          },
+          "evidence": {
+            "status": "observed",
+            "sources": [
+              "frontend-page:submission",
+              "frontend-control:category-select"
+            ]
+          }
+        },
+        {
+          "controlId": "quantity-input",
+          "stableId": "quantity-input",
+          "pageId": "submission",
+          "kind": "input",
+          "selector": "[data-vr-id=\"quantity-input\"]",
+          "label": "Result quantity",
+          "placeholder": "Result quantity",
+          "required": true,
+          "multiple": false,
+          "accept": null,
+          "defaultValue": "2",
+          "options": [
+            "brand-icon",
+            "quantity-input",
+            "number",
+            "2",
+            "upload-panel",
+            "upload-input",
+            "file",
+            "sample-result",
+            "Sample result",
+            "submit-button",
+            "planned-export",
+            "result-panel",
+            "history-panel"
+          ],
+          "region": {
+            "id": "options-section",
+            "label": "Options section",
+            "selector": "[data-vr-id=\"options-section\"]"
+          },
+          "hierarchy": [
+            "body",
+            "main",
+            "section:nth-of-type(2)",
+            "label:nth-of-type(2)",
+            "input"
+          ],
+          "observedHandler": null,
+          "sourceReference": {
+            "type": "source-fragment",
+            "digest": "6408e007d98908cb2130fd960dfc49cf5c811969029157954526217b42473af3",
+            "excerpt": "><img class=\"brand-icon\" src=\"assets/icon.svg\" alt=\"\"><section data-vr-id=\"identity-section\"><label>Submission title<input data-vr-id=\"title-input\" required></label></section><section data-vr-id=\"options-section\"><label>Submission category<select data-vr-id=\"category-select\"><option>standard</option"
+          },
+          "evidence": {
+            "status": "observed",
+            "sources": [
+              "frontend-page:submission",
+              "frontend-control:quantity-input"
+            ]
+          }
+        },
+        {
+          "controlId": "upload-input",
+          "stableId": "upload-input",
+          "pageId": "submission",
+          "kind": "input",
+          "selector": "[data-vr-id=\"upload-input\"]",
+          "label": "Upload source file",
+          "placeholder": "Upload source file",
+          "required": null,
+          "multiple": false,
+          "accept": "text/plain",
+          "defaultValue": null,
+          "options": [],
+          "region": {
+            "id": "upload-panel",
+            "label": "Upload source",
+            "selector": "[data-vr-id=\"upload-panel\"]"
+          },
+          "hierarchy": [
+            "body",
+            "main",
+            "section:nth-of-type(3)",
+            "input"
+          ],
+          "observedHandler": null,
+          "sourceReference": null,
+          "evidence": {
+            "status": "observed",
+            "sources": [
+              "frontend-page:submission",
+              "frontend-control:upload-input"
+            ]
+          }
+        },
+        {
+          "controlId": "submit-button",
+          "stableId": "submit-button",
+          "pageId": "submission",
+          "kind": "button",
+          "selector": "[data-vr-id=\"submit-button\"]",
+          "label": "Create submission",
+          "placeholder": "Create submission",
+          "required": null,
+          "multiple": false,
+          "accept": null,
+          "defaultValue": "2",
+          "options": [
+            "quantity-input",
+            "number",
+            "2",
+            "upload-panel",
+            "upload-input",
+            "file",
+            "sample-result",
+            "Sample result",
+            "submit-button",
+            "planned-export",
+            "result-panel",
+            "history-panel",
+            "POST",
+            "content-type"
+          ],
+          "region": {
+            "id": "workspace",
+            "label": "Submission workspace",
+            "selector": "[data-vr-id=\"workspace\"]"
+          },
+          "hierarchy": [
+            "body",
+            "main",
+            "button:nth-of-type(1)"
+          ],
+          "observedHandler": null,
+          "sourceReference": {
+            "type": "source-fragment",
+            "digest": "3ade433317a6b8f46a53b4daa64735047acbcd16b955365343c4d2055eee8448",
+            "excerpt": "tion>priority</option></select></label><label>Result quantity<input data-vr-id=\"quantity-input\" type=\"number\" required value=\"2\"></label></section><section data-vr-id=\"upload-panel\"><input data-vr-id=\"upload-input\" type=\"file\"><img class=\"sample-result\" src=\"assets/sample-result.svg\" alt=\"Sample res"
+          },
+          "evidence": {
+            "status": "observed",
+            "sources": [
+              "frontend-page:submission",
+              "frontend-control:submit-button"
+            ]
+          }
+        },
+        {
+          "controlId": "planned-export",
+          "stableId": "planned-export",
+          "pageId": "submission",
+          "kind": "button",
+          "selector": "[data-vr-id=\"planned-export\"]",
+          "label": "External submission review",
+          "placeholder": "External submission review",
+          "required": null,
+          "multiple": false,
+          "accept": null,
+          "defaultValue": "2",
+          "options": [
+            "quantity-input",
+            "number",
+            "2",
+            "upload-panel",
+            "upload-input",
+            "file",
+            "sample-result",
+            "Sample result",
+            "submit-button",
+            "planned-export",
+            "result-panel",
+            "history-panel",
+            "POST",
+            "content-type"
+          ],
+          "region": {
+            "id": "workspace",
+            "label": "Submission workspace",
+            "selector": "[data-vr-id=\"workspace\"]"
+          },
+          "hierarchy": [
+            "body",
+            "main",
+            "button:nth-of-type(2)"
+          ],
+          "observedHandler": null,
+          "sourceReference": {
+            "type": "source-fragment",
+            "digest": "dbf435bd314e53b123e84974088e0f291df6a25189eab90e85e9b8e998ced8ef",
+            "excerpt": "input data-vr-id=\"quantity-input\" type=\"number\" required value=\"2\"></label></section><section data-vr-id=\"upload-panel\"><input data-vr-id=\"upload-input\" type=\"file\"><img class=\"sample-result\" src=\"assets/sample-result.svg\" alt=\"Sample result\"></section><button data-vr-id=\"submit-button\">Create submi"
+          },
+          "evidence": {
+            "status": "observed",
+            "sources": [
+              "frontend-page:submission",
+              "frontend-control:planned-export"
+            ]
+          }
+        }
+      ],
+      "resultSurfaces": [
+        {
+          "surfaceId": "quantity-input",
+          "pageId": "submission",
+          "kind": "input",
+          "selector": "[data-vr-id=\"quantity-input\"]",
+          "label": "Result quantity",
+          "sourceAsset": null
+        },
+        {
+          "surfaceId": "result-panel",
+          "pageId": "submission",
+          "kind": "container",
+          "selector": "[data-vr-id=\"result-panel\"]",
+          "label": "No submission result",
+          "sourceAsset": null
+        },
+        {
+          "surfaceId": "history-panel",
+          "pageId": "submission",
+          "kind": "container",
+          "selector": "[data-vr-id=\"history-panel\"]",
+          "label": "No submission history",
+          "sourceAsset": null
+        }
+      ],
+      "visibleStates": [],
+      "evidence": {
+        "status": "observed",
+        "sources": [
+          "frontend-page:submission",
+          "visual-release:961069a7aa1f6c1f88f6806588230c530095905f80281efd7bacaa4f2310d1ec"
+        ]
+      }
+    }
+  ],
+  "sourceSummary": [
+    {
+      "path": "pages/submission/index.html",
+      "sha256": "64fa7328dce4438ad1d2c62a01da121fea37d6a3a0b3642559864986305ce43b",
+      "bytes": 1405
+    }
+  ]
+}

@@ -1,0 +1,193 @@
+{
+  "schemaVersion": "1.0",
+  "releaseDigest": "961069a7aa1f6c1f88f6806588230c530095905f80281efd7bacaa4f2310d1ec",
+  "synthesisInputDigest": "101a2b132c45babf36ef23057ba545ba4e21c3bc53ab200f110cc082fa85d6d4",
+  "evidence": [
+    {
+      "id": "product-context:brief",
+      "kind": "product-context",
+      "text": "Create an owned submission from multiple configuration sections and an uploaded source file.",
+      "source": {
+        "file": "product-context.json",
+        "field": "brief"
+      }
+    },
+    {
+      "id": "product-context:goals",
+      "kind": "product-context",
+      "text": "Submit complete configuration Present generated submission items Keep an empty initial workspace",
+      "source": {
+        "file": "product-context.json",
+        "field": "goals"
+      }
+    },
+    {
+      "id": "product-context:users",
+      "kind": "product-context",
+      "text": "operator",
+      "source": {
+        "file": "product-context.json",
+        "field": "users"
+      }
+    },
+    {
+      "id": "product-context:needs",
+      "kind": "product-context",
+      "text": "upload a source configure a submission observe its result",
+      "source": {
+        "file": "product-context.json",
+        "field": "needs"
+      }
+    },
+    {
+      "id": "page:submission",
+      "kind": "page",
+      "text": "Submission workspace",
+      "source": {
+        "file": "page-architecture.json",
+        "pageId": "submission"
+      }
+    },
+    {
+      "id": "page-module:submission-actions",
+      "kind": "module",
+      "text": "功能列表",
+      "source": {
+        "file": "page-architecture.json",
+        "pageId": "submission",
+        "moduleId": "submission-actions"
+      }
+    },
+    {
+      "id": "page-module:submit-submission",
+      "kind": "control",
+      "text": "Create submission",
+      "source": {
+        "file": "page-architecture.json",
+        "pageId": "submission",
+        "moduleId": "submission-actions",
+        "itemId": "submit-submission"
+      }
+    },
+    {
+      "id": "page-module:upload-resource",
+      "kind": "control",
+      "text": "Upload source file",
+      "source": {
+        "file": "page-architecture.json",
+        "pageId": "submission",
+        "moduleId": "submission-actions",
+        "itemId": "upload-resource"
+      }
+    },
+    {
+      "id": "page-module:planned-export",
+      "kind": "control",
+      "text": "External submission review",
+      "source": {
+        "file": "page-architecture.json",
+        "pageId": "submission",
+        "moduleId": "submission-actions",
+        "itemId": "planned-export"
+      }
+    },
+    {
+      "id": "page-module:identity-section",
+      "kind": "module",
+      "text": "Identity section",
+      "source": {
+        "file": "page-architecture.json",
+        "pageId": "submission",
+        "moduleId": "identity-section"
+      }
+    },
+    {
+      "id": "page-module:title-field",
+      "kind": "control",
+      "text": "Submission title",
+      "source": {
+        "file": "page-architecture.json",
+        "pageId": "submission",
+        "moduleId": "identity-section",
+        "itemId": "title-field"
+      }
+    },
+    {
+      "id": "page-module:options-section",
+      "kind": "module",
+      "text": "Options section",
+      "source": {
+        "file": "page-architecture.json",
+        "pageId": "submission",
+        "moduleId": "options-section"
+      }
+    },
+    {
+      "id": "page-module:category-field",
+      "kind": "control",
+      "text": "Submission category",
+      "source": {
+        "file": "page-architecture.json",
+        "pageId": "submission",
+        "moduleId": "options-section",
+        "itemId": "category-field"
+      }
+    },
+    {
+      "id": "page-module:quantity-field",
+      "kind": "control",
+      "text": "Result quantity",
+      "source": {
+        "file": "page-architecture.json",
+        "pageId": "submission",
+        "moduleId": "options-section",
+        "itemId": "quantity-field"
+      }
+    },
+    {
+      "id": "system-node:submit-node",
+      "kind": "system-node",
+      "text": "",
+      "source": {
+        "file": "system-architecture.json",
+        "nodeId": "submit-node",
+        "sourcePageId": "submission",
+        "sourceModuleId": "submit-submission"
+      }
+    },
+    {
+      "id": "system-node:upload-node",
+      "kind": "system-node",
+      "text": "",
+      "source": {
+        "file": "system-architecture.json",
+        "nodeId": "upload-node",
+        "sourcePageId": "submission",
+        "sourceModuleId": "upload-resource"
+      }
+    },
+    {
+      "id": "system-node:export-node",
+      "kind": "system-node",
+      "text": "",
+      "source": {
+        "file": "system-architecture.json",
+        "nodeId": "export-node",
+        "sourcePageId": "submission",
+        "sourceModuleId": "planned-export"
+      }
+    },
+    {
+      "id": "observed-interaction:758a395ec87f",
+      "kind": "observed-interaction",
+      "text": "fetch('/api/submissions',{method:'POST',headers:{'content-type':'application/json'},body:JSON.stringify({title:document.querySelector('[data-vr-id=title-input]').value,category:document.querySelector('[data-vr-id=category-select]').value,quantity:document.querySelector('[data-vr-id=quantity-input]').value})})}document.querySelector('[data-vr-id=submit-button]').addEventListener('click',submit)",
+      "source": {
+        "file": "observed-interactions.json",
+        "interactionId": "interaction-1",
+        "pageId": "submission",
+        "controlId": "planned-export",
+        "event": "request"
+      }
+    }
+  ]
+}

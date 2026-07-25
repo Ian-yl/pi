@@ -1,16 +1,142 @@
 {
-  "schemaVersion": "1.0",
+  "schemaVersion": "2.2",
   "method": "bmad-planning",
+  "evidencePriority": [
+    "confirmed",
+    "documented",
+    "observed",
+    "designed",
+    "inferred",
+    "blocked"
+  ],
   "phases": [
     {
       "id": "project-understanding",
       "status": "completed",
-      "outputs": {}
+      "outputs": {
+        "project": {
+          "id": "neutral-submission",
+          "name": "Neutral submission workspace",
+          "brief": "Create an owned submission from multiple configuration sections and an uploaded source file.",
+          "goals": [
+            "Submit complete configuration",
+            "Present generated submission items",
+            "Keep an empty initial workspace"
+          ],
+          "users": [
+            "operator"
+          ],
+          "needs": [
+            "upload a source",
+            "configure a submission",
+            "observe its result"
+          ],
+          "problemStatement": "Create an owned submission from multiple configuration sections and an uploaded source file.",
+          "evidence": {
+            "status": "documented",
+            "sources": [
+              "product-context:brief",
+              "product-context:goals",
+              "product-context:users",
+              "product-context:needs"
+            ]
+          }
+        },
+        "evidenceIndex": "evidence-index.json",
+        "frontendSemanticInventory": "frontend-semantic-inventory.json"
+      }
     },
     {
       "id": "requirements-analysis",
       "status": "completed",
-      "outputs": {}
+      "outputs": {
+        "capabilitySkeletonIds": [
+          "cap-submission-submit-submission",
+          "cap-submission-upload-resource",
+          "cap-submission-planned-export"
+        ],
+        "architectureLeafClassifications": [
+          {
+            "pageId": "submission",
+            "moduleId": "submission-actions",
+            "leafId": "submit-submission",
+            "name": "Create submission",
+            "classification": "business-capability",
+            "embeddedOperations": [],
+            "evidence": [
+              "page:submission",
+              "page-module:submission-actions",
+              "page-module:submit-submission"
+            ]
+          },
+          {
+            "pageId": "submission",
+            "moduleId": "submission-actions",
+            "leafId": "upload-resource",
+            "name": "Upload source file",
+            "classification": "operation",
+            "embeddedOperations": [],
+            "evidence": [
+              "page:submission",
+              "page-module:submission-actions",
+              "page-module:upload-resource"
+            ]
+          },
+          {
+            "pageId": "submission",
+            "moduleId": "submission-actions",
+            "leafId": "planned-export",
+            "name": "External submission review",
+            "classification": "business-capability",
+            "embeddedOperations": [],
+            "evidence": [
+              "page:submission",
+              "page-module:submission-actions",
+              "page-module:planned-export"
+            ]
+          },
+          {
+            "pageId": "submission",
+            "moduleId": "identity-section",
+            "leafId": "title-field",
+            "name": "Submission title",
+            "classification": "input-field",
+            "embeddedOperations": [],
+            "evidence": [
+              "page:submission",
+              "page-module:identity-section",
+              "page-module:title-field"
+            ]
+          },
+          {
+            "pageId": "submission",
+            "moduleId": "options-section",
+            "leafId": "category-field",
+            "name": "Submission category",
+            "classification": "input-field",
+            "embeddedOperations": [],
+            "evidence": [
+              "page:submission",
+              "page-module:options-section",
+              "page-module:category-field"
+            ]
+          },
+          {
+            "pageId": "submission",
+            "moduleId": "options-section",
+            "leafId": "quantity-field",
+            "name": "Result quantity",
+            "classification": "input-field",
+            "embeddedOperations": [],
+            "evidence": [
+              "page:submission",
+              "page-module:options-section",
+              "page-module:quantity-field"
+            ]
+          }
+        ],
+        "observedInteractions": "observed-interactions.json"
+      }
     },
     {
       "id": "domain-design",
@@ -20,7 +146,10 @@
     {
       "id": "independent-domain-review",
       "status": "completed",
-      "outputs": {}
+      "outputs": {
+        "reviewerAgentId": "golden-domain-reviewer",
+        "result": "approved"
+      }
     }
   ]
 }

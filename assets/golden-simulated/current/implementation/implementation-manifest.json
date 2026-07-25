@@ -1,29 +1,36 @@
 {
   "schemaVersion": "1.0",
-  "projectId": "golden-simulated",
+  "projectId": "neutral-submission",
   "status": "simulated",
   "verificationLevel": "simulated",
-  "deliveryStatus": "implemented",
+  "deliveryStatus": "delivered-with-planned-capabilities",
   "units": [
     {
-      "id": "persistence-entity-submission",
+      "id": "persistence-entity-submission-resource",
       "status": "succeeded",
       "testIds": [
-        "test-persistence-entity-submission"
+        "test-persistence-entity-submission-resource"
       ]
     },
     {
-      "id": "persistence-entity-submission-event",
+      "id": "persistence-entity-submission-asset",
       "status": "succeeded",
       "testIds": [
-        "test-persistence-entity-submission-event"
+        "test-persistence-entity-submission-asset"
       ]
     },
     {
-      "id": "relationship-relation-submission-events",
+      "id": "persistence-entity-cap-submission-submit-submission-configuration",
       "status": "succeeded",
       "testIds": [
-        "test-relationship-relation-submission-events"
+        "test-persistence-entity-cap-submission-submit-submission-configuration"
+      ]
+    },
+    {
+      "id": "consistency-boundary-cap-submission-submit-submission-configuration",
+      "status": "succeeded",
+      "testIds": [
+        "test-consistency-boundary-cap-submission-submit-submission-configuration"
       ]
     },
     {
@@ -34,164 +41,178 @@
       ]
     },
     {
-      "id": "capability-cap-sample",
+      "id": "capability-cap-submission-submit-submission",
       "status": "succeeded",
       "testIds": [
-        "test-capability-cap-sample"
+        "test-capability-cap-submission-submit-submission"
       ]
     },
     {
-      "id": "capability-cap-suite-sample-detail",
+      "id": "capability-cap-submission-upload-resource",
       "status": "succeeded",
       "testIds": [
-        "test-capability-cap-suite-sample-detail"
+        "test-capability-cap-submission-upload-resource"
       ]
     },
     {
-      "id": "capability-cap-sample-local-navigation",
+      "id": "presentation-cap-submission-submit-submission",
       "status": "succeeded",
       "testIds": [
-        "test-capability-cap-sample-local-navigation"
+        "runtime-presentation-cap-submission-submit-submission"
       ]
     },
     {
-      "id": "capability-cap-sample-display-result",
+      "id": "activation-cap-submission-submit-submission",
       "status": "succeeded",
       "testIds": [
-        "test-capability-cap-sample-display-result"
+        "runtime-activation-cap-submission-submit-submission"
       ]
     },
     {
-      "id": "presentation-cap-sample",
+      "id": "surface-cap-submission-submit-submission",
       "status": "succeeded",
       "testIds": [
-        "runtime-presentation-cap-sample"
+        "runtime-surface-cap-submission-submit-submission"
       ]
     },
     {
-      "id": "interaction-cap-sample",
+      "id": "result-presentation-cap-submission-submit-submission",
       "status": "succeeded",
       "testIds": [
-        "runtime-interaction-cap-sample"
+        "runtime-result-presentation-cap-submission-submit-submission"
       ]
     },
     {
-      "id": "frontend-state-cap-sample",
+      "id": "interaction-cap-submission-submit-submission",
       "status": "succeeded",
       "testIds": [
-        "runtime-frontend-state-cap-sample"
+        "runtime-interaction-cap-submission-submit-submission"
       ]
     },
     {
-      "id": "frontend-data-cap-sample",
+      "id": "frontend-state-cap-submission-submit-submission",
       "status": "succeeded",
       "testIds": [
-        "runtime-frontend-data-cap-sample"
+        "runtime-frontend-state-cap-submission-submit-submission"
       ]
     },
     {
-      "id": "presentation-cap-suite-sample-detail",
+      "id": "frontend-data-cap-submission-submit-submission",
       "status": "succeeded",
       "testIds": [
-        "runtime-presentation-cap-suite-sample-detail"
+        "runtime-frontend-data-cap-submission-submit-submission"
       ]
     },
     {
-      "id": "interaction-cap-suite-sample-detail",
+      "id": "presentation-cap-submission-upload-resource",
       "status": "succeeded",
       "testIds": [
-        "runtime-interaction-cap-suite-sample-detail"
+        "runtime-presentation-cap-submission-upload-resource"
       ]
     },
     {
-      "id": "frontend-state-cap-suite-sample-detail",
+      "id": "interaction-cap-submission-upload-resource",
       "status": "succeeded",
       "testIds": [
-        "runtime-frontend-state-cap-suite-sample-detail"
+        "runtime-interaction-cap-submission-upload-resource"
       ]
     },
     {
-      "id": "frontend-data-cap-suite-sample-detail",
+      "id": "frontend-state-cap-submission-upload-resource",
       "status": "succeeded",
       "testIds": [
-        "runtime-frontend-data-cap-suite-sample-detail"
+        "runtime-frontend-state-cap-submission-upload-resource"
       ]
     },
     {
-      "id": "presentation-cap-sample-local-navigation",
+      "id": "frontend-data-cap-submission-upload-resource",
       "status": "succeeded",
       "testIds": [
-        "runtime-presentation-cap-sample-local-navigation"
+        "runtime-frontend-data-cap-submission-upload-resource"
       ]
     },
     {
-      "id": "interaction-cap-sample-local-navigation",
+      "id": "planned-capability-cap-submission-planned-export",
       "status": "succeeded",
       "testIds": [
-        "runtime-interaction-cap-sample-local-navigation"
+        "runtime-planned-capability-cap-submission-planned-export"
       ]
     },
     {
-      "id": "frontend-state-cap-sample-local-navigation",
+      "id": "rule-rule-cap-submission-submit-submission",
       "status": "succeeded",
       "testIds": [
-        "runtime-frontend-state-cap-sample-local-navigation"
+        "test-rule-rule-cap-submission-submit-submission"
       ]
     },
     {
-      "id": "frontend-data-cap-sample-local-navigation",
+      "id": "rule-rule-cap-submission-upload-resource",
       "status": "succeeded",
       "testIds": [
-        "runtime-frontend-data-cap-sample-local-navigation"
+        "test-rule-rule-cap-submission-upload-resource"
       ]
     },
     {
-      "id": "presentation-cap-sample-display-result",
+      "id": "operation-create-submission-submit-submission",
       "status": "succeeded",
       "testIds": [
-        "runtime-presentation-cap-sample-display-result"
+        "test-operation-create-submission-submit-submission"
       ]
     },
     {
-      "id": "interaction-cap-sample-display-result",
+      "id": "data-dependency-create-submission-submit-submission",
       "status": "succeeded",
       "testIds": [
-        "runtime-interaction-cap-sample-display-result"
+        "test-data-dependency-create-submission-submit-submission"
       ]
     },
     {
-      "id": "frontend-state-cap-sample-display-result",
+      "id": "integration-binding-create-submission-submit-submission",
       "status": "succeeded",
       "testIds": [
-        "runtime-frontend-state-cap-sample-display-result"
+        "test-integration-binding-create-submission-submit-submission"
       ]
     },
     {
-      "id": "frontend-data-cap-sample-display-result",
+      "id": "external-effect-create-submission-submit-submission",
       "status": "succeeded",
       "testIds": [
-        "runtime-frontend-data-cap-sample-display-result"
+        "test-external-effect-create-submission-submit-submission"
       ]
     },
     {
-      "id": "operation-submit-sample",
+      "id": "operation-upload-submission-upload-resource",
       "status": "succeeded",
       "testIds": [
-        "test-operation-submit-sample"
+        "test-operation-upload-submission-upload-resource"
       ]
     },
     {
-      "id": "operation-submit-suite-sample-detail",
+      "id": "resource-transfer-upload-submission-upload-resource",
       "status": "succeeded",
       "testIds": [
-        "test-operation-submit-suite-sample-detail"
+        "test-resource-transfer-upload-submission-upload-resource"
       ]
     },
     {
-      "id": "operation-query-sample-result",
+      "id": "resource-validation-upload-submission-upload-resource",
       "status": "succeeded",
       "testIds": [
-        "test-operation-query-sample-result"
+        "test-resource-validation-upload-submission-upload-resource"
+      ]
+    },
+    {
+      "id": "resource-persistence-upload-submission-upload-resource",
+      "status": "succeeded",
+      "testIds": [
+        "test-resource-persistence-upload-submission-upload-resource"
+      ]
+    },
+    {
+      "id": "journey-journey-submission",
+      "status": "succeeded",
+      "testIds": [
+        "test-journey-journey-submission"
       ]
     }
   ]

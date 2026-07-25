@@ -1,52 +1,127 @@
 {
   "openapi": "3.1.0",
   "info": {
-    "title": "Project golden-simulated API",
+    "title": "Project neutral-submission API",
     "version": "1.0.0"
   },
   "paths": {
-    "/api/forms/sample": {
+    "/api/pages/submission/capabilities/submit-submission/create": {
       "post": {
-        "operationId": "submit-sample",
-        "x-capability-id": "cap-sample",
-        "x-rule-ids": [],
+        "operationId": "create-submission-submit-submission",
+        "x-capability-id": "cap-submission-submit-submission",
+        "x-rule-ids": [
+          "rule-cap-submission-submit-submission"
+        ],
         "x-operation-variants": [
           {
-            "operationId": "submit-sample",
-            "capabilityId": "cap-sample",
-            "ruleIds": [],
+            "operationId": "create-submission-submit-submission",
+            "capabilityId": "cap-submission-submit-submission",
+            "ruleIds": [
+              "rule-cap-submission-submit-submission"
+            ],
             "request": {
-              "body": [
-                "email",
-                "password"
-              ],
               "contentType": "application/json",
+              "body": [
+                "submission-title",
+                "submission-category",
+                "result-quantity",
+                "upload-source-file-assetIds"
+              ],
               "bodySchema": {
                 "type": "object",
                 "required": [
-                  "email",
-                  "password"
+                  "submission-title",
+                  "result-quantity",
+                  "upload-source-file-assetIds"
                 ],
                 "properties": {
-                  "email": {
-                    "type": "string"
+                  "submission-title": {
+                    "type": "string",
+                    "enum": [
+                      "workspace",
+                      "brand-icon",
+                      "quantity-input",
+                      "number",
+                      "2",
+                      "upload-panel",
+                      "upload-input",
+                      "file",
+                      "sample-result",
+                      "Sample result"
+                    ]
                   },
-                  "password": {
-                    "type": "string"
+                  "submission-category": {
+                    "type": "string",
+                    "enum": [
+                      "workspace",
+                      "brand-icon",
+                      "quantity-input",
+                      "number",
+                      "2",
+                      "upload-panel",
+                      "upload-input",
+                      "file",
+                      "sample-result",
+                      "Sample result",
+                      "submit-button",
+                      "planned-export"
+                    ]
+                  },
+                  "result-quantity": {
+                    "type": "string",
+                    "enum": [
+                      "brand-icon",
+                      "quantity-input",
+                      "number",
+                      "2",
+                      "upload-panel",
+                      "upload-input",
+                      "file",
+                      "sample-result",
+                      "Sample result",
+                      "submit-button",
+                      "planned-export",
+                      "result-panel",
+                      "history-panel"
+                    ]
+                  },
+                  "upload-source-file-assetIds": {
+                    "type": "array",
+                    "minItems": 1,
+                    "maxItems": 1,
+                    "items": {
+                      "type": "string"
+                    }
                   }
-                }
+                },
+                "additionalProperties": false
               }
             },
-            "requestSchema": "#/components/schemas/submitSampleRequest",
-            "responseSchema": "#/components/schemas/submitSampleResponse",
+            "requestSchema": "#/components/schemas/createSubmissionSubmitSubmissionRequest",
+            "responseSchema": "#/components/schemas/createSubmissionSubmitSubmissionResponse",
             "effects": [
               {
-                "entityId": "entity-submission",
+                "id": "effect-create-submission-submit-submission-configuration",
+                "entityId": "entity-cap-submission-submit-submission-configuration",
                 "effect": "create"
               }
             ],
             "errors": [
-              "INVALID_INPUT"
+              {
+                "code": "NOT_AUTHORIZED",
+                "status": 403,
+                "recovery": "authenticate or select an owned resource"
+              },
+              {
+                "code": "INVALID_INPUT",
+                "status": 422,
+                "recovery": "correct the identified field"
+              },
+              {
+                "code": "CONFLICT",
+                "status": 409,
+                "recovery": "refresh authoritative state and retry when allowed"
+              }
             ]
           }
         ],
@@ -59,14 +134,56 @@
                 "schema": {
                   "oneOf": [
                     {
-                      "$ref": "#/components/schemas/submitSampleResponse"
+                      "$ref": "#/components/schemas/createSubmissionSubmitSubmissionResponse"
                     }
                   ]
                 }
               }
             }
           },
-          "400": {
+          "403": {
+            "description": "Contract error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "error"
+                  ],
+                  "properties": {
+                    "error": {
+                      "type": "string",
+                      "enum": [
+                        "NOT_AUTHORIZED"
+                      ]
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "Contract error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "error"
+                  ],
+                  "properties": {
+                    "error": {
+                      "type": "string",
+                      "enum": [
+                        "CONFLICT"
+                      ]
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "422": {
             "description": "Contract error",
             "content": {
               "application/json": {
@@ -95,7 +212,7 @@
               "schema": {
                 "oneOf": [
                   {
-                    "$ref": "#/components/schemas/submitSampleRequest"
+                    "$ref": "#/components/schemas/createSubmissionSubmitSubmissionRequest"
                   }
                 ]
               }
@@ -104,54 +221,81 @@
         },
         "x-data-effects": [
           {
-            "entityId": "entity-submission",
+            "id": "effect-create-submission-submit-submission-configuration",
+            "entityId": "entity-cap-submission-submit-submission-configuration",
             "effect": "create"
           }
         ]
       }
     },
-    "/api/forms/suite-sample-detail": {
+    "/api/pages/submission/capabilities/upload-resource/assets": {
       "post": {
-        "operationId": "submit-suite-sample-detail",
-        "x-capability-id": "cap-suite-sample-detail",
-        "x-rule-ids": [],
+        "operationId": "upload-submission-upload-resource",
+        "x-capability-id": "cap-submission-upload-resource",
+        "x-rule-ids": [
+          "rule-cap-submission-upload-resource"
+        ],
         "x-operation-variants": [
           {
-            "operationId": "submit-suite-sample-detail",
-            "capabilityId": "cap-suite-sample-detail",
-            "ruleIds": [],
+            "operationId": "upload-submission-upload-resource",
+            "capabilityId": "cap-submission-upload-resource",
+            "ruleIds": [
+              "rule-cap-submission-upload-resource"
+            ],
             "request": {
+              "contentType": "multipart/form-data",
               "body": [
-                "email",
-                "password"
+                "files"
               ],
-              "contentType": "application/json",
               "bodySchema": {
                 "type": "object",
                 "required": [
-                  "email",
-                  "password"
+                  "files"
                 ],
                 "properties": {
-                  "email": {
-                    "type": "string"
-                  },
-                  "password": {
-                    "type": "string"
+                  "files": {
+                    "type": "array",
+                    "minItems": 1,
+                    "maxItems": 20,
+                    "items": {
+                      "type": "string",
+                      "format": "binary"
+                    }
                   }
-                }
+                },
+                "additionalProperties": false
               }
             },
-            "requestSchema": "#/components/schemas/submitSuiteSampleDetailRequest",
-            "responseSchema": "#/components/schemas/submitSuiteSampleDetailResponse",
+            "requestSchema": "#/components/schemas/uploadSubmissionUploadResourceRequest",
+            "responseSchema": "#/components/schemas/uploadSubmissionUploadResourceResponse",
             "effects": [
               {
-                "entityId": "entity-submission",
+                "id": "effect-upload-submission-upload-resource",
+                "entityId": "entity-submission-asset",
                 "effect": "create"
               }
             ],
             "errors": [
-              "INVALID_INPUT"
+              {
+                "code": "NOT_AUTHORIZED",
+                "status": 403,
+                "recovery": "authenticate or select an owned resource"
+              },
+              {
+                "code": "INVALID_INPUT",
+                "status": 422,
+                "recovery": "correct the identified field"
+              },
+              {
+                "code": "UNSUPPORTED_FILE",
+                "status": 415,
+                "recovery": "select a supported file"
+              },
+              {
+                "code": "STORAGE_UNAVAILABLE",
+                "status": 503,
+                "recovery": "retry without claiming the asset is available"
+              }
             ]
           }
         ],
@@ -164,14 +308,56 @@
                 "schema": {
                   "oneOf": [
                     {
-                      "$ref": "#/components/schemas/submitSuiteSampleDetailResponse"
+                      "$ref": "#/components/schemas/uploadSubmissionUploadResourceResponse"
                     }
                   ]
                 }
               }
             }
           },
-          "400": {
+          "403": {
+            "description": "Contract error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "error"
+                  ],
+                  "properties": {
+                    "error": {
+                      "type": "string",
+                      "enum": [
+                        "NOT_AUTHORIZED"
+                      ]
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "415": {
+            "description": "Contract error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "error"
+                  ],
+                  "properties": {
+                    "error": {
+                      "type": "string",
+                      "enum": [
+                        "UNSUPPORTED_FILE"
+                      ]
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "422": {
             "description": "Contract error",
             "content": {
               "application/json": {
@@ -191,91 +377,8 @@
                 }
               }
             }
-          }
-        },
-        "requestBody": {
-          "required": false,
-          "content": {
-            "application/json": {
-              "schema": {
-                "oneOf": [
-                  {
-                    "$ref": "#/components/schemas/submitSuiteSampleDetailRequest"
-                  }
-                ]
-              }
-            }
-          }
-        },
-        "x-data-effects": [
-          {
-            "entityId": "entity-submission",
-            "effect": "create"
-          }
-        ]
-      }
-    },
-    "/api/forms/sample/results/{resultId}": {
-      "get": {
-        "operationId": "query-sample-result",
-        "x-capability-id": "cap-sample-display-result",
-        "x-rule-ids": [],
-        "x-operation-variants": [
-          {
-            "operationId": "query-sample-result",
-            "capabilityId": "cap-sample-display-result",
-            "ruleIds": [],
-            "request": {
-              "path": [
-                "resultId"
-              ],
-              "contentType": "application/json",
-              "pathSchema": {
-                "type": "object",
-                "required": [
-                  "resultId"
-                ],
-                "properties": {
-                  "resultId": {
-                    "type": "string"
-                  }
-                }
-              }
-            },
-            "requestSchema": "#/components/schemas/querySampleResultRequest",
-            "responseSchema": "#/components/schemas/querySampleResultResponse",
-            "effects": [],
-            "errors": [
-              "NOT_FOUND"
-            ]
-          }
-        ],
-        "parameters": [
-          {
-            "name": "resultId",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Successful contract response",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "oneOf": [
-                    {
-                      "$ref": "#/components/schemas/querySampleResultResponse"
-                    }
-                  ]
-                }
-              }
-            }
           },
-          "404": {
+          "503": {
             "description": "Contract error",
             "content": {
               "application/json": {
@@ -288,7 +391,7 @@
                     "error": {
                       "type": "string",
                       "enum": [
-                        "NOT_FOUND"
+                        "STORAGE_UNAVAILABLE"
                       ]
                     }
                   }
@@ -297,75 +400,75 @@
             }
           }
         },
-        "x-data-effects": []
+        "requestBody": {
+          "required": false,
+          "content": {
+            "application/json": {
+              "schema": {
+                "oneOf": [
+                  {
+                    "$ref": "#/components/schemas/uploadSubmissionUploadResourceRequest"
+                  }
+                ]
+              }
+            }
+          }
+        },
+        "x-data-effects": [
+          {
+            "id": "effect-upload-submission-upload-resource",
+            "entityId": "entity-submission-asset",
+            "effect": "create"
+          }
+        ]
       }
     }
   },
   "components": {
     "schemas": {
-      "submitSampleRequest": {
+      "createSubmissionSubmitSubmissionRequest": {
         "type": "object",
         "properties": {
-          "email": {},
-          "password": {}
+          "submission-title": {},
+          "submission-category": {},
+          "result-quantity": {},
+          "upload-source-file-assetIds": {}
         },
         "required": [
-          "email",
-          "password"
+          "submission-title",
+          "submission-category",
+          "result-quantity",
+          "upload-source-file-assetIds"
         ],
         "additionalProperties": true
       },
-      "submitSampleResponse": {
+      "createSubmissionSubmitSubmissionResponse": {
         "type": "object",
         "properties": {
-          "ok": {}
+          "201": {}
         },
         "required": [
-          "ok"
+          201
         ],
         "additionalProperties": true
       },
-      "submitSuiteSampleDetailRequest": {
+      "uploadSubmissionUploadResourceRequest": {
         "type": "object",
         "properties": {
-          "email": {},
-          "password": {}
+          "files": {}
         },
         "required": [
-          "email",
-          "password"
+          "files"
         ],
         "additionalProperties": true
       },
-      "submitSuiteSampleDetailResponse": {
+      "uploadSubmissionUploadResourceResponse": {
         "type": "object",
         "properties": {
-          "ok": {}
+          "201": {}
         },
         "required": [
-          "ok"
-        ],
-        "additionalProperties": true
-      },
-      "querySampleResultRequest": {
-        "type": "object",
-        "properties": {
-          "resultId": {}
-        },
-        "required": [
-          "resultId"
-        ],
-        "additionalProperties": true
-      },
-      "querySampleResultResponse": {
-        "type": "object",
-        "properties": {
-          "resultId": {},
-          "status": {}
-        },
-        "required": [
-          "resultId",
-          "status"
+          201
         ],
         "additionalProperties": true
       }

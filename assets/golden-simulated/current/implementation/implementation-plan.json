@@ -1,20 +1,20 @@
 {
   "schemaVersion": "1.0",
-  "projectId": "golden-simulated",
+  "projectId": "neutral-submission",
   "status": "ready",
   "authority": "approved-functional-domain-only",
   "planningSource": {
     "workflow": "fdd-bmad-planning",
-    "digest": "a5204f0cac088f133f575727289cfb9215c888f65bed354043c5bf4cfab2fdc2",
+    "digest": "a28deaa34d2c628f1325e512b2a43dc0abfae8d3886fdc6742519571bed44447",
     "semanticChangesAllowed": false
   },
   "implementationWorkflow": "pi-implementation-bmad",
   "units": [
     {
-      "id": "persistence-entity-submission",
+      "id": "persistence-entity-submission-resource",
       "type": "persistence",
       "entityIds": [
-        "entity-submission"
+        "entity-submission-resource"
       ],
       "dependsOn": [],
       "acceptance": [
@@ -23,10 +23,10 @@
       ]
     },
     {
-      "id": "persistence-entity-submission-event",
+      "id": "persistence-entity-submission-asset",
       "type": "persistence",
       "entityIds": [
-        "entity-submission-event"
+        "entity-submission-asset"
       ],
       "dependsOn": [],
       "acceptance": [
@@ -35,23 +35,30 @@
       ]
     },
     {
-      "id": "relationship-relation-submission-events",
-      "type": "relation-migration",
-      "relationshipIds": [
-        "relation-submission-events"
+      "id": "persistence-entity-cap-submission-submit-submission-configuration",
+      "type": "persistence",
+      "entityIds": [
+        "entity-cap-submission-submit-submission-configuration"
+      ],
+      "dependsOn": [],
+      "acceptance": [
+        "migration applies to a clean database",
+        "entity effects are observable"
+      ]
+    },
+    {
+      "id": "consistency-boundary-cap-submission-submit-submission-configuration",
+      "type": "consistency",
+      "consistencyBoundaryIds": [
+        "boundary-cap-submission-submit-submission-configuration"
       ],
       "entityIds": [
-        "entity-submission",
-        "entity-submission-event"
+        "entity-cap-submission-submit-submission-configuration"
       ],
-      "dependsOn": [
-        "persistence-entity-submission",
-        "persistence-entity-submission-event"
-      ],
+      "dependsOn": [],
       "acceptance": [
-        "association key and cardinality are enforced",
-        "delete behavior is cascade",
-        "relationship invariants have dedicated tests"
+        "atomic consistency boundary is verified",
+        "rollback or convergence behavior is tested"
       ]
     },
     {
@@ -61,432 +68,1190 @@
         "boundary-submission"
       ],
       "entityIds": [
-        "entity-submission",
-        "entity-submission-event"
+        "entity-submission-resource",
+        "entity-submission-asset",
+        "entity-cap-submission-submit-submission-configuration"
       ],
-      "dependsOn": [
-        "relationship-relation-submission-events"
-      ],
+      "dependsOn": [],
       "acceptance": [
         "atomic consistency boundary is verified",
         "rollback or convergence behavior is tested"
       ]
     },
     {
-      "id": "capability-cap-sample",
+      "id": "capability-cap-submission-submit-submission",
       "type": "capability",
       "capabilityIds": [
-        "cap-sample"
+        "cap-submission-submit-submission"
       ],
       "dependsOn": [
-        "persistence-entity-submission"
+        "persistence-entity-cap-submission-submit-submission-configuration"
       ],
       "acceptance": [
-        "valid input creates a submission"
+        "Create submission consumes each required field with its declared type and constraint",
+        "Create submission produces its operation-specific output and observable UI state",
+        "Runtime output from the prerequisite operation is propagated without a fixed substitute",
+        "Create submission exposes its declared recovery behavior for each business failure"
       ]
     },
     {
-      "id": "capability-cap-suite-sample-detail",
+      "id": "capability-cap-submission-upload-resource",
       "type": "capability",
       "capabilityIds": [
-        "cap-suite-sample-detail"
+        "cap-submission-upload-resource"
       ],
       "dependsOn": [
-        "persistence-entity-submission"
+        "persistence-entity-submission-asset"
       ],
       "acceptance": [
-        "valid input creates a submission"
+        "Upload source file consumes each required field with its declared type and constraint",
+        "Upload source file produces its operation-specific output and observable UI state",
+        "Upload source file exposes its declared recovery behavior for each business failure"
       ]
     },
     {
-      "id": "capability-cap-sample-local-navigation",
-      "type": "capability",
+      "id": "presentation-cap-submission-submit-submission",
+      "type": "ui-presentation",
       "capabilityIds": [
-        "cap-sample-local-navigation"
+        "cap-submission-submit-submission"
       ],
+      "presentation": {
+        "mode": "reuse-control",
+        "targetPageId": "submission",
+        "triggerControl": {
+          "controlId": "submit-button",
+          "label": "Create submission"
+        },
+        "fieldBindings": [
+          {
+            "controlId": "title-input",
+            "inputId": "submission-title",
+            "statePath": "form.submission-title",
+            "requestPath": "request.submission-title",
+            "required": true,
+            "ownership": {
+              "type": "aggregate-section",
+              "scopeId": "submission-scope",
+              "sectionId": "identity-section",
+              "regionId": "identity-section",
+              "capabilityModuleId": "submit-submission"
+            }
+          },
+          {
+            "controlId": "category-select",
+            "inputId": "submission-category",
+            "statePath": "form.submission-category",
+            "requestPath": "request.submission-category",
+            "required": false,
+            "ownership": {
+              "type": "aggregate-section",
+              "scopeId": "submission-scope",
+              "sectionId": "options-section",
+              "regionId": "options-section",
+              "capabilityModuleId": "submit-submission"
+            }
+          },
+          {
+            "controlId": "quantity-input",
+            "inputId": "result-quantity",
+            "statePath": "form.result-quantity",
+            "requestPath": "request.result-quantity",
+            "required": true,
+            "ownership": {
+              "type": "aggregate-section",
+              "scopeId": "submission-scope",
+              "sectionId": "options-section",
+              "regionId": "options-section",
+              "capabilityModuleId": "submit-submission"
+            }
+          }
+        ],
+        "primaryAction": "Create submission",
+        "primaryOperationId": "create-submission-submit-submission",
+        "requiredUiStates": [
+          "idle",
+          "loading",
+          "success",
+          "error"
+        ],
+        "activation": {
+          "type": "existing-control",
+          "visualHint": {
+            "text": "Create submission",
+            "kind": "button"
+          }
+        },
+        "resultSurface": {
+          "region": "result-panel",
+          "dataSource": "operation:create-submission-submit-submission"
+        },
+        "surface": {
+          "type": "same-page-workspace",
+          "requiredRegions": [
+            "result-panel"
+          ],
+          "contentContract": {
+            "heading": "Create submission",
+            "inputIds": [
+              "submission-title",
+              "submission-category",
+              "result-quantity"
+            ],
+            "primaryAction": "Create submission",
+            "primaryOperationId": "create-submission-submit-submission",
+            "emptyState": "No Create submission result is available",
+            "resultContract": {
+              "targetRegion": "result-panel",
+              "bindings": [
+                {
+                  "id": "result-submit-submission",
+                  "responsePath": "response.items",
+                  "element": {
+                    "semantic": "result-item",
+                    "valueSource": "item-value"
+                  },
+                  "cardinality": "many",
+                  "count": {
+                    "mode": "request-field",
+                    "requestPath": "request.result-quantity",
+                    "responsePath": "response.items",
+                    "fixedValueForbidden": true
+                  }
+                }
+              ],
+              "states": {
+                "processing": {
+                  "regionStatus": "processing",
+                  "elementSemantic": "progress-indicator",
+                  "contentRequirement": "region contains a non-result progress affordance"
+                },
+                "success": {
+                  "regionStatus": "success",
+                  "elementSemantic": "bound-result-elements",
+                  "requiresBoundElements": true
+                },
+                "failure": {
+                  "regionStatus": "error",
+                  "elementSemantic": "error-message",
+                  "contentRequirement": "declared operation failure is visible in the target region"
+                }
+              },
+              "runtimeFlow": {
+                "mode": "immediate"
+              },
+              "product": {
+                "type": "submission-items",
+                "quantity": {
+                  "sourceField": "result-quantity"
+                },
+                "lifecycle": [
+                  "processing",
+                  "available",
+                  "failed"
+                ],
+                "downstreamUsage": [
+                  "result presentation",
+                  "history"
+                ]
+              },
+              "evidence": {
+                "status": "documented",
+                "sources": [
+                  "page:submission",
+                  "page-module:submit-submission",
+                  "system-node:submit-node",
+                  "frontend-control:submit-button",
+                  "visual-release:961069a7aa1f6c1f88f6806588230c530095905f80281efd7bacaa4f2310d1ec",
+                  "page-module:identity-section",
+                  "page-module:options-section",
+                  "frontend-result-surface:result-panel"
+                ],
+                "releaseDigest": "961069a7aa1f6c1f88f6806588230c530095905f80281efd7bacaa4f2310d1ec"
+              }
+            }
+          }
+        },
+        "visualHint": {
+          "text": "Create submission",
+          "kind": "button"
+        }
+      },
+      "dependsOn": [
+        "capability-cap-submission-submit-submission"
+      ],
+      "acceptance": [
+        "runtime DOM contains one visible presentation binding",
+        "functional and visual regression evidence is recorded"
+      ]
+    },
+    {
+      "id": "activation-cap-submission-submit-submission",
+      "type": "ui-activation",
+      "capabilityIds": [
+        "cap-submission-submit-submission"
+      ],
+      "activation": {
+        "type": "existing-control",
+        "visualHint": {
+          "text": "Create submission",
+          "kind": "button"
+        }
+      },
+      "deliveryPolicy": {
+        "requiredForCompletion": true,
+        "allowedIncompleteState": "planned"
+      },
+      "dependsOn": [
+        "presentation-cap-submission-submit-submission"
+      ],
+      "acceptance": [
+        "browser activation sets the declared active capability",
+        "development planned state is explicit and final completion is implemented"
+      ]
+    },
+    {
+      "id": "surface-cap-submission-submit-submission",
+      "type": "ui-surface",
+      "capabilityIds": [
+        "cap-submission-submit-submission"
+      ],
+      "surface": {
+        "type": "same-page-workspace",
+        "requiredRegions": [
+          "result-panel"
+        ],
+        "contentContract": {
+          "heading": "Create submission",
+          "inputIds": [
+            "submission-title",
+            "submission-category",
+            "result-quantity"
+          ],
+          "primaryAction": "Create submission",
+          "primaryOperationId": "create-submission-submit-submission",
+          "emptyState": "No Create submission result is available",
+          "resultContract": {
+            "targetRegion": "result-panel",
+            "bindings": [
+              {
+                "id": "result-submit-submission",
+                "responsePath": "response.items",
+                "element": {
+                  "semantic": "result-item",
+                  "valueSource": "item-value"
+                },
+                "cardinality": "many",
+                "count": {
+                  "mode": "request-field",
+                  "requestPath": "request.result-quantity",
+                  "responsePath": "response.items",
+                  "fixedValueForbidden": true
+                }
+              }
+            ],
+            "states": {
+              "processing": {
+                "regionStatus": "processing",
+                "elementSemantic": "progress-indicator",
+                "contentRequirement": "region contains a non-result progress affordance"
+              },
+              "success": {
+                "regionStatus": "success",
+                "elementSemantic": "bound-result-elements",
+                "requiresBoundElements": true
+              },
+              "failure": {
+                "regionStatus": "error",
+                "elementSemantic": "error-message",
+                "contentRequirement": "declared operation failure is visible in the target region"
+              }
+            },
+            "runtimeFlow": {
+              "mode": "immediate"
+            },
+            "product": {
+              "type": "submission-items",
+              "quantity": {
+                "sourceField": "result-quantity"
+              },
+              "lifecycle": [
+                "processing",
+                "available",
+                "failed"
+              ],
+              "downstreamUsage": [
+                "result presentation",
+                "history"
+              ]
+            },
+            "evidence": {
+              "status": "documented",
+              "sources": [
+                "page:submission",
+                "page-module:submit-submission",
+                "system-node:submit-node",
+                "frontend-control:submit-button",
+                "visual-release:961069a7aa1f6c1f88f6806588230c530095905f80281efd7bacaa4f2310d1ec",
+                "page-module:identity-section",
+                "page-module:options-section",
+                "frontend-result-surface:result-panel"
+              ],
+              "releaseDigest": "961069a7aa1f6c1f88f6806588230c530095905f80281efd7bacaa4f2310d1ec"
+            }
+          }
+        }
+      },
+      "aliasOf": null,
+      "dependsOn": [
+        "activation-cap-submission-submit-submission"
+      ],
+      "acceptance": [
+        "runtime content fingerprint matches the domain surface contract",
+        "workspace content, inputs, operation, empty state, and results belong to the active capability"
+      ]
+    },
+    {
+      "id": "result-presentation-cap-submission-submit-submission",
+      "type": "ui-result-presentation",
+      "capabilityIds": [
+        "cap-submission-submit-submission"
+      ],
+      "resultContract": {
+        "targetRegion": "result-panel",
+        "bindings": [
+          {
+            "id": "result-submit-submission",
+            "responsePath": "response.items",
+            "element": {
+              "semantic": "result-item",
+              "valueSource": "item-value"
+            },
+            "cardinality": "many",
+            "count": {
+              "mode": "request-field",
+              "requestPath": "request.result-quantity",
+              "responsePath": "response.items",
+              "fixedValueForbidden": true
+            }
+          }
+        ],
+        "states": {
+          "processing": {
+            "regionStatus": "processing",
+            "elementSemantic": "progress-indicator",
+            "contentRequirement": "region contains a non-result progress affordance"
+          },
+          "success": {
+            "regionStatus": "success",
+            "elementSemantic": "bound-result-elements",
+            "requiresBoundElements": true
+          },
+          "failure": {
+            "regionStatus": "error",
+            "elementSemantic": "error-message",
+            "contentRequirement": "declared operation failure is visible in the target region"
+          }
+        },
+        "runtimeFlow": {
+          "mode": "immediate"
+        },
+        "product": {
+          "type": "submission-items",
+          "quantity": {
+            "sourceField": "result-quantity"
+          },
+          "lifecycle": [
+            "processing",
+            "available",
+            "failed"
+          ],
+          "downstreamUsage": [
+            "result presentation",
+            "history"
+          ]
+        },
+        "evidence": {
+          "status": "documented",
+          "sources": [
+            "page:submission",
+            "page-module:submit-submission",
+            "system-node:submit-node",
+            "frontend-control:submit-button",
+            "visual-release:961069a7aa1f6c1f88f6806588230c530095905f80281efd7bacaa4f2310d1ec",
+            "page-module:identity-section",
+            "page-module:options-section",
+            "frontend-result-surface:result-panel"
+          ],
+          "releaseDigest": "961069a7aa1f6c1f88f6806588230c530095905f80281efd7bacaa4f2310d1ec"
+        }
+      },
+      "dependsOn": [
+        "interaction-cap-submission-submit-submission"
+      ],
+      "acceptance": [
+        "the successful operation response is rendered in the declared semantic region",
+        "rendered element values and cardinality match the runtime response",
+        "processing, success, and failure region states are observable without pixel assertions"
+      ]
+    },
+    {
+      "id": "interaction-cap-submission-submit-submission",
+      "type": "ui-interaction",
+      "capabilityIds": [
+        "cap-submission-submit-submission"
+      ],
+      "presentation": {
+        "mode": "reuse-control",
+        "targetPageId": "submission",
+        "triggerControl": {
+          "controlId": "submit-button",
+          "label": "Create submission"
+        },
+        "fieldBindings": [
+          {
+            "controlId": "title-input",
+            "inputId": "submission-title",
+            "statePath": "form.submission-title",
+            "requestPath": "request.submission-title",
+            "required": true,
+            "ownership": {
+              "type": "aggregate-section",
+              "scopeId": "submission-scope",
+              "sectionId": "identity-section",
+              "regionId": "identity-section",
+              "capabilityModuleId": "submit-submission"
+            }
+          },
+          {
+            "controlId": "category-select",
+            "inputId": "submission-category",
+            "statePath": "form.submission-category",
+            "requestPath": "request.submission-category",
+            "required": false,
+            "ownership": {
+              "type": "aggregate-section",
+              "scopeId": "submission-scope",
+              "sectionId": "options-section",
+              "regionId": "options-section",
+              "capabilityModuleId": "submit-submission"
+            }
+          },
+          {
+            "controlId": "quantity-input",
+            "inputId": "result-quantity",
+            "statePath": "form.result-quantity",
+            "requestPath": "request.result-quantity",
+            "required": true,
+            "ownership": {
+              "type": "aggregate-section",
+              "scopeId": "submission-scope",
+              "sectionId": "options-section",
+              "regionId": "options-section",
+              "capabilityModuleId": "submit-submission"
+            }
+          }
+        ],
+        "primaryAction": "Create submission",
+        "primaryOperationId": "create-submission-submit-submission",
+        "requiredUiStates": [
+          "idle",
+          "loading",
+          "success",
+          "error"
+        ],
+        "activation": {
+          "type": "existing-control",
+          "visualHint": {
+            "text": "Create submission",
+            "kind": "button"
+          }
+        },
+        "resultSurface": {
+          "region": "result-panel",
+          "dataSource": "operation:create-submission-submit-submission"
+        },
+        "surface": {
+          "type": "same-page-workspace",
+          "requiredRegions": [
+            "result-panel"
+          ],
+          "contentContract": {
+            "heading": "Create submission",
+            "inputIds": [
+              "submission-title",
+              "submission-category",
+              "result-quantity"
+            ],
+            "primaryAction": "Create submission",
+            "primaryOperationId": "create-submission-submit-submission",
+            "emptyState": "No Create submission result is available",
+            "resultContract": {
+              "targetRegion": "result-panel",
+              "bindings": [
+                {
+                  "id": "result-submit-submission",
+                  "responsePath": "response.items",
+                  "element": {
+                    "semantic": "result-item",
+                    "valueSource": "item-value"
+                  },
+                  "cardinality": "many",
+                  "count": {
+                    "mode": "request-field",
+                    "requestPath": "request.result-quantity",
+                    "responsePath": "response.items",
+                    "fixedValueForbidden": true
+                  }
+                }
+              ],
+              "states": {
+                "processing": {
+                  "regionStatus": "processing",
+                  "elementSemantic": "progress-indicator",
+                  "contentRequirement": "region contains a non-result progress affordance"
+                },
+                "success": {
+                  "regionStatus": "success",
+                  "elementSemantic": "bound-result-elements",
+                  "requiresBoundElements": true
+                },
+                "failure": {
+                  "regionStatus": "error",
+                  "elementSemantic": "error-message",
+                  "contentRequirement": "declared operation failure is visible in the target region"
+                }
+              },
+              "runtimeFlow": {
+                "mode": "immediate"
+              },
+              "product": {
+                "type": "submission-items",
+                "quantity": {
+                  "sourceField": "result-quantity"
+                },
+                "lifecycle": [
+                  "processing",
+                  "available",
+                  "failed"
+                ],
+                "downstreamUsage": [
+                  "result presentation",
+                  "history"
+                ]
+              },
+              "evidence": {
+                "status": "documented",
+                "sources": [
+                  "page:submission",
+                  "page-module:submit-submission",
+                  "system-node:submit-node",
+                  "frontend-control:submit-button",
+                  "visual-release:961069a7aa1f6c1f88f6806588230c530095905f80281efd7bacaa4f2310d1ec",
+                  "page-module:identity-section",
+                  "page-module:options-section",
+                  "frontend-result-surface:result-panel"
+                ],
+                "releaseDigest": "961069a7aa1f6c1f88f6806588230c530095905f80281efd7bacaa4f2310d1ec"
+              }
+            }
+          }
+        },
+        "visualHint": {
+          "text": "Create submission",
+          "kind": "button"
+        }
+      },
+      "dependsOn": [
+        "surface-cap-submission-submit-submission"
+      ],
+      "acceptance": [
+        "runtime event produces the declared server request or client state change"
+      ]
+    },
+    {
+      "id": "frontend-state-cap-submission-submit-submission",
+      "type": "ui-state",
+      "capabilityIds": [
+        "cap-submission-submit-submission"
+      ],
+      "presentation": {
+        "mode": "reuse-control",
+        "targetPageId": "submission",
+        "triggerControl": {
+          "controlId": "submit-button",
+          "label": "Create submission"
+        },
+        "fieldBindings": [
+          {
+            "controlId": "title-input",
+            "inputId": "submission-title",
+            "statePath": "form.submission-title",
+            "requestPath": "request.submission-title",
+            "required": true,
+            "ownership": {
+              "type": "aggregate-section",
+              "scopeId": "submission-scope",
+              "sectionId": "identity-section",
+              "regionId": "identity-section",
+              "capabilityModuleId": "submit-submission"
+            }
+          },
+          {
+            "controlId": "category-select",
+            "inputId": "submission-category",
+            "statePath": "form.submission-category",
+            "requestPath": "request.submission-category",
+            "required": false,
+            "ownership": {
+              "type": "aggregate-section",
+              "scopeId": "submission-scope",
+              "sectionId": "options-section",
+              "regionId": "options-section",
+              "capabilityModuleId": "submit-submission"
+            }
+          },
+          {
+            "controlId": "quantity-input",
+            "inputId": "result-quantity",
+            "statePath": "form.result-quantity",
+            "requestPath": "request.result-quantity",
+            "required": true,
+            "ownership": {
+              "type": "aggregate-section",
+              "scopeId": "submission-scope",
+              "sectionId": "options-section",
+              "regionId": "options-section",
+              "capabilityModuleId": "submit-submission"
+            }
+          }
+        ],
+        "primaryAction": "Create submission",
+        "primaryOperationId": "create-submission-submit-submission",
+        "requiredUiStates": [
+          "idle",
+          "loading",
+          "success",
+          "error"
+        ],
+        "activation": {
+          "type": "existing-control",
+          "visualHint": {
+            "text": "Create submission",
+            "kind": "button"
+          }
+        },
+        "resultSurface": {
+          "region": "result-panel",
+          "dataSource": "operation:create-submission-submit-submission"
+        },
+        "surface": {
+          "type": "same-page-workspace",
+          "requiredRegions": [
+            "result-panel"
+          ],
+          "contentContract": {
+            "heading": "Create submission",
+            "inputIds": [
+              "submission-title",
+              "submission-category",
+              "result-quantity"
+            ],
+            "primaryAction": "Create submission",
+            "primaryOperationId": "create-submission-submit-submission",
+            "emptyState": "No Create submission result is available",
+            "resultContract": {
+              "targetRegion": "result-panel",
+              "bindings": [
+                {
+                  "id": "result-submit-submission",
+                  "responsePath": "response.items",
+                  "element": {
+                    "semantic": "result-item",
+                    "valueSource": "item-value"
+                  },
+                  "cardinality": "many",
+                  "count": {
+                    "mode": "request-field",
+                    "requestPath": "request.result-quantity",
+                    "responsePath": "response.items",
+                    "fixedValueForbidden": true
+                  }
+                }
+              ],
+              "states": {
+                "processing": {
+                  "regionStatus": "processing",
+                  "elementSemantic": "progress-indicator",
+                  "contentRequirement": "region contains a non-result progress affordance"
+                },
+                "success": {
+                  "regionStatus": "success",
+                  "elementSemantic": "bound-result-elements",
+                  "requiresBoundElements": true
+                },
+                "failure": {
+                  "regionStatus": "error",
+                  "elementSemantic": "error-message",
+                  "contentRequirement": "declared operation failure is visible in the target region"
+                }
+              },
+              "runtimeFlow": {
+                "mode": "immediate"
+              },
+              "product": {
+                "type": "submission-items",
+                "quantity": {
+                  "sourceField": "result-quantity"
+                },
+                "lifecycle": [
+                  "processing",
+                  "available",
+                  "failed"
+                ],
+                "downstreamUsage": [
+                  "result presentation",
+                  "history"
+                ]
+              },
+              "evidence": {
+                "status": "documented",
+                "sources": [
+                  "page:submission",
+                  "page-module:submit-submission",
+                  "system-node:submit-node",
+                  "frontend-control:submit-button",
+                  "visual-release:961069a7aa1f6c1f88f6806588230c530095905f80281efd7bacaa4f2310d1ec",
+                  "page-module:identity-section",
+                  "page-module:options-section",
+                  "frontend-result-surface:result-panel"
+                ],
+                "releaseDigest": "961069a7aa1f6c1f88f6806588230c530095905f80281efd7bacaa4f2310d1ec"
+              }
+            }
+          }
+        },
+        "visualHint": {
+          "text": "Create submission",
+          "kind": "button"
+        }
+      },
+      "dependsOn": [
+        "interaction-cap-submission-submit-submission"
+      ],
+      "acceptance": [
+        "applicable idle, loading, empty, error, disabled, and success states are browser-tested"
+      ]
+    },
+    {
+      "id": "frontend-data-cap-submission-submit-submission",
+      "type": "ui-data",
+      "capabilityIds": [
+        "cap-submission-submit-submission"
+      ],
+      "presentation": {
+        "mode": "reuse-control",
+        "targetPageId": "submission",
+        "triggerControl": {
+          "controlId": "submit-button",
+          "label": "Create submission"
+        },
+        "fieldBindings": [
+          {
+            "controlId": "title-input",
+            "inputId": "submission-title",
+            "statePath": "form.submission-title",
+            "requestPath": "request.submission-title",
+            "required": true,
+            "ownership": {
+              "type": "aggregate-section",
+              "scopeId": "submission-scope",
+              "sectionId": "identity-section",
+              "regionId": "identity-section",
+              "capabilityModuleId": "submit-submission"
+            }
+          },
+          {
+            "controlId": "category-select",
+            "inputId": "submission-category",
+            "statePath": "form.submission-category",
+            "requestPath": "request.submission-category",
+            "required": false,
+            "ownership": {
+              "type": "aggregate-section",
+              "scopeId": "submission-scope",
+              "sectionId": "options-section",
+              "regionId": "options-section",
+              "capabilityModuleId": "submit-submission"
+            }
+          },
+          {
+            "controlId": "quantity-input",
+            "inputId": "result-quantity",
+            "statePath": "form.result-quantity",
+            "requestPath": "request.result-quantity",
+            "required": true,
+            "ownership": {
+              "type": "aggregate-section",
+              "scopeId": "submission-scope",
+              "sectionId": "options-section",
+              "regionId": "options-section",
+              "capabilityModuleId": "submit-submission"
+            }
+          }
+        ],
+        "primaryAction": "Create submission",
+        "primaryOperationId": "create-submission-submit-submission",
+        "requiredUiStates": [
+          "idle",
+          "loading",
+          "success",
+          "error"
+        ],
+        "activation": {
+          "type": "existing-control",
+          "visualHint": {
+            "text": "Create submission",
+            "kind": "button"
+          }
+        },
+        "resultSurface": {
+          "region": "result-panel",
+          "dataSource": "operation:create-submission-submit-submission"
+        },
+        "surface": {
+          "type": "same-page-workspace",
+          "requiredRegions": [
+            "result-panel"
+          ],
+          "contentContract": {
+            "heading": "Create submission",
+            "inputIds": [
+              "submission-title",
+              "submission-category",
+              "result-quantity"
+            ],
+            "primaryAction": "Create submission",
+            "primaryOperationId": "create-submission-submit-submission",
+            "emptyState": "No Create submission result is available",
+            "resultContract": {
+              "targetRegion": "result-panel",
+              "bindings": [
+                {
+                  "id": "result-submit-submission",
+                  "responsePath": "response.items",
+                  "element": {
+                    "semantic": "result-item",
+                    "valueSource": "item-value"
+                  },
+                  "cardinality": "many",
+                  "count": {
+                    "mode": "request-field",
+                    "requestPath": "request.result-quantity",
+                    "responsePath": "response.items",
+                    "fixedValueForbidden": true
+                  }
+                }
+              ],
+              "states": {
+                "processing": {
+                  "regionStatus": "processing",
+                  "elementSemantic": "progress-indicator",
+                  "contentRequirement": "region contains a non-result progress affordance"
+                },
+                "success": {
+                  "regionStatus": "success",
+                  "elementSemantic": "bound-result-elements",
+                  "requiresBoundElements": true
+                },
+                "failure": {
+                  "regionStatus": "error",
+                  "elementSemantic": "error-message",
+                  "contentRequirement": "declared operation failure is visible in the target region"
+                }
+              },
+              "runtimeFlow": {
+                "mode": "immediate"
+              },
+              "product": {
+                "type": "submission-items",
+                "quantity": {
+                  "sourceField": "result-quantity"
+                },
+                "lifecycle": [
+                  "processing",
+                  "available",
+                  "failed"
+                ],
+                "downstreamUsage": [
+                  "result presentation",
+                  "history"
+                ]
+              },
+              "evidence": {
+                "status": "documented",
+                "sources": [
+                  "page:submission",
+                  "page-module:submit-submission",
+                  "system-node:submit-node",
+                  "frontend-control:submit-button",
+                  "visual-release:961069a7aa1f6c1f88f6806588230c530095905f80281efd7bacaa4f2310d1ec",
+                  "page-module:identity-section",
+                  "page-module:options-section",
+                  "frontend-result-surface:result-panel"
+                ],
+                "releaseDigest": "961069a7aa1f6c1f88f6806588230c530095905f80281efd7bacaa4f2310d1ec"
+              }
+            }
+          }
+        },
+        "visualHint": {
+          "text": "Create submission",
+          "kind": "button"
+        }
+      },
+      "dependsOn": [
+        "frontend-state-cap-submission-submit-submission"
+      ],
+      "acceptance": [
+        "business content comes from an operation, user input, authenticated context, or explicit empty state",
+        "visual placeholders have an approved resolution"
+      ]
+    },
+    {
+      "id": "presentation-cap-submission-upload-resource",
+      "type": "ui-presentation",
+      "capabilityIds": [
+        "cap-submission-upload-resource"
+      ],
+      "presentation": {
+        "mode": "reuse-control",
+        "targetPageId": "submission",
+        "triggerControl": {
+          "controlId": "upload-input",
+          "label": "Upload source file"
+        },
+        "fieldBindings": [],
+        "primaryAction": "Upload source file",
+        "primaryOperationId": "upload-submission-upload-resource",
+        "requiredUiStates": [
+          "idle",
+          "loading",
+          "success",
+          "error"
+        ],
+        "visualHint": {
+          "text": "Upload source file",
+          "kind": "input"
+        }
+      },
+      "dependsOn": [
+        "capability-cap-submission-upload-resource"
+      ],
+      "acceptance": [
+        "runtime DOM contains one visible presentation binding",
+        "functional and visual regression evidence is recorded"
+      ]
+    },
+    {
+      "id": "interaction-cap-submission-upload-resource",
+      "type": "ui-interaction",
+      "capabilityIds": [
+        "cap-submission-upload-resource"
+      ],
+      "presentation": {
+        "mode": "reuse-control",
+        "targetPageId": "submission",
+        "triggerControl": {
+          "controlId": "upload-input",
+          "label": "Upload source file"
+        },
+        "fieldBindings": [],
+        "primaryAction": "Upload source file",
+        "primaryOperationId": "upload-submission-upload-resource",
+        "requiredUiStates": [
+          "idle",
+          "loading",
+          "success",
+          "error"
+        ],
+        "visualHint": {
+          "text": "Upload source file",
+          "kind": "input"
+        }
+      },
+      "dependsOn": [
+        "presentation-cap-submission-upload-resource"
+      ],
+      "acceptance": [
+        "runtime event produces the declared server request or client state change"
+      ]
+    },
+    {
+      "id": "frontend-state-cap-submission-upload-resource",
+      "type": "ui-state",
+      "capabilityIds": [
+        "cap-submission-upload-resource"
+      ],
+      "presentation": {
+        "mode": "reuse-control",
+        "targetPageId": "submission",
+        "triggerControl": {
+          "controlId": "upload-input",
+          "label": "Upload source file"
+        },
+        "fieldBindings": [],
+        "primaryAction": "Upload source file",
+        "primaryOperationId": "upload-submission-upload-resource",
+        "requiredUiStates": [
+          "idle",
+          "loading",
+          "success",
+          "error"
+        ],
+        "visualHint": {
+          "text": "Upload source file",
+          "kind": "input"
+        }
+      },
+      "dependsOn": [
+        "interaction-cap-submission-upload-resource"
+      ],
+      "acceptance": [
+        "applicable idle, loading, empty, error, disabled, and success states are browser-tested"
+      ]
+    },
+    {
+      "id": "frontend-data-cap-submission-upload-resource",
+      "type": "ui-data",
+      "capabilityIds": [
+        "cap-submission-upload-resource"
+      ],
+      "presentation": {
+        "mode": "reuse-control",
+        "targetPageId": "submission",
+        "triggerControl": {
+          "controlId": "upload-input",
+          "label": "Upload source file"
+        },
+        "fieldBindings": [],
+        "primaryAction": "Upload source file",
+        "primaryOperationId": "upload-submission-upload-resource",
+        "requiredUiStates": [
+          "idle",
+          "loading",
+          "success",
+          "error"
+        ],
+        "visualHint": {
+          "text": "Upload source file",
+          "kind": "input"
+        }
+      },
+      "dependsOn": [
+        "frontend-state-cap-submission-upload-resource"
+      ],
+      "acceptance": [
+        "business content comes from an operation, user input, authenticated context, or explicit empty state",
+        "visual placeholders have an approved resolution"
+      ]
+    },
+    {
+      "id": "planned-capability-cap-submission-planned-export",
+      "type": "ui-planned-state",
+      "capabilityIds": [
+        "cap-submission-planned-export"
+      ],
+      "presentation": {
+        "mode": "reuse-control",
+        "targetPageId": "submission",
+        "triggerControl": {
+          "controlId": "planned-export",
+          "label": "External submission review"
+        },
+        "fieldBindings": [],
+        "primaryOperationId": null,
+        "requiredUiStates": [
+          "idle",
+          "planned"
+        ],
+        "visualHint": {
+          "text": "External submission review",
+          "kind": "button"
+        },
+        "behavior": "planned-state",
+        "plannedState": {
+          "title": "External submission review",
+          "message": "功能待实现",
+          "capabilitySpecific": true
+        }
+      },
+      "deliveryPolicy": {
+        "requiredForCompletion": false,
+        "allowedIncompleteState": "planned",
+        "uiBehavior": "show-planned-state"
+      },
       "dependsOn": [],
       "acceptance": [
-        "help opens without a server request"
+        "the declared entry is reachable by a real user interaction",
+        "activation replaces the active workspace with capability-specific planned content",
+        "the visible state identifies this capability and says 功能待实现",
+        "activation emits no business API request and renders no fabricated success result"
       ]
     },
     {
-      "id": "capability-cap-sample-display-result",
-      "type": "capability",
-      "capabilityIds": [
-        "cap-sample-display-result"
+      "id": "rule-rule-cap-submission-submit-submission",
+      "type": "rule",
+      "ruleIds": [
+        "rule-cap-submission-submit-submission"
       ],
       "dependsOn": [
-        "persistence-entity-submission"
+        "capability-cap-submission-submit-submission"
       ],
       "acceptance": [
-        "task completion renders the queried result"
+        "condition: authenticated actor",
+        "condition: required inputs are valid",
+        "assertion: observable result is specific to Create submission",
+        "assertion: required values are preserved end to end",
+        "assertion: actor lacks ownership or permission",
+        "assertion: input violates the operation schema or business rule",
+        "assertion: lifecycle or concurrency precondition is not satisfied"
       ]
     },
     {
-      "id": "presentation-cap-sample",
-      "type": "ui-presentation",
-      "capabilityIds": [
-        "cap-sample"
+      "id": "rule-rule-cap-submission-upload-resource",
+      "type": "rule",
+      "ruleIds": [
+        "rule-cap-submission-upload-resource"
       ],
-      "presentation": {
-        "mode": "add-control",
-        "targetPageId": "sample",
-        "preferredRegion": "form-actions",
-        "control": {
-          "type": "primary-button",
-          "label": "Submit sample"
-        }
-      },
       "dependsOn": [
-        "capability-cap-sample"
+        "capability-cap-submission-upload-resource"
       ],
       "acceptance": [
-        "runtime DOM contains one visible presentation binding",
-        "functional and visual regression evidence is recorded"
+        "condition: authenticated actor",
+        "condition: selected resources satisfy declared transfer constraints",
+        "assertion: transferred bytes match the recorded checksum",
+        "assertion: only validated owned resources become available",
+        "assertion: actor lacks ownership or permission",
+        "assertion: input violates the operation schema or business rule",
+        "assertion: file type, count, size, or checksum is invalid",
+        "assertion: durable storage is unavailable"
       ]
     },
     {
-      "id": "interaction-cap-sample",
-      "type": "ui-interaction",
-      "capabilityIds": [
-        "cap-sample"
-      ],
-      "presentation": {
-        "mode": "add-control",
-        "targetPageId": "sample",
-        "preferredRegion": "form-actions",
-        "control": {
-          "type": "primary-button",
-          "label": "Submit sample"
-        }
-      },
-      "dependsOn": [
-        "presentation-cap-sample"
-      ],
-      "acceptance": [
-        "runtime event produces the declared server request or client state change"
-      ]
-    },
-    {
-      "id": "frontend-state-cap-sample",
-      "type": "ui-state",
-      "capabilityIds": [
-        "cap-sample"
-      ],
-      "presentation": {
-        "mode": "add-control",
-        "targetPageId": "sample",
-        "preferredRegion": "form-actions",
-        "control": {
-          "type": "primary-button",
-          "label": "Submit sample"
-        }
-      },
-      "dependsOn": [
-        "interaction-cap-sample"
-      ],
-      "acceptance": [
-        "applicable idle, loading, empty, error, disabled, and success states are browser-tested"
-      ]
-    },
-    {
-      "id": "frontend-data-cap-sample",
-      "type": "ui-data",
-      "capabilityIds": [
-        "cap-sample"
-      ],
-      "presentation": {
-        "mode": "add-control",
-        "targetPageId": "sample",
-        "preferredRegion": "form-actions",
-        "control": {
-          "type": "primary-button",
-          "label": "Submit sample"
-        }
-      },
-      "dependsOn": [
-        "frontend-state-cap-sample"
-      ],
-      "acceptance": [
-        "business content comes from an operation, user input, authenticated context, or explicit empty state",
-        "visual placeholders have an approved resolution"
-      ]
-    },
-    {
-      "id": "presentation-cap-suite-sample-detail",
-      "type": "ui-presentation",
-      "capabilityIds": [
-        "cap-suite-sample-detail"
-      ],
-      "presentation": {
-        "mode": "add-control",
-        "targetPageId": "suite-sample-detail",
-        "preferredRegion": "form-actions",
-        "control": {
-          "type": "primary-button",
-          "label": "Submit suite-sample-detail"
-        }
-      },
-      "dependsOn": [
-        "capability-cap-suite-sample-detail"
-      ],
-      "acceptance": [
-        "runtime DOM contains one visible presentation binding",
-        "functional and visual regression evidence is recorded"
-      ]
-    },
-    {
-      "id": "interaction-cap-suite-sample-detail",
-      "type": "ui-interaction",
-      "capabilityIds": [
-        "cap-suite-sample-detail"
-      ],
-      "presentation": {
-        "mode": "add-control",
-        "targetPageId": "suite-sample-detail",
-        "preferredRegion": "form-actions",
-        "control": {
-          "type": "primary-button",
-          "label": "Submit suite-sample-detail"
-        }
-      },
-      "dependsOn": [
-        "presentation-cap-suite-sample-detail"
-      ],
-      "acceptance": [
-        "runtime event produces the declared server request or client state change"
-      ]
-    },
-    {
-      "id": "frontend-state-cap-suite-sample-detail",
-      "type": "ui-state",
-      "capabilityIds": [
-        "cap-suite-sample-detail"
-      ],
-      "presentation": {
-        "mode": "add-control",
-        "targetPageId": "suite-sample-detail",
-        "preferredRegion": "form-actions",
-        "control": {
-          "type": "primary-button",
-          "label": "Submit suite-sample-detail"
-        }
-      },
-      "dependsOn": [
-        "interaction-cap-suite-sample-detail"
-      ],
-      "acceptance": [
-        "applicable idle, loading, empty, error, disabled, and success states are browser-tested"
-      ]
-    },
-    {
-      "id": "frontend-data-cap-suite-sample-detail",
-      "type": "ui-data",
-      "capabilityIds": [
-        "cap-suite-sample-detail"
-      ],
-      "presentation": {
-        "mode": "add-control",
-        "targetPageId": "suite-sample-detail",
-        "preferredRegion": "form-actions",
-        "control": {
-          "type": "primary-button",
-          "label": "Submit suite-sample-detail"
-        }
-      },
-      "dependsOn": [
-        "frontend-state-cap-suite-sample-detail"
-      ],
-      "acceptance": [
-        "business content comes from an operation, user input, authenticated context, or explicit empty state",
-        "visual placeholders have an approved resolution"
-      ]
-    },
-    {
-      "id": "presentation-cap-sample-local-navigation",
-      "type": "ui-presentation",
-      "capabilityIds": [
-        "cap-sample-local-navigation"
-      ],
-      "presentation": {
-        "mode": "reuse-control",
-        "targetPageId": "sample",
-        "visualHint": {
-          "text": "Help",
-          "kind": "button"
-        }
-      },
-      "dependsOn": [
-        "capability-cap-sample-local-navigation"
-      ],
-      "acceptance": [
-        "runtime DOM contains one visible presentation binding",
-        "functional and visual regression evidence is recorded"
-      ]
-    },
-    {
-      "id": "interaction-cap-sample-local-navigation",
-      "type": "ui-interaction",
-      "capabilityIds": [
-        "cap-sample-local-navigation"
-      ],
-      "presentation": {
-        "mode": "reuse-control",
-        "targetPageId": "sample",
-        "visualHint": {
-          "text": "Help",
-          "kind": "button"
-        }
-      },
-      "dependsOn": [
-        "presentation-cap-sample-local-navigation"
-      ],
-      "acceptance": [
-        "runtime event produces the declared server request or client state change"
-      ]
-    },
-    {
-      "id": "frontend-state-cap-sample-local-navigation",
-      "type": "ui-state",
-      "capabilityIds": [
-        "cap-sample-local-navigation"
-      ],
-      "presentation": {
-        "mode": "reuse-control",
-        "targetPageId": "sample",
-        "visualHint": {
-          "text": "Help",
-          "kind": "button"
-        }
-      },
-      "dependsOn": [
-        "interaction-cap-sample-local-navigation"
-      ],
-      "acceptance": [
-        "applicable idle, loading, empty, error, disabled, and success states are browser-tested"
-      ]
-    },
-    {
-      "id": "frontend-data-cap-sample-local-navigation",
-      "type": "ui-data",
-      "capabilityIds": [
-        "cap-sample-local-navigation"
-      ],
-      "presentation": {
-        "mode": "reuse-control",
-        "targetPageId": "sample",
-        "visualHint": {
-          "text": "Help",
-          "kind": "button"
-        }
-      },
-      "dependsOn": [
-        "frontend-state-cap-sample-local-navigation"
-      ],
-      "acceptance": [
-        "business content comes from an operation, user input, authenticated context, or explicit empty state",
-        "visual placeholders have an approved resolution"
-      ]
-    },
-    {
-      "id": "presentation-cap-sample-display-result",
-      "type": "ui-presentation",
-      "capabilityIds": [
-        "cap-sample-display-result"
-      ],
-      "presentation": {
-        "mode": "display-only",
-        "targetPageId": "sample",
-        "region": "result-panel",
-        "content": {
-          "type": "submission-result"
-        }
-      },
-      "dependsOn": [
-        "capability-cap-sample-display-result"
-      ],
-      "acceptance": [
-        "runtime DOM contains one visible presentation binding",
-        "functional and visual regression evidence is recorded"
-      ]
-    },
-    {
-      "id": "interaction-cap-sample-display-result",
-      "type": "ui-interaction",
-      "capabilityIds": [
-        "cap-sample-display-result"
-      ],
-      "presentation": {
-        "mode": "display-only",
-        "targetPageId": "sample",
-        "region": "result-panel",
-        "content": {
-          "type": "submission-result"
-        }
-      },
-      "dependsOn": [
-        "presentation-cap-sample-display-result"
-      ],
-      "acceptance": [
-        "data-render trigger updates the runtime DOM"
-      ]
-    },
-    {
-      "id": "frontend-state-cap-sample-display-result",
-      "type": "ui-state",
-      "capabilityIds": [
-        "cap-sample-display-result"
-      ],
-      "presentation": {
-        "mode": "display-only",
-        "targetPageId": "sample",
-        "region": "result-panel",
-        "content": {
-          "type": "submission-result"
-        }
-      },
-      "dependsOn": [
-        "interaction-cap-sample-display-result"
-      ],
-      "acceptance": [
-        "applicable idle, loading, empty, error, disabled, and success states are browser-tested"
-      ]
-    },
-    {
-      "id": "frontend-data-cap-sample-display-result",
-      "type": "ui-data",
-      "capabilityIds": [
-        "cap-sample-display-result"
-      ],
-      "presentation": {
-        "mode": "display-only",
-        "targetPageId": "sample",
-        "region": "result-panel",
-        "content": {
-          "type": "submission-result"
-        }
-      },
-      "dependsOn": [
-        "frontend-state-cap-sample-display-result"
-      ],
-      "acceptance": [
-        "business content comes from an operation, user input, authenticated context, or explicit empty state",
-        "visual placeholders have an approved resolution"
-      ]
-    },
-    {
-      "id": "operation-submit-sample",
+      "id": "operation-create-submission-submit-submission",
       "type": "api",
       "operationIds": [
-        "submit-sample"
+        "create-submission-submit-submission"
       ],
       "capabilityIds": [
-        "cap-sample"
+        "cap-submission-submit-submission"
       ],
-      "ruleIds": [],
+      "ruleIds": [
+        "rule-cap-submission-submit-submission"
+      ],
       "dependsOn": [
-        "persistence-entity-submission",
-        "relationship-relation-submission-events"
+        "persistence-entity-cap-submission-submit-submission-configuration",
+        "consistency-boundary-cap-submission-submit-submission-configuration"
       ],
       "acceptance": [
         "operation is live",
@@ -495,18 +1260,72 @@
       ]
     },
     {
-      "id": "operation-submit-suite-sample-detail",
-      "type": "api",
+      "id": "data-dependency-create-submission-submit-submission",
+      "type": "cross-operation-data-flow",
       "operationIds": [
-        "submit-suite-sample-detail"
+        "create-submission-submit-submission",
+        "upload-submission-upload-resource"
       ],
       "capabilityIds": [
-        "cap-suite-sample-detail"
+        "cap-submission-submit-submission"
       ],
-      "ruleIds": [],
       "dependsOn": [
-        "persistence-entity-submission",
-        "relationship-relation-submission-events"
+        "operation-create-submission-submit-submission",
+        "resource-persistence-upload-submission-upload-resource"
+      ],
+      "acceptance": [
+        "each declared source response value is reused in the target request at runtime",
+        "hard-coded or independently fabricated correlation values are rejected"
+      ]
+    },
+    {
+      "id": "integration-binding-create-submission-submit-submission",
+      "type": "integration-binding",
+      "operationIds": [
+        "create-submission-submit-submission"
+      ],
+      "capabilityIds": [
+        "cap-submission-submit-submission"
+      ],
+      "dependsOn": [
+        "data-dependency-create-submission-submit-submission"
+      ],
+      "acceptance": [
+        "integration adapter evidence contains the same runtime-generated value or safe digest",
+        "unsupported external capability returns the declared operation-specific error"
+      ]
+    },
+    {
+      "id": "external-effect-create-submission-submit-submission",
+      "type": "external-effect",
+      "operationIds": [
+        "create-submission-submit-submission"
+      ],
+      "capabilityIds": [
+        "cap-submission-submit-submission"
+      ],
+      "dependsOn": [
+        "integration-binding-create-submission-submit-submission"
+      ],
+      "acceptance": [
+        "declared external effects and subsequent observable reads preserve the data lineage"
+      ]
+    },
+    {
+      "id": "operation-upload-submission-upload-resource",
+      "type": "api",
+      "operationIds": [
+        "upload-submission-upload-resource"
+      ],
+      "capabilityIds": [
+        "cap-submission-upload-resource"
+      ],
+      "ruleIds": [
+        "rule-cap-submission-upload-resource"
+      ],
+      "dependsOn": [
+        "persistence-entity-submission-asset",
+        "consistency-boundary-submission"
       ],
       "acceptance": [
         "operation is live",
@@ -515,20 +1334,67 @@
       ]
     },
     {
-      "id": "operation-query-sample-result",
-      "type": "api",
+      "id": "resource-transfer-upload-submission-upload-resource",
+      "type": "resource-transfer",
       "operationIds": [
-        "query-sample-result"
+        "upload-submission-upload-resource"
       ],
       "capabilityIds": [
-        "cap-sample-display-result"
+        "cap-submission-upload-resource"
       ],
-      "ruleIds": [],
-      "dependsOn": [],
+      "dependsOn": [
+        "operation-upload-submission-upload-resource"
+      ],
       "acceptance": [
-        "operation is live",
-        "response and errors match contract",
-        "declared effects and transaction behavior are verified"
+        "the declared client transfer reaches the application operation",
+        "the response returns the declared resource reference and integrity metadata"
+      ]
+    },
+    {
+      "id": "resource-validation-upload-submission-upload-resource",
+      "type": "resource-validation",
+      "operationIds": [
+        "upload-submission-upload-resource"
+      ],
+      "dependsOn": [
+        "resource-transfer-upload-submission-upload-resource"
+      ],
+      "acceptance": [
+        "declared media, size, count, purpose, integrity, ownership, and rejection constraints are tested"
+      ]
+    },
+    {
+      "id": "resource-persistence-upload-submission-upload-resource",
+      "type": "resource-persistence",
+      "operationIds": [
+        "upload-submission-upload-resource"
+      ],
+      "entityIds": [
+        "entity-submission-asset"
+      ],
+      "dependsOn": [
+        "resource-validation-upload-submission-upload-resource"
+      ],
+      "acceptance": [
+        "validated resource metadata and storage reference persist under the declared ownership scope"
+      ]
+    },
+    {
+      "id": "journey-journey-submission",
+      "type": "e2e",
+      "journeyIds": [
+        "journey-submission"
+      ],
+      "capabilityIds": [
+        "cap-submission-submit-submission",
+        "cap-submission-upload-resource"
+      ],
+      "dependsOn": [
+        "operation-create-submission-submit-submission",
+        "operation-upload-submission-upload-resource"
+      ],
+      "acceptance": [
+        "A user can progress from Submission workspace input through processing to an observable result without substituting fixed identifiers."
       ]
     }
   ]

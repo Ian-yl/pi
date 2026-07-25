@@ -1,0 +1,8 @@
+{
+  "version": 1,
+  "nodes": [
+    { "id": "submit-node", "sourcePageId": "submission", "sourceModuleId": "submit-submission", "responsibilities": ["Create one submission from all documented configuration sections and uploaded resources"] },
+    { "id": "upload-node", "sourcePageId": "submission", "sourceModuleId": "upload-resource", "responsibilities": ["Validate and persist an uploaded source resource"] },
+    { "id": "export-node", "sourcePageId": "submission", "sourceModuleId": "planned-export", "responsibilities": ["Use an external review whose provider, request, and business result are not yet decided"] }
+  ]
+}

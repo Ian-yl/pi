@@ -4,15 +4,13 @@
   "releaseManifest": "release-manifest.json",
   "suiteGate": "suite-gate.json",
   "approval": "visual-approval.json",
-  "releaseDigest": "7cccdced81725094a67ce6c6c2928ea66354b733fdda12674f9bb775be5d361f",
-  "suiteGateDigest": "559bd734510502c0a65be863344cad94db48f091468b2d7eeea10babc3fb7962",
+  "releaseDigest": "961069a7aa1f6c1f88f6806588230c530095905f80281efd7bacaa4f2310d1ec",
+  "suiteGateDigest": "671b5da89cba71925cf574111ad3ce8f3cec1c722c7f3e247cf1291a45c12010",
   "pageIds": [
-    "sample",
-    "suite-sample-detail"
+    "submission"
   ],
   "routes": {
-    "sample": "/pages/sample/index.html",
-    "suite-sample-detail": "/pages/suite-sample-detail/index.html"
+    "submission": "/submission"
   },
-  "sourceTreeDigest": "16e5eb18b42eec93296360758916dd1198067dbb12995c2a0d7f159e5e31253c"
+  "sourceTreeDigest": "1c351538968e657d634275343d892ba8389790f33472e922b3798b806e85787e"
 }

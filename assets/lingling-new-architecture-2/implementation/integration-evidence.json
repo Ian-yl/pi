@@ -1,5 +1,0 @@
-{
-  "schemaVersion": "1.0",
-  "verificationLevel": "simulated",
-  "reason": "No real-provider evidence was supplied. Unit and browser mocks cannot prove integration."
-}
