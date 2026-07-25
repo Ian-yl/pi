@@ -1,22 +1,22 @@
 {
   "schemaVersion": "1.0",
   "generatedBy": "project-implementation/run-browser-e2e",
-  "generatedAt": "2026-07-25T04:34:27.380Z",
+  "generatedAt": "2026-07-25T05:44:58.143Z",
   "command": {
     "executable": "node",
     "args": [
       "tests/browser-runtime.mjs"
     ]
   },
-  "healthUrl": "http://127.0.0.1:65263/health",
-  "rawReportDigest": "61d6c6bc005d33056b45889440f664271a914cb2fa28d84556f2c22b06cdb241",
-  "runtimeCasesDigest": "a5dcc3cbbda190fee8195d720d293825084969028ff8d367280b7b001773341a",
+  "healthUrl": "http://127.0.0.1:60349/health",
+  "rawReportDigest": "a974b1c5af94f363305a9d17fd4d90134cefd80032b2391e1f8be56ac6910661",
+  "runtimeCasesDigest": "3d4002846b3e15e765cb04aa42a307d80ec5f321021c3bca926ffe837a9a1cad",
   "artifactDigests": {
     "evidence/frontend/initial-submission.png": "f96979c5f772952fbb4109be67f8d1708b2e7c3a0f7330dd84077f5bd280793b",
     "evidence/frontend/browser-upload-failure.png": "932e9f8c9fa4a18559dc3ebd38033f875e93b61d144a9a2a3cc3bf089315979e",
-    "evidence/frontend/browser-upload.png": "3df169d291df582a21bbee29d964ffce3c82bcd9d1bb034e345087c2d2c1eb20",
+    "evidence/frontend/browser-upload.png": "14fafad8a061bb2ac8cf791ac8526f7f7cb18ff9c22b20fbdf910b8b0f2f4333",
     "evidence/frontend/browser-submit-failure.png": "c79a411c754005b6a2cc6a3153551923c331b644db1db5f5522ab4ab956aec72",
-    "evidence/frontend/browser-submit.png": "e2594c35374a63647ab463c807e55307c2eb0aab976008a236967276782712ef",
+    "evidence/frontend/browser-submit.png": "b3eeaadbf1d9fd8ff8dc13095c5e97f4247107b2a8b364f216ac7a3a55edbb9b",
     "evidence/frontend/browser-planned.png": "f4b536fb82591f12b60b8e9b2c2ef860189801f873c0c918294ceb7de8c711e6"
   },
   "status": "passed"

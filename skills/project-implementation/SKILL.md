@@ -43,5 +43,6 @@ description: Implement and verify a complete project from an approved functional
 - Keep external integrations behind adapters and expose contract-declared unavailable behavior when configuration is absent.
 - Separate visual fidelity from business acceptance; satisfy both when required.
 - Treat runner-computed completion and campaign-owned integration observation as authoritative.
+- Machine verification judges observable outcomes and evidence only — never implementation choices. This skill's guidance tells you how to proceed; frameworks, code organization, and internal patterns remain yours. A gate that prescribes how code must be written, rather than what must be observably true, is out of contract.
 
 Detailed output, evidence, binding, BMAD, browser, placeholder, lock, and campaign contracts live only in [input-contract.md](references/input-contract.md) and [campaign-contract.md](references/campaign-contract.md).

@@ -34,6 +34,10 @@ npm test
 npm run skill:check
 ```
 
+## 验证边界（宪法条款）
+
+验证体系只裁决可观察结果与证据（值到达请求、数量对齐、资源互异、回填相等、外部调用由 campaign 独立观察），永不检查实现方式；SKILL 提供实现指引，框架选择与代码组织属于实现 agent。任何"规定代码写法"而非"规定可观察性质"的闸门都违反本契约。
+
 ## Quantity integrity and independent media
 
 Capabilities producing independent media collections (`itemContract.mode: 'independent-media'`) are enforced at runtime: the browser must submit a non-default quantity; request quantity, response length, visible element count, and provider-call count must agree; and every item URL must fetch a distinct file (unique id, unique URL, distinct byte digest). `deliveryStatus: simulated-verified` is a prerequisite qualification for capabilities with an external `providerContract`; the completion declaration requires campaign-qualified `integrated` evidence. Content-level collages (N images each internally a grid) are bounded by provider `perCallConstraints`, integrated observation, and manual spot-check rather than mechanical detection.

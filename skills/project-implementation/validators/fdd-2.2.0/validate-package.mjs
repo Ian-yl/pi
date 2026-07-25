@@ -346,6 +346,14 @@ function resultDestinationFindings(cap, frontend, inputFieldTypes) {
     if (!regions.has(destination.targetRegion)) findings.push(`capability ${cap.id} resultDestination targets an unrecognized release region: ${destination.targetRegion}`);
     if (!(destination.bindings || []).length) findings.push(`capability ${cap.id} region resultDestination has no response-bound result elements`);
     for (const binding of destination.bindings || []) if (!binding.responsePath?.startsWith('response.') || !schemaHasPath(cap.outputSchema, binding.responsePath.replace(/^response\./, ''))) findings.push(`capability ${cap.id} result binding references an unknown response path: ${binding.responsePath}`);
+    // Cross-enforcement (Issue-A family: a conditional gate must not be evadable by omitting the whole
+    // contract). An independent external-item collection MUST carry an itemContract — either declared
+    // explicitly by a provider that emits independent items, or implied by a quantity-driven collection
+    // produced through a provider. Omitting the itemContract cannot silently deactivate the runtime gate.
+    const emitsIndependentItems = (cap.operations || []).some((operation) => operation.providerContract?.outputMode === 'independent-items');
+    const bindsArrayCollection = (destination.bindings || []).some((binding) => binding.responsePath?.startsWith('response.') && schemaNodeAtPath(cap.outputSchema, binding.responsePath.replace(/^response\./, ''))?.type === 'array');
+    const quantityDrivenProviderCollection = Boolean(cap.finalProduct?.quantity || cap.aggregateSubmission?.finalProduct?.quantity) && bindsArrayCollection && (cap.operations || []).some((operation) => operation.providerContract);
+    if (!destination.itemContract && (emitsIndependentItems || quantityDrivenProviderCollection)) findings.push(`capability ${cap.id} produces a quantity-driven independent external-item collection but omits resultDestination.itemContract — the independence contract cannot be omitted`);
     if (destination.itemContract) findings.push(...itemContractFindings(cap, destination));
   } else if (destination.targetKind === 'field') {
     if (!destination.targetFieldId || !inputFieldTypes.has(destination.targetFieldId)) findings.push(`capability ${cap.id} field-assist resultDestination targets an unknown input field: ${destination.targetFieldId}`);
