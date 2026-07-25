@@ -3,6 +3,7 @@ import { createHash } from 'node:crypto';
 import { cpSync, existsSync, mkdirSync, readdirSync, readFileSync, rmSync, writeFileSync } from 'node:fs';
 import { spawnSync } from 'node:child_process';
 import { resolve } from 'node:path';
+import { completeBmad } from './fixtures/bmad-completion.mjs';
 
 const piRoot = resolve(import.meta.dirname, '../..');
 const fddRoot = resolve(process.env.FDD_HARNESS_ROOT || `${piRoot}/test-support/functional-domain-design`);
@@ -50,6 +51,7 @@ writeJSON(`${implementation}/package.json`, { private: true, type: 'module', scr
 writeProvenance();
 completeBmad(implementation);
 if (!headlessOnly) writeFrontendContracts();
+if (!headlessOnly) writeCampaignCandidate();
 
 run(`${piRoot}/scripts/finalize-implementation.mjs`, ['--dir', implementation]);
 run(`${piRoot}/scripts/verify-implementation.mjs`, [implementation, '--require-level', 'simulated']);
@@ -84,8 +86,38 @@ function writeBrowserTest(data) {
 
 function writeBackendImplementation() {
   const submitOperation = submit?.operations?.[0]; const uploadOperation = upload?.operations?.[0];
-  const source = `import {createHash,randomUUID} from 'node:crypto';import {createServer} from 'node:http';import {readFileSync} from 'node:fs';const web=readFileSync(new URL('../web/pages/submission/index.html',import.meta.url));const icon=readFileSync(new URL('../web/pages/submission/assets/icon.svg',import.meta.url));const readBody=request=>new Promise(resolve=>{const chunks=[];request.on('data',chunk=>chunks.push(chunk));request.on('end',()=>resolve(Buffer.concat(chunks)))});function multipartFile(bytes,contentType){const boundary=contentType.match(/boundary=([^;]+)/i)?.[1];if(!boundary)return bytes;const marker=Buffer.from('\\r\\n--'+boundary);const headerEnd=bytes.indexOf(Buffer.from('\\r\\n\\r\\n'));return headerEnd<0?bytes:bytes.subarray(headerEnd+4,bytes.indexOf(marker,headerEnd+4))}export async function uploadResource(request,response){const bytes=await readBody(request);if(new URL(request.url,'http://local').searchParams.has('fail'))return json(response,422,{error:'INVALID_INPUT'});const file=multipartFile(bytes,String(request.headers['content-type']||''));const checksum=createHash('sha256').update(file).digest('hex');const id='resource-'+checksum.slice(0,12);return json(response,201,{assetIds:[id],assets:[{id,status:'available',checksum}]})}export async function createSubmission(request,response){const body=JSON.parse((await readBody(request)).toString());if(body['submission-title']==='brand-icon')return json(response,422,{error:'INVALID_INPUT'});const count=Number(body['result-quantity']);if(!Array.isArray(body[${JSON.stringify(submitOperation?.dataDependencies?.[0]?.targetField?.replace(/^request\./, '') || 'resourceIds')}])||!count)return json(response,422,{error:'INVALID_INPUT'});const submissionId='submission-'+randomUUID().slice(0,8);return json(response,201,{submissionId,status:'succeeded',items:Array.from({length:count},(_,index)=>'/media/'+submissionId+'-'+(index+1)+'.txt')})}function json(response,status,value){response.writeHead(status,{'content-type':'application/json'});response.end(JSON.stringify(value))}createServer(async(request,response)=>{const path=new URL(request.url,'http://local').pathname;if(path==='/health')return json(response,200,{ok:true});if(path===${JSON.stringify(uploadOperation?.path)}&&request.method==='POST')return uploadResource(request,response);if(path===${JSON.stringify(submitOperation?.path)}&&request.method==='POST')return createSubmission(request,response);if(path.startsWith('/media/')){response.writeHead(200,{'content-type':'text/plain; charset=utf-8'});return response.end('independent-media-item:'+path.slice(7))}if(path==='/assets/icon.svg'){response.writeHead(200,{'content-type':'image/svg+xml'});return response.end(icon)}response.writeHead(200,{'content-type':'text/html; charset=utf-8'});response.end(web)}).listen(Number(process.env.PORT||4173));\n`;
+  const assetField = submitOperation?.dataDependencies?.[0]?.targetField?.replace(/^request\./, '') || 'resourceIds';
+  const providerApiOperation = (api.operations || []).find((item) => item.providerContract?.outputMode === 'independent-items');
+  const maxParallel = Number(providerApiOperation?.providerContract?.concurrency?.maxParallel) || 2;
+  // The same backend serves both levels. With no EXTERNAL_OBSERVER_URL (simulated) it self-produces the
+  // items exactly as before. With one injected (the campaign integrated level) it makes one real bounded
+  // outbound provider call per requested item, forwards the required inputs so ingress and egress value
+  // digests match, and returns each provider result as an item. Provider timeout/unavailable are exercised
+  // against isolated local fault endpoints so they never touch the campaign's concurrency observer.
+  const source = `import {createHash,randomUUID} from 'node:crypto';import {createServer} from 'node:http';import {readFileSync} from 'node:fs';const web=readFileSync(new URL('../web/pages/submission/index.html',import.meta.url));const icon=readFileSync(new URL('../web/pages/submission/assets/icon.svg',import.meta.url));const APP_PORT=Number(process.env.PORT||4173);const INTEGRATION_SINK='/__integration_sink';const INTEGRATION_UNAVAILABLE='/__integration_unavailable';const PROVIDER_MAX_PARALLEL=${maxParallel};const readBody=request=>new Promise(resolve=>{const chunks=[];request.on('data',chunk=>chunks.push(chunk));request.on('end',()=>resolve(Buffer.concat(chunks)))});function multipartFile(bytes,contentType){const boundary=contentType.match(/boundary=([^;]+)/i)?.[1];if(!boundary)return bytes;const marker=Buffer.from('\\r\\n--'+boundary);const headerEnd=bytes.indexOf(Buffer.from('\\r\\n\\r\\n'));return headerEnd<0?bytes:bytes.subarray(headerEnd+4,bytes.indexOf(marker,headerEnd+4))}async function mapPool(total,limit,worker){const out=new Array(total);let next=0;async function run(){while(next<total){const index=next++;out[index]=await worker(index)}}await Promise.all(Array.from({length:Math.min(limit,total)},()=>run()));return out}async function callProvider(url,inputs,challenge,timeoutMs){let res;try{res=await fetch(url,{method:'POST',headers:Object.assign({'content-type':'application/json'},challenge?{'x-validation-challenge':challenge}:{}),body:JSON.stringify({inputs}),signal:timeoutMs?AbortSignal.timeout(timeoutMs):undefined})}catch(error){throw{kind:(error&&(error.name==='TimeoutError'||error.name==='AbortError'))?'timeout':'unavailable'}}if(res.status<200||res.status>=300)throw{kind:'unavailable'};const data=await res.json();if(!data||!data.externalResultId)throw{kind:'unavailable'};return data.externalResultId}export async function uploadResource(request,response){const bytes=await readBody(request);if(new URL(request.url,'http://local').searchParams.has('fail'))return json(response,422,{error:'INVALID_INPUT'});const file=multipartFile(bytes,String(request.headers['content-type']||''));const checksum=createHash('sha256').update(file).digest('hex');const id='resource-'+checksum.slice(0,12);return json(response,201,{assetIds:[id],assets:[{id,status:'available',checksum}]})}export async function createSubmission(request,response){const query=new URL(request.url,'http://local').searchParams;const body=JSON.parse((await readBody(request)).toString());if(body['submission-title']==='brand-icon')return json(response,422,{error:'INVALID_INPUT'});const count=Number(body['result-quantity']);const inputs=body[${JSON.stringify(assetField)}];if(!Array.isArray(inputs)||!count)return json(response,422,{error:'INVALID_INPUT'});const observer=process.env.EXTERNAL_OBSERVER_URL;if(observer){const challenge=process.env.VALIDATION_CHALLENGE_ID;const scenario=query.get('integrationScenario');if(scenario==='timeout'){try{await callProvider('http://127.0.0.1:'+APP_PORT+INTEGRATION_SINK,inputs,challenge,50)}catch(error){return json(response,504,{error:'PROVIDER_'+String(error.kind).toUpperCase()})}return json(response,504,{error:'PROVIDER_TIMEOUT'})}if(scenario==='unavailable'){try{await callProvider('http://127.0.0.1:'+APP_PORT+INTEGRATION_UNAVAILABLE,inputs,challenge)}catch(error){return json(response,503,{error:'PROVIDER_'+String(error.kind).toUpperCase()})}return json(response,503,{error:'PROVIDER_UNAVAILABLE'})}let items;try{items=await mapPool(count,PROVIDER_MAX_PARALLEL,()=>callProvider(observer,inputs,challenge,10000))}catch(error){return json(response,503,{error:'PROVIDER_'+String(error&&error.kind?error.kind:'unavailable').toUpperCase()})}const submissionId='submission-'+randomUUID().slice(0,8);return json(response,201,{submissionId,status:'succeeded',items})}const submissionId='submission-'+randomUUID().slice(0,8);return json(response,201,{submissionId,status:'succeeded',items:Array.from({length:count},(_,index)=>'/media/'+submissionId+'-'+(index+1)+'.txt')})}function json(response,status,value){response.writeHead(status,{'content-type':'application/json'});response.end(JSON.stringify(value))}createServer(async(request,response)=>{const path=new URL(request.url,'http://local').pathname;if(path==='/health')return json(response,200,{ok:true});if(path===INTEGRATION_SINK)return;if(path===INTEGRATION_UNAVAILABLE){response.writeHead(503,{'content-type':'application/json'});return response.end(JSON.stringify({error:'unavailable'}))}if(path===${JSON.stringify(uploadOperation?.path)}&&request.method==='POST')return uploadResource(request,response);if(path===${JSON.stringify(submitOperation?.path)}&&request.method==='POST')return createSubmission(request,response);if(path.startsWith('/media/')){response.writeHead(200,{'content-type':'text/plain; charset=utf-8'});return response.end('independent-media-item:'+path.slice(7))}if(path==='/assets/icon.svg'){response.writeHead(200,{'content-type':'image/svg+xml'});return response.end(icon)}response.writeHead(200,{'content-type':'text/html; charset=utf-8'});response.end(web)}).listen(APP_PORT);\n`;
   writeFileSync(`${implementation}/backend/server.mjs`, source);
+}
+
+// Turn the implemented golden into a runnable campaign candidate: the campaign re-prepares a clean
+// workspace and copies only these (non-protected) files, then runs campaign-setup.mjs (install) to complete
+// the fresh BMAD stories and drop replaced business-sample templates in place. integratedAppEnv routes the
+// application's external calls through the campaign observer with the challenge; integratedE2e drives the
+// journey only through the observed ingress.
+function writeCampaignCandidate() {
+  cpSync(`${fixtures}/bmad-completion.mjs`, `${implementation}/bmad-completion.mjs`);
+  cpSync(`${fixtures}/campaign-setup.mjs`, `${implementation}/campaign-setup.mjs`);
+  cpSync(`${fixtures}/integrated-e2e.mjs`, `${implementation}/tests/integrated-e2e.mjs`);
+  writeJSON(`${implementation}/campaign-contract.json`, {
+    copy: ['backend', 'web', 'tests', 'migrations', 'Dockerfile', 'package.json', 'control-bindings.json', 'interaction-manifest.json', 'implementation-provenance.json', 'placeholder-resolution.json', 'frontend-runtime-config.json', 'campaign-setup.mjs', 'bmad-completion.mjs'],
+    install: [{ command: 'node', args: ['campaign-setup.mjs'], cwd: '.' }],
+    runtime: {
+      app: { command: 'node', args: ['backend/server.mjs'], env: { PORT: '${APP_PORT}' } },
+      integratedAppEnv: { EXTERNAL_OBSERVER_URL: '${EXTERNAL_OBSERVER_URL}', VALIDATION_CHALLENGE_ID: '${VALIDATION_CHALLENGE_ID}' },
+      healthUrl: 'http://127.0.0.1:${APP_PORT}/health',
+      startupTimeoutMs: 15000,
+      integratedE2e: { command: 'node', args: ['tests/integrated-e2e.mjs'], env: { BASE_URL: '${OBSERVED_BASE_URL}' }, timeoutMs: 60000 },
+    },
+  });
 }
 
 function writeUnitEvidence() {
@@ -113,33 +145,6 @@ function writeFrontendContracts() {
   const resolution = readJSON(`${implementation}/placeholder-resolution.json`); resolution.status = 'implemented'; for (const item of resolution.items) if (item.resolution === 'pending') item.resolution = ({ 'api-data': 'replaced-by-api-data', 'user-input': 'replaced-by-user-input', 'empty-state': 'converted-to-empty-state' })[item.requiredReplacement]; resolution.items.push({ id: `placeholder-${submit.id}`, capabilityId: submit.id, classification: 'visual-placeholder', resolution: 'replaced-by-api-data', states: { empty: true, loading: true, error: true, success: true }, evidenceId: 'browser-submit' }, { id: `placeholder-${upload.id}`, capabilityId: upload.id, classification: 'visual-placeholder', resolution: 'replaced-by-user-input', evidenceId: 'browser-upload' }); writeJSON(`${implementation}/placeholder-resolution.json`, resolution);
 }
 
-function completeBmad(dir) {
-  const trace = readJSON(`${dir}/bmad-traceability.json`);
-  const units = new Map((readJSON(`${dir}/implementation-plan.json`).units || []).map((unit) => [unit.id, unit]));
-  const provenanceFiles = new Map((readJSON(`${dir}/implementation-provenance.json`).operationSources || []).map((source) => [source.operationId, (source.files || []).map((location) => location.path)]));
-  const records = [];
-  for (const story of trace.stories) {
-    const file = `${dir}/${trace.output}/${story.storyPath}`;
-    const original = readFileSync(file, 'utf8');
-    const changedFiles = unitChangedFiles(dir, units.get(story.unitId) || {}, provenanceFiles);
-    const acceptance = ([...original.matchAll(/- \[[ x]\] (.+)/g)].map((match) => match[1].trim())[0]) || 'Unit contract is implemented';
-    const completed = original.replace('Status: ready-for-dev', 'Status: done').replaceAll('- [ ]', '- [x]') + `\n## Dev Agent Record\n\n- Agent: golden-dev\n- Status: completed\n- Files: ${changedFiles.map((path) => `\`${path}\``).join(', ')}\n\n## Code Review Record\n\n- Reviewer: golden-reviewer\n- Status: approved\n- Verified acceptance: ${acceptance}\n`;
-    writeFileSync(file, completed);
-    records.push({ unitId: story.unitId, storyId: story.storyId, storyDigest: sha(completed), devStory: { status: 'completed', agentId: 'golden-dev', completedAt: '2026-01-01T00:00:00.000Z', changedFiles }, codeReview: { status: 'approved', reviewerAgentId: 'golden-reviewer', reviewedAt: '2026-01-01T00:01:00.000Z' } });
-  }
-  const sprint = `${dir}/${trace.output}/implementation-artifacts/sprint-status.yaml`;
-  writeFileSync(sprint, readFileSync(sprint, 'utf8').replaceAll('ready-for-dev', 'done'));
-  writeJSON(`${dir}/bmad-completion.json`, { schemaVersion: '1.0', status: 'completed', records });
-}
-function unitChangedFiles(dir, unit, provenanceFiles) {
-  const fromProvenance = [...new Set((unit.operationIds || []).flatMap((id) => provenanceFiles.get(id) || []))];
-  if (fromProvenance.length) return fromProvenance;
-  const type = String(unit.type || '');
-  if (type.startsWith('ui-') && existsSync(`${dir}/web/pages/submission/index.html`)) return ['web/pages/submission/index.html'];
-  if (['persistence', 'consistency'].includes(type)) return ['migrations/001-submissions.sql'];
-  if (type === 'e2e' && existsSync(`${dir}/tests/browser-runtime.mjs`)) return ['tests/browser-runtime.mjs'];
-  return ['backend/server.mjs'];
-}
 function convertToHeadless(dir) { const spec = readJSON(`${dir}/functional-spec.json`); spec.capabilities = spec.capabilities.filter((item) => item.specificationStatus === 'complete'); for (const capability of spec.capabilities) capability.presentation = { mode: 'headless' }; const ids = new Set(spec.capabilities.map((item) => item.id)); spec.journeys = (spec.journeys || []).map((journey) => ({ ...journey, capabilityIds: journey.capabilityIds.filter((id) => ids.has(id)), operationIds: journey.operationIds.filter((id) => spec.capabilities.some((capability) => capability.operations.some((operation) => operation.id === id))), steps: journey.steps.filter((step) => ids.has(step.capabilityId)) })); writeJSON(`${dir}/functional-spec.json`, spec); const definitions = readJSON(`${dir}/capability-definitions.json`); definitions.capabilities = spec.capabilities; definitions.journeys = spec.journeys; writeJSON(`${dir}/capability-definitions.json`, definitions); const map = readJSON(`${dir}/page-function-map.json`); for (const page of map.pages) page.capabilityIds = page.capabilityIds.filter((id) => ids.has(id)); writeJSON(`${dir}/page-function-map.json`, map); const controls = readJSON(`${dir}/control-capability-map.json`); controls.mappings = controls.mappings.filter((item) => ids.has(item.capabilityId)); writeJSON(`${dir}/control-capability-map.json`, controls); const manifest = readJSON(`${dir}/manifest.json`); manifest.deliveryMode = 'complete'; manifest.productCompletionClaim = 'complete'; manifest.capabilitySummary = { ...manifest.capabilitySummary, total: spec.capabilities.length, complete: spec.capabilities.length, planned: 0 }; writeJSON(`${dir}/manifest.json`, manifest); }
 function inputHtml(item) { const field = item.requestPath.replace(/^body\./, ''); return `<label>${item.controlId}<input id="${item.controlId}" data-vr-id="${releaseControlByInput.get(field) || field}" data-domain-input-id="${field}"></label>`; }
 function convertToHeadlessPreservingContracts(dir) {

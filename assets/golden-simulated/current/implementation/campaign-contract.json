@@ -1,0 +1,53 @@
+{
+  "copy": [
+    "backend",
+    "web",
+    "tests",
+    "migrations",
+    "Dockerfile",
+    "package.json",
+    "control-bindings.json",
+    "interaction-manifest.json",
+    "implementation-provenance.json",
+    "placeholder-resolution.json",
+    "frontend-runtime-config.json",
+    "campaign-setup.mjs",
+    "bmad-completion.mjs"
+  ],
+  "install": [
+    {
+      "command": "node",
+      "args": [
+        "campaign-setup.mjs"
+      ],
+      "cwd": "."
+    }
+  ],
+  "runtime": {
+    "app": {
+      "command": "node",
+      "args": [
+        "backend/server.mjs"
+      ],
+      "env": {
+        "PORT": "${APP_PORT}"
+      }
+    },
+    "integratedAppEnv": {
+      "EXTERNAL_OBSERVER_URL": "${EXTERNAL_OBSERVER_URL}",
+      "VALIDATION_CHALLENGE_ID": "${VALIDATION_CHALLENGE_ID}"
+    },
+    "healthUrl": "http://127.0.0.1:${APP_PORT}/health",
+    "startupTimeoutMs": 15000,
+    "integratedE2e": {
+      "command": "node",
+      "args": [
+        "tests/integrated-e2e.mjs"
+      ],
+      "env": {
+        "BASE_URL": "${OBSERVED_BASE_URL}"
+      },
+      "timeoutMs": 60000
+    }
+  }
+}

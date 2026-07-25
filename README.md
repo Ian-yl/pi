@@ -10,7 +10,13 @@ Skill 入口：[skills/project-implementation/SKILL.md](skills/project-implement
 npm run implementation:prepare -- --functional <approved-functional-package> --handoff <approved-implementation-handoff> --output <implementation-workspace>
 npm run implementation:finalize -- --dir <implementation-workspace>
 npm run implementation:verify -- <implementation-workspace> --require-level simulated
+
+# Independently re-verify a candidate (with a campaign-contract.json) through the full campaign:
+# fresh prepare -> candidate copy -> observed integrated E2E -> finalize -> integrated verify.
+npm run implementation:campaign -- --functional <approved-functional-package> --handoff <approved-implementation-handoff> --candidate <candidate-root> --output <campaign-output> --level integrated
 ```
+
+For a capability carrying an external `providerContract`, `--require-level integrated` (or the campaign at `--level integrated`) is what promotes it from `simulated-verified` to a completion declaration: the campaign observer proxies the application's real per-item outbound provider calls and enforces the count/concurrency/binding equalities from its own observation. `assets/golden-simulated/` is a runnable candidate that passes this integrated qualification end to end.
 
 Prepare 还会生成非证据性的 `implementation-worklist.json`，推荐按 release 原生控件逐条完成接线。
 

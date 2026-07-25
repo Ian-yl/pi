@@ -5,7 +5,7 @@ import { spawn, spawnSync } from 'node:child_process';
 import { createServer } from 'node:net';
 import { createServer as createHttpServer, request as httpRequest } from 'node:http';
 import { dirname, relative, resolve } from 'node:path';
-import { independentItemsCampaignFindings, maxCollectionLength } from './lib/campaign-independence.mjs';
+import { concurrencyFindings, independentItemsCampaignFindings, maxCollectionLength, visualAuditFindings } from './lib/campaign-independence.mjs';
 
 const args = parseArgs(process.argv.slice(2));
 for (const key of ['functional', 'candidate', 'output']) if (!args[key]) usage();
@@ -96,7 +96,8 @@ for (let index = 1; index <= count; index += 1) {
     const observations = [];
     const externalObservations = [];
     const observer = level === 'integrated' ? await startObserver(observerPort, appPort, observations, challengeId) : null;
-    const externalObserver = level === 'integrated' ? await startExternalObserver(externalObserverPort, externalObservations, challengeId) : null;
+    const concurrencyState = { inFlight: 0, maxInFlight: 0 };
+    const externalObserver = level === 'integrated' ? await startExternalObserver(externalObserverPort, externalObservations, challengeId, concurrencyState, 200) : null;
     const providerChunks = [];
     const appChunks = [];
     provider?.stdout.on('data', (chunk) => providerChunks.push(chunk)); provider?.stderr.on('data', (chunk) => providerChunks.push(chunk));
@@ -109,7 +110,9 @@ for (let index = 1; index <= count; index += 1) {
       if (level === 'integrated' && !Object.values(runtime.integratedAppEnv || {}).some((value) => String(value).includes('${EXTERNAL_OBSERVER_URL}'))) throw new Error('integratedAppEnv must route application external calls through ${EXTERNAL_OBSERVER_URL}');
       if (level === 'integrated' && [...(e2e.args || []), ...Object.values(e2e.env || {})].some((value) => /EXTERNAL_OBSERVER_URL|VALIDATION_CHALLENGE_ID/.test(String(value)))) throw new Error('integrated E2E must not receive application-only external observer credentials');
       const e2eArgs = (e2e.args || []).map((value) => expand(value, variables));
-      const result = spawnSync(e2e.command, e2eArgs, { cwd: resolve(destination, e2e.cwd || '.'), encoding: 'utf8', env: expandedEnv(e2e.env, variables), timeout: Number(e2e.timeoutMs || 120000) });
+      // Must be async: the ingress and external observers run in this process, so a synchronous child
+      // would block the event loop and the observers could never answer the application's traffic.
+      const result = await spawnCollect(e2e.command, e2eArgs, { cwd: resolve(destination, e2e.cwd || '.'), env: expandedEnv(e2e.env, variables), timeoutMs: Number(e2e.timeoutMs || 120000) });
       const e2eCommand = `${e2e.command} ${e2eArgs.join(' ')}`;
       writeFileSync(`${runDir}/logs/browser-e2e.log`, `$ ${e2eCommand}\n${result.stdout || ''}${result.stderr || ''}`);
       steps.push({ id: 'runtime-browser-e2e', status: result.status === 0 ? 'passed' : 'failed', durationMs: Date.now() - before, command: e2eCommand, log: 'logs/browser-e2e.log' });
@@ -127,15 +130,24 @@ for (let index = 1; index <= count; index += 1) {
           return { operationId, source: binding.source, target, required: binding.required !== false, sourceValueDigest: sourceDigest || null, targetValueDigest: targetDigest || null, observed: Boolean(sourceDigest && sourceDigest === targetDigest) };
         });
         const independentItemsFindings = independentItemsCampaignFindings(operation, ingress, externalObservations, challengeId);
+        const externalCalls = externalObservations.filter((item) => item.challengeId === challengeId && item.status >= 200 && item.status < 300 && ingress && item.observedAt >= ingress.startedAt && item.observedAt <= ingress.observedAt);
+        const quantity = Number.isFinite(Number(ingress?.responseCollectionLength)) ? Number(ingress.responseCollectionLength) : externalCalls.length;
+        const concurrencyResults = concurrencyFindings(operation?.providerContract, quantity, concurrencyState.maxInFlight);
+        const samplingSheet = externalCalls.map((item) => ({ digest: item.externalResultId }));
+        writeFileSync(`${destination}/visual-sampling-sheet.json`, `${JSON.stringify({ schemaVersion: '1.0', operationId, challengeId, maxInFlight: concurrencyState.maxInFlight, items: samplingSheet }, null, 2)}\n`);
+        const auditReceipt = existsSync(`${destination}/visual-audit-receipt.json`) ? readJSON(`${destination}/visual-audit-receipt.json`) : null;
+        const visualResults = visualAuditFindings(samplingSheet, auditReceipt);
         const ingressPassed = Boolean(ingress);
         const egressPassed = Boolean(egress);
         const bindingsPassed = integrationBindingEvidence.every((item) => !item.required || item.observed);
-        const passed = ingressPassed && egressPassed && bindingsPassed && !independentItemsFindings.length;
-        writeFileSync(`${destination}/operation-observation-receipt.json`, `${JSON.stringify({ schemaVersion: '1.3', generatedBy: 'project-implementation/validation-campaign-observer', operationId, challengeId, status: passed ? 'passed' : 'failed', observations, externalObservations, integrationBindingEvidence, independentItemsFindings }, null, 2)}\n`);
+        const passed = ingressPassed && egressPassed && bindingsPassed && !independentItemsFindings.length && !concurrencyResults.length && !visualResults.length;
+        writeFileSync(`${destination}/operation-observation-receipt.json`, `${JSON.stringify({ schemaVersion: '1.4', generatedBy: 'project-implementation/validation-campaign-observer', operationId, challengeId, status: passed ? 'passed' : 'failed', maxInFlight: concurrencyState.maxInFlight, observations, externalObservations, integrationBindingEvidence, independentItemsFindings, concurrencyFindings: concurrencyResults, visualAuditFindings: visualResults }, null, 2)}\n`);
         if (!ingressPassed) throw new Error(`${runId}/observer did not capture the integrated application operation`);
         if (!egressPassed) throw new Error(`${runId}/external observer did not capture an application-originated integration call with the campaign challenge`);
         if (!bindingsPassed) throw new Error(`${runId}/external observer did not prove all required operation integration bindings`);
         if (independentItemsFindings.length) throw new Error(`${runId}/${independentItemsFindings[0]}`);
+        if (concurrencyResults.length) throw new Error(`${runId}/${concurrencyResults[0]}`);
+        if (visualResults.length) throw new Error(`${runId}/${visualResults[0]}`);
       }
     } finally {
       app.kill('SIGTERM'); provider?.kill('SIGTERM'); observer?.close(); externalObserver?.close();
@@ -174,11 +186,24 @@ function fileDigest(path) { return createHash('sha256').update(readFileSync(path
 function treeDigest(dir) { const hash = createHash('sha256'); for (const file of walk(dir)) hash.update(file.slice(dir.length + 1)).update('\0').update(readFileSync(file)).update('\0'); return hash.digest('hex'); }
 function walk(dir) { return readdirSync(dir, { withFileTypes: true }).flatMap((entry) => { const path = `${dir}/${entry.name}`; return entry.isDirectory() ? walk(path) : statSync(path).isFile() ? [path] : []; }).sort(); }
 function start(spec, destination, variables) { return spawn(spec.command, (spec.args || []).map((value) => expand(value, variables)), { cwd: resolve(destination, spec.cwd || '.'), env: expandedEnv(spec.env, variables), stdio: ['ignore', 'pipe', 'pipe'] }); }
+function spawnCollect(command, args, { cwd, env, timeoutMs }) {
+  return new Promise((resolveResult) => {
+    const child = spawn(command, args, { cwd, env, stdio: ['ignore', 'pipe', 'pipe'] });
+    const out = []; const err = [];
+    child.stdout.on('data', (chunk) => out.push(chunk)); child.stderr.on('data', (chunk) => err.push(chunk));
+    const timer = setTimeout(() => { err.push(Buffer.from(`\nintegrated E2E exceeded ${timeoutMs}ms`)); child.kill('SIGKILL'); }, timeoutMs);
+    child.on('error', (error) => { clearTimeout(timer); resolveResult({ status: null, stdout: Buffer.concat(out).toString(), stderr: `${Buffer.concat(err).toString()}${error.message}` }); });
+    child.on('close', (code) => { clearTimeout(timer); resolveResult({ status: code, stdout: Buffer.concat(out).toString(), stderr: Buffer.concat(err).toString() }); });
+  });
+}
 function expandedEnv(values = {}, variables) { return { ...process.env, ...Object.fromEntries(Object.entries(values).map(([key, value]) => [key, expand(String(value), variables)])) }; }
 function expand(value, variables) { return String(value).replace(/\$\{([A-Z_]+)\}/g, (_, key) => variables[key] ?? `\${${key}}`); }
 function freePort() { return new Promise((resolvePort, reject) => { const server = createServer(); server.once('error', reject); server.listen(0, '127.0.0.1', () => { const address = server.address(); server.close(() => resolvePort(address.port)); }); }); }
 function startObserver(port, targetPort, observations, challengeId) { return new Promise((resolveServer, reject) => { const server = createHttpServer((incoming, outgoing) => { const chunks = []; const startedAt = Date.now(); incoming.on('data', (chunk) => chunks.push(chunk)); incoming.on('end', () => { const requestBody = Buffer.concat(chunks); const upstream = httpRequest({ hostname: '127.0.0.1', port: targetPort, path: incoming.url, method: incoming.method, headers: { ...incoming.headers, 'x-validation-challenge': challengeId } }, (response) => { const responseChunks = []; outgoing.writeHead(response.statusCode || 502, response.headers); response.on('data', (chunk) => { responseChunks.push(chunk); outgoing.write(chunk); }); response.on('end', () => { outgoing.end(); const body = Buffer.concat(responseChunks); observations.push({ challengeId, method: incoming.method, path: new URL(incoming.url, 'http://observer').pathname, status: response.statusCode, startedAt, observedAt: Date.now(), requestDigest: createHash('sha256').update(requestBody).digest('hex'), requestValueDigests: jsonValueDigests(requestBody, 'request'), responseDigest: createHash('sha256').update(body).digest('hex'), responseValues: jsonScalarValues(body), responseCollectionLength: maxCollectionLength(body) }); }); }); upstream.on('error', () => { outgoing.writeHead(502); outgoing.end(); }); upstream.end(requestBody); }); }); server.once('error', reject); server.listen(port, '127.0.0.1', () => resolveServer(server)); }); }
-function startExternalObserver(port, observations, challengeId) { return new Promise((resolveServer, reject) => { const server = createHttpServer((request, response) => { const chunks = []; request.on('data', (chunk) => chunks.push(chunk)); request.on('end', () => { const requestBody = Buffer.concat(chunks); const received = request.headers['x-validation-challenge']; const matched = received === challengeId; const externalResultId = matched ? randomUUID() : null; const body = Buffer.from(JSON.stringify(matched ? { externalResultId, status: 'accepted' } : { error: 'challenge-mismatch' })); observations.push({ challengeId: received || null, method: request.method, path: new URL(request.url, 'http://external-observer').pathname, status: matched ? 200 : 403, observedAt: Date.now(), externalResultId, requestDigest: createHash('sha256').update(requestBody).digest('hex'), requestValueDigests: jsonValueDigests(requestBody, 'provider'), responseDigest: createHash('sha256').update(body).digest('hex') }); response.writeHead(matched ? 200 : 403, { 'content-type': 'application/json' }); response.end(body); }); }); server.once('error', reject); server.listen(port, '127.0.0.1', () => resolveServer(server)); }); }
+// The external observer injects a fixed delay so concurrent outbound calls deterministically overlap, and
+// records the maximum in-flight count. It never inspects business content — only counts overlap and returns
+// one distinct result id per call.
+function startExternalObserver(port, observations, challengeId, concurrency = { inFlight: 0, maxInFlight: 0 }, delayMs = 0) { return new Promise((resolveServer, reject) => { const server = createHttpServer((request, response) => { const chunks = []; request.on('data', (chunk) => chunks.push(chunk)); request.on('end', () => { const requestBody = Buffer.concat(chunks); const received = request.headers['x-validation-challenge']; const matched = received === challengeId; const externalResultId = matched ? randomUUID() : null; const body = Buffer.from(JSON.stringify(matched ? { externalResultId, status: 'accepted' } : { error: 'challenge-mismatch' })); concurrency.inFlight += 1; concurrency.maxInFlight = Math.max(concurrency.maxInFlight, concurrency.inFlight); observations.push({ challengeId: received || null, method: request.method, path: new URL(request.url, 'http://external-observer').pathname, status: matched ? 200 : 403, observedAt: Date.now(), externalResultId, requestDigest: createHash('sha256').update(requestBody).digest('hex'), requestValueDigests: jsonValueDigests(requestBody, 'provider'), responseDigest: createHash('sha256').update(body).digest('hex') }); setTimeout(() => { concurrency.inFlight -= 1; response.writeHead(matched ? 200 : 403, { 'content-type': 'application/json' }); response.end(body); }, delayMs); }); }); server.once('error', reject); server.listen(port, '127.0.0.1', () => resolveServer(server)); }); }
 function jsonScalarValues(buffer) { try { const values = []; collectScalars(JSON.parse(buffer.toString('utf8')), values); return values; } catch { return []; } }
 function collectScalars(value, values) { if (value === null || ['string', 'number', 'boolean'].includes(typeof value)) values.push(value); else if (Array.isArray(value)) for (const item of value) collectScalars(item, values); else if (value && typeof value === 'object') for (const item of Object.values(value)) collectScalars(item, values); }
 function jsonValueDigests(buffer, prefix) { try { const values = {}; collectValueDigests(JSON.parse(buffer.toString('utf8')), prefix, values); return values; } catch { return {}; } }

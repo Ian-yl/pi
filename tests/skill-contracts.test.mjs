@@ -241,17 +241,18 @@ test('finalizer rejects one catch-all case for multiple units', () => withTempIm
   assert.ok(readJson(`${dir}/implementation-manifest.json`).units.every((unit) => unit.status === 'failed'));
 }));
 
-test('generic campaign requires an explicit candidate contract', () => {
+test('generic campaign requires an explicit candidate contract', () => withCopy(implementation, (candidate) => {
+  rmSync(`${candidate}/campaign-contract.json`, { force: true });
   const result = run('project-implementation/scripts/run-validation-campaign.mjs', [
     '--functional', functional,
     '--handoff', frontend,
-    '--candidate', implementation,
+    '--candidate', candidate,
     '--output', path.join(os.tmpdir(), 'unused-campaign-output'),
     '--level', 'integrated',
   ]);
   assert.notEqual(result.status, 0);
   assert.match(result.stderr, /requires candidate campaign-contract\.json/);
-});
+}));
 
 test('integrated campaign requires an application-level integrated E2E command', () => withCopy(implementation, (candidate) => {
   writeJson(`${candidate}/campaign-contract.json`, { runtime: {} });

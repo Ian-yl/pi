@@ -59,3 +59,19 @@ test('N4: a simulated-level workspace cannot claim integrated-level completion',
   assert.notEqual(result.status, 0);
   assert.match(`${result.stdout}${result.stderr}`, /below required integrated/);
 });
+
+test('N4b: a capability carrying an external providerContract caps at simulated-verified without integrated evidence', () => {
+  const dir = mkdtempSync(path.join(os.tmpdir(), 'pi-part4-'));
+  cpSync(golden, dir, { recursive: true });
+  rmSync(path.join(dir, 'implementation-lock.json'), { force: true });
+  const result = spawnSync('node', [path.join(root, 'scripts/verify-implementation.mjs'), dir, '--require-level', 'simulated'], { encoding: 'utf8' });
+  assert.equal(result.status, 0, `${result.stdout}${result.stderr}`);
+  const completion = readJSON(path.join(dir, 'capability-completion-report.json'));
+  const api = readJSON(path.join(dir, 'inputs/handoff-api-contract.json'));
+  const externalCapabilityId = api.operations.find((operation) => operation.providerContract).capabilityId;
+  const external = completion.capabilities.find((capability) => capability.capabilityId === externalCapabilityId);
+  assert.equal(external.status, 'simulated-verified', 'external-provider capability must not be terminally implemented on simulated evidence alone');
+  assert.equal(external.requiresIntegrated, true);
+  assert.equal(completion.productStatus, 'simulated-verified');
+  rmSync(dir, { recursive: true, force: true });
+});

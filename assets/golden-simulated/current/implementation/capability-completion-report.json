@@ -1,15 +1,16 @@
 {
   "schemaVersion": "1.1",
   "generatedBy": "project-implementation/verify-implementation",
-  "productStatus": "delivered-with-planned-capabilities",
+  "productStatus": "simulated-verified",
   "counts": {
-    "implemented": 2,
-    "planned": 1
+    "implemented": 1,
+    "planned": 1,
+    "simulatedVerified": 1
   },
   "capabilities": [
     {
       "capabilityId": "cap-submission-submit-submission",
-      "status": "implemented",
+      "status": "simulated-verified",
       "unitIds": [
         "capability-cap-submission-submit-submission",
         "presentation-cap-submission-submit-submission",
@@ -25,7 +26,8 @@
         "external-effect-create-submission-submit-submission",
         "journey-journey-submission"
       ],
-      "frontendRequired": true
+      "frontendRequired": true,
+      "requiresIntegrated": true
     },
     {
       "capabilityId": "cap-submission-upload-resource",
@@ -40,7 +42,8 @@
         "resource-transfer-upload-submission-upload-resource",
         "journey-journey-submission"
       ],
-      "frontendRequired": true
+      "frontendRequired": true,
+      "requiresIntegrated": false
     },
     {
       "capabilityId": "cap-submission-planned-export",
@@ -48,7 +51,8 @@
       "unitIds": [
         "planned-capability-cap-submission-planned-export"
       ],
-      "frontendRequired": true
+      "frontendRequired": true,
+      "requiresIntegrated": false
     }
   ]
 }

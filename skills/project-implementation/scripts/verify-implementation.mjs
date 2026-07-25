@@ -76,6 +76,8 @@ if (manifest.verificationLevel !== 'simulated') {
       else try { structuredEvidence[kind].push(readJSON(file)); } catch { errors.push(`integrated evidence artifact is not valid JSON: ${artifact}`); }
     }
   }
+  structuredEvidence.dataFlowEvidence = Array.isArray(integration.dataFlowEvidence) ? integration.dataFlowEvidence : [];
+  structuredEvidence.integrationBindingEvidence = Array.isArray(integration.integrationBindingEvidence) ? integration.integrationBindingEvidence : [];
   const contractOperation = (api.operations || api.endpoints || []).find((item) => (item.id || item.operationId) === integration.operationId);
   if (contractOperation) verifyStructuredIntegration(contractOperation, integration.operationId, structuredEvidence, errors);
   const integrationContract = contractOperation?.integrationVerification;
@@ -103,7 +105,8 @@ if (manifest.verificationLevel !== 'simulated') {
     const egress = observation.externalObservations?.find((item) => item.challengeId === observation.challengeId && Number(item.status) >= 200 && Number(item.status) < 300 && ingress && item.observedAt >= ingress.startedAt && item.observedAt <= ingress.observedAt && ingress.responseValues?.includes(item.externalResultId));
     const observedBindings = observation.integrationBindingEvidence || [];
     const bindingsValid = (contractOperation?.integrationBindings || []).every((binding) => observedBindings.some((record) => record.operationId === integration.operationId && record.source === binding.source && record.target === (binding.target || binding.providerField) && record.observed === true && /^[a-f0-9]{64}$/i.test(record.sourceValueDigest || '') && record.sourceValueDigest === record.targetValueDigest));
-    if (observation.schemaVersion !== '1.2' || observation.generatedBy !== 'project-implementation/validation-campaign-observer' || observation.operationId !== integration.operationId || observation.status !== 'passed' || !ingress || !egress || !bindingsValid) errors.push('campaign-owned operation observation receipt is invalid');
+    const cleanCampaignTeeth = ['independentItemsFindings', 'concurrencyFindings', 'visualAuditFindings'].every((key) => Array.isArray(observation[key]) && observation[key].length === 0);
+    if (observation.schemaVersion !== '1.4' || observation.generatedBy !== 'project-implementation/validation-campaign-observer' || observation.operationId !== integration.operationId || observation.status !== 'passed' || !Number.isInteger(observation.maxInFlight) || !cleanCampaignTeeth || !ingress || !egress || !bindingsValid) errors.push('campaign-owned operation observation receipt is invalid');
   }
 }
 const declaredUnits = new Set((plan.units || []).map((unit) => unit.id));
@@ -127,15 +130,24 @@ if (errors.length) fail(errors);
 
 const uiContractsForCompletion = uiPlan.capabilities || [];
 const frontendResults = requiresFrontendRuntime ? new Map((readJSON(`${dir}/frontend-capability-results.json`).capabilities || []).map((item) => [item.capabilityId, item])) : new Map();
+// A capability whose operation carries an external providerContract cannot be declared terminally
+// implemented on simulated evidence alone — genuinely distinct-per-item external output is only proven by a
+// campaign integrated observation of that operation. Such a capability caps at 'simulated-verified' until
+// integrated evidence covers its operation, so a simulated-only run can never masquerade as a completion.
+const externalProviderCapabilities = new Set((api.operations || []).filter((operation) => operation.providerContract).map((operation) => operation.capabilityId));
+const integratedProvenCapability = manifest.verificationLevel !== 'simulated' ? (api.operations || []).find((operation) => operation.id === integration.operationId)?.capabilityId : null;
 const capabilityCompletion = uiContractsForCompletion.map((contract) => {
   const unitIds = (plan.units || []).filter((unit) => unit.capabilityIds?.includes(contract.capabilityId)).map((unit) => unit.id); const unitsPassed = unitIds.length > 0 && unitIds.every((id) => completedUnits.has(id));
   const planned = contract.specificationStatus === 'planned';
   const frontendPassed = contract.presentation?.mode === 'headless' || frontendResults.get(contract.capabilityId)?.status === (planned ? 'planned' : 'implemented');
-  return { capabilityId: contract.capabilityId, status: unitsPassed && frontendPassed ? (planned ? 'planned' : 'implemented') : 'failed', unitIds, frontendRequired: contract.presentation?.mode !== 'headless' };
+  const requiresIntegrated = externalProviderCapabilities.has(contract.capabilityId);
+  const awaitingIntegrated = requiresIntegrated && contract.capabilityId !== integratedProvenCapability;
+  const status = !(unitsPassed && frontendPassed) ? 'failed' : planned ? 'planned' : awaitingIntegrated ? 'simulated-verified' : 'implemented';
+  return { capabilityId: contract.capabilityId, status, unitIds, frontendRequired: contract.presentation?.mode !== 'headless', requiresIntegrated };
 });
 if (capabilityCompletion.some((item) => item.status === 'failed')) fail(capabilityCompletion.filter((item) => item.status === 'failed').map((item) => `capability delivery was not proven: ${item.capabilityId} — inspect its failed bindings, operations, states, effects, and acceptance cases`));
-const productStatus = capabilityCompletion.some((item) => item.status === 'planned') ? 'delivered-with-planned-capabilities' : 'implemented';
-writeFileSync(`${dir}/capability-completion-report.json`, `${JSON.stringify({ schemaVersion: '1.1', generatedBy: 'project-implementation/verify-implementation', productStatus, counts: { implemented: capabilityCompletion.filter((item) => item.status === 'implemented').length, planned: capabilityCompletion.filter((item) => item.status === 'planned').length }, capabilities: capabilityCompletion }, null, 2)}\n`);
+const productStatus = capabilityCompletion.some((item) => item.status === 'simulated-verified') ? 'simulated-verified' : capabilityCompletion.some((item) => item.status === 'planned') ? 'delivered-with-planned-capabilities' : 'implemented';
+writeFileSync(`${dir}/capability-completion-report.json`, `${JSON.stringify({ schemaVersion: '1.1', generatedBy: 'project-implementation/verify-implementation', productStatus, counts: { implemented: capabilityCompletion.filter((item) => item.status === 'implemented').length, planned: capabilityCompletion.filter((item) => item.status === 'planned').length, simulatedVerified: capabilityCompletion.filter((item) => item.status === 'simulated-verified').length }, capabilities: capabilityCompletion }, null, 2)}\n`);
 
 const runtimeEvidenceFiles = requiresFrontendRuntime && existsSync(`${dir}/evidence/frontend`) ? walk(`${dir}/evidence/frontend`).map((file) => file.slice(dir.length + 1)) : [];
 const lockFiles = [...required, 'capability-completion-report.json', ...(bmadTraceability ? ['bmad-traceability.json'] : []), ...runtimeEvidenceFiles];
