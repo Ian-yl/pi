@@ -4,28 +4,29 @@ import { existsSync, lstatSync, readFileSync, readdirSync, realpathSync, statSyn
 import { spawnSync } from 'node:child_process';
 import { resolve } from 'node:path';
 import { schemaFindings } from './lib/json-schema.mjs';
+import { computeOperationReceipts } from './lib/operation-receipts.mjs';
 import { digestJSON, releaseDigest } from './lib/handoff.mjs';
 
 const dirArg = process.argv.slice(2).find((value) => !value.startsWith('--'));
 if (!dirArg) { console.error('Usage: verify-implementation.mjs <implementation-dir>'); process.exit(2); }
 const dir = resolve(dirArg);
 const functionalManifestPreview = existsSync(`${dir}/inputs/functional-manifest.json`) ? readJSON(`${dir}/inputs/functional-manifest.json`) : {};
-const semanticInputs = functionalManifestPreview.schemaVersion === '2.1' ? ['frontend-semantic-inventory.json', 'observed-interactions.json', 'control-capability-map.json'] : [];
-const formalFunctionalInputs = ['manifest.json', 'planning-manifest.json', 'planning-artifacts.json', 'capability-definitions.json', ...semanticInputs, 'functional-spec.json', 'page-function-map.json', 'unresolved-items.json', 'planning-review-receipt.json', 'review-receipt.json', 'package-lock.json'];
-const formalHandoffInputs = ['handoff-manifest.json', 'visual-source.json', 'release-manifest.json', 'suite-gate.json', 'visual-approval.json', 'frontend-manifest.json', 'functional-spec.json', ...semanticInputs, 'visual-controls.json', 'ui-implementation-plan.json', 'api-contract.json', 'domain-bindings.json', 'runtime-contract.json', 'handoff-review-receipt.json', 'handoff-lock.json'];
-if (process.argv.includes('--legacy') || process.argv.includes('--legacy-archive-internal')) fail(['legacy archive inspection is not a completion-verification mode; use verify-legacy-archive.mjs']);
-const legacyMode = false;
+const SCHEMA_22_SEMANTIC_FILES = ['frontend-semantic-inventory.json', 'observed-interactions.json', 'control-capability-map.json', 'asset-role-inventory.json'];
+const semanticInputs = functionalManifestPreview.schemaVersion === '2.2' ? SCHEMA_22_SEMANTIC_FILES : [];
+const evidenceInputs = ['evidence-index.json', 'evidence-dispositions.json'];
+const formalFunctionalInputs = ['manifest.json', 'planning-manifest.json', 'planning-artifacts.json', 'capability-definitions.json', ...evidenceInputs, ...semanticInputs, 'functional-spec.json', 'page-function-map.json', 'unresolved-items.json', 'planning-review-receipt.json', 'review-receipt.json', 'package-lock.json'];
+const formalHandoffInputs = ['handoff-manifest.json', 'visual-source.json', 'release-manifest.json', 'suite-gate.json', 'visual-approval.json', 'frontend-manifest.json', 'functional-spec.json', ...semanticInputs, ...(functionalManifestPreview.schemaVersion === '2.2' ? ['handoff-anchor-manifest.json'] : []), 'visual-controls.json', 'ui-implementation-plan.json', 'api-contract.json', 'domain-bindings.json', 'runtime-contract.json', 'handoff-review-receipt.json', 'handoff-lock.json'];
+if (process.argv.includes('--legacy') || process.argv.includes('--legacy-archive-internal')) fail(['legacy verification modes are unsupported; prepare a Schema 2.2 workspace']);
 const requiredLevel = optionValue('--require-level') || 'integrated';
 const levels = ['simulated', 'integrated'];
 if (!levels.includes(requiredLevel)) { console.error(`invalid verification level: ${requiredLevel}`); process.exit(2); }
-const hasUiPlan = existsSync(`${dir}/inputs/handoff-ui-implementation-plan.json`);
-const requiresFrontendRuntime = hasUiPlan && (readJSON(`${dir}/inputs/handoff-ui-implementation-plan.json`).capabilities || []).some((item) => item.presentation?.mode !== 'headless');
+const uiPlan = existsSync(`${dir}/inputs/handoff-ui-implementation-plan.json`) ? readJSON(`${dir}/inputs/handoff-ui-implementation-plan.json`) : { capabilities: [] };
+const requiresFrontendRuntime = (uiPlan.capabilities || []).some((item) => item.presentation?.mode !== 'headless');
 const lockHeader = existsSync(`${dir}/input-lock.json`) ? readJSON(`${dir}/input-lock.json`) : {};
-const preparedVersion = Number(lockHeader.schemaVersion || 0);
-const hasPreparedHandoff = existsSync(`${dir}/inputs/handoff-handoff-manifest.json`) || Boolean(lockHeader.sources?.handoffPackageDigest);
-const requiresBmad = !legacyMode || preparedVersion >= 1.1 || hasPreparedHandoff || hasUiPlan || existsSync(`${dir}/bmad-traceability.json`);
-const required = ['input-lock.json', 'implementation-plan.json', ...(!legacyMode ? ['field-binding-plan.json', 'operation-events.json', 'operation-receipts.json'] : []), 'implementation-provenance.json', 'implementation-manifest.json', 'integration-evidence.json', 'openapi.json', 'startup.json', 'test-report.json', ...(requiresBmad ? ['bmad-traceability.json', 'bmad-completion.json'] : []), ...(requiresFrontendRuntime ? ['interaction-manifest.json', 'control-bindings.json', 'frontend-runtime-config.json', 'frontend-runtime-report.json', ...(!legacyMode ? ['frontend-capability-results.json'] : []), 'browser-e2e-report.json', 'placeholder-resolution.json', 'placeholder-audit-report.json'] : [])];
+const required = ['input-lock.json', 'implementation-plan.json', 'field-binding-plan.json', 'operation-events.json', 'operation-receipts.json', 'implementation-provenance.json', 'implementation-manifest.json', 'integration-evidence.json', 'openapi.json', 'startup.json', 'test-report.json', 'bmad-traceability.json', 'bmad-completion.json', ...(requiresFrontendRuntime ? ['interaction-manifest.json', 'control-bindings.json', 'frontend-runtime-config.json', 'frontend-runtime-report.json', 'frontend-capability-results.json', 'browser-e2e-report.json', 'placeholder-resolution.json', 'placeholder-audit-report.json'] : [])];
 const errors = [];
+if (functionalManifestPreview.schemaVersion !== '2.2') errors.push('formal verification accepts only functional-domain schema 2.2');
+if (functionalManifestPreview.schemaVersion === '2.2' && JSON.stringify(functionalManifestPreview.semanticArtifacts) !== JSON.stringify(SCHEMA_22_SEMANTIC_FILES)) errors.push('schema 2.2 semanticArtifacts must equal the fixed semantic artifact contract');
 for (const file of required) if (!existsSync(`${dir}/${file}`) || statSync(`${dir}/${file}`).size === 0) errors.push(`missing ${file}`);
 if (errors.length) fail(errors);
 
@@ -33,24 +34,25 @@ const plan = readJSON(`${dir}/implementation-plan.json`);
 const manifest = readJSON(`${dir}/implementation-manifest.json`);
 const integration = readJSON(`${dir}/integration-evidence.json`);
 const report = readJSON(`${dir}/test-report.json`);
-const operationReceipts = !legacyMode ? readJSON(`${dir}/operation-receipts.json`) : null;
+const operationReceipts = readJSON(`${dir}/operation-receipts.json`);
 const provenance = readJSON(`${dir}/implementation-provenance.json`);
 const inputLock = readJSON(`${dir}/input-lock.json`);
-if (!legacyMode && inputLock.schemaVersion !== '1.1') fail(['formal verification requires input-lock schema 1.1']);
-if (requiresBmad && (Number(inputLock.schemaVersion || 0) < 1.1 || inputLock.bmadRequired !== true || !inputLock.bmad?.contracts)) fail(['prepared workspace BMAD requirement was removed or downgraded']);
+if (inputLock.schemaVersion !== '1.1') fail(['formal verification requires input-lock schema 1.1']);
+if (inputLock.bmadRequired !== true || !inputLock.bmad?.contracts) fail(['prepared workspace BMAD requirement was removed or downgraded']);
 if (existsSync(`${dir}/implementation-lock.json`)) {
   const prior = readJSON(`${dir}/implementation-lock.json`);
   if (prior.schemaVersion !== '1.0' || prior.algorithm !== 'sha256' || !prior.digests || !prior.sourceDigests || !prior.sourceFiles) fail(['existing implementation lock is incomplete or unsupported']);
 }
 const bmadTraceability = existsSync(`${dir}/bmad-traceability.json`) ? readJSON(`${dir}/bmad-traceability.json`) : null;
 const bmadCompletion = existsSync(`${dir}/bmad-completion.json`) ? readJSON(`${dir}/bmad-completion.json`) : null;
-const api = readJSON(!legacyMode ? `${dir}/inputs/handoff-api-contract.json` : (existsSync(`${dir}/inputs/handoff-api-contract.json`) ? `${dir}/inputs/handoff-api-contract.json` : `${dir}/inputs/frontend-api-contract.json`));
-if (!legacyMode) verifyFieldBindingPlan(readJSON(`${dir}/field-binding-plan.json`), api, errors);
-if (!legacyMode) verifyOperationReceipts(operationReceipts, readFileSync(`${dir}/operation-events.json`), api, errors);
-verifyInputLock(inputLock, errors, !legacyMode);
+const api = readJSON(`${dir}/inputs/handoff-api-contract.json`);
+verifyFieldBindingPlan(readJSON(`${dir}/field-binding-plan.json`), api, errors);
+verifyOperationReceipts(operationReceipts, readFileSync(`${dir}/operation-events.json`), api, errors);
+verifyInputLock(inputLock, errors);
 verifyProvenance(plan, provenance, errors);
+verifyUniqueOperationHandling(api, provenance, errors);
 if (inputLock.bmadRequired === true && !bmadTraceability) errors.push('BMAD traceability is required by the prepared workspace');
-if (bmadTraceability) verifyBmadTraceability(plan, bmadTraceability, bmadCompletion, inputLock, errors);
+if (bmadTraceability) verifyBmadTraceability(plan, bmadTraceability, bmadCompletion, inputLock, provenance, new Set(Object.values(implementationSources()).flat()), errors);
 if (requiresFrontendRuntime) verifyImplementedPresentation(api, errors);
 if (requiresFrontendRuntime) {
   const runtimeVerification = spawnSync(process.execPath, [resolve(import.meta.dirname, 'verify-frontend-runtime.mjs'), dir], { encoding: 'utf8' });
@@ -60,7 +62,7 @@ if (!levels.includes(manifest.verificationLevel)) errors.push('implementation ma
 if (manifest.verificationLevel !== integration.verificationLevel) errors.push('manifest and integration evidence levels differ');
 if (levels.indexOf(manifest.verificationLevel) < levels.indexOf(requiredLevel)) errors.push(`verification level ${manifest.verificationLevel} is below required ${requiredLevel}`);
 if (manifest.verificationLevel !== 'simulated') {
-  if (integration.viaApplication !== true || !integration.operationId) errors.push('integrated evidence must come through an application operation');
+  if (integration.viaApplication !== true || !integration.operationId) errors.push('integrated evidence must come through an application operation — run the integrated campaign through the declared application API and adapter');
   const declaredOperationIds = new Set((plan.units || []).flatMap((unit) => unit.operationIds || []));
   if (integration.operationId && !declaredOperationIds.has(integration.operationId)) errors.push(`integrated evidence references unknown operation: ${integration.operationId}`);
   const structuredEvidence = {};
@@ -116,22 +118,22 @@ for (const unit of manifest.units || []) {
     if (!test) errors.push(`unit ${unit.id} lacks passing test ${testId}`);
     if (test && !test.unitIds?.includes(unit.id)) errors.push(`test ${testId} does not declare unit ${unit.id}`);
     if (test && test.unitIds?.length !== 1) errors.push(`test ${testId} must map to exactly one implementation unit`);
-    if (!legacyMode && test) for (const operationId of plannedUnits.get(unit.id)?.operationIds || []) verifyOperationTestEvidence((api.operations || []).find((item) => item.id === operationId), test, unit.id, errors);
+    if (test) for (const operationId of plannedUnits.get(unit.id)?.operationIds || []) verifyOperationTestEvidence((api.operations || []).find((item) => item.id === operationId), test, unit.id, errors);
     for (const artifact of test?.evidence || []) { const file = resolveArtifact(artifact); if (!file || statSync(file).size === 0) errors.push(`test ${testId} lacks safe workspace evidence ${artifact}`); }
   }
   if (!(unit.testIds || []).length) errors.push(`unit ${unit.id} has no test IDs`);
 }
 if (errors.length) fail(errors);
 
-const uiContractsForCompletion = hasUiPlan ? readJSON(`${dir}/inputs/handoff-ui-implementation-plan.json`).capabilities || [] : [];
-const frontendResults = requiresFrontendRuntime && !legacyMode ? new Map((readJSON(`${dir}/frontend-capability-results.json`).capabilities || []).map((item) => [item.capabilityId, item])) : new Map();
+const uiContractsForCompletion = uiPlan.capabilities || [];
+const frontendResults = requiresFrontendRuntime ? new Map((readJSON(`${dir}/frontend-capability-results.json`).capabilities || []).map((item) => [item.capabilityId, item])) : new Map();
 const capabilityCompletion = uiContractsForCompletion.map((contract) => {
   const unitIds = (plan.units || []).filter((unit) => unit.capabilityIds?.includes(contract.capabilityId)).map((unit) => unit.id); const unitsPassed = unitIds.length > 0 && unitIds.every((id) => completedUnits.has(id));
   const planned = contract.specificationStatus === 'planned';
-  const frontendPassed = legacyMode || contract.presentation?.mode === 'headless' || frontendResults.get(contract.capabilityId)?.status === (planned ? 'planned' : 'implemented');
+  const frontendPassed = contract.presentation?.mode === 'headless' || frontendResults.get(contract.capabilityId)?.status === (planned ? 'planned' : 'implemented');
   return { capabilityId: contract.capabilityId, status: unitsPassed && frontendPassed ? (planned ? 'planned' : 'implemented') : 'failed', unitIds, frontendRequired: contract.presentation?.mode !== 'headless' };
 });
-if (capabilityCompletion.some((item) => item.status === 'failed')) fail(capabilityCompletion.filter((item) => item.status === 'failed').map((item) => `capability delivery was not proven: ${item.capabilityId}`));
+if (capabilityCompletion.some((item) => item.status === 'failed')) fail(capabilityCompletion.filter((item) => item.status === 'failed').map((item) => `capability delivery was not proven: ${item.capabilityId} — inspect its failed bindings, operations, states, effects, and acceptance cases`));
 const productStatus = capabilityCompletion.some((item) => item.status === 'planned') ? 'delivered-with-planned-capabilities' : 'implemented';
 writeFileSync(`${dir}/capability-completion-report.json`, `${JSON.stringify({ schemaVersion: '1.1', generatedBy: 'project-implementation/verify-implementation', productStatus, counts: { implemented: capabilityCompletion.filter((item) => item.status === 'implemented').length, planned: capabilityCompletion.filter((item) => item.status === 'planned').length }, capabilities: capabilityCompletion }, null, 2)}\n`);
 
@@ -146,14 +148,14 @@ if (existsSync(`${dir}/implementation-lock.json`)) {
   if (JSON.stringify(prior.sourceDigests) !== JSON.stringify(sourceDigests) || JSON.stringify(prior.sourceFiles) !== JSON.stringify(sources)) fail(['implementation source lock mismatch']);
 }
 writeFileSync(`${dir}/implementation-lock.json`, `${JSON.stringify({ schemaVersion: '1.0', algorithm: 'sha256', digests, sourceDigests, sourceFiles: sources }, null, 2)}\n`);
-console.log(legacyMode ? `Legacy archive structurally checked (${declaredUnits.size} units, ${passed.size} passing cases); this is not implementation completion evidence` : `Implementation valid (${declaredUnits.size} units, ${passed.size} passing cases)`);
+console.log(`Implementation valid (${declaredUnits.size} units, ${passed.size} passing cases)`);
 
 function fail(items) { console.error(items.map((item) => `- ${item}`).join('\n')); process.exit(1); }
 function sha(value) { return createHash('sha256').update(value).digest('hex'); }
 function readJSON(path) { return JSON.parse(readFileSync(path, 'utf8')); }
 function optionValue(name) { const index = process.argv.indexOf(name); return index >= 0 ? process.argv[index + 1] : null; }
-function verifyInputLock(lock, items, formal) {
-  if (formal || Number(lock.schemaVersion || 0) >= 1.1) {
+function verifyInputLock(lock, items) {
+  {
     if (lock.schemaVersion !== '1.1' || lock.algorithm !== 'sha256') items.push('prepared input lock schema or algorithm is invalid');
     const expected = [...formalFunctionalInputs.map((file) => `functional/${file}`), ...formalHandoffInputs.map((file) => `handoff/${file}`)].sort();
     const actual = Object.keys(lock.digests || {}).sort();
@@ -223,6 +225,18 @@ function verifyProvenance(plan, provenance, items) {
     }
   }
 }
+function verifyUniqueOperationHandling(apiContract, provenance, items) {
+  const nonGet = (apiContract.operations || []).filter((operation) => String(operation.method || '').toUpperCase() !== 'GET');
+  if (nonGet.length < 3) return;
+  const sources = new Map((provenance.operationSources || []).map((item) => [item.operationId, item]));
+  const signatures = nonGet.map((operation) => {
+    const source = sources.get(operation.id);
+    const locations = source?.files || (source?.file ? [{ path: source.file, symbol: source.symbol, route: source.route }] : []);
+    return locations.map((location) => `${location.path}#${location.symbol || location.route || ''}`).sort().join('|');
+  });
+  const distinct = new Set(signatures);
+  if (distinct.size === 1 && signatures[0]) items.push('each operation requires operation-specific handling; a single catch-all handler is not an implementation');
+}
 function verifyFieldBindingPlan(bindingPlan, apiContract, items) {
   if (bindingPlan.generatedFrom !== 'locked-functional-and-handoff-contracts' || !Array.isArray(bindingPlan.bindings)) { items.push('field binding plan is missing or not contract-derived'); return; }
   const ids = new Set(); const operations = new Map((apiContract.operations || []).map((item) => [item.id, item]));
@@ -244,10 +258,10 @@ function verifyFieldBindingPlan(bindingPlan, apiContract, items) {
   }
 }
 function verifyOperationTestEvidence(operation, test, unitId, items) { if (operation && !operationReceipts.receipts?.some((receipt) => receipt.operationId === operation.id && receipt.status === 'passed')) items.push(`unit ${unitId} has no passing runner-owned operation receipt for ${operation.id}`); }
-function verifyOperationReceipts(receipts, rawEvents, apiContract, items) { if (receipts.generatedBy !== 'project-implementation/build-operation-receipts' || receipts.trustLevel !== 'self-reported-runtime-events' || receipts.sourceDigest !== sha(rawEvents)) items.push('operation receipts are not bound to declared simulated runtime events'); const expected = new Set((apiContract.operations || []).map((item) => item.id)); const actual = new Set((receipts.receipts || []).map((item) => item.operationId)); if (expected.size !== actual.size || [...expected].some((id) => !actual.has(id))) items.push('operation receipt set differs from API contract'); for (const receipt of receipts.receipts || []) if (receipt.status !== 'passed' || receipt.findings?.length) items.push(`operation receipt failed: ${receipt.operationId}`); }
+function verifyOperationReceipts(receipts, rawEvents, apiContract, items) { const expectedDocument = computeOperationReceipts(apiContract, JSON.parse(rawEvents), rawEvents); if (JSON.stringify(receipts) !== JSON.stringify(expectedDocument)) items.push('operation receipts differ from receipts recomputed from operation-events.json'); for (const receipt of expectedDocument.receipts || []) if (receipt.status !== 'passed' || receipt.findings?.length) items.push(`operation receipt failed: ${receipt.operationId}`); }
 function requestContractPaths(request) { return [['path', request.pathSchema], ['query', request.querySchema], ['header', request.headerSchema], ['body', request.bodySchema]].flatMap(([location, schema]) => schemaContractPaths(schema).map((path) => `${location}.${path}`)); }
 function schemaContractPaths(schema, prefix = '') { if (!schema || typeof schema !== 'object') return []; if (schema.type === 'object') return Object.entries(schema.properties || {}).flatMap(([key, child]) => schemaContractPaths(child, prefix ? `${prefix}.${key}` : key)); return prefix ? [prefix] : []; }
-function verifyBmadTraceability(plan, traceability, completion, lock, items) {
+function verifyBmadTraceability(plan, traceability, completion, lock, provenance, sourceFileSet, items) {
   if (traceability.method !== 'bmad-v6') items.push('BMAD traceability has an unsupported method');
   if (traceability.workflow !== 'pi-implementation-bmad' || traceability.domainAuthority !== 'inputs/functional-functional-spec.json' || traceability.fddPlanningSource !== 'inputs/functional-planning-artifacts.json') items.push('PI implementation BMAD is not separated from FDD planning authority');
   const mappings = new Map();
@@ -281,18 +295,33 @@ function verifyBmadTraceability(plan, traceability, completion, lock, items) {
       if (JSON.stringify(parseStoryContract(storyDocument)) !== JSON.stringify(contract)) items.push(`BMAD story source contract text differs for unit: ${unit.id}`);
       if (!['done', 'completed'].includes(storyDocument.status) || storyDocument.checkboxes.some((item) => !item.checked)) items.push(`BMAD story tasks are not completed: ${unit.id}`);
       if (!storyDocument.sections.has('dev agent record') || !storyDocument.sections.has('code review record')) items.push(`BMAD story lacks development or code review records: ${unit.id}`);
+      else verifyStoryTraceability(unit, storyDocument, provenance, sourceFileSet, items);
       const devTime = Date.parse(record?.devStory?.completedAt); const reviewTime = Date.parse(record?.codeReview?.reviewedAt);
       const devAgent = sectionField(storyDocument, 'dev agent record', 'agent'); const reviewAgent = sectionField(storyDocument, 'code review record', 'reviewer');
       if (!record || record.storyId !== mapping.storyId || record.storyDigest !== sha(Buffer.from(storyText)) || record.devStory?.status !== 'completed' || !record.devStory?.agentId || record.codeReview?.status !== 'approved' || !record.codeReview?.reviewerAgentId || record.codeReview.reviewerAgentId === record.devStory.agentId || !Number.isFinite(devTime) || !Number.isFinite(reviewTime) || reviewTime < devTime || devAgent !== record.devStory.agentId || reviewAgent !== record.codeReview.reviewerAgentId) items.push(`BMAD completion receipt is invalid: ${unit.id}`);
       if (!['done', 'completed'].includes(sprint.get(mapping.storyId))) items.push(`BMAD sprint status is not completed: ${unit.id}`);
     }
   }
+  const completedAts = [...completionRecords.values()].map((record) => record?.devStory?.completedAt).filter(Boolean);
+  if (completedAts.length >= 2 && new Set(completedAts).size === 1) console.error(`warning: all BMAD stories share the identical dev completion timestamp ${completedAts[0]}; confirm each story was developed and reviewed independently`);
   if (lock.bmadRequired === true) {
     const expected = Object.keys(lock.bmad?.contracts || {}).sort();
     const actual = (traceability.stories || []).map((item) => item.unitId).sort();
     if (JSON.stringify(expected) !== JSON.stringify(actual)) items.push('BMAD locked story set differs from traceability');
   }
   for (const unitId of mappings.keys()) if (!(plan.units || []).some((unit) => unit.id === unitId)) items.push(`BMAD traceability references unknown unit: ${unitId}`);
+}
+function verifyStoryTraceability(unit, storyDocument, provenance, sourceFileSet, items) {
+  const devRecord = storyDocument.sections.get('dev agent record') || [];
+  const filesField = devRecord.find((entry) => entry.key === 'files' || entry.key === 'changed files');
+  const listed = filesField ? codeValues(filesField.value) : [];
+  if (!listed.length) { items.push(`BMAD story dev agent record lists no changed files: ${unit.id} — record the workspace files this story changed`); return; }
+  for (const file of listed) if (!sourceFileSet.has(file)) items.push(`BMAD story changed file is not part of the locked implementation source: ${unit.id}: ${file}`);
+  const provenanceFiles = new Set((provenance.operationSources || []).filter((source) => (unit.operationIds || []).includes(source.operationId)).flatMap((source) => (source.files || (source.file ? [{ path: source.file }] : [])).map((location) => location.path)));
+  if ((unit.operationIds || []).length && provenanceFiles.size && !listed.some((file) => provenanceFiles.has(file))) items.push(`BMAD story changed files do not intersect the unit's implementation provenance: ${unit.id} — list the operation source files this story implemented`);
+  const acceptance = (storyDocument.sections.get('acceptance criteria') || []).filter((entry) => entry.checkbox).map((entry) => String(entry.text || '').trim()).filter(Boolean);
+  const reviewText = (storyDocument.sections.get('code review record') || []).map((entry) => `${entry.value || ''} ${entry.text || ''}`).join('\n');
+  if (acceptance.length && !acceptance.some((text) => reviewText.includes(text))) items.push(`BMAD code review record does not cite any of the story's acceptance criteria: ${unit.id} — quote at least one acceptance criterion verified in review`);
 }
 function parseStoryContract(document) {
   const source = document.sections.get('source contract') || [];

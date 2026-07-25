@@ -1,32 +1,40 @@
 #!/usr/bin/env node
 import { createHash } from 'node:crypto';
 import { spawnSync } from 'node:child_process';
-import { cpSync, existsSync, mkdirSync, readFileSync, readdirSync, statSync, writeFileSync } from 'node:fs';
+import { cpSync, existsSync, mkdirSync, readFileSync, readdirSync, writeFileSync } from 'node:fs';
 import { basename, resolve } from 'node:path';
 import { digestJSON, hashDirectory as hashHandoffTree, releaseDigest } from './lib/handoff.mjs';
+import { treeDigest } from './lib/validator-tree.mjs';
 
 const args = parseArgs(process.argv.slice(2));
-const handoffArg = args.handoff || args.frontend;
+const handoffArg = args.handoff;
 if (!args.functional || !handoffArg || !args.output) usage();
 const functionalDir = resolve(args.functional);
 const handoffDir = resolve(handoffArg);
 const output = resolve(args.output);
 if (existsSync(output) && readdirSync(output).length) throw new Error('implementation output directory must not exist or must be empty');
 const functionalManifestPreview = readJSON(`${functionalDir}/manifest.json`);
-const semanticFiles = functionalManifestPreview.schemaVersion === '2.1' ? ['frontend-semantic-inventory.json', 'observed-interactions.json', 'control-capability-map.json'] : [];
-const protectedFunctionalFiles = ['manifest.json', 'planning-manifest.json', 'planning-artifacts.json', 'capability-definitions.json', ...semanticFiles, 'functional-spec.json', 'page-function-map.json', 'unresolved-items.json', 'planning-review-receipt.json', 'review-receipt.json'];
+const SCHEMA_22_SEMANTIC_FILES = ['frontend-semantic-inventory.json', 'observed-interactions.json', 'control-capability-map.json', 'asset-role-inventory.json'];
+const semanticFiles = functionalManifestPreview.schemaVersion === '2.2' ? SCHEMA_22_SEMANTIC_FILES : [];
+const evidenceFiles = ['evidence-index.json', 'evidence-dispositions.json'];
+const protectedFunctionalFiles = ['manifest.json', 'planning-manifest.json', 'planning-artifacts.json', 'capability-definitions.json', ...evidenceFiles, ...semanticFiles, 'functional-spec.json', 'page-function-map.json', 'unresolved-items.json', 'planning-review-receipt.json', 'review-receipt.json'];
 const formalFunctionalFiles = [...protectedFunctionalFiles, 'package-lock.json'];
-const protectedHandoffFiles = ['handoff-manifest.json', 'visual-source.json', 'release-manifest.json', 'suite-gate.json', 'visual-approval.json', 'frontend-manifest.json', 'functional-spec.json', ...semanticFiles, 'visual-controls.json', 'ui-implementation-plan.json', 'api-contract.json', 'domain-bindings.json', 'runtime-contract.json', 'handoff-review-receipt.json'];
+const protectedHandoffFiles = ['handoff-manifest.json', 'visual-source.json', 'release-manifest.json', 'suite-gate.json', 'visual-approval.json', 'frontend-manifest.json', 'functional-spec.json', ...semanticFiles, ...(functionalManifestPreview.schemaVersion === '2.2' ? ['handoff-anchor-manifest.json'] : []), 'visual-controls.json', 'ui-implementation-plan.json', 'api-contract.json', 'domain-bindings.json', 'runtime-contract.json', 'handoff-review-receipt.json'];
 const formalHandoffFiles = [...protectedHandoffFiles, 'handoff-lock.json'];
 const f = Object.fromEntries(formalFunctionalFiles.filter((file) => existsSync(`${functionalDir}/${file}`)).map((file) => [file, readJSON(`${functionalDir}/${file}`)]));
 const front = Object.fromEntries(formalHandoffFiles.filter((file) => existsSync(`${handoffDir}/${file}`)).map((file) => [file, readJSON(`${handoffDir}/${file}`)]));
 const errors = [];
+if (functionalManifestPreview.schemaVersion !== '2.2') errors.push('project implementation accepts only functional-domain schema 2.2');
+if (functionalManifestPreview.schemaVersion === '2.2' && JSON.stringify(functionalManifestPreview.semanticArtifacts) !== JSON.stringify(SCHEMA_22_SEMANTIC_FILES)) errors.push('schema 2.2 semanticArtifacts must equal the fixed semantic artifact contract');
 
 for (const file of formalFunctionalFiles) if (!f[file]) errors.push(`functional package is missing ${file}`);
 for (const file of formalHandoffFiles) if (!front[file]) errors.push(`implementation handoff is missing ${file}`);
 const manifest = f['manifest.json'] || {};
 const spec = f['functional-spec.json'] || {};
 const receipt = f['review-receipt.json'];
+const trustedFunctionalValidators = new Map([
+  ['fdd-validator-2.2.0', { contractVersion: 'functional-domain/2.2', entry: resolve(import.meta.dirname, '../validators/fdd-2.2.0/validate-package.mjs') }],
+]);
 const planningManifest = f['planning-manifest.json'] || {}; const planningArtifacts = f['planning-artifacts.json'] || {}; const definitions = f['capability-definitions.json'] || {}; const planningReceipt = f['planning-review-receipt.json'];
 if (manifest.status !== 'approved') errors.push('functional package is not approved');
 if (receipt) {
@@ -34,14 +42,21 @@ if (receipt) {
   if (!manifest.authorAgentId || receipt.authorAgentId !== manifest.authorAgentId) errors.push('functional review receipt author mismatch');
   if (!receipt.reviewerAgentId || receipt.reviewerAgentId === manifest.authorAgentId) errors.push('functional review must use a distinct reviewer agent');
   if (manifest.approval?.reviewerAgentId !== receipt.reviewerAgentId) errors.push('functional manifest approval reviewer mismatch');
+  const trustedValidator = receipt.trustedValidatorId ? trustedFunctionalValidators.get(receipt.trustedValidatorId) : null;
+  if (receipt.contractVersion && (!trustedValidator || trustedValidator.contractVersion !== receipt.contractVersion || !existsSync(trustedValidator.entry) || receipt.validatorDigest !== treeDigest(resolve(trustedValidator.entry, '..')))) errors.push('functional approval does not reference the immutable trusted repository validator');
+  if (receipt.contractVersion !== 'functional-domain/2.2') errors.push('schema 2.2 functional approval contract is missing');
 }
 if (planningManifest.packageType !== 'fdd-bmad-planning' || planningManifest.status !== 'approved' || planningArtifacts.method !== 'bmad-planning') errors.push('FDD planning BMAD artifacts are incomplete or unapproved; return the package to FDD');
 if (!planningReceipt || planningReceipt.workflow !== 'fdd-bmad-planning' || planningReceipt.status !== 'approved' || planningReceipt.authorAgentId !== manifest.authorAgentId || planningReceipt.reviewerAgentId !== receipt?.reviewerAgentId) errors.push('FDD planning independent review is missing or inconsistent; return the package to FDD');
 for (const group of ['capabilities', 'entities', 'valueObjects', 'relationships', 'consistencyBoundaries', 'journeys', 'rules', 'permissions', 'integrations']) if (JSON.stringify(definitions[group] || []) !== JSON.stringify(spec[group] || [])) errors.push(`FDD planning definitions differ from approved domain contract: ${group}; return the package to FDD`);
 const functionalSchema = f['manifest.json'].schemaVersion;
-if (!['1.0', '2.0', '2.1'].includes(functionalSchema) || [f['functional-spec.json'], f['page-function-map.json'], f['unresolved-items.json']].some((doc) => doc.schemaVersion !== functionalSchema)) errors.push('functional package schema must be consistently 1.0, 2.0, or 2.1');
+if (functionalSchema !== '2.2' || [f['functional-spec.json'], f['page-function-map.json'], f['unresolved-items.json']].some((doc) => doc.schemaVersion !== '2.2')) errors.push('functional package schema must be consistently 2.2');
 if (f['package-lock.json']) verifyFunctionalLock(functionalDir, f['package-lock.json'], errors);
+if (receipt?.contractVersion && !errors.length) { const trustedValidator = trustedFunctionalValidators.get(receipt.trustedValidatorId); const replay = spawnSync(process.execPath, [trustedValidator.entry, functionalDir, '--require-approved', '--trusted-validator-internal', '--check-lock'], { encoding: 'utf8' }); if (replay.status !== 0) errors.push(`trusted functional ${receipt.contractVersion} validation failed: ${replay.stderr || replay.stdout}`); }
 const handoffManifest = front['handoff-manifest.json'] || {}; const handoffReceipt = front['handoff-review-receipt.json']; const visualSource = front['visual-source.json']; const releaseManifest = front['release-manifest.json']; const handoffLock = front['handoff-lock.json'];
+const trustedHandoffReviewers = new Map([
+  ['implementation-handoff/2.2', { id: 'fdd-handoff-reviewer-2.2', entry: resolve(import.meta.dirname, '../validators/handoff-2.2/review-handoff.mjs') }],
+]);
 const suiteGate = front['suite-gate.json']; const visualApproval = front['visual-approval.json'];
 const functionalPackageDigest = f['package-lock.json'] ? digestJSON(f['package-lock.json']) : null;
 if (handoffManifest.status !== 'approved') errors.push('implementation handoff is not approved');
@@ -49,6 +64,9 @@ if (handoffReceipt) {
   if (handoffReceipt.status !== 'approved') errors.push('handoff review receipt is not approved');
   if (handoffReceipt.authorAgentId !== handoffManifest.authorAgentId) errors.push('handoff review receipt author mismatch');
   if (!handoffReceipt.reviewerAgentId || handoffReceipt.reviewerAgentId === handoffManifest.authorAgentId) errors.push('handoff review must use a distinct reviewer agent');
+  const trustedReviewer = handoffReceipt.contractVersion ? trustedHandoffReviewers.get(handoffReceipt.contractVersion) : null;
+  if (handoffReceipt.contractVersion && (!trustedReviewer || handoffReceipt.trustedReviewerId !== trustedReviewer.id || !existsSync(trustedReviewer.entry) || handoffReceipt.validatorDigest !== treeDigest(resolve(trustedReviewer.entry, '..')))) errors.push('handoff approval does not reference the immutable trusted repository reviewer');
+  if (handoffReceipt.contractVersion !== 'implementation-handoff/2.2') errors.push('schema 2.2 handoff approval contract is missing');
 }
 if (handoffManifest.functionalPackageDigest !== functionalPackageDigest || handoffReceipt?.functionalPackageDigest !== functionalPackageDigest || handoffLock?.functionalPackageDigest !== functionalPackageDigest) errors.push('handoff functional package digest mismatch');
 if (releaseManifest && releaseDigest(releaseManifest) !== releaseManifest.releaseDigest) errors.push('ai-restore release manifest digest mismatch');
@@ -61,6 +79,7 @@ if (visualSource) {
   if (spec.visualSource?.releaseDigest !== visualSource.releaseDigest || manifest.visualReleaseDigest !== visualSource.releaseDigest) errors.push('functional package visual release digest mismatch');
 }
 if (handoffLock) verifyHandoffLock(handoffDir, handoffLock, errors);
+if (handoffReceipt?.contractVersion && !errors.length) { const trustedReviewer = trustedHandoffReviewers.get(handoffReceipt.contractVersion); const replay = spawnSync(process.execPath, [trustedReviewer.entry, '--handoff', handoffDir, '--reviewer-agent', handoffReceipt.reviewerAgentId, '--trusted-replay-only', 'true'], { encoding: 'utf8' }); if (replay.status !== 0) errors.push(`trusted handoff ${handoffReceipt.contractVersion} review failed: ${replay.stderr || replay.stdout}`); }
 if ((f['unresolved-items.json'].items || []).some((item) => item.severity === 'blocker' && item.status !== 'resolved')) errors.push('functional package has an unresolved blocker');
 const pageMap = new Map((f['page-function-map.json'].pages || []).map((page) => [page.pageId, page]));
 const capabilities = new Map((spec.capabilities || []).map((item) => [item.id, item]));
@@ -152,7 +171,7 @@ for (const [capabilityId, presentation] of uiPlan) if (presentation.mode !== 'he
   units.push({ id: `frontend-state-${capabilityId}`, type: 'ui-state', capabilityIds: [capabilityId], presentation, dependsOn: [`interaction-${capabilityId}`], acceptance: ['applicable idle, loading, empty, error, disabled, and success states are browser-tested'] });
   units.push({ id: `frontend-data-${capabilityId}`, type: 'ui-data', capabilityIds: [capabilityId], presentation, dependsOn: [`frontend-state-${capabilityId}`], acceptance: ['business content comes from an operation, user input, authenticated context, or explicit empty state', 'visual placeholders have an approved resolution'] });
 }
-for (const rule of spec.rules || []) units.push({ id: `rule-${rule.id}`, type: 'rule', ruleIds: [rule.id], dependsOn: (rule.appliesTo || []).map((id) => `capability-${id}`), acceptance: [rule.statement] });
+for (const rule of spec.rules || []) units.push({ id: `rule-${rule.id}`, type: 'rule', ruleIds: [rule.id], dependsOn: (rule.appliesTo || []).map((id) => `capability-${id}`), acceptance: rule.statement ? [rule.statement] : [...(rule.conditions || []).map((item) => `condition: ${item}`), ...(rule.assertions || []).map((item) => `assertion: ${item}`)] });
 for (const [id, operation] of operations) {
   const effectEntityIds = new Set((operation.effects || []).map((effect) => effect.entityId));
   const relationDependencies = [...relationships.values()].filter((relation) => effectEntityIds.has(relation.fromEntityId) || effectEntityIds.has(relation.toEntityId)).map((relation) => `relationship-${relation.id}`);
@@ -180,7 +199,9 @@ for (const journey of spec.journeys || []) {
   if (journey.dataLineage) units.push({ id: `business-lineage-${journey.id}`, type: 'business-lineage-e2e', journeyIds: [journey.id], operationIds: journey.operationIds || [], capabilityIds: journey.capabilityIds || [], dependsOn: (journey.operationIds || []).filter((id) => operations.get(id)?.dataDependencies?.length).map((id) => operations.get(id)?.integrationBindings?.length ? `external-effect-${id}` : `data-dependency-${id}`), acceptance: ['runtime-generated values cross every declared operation boundary', 'observable results preserve the same lineage through the complete journey'] });
 }
 writeJSON(`${output}/implementation-plan.json`, { schemaVersion: '1.0', projectId: f['manifest.json'].projectId, status: 'ready', authority: 'approved-functional-domain-only', planningSource: { workflow: 'fdd-bmad-planning', digest: fddPlanningDigest, semanticChangesAllowed: false }, implementationWorkflow: 'pi-implementation-bmad', units });
-writeJSON(`${output}/field-binding-plan.json`, { schemaVersion: '1.0', generatedFrom: 'locked-functional-and-handoff-contracts', bindings: buildFieldBindingPlan() });
+const fieldBindings = buildFieldBindingPlan();
+writeJSON(`${output}/field-binding-plan.json`, { schemaVersion: '1.1', generatedFrom: 'locked-functional-and-handoff-contracts', bindings: fieldBindings });
+writeJSON(`${output}/implementation-worklist.json`, { schemaVersion: '1.0', advisory: true, generatedFrom: ['control-capability-map.json', 'frontend-semantic-inventory.json', 'field-binding-plan.json'], items: buildImplementationWorklist(fieldBindings) });
 writeJSON(`${output}/implementation-provenance.json`, {
   schemaVersion: '1.0',
   mode: 'from-contract',
@@ -191,8 +212,9 @@ writeJSON(`${output}/implementation-provenance.json`, {
 });
 writeJSON(`${output}/interaction-manifest.json`, { schemaVersion: '1.0', status: 'pending', interactions: [] });
 writeJSON(`${output}/control-bindings.json`, { schemaVersion: '1.0', status: 'pending', bindings: [] });
-writeJSON(`${output}/frontend-runtime-config.json`, { schemaVersion: '1.0', status: 'pending', start: null, healthUrl: null, e2e: null });
-writeJSON(`${output}/placeholder-resolution.json`, { schemaVersion: '1.0', status: 'pending', environment: 'production', items: [], runtimeFallbacks: [] });
+writeJSON(`${output}/frontend-runtime-config.json`, { schemaVersion: '1.1', status: 'pending', start: null, healthUrl: null, e2e: null, evidenceProtocol: { version: 'playwright-computed-render-v1', uploadChallengesEnv: 'FRONTEND_UPLOAD_CHALLENGES', renderObserverSource: `elements => elements.map(element => { const style = getComputedStyle(element); const rect = element.getBoundingClientRect(); return { visible: style.display !== 'none' && style.visibility !== 'hidden' && Number(style.opacity) > 0 && rect.width > 0 && rect.height > 0, tag: element.tagName.toLowerCase(), text: element.textContent.trim(), src: element.currentSrc || element.src || null, href: element.href || null, value: 'value' in element ? element.value : null }; })` } });
+const assetRoles = front['asset-role-inventory.json']?.assets || [];
+writeJSON(`${output}/placeholder-resolution.json`, { schemaVersion: '1.1', status: 'pending', environment: 'production', items: assetRoles.map((asset) => ({ id: `placeholder-${asset.id}`, assetId: asset.id, sourcePath: asset.path, sourceDigest: asset.digest, classification: asset.role, requiredReplacement: asset.requiredReplacement || null, resolution: asset.role === 'decorative' ? 'retained-as-static-decoration' : 'pending', ...(asset.role === 'decorative' ? { businessRole: 'decoration' } : {}) })), runtimeFallbacks: [] });
 const bmad = spawnSync(process.execPath, [resolve(import.meta.dirname, 'export-bmad-stories.mjs'), '--implementation', output], { encoding: 'utf8' });
 if (bmad.status !== 0) throw new Error(`BMAD story export failed: ${bmad.stderr || bmad.stdout}`);
 const traceability = readJSON(`${output}/bmad-traceability.json`);
@@ -220,18 +242,32 @@ function buildFieldBindingPlan() {
     for (const operation of capabilityOperations) {
       const requestFields = requestSchemaFields(operation.request || {}); const responseFields = schemaLeaves(operation.response?.bodySchema || operation.response?.schema || schemaFromFields(operation.response?.fields || []));
       const effectIds = (operation.effects || []).map((item, index) => `${operation.id}:${item.entityId}:${item.effect}:${index}`);
-      for (const field of requestFields) bindings.push({ id: `binding-${capability.id}-${operation.id}-${slug(field.path)}`, kind: 'input', source: field.location === 'body' ? 'user-input' : 'application-state', controlId: `input-${capability.id}-${slug(field.path)}`, capabilityId: capability.id, statePath: `capabilities.${capability.id}.inputs.${field.path}`, operationId: operation.id, requestPath: field.path, responsePath: responseFields[0]?.path || null, effectIds, required: field.required, schema: field.schema });
+      for (const field of requestFields) {
+        const dependency = (operation.dataDependencies || []).find((item) => normalizeRequestPath(item.targetField) === normalizeRequestPath(field.path));
+        const source = dependency ? 'prior-operation' : field.location === 'body' ? 'user-input' : 'application-state';
+        bindings.push({ id: `binding-${capability.id}-${operation.id}-${slug(field.path)}`, kind: 'input', source, controlId: `input-${capability.id}-${slug(field.path)}`, capabilityId: capability.id, statePath: `capabilities.${capability.id}.inputs.${field.path}`, operationId: operation.id, requestPath: field.path, responsePath: responseFields[0]?.path || null, effectIds, required: field.required, schema: field.schema, ...(dependency ? { sourceOperationId: dependency.sourceOperationId, sourceResponsePath: dependency.sourceField } : {}) });
+      }
       bindings.push({ id: `binding-${capability.id}-${operation.id}-command`, kind: 'command', controlId: `command-${capability.id}-${operation.id}`, capabilityId: capability.id, statePath: `capabilities.${capability.id}.status`, operationId: operation.id, requestPath: null, responsePath: responseFields[0]?.path || null, effectIds, required: true });
-      for (const field of responseFields) bindings.push({ id: `binding-${capability.id}-${operation.id}-response-${slug(field.path)}`, kind: 'display', controlId: `output-${capability.id}-${slug(field.path)}`, capabilityId: capability.id, statePath: `capabilities.${capability.id}.response.${field.path}`, operationId: operation.id, requestPath: null, responsePath: field.path, effectIds, required: field.required });
+      for (const field of responseFields) bindings.push({ id: `binding-${capability.id}-${operation.id}-response-${slug(field.path)}`, kind: 'display', controlId: `output-${capability.id}-${slug(field.path)}`, capabilityId: capability.id, statePath: `capabilities.${capability.id}.response.${field.path}`, operationId: operation.id, requestPath: null, responsePath: field.path, effectIds, required: field.required, runtimeValueRequired: functionalSchema === '2.2', elementSemantic: field.schema?.type === 'array' ? 'collection-value' : 'field-value' });
     }
     const resultContract = uiContracts.get(capability.id)?.presentation?.surface?.contentContract?.resultContract;
     const primaryOperationId = uiContracts.get(capability.id)?.presentation?.primaryOperationId || capabilityOperations[0]?.id;
-    for (const result of resultContract?.bindings || []) bindings.push({ id: `binding-${capability.id}-result-${slug(result.id)}`, kind: 'result', controlId: `result-${capability.id}-${slug(result.id)}`, capabilityId: capability.id, statePath: `capabilities.${capability.id}.result.${result.id}`, operationId: primaryOperationId, requestPath: result.count?.requestPath || null, responsePath: String(result.responsePath).replace(/^response\./, ''), effectIds: (capabilityOperations.find((item) => item.id === primaryOperationId)?.effects || []).map((item, index) => `${primaryOperationId}:${item.entityId}:${item.effect}:${index}`), required: true, regionId: resultContract.targetRegion, elementSemantic: result.element.semantic, count: result.count, resultStates: resultContract.states });
+    for (const result of resultContract?.bindings || []) { const resultOperationId = result.operationId || resultContract.runtimeFlow?.terminalOperationId || primaryOperationId; bindings.push({ id: `binding-${capability.id}-result-${slug(result.id)}`, kind: 'result', controlId: `result-${capability.id}-${slug(result.id)}`, capabilityId: capability.id, statePath: `capabilities.${capability.id}.result.${result.id}`, operationId: resultOperationId, requestPath: result.count?.requestPath || null, responsePath: String(result.responsePath).replace(/^response\./, ''), effectIds: (capabilityOperations.find((item) => item.id === resultOperationId)?.effects || []).map((item, index) => `${resultOperationId}:${item.entityId}:${item.effect}:${index}`), required: true, regionId: resultContract.targetRegion, elementSemantic: result.element.semantic, count: result.count, resultStates: resultContract.states, runtimeFlow: resultContract.runtimeFlow }); }
     if (capability.presentation?.mode !== 'headless') for (const state of ['loading', 'success', 'failure', 'empty']) bindings.push({ id: `binding-${capability.id}-state-${state}`, kind: 'state', controlId: `state-${capability.id}-${state}`, capabilityId: capability.id, statePath: `capabilities.${capability.id}.states.${state}`, operationId: capabilityOperations[0]?.id || null, requestPath: null, responsePath: null, effectIds: [], required: true });
   }
   return bindings;
 }
+function buildImplementationWorklist(bindings) {
+  const semanticPages = new Map((front['frontend-semantic-inventory.json']?.pages || []).map((page) => [page.pageId, new Map((page.controls || []).map((control) => [control.controlId, control]))]));
+  return (front['control-capability-map.json']?.mappings || []).map((mapping) => {
+    const capabilityBindings = bindings.filter((binding) => binding.capabilityId === mapping.capabilityId);
+    const anchor = semanticPages.get(mapping.pageId)?.get(mapping.controlId);
+    const result = capabilityBindings.find((binding) => binding.kind === 'result');
+    return { pageId: mapping.pageId, controlId: mapping.controlId || null, dataVrId: anchor?.stableId || null, capabilityId: mapping.capabilityId, operationId: mapping.primaryOperationId || null, bindingIds: capabilityBindings.map((binding) => binding.id), resultTarget: result?.regionId || null };
+  });
+}
 function requestSchemaFields(request) { return [['path', request.pathSchema], ['query', request.querySchema], ['header', request.headerSchema], ['body', request.bodySchema]].flatMap(([location, schema]) => schemaLeaves(schema).map((item) => ({ ...item, location, path: `${location}.${item.path}` }))); }
+function normalizeRequestPath(value) { return String(value || '').replace(/^request\./, 'body.'); }
 function schemaLeaves(schema, prefix = '', inheritedRequired = true) { if (!schema || typeof schema !== 'object') return []; if (schema.type === 'object') { const required = new Set(schema.required || []); return Object.entries(schema.properties || {}).flatMap(([key, child]) => schemaLeaves(child, prefix ? `${prefix}.${key}` : key, inheritedRequired && required.has(key))); } if (schema.type === 'array') return [{ path: prefix, required: inheritedRequired, schema }]; return prefix ? [{ path: prefix, required: inheritedRequired, schema }] : []; }
 function schemaFromFields(fields) { return { type: 'object', required: fields, properties: Object.fromEntries(fields.map((field) => [field, { type: 'string' }])) }; }
 function slug(value) { return String(value).replace(/[^a-zA-Z0-9]+/g, '-').replace(/^-|-$/g, '').toLowerCase(); }
@@ -246,24 +282,6 @@ function verifyHandoffLock(dir, lock, errors) {
   if (existsSync(`${dir}/web`) && lock.digests?.web !== hashHandoffTree(`${dir}/web`)) errors.push('handoff lock mismatch: web');
 }
 function sha(value) { return createHash('sha256').update(value).digest('hex'); }
-function hashDirectory(dir) {
-  const hash = createHash('sha256');
-  for (const file of walk(dir)) {
-    const relative = file.slice(dir.length + 1);
-    hash.update(relative).update('\0').update(readFileSync(file)).update('\0');
-  }
-  return hash.digest('hex');
-}
-function walk(dir) {
-  return readdirSync(dir, { withFileTypes: true })
-    .filter((entry) => !['node_modules', 'dist'].includes(entry.name))
-    .flatMap((entry) => {
-      const path = `${dir}/${entry.name}`;
-      if (entry.isDirectory()) return walk(path);
-      return statSync(path).isFile() ? [path] : [];
-    })
-    .sort();
-}
 function readJSON(path) { return JSON.parse(readFileSync(path, 'utf8')); }
 function writeJSON(path, value) { writeFileSync(path, `${JSON.stringify(value, null, 2)}\n`); }
 function parseArgs(values) { const result = {}; for (let i = 0; i < values.length; i++) if (values[i].startsWith('--')) { result[values[i].slice(2)] = values[i + 1]; i++; } return result; }
