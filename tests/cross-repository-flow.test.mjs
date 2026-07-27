@@ -34,6 +34,13 @@ test('FDD schema 2.2 authoring flows through reviewed handoff to verified PI imp
       assert.equal(existsSync(`${output}/implementation/inputs/functional-${file}`), true);
       assert.ok(inputLock.digests[`functional/${file}`]);
     }
+    const designManifest = read(`${output}/functional-domain/design-manifest.json`);
+    assert.equal(existsSync(`${output}/implementation/inputs/functional-design-manifest.json`), true);
+    assert.ok(inputLock.digests['functional/design-manifest.json']);
+    for (const image of designManifest.images) {
+      assert.equal(existsSync(`${output}/implementation/inputs/functional-${image.path}`), true);
+      assert.ok(inputLock.digests[`functional/${image.path}`]);
+    }
 
     const verified = spawnSync(process.execPath, [path.join(root, 'scripts/verify-implementation.mjs'), `${output}/implementation`, '--require-level', 'simulated'], { encoding: 'utf8' });
     assert.equal(verified.status, 0, `${verified.stdout}\n${verified.stderr}`);

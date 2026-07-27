@@ -15,6 +15,7 @@ const unresolved = read('unresolved-items.json');
 const planningManifest = read('planning-manifest.json');
 const planningArtifacts = read('planning-artifacts.json');
 const definitions = read('capability-definitions.json');
+const designManifest = read('design-manifest.json');
 const schema22 = manifest.schemaVersion === '2.2';
 const semanticMode = false;
 const SCHEMA_22_SEMANTIC_FILES = ['frontend-semantic-inventory.json', 'observed-interactions.json', 'control-capability-map.json', 'asset-role-inventory.json'];
@@ -28,6 +29,7 @@ const findings = [];
 if (manifest.schemaVersion !== '2.2') findings.push('only functional-domain schema 2.2 can be reviewed');
 if (schema22 && JSON.stringify(manifest.semanticArtifacts) !== JSON.stringify(SCHEMA_22_SEMANTIC_FILES)) findings.push('schema 2.2 semanticArtifacts must equal the fixed semantic artifact contract');
 if (planningManifest.packageType !== 'fdd-bmad-planning' || planningArtifacts.method !== 'bmad-planning') findings.push('FDD BMAD planning artifacts are invalid');
+if (!designManifest.images?.length || !planningManifest.inputDigests?.designs || !planningManifest.synthesisInputDigest) findings.push('finalized design input is absent or not bound to FDD planning');
 for (const group of ['capabilities', 'entities', 'valueObjects', 'relationships', 'consistencyBoundaries', 'journeys', 'rules', 'permissions', 'integrations']) if (JSON.stringify(definitions[group] || []) !== JSON.stringify(spec[group] || [])) findings.push(`planning capability definitions differ from formal domain: ${group}`);
 if (semanticMode && (!frontendInventory.pages?.length || !frontendInventory.sourceSummary?.length || observedInteractions.releaseDigest !== frontendInventory.release?.releaseDigest || controlMap.releaseDigest !== frontendInventory.release?.releaseDigest)) findings.push('frontend release semantics were not fully extracted and release-bound');
 if (assetRoleMode && (assetInventory.releaseDigest !== frontendInventory.release?.releaseDigest || !Array.isArray(assetInventory.assets))) findings.push('asset role inventory is absent or not release-bound');
@@ -114,6 +116,7 @@ if (findings.length) {
 }
 manifest.status = 'approved';
 manifest.approval = { method: 'independent-agent-review', reviewerAgentId, reviewedAt: new Date().toISOString() };
+if (existsSync(`${dir}/review-rejection.json`)) rmSync(`${dir}/review-rejection.json`);
 write('manifest.json', manifest);
 planningManifest.status = 'approved';
 const reviewPhase = planningArtifacts.phases.find((item) => item.id === 'independent-domain-review');
@@ -125,7 +128,7 @@ if (existsSync(`${dir}/approval-runtime`)) rmSync(`${dir}/approval-runtime`, { r
 // Signing pins the latest immutable validator revision. A new approval can never be minted against a
 // superseded revision to evade its added rules — an explicit downgrade request is rejected, so the only
 // way to keep an older revision is to already hold an older approval receipt (never to sign a new one).
-const LATEST_VALIDATOR_ID = 'fdd-validator-2.2.2';
+const LATEST_VALIDATOR_ID = 'fdd-validator-2.2.3';
 const requestedValidatorId = args['validator-version'] ? `fdd-validator-${args['validator-version']}` : LATEST_VALIDATOR_ID;
 if (requestedValidatorId !== LATEST_VALIDATOR_ID) { console.error(`cannot sign an approval with the superseded validator revision ${requestedValidatorId}; new approvals are pinned to the latest ${LATEST_VALIDATOR_ID}`); process.exit(1); }
 const trustedValidatorId = LATEST_VALIDATOR_ID;

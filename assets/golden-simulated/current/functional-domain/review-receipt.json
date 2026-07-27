@@ -1,12 +1,12 @@
 {
   "schemaVersion": "1.4",
   "contractVersion": "functional-domain/2.2",
-  "trustedValidatorId": "fdd-validator-2.2.2",
-  "validatorDigest": "7239f5ef13ed34bcf61ed19c9966a42b590acd27a3174f9b7e0c5b4bfb910045",
+  "trustedValidatorId": "fdd-validator-2.2.3",
+  "validatorDigest": "5ae071e3ff49340af2a16f65b935414d7e44eb2e915ddb5c7635bd0734e2a9e4",
   "status": "approved",
   "authorAgentId": "golden-domain-author",
   "reviewerAgentId": "golden-domain-reviewer",
-  "reviewedAt": "2026-07-25T08:39:59.417Z",
+  "reviewedAt": "2026-07-27T06:01:33.112Z",
   "checks": [
     "all blockers resolved",
     "all capability specifications complete",

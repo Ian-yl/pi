@@ -1,6 +1,6 @@
 {
   "schemaVersion": "1.1",
-  "functionalPackageDigest": "41d96fe7d6a79090b93988a61b0005c5051cfb57dbeab309d40fafba840f65dc",
+  "functionalPackageDigest": "de6f7b1c622ef579caef8bd856cb7cd5e57acd3693daaf95af924d709fff069f",
   "capabilityIds": [
     "cap-submission-submit-submission",
     "cap-submission-upload-resource",

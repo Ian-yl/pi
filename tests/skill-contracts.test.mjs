@@ -144,7 +144,7 @@ test('implementation preparation rejects an incomplete functional lock', () => w
   try {
     const result = run('project-implementation/scripts/prepare-implementation.mjs', ['--functional', dir, '--handoff', frontend, '--output', output]);
     assert.notEqual(result.status, 0);
-    assert.match(result.stderr, /lock is missing digest: functional-spec.json/);
+    assert.match(result.stderr, /lock (?:is missing digest:|is missing required file) functional-spec.json/);
   } finally { rmSync(output, { recursive: true, force: true }); }
 }));
 

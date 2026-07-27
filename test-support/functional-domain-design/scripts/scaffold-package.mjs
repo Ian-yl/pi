@@ -1,13 +1,13 @@
 #!/usr/bin/env node
 import { createHash } from 'node:crypto';
-import { cpSync, existsSync, mkdirSync, readdirSync, readFileSync, writeFileSync } from 'node:fs';
-import { basename, resolve } from 'node:path';
+import { cpSync, existsSync, lstatSync, mkdirSync, readdirSync, readFileSync, writeFileSync } from 'node:fs';
+import { basename, extname, resolve } from 'node:path';
 import { bindVisualRelease, verifyVisualRelease } from './lib/visual-release.mjs';
 import { extractFrontendSemantics } from './lib/frontend-semantics.mjs';
 import { buildEvidenceIndex } from './lib/evidence-index.mjs';
 
 const args = parseArgs(process.argv.slice(2));
-if (!args.input || !args.output || !args['author-agent'] || !args['visual-release']) usage();
+if (!args.input || !args.output || !args['author-agent'] || !args['visual-release'] || !args.designs) usage();
 if (args.schema && args.schema !== '2.2') throw new Error('only functional-domain schema 2.2 is supported');
 if (args.profile) throw new Error('product profiles are not supported; author domain semantics from the approved evidence');
 
@@ -24,7 +24,10 @@ if (!pages.length || !Array.isArray(system.nodes) || !product.name) throw new Er
 
 const projectId = product.projectId || `project-${stableId(product.name)}`;
 const frontend = extractFrontendSemantics(visual);
-const synthesisInputDigest = digest({ pageDocument, system, product, visualReleaseDigest: visual.releaseDigest, decisions: decisionsDocument });
+mkdirSync(output, { recursive: true });
+const designs = buildDesignManifest(resolve(args.designs), output, new Set(pages.map((page) => page.id)));
+const designDigest = digest(designs);
+const synthesisInputDigest = digest({ pageDocument, system, product, visualReleaseDigest: visual.releaseDigest, decisions: decisionsDocument, designManifest: designs });
 const systemBySource = new Map((system.nodes || []).filter((item) => item.sourceModuleId).map((item) => [`${item.sourcePageId}:${item.sourceModuleId}`, item]));
 const visualAlignment = assessVisualAlignment(pages, visual, product);
 const unresolved = [...visualAlignment.findings, ...(frontend.unresolved || [])];
@@ -81,15 +84,13 @@ const spec = {
 const semanticArtifacts = ['frontend-semantic-inventory.json', 'observed-interactions.json', 'control-capability-map.json', 'asset-role-inventory.json'];
 const groups = ['capabilities', 'entities', 'valueObjects', 'relationships', 'consistencyBoundaries', 'journeys', 'rules', 'permissions', 'integrations'];
 
-mkdirSync(output, { recursive: true });
-const designs = args.designs ? buildDesignManifest(resolve(args.designs), output) : null;
 writeJSON(`${output}/evidence-index.json`, buildEvidenceIndex({ pageDocument, system, product, observedInteractions: frontend.interactions, designs, releaseDigest: visual.releaseDigest, synthesisInputDigest }));
 writeJSON(`${output}/evidence-dispositions.json`, { schemaVersion: '1.0', dispositions: [] });
 writeJSON(`${output}/frontend-semantic-inventory.json`, frontend.inventory);
 writeJSON(`${output}/observed-interactions.json`, frontend.interactions);
 writeJSON(`${output}/control-capability-map.json`, { schemaVersion: '1.0', releaseDigest: visual.releaseDigest, mappings: skeletonControlMap });
 writeJSON(`${output}/asset-role-inventory.json`, frontend.assets);
-writeJSON(`${output}/planning-manifest.json`, { schemaVersion: '2.2', packageType: 'fdd-bmad-planning', status: 'authoring-pending', authorAgentId: args['author-agent'], synthesisInputDigest, inputDigests: { pageArchitecture: digest(pageDocument), systemArchitecture: digest(system), productContext: digest(product), visualRelease: visual.releaseDigest, userDecisions: decisionsDocument ? digest(decisionsDocument) : null }, artifacts: ['evidence-index.json', 'evidence-dispositions.json', 'planning-artifacts.json', 'capability-definitions.json', ...semanticArtifacts] });
+writeJSON(`${output}/planning-manifest.json`, { schemaVersion: '2.2', packageType: 'fdd-bmad-planning', status: 'authoring-pending', authorAgentId: args['author-agent'], synthesisInputDigest, inputDigests: { pageArchitecture: digest(pageDocument), systemArchitecture: digest(system), productContext: digest(product), visualRelease: visual.releaseDigest, designs: designDigest, userDecisions: decisionsDocument ? digest(decisionsDocument) : null }, artifacts: ['design-manifest.json', 'evidence-index.json', 'evidence-dispositions.json', 'planning-artifacts.json', 'capability-definitions.json', ...semanticArtifacts] });
 writeJSON(`${output}/planning-artifacts.json`, { schemaVersion: '2.2', method: 'skeleton-index', evidencePriority: ['confirmed', 'documented', 'observed', 'designed', 'inferred', 'blocked'], phases: [
   { id: 'project-understanding', status: 'completed', outputs: { project: spec.project, evidenceIndex: 'evidence-index.json', frontendSemanticInventory: 'frontend-semantic-inventory.json' } },
   { id: 'requirements-analysis', status: 'authoring-pending', outputs: { capabilitySkeletonIds: skeletons.map((item) => item.id), architectureLeafClassifications: leafClassifications, observedInteractions: 'observed-interactions.json' } },
@@ -97,7 +98,7 @@ writeJSON(`${output}/planning-artifacts.json`, { schemaVersion: '2.2', method: '
   { id: 'independent-domain-review', status: 'pending', outputs: {} },
 ] });
 writeJSON(`${output}/capability-definitions.json`, { schemaVersion: '2.2', generatedBy: 'functional-domain-design/skeleton', ...Object.fromEntries(groups.map((group) => [group, spec[group] || []])) });
-writeJSON(`${output}/manifest.json`, { schemaVersion: '2.2', packageType: 'functional-domain', projectId, projectName: product.name, status: 'draft', authoringStatus: 'pending', authorAgentId: args['author-agent'], sourceDirectory: basename(input), sourceContract: { requiredFiles: ['page architecture JSON', 'system architecture JSON', 'product context JSON', 'AI Restore release'], optionalFiles: decisions.length ? ['user business decisions JSON'] : [] }, planning: { manifest: 'planning-manifest.json', artifacts: 'planning-artifacts.json', capabilityDefinitions: 'capability-definitions.json' }, evidenceIndex: 'evidence-index.json', semanticArtifacts, capabilitySummary: { total: skeletons.length, complete: 0, planned: 0, draftPendingAuthoring: skeletons.length, blockedCapabilities: 0, openBlockers: unresolved.filter((item) => item.severity === 'blocker').length } });
+writeJSON(`${output}/manifest.json`, { schemaVersion: '2.2', packageType: 'functional-domain', projectId, projectName: product.name, status: 'draft', authoringStatus: 'pending', authorAgentId: args['author-agent'], sourceDirectory: basename(input), sourceContract: { requiredFiles: ['page architecture JSON', 'system architecture JSON', 'product context JSON', 'finalized design export directory', 'AI Restore release'], optionalFiles: decisions.length ? ['user business decisions JSON'] : [] }, planning: { manifest: 'planning-manifest.json', artifacts: 'planning-artifacts.json', capabilityDefinitions: 'capability-definitions.json', designManifest: 'design-manifest.json' }, evidenceIndex: 'evidence-index.json', semanticArtifacts, capabilitySummary: { total: skeletons.length, complete: 0, planned: 0, draftPendingAuthoring: skeletons.length, blockedCapabilities: 0, openBlockers: unresolved.filter((item) => item.severity === 'blocker').length } });
 writeJSON(`${output}/functional-spec.json`, spec);
 writeJSON(`${output}/page-function-map.json`, { schemaVersion: '2.2', pages: pages.map((page) => ({ pageId: page.id, title: page.title, navigationOnly: page.parentId === null, capabilityIds: skeletons.filter((item) => item.pageIds.includes(page.id)).map((item) => item.id) })) });
 writeJSON(`${output}/unresolved-items.json`, { schemaVersion: '2.2', items: unresolved });
@@ -133,17 +134,23 @@ function parseArgs(values) { const result = {}; for (let index = 0; index < valu
 // optional designBoard.json recording the selection provenance. Only these upstream-selected exports are
 // indexed; exploration proposals never enter. Mechanical only — copy each file, hash it, take the page hint
 // from the filename; no pixel is read here (that belongs to the authoring vision-mind).
-function buildDesignManifest(designDir, outputDir) {
+function buildDesignManifest(designDir, outputDir, pageIds) {
   const boardPath = `${designDir}/designBoard.json`;
   const provenance = existsSync(boardPath) ? { source: 'designBoard.json', selection: JSON.parse(readFileSync(boardPath, 'utf8')) } : { source: 'design-export-directory' };
   mkdirSync(`${outputDir}/designs`, { recursive: true });
-  const images = readdirSync(designDir).filter((name) => !name.endsWith('.json')).sort().map((name) => {
-    const bytes = readFileSync(`${designDir}/${name}`);
+  const candidates = readdirSync(designDir).filter((name) => name !== 'designBoard.json');
+  const unsupported = candidates.filter((name) => !['.png', '.jpg', '.jpeg', '.webp', '.svg'].includes(extname(name).toLowerCase()) || !lstatSync(`${designDir}/${name}`).isFile());
+  if (unsupported.length) throw new Error(`design export contains unsupported or non-regular files: ${unsupported.join(', ')}`);
+  if (!candidates.length) throw new Error('design export must contain at least one finalized PNG, JPEG, WebP, or SVG image');
+  const images = candidates.sort().map((name) => {
+    const source = `${designDir}/${name}`; const bytes = readFileSync(source);
     cpSync(`${designDir}/${name}`, `${outputDir}/designs/${name}`);
     const id = name.replace(/\.[^.]+$/, '');
+    if (!pageIds.has(id)) throw new Error(`design pageHint does not match an architecture page: ${id}`);
     return { id, path: `designs/${name}`, sha256: createHash('sha256').update(bytes).digest('hex'), pageHint: id };
   });
-  writeFileSync(`${outputDir}/design-manifest.json`, `${JSON.stringify({ schemaVersion: '1.0', generatedBy: 'functional-domain-design/scaffold', provenance, images }, null, 2)}\n`);
-  return { images };
+  const manifest = { schemaVersion: '1.0', generatedBy: 'functional-domain-design/scaffold', provenance, images };
+  writeFileSync(`${outputDir}/design-manifest.json`, `${JSON.stringify(manifest, null, 2)}\n`);
+  return manifest;
 }
-function usage() { console.error('Usage: scaffold-package.mjs --input <three-json-directory> --visual-release <ai-restore-release> --output <package-dir> --author-agent <stable-agent-id> [--decisions <user-business-decisions.json>] [--designs <finalized-design-export-directory>]'); process.exit(2); }
+function usage() { console.error('Usage: scaffold-package.mjs --input <three-json-directory> --designs <finalized-design-export-directory> --visual-release <ai-restore-release> --output <package-dir> --author-agent <stable-agent-id> [--decisions <user-business-decisions.json>]'); process.exit(2); }

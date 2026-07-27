@@ -54,6 +54,20 @@ test('schema 2.2 prepare rejects a functional package missing evidence dispositi
   } finally { rmSync(dir, { recursive: true, force: true }); }
 });
 
+test('schema 2.2 prepare rejects a locked design file that is absent', () => {
+  const dir = mkdtempSync(path.join(os.tmpdir(), 'missing-design-'));
+  try {
+    const functional = path.join(dir, 'fn'); const handoff = path.join(dir, 'ho');
+    cpSync(path.join(golden, 'functional-domain'), functional, { recursive: true });
+    cpSync(path.join(golden, 'implementation-handoff'), handoff, { recursive: true });
+    const design = readJSON(path.join(functional, 'design-manifest.json')).images[0].path;
+    rmSync(path.join(functional, design));
+    const result = spawnSync(process.execPath, [prepare, '--functional', functional, '--handoff', handoff, '--output', path.join(dir, 'out')], { encoding: 'utf8' });
+    assert.notEqual(result.status, 0);
+    assert.match(`${result.stdout}${result.stderr}`, /functional package is missing designs\//);
+  } finally { rmSync(dir, { recursive: true, force: true }); }
+});
+
 test('schema 2.2 verify rejects removal of a locked evidence input', () => {
   const dir = mkdtempSync(path.join(os.tmpdir(), 'removed-evidence-'));
   try {
@@ -62,5 +76,18 @@ test('schema 2.2 verify rejects removal of a locked evidence input', () => {
     const result = spawnSync(process.execPath, [verify, dir, '--require-level', 'simulated'], { encoding: 'utf8' });
     assert.notEqual(result.status, 0);
     assert.match(`${result.stdout}${result.stderr}`, /functional\/evidence-index\.json|input lock/);
+  } finally { rmSync(dir, { recursive: true, force: true }); }
+});
+
+test('schema 2.2 verify rejects removal of a copied locked design', () => {
+  const dir = mkdtempSync(path.join(os.tmpdir(), 'removed-design-'));
+  try {
+    cpSync(path.join(golden, 'implementation'), dir, { recursive: true });
+    const design = readJSON(path.join(dir, 'inputs/functional-design-manifest.json')).images[0].path;
+    rmSync(path.join(dir, 'inputs', `functional-${design}`));
+    rmSync(path.join(dir, 'implementation-lock.json'));
+    const result = spawnSync(process.execPath, [verify, dir, '--require-level', 'simulated'], { encoding: 'utf8' });
+    assert.notEqual(result.status, 0);
+    assert.match(`${result.stdout}${result.stderr}`, /functional\/designs\/|locked input is missing|input lock/);
   } finally { rmSync(dir, { recursive: true, force: true }); }
 });

@@ -12,6 +12,7 @@
       "page architecture JSON",
       "system architecture JSON",
       "product context JSON",
+      "finalized design export directory",
       "AI Restore release"
     ],
     "optionalFiles": []
@@ -19,7 +20,8 @@
   "planning": {
     "manifest": "planning-manifest.json",
     "artifacts": "planning-artifacts.json",
-    "capabilityDefinitions": "capability-definitions.json"
+    "capabilityDefinitions": "capability-definitions.json",
+    "designManifest": "design-manifest.json"
   },
   "evidenceIndex": "evidence-index.json",
   "semanticArtifacts": [
@@ -42,6 +44,6 @@
   "approval": {
     "method": "independent-agent-review",
     "reviewerAgentId": "golden-domain-reviewer",
-    "reviewedAt": "2026-07-25T08:39:59.417Z"
+    "reviewedAt": "2026-07-27T06:01:33.112Z"
   }
 }

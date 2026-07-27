@@ -4,6 +4,8 @@
 
 The functional package uses schema `2.2` across all formal domain files, has status `approved`, contains no unresolved blockers, and includes `review-receipt.json` plus a valid `package-lock.json`. It also includes FDD-owned `planning-manifest.json`, `planning-artifacts.json`, `capability-definitions.json`, `evidence-index.json`, `evidence-dispositions.json`, and `planning-review-receipt.json`. PI copies both evidence files into `inputs/`, locks their digests, and treats them as read-only planning provenance. Capability, entity, relationship, journey, rule, permission, and integration sets exactly match the approved functional spec.
 
+PI treats the approved FDD `package-lock.json` as the complete functional input file set. Every safe locked path, including `design-manifest.json`, `designs/*`, and locked acceptance fixtures, is copied under `inputs/functional-*` and included in `input-lock.json`. PI does not reinterpret the designs, but preserves them for implementation traceability and independent replay of the complete FDD package.
+
 FDD planning uses workflow ID `fdd-bmad-planning`. PI implementation planning uses workflow ID `pi-implementation-bmad`. PI derives units and stories from approved IDs and acceptance contracts. A missing or inconsistent domain contract is returned to FDD rather than reinterpreted by PI.
 
 ## Implementation handoff input

@@ -1,0 +1,22 @@
+{
+  "schemaVersion": "1.0",
+  "generatedBy": "functional-domain-design/scaffold",
+  "provenance": {
+    "source": "designBoard.json",
+    "selection": {
+      "board": "submission-board",
+      "selectedByPage": {
+        "submission": "submission.svg"
+      },
+      "note": "neutral finalized-export selection for the golden; basic shapes, zero product content"
+    }
+  },
+  "images": [
+    {
+      "id": "submission",
+      "path": "designs/submission.svg",
+      "sha256": "dce78e5a73ad8480c39f0d36903adec7862a82ae216cc4f1816ff86adfa5ffd8",
+      "pageHint": "submission"
+    }
+  ]
+}

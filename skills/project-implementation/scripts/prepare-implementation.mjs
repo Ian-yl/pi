@@ -2,7 +2,7 @@
 import { createHash } from 'node:crypto';
 import { spawnSync } from 'node:child_process';
 import { cpSync, existsSync, mkdirSync, readFileSync, readdirSync, writeFileSync } from 'node:fs';
-import { basename, resolve } from 'node:path';
+import { basename, dirname, posix, resolve } from 'node:path';
 import { digestJSON, hashDirectory as hashHandoffTree, releaseDigest } from './lib/handoff.mjs';
 import { treeDigest } from './lib/validator-tree.mjs';
 
@@ -17,17 +17,21 @@ const functionalManifestPreview = readJSON(`${functionalDir}/manifest.json`);
 const SCHEMA_22_SEMANTIC_FILES = ['frontend-semantic-inventory.json', 'observed-interactions.json', 'control-capability-map.json', 'asset-role-inventory.json'];
 const semanticFiles = functionalManifestPreview.schemaVersion === '2.2' ? SCHEMA_22_SEMANTIC_FILES : [];
 const evidenceFiles = ['evidence-index.json', 'evidence-dispositions.json'];
-const protectedFunctionalFiles = ['manifest.json', 'planning-manifest.json', 'planning-artifacts.json', 'capability-definitions.json', ...evidenceFiles, ...semanticFiles, 'functional-spec.json', 'page-function-map.json', 'unresolved-items.json', 'planning-review-receipt.json', 'review-receipt.json'];
+const requiredFunctionalFiles = ['manifest.json', 'planning-manifest.json', 'planning-artifacts.json', 'capability-definitions.json', 'design-manifest.json', ...evidenceFiles, ...semanticFiles, 'functional-spec.json', 'page-function-map.json', 'unresolved-items.json', 'planning-review-receipt.json', 'review-receipt.json'];
+const functionalPackageLockPreview = readJSON(`${functionalDir}/package-lock.json`);
+const protectedFunctionalFiles = lockedPackageFiles(functionalPackageLockPreview);
 const formalFunctionalFiles = [...protectedFunctionalFiles, 'package-lock.json'];
 const protectedHandoffFiles = ['handoff-manifest.json', 'visual-source.json', 'release-manifest.json', 'suite-gate.json', 'visual-approval.json', 'frontend-manifest.json', 'functional-spec.json', ...semanticFiles, ...(functionalManifestPreview.schemaVersion === '2.2' ? ['handoff-anchor-manifest.json'] : []), 'visual-controls.json', 'ui-implementation-plan.json', 'api-contract.json', 'domain-bindings.json', 'runtime-contract.json', 'handoff-review-receipt.json'];
 const formalHandoffFiles = [...protectedHandoffFiles, 'handoff-lock.json'];
-const f = Object.fromEntries(formalFunctionalFiles.filter((file) => existsSync(`${functionalDir}/${file}`)).map((file) => [file, readJSON(`${functionalDir}/${file}`)]));
+const functionalJsonFiles = [...requiredFunctionalFiles, 'package-lock.json'];
+const f = Object.fromEntries(functionalJsonFiles.filter((file) => existsSync(`${functionalDir}/${file}`)).map((file) => [file, readJSON(`${functionalDir}/${file}`)]));
 const front = Object.fromEntries(formalHandoffFiles.filter((file) => existsSync(`${handoffDir}/${file}`)).map((file) => [file, readJSON(`${handoffDir}/${file}`)]));
 const errors = [];
 if (functionalManifestPreview.schemaVersion !== '2.2') errors.push('project implementation accepts only functional-domain schema 2.2');
 if (functionalManifestPreview.schemaVersion === '2.2' && JSON.stringify(functionalManifestPreview.semanticArtifacts) !== JSON.stringify(SCHEMA_22_SEMANTIC_FILES)) errors.push('schema 2.2 semanticArtifacts must equal the fixed semantic artifact contract');
 
-for (const file of formalFunctionalFiles) if (!f[file]) errors.push(`functional package is missing ${file}`);
+for (const file of requiredFunctionalFiles) if (!protectedFunctionalFiles.includes(file)) errors.push(`functional package lock is missing required file ${file}`);
+for (const file of formalFunctionalFiles) if (!existsSync(`${functionalDir}/${file}`)) errors.push(`functional package is missing ${file}`);
 for (const file of formalHandoffFiles) if (!front[file]) errors.push(`implementation handoff is missing ${file}`);
 const manifest = f['manifest.json'] || {};
 const spec = f['functional-spec.json'] || {};
@@ -36,6 +40,7 @@ const trustedFunctionalValidators = new Map([
   ['fdd-validator-2.2.0', { contractVersion: 'functional-domain/2.2', entry: resolve(import.meta.dirname, '../validators/fdd-2.2.0/validate-package.mjs') }],
   ['fdd-validator-2.2.1', { contractVersion: 'functional-domain/2.2', entry: resolve(import.meta.dirname, '../validators/fdd-2.2.1/validate-package.mjs') }],
   ['fdd-validator-2.2.2', { contractVersion: 'functional-domain/2.2', entry: resolve(import.meta.dirname, '../validators/fdd-2.2.2/validate-package.mjs') }],
+  ['fdd-validator-2.2.3', { contractVersion: 'functional-domain/2.2', entry: resolve(import.meta.dirname, '../validators/fdd-2.2.3/validate-package.mjs') }],
 ]);
 const planningManifest = f['planning-manifest.json'] || {}; const planningArtifacts = f['planning-artifacts.json'] || {}; const definitions = f['capability-definitions.json'] || {}; const planningReceipt = f['planning-review-receipt.json'];
 if (manifest.status !== 'approved') errors.push('functional package is not approved');
@@ -139,7 +144,7 @@ if (errors.length) {
 
 mkdirSync(output, { recursive: true });
 mkdirSync(`${output}/inputs`, { recursive: true });
-for (const file of formalFunctionalFiles) cpSync(`${functionalDir}/${file}`, `${output}/inputs/functional-${file}`);
+for (const file of formalFunctionalFiles) { const target = `${output}/inputs/functional-${file}`; mkdirSync(dirname(target), { recursive: true }); cpSync(`${functionalDir}/${file}`, target); }
 for (const file of formalHandoffFiles) cpSync(`${handoffDir}/${file}`, `${output}/inputs/handoff-${file}`);
 if (existsSync(`${handoffDir}/web`)) cpSync(`${handoffDir}/web`, `${output}/web`, {
   recursive: true,
@@ -232,6 +237,13 @@ function verifyFunctionalLock(dir, lock, errors) {
     if (!digest || !existsSync(`${dir}/${file}`)) continue;
     if (sha(readFileSync(`${dir}/${file}`)) !== digest) errors.push(`functional lock mismatch: ${file}`);
   }
+}
+function lockedPackageFiles(lock) {
+  if (lock.schemaVersion !== '1.0' || lock.algorithm !== 'sha256' || !lock.digests || typeof lock.digests !== 'object') throw new Error('functional package lock is incomplete or unsupported');
+  const files = Object.keys(lock.digests).sort();
+  for (const file of files) if (!file || posix.isAbsolute(file) || posix.normalize(file) !== file || file === '..' || file.startsWith('../')) throw new Error(`functional package lock contains an unsafe path: ${file}`);
+  if (!files.includes('design-manifest.json') || !files.some((file) => file.startsWith('designs/'))) throw new Error('functional package lock does not contain the finalized design closure');
+  return files;
 }
 function buildFieldBindingPlan() {
   const bindings = [];

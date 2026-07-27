@@ -2,7 +2,7 @@
 import { createHash } from 'node:crypto';
 import { existsSync, lstatSync, readFileSync, readdirSync, realpathSync, statSync, writeFileSync } from 'node:fs';
 import { spawnSync } from 'node:child_process';
-import { resolve } from 'node:path';
+import { posix, resolve } from 'node:path';
 import { schemaFindings } from './lib/json-schema.mjs';
 import { computeOperationReceipts } from './lib/operation-receipts.mjs';
 import { digestJSON, releaseDigest } from './lib/handoff.mjs';
@@ -14,7 +14,10 @@ const functionalManifestPreview = existsSync(`${dir}/inputs/functional-manifest.
 const SCHEMA_22_SEMANTIC_FILES = ['frontend-semantic-inventory.json', 'observed-interactions.json', 'control-capability-map.json', 'asset-role-inventory.json'];
 const semanticInputs = functionalManifestPreview.schemaVersion === '2.2' ? SCHEMA_22_SEMANTIC_FILES : [];
 const evidenceInputs = ['evidence-index.json', 'evidence-dispositions.json'];
-const formalFunctionalInputs = ['manifest.json', 'planning-manifest.json', 'planning-artifacts.json', 'capability-definitions.json', ...evidenceInputs, ...semanticInputs, 'functional-spec.json', 'page-function-map.json', 'unresolved-items.json', 'planning-review-receipt.json', 'review-receipt.json', 'package-lock.json'];
+const requiredFunctionalInputs = ['manifest.json', 'planning-manifest.json', 'planning-artifacts.json', 'capability-definitions.json', 'design-manifest.json', ...evidenceInputs, ...semanticInputs, 'functional-spec.json', 'page-function-map.json', 'unresolved-items.json', 'planning-review-receipt.json', 'review-receipt.json'];
+const functionalPackageLockPreview = existsSync(`${dir}/inputs/functional-package-lock.json`) ? readJSON(`${dir}/inputs/functional-package-lock.json`) : {};
+const lockedFunctionalInputs = lockedPackageFiles(functionalPackageLockPreview);
+const formalFunctionalInputs = [...lockedFunctionalInputs, 'package-lock.json'];
 const formalHandoffInputs = ['handoff-manifest.json', 'visual-source.json', 'release-manifest.json', 'suite-gate.json', 'visual-approval.json', 'frontend-manifest.json', 'functional-spec.json', ...semanticInputs, ...(functionalManifestPreview.schemaVersion === '2.2' ? ['handoff-anchor-manifest.json'] : []), 'visual-controls.json', 'ui-implementation-plan.json', 'api-contract.json', 'domain-bindings.json', 'runtime-contract.json', 'handoff-review-receipt.json', 'handoff-lock.json'];
 if (process.argv.includes('--legacy') || process.argv.includes('--legacy-archive-internal')) fail(['legacy verification modes are unsupported; prepare a Schema 2.2 workspace']);
 const requiredLevel = optionValue('--require-level') || 'integrated';
@@ -193,6 +196,14 @@ function verifyInputLock(lock, items) {
     const actual = statSync(target).isDirectory() ? hashDirectory(target) : sha(readFileSync(target));
     if (actual !== digest) items.push(`input lock mismatch: ${source}`);
   }
+}
+function lockedPackageFiles(lock) {
+  if (lock.schemaVersion !== '1.0' || lock.algorithm !== 'sha256' || !lock.digests || typeof lock.digests !== 'object') return [];
+  const files = Object.keys(lock.digests).sort();
+  if (files.some((file) => !file || posix.isAbsolute(file) || posix.normalize(file) !== file || file === '..' || file.startsWith('../'))) return [];
+  if (requiredFunctionalInputs.some((file) => !files.includes(file))) return [];
+  if (!files.includes('design-manifest.json') || !files.some((file) => file.startsWith('designs/'))) return [];
+  return files;
 }
 function hashDirectory(root) {
   const hash = createHash('sha256');
