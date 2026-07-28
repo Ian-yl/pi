@@ -34,33 +34,33 @@ test('the golden collection capability passes item integrity before mutation', (
   assert.equal(verifyFrontend(golden).status, 0, verifyFrontend(golden).stderr);
 });
 
-test('N1: a control-default quantity submitted as an explicit choice is rejected (non-default gate)', () => {
+test('a control-default quantity submitted as an explicit choice is rejected', () => {
   rejects(withMutatedEvidence((evidence) => { evidence.nonDefault = false; }), /control default value|non-default/i);
 });
 
-test('N2: a collection whose length differs from the requested count is rejected (quantity chain)', () => {
+test('a collection whose length differs from the requested count is rejected', () => {
   rejects(withMutatedEvidence((evidence) => { evidence.count = 1; }), /collection length differs from the requested quantity/);
 });
 
-test('N3: collection items resolving to the same resource are rejected (per-item uniqueness)', () => {
+test('collection items resolving to the same resource are rejected', () => {
   rejects(withMutatedEvidence((evidence) => { evidence.uniqueDigests = evidence.count - 1; }), /do not all fetch a distinct resource/);
 });
 
-test('N3b: collection items reusing a resource locator are rejected (unique-URL requirement)', () => {
+test('collection items reusing a resource locator are rejected', () => {
   rejects(withMutatedEvidence((evidence) => { evidence.uniqueUrls = evidence.count - 1; }), /do not all resolve to unique resource locators/);
 });
 
-test('N5: collection items not each individually resolved in the live app are rejected (interaction correspondence)', () => {
+test('collection items not individually resolved in the live app are rejected', () => {
   rejects(withMutatedEvidence((evidence) => { evidence.revealed = evidence.count - 1; }), /do not each resolve their own resource on interaction/);
 });
 
-test('N4: a simulated-level workspace cannot claim integrated-level completion', () => {
+test('a simulated-level workspace cannot claim integrated-level completion', () => {
   const result = spawnSync('node', [path.join(root, 'scripts/verify-implementation.mjs'), golden, '--require-level', 'integrated'], { encoding: 'utf8' });
   assert.notEqual(result.status, 0);
   assert.match(`${result.stdout}${result.stderr}`, /below required integrated/);
 });
 
-test('N4b: a capability carrying an external providerContract caps at simulated-verified without integrated evidence', () => {
+test('an external provider capability stays simulated-verified without integrated evidence', () => {
   const dir = mkdtempSync(path.join(os.tmpdir(), 'pi-part4-'));
   cpSync(golden, dir, { recursive: true });
   rmSync(path.join(dir, 'implementation-lock.json'), { force: true });

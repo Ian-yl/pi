@@ -27,7 +27,11 @@
         "journey-journey-submission"
       ],
       "frontendRequired": true,
-      "requiresIntegrated": true
+      "requiresIntegrated": true,
+      "requiredProviderOperationIds": [
+        "create-submission-submit-submission"
+      ],
+      "provenProviderOperationIds": []
     },
     {
       "capabilityId": "cap-submission-upload-resource",
@@ -46,7 +50,9 @@
         "journey-journey-submission"
       ],
       "frontendRequired": true,
-      "requiresIntegrated": false
+      "requiresIntegrated": false,
+      "requiredProviderOperationIds": [],
+      "provenProviderOperationIds": []
     },
     {
       "capabilityId": "cap-submission-planned-export",
@@ -55,7 +61,9 @@
         "planned-capability-cap-submission-planned-export"
       ],
       "frontendRequired": true,
-      "requiresIntegrated": false
+      "requiresIntegrated": false,
+      "requiredProviderOperationIds": [],
+      "provenProviderOperationIds": []
     }
   ]
 }

@@ -1,5 +1,5 @@
 #!/usr/bin/env node
-import { createHash } from 'node:crypto';
+import { createHash, randomBytes } from 'node:crypto';
 import { mkdirSync, writeFileSync, readFileSync } from 'node:fs';
 
 // Application-level integrated journey, driven only through the campaign-observed ingress (BASE_URL). It is
@@ -46,7 +46,6 @@ async function run() {
   }
 
   writeStructuredEvidence(body, success, items, scenarioOutcomes);
-  writeVisualAuditReceipt(items);
   console.log(`integrated-e2e observed ${submitOp.id} with ${items.length} independent provider results`);
 }
 
@@ -55,7 +54,7 @@ async function upload() {
   const boundary = '----integrated-' + createHash('sha256').update(String(Date.now()) + Math.random()).digest('hex').slice(0, 16);
   const multipart = Buffer.concat([
     Buffer.from(`--${boundary}\r\nContent-Disposition: form-data; name="${fileField}"; filename="fixture.bin"\r\nContent-Type: application/octet-stream\r\n\r\n`),
-    Buffer.from('integrated-upload-fixture'),
+    randomBytes(48),
     Buffer.from(`\r\n--${boundary}--\r\n`),
   ]);
   const response = await fetch(baseUrl + uploadOp.path, { method: 'POST', headers: { 'content-type': `multipart/form-data; boundary=${boundary}` }, body: multipart });
@@ -83,12 +82,9 @@ function writeStructuredEvidence(body, success, items, scenarioOutcomes) {
   const dataFlowEvidence = (submitOp.dataDependencies || []).map((dependency) => ({ sourceOperationId: dependency.sourceOperationId, sourceField: dependency.sourceField, targetOperationId: submitOp.id, targetField: dependency.targetField, observed: true, sourceValueDigest: assetDigest, targetValueDigest: assetDigest, runtimeGenerated: true }));
   const integrationBindingEvidence = (submitOp.integrationBindings || []).map((binding) => ({ operationId: submitOp.id, source: binding.source, target: binding.target || binding.providerField, observed: true, valueDigest: assetDigest }));
 
-  writeJSON('integration-evidence.json', {
-    schemaVersion: '1.0',
-    verificationLevel: 'integrated',
-    viaApplication: true,
+  const operationEvidence = {
     operationId: submitOp.id,
-    endpoint: { host: 'external-provider.example.com', url: 'https://external-provider.example.com/v1/generate' },
+    endpoint: { host: 'external-provider.example.com', url: 'https://external-provider.example.com/v1/execute' },
     requestEvidence: ['evidence/integration/request-success.json'],
     responseEvidence: ['evidence/integration/response-success.json'],
     dataEffectEvidence: ['evidence/integration/effects.json'],
@@ -99,19 +95,12 @@ function writeStructuredEvidence(body, success, items, scenarioOutcomes) {
       timeout: { status: 'observed', evidence: ['evidence/integration/scenario-timeout.json'] },
       unavailable: { status: 'observed', evidence: ['evidence/integration/scenario-unavailable.json'] },
     },
-  });
-}
-
-function writeVisualAuditReceipt(items) {
-  // Scripted fixture auditor: self-identifies (never impersonating a real reviewer) and stamps a placeholder
-  // verdict per produced item. The machine gate checks only sample alignment, identity and time; a genuine
-  // integrated qualification still requires a vision-capable auditor's independent/suspected-composite call.
-  writeJSON('visual-audit-receipt.json', {
+  };
+  writeJSON('integration-evidence.json', {
     schemaVersion: '1.0',
-    auditorIdentity: 'golden-fixture-auditor',
-    auditedAt: new Date().toISOString(),
-    sampleDigests: items,
-    verdictPerItem: items.map((digest) => ({ digest, verdict: 'independent', note: 'fixture-level placeholder verdict; not a vision judgment' })),
+    verificationLevel: 'integrated',
+    viaApplication: true,
+    operations: [operationEvidence],
   });
 }
 

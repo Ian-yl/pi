@@ -282,6 +282,24 @@
           "title": "External submission review",
           "message": "功能待实现",
           "capabilitySpecific": true
+        },
+        "activation": {
+          "type": "existing-control",
+          "visualHint": {
+            "text": "External submission review",
+            "kind": "button"
+          }
+        },
+        "surface": {
+          "type": "planned-workspace",
+          "requiredRegions": [
+            "result-panel"
+          ],
+          "contentContract": {
+            "heading": "External submission review",
+            "inputIds": [],
+            "emptyState": "功能待实现"
+          }
         }
       },
       "deliveryPolicy": {

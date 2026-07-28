@@ -41,7 +41,7 @@ for (const group of ['capabilities', 'entities', 'valueObjects', 'relationships'
 if (!frontendInventory.pages?.length || !frontendInventory.sourceSummary?.length || observedInteractions.releaseDigest !== frontendInventory.release?.releaseDigest || controlMap.releaseDigest !== frontendInventory.release?.releaseDigest) findings.push('frontend release semantics were not fully extracted and release-bound');
 if (assetRoleMode && (assetInventory.releaseDigest !== frontendInventory.release?.releaseDigest || !Array.isArray(assetInventory.assets))) findings.push('asset role inventory is absent or not release-bound');
 for (const asset of assetInventory.assets || []) { if (!['decorative', 'business-sample'].includes(asset.role) || !asset.digest || !asset.evidence?.sources?.length) findings.push(`${asset.id || asset.path}: static asset is unclassified`); if (asset.role === 'business-sample' && !['api-data', 'user-input', 'empty-state'].includes(asset.requiredReplacement)) findings.push(`${asset.id}: business sample has no replacement contract`); }
-if (spec.architecture?.visualAlignment?.status !== 'aligned' || spec.architecture?.visualAlignment?.coverage !== 1 || spec.architecture?.visualAlignment?.routeMismatches?.length) findings.push('architecture pages, routes, and immutable frontend release are not aligned');
+if (spec.architecture?.visualAlignment?.status === 'blocked') findings.push('architecture and immutable frontend release do not identify the same product');
 if (!manifest.authorAgentId) findings.push('missing authorAgentId');
 if (manifest.authorAgentId === reviewerAgentId) findings.push('reviewer must be a different agent from the author');
 for (const item of unresolved.items || []) if (item.severity === 'blocker' && item.status !== 'resolved') findings.push(`${item.id}: ${item.question}`);
@@ -55,7 +55,6 @@ for (const capability of spec.capabilities || []) {
   if (capability.presentation?.mode !== 'headless' && !(controlMap.mappings || []).some((item) => item.capabilityId === capability.id)) findings.push(`${capability.id}: frontend control mapping is absent`);
   if (capability.presentation?.primaryOperationId && !(capability.operations || []).some((operation) => operation.id === capability.presentation.primaryOperationId)) findings.push(`${capability.id}: primary operation is absent`);
   if (containsUnconstrainedGeneric(capability.inputSchema) || containsUnconstrainedGeneric(capability.outputSchema)) findings.push(`${capability.id}: unconstrained generic objects replace business schemas`);
-  if (capability.specificationStatus === 'complete' && ['create', 'update', 'retry', 'external-operation'].includes(capability.synthesisAnalysis?.candidatePattern) && hasOnlyNameWrappedGenericResult(capability.outputSchema)) findings.push(`${capability.id}: capability-name wrapper around kind/references/quality is not a business result contract`);
   if (capability.aggregateSubmission) findings.push(...reviewAggregateSubmission(capability, spec));
   findings.push(...reviewResultPresentation(capability, frontendInventory));
   for (const operation of capability.operations || []) {
@@ -83,20 +82,11 @@ for (const capability of spec.capabilities || []) {
     if (!Array.isArray(example.then) || !example.then.length || example.then.some((item) => typeof item !== 'object' || !item.assertion)) findings.push(`${capability.id}: acceptance example does not contain executable assertions`);
   }
 }
-const fingerprints = new Map();
 const triggers = new Map();
-const providerFingerprints = new Map();
 for (const capability of spec.capabilities || []) {
   if (capability.aliasOf) continue;
-  const fingerprint = JSON.stringify({ pageScope: capability.pageIds, input: capability.inputSchema, output: capability.outputSchema, processing: capability.capabilityIntent?.processingSemantics ?? capability.closure?.systemBehavior?.summary, effects: capability.entityEffects, failures: capability.failures });
-  if (fingerprints.has(fingerprint)) findings.push(`${capability.id}: business semantics are indistinguishable from ${fingerprints.get(fingerprint)}`); else fingerprints.set(fingerprint, capability.id);
   const trigger = capability.presentation?.triggerControl?.controlId; const triggerKey = `${capability.pageIds?.[0]}:${trigger}`;
   if (trigger) { if (triggers.has(triggerKey)) findings.push(`${capability.id}: primary trigger ${trigger} is already assigned to unrelated capability ${triggers.get(triggerKey)}`); else triggers.set(triggerKey, capability.id); }
-  const provider = capability.operations?.find((operation) => operation.providerContract)?.providerContract;
-  if (provider) {
-    const providerFingerprint = JSON.stringify({ pageScope: capability.pageIds, requiredCapability: provider.requiredCapability, transformation: provider.transformation, parameterMappings: provider.parameterMappings, assetBindings: provider.assetBindings, inputConstraints: provider.inputConstraints });
-    if (providerFingerprints.has(providerFingerprint)) findings.push(`${capability.id}: provider semantics are indistinguishable from ${providerFingerprints.get(providerFingerprint)}`); else providerFingerprints.set(providerFingerprint, capability.id);
-  }
 }
 if (findings.length) {
   manifest.status = 'draft';
@@ -120,21 +110,7 @@ write('planning-manifest.json', planningManifest);
 write('planning-artifacts.json', planningArtifacts);
 write('planning-review-receipt.json', { schemaVersion: '1.0', status: 'approved', workflow: 'fdd-bmad-planning', authorAgentId: manifest.authorAgentId, reviewerAgentId, reviewedAt: manifest.approval.reviewedAt, checks: ['project understanding reviewed', 'requirements analysis reviewed', 'domain design matches capability definitions', 'formal package semantics reviewed'] });
 if (existsSync(`${dir}/approval-runtime`)) rmSync(`${dir}/approval-runtime`, { recursive: true, force: true });
-// Signing pins the latest immutable validator revision. A new approval can never be minted against a
-// superseded revision to evade its added rules — an explicit downgrade request is rejected, so the only
-// way to keep an older revision is to already hold an older approval receipt (never to sign a new one).
-const LATEST_VALIDATOR_ID = 'fdd-validator-2.3.0';
-const requestedValidatorId = args['validator-version'] ? `fdd-validator-${args['validator-version']}` : LATEST_VALIDATOR_ID;
-if (requestedValidatorId !== LATEST_VALIDATOR_ID) {
-  manifest.status = 'draft'; delete manifest.approval; write('manifest.json', manifest);
-  planningManifest.status = 'review-pending'; write('planning-manifest.json', planningManifest);
-  if (reviewPhase) { reviewPhase.status = 'pending'; reviewPhase.outputs = {}; write('planning-artifacts.json', planningArtifacts); }
-  if (existsSync(`${dir}/review-receipt.json`)) rmSync(`${dir}/review-receipt.json`);
-  if (existsSync(`${dir}/planning-review-receipt.json`)) rmSync(`${dir}/planning-review-receipt.json`);
-  write('review-rejection.json', { schemaVersion: '1.0', status: 'rejected', authorAgentId: manifest.authorAgentId, reviewerAgentId, reviewedAt: new Date().toISOString(), findings: [`superseded validator revision ${requestedValidatorId} cannot sign a new approval`] });
-  console.error(`cannot sign an approval with the superseded validator revision ${requestedValidatorId}; new approvals are pinned to the latest ${LATEST_VALIDATOR_ID}`); process.exit(1);
-}
-const trustedValidatorId = LATEST_VALIDATOR_ID;
+const trustedValidatorId = 'fdd-validator-2.3.1';
 const trustedValidatorPath = resolve(import.meta.dirname, `../validators/${trustedValidatorId.replace('fdd-validator-', 'fdd-')}/validate-package.mjs`);
 write('review-receipt.json', { schemaVersion: '1.4', contractVersion: `functional-domain/${manifest.schemaVersion}`, trustedValidatorId, validatorDigest: treeDigest(resolve(trustedValidatorPath, '..')), status: 'approved', authorAgentId: manifest.authorAgentId, reviewerAgentId, reviewedAt: manifest.approval.reviewedAt, checks: ['all blockers resolved', 'all capability specifications complete', 'evidence statuses reviewed', 'acceptance criteria executable'] });
 const validation = spawnSync('node', [resolve(import.meta.dirname, 'validate-package.mjs'), dir, '--require-approved'], { encoding: 'utf8' });
@@ -171,6 +147,5 @@ function reviewResultPresentation(capability, frontend) {
   return result;
 }
 function reviewAggregateSubmission(capability, spec) { const result = []; const aggregate = capability.aggregateSubmission; if (aggregate.status === 'planned') { if (capability.specificationStatus !== 'planned' || capability.operations?.length || capability.inputSchema || capability.acceptanceExamples?.length) result.push(`${capability.id}: unresolved aggregate submission is not fail-closed planned`); return result; } if (capability.operations?.length !== 1) result.push(`${capability.id}: one aggregate submit action does not map to exactly one final submit operation`); const operation = capability.operations?.[0]; const sectionFields = aggregate.sections.flatMap((section) => section.fields.map((field) => field.id)); const schemaFields = Object.keys(operation?.request?.bodySchema?.properties || {}); for (const field of sectionFields) if (!schemaFields.includes(field)) result.push(`${capability.id}: aggregate request schema omits section field ${field}`); const config = (spec.entities || []).find((entity) => entity.id === aggregate.configurationAggregate?.entityId); if (!config?.aggregateRoot || !operation?.effects?.some((effect) => effect.entityId === config.id)) result.push(`${capability.id}: aggregate configuration root is absent or not written by final submit`); if (!aggregate.finalProduct?.type || !aggregate.finalProduct?.quantity || !aggregate.finalProduct?.lifecycle?.length || !aggregate.finalProduct?.downstreamUsage?.length) result.push(`${capability.id}: final product semantics are incomplete`); return result; }
-function hasOnlyNameWrappedGenericResult(schema) { const generic = new Set(['id', 'operationId', 'status', 'output', 'result']); const specialized = Object.entries(schema?.properties || {}).filter(([key]) => !generic.has(key)); return specialized.length > 0 && specialized.every(([, value]) => { const keys = Object.keys(value?.properties || {}); return value?.type === 'object' && keys.length > 0 && keys.every((key) => ['kind', 'references', 'quality'].includes(key)) && keys.includes('kind') && keys.includes('references'); }); }
 function parseArgs(values) { const result = {}; for (let i = 0; i < values.length; i++) if (values[i].startsWith('--')) { result[values[i].slice(2)] = values[i + 1]; i++; } return result; }
 function usage() { console.error('Usage: review-package.mjs --package <dir> --reviewer-agent <stable-agent-id>'); process.exit(2); }

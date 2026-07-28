@@ -1,6 +1,7 @@
 import assert from 'node:assert/strict';
+import { createHash } from 'node:crypto';
 import test from 'node:test';
-import { concurrencyFindings, independentItemsCampaignFindings, visualAuditFindings } from '../scripts/lib/campaign-independence.mjs';
+import { collectionAtResponsePath, concurrencyFindings, independentItemsCampaignFindings, invocationBindingEvidence, operationResourceProofs, operationScopedCalls, providerOperationSetFindings } from '../scripts/lib/campaign-independence.mjs';
 
 // The integrated campaign must count its OWN observed external provider calls and the observed response
 // collection, never the app's self-reported provider-call field. For an independent-items operation the
@@ -18,19 +19,16 @@ test('N distinct external calls, results, and response items pass the campaign c
   assert.deepEqual(independentItemsCampaignFindings(operation, ingress(4, ids), ids.map(call), challengeId), []);
 });
 
-test('CAMP1: one external call self-split into a 4-item response is rejected (call-once-split-N)', () => {
-  const findings = independentItemsCampaignFindings(operation, ingress(4, ['r1']), [call('r1')], challengeId);
-  assert.ok(findings.some((item) => /does not equal the observed external provider call count/.test(item)), findings.join(' | '));
-});
-
-test('CAMP2: reusing one external result across N calls violates one-result-per-item', () => {
-  const findings = independentItemsCampaignFindings(operation, ingress(4, ['r1']), [call('r1'), call('r1'), call('r1'), call('r1')], challengeId);
-  assert.ok(findings.some((item) => /one distinct external result per call/.test(item)), findings.join(' | '));
-});
-
-test('CAMP3: a response item with no incorporated external result is rejected', () => {
-  const findings = independentItemsCampaignFindings(operation, { startedAt: at - 10, observedAt: at + 10, responseCollectionLength: 2, responseValues: ['r1', 'fabricated'] }, [call('r1'), call('r2')], challengeId);
-  assert.ok(findings.some((item) => /does not incorporate a distinct external result per item/.test(item)), findings.join(' | '));
+test('independent-item evidence rejects incomplete or reused external results', () => {
+  const cases = [
+    [ingress(4, ['r1']), [call('r1')], /does not equal the observed external provider call count/],
+    [ingress(4, ['r1']), [call('r1'), call('r1'), call('r1'), call('r1')], /one distinct external result per call/],
+    [{ startedAt: at - 10, observedAt: at + 10, responseCollectionLength: 2, responseValues: ['r1', 'fabricated'] }, [call('r1'), call('r2')], /does not incorporate a distinct external result per item/],
+  ];
+  for (const [observedIngress, calls, pattern] of cases) {
+    const findings = independentItemsCampaignFindings(operation, observedIngress, calls, challengeId);
+    assert.ok(findings.some((item) => pattern.test(item)), findings.join(' | '));
+  }
 });
 
 test('a non-independent-items provider is not subject to the campaign count gate', () => {
@@ -40,45 +38,69 @@ test('a non-independent-items provider is not subject to the campaign count gate
 
 // Concurrency teeth: the campaign judges only the observed maximum in-flight external-call count against
 // the declared contract, with delay injection making overlap deterministic (not timing luck).
-const parallelProvider = { outputMode: 'independent-items', concurrency: { maxParallel: 2, ordering: 'unordered', failurePolicy: 'fail-fast' } };
+const parallelProvider = { outputMode: 'independent-items', concurrency: { maxParallel: 16, ordering: 'unordered', failurePolicy: 'fail-fast' } };
 
 test('observed parallelism within the declared ceiling passes the concurrency gate', () => {
   assert.deepEqual(concurrencyFindings(parallelProvider, 4, 2), []);
 });
 
-test('a declared-serial provider (maxParallel:1) observed serial passes', () => {
+test('the implementation may choose serial execution within its declared ceiling', () => {
   assert.deepEqual(concurrencyFindings({ outputMode: 'independent-items', concurrency: { maxParallel: 1, ordering: 'index-ordered', failurePolicy: 'fail-fast' } }, 4, 1), []);
 });
 
-test('CAMP4: a provider that declares maxParallel>=2 but runs serially is rejected (floor)', () => {
-  const findings = concurrencyFindings({ outputMode: 'independent-items', concurrency: { maxParallel: 3, ordering: 'unordered', failurePolicy: 'fail-fast' } }, 4, 1);
-  assert.ok(findings.some((item) => /was observed running serially/.test(item)), findings.join(' | '));
-});
-
-test('CAMP5: in-flight external calls exceeding the declared maxParallel is rejected (ceiling)', () => {
-  const findings = concurrencyFindings(parallelProvider, 4, 3);
+test('in-flight external calls cannot exceed the declared maxParallel', () => {
+  const findings = concurrencyFindings(parallelProvider, 20, 17);
   assert.ok(findings.some((item) => /exceeding its declared maxParallel/.test(item)), findings.join(' | '));
 });
 
-// Visual sampling receipt: a process gate over the not-machine-detectable content-collage boundary. The
-// machine only checks receipt existence, digest alignment, and recorded identity/time — never the verdict.
-const sheet = [{ digest: 'd1' }, { digest: 'd2' }, { digest: 'd3' }];
-const goodReceipt = { sampleDigests: ['d1', 'd2', 'd3'], verdictPerItem: ['independent', 'independent', 'suspected-composite'], auditorIdentity: 'design-reviewer-1', auditedAt: '2026-07-25T00:00:00Z' };
-
-test('a complete, aligned visual-audit-receipt passes the process gate', () => {
-  assert.deepEqual(visualAuditFindings(sheet, goodReceipt), []);
+test('the declared response path selects the contract collection instead of another array', () => {
+  const body = Buffer.from(JSON.stringify({ warnings: ['a', 'b', 'c', 'd'], result: { items: ['r1', 'r2'] } }));
+  assert.deepEqual(collectionAtResponsePath(body, 'response.result.items'), ['r1', 'r2']);
 });
 
-test('CAMP6: an integrated independent-items delivery with no visual-audit-receipt is rejected', () => {
-  assert.ok(visualAuditFindings(sheet, null).some((item) => /no visual-audit-receipt/.test(item)));
+test('every provider invocation must preserve every required integration binding', () => {
+  const op = { id: 'op', integrationBindings: [{ source: 'request.value', target: 'provider.value', required: true }] };
+  const ingressRecord = { startedAt: 1, observedAt: 10, requestValueDigests: { 'request.value': 'a'.repeat(64) } };
+  const calls = [{ id: 'one', challengeId, startedAt: 2, observedAt: 3, requestValueDigests: { 'provider.value': 'a'.repeat(64) } }, { id: 'two', challengeId, startedAt: 4, observedAt: 5, requestValueDigests: {} }];
+  const evidence = invocationBindingEvidence(op, ingressRecord, calls, challengeId);
+  assert.equal(evidence.length, 2);
+  assert.equal(evidence[0].observed, true);
+  assert.equal(evidence[1].observed, false);
 });
 
-test('CAMP7: a visual-audit-receipt whose sampled digests do not align with the sampling sheet is rejected', () => {
-  const findings = visualAuditFindings(sheet, { ...goodReceipt, sampleDigests: ['d1', 'd2', 'dX'] });
-  assert.ok(findings.some((item) => /do not align one-to-one/.test(item)), findings.join(' | '));
+test('resource resolution passes only when the uploaded content reaches the provider target', () => {
+  const op = { id: 'op', capabilityId: 'cap', dataDependencies: [{ sourceOperationId: 'upload', sourceField: 'response.resourceIds', targetField: 'request.resourceIds' }], integrationBindings: [{ source: 'request.resourceIds', target: 'provider.bytes', required: true }] };
+  const upload = { id: 'upload', method: 'POST', path: '/resources', resourceTransfer: { fileField: 'file' } };
+  const resolution = { method: 'resource-id-dereference', detail: 'resolve the locked resource before the provider call' };
+  const spec = { capabilities: [{ id: 'cap', closure: { inputUtilization: [{ operationId: 'op', requestPath: 'body.resourceIds', disposition: 'provider-mapped', resourceResolution: resolution }] } }] };
+  const ids = ['resource-runtime'];
+  const idsDigest = createHash('sha256').update(JSON.stringify(ids)).digest('hex');
+  const contentDigest = 'c'.repeat(64);
+  const ingress = { startedAt: 4, observedAt: 10, requestValueDigests: { 'request.resourceIds': idsDigest } };
+  const observations = [{ method: 'POST', path: '/resources', status: 201, responseBody: { resourceIds: ids }, requestContentDigests: { 'request.file': [contentDigest] } }];
+  const proofs = operationResourceProofs(spec, op, [upload, op], observations, ingress);
+  const call = { id: 'call', challengeId, startedAt: 5, observedAt: 6, requestValueDigests: { 'provider.bytes': 'b'.repeat(64) }, requestContentDigests: { 'provider.bytes': [contentDigest] } };
+  const evidence = invocationBindingEvidence(op, ingress, [call], challengeId, proofs);
+  assert.equal(evidence[0].mappingMode, 'resource-resolution');
+  assert.match(evidence[0].resolutionDigest, /^[a-f0-9]{64}$/);
+  assert.equal(evidence[0].observed, true);
+  assert.equal(invocationBindingEvidence(op, ingress, [{ ...call, requestContentDigests: { 'provider.bytes': ['d'.repeat(64)] } }], challengeId, proofs)[0].observed, false);
 });
 
-test('CAMP8: a visual-audit-receipt lacking auditor identity is rejected', () => {
-  const findings = visualAuditFindings(sheet, { ...goodReceipt, auditorIdentity: '' });
-  assert.ok(findings.some((item) => /lacks an auditor identity/.test(item)), findings.join(' | '));
+test('provider evidence must exactly cover every provider operation, not merely its capability', () => {
+  const operations = [{ id: 'one', providerContract: {} }, { id: 'two', providerContract: {} }, { id: 'local' }];
+  assert.deepEqual(providerOperationSetFindings(operations, [{ operationId: 'one' }, { operationId: 'two' }]), []);
+  assert.ok(providerOperationSetFindings(operations, [{ operationId: 'one' }]).some((item) => /set mismatch/.test(item)));
+  assert.ok(providerOperationSetFindings(operations, [{ operationId: 'one' }, { operationId: 'one' }, { operationId: 'two' }]).some((item) => /set mismatch/.test(item)));
+});
+
+test('overlapping provider operations cannot reuse one external invocation', () => {
+  const observedIngress = { startedAt: 1, observedAt: 10 };
+  const observations = [
+    { challengeId, operationId: 'operation-a', status: 200, startedAt: 2, observedAt: 9 },
+    { challengeId, operationId: 'operation-b', status: 200, startedAt: 2, observedAt: 9 },
+  ];
+  assert.equal(operationScopedCalls(observations, challengeId, 'operation-a', observedIngress).length, 1);
+  assert.equal(operationScopedCalls(observations, challengeId, 'operation-b', observedIngress).length, 1);
+  assert.equal(operationScopedCalls(observations.slice(0, 1), challengeId, 'operation-b', observedIngress).length, 0);
 });

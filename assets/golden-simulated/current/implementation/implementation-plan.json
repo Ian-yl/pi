@@ -5,7 +5,7 @@
   "authority": "approved-functional-domain-only",
   "planningSource": {
     "workflow": "fdd-bmad-planning",
-    "digest": "89ea0e2ac0ef390d0e8072ea1d92f55faf39b4239957c24cca3a11b874a52d5c",
+    "digest": "be77c84c9b9cbf44ec7330374249eb607f1f9952101c0b16df140b59923853ac",
     "semanticChangesAllowed": false
   },
   "implementationWorkflow": "pi-implementation-bmad",
@@ -1521,6 +1521,24 @@
           "title": "External submission review",
           "message": "功能待实现",
           "capabilitySpecific": true
+        },
+        "activation": {
+          "type": "existing-control",
+          "visualHint": {
+            "text": "External submission review",
+            "kind": "button"
+          }
+        },
+        "surface": {
+          "type": "planned-workspace",
+          "requiredRegions": [
+            "result-panel"
+          ],
+          "contentContract": {
+            "heading": "External submission review",
+            "inputIds": [],
+            "emptyState": "功能待实现"
+          }
         }
       },
       "deliveryPolicy": {

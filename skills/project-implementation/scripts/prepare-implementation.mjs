@@ -37,7 +37,7 @@ const manifest = f['manifest.json'] || {};
 const spec = f['functional-spec.json'] || {};
 const receipt = f['review-receipt.json'];
 const trustedFunctionalValidators = new Map([
-  ['fdd-validator-2.3.0', { contractVersion: 'functional-domain/2.3', entry: resolve(import.meta.dirname, '../validators/fdd-2.3.0/validate-package.mjs') }],
+  ['fdd-validator-2.3.1', { contractVersion: 'functional-domain/2.3', entry: resolve(import.meta.dirname, '../validators/fdd-2.3.1/validate-package.mjs') }],
 ]);
 const planningManifest = f['planning-manifest.json'] || {}; const planningArtifacts = f['planning-artifacts.json'] || {}; const definitions = f['capability-definitions.json'] || {}; const planningReceipt = f['planning-review-receipt.json'];
 if (manifest.status !== 'approved') errors.push('functional package is not approved');
@@ -101,8 +101,7 @@ const integrationCapabilityIds = new Set((spec.integrations || []).flatMap((inte
 const permissionCapabilityIds = new Set((spec.permissions || []).flatMap((permission) => permission.capabilityIds || []));
 const contractCompletionItems = [...capabilities.values()].filter((capability) => capability.specificationStatus === 'complete' && capabilityRequiresServerOperation(capability, integrationCapabilityIds, permissionCapabilityIds) && !(capability.operations || []).length).map((capability) => ({ capabilityId: capability.id, reason: 'complete server-required capability has no operation', requiredAction: 'FDD agent authors the operation contract, independent review approves it, then rebuild and review the handoff before PI prepare is retried' }));
 if (contractCompletionItems.length) {
-  writeJSON(`${output}.contract-completion.json`, { schemaVersion: '1.0', generatedBy: 'project-implementation/prepare-implementation', status: 'requires-fdd-contract-completion', sourceFunctionalPackage: functionalDir, items: contractCompletionItems });
-  errors.push(`approved input requires contract completion for ${contractCompletionItems.map((item) => item.capabilityId).join(', ')}; return the generated work item to the FDD agent and use only a newly reviewed and locked package/handoff`);
+  errors.push(`approved input is missing operation contracts for ${contractCompletionItems.map((item) => item.capabilityId).join(', ')}; stop PI and return the package to the FDD author and independent reviewer`);
 }
 if (new Set(rawUiCapabilityIds).size !== rawUiCapabilityIds.length || JSON.stringify([...rawUiCapabilityIds].sort()) !== JSON.stringify([...capabilities.keys()].sort())) errors.push('UI capability plan must be an exact one-to-one set with the functional capabilities');
 if (front['functional-spec.json'] && sha(readFileSync(`${handoffDir}/functional-spec.json`)) !== sha(readFileSync(`${functionalDir}/functional-spec.json`))) errors.push('handoff functional spec does not match approved package');

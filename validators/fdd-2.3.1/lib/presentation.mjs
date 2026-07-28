@@ -16,7 +16,9 @@ export function presentationFindings(capabilityId, presentation, capability = {}
     if (!nonempty(presentation.flow?.destination) && !text(presentation.flow?.destinationId)) findings.push(`capability ${capabilityId} extend-flow presentation has no flow destination`);
   }
   if (presentation.mode === 'display-only' && !nonempty(presentation.content) && !nonempty(presentation.region)) findings.push(`capability ${capabilityId} display-only presentation has no content or region`);
-  if (presentation.activation || presentation.surface) {
+  const requiresCompleteUiContract = options.requireDeliveryPolicy === true && presentation.mode !== 'headless';
+  if (requiresCompleteUiContract && !presentation.activation && !presentation.surface) findings.push(`capability ${capabilityId} has no activation or surface contract`);
+  if (presentation.activation || presentation.surface || requiresCompleteUiContract) {
     if (!presentation.activation?.type || !nonempty(presentation.activation?.visualHint)) findings.push(`capability ${capabilityId} has incomplete activation contract`);
     const content = presentation.surface?.contentContract;
     const planned = options.requireDeliveryPolicy === true && capability.specificationStatus === 'planned';

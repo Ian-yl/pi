@@ -885,7 +885,7 @@
           "capabilityId": "cap-submission-submit-submission",
           "semantics": "For Create submission, validate inputs, create the capability-specific aggregate state, and return its typed result.",
           "method": "POST",
-          "path": "/api/pages/submission/capabilities/submit-submission/create",
+          "path": "/api/submissions",
           "request": {
             "contentType": "application/json",
             "body": [
@@ -1174,7 +1174,7 @@
               "outputSemantic": "each provider invocation returns exactly one independent media item with its own media resource URL"
             },
             "concurrency": {
-              "maxParallel": 2,
+              "maxParallel": 16,
               "ordering": "unordered",
               "failurePolicy": "fail-fast"
             }
@@ -1226,10 +1226,6 @@
             ],
             "endpointPolicy": {
               "nonLocal": true
-            },
-            "correlation": {
-              "requestHeader": "X-Integration-Challenge",
-              "responsePath": "submissionId"
             }
           }
         }
@@ -1330,7 +1326,8 @@
             "system-node:submit-node",
             "page-module:identity-section",
             "page-module:options-section",
-            "product-context:brief"
+            "product-context:brief",
+            "observed-interaction:e91673f36607"
           ]
         },
         "output": {
@@ -1419,7 +1416,8 @@
         },
         "inputUtilization": [
           {
-            "inputId": "submission-title",
+            "operationId": "create-submission-submit-submission",
+            "requestPath": "body.submission-title",
             "disposition": "application-only",
             "evidenceAnchors": [
               "page:submission",
@@ -1436,7 +1434,8 @@
             "reason": "used only by the application (submission metadata / item count), not forwarded to the external provider"
           },
           {
-            "inputId": "submission-category",
+            "operationId": "create-submission-submit-submission",
+            "requestPath": "body.submission-category",
             "disposition": "application-only",
             "evidenceAnchors": [
               "page:submission",
@@ -1453,7 +1452,8 @@
             "reason": "used only by the application (submission metadata / item count), not forwarded to the external provider"
           },
           {
-            "inputId": "result-quantity",
+            "operationId": "create-submission-submit-submission",
+            "requestPath": "body.result-quantity",
             "disposition": "application-only",
             "evidenceAnchors": [
               "page:submission",
@@ -1470,11 +1470,11 @@
             "reason": "used only by the application (submission metadata / item count), not forwarded to the external provider"
           },
           {
-            "inputId": "upload-source-file-assetIds",
+            "operationId": "create-submission-submit-submission",
+            "requestPath": "body.upload-source-file-assetIds",
             "disposition": "provider-mapped",
             "mapping": {
-              "providerParam": "provider.inputs",
-              "transform": "identity"
+              "providerParam": "provider.inputs"
             },
             "evidenceAnchors": [
               "page:submission",
@@ -1814,7 +1814,7 @@
           "capabilityId": "cap-submission-upload-resource",
           "semantics": "For Upload source file, validate transfer constraints, compute checksum, bind ownership, persist an opaque storage reference, and return runtime resource identifiers.",
           "method": "POST",
-          "path": "/api/pages/submission/capabilities/upload-resource/assets",
+          "path": "/api/resources",
           "request": {
             "contentType": "multipart/form-data",
             "body": [
@@ -2220,6 +2220,24 @@
           "title": "External submission review",
           "message": "功能待实现",
           "capabilitySpecific": true
+        },
+        "activation": {
+          "type": "existing-control",
+          "visualHint": {
+            "text": "External submission review",
+            "kind": "button"
+          }
+        },
+        "surface": {
+          "type": "planned-workspace",
+          "requiredRegions": [
+            "result-panel"
+          ],
+          "contentContract": {
+            "heading": "External submission review",
+            "inputIds": [],
+            "emptyState": "功能待实现"
+          }
         }
       },
       "synthesisAnalysis": {
@@ -2332,8 +2350,7 @@
           "evidenceAnchors": [
             "page:submission",
             "page-module:planned-export",
-            "system-node:export-node",
-            "observed-interaction:758a395ec87f"
+            "system-node:export-node"
           ]
         },
         "output": {

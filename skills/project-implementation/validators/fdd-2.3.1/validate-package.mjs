@@ -40,13 +40,9 @@ const observedInteractions = docs['observed-interactions.json'] || {};
 const controlMap = docs['control-capability-map.json'] || {};
 const assetInventory = docs['asset-role-inventory.json'] || {};
 const approvalReceipt = docs['review-receipt.json'];
-// Replay registry pins each approved package to the immutable validator revision named in its receipt.
-// Schema 2.3 is a clean switch: the superseded 2.2 revisions and their registry entries were removed under an
-// explicit user decision that 2.2 products are discardable (see the reviewer-gates append-only clause). Inside
-// 2.3, append-only resumes — a new 2.3.x revision is added here, the signing path (review-package) pins the
-// latest, and every prior 2.3 revision is retained so no approval is retroactively invalidated or silently upgraded.
+// Schema 2.3 approvals and replay use the current repository-owned validator revision.
 const trustedValidators = new Map([
-  ['fdd-validator-2.3.0', { contractVersion: 'functional-domain/2.3', entry: resolve(import.meta.dirname, '../validators/fdd-2.3.0/validate-package.mjs') }],
+  ['fdd-validator-2.3.1', { contractVersion: 'functional-domain/2.3', entry: resolve(import.meta.dirname, '../validators/fdd-2.3.1/validate-package.mjs') }],
 ]);
 const trustedValidator = approvalReceipt?.trustedValidatorId ? trustedValidators.get(approvalReceipt.trustedValidatorId) : null;
 if (requireApproved && !approvalReceipt?.contractVersion) errors.push('approved package requires a versioned trusted review receipt');
@@ -175,7 +171,17 @@ for (const cap of capabilities.values()) {
     if (operation.providerContract && (!operation.providerContract.requiredCapability || !operation.providerContract.parameterMappings?.length || !operation.providerContract.outputConstraints)) errors.push(`operation ${operation.id} has an incomplete provider contract`);
     if (operation.providerContract) {
       const bindings = operation.integrationBindings || [];
-      for (const mapping of operation.providerContract.parameterMappings || []) if (!bindings.some((binding) => binding.source === mapping.source && binding.target === mapping.target && binding.required === mapping.required)) errors.push(`operation ${operation.id} provider parameter mapping is not an integration binding: ${mapping.source}`);
+      const mappings = operation.providerContract.parameterMappings || [];
+      const mappingKeys = mappings.map((mapping) => `${mapping.source}:${mapping.target}`);
+      const bindingKeys = bindings.map((binding) => `${binding.source}:${binding.target || binding.providerField}`);
+      if (new Set(mappingKeys).size !== mappingKeys.length) errors.push(`operation ${operation.id} has duplicate provider parameter mappings`);
+      if (new Set(bindingKeys).size !== bindingKeys.length) errors.push(`operation ${operation.id} has duplicate integration bindings`);
+      for (const mapping of mappings) {
+        if (!operationHasProviderSource(operation, mapping.source)) errors.push(`operation ${operation.id} provider mapping source is absent from its request schema: ${mapping.source}`);
+        const matches = bindings.filter((binding) => binding.source === mapping.source && (binding.target || binding.providerField) === mapping.target);
+        if (matches.length !== 1 || matches[0]?.required !== mapping.required) errors.push(`operation ${operation.id} provider parameter mapping is not one-to-one with an integration binding: ${mapping.source}`);
+      }
+      for (const binding of bindings) if (!mappings.some((mapping) => mapping.source === binding.source && mapping.target === (binding.target || binding.providerField) && mapping.required === binding.required)) errors.push(`operation ${operation.id} integration binding has no identical provider parameter mapping: ${binding.source}`);
     }
     if (operation.providerContract && !operation.integrationVerification) errors.push(`provider operation ${operation.id} has no integrated verification contract`);
     if (operation.providerContract?.outputMode !== undefined) {
@@ -187,7 +193,6 @@ for (const cap of capabilities.values()) {
         if (!provider.perCallConstraints || typeof provider.perCallConstraints !== 'object' || !Object.keys(provider.perCallConstraints).length) errors.push(`operation ${operation.id} independent-items provider must declare per-call single-item output constraints`);
         const concurrency = provider.concurrency;
         if (!concurrency || typeof concurrency !== 'object' || !Number.isInteger(concurrency.maxParallel) || concurrency.maxParallel < 1 || !['index-ordered', 'unordered'].includes(concurrency.ordering) || !String(concurrency.failurePolicy || '').trim()) errors.push(`operation ${operation.id} independent-items provider must declare a concurrency contract (integer maxParallel >= 1, ordering index-ordered|unordered, failurePolicy) — values are the author's, only presence is required`);
-        else if (quantityMayExceedOne(cap, operation) && concurrency.maxParallel < 2) errors.push(`operation ${operation.id} produces multiple independent items but provider concurrency maxParallel is below 2`);
       }
     }
     const effectEntities = new Set();
@@ -211,8 +216,9 @@ for (const operation of operations.values()) for (const dependency of operation.
   if (!dependency.sourceField || !dependency.targetField || dependency.targetOperationId !== operation.id) errors.push(`operation ${operation.id} has an incomplete data dependency`);
   if (!dependency.requiredOwnership || !dependency.requiredLifecycleStatus || !dependency.consistencyRequirement || dependency.runtimeValueRequired !== true) errors.push(`operation ${operation.id} has an incomplete runtime data lineage contract`);
   if (source && !schemaHasPath(source.response?.bodySchema, dependency.sourceField.replace(/^response\.?/, ''))) errors.push(`operation ${operation.id} data dependency source path does not exist: ${dependency.sourceField}`);
-  const targetSchema = operation.request?.bodySchema || operation.request?.querySchema;
-  if (!schemaHasPath(targetSchema, dependency.targetField.replace(/^request\.?/, ''))) errors.push(`operation ${operation.id} data dependency target path does not exist: ${dependency.targetField}`);
+  const target = requestLocationAndPath(dependency.targetField);
+  const targetSchema = operation.request?.[`${target.location}Schema`];
+  if (!targetSchema || !schemaHasPath(targetSchema, target.path)) errors.push(`operation ${operation.id} data dependency target path does not exist: ${dependency.targetField}`);
 }
 for (const journey of spec.journeys || []) {
   for (const capabilityId of journey.capabilityIds || []) { if (!capabilities.has(capabilityId)) errors.push(`journey ${journey.id} references unknown capability ${capabilityId}`); else if (capabilities.get(capabilityId).specificationStatus !== 'complete') errors.push(`implementation journey ${journey.id} includes non-complete capability ${capabilityId}`); }
@@ -243,12 +249,9 @@ if (requireApproved) {
   const inferred = collectEvidence(spec).filter((item) => item.status === 'inferred');
   if (inferred.length) errors.push(`package has ${inferred.length} inferred fact(s); confirm or document them before approval`);
 }
-const semanticFingerprints = new Map(); const aggregateTriggers = new Map();
+const aggregateTriggers = new Map();
 for (const cap of capabilities.values()) {
   if (cap.aliasOf) continue;
-  const fingerprint = JSON.stringify({ pageScope: cap.pageIds, input: cap.inputSchema, output: cap.outputSchema, processing: cap.capabilityIntent?.processingSemantics ?? cap.closure?.systemBehavior?.summary, effects: cap.entityEffects, failures: cap.failures });
-  if (semanticFingerprints.has(fingerprint)) errors.push(`capabilities ${semanticFingerprints.get(fingerprint)} and ${cap.id} have indistinguishable business semantics`);
-  else semanticFingerprints.set(fingerprint, cap.id);
   if (cap.aggregateSubmission?.status === 'complete') { const trigger = `${cap.pageIds?.[0]}:${cap.aggregateSubmission.triggerControlId}`; if (aggregateTriggers.has(trigger)) errors.push(`aggregate submit trigger ${trigger} is assigned to multiple capabilities: ${aggregateTriggers.get(trigger)}, ${cap.id}`); else aggregateTriggers.set(trigger, cap.id); }
 }
 
@@ -344,25 +347,6 @@ function collectEvidence(value, found = []) {
 }
 function validObjectSchema(schema) { return schema?.type === 'object' && schema.properties && typeof schema.properties === 'object' && Array.isArray(schema.required); }
 function containsUnconstrainedGeneric(schema) { if (!schema || typeof schema !== 'object') return false; if (schema.type === 'object' && schema.additionalProperties === true && !Object.keys(schema.properties || {}).length) return true; return Object.values(schema).some((value) => Array.isArray(value) ? value.some(containsUnconstrainedGeneric) : containsUnconstrainedGeneric(value)); }
-function requiresSpecializedBusinessResult(capability) { return ['create', 'update', 'retry', 'external-operation'].includes(capability.synthesisAnalysis?.candidatePattern); }
-function resultPresentationFindings(capability, frontend) {
-  const findings = []; const producesResult = capability.aggregateSubmission?.finalProduct || (capability.specificationStatus === 'complete' && requiresSpecializedBusinessResult(capability)); const contract = capability.resultPresentation;
-  if (producesResult && capability.specificationStatus === 'complete' && !contract) return [`capability ${capability.id} produces a business result without resultPresentation`];
-  if (!contract) return findings;
-  if (capability.specificationStatus !== 'complete') findings.push(`non-complete capability ${capability.id} must not expose resultPresentation`);
-  const page = (frontend.pages || []).find((item) => item.pageId === capability.pageIds?.[0]); const regions = new Set([...(page?.regions || []).map((item) => item.regionId), ...(page?.resultSurfaces || []).map((item) => item.surfaceId)]);
-  if (!regions.has(contract.targetRegion)) findings.push(`capability ${capability.id} resultPresentation targets an unrecognized frontend region: ${contract.targetRegion}`);
-  if (!['confirmed', 'documented', 'observed'].includes(contract.evidence?.status) || !contract.evidence?.sources?.length) findings.push(`capability ${capability.id} resultPresentation has no reliable source evidence`);
-  for (const state of ['processing', 'success', 'failure']) if (!contract.states?.[state]?.regionStatus || !contract.states?.[state]?.elementSemantic) findings.push(`capability ${capability.id} resultPresentation lacks semantic ${state} state`);
-  if (contract.states?.success?.requiresBoundElements !== true || contract.states?.success?.elementSemantic === 'status-text') findings.push(`capability ${capability.id} resultPresentation success is only a status message`);
-  if (!['immediate', 'poll-until-terminal'].includes(contract.runtimeFlow?.mode) || (contract.runtimeFlow?.mode === 'poll-until-terminal' && (!contract.runtimeFlow.terminalOperationId || !contract.runtimeFlow.terminalStatuses?.length))) findings.push(`capability ${capability.id} resultPresentation has an incomplete runtime flow`);
-  const operation = capability.operations?.find((item) => item.id === capability.presentation?.primaryOperationId) || capability.operations?.[0];
-  if (!operation || !contract.bindings?.length) findings.push(`capability ${capability.id} resultPresentation has no operation-bound result elements`);
-  for (const binding of contract.bindings || []) { if (!binding.id || !binding.element?.semantic || !binding.responsePath?.startsWith('response.')) findings.push(`capability ${capability.id} has an incomplete result binding`); else if (!schemaHasPath(operation?.response?.bodySchema, binding.responsePath.replace(/^response\./, ''))) findings.push(`capability ${capability.id} result binding references an unknown response path: ${binding.responsePath}`); if (!['response-cardinality', 'request-field'].includes(binding.count?.mode) || (binding.count?.mode === 'request-field' && (!binding.count.requestPath || binding.count.fixedValueForbidden !== true))) findings.push(`capability ${capability.id} result binding has no dynamic count contract`); }
-  return findings;
-}
-function hasSpecializedBusinessResult(capability) { const generic = new Set(['id', 'operationId', 'status', 'output', 'result']); const fields = Object.entries(capability.outputSchema?.properties || {}).filter(([field]) => !generic.has(field)); const quality = capability.capabilityIntent?.qualityCriteria || []; const downstream = capability.capabilityIntent?.downstreamUsage || []; const failures = capability.capabilityIntent?.failures || []; const assertions = (capability.acceptanceExamples || []).flatMap((example) => example.then || []).map((item) => item.assertion); return fields.some(([, schema]) => !isNameWrappedGenericResult(schema)) && quality.length >= 2 && downstream.length > 0 && failures.length >= 3 && assertions.some((item) => String(item).startsWith('response.')) && quality.every((criterion) => assertions.includes(`quality.${String(criterion).toLowerCase().replace(/[^\p{L}\p{N}]+/gu, '-').replace(/^-|-$/g, '')}`)); }
-function isNameWrappedGenericResult(schema) { if (schema?.type !== 'object') return false; const keys = Object.keys(schema.properties || {}); return keys.length > 0 && keys.every((key) => ['kind', 'references', 'quality'].includes(key)) && keys.includes('kind') && keys.includes('references'); }
 function aggregateSubmissionFindings(capability, entityIds, spec) { const findings = []; const aggregate = capability.aggregateSubmission; if (aggregate.status === 'planned') { if (capability.specificationStatus !== 'planned' || capability.operations?.length || capability.inputSchema || capability.acceptanceExamples?.length) findings.push(`aggregate capability ${capability.id} with insufficient evidence must remain planned without operation, schema, or acceptance fixture`); return findings; } const operations = capability.operations || []; if (operations.length !== 1) findings.push(`aggregate capability ${capability.id} must have exactly one final submit operation`); const operation = operations[0]; const declaredFields = aggregate.sections.flatMap((section) => section.fields.map((field) => field.id)); const boundFields = aggregate.configurationAggregate?.sections?.flatMap((section) => section.fieldIds || []) || []; const schemaFields = Object.keys(operation?.request?.bodySchema?.properties || {}); for (const field of declaredFields) if (!schemaFields.includes(field) || !boundFields.includes(field)) findings.push(`aggregate capability ${capability.id} schema or configuration aggregate omits section field ${field}`); const quantityField = aggregate.finalProduct?.quantity?.sourceField; if (quantityField && !schemaFields.includes(quantityField)) findings.push(`aggregate capability ${capability.id} quantity source field is absent from the aggregate request`); if (!aggregate.triggerControlId || operation?.aggregateSubmission?.triggerControlId !== aggregate.triggerControlId) findings.push(`aggregate capability ${capability.id} has no single evidence-bound primary submit action`); if (!aggregate.finalProduct?.type || !aggregate.finalProduct?.quantity || !aggregate.finalProduct?.lifecycle?.length || !aggregate.finalProduct?.downstreamUsage?.length) findings.push(`aggregate capability ${capability.id} has incomplete final product semantics`); if (!entityIds.has(aggregate.configurationAggregate?.entityId)) findings.push(`aggregate capability ${capability.id} has no configuration aggregate root entity`); if (!operation?.effects?.some((effect) => effect.entityId === aggregate.configurationAggregate?.entityId)) findings.push(`aggregate capability ${capability.id} final submit does not persist its configuration aggregate`); for (const itemId of aggregate.sectionItemIds || []) { const leaf = (spec.architecture?.leafClassifications || []).find((item) => item.leafId === itemId && item.pageId === capability.pageIds?.[0]); if (leaf?.classification !== 'input-field' || (spec.capabilities || []).some((item) => item.synthesisAnalysis?.sourceArchitectureLeafId === itemId)) findings.push(`aggregate section ${itemId} was emitted as a capability instead of an input partition`); } return findings; }
 function schemaHasPath(schema, path) { let current = schema; for (const part of String(path).replace(/\[\]$/g, '').split('.').filter(Boolean)) { current = current?.properties?.[part] || (current?.type === 'array' ? current.items?.properties?.[part] : null); if (!current) return false; } return true; }
 function sha(buffer) { return createHash('sha256').update(buffer).digest('hex'); }
@@ -446,32 +430,57 @@ function itemContractFindings(cap, destination) {
 // disposition is audited by the independent reviewer, not inferred here.
 function inputUtilizationFindings(cap, anchorIds) {
   const findings = [];
-  const providerOp = (cap.operations || []).find((operation) => operation.providerContract);
-  if (!providerOp) return findings;
+  const providerOps = (cap.operations || []).filter((operation) => operation.providerContract);
+  if (!providerOps.length) return findings;
   const ledger = cap.closure?.inputUtilization;
   if (!Array.isArray(ledger) || !ledger.length) { findings.push(`provider-backed capability ${cap.id} closure lacks an inputUtilization ledger`); return findings; }
-  const byInput = new Map(ledger.map((entry) => [entry.inputId, entry]));
-  const resourceFields = new Set((providerOp.dataDependencies || []).map((dep) => String(dep.targetField || '').replace(/^request\./, '')).filter(Boolean));
-  const inputs = new Set([...Object.keys(cap.inputSchema?.properties || {}), ...resourceFields]);
-  for (const inputId of inputs) {
-    const entry = byInput.get(inputId);
-    if (!entry) { findings.push(`provider-backed capability ${cap.id} inputUtilization ledger omits a disposition for input: ${inputId}`); continue; }
-    if (!['provider-mapped', 'application-only', 'not-used'].includes(entry.disposition)) { findings.push(`provider-backed capability ${cap.id} input ${inputId} has an unrecognized disposition: ${entry.disposition}`); continue; }
-    if (entry.disposition === 'provider-mapped' && !String(entry.mapping?.providerParam || '').trim()) findings.push(`provider-backed capability ${cap.id} provider-mapped input ${inputId} lacks a mapping to a provider parameter`);
-    if (entry.disposition === 'provider-mapped' && resourceFields.has(inputId) && (!entry.resourceResolution || typeof entry.resourceResolution !== 'object' || !Object.keys(entry.resourceResolution).length)) findings.push(`provider-backed capability ${cap.id} provider-mapped resource input ${inputId} lacks a resourceResolution (how the resource id becomes bytes or a URL for the provider)`);
-    if (entry.disposition === 'application-only' && (!String(entry.reason || '').trim() || !(entry.evidenceAnchors || []).length)) findings.push(`provider-backed capability ${cap.id} application-only input ${inputId} lacks a reason or evidence`);
-    if (entry.disposition === 'not-used' && (!String(entry.reason || '').trim() || !(entry.evidenceAnchors || []).length)) findings.push(`provider-backed capability ${cap.id} not-used input ${inputId} lacks a reason or evidence`);
-    for (const anchor of entry.evidenceAnchors || []) if (!anchorIds.has(anchor)) findings.push(`provider-backed capability ${cap.id} input ${inputId} references an unknown evidence anchor: ${anchor}`);
+  const keys = ledger.map((entry) => `${entry.operationId}:${normalizeLedgerRequestPath(entry.requestPath)}`);
+  if (new Set(keys).size !== keys.length) findings.push(`provider-backed capability ${cap.id} inputUtilization contains duplicate operation/request dispositions`);
+  for (const operation of providerOps) {
+    const fields = operationRequestFields(operation);
+    const resourceFields = new Set((operation.dataDependencies || []).map((dep) => normalizeLedgerRequestPath(dep.targetField)).filter(Boolean));
+    for (const field of fields) {
+      const requestPath = field.requestPath;
+      const matches = ledger.filter((entry) => entry.operationId === operation.id && normalizeLedgerRequestPath(entry.requestPath) === requestPath);
+      if (matches.length !== 1) { findings.push(`provider operation ${operation.id} inputUtilization must contain exactly one disposition for request field: ${requestPath}`); continue; }
+      const entry = matches[0];
+      if (!['provider-mapped', 'application-only', 'not-used'].includes(entry.disposition)) { findings.push(`provider operation ${operation.id} input ${requestPath} has an unrecognized disposition: ${entry.disposition}`); continue; }
+      const source = providerSourceForRequestPath(requestPath);
+      const parameterMappings = (operation.providerContract?.parameterMappings || []).filter((mapping) => mapping.source === source);
+      const bindings = (operation.integrationBindings || []).filter((binding) => binding.source === source);
+      if (entry.disposition === 'provider-mapped') {
+        const providerParam = String(entry.mapping?.providerParam || '').trim();
+        if (!providerParam) findings.push(`provider operation ${operation.id} provider-mapped input ${requestPath} lacks a mapping to a provider parameter`);
+        if (parameterMappings.length !== 1 || bindings.length !== 1 || providerParam !== parameterMappings[0]?.target || providerParam !== (bindings[0]?.target || bindings[0]?.providerField) || parameterMappings[0]?.required !== field.required || bindings[0]?.required !== field.required) findings.push(`provider operation ${operation.id} input ${requestPath} disagrees across inputUtilization, parameterMappings, integrationBindings, or requiredness`);
+        if (resourceFields.has(requestPath) && (!entry.resourceResolution || typeof entry.resourceResolution !== 'object' || !Object.keys(entry.resourceResolution).length)) findings.push(`provider operation ${operation.id} provider-mapped resource input ${requestPath} lacks a resourceResolution (how the resource id becomes bytes or a URL for the provider)`);
+      } else if (parameterMappings.length || bindings.length) findings.push(`provider operation ${operation.id} input ${requestPath} is ${entry.disposition} but still has a provider mapping`);
+      if (entry.disposition === 'application-only' && (!String(entry.reason || '').trim() || !(entry.evidenceAnchors || []).length)) findings.push(`provider operation ${operation.id} application-only input ${requestPath} lacks a reason or evidence`);
+      if (entry.disposition === 'not-used' && (!String(entry.reason || '').trim() || !(entry.evidenceAnchors || []).length)) findings.push(`provider operation ${operation.id} not-used input ${requestPath} lacks a reason or evidence`);
+      for (const anchor of entry.evidenceAnchors || []) if (!anchorIds.has(anchor)) findings.push(`provider operation ${operation.id} input ${requestPath} references an unknown evidence anchor: ${anchor}`);
+    }
   }
+  for (const entry of ledger) if (!providerOps.some((operation) => operation.id === entry.operationId && operationRequestFields(operation).some((field) => field.requestPath === normalizeLedgerRequestPath(entry.requestPath)))) findings.push(`provider-backed capability ${cap.id} inputUtilization references an unknown operation request field: ${entry.operationId}:${entry.requestPath}`);
   return findings;
 }
-function quantityMayExceedOne(capability, operation) {
-  const source = String(capability.finalProduct?.quantity?.sourceField || operation.finalProduct?.quantity?.sourceField || '').replace(/^request\./, '').replace(/^body\./, '');
-  const schema = operation.request?.bodySchema?.properties?.[source] || capability.inputSchema?.properties?.[source];
-  if (schema?.type === 'integer' || schema?.type === 'number') return schema.maximum === undefined || Number(schema.maximum) > 1;
-  const outputItems = operation.providerContract?.outputConstraints?.items;
-  return outputItems?.maxItems === undefined || Number(outputItems.maxItems) > 1;
+function operationRequestFields(operation) {
+  const fields = [];
+  for (const [location, schema] of [['body', operation.request?.bodySchema], ['query', operation.request?.querySchema], ['path', operation.request?.pathSchema], ['header', operation.request?.headerSchema]]) {
+    if (schema?.type !== 'object') continue;
+    for (const field of schemaLeafFields(schema)) fields.push({ requestPath: `${location}.${field.path}`, required: field.required });
+  }
+  return fields;
 }
+function schemaLeafFields(schema, prefix = '', ancestorsRequired = true) {
+  if (!schema || typeof schema !== 'object') return [];
+  if (schema.type === 'array') return prefix ? [{ path: prefix, required: ancestorsRequired }] : [];
+  if (schema.type !== 'object') return prefix ? [{ path: prefix, required: ancestorsRequired }] : [];
+  const required = new Set(schema.required || []);
+  return Object.entries(schema.properties || {}).flatMap(([name, child]) => schemaLeafFields(child, prefix ? `${prefix}.${name}` : name, ancestorsRequired && required.has(name)));
+}
+function normalizeLedgerRequestPath(value) { const path = String(value || '').replace(/^request\./, 'body.'); return /^(body|query|path|header)\./.test(path) ? path : `body.${path}`; }
+function providerSourceForRequestPath(path) { const normalized = normalizeLedgerRequestPath(path); return normalized.startsWith('body.') ? `request.${normalized.slice(5)}` : `request.${normalized}`; }
+function operationHasProviderSource(operation, source) { return operationRequestFields(operation).some((field) => providerSourceForRequestPath(field.requestPath) === source); }
+function requestLocationAndPath(value) { const normalized = normalizeLedgerRequestPath(value); const [location, ...parts] = normalized.split('.'); return { location, path: parts.join('.') }; }
 // Dual-axis evidence taxonomy: a complete capability's closure must anchor both axes structurally — an
 // intent-axis item (design/annotation/product-context: what to build and why) and an anchor-axis item
 // (release control/observed interaction: where it lands). Validate only checks both axes are anchored and

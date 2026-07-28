@@ -212,10 +212,8 @@ test('frontend runtime gates reject false implementation evidence', () => {
     patch(downgradedBmad, 'input-lock.json', (value) => { value.bmadRequired = false; delete value.bmad; return value; });
     const downgradedCheck = spawnSync('node', [path.resolve(import.meta.dirname, '../scripts/verify-implementation.mjs'), downgradedBmad, '--require-level', 'simulated'], { encoding: 'utf8' });
     assert.notEqual(downgradedCheck.status, 0); assert.match(`${downgradedCheck.stdout}${downgradedCheck.stderr}`, /missing bmad|BMAD requirement was removed/);
-    const legacyOptionCheck = spawnSync('node', [path.resolve(import.meta.dirname, '../scripts/verify-implementation.mjs'), source, '--legacy', '--require-level', 'simulated'], { encoding: 'utf8' });
-    assert.notEqual(legacyOptionCheck.status, 0); assert.match(`${legacyOptionCheck.stdout}${legacyOptionCheck.stderr}`, /legacy verification modes are unsupported/);
-    const internalLegacyOptionCheck = spawnSync('node', [path.resolve(import.meta.dirname, '../scripts/verify-implementation.mjs'), source, '--legacy-archive-internal', '--require-level', 'simulated'], { encoding: 'utf8' });
-    assert.notEqual(internalLegacyOptionCheck.status, 0); assert.match(`${internalLegacyOptionCheck.stdout}${internalLegacyOptionCheck.stderr}`, /legacy verification modes are unsupported/);
+    const unknownOptionCheck = spawnSync('node', [path.resolve(import.meta.dirname, '../scripts/verify-implementation.mjs'), source, '--unknown-mode', '--require-level', 'simulated'], { encoding: 'utf8' });
+    assert.notEqual(unknownOptionCheck.status, 0); assert.match(`${unknownOptionCheck.stdout}${unknownOptionCheck.stderr}`, /unsupported verification option/);
     const disguisedLegacy = `${root}/disguised-legacy`; cpSync(source, disguisedLegacy, { recursive: true }); rmSync(`${disguisedLegacy}/implementation-lock.json`); rmSync(`${disguisedLegacy}/bmad-traceability.json`); rmSync(`${disguisedLegacy}/bmad-completion.json`);
     patch(disguisedLegacy, 'input-lock.json', (value) => { value.schemaVersion = '1.0'; delete value.bmadRequired; delete value.bmad; delete value.sources.handoffPackageDigest; delete value.digests['handoff/handoff-manifest.json']; delete value.digests['handoff/ui-implementation-plan.json']; return value; });
     rmSync(`${disguisedLegacy}/inputs/handoff-handoff-manifest.json`); rmSync(`${disguisedLegacy}/inputs/handoff-ui-implementation-plan.json`);

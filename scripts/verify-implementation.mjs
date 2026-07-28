@@ -6,6 +6,7 @@ import { posix, resolve } from 'node:path';
 import { schemaFindings } from './lib/json-schema.mjs';
 import { computeOperationReceipts } from './lib/operation-receipts.mjs';
 import { digestJSON, releaseDigest } from './lib/handoff.mjs';
+import { operationResourceProofs, operationScopedCalls, providerOperationSetFindings } from './lib/campaign-independence.mjs';
 
 const dirArg = process.argv.slice(2).find((value) => !value.startsWith('--'));
 if (!dirArg) { console.error('Usage: verify-implementation.mjs <implementation-dir>'); process.exit(2); }
@@ -19,7 +20,8 @@ const functionalPackageLockPreview = existsSync(`${dir}/inputs/functional-packag
 const lockedFunctionalInputs = lockedPackageFiles(functionalPackageLockPreview);
 const formalFunctionalInputs = [...lockedFunctionalInputs, 'package-lock.json'];
 const formalHandoffInputs = ['handoff-manifest.json', 'visual-source.json', 'release-manifest.json', 'suite-gate.json', 'visual-approval.json', 'frontend-manifest.json', 'functional-spec.json', ...semanticInputs, ...(functionalManifestPreview.schemaVersion === '2.3' ? ['handoff-anchor-manifest.json'] : []), 'visual-controls.json', 'ui-implementation-plan.json', 'api-contract.json', 'domain-bindings.json', 'runtime-contract.json', 'handoff-review-receipt.json', 'handoff-lock.json'];
-if (process.argv.includes('--legacy') || process.argv.includes('--legacy-archive-internal')) fail(['legacy verification modes are unsupported; prepare a Schema 2.3 workspace']);
+const supportedOptions = new Set(['--require-level']);
+for (const value of process.argv.slice(2)) if (value.startsWith('--') && !supportedOptions.has(value)) { console.error(`unsupported verification option: ${value}`); process.exit(2); }
 const requiredLevel = optionValue('--require-level') || 'integrated';
 const levels = ['simulated', 'integrated'];
 if (!levels.includes(requiredLevel)) { console.error(`invalid verification level: ${requiredLevel}`); process.exit(2); }
@@ -49,6 +51,7 @@ if (existsSync(`${dir}/implementation-lock.json`)) {
 const bmadTraceability = existsSync(`${dir}/bmad-traceability.json`) ? readJSON(`${dir}/bmad-traceability.json`) : null;
 const bmadCompletion = existsSync(`${dir}/bmad-completion.json`) ? readJSON(`${dir}/bmad-completion.json`) : null;
 const api = readJSON(`${dir}/inputs/handoff-api-contract.json`);
+const functionalSpec = readJSON(`${dir}/inputs/functional-functional-spec.json`);
 verifyOpenApiOperationClosure(readJSON(`${dir}/openapi.json`), api, errors);
 verifyFieldBindingPlan(readJSON(`${dir}/field-binding-plan.json`), api, errors);
 verifyOperationReceipts(operationReceipts, readFileSync(`${dir}/operation-events.json`), api, errors);
@@ -66,53 +69,70 @@ if (!levels.includes(manifest.verificationLevel)) errors.push('implementation ma
 if (manifest.verificationLevel !== integration.verificationLevel) errors.push('manifest and integration evidence levels differ');
 if (levels.indexOf(manifest.verificationLevel) < levels.indexOf(requiredLevel)) errors.push(`verification level ${manifest.verificationLevel} is below required ${requiredLevel}`);
 if (manifest.verificationLevel !== 'simulated') {
-  if (integration.viaApplication !== true || !integration.operationId) errors.push('integrated evidence must come through an application operation — run the integrated campaign through the declared application API and adapter');
+  const integrationRecords = Array.isArray(integration.operations) ? integration.operations : [];
+  const operationSetFindings = providerOperationSetFindings(api.operations, integrationRecords);
+  if (integration.viaApplication !== true || operationSetFindings.length) errors.push(`integrated evidence must come through an application operation and exactly cover every provider operation — ${operationSetFindings[0] || 'viaApplication is not proven'}`);
+  for (const record of integrationRecords) verifyIntegratedOperation(record, errors);
+}
+
+function verifyIntegratedOperation(integrationRecord, items) {
   const declaredOperationIds = new Set((plan.units || []).flatMap((unit) => unit.operationIds || []));
-  if (integration.operationId && !declaredOperationIds.has(integration.operationId)) errors.push(`integrated evidence references unknown operation: ${integration.operationId}`);
+  if (!declaredOperationIds.has(integrationRecord.operationId)) items.push(`integrated evidence references unknown operation: ${integrationRecord.operationId}`);
   const structuredEvidence = {};
   for (const kind of ['requestEvidence', 'responseEvidence', 'dataEffectEvidence']) {
-    const artifacts = integration[kind] || [];
+    const artifacts = integrationRecord[kind] || [];
     structuredEvidence[kind] = [];
-    if (!artifacts.length) errors.push(`integrated evidence lacks ${kind}`);
+    if (!artifacts.length) items.push(`integrated evidence lacks ${kind} for ${integrationRecord.operationId}`);
     for (const artifact of artifacts) {
       const file = resolveArtifact(artifact);
-      if (!file || !existsSync(file) || statSync(file).size === 0) errors.push(`integrated evidence artifact is missing: ${artifact}`);
-      else try { structuredEvidence[kind].push(readJSON(file)); } catch { errors.push(`integrated evidence artifact is not valid JSON: ${artifact}`); }
+      if (!file || !existsSync(file) || statSync(file).size === 0) items.push(`integrated evidence artifact is missing: ${artifact}`);
+      else try { structuredEvidence[kind].push(readJSON(file)); } catch { items.push(`integrated evidence artifact is not valid JSON: ${artifact}`); }
     }
   }
-  structuredEvidence.dataFlowEvidence = Array.isArray(integration.dataFlowEvidence) ? integration.dataFlowEvidence : [];
-  structuredEvidence.integrationBindingEvidence = Array.isArray(integration.integrationBindingEvidence) ? integration.integrationBindingEvidence : [];
-  const contractOperation = (api.operations || api.endpoints || []).find((item) => (item.id || item.operationId) === integration.operationId);
-  if (contractOperation) verifyStructuredIntegration(contractOperation, integration.operationId, structuredEvidence, errors);
+  structuredEvidence.dataFlowEvidence = Array.isArray(integrationRecord.dataFlowEvidence) ? integrationRecord.dataFlowEvidence : [];
+  structuredEvidence.integrationBindingEvidence = Array.isArray(integrationRecord.integrationBindingEvidence) ? integrationRecord.integrationBindingEvidence : [];
+  const contractOperation = (api.operations || api.endpoints || []).find((item) => (item.id || item.operationId) === integrationRecord.operationId);
+  if (contractOperation) verifyStructuredIntegration(contractOperation, integrationRecord.operationId, structuredEvidence, items);
   const integrationContract = contractOperation?.integrationVerification;
-  if (!integrationContract) errors.push(`operation ${integration.operationId} has no integrationVerification contract`);
-  if (integrationContract?.endpointPolicy?.nonLocal === true) { const host = endpointHost(integration.endpoint); if (!host || ['localhost', '127.0.0.1', '::1'].includes(host)) errors.push('integrated endpoint policy requires a non-local endpoint'); }
+  if (!integrationContract) items.push(`operation ${integrationRecord.operationId} has no integrationVerification contract`);
+  if (integrationContract?.endpointPolicy?.nonLocal === true) { const host = endpointHost(integrationRecord.endpoint); if (!host || ['localhost', '127.0.0.1', '::1'].includes(host)) items.push('integrated endpoint policy requires a non-local endpoint'); }
   for (const scenario of integrationContract?.requiredScenarios || []) {
-    const item = integration.scenarios?.[scenario];
-    if (!item?.status || !['passed', 'observed'].includes(item.status) || !item.evidence?.length) { errors.push(`integrated evidence lacks scenario: ${scenario}`); continue; }
-    for (const artifact of item.evidence) {
+    const scenarioRecord = integrationRecord.scenarios?.[scenario];
+    if (!scenarioRecord?.status || !['passed', 'observed'].includes(scenarioRecord.status) || !scenarioRecord.evidence?.length) { items.push(`integrated evidence lacks scenario: ${scenario}`); continue; }
+    for (const artifact of scenarioRecord.evidence) {
       const file = resolveArtifact(artifact);
-      if (!file || !existsSync(file) || statSync(file).size === 0) errors.push(`integrated scenario evidence is missing: ${artifact}`);
+      if (!file || !existsSync(file) || statSync(file).size === 0) items.push(`integrated scenario evidence is missing: ${artifact}`);
       else try {
         const record = readJSON(file);
         const observation = existsSync(`${dir}/operation-observation-receipt.json`) ? readJSON(`${dir}/operation-observation-receipt.json`) : null;
         const correlated = observation?.observations?.some((item) => item.challengeId === record.challengeId && item.requestDigest === record.requestDigest && item.responseDigest === record.responseDigest && item.status === record.responseStatus);
-        if (record.generatedBy !== 'project-implementation/validation-campaign-observer' || record.operationId !== integration.operationId || record.scenario !== scenario || record.observed !== true || !correlated) errors.push(`integrated scenario evidence does not match a campaign-observed ${scenario} request and response: ${artifact}`);
-      } catch { errors.push(`integrated scenario evidence is not valid JSON: ${artifact}`); }
+        if (record.generatedBy !== 'project-implementation/validation-campaign-observer' || record.operationId !== integrationRecord.operationId || record.scenario !== scenario || record.observed !== true || !correlated) items.push(`integrated scenario evidence does not match a campaign-observed ${scenario} request and response: ${artifact}`);
+      } catch { items.push(`integrated scenario evidence is not valid JSON: ${artifact}`); }
     }
   }
-  const assertionContext = { request: structuredEvidence.requestEvidence?.find((item) => item.operationId === integration.operationId)?.request, response: structuredEvidence.responseEvidence?.find((item) => item.operationId === integration.operationId)?.body, effects: structuredEvidence.dataEffectEvidence?.filter((item) => item.operationId === integration.operationId) };
-  for (const assertion of integrationContract?.artifactAssertions || []) for (const finding of schemaFindings(getPath(assertionContext, assertion.path), assertion.schema || assertion, assertion.path)) errors.push(`integrated artifact assertion ${finding}`);
+  const assertionContext = { request: structuredEvidence.requestEvidence?.find((item) => item.operationId === integrationRecord.operationId)?.request, response: structuredEvidence.responseEvidence?.find((item) => item.operationId === integrationRecord.operationId)?.body, effects: structuredEvidence.dataEffectEvidence?.filter((item) => item.operationId === integrationRecord.operationId) };
+  for (const assertion of integrationContract?.artifactAssertions || []) for (const finding of schemaFindings(getPath(assertionContext, assertion.path), assertion.schema || assertion, assertion.path)) items.push(`integrated artifact assertion ${finding}`);
   const observationPath = resolveArtifact('operation-observation-receipt.json');
-  if (!observationPath) errors.push('integrated verification lacks campaign-owned operation observation receipt');
+  if (!observationPath) items.push('integrated verification lacks campaign-owned operation observation receipt');
   else {
     const observation = readJSON(observationPath);
-    const ingress = observation.observations?.find((item) => item.challengeId === observation.challengeId && String(item.method).toUpperCase() === String(contractOperation?.method).toUpperCase() && pathMatches(contractOperation?.path, item.path) && Number(item.status) >= 200 && Number(item.status) < 300);
-    const egress = observation.externalObservations?.find((item) => item.challengeId === observation.challengeId && Number(item.status) >= 200 && Number(item.status) < 300 && ingress && item.observedAt >= ingress.startedAt && item.observedAt <= ingress.observedAt && ingress.responseValues?.includes(item.externalResultId));
-    const observedBindings = observation.integrationBindingEvidence || [];
-    const bindingsValid = (contractOperation?.integrationBindings || []).every((binding) => observedBindings.some((record) => record.operationId === integration.operationId && record.source === binding.source && record.target === (binding.target || binding.providerField) && record.observed === true && /^[a-f0-9]{64}$/i.test(record.sourceValueDigest || '') && record.sourceValueDigest === record.targetValueDigest));
-    const cleanCampaignTeeth = ['independentItemsFindings', 'concurrencyFindings', 'visualAuditFindings'].every((key) => Array.isArray(observation[key]) && observation[key].length === 0);
-    if (observation.schemaVersion !== '1.4' || observation.generatedBy !== 'project-implementation/validation-campaign-observer' || observation.operationId !== integration.operationId || observation.status !== 'passed' || !Number.isInteger(observation.maxInFlight) || !cleanCampaignTeeth || !ingress || !egress || !bindingsValid) errors.push('campaign-owned operation observation receipt is invalid');
+    const receipt = observation.operationReceipts?.find((item) => item.operationId === integrationRecord.operationId);
+    const ingress = observation.observations?.find((item) => String(item.method).toUpperCase() === String(contractOperation?.method).toUpperCase() && pathMatches(contractOperation?.path, item.path) && Number(item.status) >= 200 && Number(item.status) < 300);
+    const calls = operationScopedCalls(observation.externalObservations, observation.challengeId, contractOperation?.id, ingress);
+    const bindingRecords = receipt?.integrationBindingEvidence || [];
+    const proofs = operationResourceProofs(functionalSpec, contractOperation, api.operations, observation.observations, ingress);
+    const bindingsValid = (contractOperation?.integrationBindings || []).every((binding) => calls.length > 0 && bindingRecords.filter((record) => {
+      const proof = proofs[binding.source];
+      const resolution = proof?.resolution;
+      const expectedMode = resolution ? 'resource-resolution' : 'identity';
+      const expectedResolutionDigest = resolution ? createHash('sha256').update(JSON.stringify(resolution)).digest('hex') : null;
+      const digestsValid = /^[a-f0-9]{64}$/i.test(record.sourceValueDigest || '') && /^[a-f0-9]{64}$/i.test(record.targetValueDigest || '');
+      const contentMatched = Boolean(proof?.sourceLinked && proof.contentDigests?.length && proof.contentDigests.every((digest) => (record.targetContentDigests || []).includes(digest)));
+      const mappingValid = expectedMode === 'identity' ? record.sourceValueDigest === record.targetValueDigest : record.resolutionDigest === expectedResolutionDigest && contentMatched;
+      return record.source === binding.source && record.target === (binding.target || binding.providerField) && record.mappingMode === expectedMode && record.observed === true && digestsValid && mappingValid;
+    }).length === calls.length);
+    const cleanCampaignTeeth = ['independentItemsFindings', 'concurrencyFindings'].every((key) => Array.isArray(receipt?.[key]) && receipt[key].length === 0);
+    if (observation.schemaVersion !== '1.5' || observation.generatedBy !== 'project-implementation/validation-campaign-observer' || observation.status !== 'passed' || receipt?.status !== 'passed' || !Number.isInteger(receipt?.maxInFlight) || !cleanCampaignTeeth || !bindingsValid) items.push(`campaign-owned operation observation receipt is invalid for ${integrationRecord.operationId}`);
   }
 }
 const declaredUnits = new Set((plan.units || []).map((unit) => unit.id));
@@ -140,16 +160,18 @@ const frontendResults = requiresFrontendRuntime ? new Map((readJSON(`${dir}/fron
 // implemented on simulated evidence alone — genuinely distinct-per-item external output is only proven by a
 // campaign integrated observation of that operation. Such a capability caps at 'simulated-verified' until
 // integrated evidence covers its operation, so a simulated-only run can never masquerade as a completion.
-const externalProviderCapabilities = new Set((api.operations || []).filter((operation) => operation.providerContract).map((operation) => operation.capabilityId));
-const integratedProvenCapability = manifest.verificationLevel !== 'simulated' ? (api.operations || []).find((operation) => operation.id === integration.operationId)?.capabilityId : null;
+const providerOperationsByCapability = new Map();
+for (const operation of (api.operations || []).filter((item) => item.providerContract)) providerOperationsByCapability.set(operation.capabilityId, [...(providerOperationsByCapability.get(operation.capabilityId) || []), operation.id]);
+const integratedProvenOperationIds = manifest.verificationLevel === 'simulated' ? new Set() : new Set((readJSON(`${dir}/operation-observation-receipt.json`).operationReceipts || []).filter((item) => item.status === 'passed').map((item) => item.operationId));
 const capabilityCompletion = uiContractsForCompletion.map((contract) => {
   const unitIds = (plan.units || []).filter((unit) => unit.capabilityIds?.includes(contract.capabilityId)).map((unit) => unit.id); const unitsPassed = unitIds.length > 0 && unitIds.every((id) => completedUnits.has(id));
   const planned = contract.specificationStatus === 'planned';
   const frontendPassed = contract.presentation?.mode === 'headless' || frontendResults.get(contract.capabilityId)?.status === (planned ? 'planned' : 'implemented');
-  const requiresIntegrated = externalProviderCapabilities.has(contract.capabilityId);
-  const awaitingIntegrated = requiresIntegrated && contract.capabilityId !== integratedProvenCapability;
+  const requiredProviderOperationIds = providerOperationsByCapability.get(contract.capabilityId) || [];
+  const requiresIntegrated = requiredProviderOperationIds.length > 0;
+  const awaitingIntegrated = requiresIntegrated && requiredProviderOperationIds.some((operationId) => !integratedProvenOperationIds.has(operationId));
   const status = !(unitsPassed && frontendPassed) ? 'failed' : planned ? 'planned' : awaitingIntegrated ? 'simulated-verified' : 'implemented';
-  return { capabilityId: contract.capabilityId, status, unitIds, frontendRequired: contract.presentation?.mode !== 'headless', requiresIntegrated };
+  return { capabilityId: contract.capabilityId, status, unitIds, frontendRequired: contract.presentation?.mode !== 'headless', requiresIntegrated, requiredProviderOperationIds, provenProviderOperationIds: requiredProviderOperationIds.filter((operationId) => integratedProvenOperationIds.has(operationId)) };
 });
 if (capabilityCompletion.some((item) => item.status === 'failed')) fail(capabilityCompletion.filter((item) => item.status === 'failed').map((item) => `capability delivery was not proven: ${item.capabilityId} — inspect its failed bindings, operations, states, effects, and acceptance cases`));
 if (requiredLevel === 'integrated' && capabilityCompletion.some((item) => item.status === 'planned')) fail(capabilityCompletion.filter((item) => item.status === 'planned').map((item) => `formal integrated completion cannot contain a planned capability: ${item.capabilityId} — complete and verify the approved capability before declaring product delivery`));

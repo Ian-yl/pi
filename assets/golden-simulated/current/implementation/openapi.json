@@ -5,7 +5,7 @@
     "version": "1.0.0"
   },
   "paths": {
-    "/api/pages/submission/capabilities/submit-submission/create": {
+    "/api/submissions": {
       "post": {
         "operationId": "create-submission-submit-submission",
         "x-capability-id": "cap-submission-submit-submission",
@@ -228,7 +228,7 @@
         ]
       }
     },
-    "/api/pages/submission/capabilities/upload-resource/assets": {
+    "/api/resources": {
       "post": {
         "operationId": "upload-submission-upload-resource",
         "x-capability-id": "cap-submission-upload-resource",

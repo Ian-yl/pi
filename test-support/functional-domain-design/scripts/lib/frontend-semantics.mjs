@@ -145,12 +145,15 @@ function extractInteractions(sources, pages, releaseDigest) {
     for (const pattern of patterns) for (const match of source.text.matchAll(pattern.regex)) {
       const excerpt = match[0];
       const nearby = source.text.slice(Math.max(0, match.index - 220), Math.min(source.text.length, match.index + excerpt.length + 220));
-      const control = controls.find((item) => item.label && nearby.includes(item.label)) || null;
+      const exactControlId = handlerControlId(source.text, match.index, excerpt);
+      const control = exactControlId ? controls.find((item) => item.controlId === exactControlId) || null : null;
+      const labelCandidate = control ? null : controls.find((item) => item.label && nearby.includes(item.label)) || null;
       result.push({
         id: `interaction-${result.length + 1}`,
         kind: pattern.kind,
         pageId: control?.pageId || inferPage(nearby, pages),
         controlId: control?.controlId || null,
+        controlCandidateId: labelCandidate?.controlId || null,
         event: pattern.kind === 'network' ? 'request' : pattern.kind,
         submissionRole: pattern.kind === 'submit' || control?.submissionRole === 'primary-submit' ? 'primary-submit' : null,
         handlerSummary: clean(excerpt),
@@ -163,6 +166,17 @@ function extractInteractions(sources, pages, releaseDigest) {
     }
   }
   return result;
+}
+function handlerControlId(sourceText, offset, excerpt) {
+  const tagStart = sourceText.lastIndexOf('<', offset); const tagEnd = sourceText.indexOf('>', offset);
+  if (tagStart >= 0 && tagEnd >= offset && tagEnd - tagStart < 1200) {
+    const tag = sourceText.slice(tagStart, tagEnd + 1);
+    const id = tag.match(/data-vr-id=["']([^"']+)["']/)?.[1];
+    if (id && tag.includes(excerpt)) return id;
+  }
+  const window = sourceText.slice(offset, Math.min(sourceText.length, offset + excerpt.length + 900));
+  const listeners = [...window.matchAll(/querySelector\(\s*["'`]\[data-vr-id=(?:\\?["'])?([^\]"'\\]+)(?:\\?["'])?\]["'`]\s*\)\.addEventListener\s*\(/g)].map((item) => item[1]);
+  return new Set(listeners).size === 1 ? listeners[0] : null;
 }
 
 function extractRegions(items) {

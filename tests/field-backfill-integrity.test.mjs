@@ -51,14 +51,14 @@ test('a compliant field-assist backfill passes the gate (synthetic positive)', (
   assert.equal(result.status, 0, `${result.stdout}${result.stderr}`);
 });
 
-test('B1: a backfilled value that differs from the operation response is rejected (value != response)', () => {
+test('a backfilled value that differs from the operation response is rejected', () => {
   expectReject(withFieldAssist({ mutateEvidence: (evidence) => { evidence.backfillValue = 'a value the operation never produced'; } }), /does not satisfy the declared replace behavior/);
 });
 
-test('B2: a result that only updates status text without writing the field is rejected (no field write)', () => {
+test('a result that only updates status text without writing the field is rejected', () => {
   expectReject(withFieldAssist({ mutateEvidence: (evidence) => { evidence.backfillValue = ''; } }), /wrote no value into the target field/);
 });
 
-test('B3: a declared targetKind:field capability with no runner backfill evidence is rejected (declared but unproven)', () => {
+test('a field result without runner backfill evidence is rejected', () => {
   expectReject(withFieldAssist({ includeCase: false }), /no runner backfill evidence/);
 });

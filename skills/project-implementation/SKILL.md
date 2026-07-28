@@ -26,7 +26,7 @@ description: Implement and verify a complete project from an approved functional
    ```bash
    node <skill-dir>/scripts/finalize-implementation.mjs --dir <implementation-workspace>
    ```
-7. Establish `integrated` status only through the contract-declared application E2E and campaign-controlled external observation. Repeated qualification uses `<skill-dir>/scripts/run-validation-campaign.mjs` and [the campaign contract](references/campaign-contract.md).
+7. Establish `integrated` status only through the contract-declared application E2E and campaign-controlled external observation. When acceptance requires semantic judgment, give the campaign-owned actual results and approved acceptance criteria to a distinct reviewer Agent; the implementation Agent does not author its own passing judgment. Repeated qualification uses `<skill-dir>/scripts/run-validation-campaign.mjs` and [the campaign contract](references/campaign-contract.md).
 8. Verify:
    ```bash
    node <skill-dir>/scripts/verify-implementation.mjs <implementation-workspace> --require-level integrated
@@ -41,6 +41,7 @@ description: Implement and verify a complete project from an approved functional
 - Ship no debug or contract-demo panel in the delivered frontend; every E2E starts from the release page entry and operates provenance-matched release controls, never an injected surrogate surface or temporary form. Keep every release control anchor present after each business action, except a contract-declared `extend-flow` navigation.
 - Use runtime-generated values across operation boundaries and real application behavior behind every native control.
 - Keep external integrations behind adapters and expose contract-declared unavailable behavior when configuration is absent.
+- In integrated campaigns, read the application-only `VALIDATION_OPERATION_TOKENS` map and attach the token for the current operation as `x-validation-operation-token` on each external invocation; never expose this map to browser E2E.
 - Separate visual fidelity from business acceptance; satisfy both when required.
 - Treat runner-computed completion and campaign-owned integration observation as authoritative.
 - Machine verification judges observable outcomes and evidence only — never implementation choices. This skill's guidance tells you how to proceed; frameworks, code organization, and internal patterns remain yours. A gate that prescribes how code must be written, rather than what must be observably true, is out of contract.

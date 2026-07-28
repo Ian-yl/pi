@@ -5,7 +5,8 @@ import { spawn, spawnSync } from 'node:child_process';
 import { createServer } from 'node:net';
 import { createServer as createHttpServer, request as httpRequest } from 'node:http';
 import { dirname, relative, resolve } from 'node:path';
-import { concurrencyFindings, independentItemsCampaignFindings, maxCollectionLength, visualAuditFindings } from './lib/campaign-independence.mjs';
+import { collectionAtResponsePath, concurrencyFindings, independentItemsCampaignFindings, invocationBindingEvidence, operationResourceProofs, operationScopedCalls, providerOperationSetFindings } from './lib/campaign-independence.mjs';
+import { observedRequestEvidence } from './lib/request-observation.mjs';
 
 const args = parseArgs(process.argv.slice(2));
 for (const key of ['functional', 'candidate', 'output']) if (!args[key]) usage();
@@ -85,19 +86,21 @@ for (let index = 1; index <= count; index += 1) {
     const observerPort = await freePort();
     const externalObserverPort = await freePort();
     const challengeId = randomUUID();
+    const apiContract = readJSON(`${destination}/inputs/handoff-api-contract.json`);
+    const operationTokens = Object.fromEntries((apiContract.operations || []).filter((item) => item.providerContract).map((item) => [item.id, randomUUID()]));
     const variables = { ...process.env, PROVIDER_PORT: String(providerPort), APP_PORT: String(appPort), OBSERVER_PORT: String(observerPort), OBSERVED_BASE_URL: `http://127.0.0.1:${observerPort}`, RUN_ID: runId };
     const applicationVariables = { ...variables, EXTERNAL_OBSERVER_URL: `http://127.0.0.1:${externalObserverPort}`, VALIDATION_CHALLENGE_ID: challengeId };
     const runtime = candidateContract.runtime;
     const providerLog = `${runDir}/logs/runtime-provider.log`;
     const appLog = `${runDir}/logs/runtime-app.log`;
     const provider = level === 'simulated' ? start(runtime.provider, destination, variables) : null;
-    const appSpec = level === 'integrated' ? { ...runtime.app, env: { ...(runtime.app.env || {}), ...(runtime.integratedAppEnv || {}) } } : runtime.app;
+    const appSpec = level === 'integrated' ? { ...runtime.app, env: { ...(runtime.app.env || {}), ...(runtime.integratedAppEnv || {}), VALIDATION_OPERATION_TOKENS: JSON.stringify(operationTokens) } } : runtime.app;
     const app = start(appSpec, destination, applicationVariables);
     const observations = [];
     const externalObservations = [];
-    const observer = level === 'integrated' ? await startObserver(observerPort, appPort, observations, challengeId) : null;
+    const observer = level === 'integrated' ? await startObserver(observerPort, appPort, observations, challengeId, apiContract.operations || []) : null;
     const concurrencyState = { inFlight: 0, maxInFlight: 0 };
-    const externalObserver = level === 'integrated' ? await startExternalObserver(externalObserverPort, externalObservations, challengeId, concurrencyState, 200) : null;
+    const externalObserver = level === 'integrated' ? await startExternalObserver(externalObserverPort, externalObservations, challengeId, operationTokens, concurrencyState, 200) : null;
     const providerChunks = [];
     const appChunks = [];
     provider?.stdout.on('data', (chunk) => providerChunks.push(chunk)); provider?.stderr.on('data', (chunk) => providerChunks.push(chunk));
@@ -108,7 +111,7 @@ for (let index = 1; index <= count; index += 1) {
       const e2e = level === 'integrated' ? runtime.integratedE2e : runtime.e2e;
       if (level === 'integrated' && !Object.values(e2e.env || {}).some((value) => String(value).includes('${OBSERVED_BASE_URL}'))) throw new Error('integratedE2e must route application requests through ${OBSERVED_BASE_URL}');
       if (level === 'integrated' && !Object.values(runtime.integratedAppEnv || {}).some((value) => String(value).includes('${EXTERNAL_OBSERVER_URL}'))) throw new Error('integratedAppEnv must route application external calls through ${EXTERNAL_OBSERVER_URL}');
-      if (level === 'integrated' && [...(e2e.args || []), ...Object.values(e2e.env || {})].some((value) => /EXTERNAL_OBSERVER_URL|VALIDATION_CHALLENGE_ID/.test(String(value)))) throw new Error('integrated E2E must not receive application-only external observer credentials');
+      if (level === 'integrated' && [...(e2e.args || []), ...Object.values(e2e.env || {})].some((value) => /EXTERNAL_OBSERVER_URL|VALIDATION_CHALLENGE_ID|VALIDATION_OPERATION_TOKENS/.test(String(value)))) throw new Error('integrated E2E must not receive application-only external observer credentials');
       const e2eArgs = (e2e.args || []).map((value) => expand(value, variables));
       // Must be async: the ingress and external observers run in this process, so a synchronous child
       // would block the event loop and the observers could never answer the application's traffic.
@@ -119,27 +122,33 @@ for (let index = 1; index <= count; index += 1) {
       if (result.status !== 0) throw new Error(`${runId}/runtime-browser-e2e failed`);
       if (level === 'integrated' && !existsSync(`${destination}/integration-evidence.json`)) throw new Error(`${runId}/integrated-e2e did not write integration-evidence.json`);
       if (level === 'integrated') {
-        const integrationEvidence = readJSON(`${destination}/integration-evidence.json`); const operationId = integrationEvidence.operationId;
-        const api = readJSON(`${destination}/inputs/handoff-api-contract.json`); const operation = (api.operations || []).find((item) => item.id === operationId);
-        const ingress = observations.find((item) => operation && item.challengeId === challengeId && String(item.method).toUpperCase() === String(operation.method).toUpperCase() && routeMatches(operation.path, item.path) && item.status >= 200 && item.status < 300);
-        const egress = externalObservations.find((item) => item.challengeId === challengeId && item.status >= 200 && item.status < 300 && ingress && item.observedAt >= ingress.startedAt && item.observedAt <= ingress.observedAt && ingress.responseValues.includes(item.externalResultId));
-        const integrationBindingEvidence = (operation?.integrationBindings || []).map((binding) => {
-          const sourceDigest = ingress?.requestValueDigests?.[binding.source];
-          const target = binding.target || binding.providerField;
-          const targetDigest = egress?.requestValueDigests?.[target];
-          return { operationId, source: binding.source, target, required: binding.required !== false, sourceValueDigest: sourceDigest || null, targetValueDigest: targetDigest || null, observed: Boolean(sourceDigest && sourceDigest === targetDigest) };
-        });
-        const independentItemsFindings = independentItemsCampaignFindings(operation, ingress, externalObservations, challengeId);
-        const externalCalls = externalObservations.filter((item) => item.challengeId === challengeId && item.status >= 200 && item.status < 300 && ingress && item.observedAt >= ingress.startedAt && item.observedAt <= ingress.observedAt);
-        const quantity = Number.isFinite(Number(ingress?.responseCollectionLength)) ? Number(ingress.responseCollectionLength) : externalCalls.length;
-        const concurrencyResults = concurrencyFindings(operation?.providerContract, quantity, concurrencyState.maxInFlight);
-        const samplingSheet = externalCalls.map((item) => ({ digest: item.externalResultId }));
-        writeFileSync(`${destination}/visual-sampling-sheet.json`, `${JSON.stringify({ schemaVersion: '1.0', operationId, challengeId, maxInFlight: concurrencyState.maxInFlight, items: samplingSheet }, null, 2)}\n`);
-        const auditReceipt = existsSync(`${destination}/visual-audit-receipt.json`) ? readJSON(`${destination}/visual-audit-receipt.json`) : null;
-        const visualResults = visualAuditFindings(samplingSheet, auditReceipt);
-        const controlledScenarios = {};
-        for (const scenario of operation?.integrationVerification?.requiredScenarios || []) {
-          const candidateArtifact = integrationEvidence.scenarios?.[scenario]?.evidence?.[0];
+        const integrationEvidence = readJSON(`${destination}/integration-evidence.json`);
+        const api = readJSON(`${destination}/inputs/handoff-api-contract.json`);
+        const functionalSpec = readJSON(`${destination}/inputs/functional-functional-spec.json`);
+        const uiPlan = readJSON(`${destination}/inputs/handoff-ui-implementation-plan.json`);
+        const requiredOperations = (api.operations || []).filter((item) => item.providerContract);
+        const evidenceRecords = Array.isArray(integrationEvidence.operations) ? integrationEvidence.operations : [];
+        const operationSetFindings = providerOperationSetFindings(api.operations, evidenceRecords);
+        if (operationSetFindings.length) throw new Error(`${runId}/${operationSetFindings[0]}`);
+        const operationReceipts = [];
+        for (const operation of requiredOperations) {
+          const record = evidenceRecords.find((item) => item.operationId === operation.id);
+          const operationId = operation.id;
+          const ingress = observations.find((item) => item.challengeId === challengeId && String(item.method).toUpperCase() === String(operation.method).toUpperCase() && routeMatches(operation.path, item.path) && item.status >= 200 && item.status < 300);
+          const resultPath = operationResultPath(uiPlan, operation);
+          const resultItems = ingress ? collectionAtResponsePath(Buffer.from(JSON.stringify(ingress.responseBody)), resultPath) : null;
+          if (operation.providerContract?.outputMode === 'independent-items' && !resultPath) throw new Error(`${runId}/${operationId} has no declared resultContract responsePath`);
+          if (ingress) { ingress.responseCollectionLength = Array.isArray(resultItems) ? resultItems.length : null; ingress.responseValues = scalarValues(ingress.responseBody); }
+          const externalCalls = operationScopedCalls(externalObservations, challengeId, operation.id, ingress);
+          const egressPassed = externalCalls.some((item) => ingress?.responseValues?.includes(item.externalResultId));
+          const integrationBindingEvidence = invocationBindingEvidence(operation, ingress, externalCalls, challengeId, operationResourceProofs(functionalSpec, operation, api.operations, observations, ingress));
+          const independentItemsFindings = independentItemsCampaignFindings(operation, ingress, externalCalls, challengeId);
+          const quantity = Array.isArray(resultItems) ? resultItems.length : externalCalls.length;
+          const maxInFlight = maximumOverlap(externalCalls);
+          const concurrencyResults = concurrencyFindings(operation.providerContract, quantity, maxInFlight);
+          const controlledScenarios = {};
+          for (const scenario of operation.integrationVerification?.requiredScenarios || []) {
+          const candidateArtifact = record.scenarios?.[scenario]?.evidence?.[0];
           const candidatePath = candidateArtifact ? resolve(destination, candidateArtifact) : null;
           if (!candidatePath || !candidatePath.startsWith(`${destination}/`) || !existsSync(candidatePath)) throw new Error(`${runId}/integrated scenario ${scenario} has no candidate observation to correlate`);
           const candidate = readJSON(candidatePath);
@@ -148,20 +157,19 @@ for (let index = 1; index <= count; index += 1) {
           const artifact = `evidence/integration/campaign-scenario-${scenario}.json`;
           writeFileSync(`${destination}/${artifact}`, `${JSON.stringify({ schemaVersion: '1.0', generatedBy: 'project-implementation/validation-campaign-observer', challengeId, operationId, scenario, observed: true, requestDigest: observed.requestDigest, responseDigest: observed.responseDigest, responseStatus: observed.status }, null, 2)}\n`);
           controlledScenarios[scenario] = { status: 'observed', evidence: [artifact] };
+          }
+          record.scenarios = controlledScenarios;
+          const bindingsPassed = integrationBindingEvidence.every((item) => !item.required || item.observed) && (operation.integrationBindings || []).every((binding) => externalCalls.length > 0 && integrationBindingEvidence.filter((item) => item.source === binding.source && item.target === (binding.target || binding.providerField)).length === externalCalls.length);
+          const passed = Boolean(ingress) && egressPassed && bindingsPassed && !independentItemsFindings.length && !concurrencyResults.length;
+          operationReceipts.push({ operationId, status: passed ? 'passed' : 'failed', resultPath, maxInFlight, integrationBindingEvidence, independentItemsFindings, concurrencyFindings: concurrencyResults });
+          if (!ingress) throw new Error(`${runId}/observer did not capture integrated operation ${operationId}`);
+          if (!egressPassed) throw new Error(`${runId}/external observer did not capture an application-originated call for ${operationId}`);
+          if (!bindingsPassed) throw new Error(`${runId}/not every provider invocation preserved all required bindings for ${operationId}`);
+          if (independentItemsFindings.length) throw new Error(`${runId}/${independentItemsFindings[0]}`);
+          if (concurrencyResults.length) throw new Error(`${runId}/${concurrencyResults[0]}`);
         }
-        integrationEvidence.scenarios = controlledScenarios;
         writeFileSync(`${destination}/integration-evidence.json`, `${JSON.stringify(integrationEvidence, null, 2)}\n`);
-        const ingressPassed = Boolean(ingress);
-        const egressPassed = Boolean(egress);
-        const bindingsPassed = integrationBindingEvidence.every((item) => !item.required || item.observed);
-        const passed = ingressPassed && egressPassed && bindingsPassed && !independentItemsFindings.length && !concurrencyResults.length && !visualResults.length;
-        writeFileSync(`${destination}/operation-observation-receipt.json`, `${JSON.stringify({ schemaVersion: '1.4', generatedBy: 'project-implementation/validation-campaign-observer', operationId, challengeId, status: passed ? 'passed' : 'failed', maxInFlight: concurrencyState.maxInFlight, observations, externalObservations, integrationBindingEvidence, independentItemsFindings, concurrencyFindings: concurrencyResults, visualAuditFindings: visualResults }, null, 2)}\n`);
-        if (!ingressPassed) throw new Error(`${runId}/observer did not capture the integrated application operation`);
-        if (!egressPassed) throw new Error(`${runId}/external observer did not capture an application-originated integration call with the campaign challenge`);
-        if (!bindingsPassed) throw new Error(`${runId}/external observer did not prove all required operation integration bindings`);
-        if (independentItemsFindings.length) throw new Error(`${runId}/${independentItemsFindings[0]}`);
-        if (concurrencyResults.length) throw new Error(`${runId}/${concurrencyResults[0]}`);
-        if (visualResults.length) throw new Error(`${runId}/${visualResults[0]}`);
+        writeFileSync(`${destination}/operation-observation-receipt.json`, `${JSON.stringify({ schemaVersion: '1.5', generatedBy: 'project-implementation/validation-campaign-observer', challengeId, status: operationReceipts.every((item) => item.status === 'passed') ? 'passed' : 'failed', observations, externalObservations, operationReceipts }, null, 2)}\n`);
       }
     } finally {
       app.kill('SIGTERM'); provider?.kill('SIGTERM'); observer?.close(); externalObserver?.close();
@@ -213,15 +221,18 @@ function spawnCollect(command, args, { cwd, env, timeoutMs }) {
 function expandedEnv(values = {}, variables) { return { ...process.env, ...Object.fromEntries(Object.entries(values).map(([key, value]) => [key, expand(String(value), variables)])) }; }
 function expand(value, variables) { return String(value).replace(/\$\{([A-Z_]+)\}/g, (_, key) => variables[key] ?? `\${${key}}`); }
 function freePort() { return new Promise((resolvePort, reject) => { const server = createServer(); server.once('error', reject); server.listen(0, '127.0.0.1', () => { const address = server.address(); server.close(() => resolvePort(address.port)); }); }); }
-function startObserver(port, targetPort, observations, challengeId) { return new Promise((resolveServer, reject) => { const server = createHttpServer((incoming, outgoing) => { const chunks = []; const startedAt = Date.now(); incoming.on('data', (chunk) => chunks.push(chunk)); incoming.on('end', () => { const requestBody = Buffer.concat(chunks); const upstream = httpRequest({ hostname: '127.0.0.1', port: targetPort, path: incoming.url, method: incoming.method, headers: { ...incoming.headers, 'x-validation-challenge': challengeId } }, (response) => { const responseChunks = []; outgoing.writeHead(response.statusCode || 502, response.headers); response.on('data', (chunk) => { responseChunks.push(chunk); outgoing.write(chunk); }); response.on('end', () => { outgoing.end(); const body = Buffer.concat(responseChunks); observations.push({ challengeId, method: incoming.method, path: new URL(incoming.url, 'http://observer').pathname, status: response.statusCode, startedAt, observedAt: Date.now(), requestDigest: createHash('sha256').update(requestBody).digest('hex'), requestValueDigests: jsonValueDigests(requestBody, 'request'), responseDigest: createHash('sha256').update(body).digest('hex'), responseValues: jsonScalarValues(body), responseCollectionLength: maxCollectionLength(body) }); }); }); upstream.on('error', () => { outgoing.writeHead(502); outgoing.end(); }); upstream.end(requestBody); }); }); server.once('error', reject); server.listen(port, '127.0.0.1', () => resolveServer(server)); }); }
+function startObserver(port, targetPort, observations, challengeId, operations) { return new Promise((resolveServer, reject) => { const server = createHttpServer((incoming, outgoing) => { const chunks = []; const startedAt = Date.now(); incoming.on('data', (chunk) => chunks.push(chunk)); incoming.on('end', () => { const requestBody = Buffer.concat(chunks); const requestEvidence = observedRequestEvidence(incoming, requestBody, operations); const upstream = httpRequest({ hostname: '127.0.0.1', port: targetPort, path: incoming.url, method: incoming.method, headers: { ...incoming.headers, 'x-validation-challenge': challengeId } }, (response) => { const responseChunks = []; outgoing.writeHead(response.statusCode || 502, response.headers); response.on('data', (chunk) => { responseChunks.push(chunk); outgoing.write(chunk); }); response.on('end', () => { outgoing.end(); const body = Buffer.concat(responseChunks); observations.push({ challengeId, method: incoming.method, path: new URL(incoming.url, 'http://observer').pathname, status: response.statusCode, startedAt, observedAt: Date.now(), requestDigest: createHash('sha256').update(requestBody).digest('hex'), requestValueDigests: requestEvidence.valueDigests, requestContentDigests: requestEvidence.contentDigests, responseDigest: createHash('sha256').update(body).digest('hex'), responseBody: parseJson(body) }); }); }); upstream.on('error', () => { outgoing.writeHead(502); outgoing.end(); }); upstream.end(requestBody); }); }); server.once('error', reject); server.listen(port, '127.0.0.1', () => resolveServer(server)); }); }
 // The external observer injects a fixed delay so concurrent outbound calls deterministically overlap, and
 // records the maximum in-flight count. It never inspects business content — only counts overlap and returns
 // one distinct result id per call.
-function startExternalObserver(port, observations, challengeId, concurrency = { inFlight: 0, maxInFlight: 0 }, delayMs = 0) { return new Promise((resolveServer, reject) => { const server = createHttpServer((request, response) => { const chunks = []; request.on('data', (chunk) => chunks.push(chunk)); request.on('end', () => { const requestBody = Buffer.concat(chunks); const received = request.headers['x-validation-challenge']; const matched = received === challengeId; const externalResultId = matched ? randomUUID() : null; const body = Buffer.from(JSON.stringify(matched ? { externalResultId, status: 'accepted' } : { error: 'challenge-mismatch' })); concurrency.inFlight += 1; concurrency.maxInFlight = Math.max(concurrency.maxInFlight, concurrency.inFlight); observations.push({ challengeId: received || null, method: request.method, path: new URL(request.url, 'http://external-observer').pathname, status: matched ? 200 : 403, observedAt: Date.now(), externalResultId, requestDigest: createHash('sha256').update(requestBody).digest('hex'), requestValueDigests: jsonValueDigests(requestBody, 'provider'), responseDigest: createHash('sha256').update(body).digest('hex') }); setTimeout(() => { concurrency.inFlight -= 1; response.writeHead(matched ? 200 : 403, { 'content-type': 'application/json' }); response.end(body); }, delayMs); }); }); server.once('error', reject); server.listen(port, '127.0.0.1', () => resolveServer(server)); }); }
+function startExternalObserver(port, observations, challengeId, operationTokens, concurrency = { inFlight: 0, maxInFlight: 0 }, delayMs = 0) { const operationsByToken = new Map(Object.entries(operationTokens || {}).map(([operationId, token]) => [token, operationId])); return new Promise((resolveServer, reject) => { const server = createHttpServer((request, response) => { const chunks = []; request.on('data', (chunk) => chunks.push(chunk)); request.on('end', () => { const requestBody = Buffer.concat(chunks); const requestEvidence = observedRequestEvidence(request, requestBody, [], 'provider'); const received = request.headers['x-validation-challenge']; const operationToken = request.headers['x-validation-operation-token']; const operationId = operationsByToken.get(operationToken) || null; const matched = received === challengeId && Boolean(operationId); const externalResultId = matched ? randomUUID() : null; const body = Buffer.from(JSON.stringify(matched ? { externalResultId, status: 'accepted' } : { error: 'challenge-mismatch' })); concurrency.inFlight += 1; concurrency.maxInFlight = Math.max(concurrency.maxInFlight, concurrency.inFlight); const observation = { id: randomUUID(), challengeId: received || null, operationId, method: request.method, path: new URL(request.url, 'http://external-observer').pathname, status: matched ? 200 : 403, startedAt: Date.now(), observedAt: null, externalResultId, requestDigest: createHash('sha256').update(requestBody).digest('hex'), requestValueDigests: requestEvidence.valueDigests, requestContentDigests: requestEvidence.contentDigests, responseDigest: createHash('sha256').update(body).digest('hex') }; observations.push(observation); setTimeout(() => { concurrency.inFlight -= 1; observation.observedAt = Date.now(); response.writeHead(matched ? 200 : 403, { 'content-type': 'application/json' }); response.end(body); }, delayMs); }); }); server.once('error', reject); server.listen(port, '127.0.0.1', () => resolveServer(server)); }); }
+
+function operationResultPath(uiPlan, operation) { const contract = (uiPlan.capabilities || []).find((item) => item.capabilityId === operation.capabilityId)?.presentation?.surface?.contentContract?.resultContract; return operation.integrationVerification?.resultCollectionPath || (contract?.bindings || []).find((item) => !item.operationId || item.operationId === operation.id)?.responsePath || null; }
+function maximumOverlap(calls) { const events = calls.flatMap((item) => [[item.startedAt, 1], [item.observedAt, -1]]).filter(([time]) => Number.isFinite(time)).sort((a, b) => a[0] - b[0] || b[1] - a[1]); let active = 0; let maximum = 0; for (const [, delta] of events) { active += delta; maximum = Math.max(maximum, active); } return maximum; }
+function parseJson(buffer) { try { return JSON.parse(buffer.toString('utf8')); } catch { return null; } }
+function scalarValues(value) { if (Array.isArray(value)) return value.flatMap(scalarValues); if (value && typeof value === 'object') return Object.values(value).flatMap(scalarValues); return value === null || value === undefined ? [] : [String(value)]; }
 function jsonScalarValues(buffer) { try { const values = []; collectScalars(JSON.parse(buffer.toString('utf8')), values); return values; } catch { return []; } }
 function collectScalars(value, values) { if (value === null || ['string', 'number', 'boolean'].includes(typeof value)) values.push(value); else if (Array.isArray(value)) for (const item of value) collectScalars(item, values); else if (value && typeof value === 'object') for (const item of Object.values(value)) collectScalars(item, values); }
-function jsonValueDigests(buffer, prefix) { try { const values = {}; collectValueDigests(JSON.parse(buffer.toString('utf8')), prefix, values); return values; } catch { return {}; } }
-function collectValueDigests(value, path, values) { values[path] = createHash('sha256').update(JSON.stringify(value)).digest('hex'); if (value && typeof value === 'object' && !Array.isArray(value)) for (const [key, item] of Object.entries(value)) collectValueDigests(item, `${path}.${key}`, values); }
 function routeMatches(contractPath, observedPath) { const pattern = String(contractPath).split(/(\{[^}]+\})/).map((part) => part.startsWith('{') ? '[^/]+' : part.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')).join(''); return new RegExp(`^${pattern}$`).test(observedPath); }
 function parseArgs(values) { const result = {}; for (let i = 0; i < values.length; i++) if (values[i].startsWith('--')) { result[values[i].slice(2)] = values[i + 1]; i++; } return result; }
 function usage() { console.error('Usage: run-validation-campaign.mjs --functional <approved-package> --handoff <approved-handoff> --candidate <dir-with-campaign-contract> --output <dir> [--count <positive-integer>] [--level simulated|integrated]'); process.exit(2); }

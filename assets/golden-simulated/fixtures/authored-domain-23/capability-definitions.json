@@ -885,7 +885,7 @@
           "capabilityId": "cap-submission-submit-submission",
           "semantics": "For Create submission, validate inputs, create the capability-specific aggregate state, and return its typed result.",
           "method": "POST",
-          "path": "/api/pages/submission/capabilities/submit-submission/create",
+          "path": "/api/submissions",
           "request": {
             "contentType": "application/json",
             "body": [
@@ -1221,10 +1221,6 @@
             ],
             "endpointPolicy": {
               "nonLocal": true
-            },
-            "correlation": {
-              "requestHeader": "X-Integration-Challenge",
-              "responsePath": "submissionId"
             }
           }
         }
@@ -1731,7 +1727,7 @@
           "capabilityId": "cap-submission-upload-resource",
           "semantics": "For Upload source file, validate transfer constraints, compute checksum, bind ownership, persist an opaque storage reference, and return runtime resource identifiers.",
           "method": "POST",
-          "path": "/api/pages/submission/capabilities/upload-resource/assets",
+          "path": "/api/resources",
           "request": {
             "contentType": "multipart/form-data",
             "body": [
