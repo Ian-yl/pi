@@ -4,6 +4,7 @@ import { spawnSync } from 'node:child_process';
 import { resolve } from 'node:path';
 import { digestJSON, hashDirectory, readJSON, sha } from './lib/visual-release.mjs';
 import { presentationFindings } from './lib/presentation.mjs';
+import { primarySubmitFindings } from './lib/primary-submit.mjs';
 import { treeDigest } from './lib/validator-tree.mjs';
 
 const args = parseArgs(process.argv.slice(2)); if (!args.handoff || !args['reviewer-agent']) usage();
@@ -22,6 +23,7 @@ if (semanticFiles.length && (semanticInventory.release?.releaseDigest !== releas
 if (semanticFiles.includes('asset-role-inventory.json') && (assetInventory.releaseDigest !== release.releaseDigest || (assetInventory.assets || []).some((item) => !['decorative', 'business-sample'].includes(item.role) || !item.digest || (item.role === 'business-sample' && !item.requiredReplacement)))) errors.push('handoff asset roles are unclassified or not release-bound');
 const copiedSourceDigest = hashDirectory(`${dir}/web`); if (frontend.sourceTreeDigest !== copiedSourceDigest || visual.sourceTreeDigest !== copiedSourceDigest) errors.push('handoff web source tree digest mismatch');
 const capabilities = new Map((spec.capabilities || []).map((item) => [item.id, item])); const capabilityIds = new Set(capabilities.keys()); const ruleIds = new Set((spec.rules || []).map((item) => item.id));
+errors.push(...primarySubmitFindings(spec, semanticInventory, interactions, controlMap));
 const coreCapabilityIds = new Set((spec.journeys || []).filter((journey) => journey.core === true).flatMap((journey) => journey.capabilityIds || []));
 if (bindings.functionalPackageDigest !== manifest.functionalPackageDigest || JSON.stringify([...capabilityIds].sort()) !== JSON.stringify([...(bindings.capabilityIds || [])].sort())) errors.push('handoff domain bindings mismatch');
 const rawPlanIds = (plan.capabilities || []).map((item) => item.capabilityId); const planned = new Map((plan.capabilities || []).map((item) => [item.capabilityId, item.presentation]));

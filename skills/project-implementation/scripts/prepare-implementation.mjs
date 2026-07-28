@@ -42,6 +42,7 @@ const trustedFunctionalValidators = new Map([
   ['fdd-validator-2.2.2', { contractVersion: 'functional-domain/2.2', entry: resolve(import.meta.dirname, '../validators/fdd-2.2.2/validate-package.mjs') }],
   ['fdd-validator-2.2.3', { contractVersion: 'functional-domain/2.2', entry: resolve(import.meta.dirname, '../validators/fdd-2.2.3/validate-package.mjs') }],
   ['fdd-validator-2.2.4', { contractVersion: 'functional-domain/2.2', entry: resolve(import.meta.dirname, '../validators/fdd-2.2.4/validate-package.mjs') }],
+  ['fdd-validator-2.2.5', { contractVersion: 'functional-domain/2.2', entry: resolve(import.meta.dirname, '../validators/fdd-2.2.5/validate-package.mjs') }],
 ]);
 const planningManifest = f['planning-manifest.json'] || {}; const planningArtifacts = f['planning-artifacts.json'] || {}; const definitions = f['capability-definitions.json'] || {}; const planningReceipt = f['planning-review-receipt.json'];
 if (manifest.status !== 'approved') errors.push('functional package is not approved');

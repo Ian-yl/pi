@@ -81,6 +81,15 @@ function enrichControl(pageId, control, items, sourceText) {
     stableId: control.referenceId || null,
     pageId,
     kind: control.kind || item.kind || item.tag,
+    nativeType: item.attrs?.type || extractAttribute(sourceFragment, 'type'),
+    fieldName: item.attrs?.name || extractAttribute(sourceFragment, 'name') || null,
+    formId: item.formId || item.attrs?.form || context?.formId || (['form'].includes(context?.tag || context?.kind) ? context.auditId || context.id : null),
+    submissionScopeId: item.submissionScopeId || item.attrs?.dataSubmissionScope || context?.submissionScopeId || null,
+    submissionRole: explicitSubmissionRole(item, sourceFragment),
+    semanticRole: item.semanticRole || item.attrs?.dataSemanticRole || null,
+    architectureItemId: item.architectureItemId || null,
+    sourceModuleId: item.sourceModuleId || null,
+    capabilityId: item.capabilityId || item.attrs?.dataCapabilityId || null,
     selector: control.selector || item.selector || null,
     label: text || clean(context?.text),
     placeholder: clean(item.placeholder),
@@ -89,7 +98,7 @@ function enrichControl(pageId, control, items, sourceText) {
     accept: item.attrs?.accept || extractAttribute(sourceFragment, 'accept'),
     defaultValue: extractDefault(sourceFragment),
     options: extractNearbyOptions(sourceFragment),
-    region: context ? { id: context.auditId || context.id, label: clean(context.text), selector: context.selector } : null,
+    region: context ? { id: context.auditId || context.id, label: clean(context.text), selector: context.selector, semanticRole: context.semanticRole || context.attrs?.dataSemanticRole || null } : null,
     hierarchy: String(item.domPath || '').split('>').filter(Boolean),
     observedHandler: extractHandler(sourceFragment),
     sourceReference: sourceFragment ? { type: 'source-fragment', digest: sha(Buffer.from(sourceFragment)), excerpt: sourceFragment.slice(0, 300) } : null,
@@ -117,6 +126,7 @@ function extractInteractions(sources, pages, releaseDigest) {
         pageId: control?.pageId || inferPage(nearby, pages),
         controlId: control?.controlId || null,
         event: pattern.kind === 'network' ? 'request' : pattern.kind,
+        submissionRole: pattern.kind === 'submit' || control?.submissionRole === 'primary-submit' ? 'primary-submit' : null,
         handlerSummary: clean(excerpt),
         stateReads: extractIdentifiers(excerpt, /\b(?:value|files|active|status|count|zoom|selected|input|data)\b/g),
         stateWrites: [...excerpt.matchAll(/set([A-Z][A-Za-z0-9_]*)\s*\(/g)].map((item) => lowerFirst(item[1])),
@@ -149,6 +159,7 @@ function extractAttribute(fragment, name) { return fragment.match(new RegExp(`${
 function extractDefault(fragment) { return fragment.match(/(?:value|defaultValue)=["']([^"']*)["']/)?.[1] || null; }
 function extractNearbyOptions(fragment) { const values = [...fragment.matchAll(/["']([^"']{1,80})["']/g)].map((item) => item[1]).filter((item) => !/[<>{}=;/]/.test(item)); return [...new Set(values)].slice(0, 20); }
 function extractHandler(fragment) { if (/onChange/.test(fragment)) return 'change'; if (/onSubmit/.test(fragment)) return 'submit'; if (/onClick/.test(fragment)) return 'click'; return null; }
+function explicitSubmissionRole(item, fragment) { const role = item.submissionRole || item.attrs?.dataSubmissionRole; if (role) return role; return String(item.attrs?.type || extractAttribute(fragment, 'type')).toLowerCase() === 'submit' ? 'primary-submit' : null; }
 function extractNetwork(fragment) { const url = fragment.match(/["'`]([^"'`]+)["'`]/)?.[1] || null; const method = fragment.match(/method\s*:\s*["']([A-Z]+)["']/i)?.[1]?.toUpperCase() || (/axios\.(get|post|put|patch|delete)/.exec(fragment)?.[1]?.toUpperCase()) || 'GET'; const fields = [...fragment.matchAll(/\b([A-Za-z_$][\w$]*)\s*:/g)].map((item) => item[1]).filter((item) => !['method', 'headers', 'body'].includes(item)); return { method, url, requestFields: [...new Set(fields)] }; }
 function inferPage(text, pages) { return pages.find((page) => text.includes(page.pageId))?.pageId || null; }
 function extractIdentifiers(text, regex) { return [...new Set([...text.matchAll(regex)].map((item) => item[0]))]; }

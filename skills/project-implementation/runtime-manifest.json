@@ -17,6 +17,7 @@
     "scripts/lib/asset-references.mjs",
     "validators/fdd-2.2.3/validate-package.mjs",
     "validators/fdd-2.2.4/validate-package.mjs",
+    "validators/fdd-2.2.5/validate-package.mjs",
     "validators/handoff-2.2/review-handoff.mjs"
   ],
   "references": ["references/input-contract.md", "references/campaign-contract.md"]
