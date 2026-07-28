@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 import { createHash } from 'node:crypto';
-import { existsSync, lstatSync, readFileSync, readdirSync, realpathSync, statSync, writeFileSync } from 'node:fs';
+import { existsSync, lstatSync, readFileSync, readdirSync, realpathSync, rmSync, statSync, writeFileSync } from 'node:fs';
 import { spawnSync } from 'node:child_process';
 import { posix, resolve } from 'node:path';
 import { schemaFindings } from './lib/json-schema.mjs';
@@ -200,6 +200,7 @@ const runtimeEvidenceFiles = requiresFrontendRuntime && existsSync(`${dir}/evide
 const sources = implementationSources();
 const sourceDigests = Object.fromEntries(Object.entries(sources).map(([group, files]) => [group, hashSourceFiles(files)]));
 const visualRestorationHandoff = inputMode === 'design-led' && productStatus === 'implemented' ? 'visual-restoration-handoff.json' : null;
+if (!visualRestorationHandoff && existsSync(`${dir}/visual-restoration-handoff.json`)) rmSync(`${dir}/visual-restoration-handoff.json`);
 if (visualRestorationHandoff) writeFileSync(`${dir}/${visualRestorationHandoff}`, `${JSON.stringify({
   schemaVersion: '1.0',
   packageType: 'visual-restoration-handoff',

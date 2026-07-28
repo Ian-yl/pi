@@ -63,6 +63,35 @@ test('golden fixture completes the current simulated flow', () => {
   } finally { rmSync(output, { recursive: true, force: true }); }
 });
 
+test('design-led fixture flows from FDD approval through PI verification to the AR handoff', () => {
+  const output = mkdtempSync(path.join(os.tmpdir(), 'golden-design-led-'));
+  try {
+    const script = path.resolve(import.meta.dirname, '../assets/golden-simulated/generate.mjs');
+    const result = spawnSync('node', [script, '--design-led', '--output', output], { encoding: 'utf8' });
+    assert.equal(result.status, 0, `${result.stdout}\n${result.stderr}`);
+    assert.equal(JSON.parse(readFileSync(`${output}/functional-domain/manifest.json`, 'utf8')).inputMode, 'design-led');
+    assert.equal(JSON.parse(readFileSync(`${output}/implementation-handoff/handoff-manifest.json`, 'utf8')).inputMode, 'design-led');
+    assert.equal(existsSync(`${output}/implementation-handoff/web`), false);
+    const arHandoff = JSON.parse(readFileSync(`${output}/implementation/visual-restoration-handoff.json`, 'utf8'));
+    assert.equal(arHandoff.status, 'ready-for-visual-restoration');
+    assert.equal(arHandoff.restorationBoundary.returnToProjectImplementation, false);
+    assert.ok(JSON.parse(readFileSync(`${output}/implementation/implementation-lock.json`, 'utf8')).digests['visual-restoration-handoff.json']);
+  } finally { rmSync(output, { recursive: true, force: true }); }
+});
+
+test('verification removes a stale AR handoff when the workspace is not design-led complete', () => {
+  const source = path.resolve(import.meta.dirname, '../assets/golden-simulated/current/implementation');
+  const dir = mkdtempSync(path.join(os.tmpdir(), 'stale-ar-handoff-'));
+  try {
+    cpSync(source, dir, { recursive: true });
+    writeFileSync(`${dir}/visual-restoration-handoff.json`, '{"status":"stale"}\n');
+    rmSync(`${dir}/implementation-lock.json`);
+    const result = spawnSync('node', [path.resolve(import.meta.dirname, '../scripts/verify-implementation.mjs'), dir, '--require-level', 'simulated'], { encoding: 'utf8' });
+    assert.equal(result.status, 0, `${result.stdout}${result.stderr}`);
+    assert.equal(existsSync(`${dir}/visual-restoration-handoff.json`), false);
+  } finally { rmSync(dir, { recursive: true, force: true }); }
+});
+
 test('formal all-headless fixture completes without browser runtime evidence', () => {
   const output = mkdtempSync(path.join(os.tmpdir(), 'golden-headless-'));
   try {
