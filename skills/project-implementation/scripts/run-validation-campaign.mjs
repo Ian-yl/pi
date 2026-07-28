@@ -154,7 +154,7 @@ for (let index = 1; index <= count; index += 1) {
           const candidate = readJSON(candidatePath);
           const observed = observations.find((item) => item.challengeId === challengeId && String(item.method).toUpperCase() === String(operation.method).toUpperCase() && routeMatches(operation.path, item.path) && item.requestDigest === candidate.requestDigest && item.responseDigest === candidate.responseDigest && item.status === candidate.responseStatus);
           if (!observed) throw new Error(`${runId}/integrated scenario ${scenario} is not correlated with a campaign-observed application request and response`);
-          const artifact = `evidence/integration/campaign-scenario-${scenario}.json`;
+          const artifact = `evidence/integration/campaign-scenario-${encodeURIComponent(operationId)}-${encodeURIComponent(scenario)}.json`;
           writeFileSync(`${destination}/${artifact}`, `${JSON.stringify({ schemaVersion: '1.0', generatedBy: 'project-implementation/validation-campaign-observer', challengeId, operationId, scenario, observed: true, requestDigest: observed.requestDigest, responseDigest: observed.responseDigest, responseStatus: observed.status }, null, 2)}\n`);
           controlledScenarios[scenario] = { status: 'observed', evidence: [artifact] };
           }

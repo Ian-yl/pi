@@ -31,6 +31,7 @@ description: Implement and verify a complete project from an approved functional
    ```bash
    node <skill-dir>/scripts/verify-implementation.mjs <implementation-workspace> --require-level integrated
    ```
+   Read every finding, fix the implementation or its authored evidence, and rerun the failed qualification step through final verification until it passes. Stop only when the approved contract lacks a decision PI is not authorized to invent; return that concrete blocker to FDD.
    Only the formal Schema 2.3 FDD and handoff path is supported.
 
 ## Judgment Rules

@@ -71,20 +71,23 @@ test('every provider invocation must preserve every required integration binding
 test('resource resolution passes only when the uploaded content reaches the provider target', () => {
   const op = { id: 'op', capabilityId: 'cap', dataDependencies: [{ sourceOperationId: 'upload', sourceField: 'response.resourceIds', targetField: 'request.resourceIds' }], integrationBindings: [{ source: 'request.resourceIds', target: 'provider.bytes', required: true }] };
   const upload = { id: 'upload', method: 'POST', path: '/resources', resourceTransfer: { fileField: 'file' } };
-  const resolution = { method: 'resource-id-dereference', detail: 'resolve the locked resource before the provider call' };
+  const resolution = { method: 'resource-id-dereference', verificationMode: 'base64-content', detail: 'resolve the locked resource before the provider call' };
   const spec = { capabilities: [{ id: 'cap', closure: { inputUtilization: [{ operationId: 'op', requestPath: 'body.resourceIds', disposition: 'provider-mapped', resourceResolution: resolution }] } }] };
-  const ids = ['resource-runtime'];
+  const ids = ['resource-b'];
   const idsDigest = createHash('sha256').update(JSON.stringify(ids)).digest('hex');
   const contentDigest = 'c'.repeat(64);
-  const ingress = { startedAt: 4, observedAt: 10, requestValueDigests: { 'request.resourceIds': idsDigest } };
-  const observations = [{ method: 'POST', path: '/resources', status: 201, responseBody: { resourceIds: ids }, requestContentDigests: { 'request.file': [contentDigest] } }];
+  const ingress = { startedAt: 5, observedAt: 10, requestValueDigests: { 'request.resourceIds': idsDigest } };
+  const observations = [
+    { method: 'POST', path: '/resources', status: 201, observedAt: 2, responseBody: { resourceIds: ['resource-a'] }, requestContentDigests: { 'request.file': { 'raw-content': ['a'.repeat(64)] } } },
+    { method: 'POST', path: '/resources', status: 201, observedAt: 4, responseBody: { resourceIds: ids }, requestContentDigests: { 'request.file': { 'raw-content': [contentDigest] } } },
+  ];
   const proofs = operationResourceProofs(spec, op, [upload, op], observations, ingress);
-  const call = { id: 'call', challengeId, startedAt: 5, observedAt: 6, requestValueDigests: { 'provider.bytes': 'b'.repeat(64) }, requestContentDigests: { 'provider.bytes': [contentDigest] } };
+  const call = { id: 'call', challengeId, startedAt: 5, observedAt: 6, requestValueDigests: { 'provider.bytes': 'b'.repeat(64) }, requestContentDigests: { 'provider.bytes': { 'base64-content': [contentDigest] } } };
   const evidence = invocationBindingEvidence(op, ingress, [call], challengeId, proofs);
   assert.equal(evidence[0].mappingMode, 'resource-resolution');
   assert.match(evidence[0].resolutionDigest, /^[a-f0-9]{64}$/);
   assert.equal(evidence[0].observed, true);
-  assert.equal(invocationBindingEvidence(op, ingress, [{ ...call, requestContentDigests: { 'provider.bytes': ['d'.repeat(64)] } }], challengeId, proofs)[0].observed, false);
+  assert.equal(invocationBindingEvidence(op, ingress, [{ ...call, requestContentDigests: { 'provider.bytes': { 'base64-content': ['d'.repeat(64)] } } }], challengeId, proofs)[0].observed, false);
 });
 
 test('provider evidence must exactly cover every provider operation, not merely its capability', () => {

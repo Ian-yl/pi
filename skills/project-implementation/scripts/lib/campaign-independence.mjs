@@ -46,7 +46,8 @@ export function invocationBindingEvidence(operation, ingress, externalObservatio
     const resolution = proof?.resolution;
     const mappingMode = resolution ? 'resource-resolution' : 'identity';
     const resolutionDigest = resolution ? createHash('sha256').update(JSON.stringify(resolution)).digest('hex') : null;
-    const targetContentDigests = call.requestContentDigests?.[target] || [];
+    const verificationMode = resolution?.verificationMode;
+    const targetContentDigests = call.requestContentDigests?.[target]?.[verificationMode === 'multipart-content' ? 'raw-content' : verificationMode] || [];
     const contentMatched = Boolean(proof?.sourceLinked && proof.contentDigests?.length && proof.contentDigests.every((digest) => targetContentDigests.includes(digest)));
     const observed = mappingMode === 'identity' ? Boolean(sourceValueDigest && sourceValueDigest === targetValueDigest) : contentMatched;
     return { operationId: operation.id, invocationId: call.id || call.externalResultId || `invocation-${invocationIndex + 1}`, invocationIndex, source: binding.source, target, required: binding.required !== false, mappingMode, resolutionDigest, sourceValueDigest, targetValueDigest, contentDigests: proof?.contentDigests || [], targetContentDigests, observed };
@@ -65,10 +66,15 @@ export function operationResourceProofs(functionalSpec, operation, operations, o
     const source = providerSource(dependency.targetField);
     if (!resolutions[source]) continue;
     const sourceOperation = (operations || []).find((item) => item.id === dependency.sourceOperationId && item.resourceTransfer);
-    const upload = (observations || []).find((item) => sourceOperation && String(item.method).toUpperCase() === String(sourceOperation.method).toUpperCase() && routeMatches(sourceOperation.path, item.path) && Number(item.status) >= 200 && Number(item.status) < 300);
+    const sourceDigest = ingress?.requestValueDigests?.[source];
+    const upload = (observations || []).find((item) => {
+      if (!sourceOperation || String(item.method).toUpperCase() !== String(sourceOperation.method).toUpperCase() || !routeMatches(sourceOperation.path, item.path) || Number(item.status) < 200 || Number(item.status) >= 300 || Number(item.observedAt) > Number(ingress?.startedAt)) return false;
+      const value = getPath(item.responseBody, String(dependency.sourceField || '').replace(/^response\./, ''));
+      return value !== undefined && createHash('sha256').update(JSON.stringify(value)).digest('hex') === sourceDigest;
+    });
     const responseValue = getPath(upload?.responseBody, String(dependency.sourceField || '').replace(/^response\./, ''));
     const expectedSourceDigest = responseValue === undefined ? null : createHash('sha256').update(JSON.stringify(responseValue)).digest('hex');
-    proofs[source] = { resolution: resolutions[source], sourceLinked: Boolean(expectedSourceDigest && ingress?.requestValueDigests?.[source] === expectedSourceDigest), contentDigests: upload?.requestContentDigests?.[`request.${sourceOperation?.resourceTransfer?.fileField}`] || [] };
+    proofs[source] = { resolution: resolutions[source], sourceLinked: Boolean(expectedSourceDigest && sourceDigest === expectedSourceDigest), contentDigests: upload?.requestContentDigests?.[`request.${sourceOperation?.resourceTransfer?.fileField}`]?.['raw-content'] || [] };
   }
   return proofs;
 }

@@ -40,7 +40,7 @@ function collectMultipart(body, contentType, values, contentDigests, prefix) {
     if (payload.subarray(payload.length - 2).toString() === '\r\n') payload = payload.subarray(0, payload.length - 2);
     const filename = /content-disposition:[^\r\n]*\bfilename="([^"]*)"/i.exec(headerText)?.[1];
     const value = filename === undefined ? payload.toString('utf8') : { filename, size: payload.length, contentDigest: sha(payload) };
-    if (filename !== undefined) (contentDigests[`${prefix}.${name}`] ||= []).push(sha(payload));
+    if (filename !== undefined) addContentDigest(contentDigests, `${prefix}.${name}`, 'raw-content', sha(payload));
     (fields[name] ||= []).push(value);
   }
   for (const [name, items] of Object.entries(fields)) setValue(values, `${prefix}.${name}`, items);
@@ -50,11 +50,11 @@ function collectContentDigests(value, path, contentDigests) {
   if (Array.isArray(value)) { for (const item of value) collectContentDigests(item, path, contentDigests); return; }
   if (value && typeof value === 'object') { for (const [key, item] of Object.entries(value)) collectContentDigests(item, `${path}.${key}`, contentDigests); return; }
   if (typeof value !== 'string') return;
-  const candidates = [sha(Buffer.from(value, 'utf8'))];
-  if (/^[A-Za-z0-9+/]+={0,2}$/.test(value) && value.length % 4 === 0) try { candidates.push(sha(Buffer.from(value, 'base64'))); } catch {}
-  if (/^[a-f0-9]{64}$/i.test(value)) candidates.push(value.toLowerCase());
-  contentDigests[path] = [...new Set([...(contentDigests[path] || []), ...candidates])];
+  addContentDigest(contentDigests, path, 'raw-content', sha(Buffer.from(value, 'utf8')));
+  if (/^[A-Za-z0-9+/]+={0,2}$/.test(value) && value.length % 4 === 0) try { addContentDigest(contentDigests, path, 'base64-content', sha(Buffer.from(value, 'base64'))); } catch {}
 }
+
+function addContentDigest(contentDigests, path, mode, digest) { const modes = (contentDigests[path] ||= {}); modes[mode] = [...new Set([...(modes[mode] || []), digest])]; }
 
 function addValue(values, path, value) {
   if (!(path in values)) values[path] = digestValue(value);
