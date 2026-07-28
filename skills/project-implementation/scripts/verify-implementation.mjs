@@ -11,14 +11,14 @@ const dirArg = process.argv.slice(2).find((value) => !value.startsWith('--'));
 if (!dirArg) { console.error('Usage: verify-implementation.mjs <implementation-dir>'); process.exit(2); }
 const dir = resolve(dirArg);
 const functionalManifestPreview = existsSync(`${dir}/inputs/functional-manifest.json`) ? readJSON(`${dir}/inputs/functional-manifest.json`) : {};
-const SCHEMA_22_SEMANTIC_FILES = ['frontend-semantic-inventory.json', 'observed-interactions.json', 'control-capability-map.json', 'asset-role-inventory.json'];
-const semanticInputs = functionalManifestPreview.schemaVersion === '2.2' ? SCHEMA_22_SEMANTIC_FILES : [];
+const SCHEMA_23_SEMANTIC_FILES = ['frontend-semantic-inventory.json', 'observed-interactions.json', 'control-capability-map.json', 'asset-role-inventory.json'];
+const semanticInputs = functionalManifestPreview.schemaVersion === '2.3' ? SCHEMA_23_SEMANTIC_FILES : [];
 const evidenceInputs = ['evidence-index.json', 'evidence-dispositions.json'];
 const requiredFunctionalInputs = ['manifest.json', 'planning-manifest.json', 'planning-artifacts.json', 'capability-definitions.json', 'design-manifest.json', ...evidenceInputs, ...semanticInputs, 'functional-spec.json', 'page-function-map.json', 'unresolved-items.json', 'planning-review-receipt.json', 'review-receipt.json'];
 const functionalPackageLockPreview = existsSync(`${dir}/inputs/functional-package-lock.json`) ? readJSON(`${dir}/inputs/functional-package-lock.json`) : {};
 const lockedFunctionalInputs = lockedPackageFiles(functionalPackageLockPreview);
 const formalFunctionalInputs = [...lockedFunctionalInputs, 'package-lock.json'];
-const formalHandoffInputs = ['handoff-manifest.json', 'visual-source.json', 'release-manifest.json', 'suite-gate.json', 'visual-approval.json', 'frontend-manifest.json', 'functional-spec.json', ...semanticInputs, ...(functionalManifestPreview.schemaVersion === '2.2' ? ['handoff-anchor-manifest.json'] : []), 'visual-controls.json', 'ui-implementation-plan.json', 'api-contract.json', 'domain-bindings.json', 'runtime-contract.json', 'handoff-review-receipt.json', 'handoff-lock.json'];
+const formalHandoffInputs = ['handoff-manifest.json', 'visual-source.json', 'release-manifest.json', 'suite-gate.json', 'visual-approval.json', 'frontend-manifest.json', 'functional-spec.json', ...semanticInputs, ...(functionalManifestPreview.schemaVersion === '2.3' ? ['handoff-anchor-manifest.json'] : []), 'visual-controls.json', 'ui-implementation-plan.json', 'api-contract.json', 'domain-bindings.json', 'runtime-contract.json', 'handoff-review-receipt.json', 'handoff-lock.json'];
 if (process.argv.includes('--legacy') || process.argv.includes('--legacy-archive-internal')) fail(['legacy verification modes are unsupported; prepare a Schema 2.2 workspace']);
 const requiredLevel = optionValue('--require-level') || 'integrated';
 const levels = ['simulated', 'integrated'];
@@ -28,8 +28,8 @@ const requiresFrontendRuntime = (uiPlan.capabilities || []).some((item) => item.
 const lockHeader = existsSync(`${dir}/input-lock.json`) ? readJSON(`${dir}/input-lock.json`) : {};
 const required = ['input-lock.json', 'implementation-plan.json', 'field-binding-plan.json', 'operation-events.json', 'operation-receipts.json', 'implementation-provenance.json', 'implementation-manifest.json', 'integration-evidence.json', 'openapi.json', 'startup.json', 'test-report.json', 'bmad-traceability.json', 'bmad-completion.json', ...(requiresFrontendRuntime ? ['interaction-manifest.json', 'control-bindings.json', 'frontend-runtime-config.json', 'frontend-runtime-report.json', 'frontend-capability-results.json', 'browser-e2e-report.json', 'placeholder-resolution.json', 'placeholder-audit-report.json'] : [])];
 const errors = [];
-if (functionalManifestPreview.schemaVersion !== '2.2') errors.push('formal verification accepts only functional-domain schema 2.2');
-if (functionalManifestPreview.schemaVersion === '2.2' && JSON.stringify(functionalManifestPreview.semanticArtifacts) !== JSON.stringify(SCHEMA_22_SEMANTIC_FILES)) errors.push('schema 2.2 semanticArtifacts must equal the fixed semantic artifact contract');
+if (functionalManifestPreview.schemaVersion !== '2.3') errors.push('formal verification accepts only functional-domain schema 2.3');
+if (functionalManifestPreview.schemaVersion === '2.3' && JSON.stringify(functionalManifestPreview.semanticArtifacts) !== JSON.stringify(SCHEMA_23_SEMANTIC_FILES)) errors.push('schema 2.3 semanticArtifacts must equal the fixed semantic artifact contract');
 for (const file of required) if (!existsSync(`${dir}/${file}`) || statSync(`${dir}/${file}`).size === 0) errors.push(`missing ${file}`);
 if (errors.length) fail(errors);
 

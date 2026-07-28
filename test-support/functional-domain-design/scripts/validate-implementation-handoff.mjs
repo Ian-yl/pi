@@ -10,7 +10,7 @@ const dir = resolve(args.handoff); const receiptPath = `${dir}/handoff-review-re
 if (!existsSync(receiptPath) || !existsSync(lockPath)) fail('approved handoff has no review receipt or lock');
 const receipt = readJSON(receiptPath); const lock = readJSON(lockPath);
 const registry = new Map([
-  ['fdd-handoff-reviewer-2.2', { contractVersion: 'implementation-handoff/2.2', entry: resolve(import.meta.dirname, '../validators/handoff-2.2/review-handoff.mjs') }],
+  ['fdd-handoff-reviewer-2.3', { contractVersion: 'implementation-handoff/2.3', entry: resolve(import.meta.dirname, '../validators/handoff-2.3/review-handoff.mjs') }],
 ]);
 const trusted = registry.get(receipt.trustedReviewerId);
 if (receipt.status !== 'approved' || !receipt.contractVersion || !trusted || trusted.contractVersion !== receipt.contractVersion || receipt.validatorDigest !== treeDigest(resolve(trusted.entry, '..'))) fail('handoff receipt does not pin a trusted reviewer revision');

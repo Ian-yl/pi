@@ -1,5 +1,5 @@
 {
-  "schemaVersion": "2.2",
+  "schemaVersion": "2.3",
   "packageType": "functional-domain",
   "projectId": "neutral-submission",
   "projectName": "Neutral submission workspace",
@@ -30,6 +30,7 @@
     "control-capability-map.json",
     "asset-role-inventory.json"
   ],
+  "controlDispositions": "control-dispositions.json",
   "capabilitySummary": {
     "total": 3,
     "complete": 2,
@@ -44,6 +45,6 @@
   "approval": {
     "method": "independent-agent-review",
     "reviewerAgentId": "golden-domain-reviewer",
-    "reviewedAt": "2026-07-27T06:01:33.112Z"
+    "reviewedAt": "2026-07-28T05:36:40.506Z"
   }
 }

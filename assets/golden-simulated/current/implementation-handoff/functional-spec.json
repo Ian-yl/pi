@@ -1,5 +1,5 @@
 {
-  "schemaVersion": "2.2",
+  "schemaVersion": "2.3",
   "project": {
     "id": "neutral-submission",
     "name": "Neutral submission workspace",
@@ -55,87 +55,7 @@
       "routeMismatches": [],
       "coverage": 1,
       "findings": []
-    },
-    "leafClassifications": [
-      {
-        "pageId": "submission",
-        "moduleId": "submission-actions",
-        "leafId": "submit-submission",
-        "name": "Create submission",
-        "classification": "business-capability",
-        "embeddedOperations": [],
-        "evidence": [
-          "page:submission",
-          "page-module:submission-actions",
-          "page-module:submit-submission"
-        ]
-      },
-      {
-        "pageId": "submission",
-        "moduleId": "submission-actions",
-        "leafId": "upload-resource",
-        "name": "Upload source file",
-        "classification": "operation",
-        "embeddedOperations": [],
-        "evidence": [
-          "page:submission",
-          "page-module:submission-actions",
-          "page-module:upload-resource"
-        ]
-      },
-      {
-        "pageId": "submission",
-        "moduleId": "submission-actions",
-        "leafId": "planned-export",
-        "name": "External submission review",
-        "classification": "business-capability",
-        "embeddedOperations": [],
-        "evidence": [
-          "page:submission",
-          "page-module:submission-actions",
-          "page-module:planned-export"
-        ]
-      },
-      {
-        "pageId": "submission",
-        "moduleId": "identity-section",
-        "leafId": "title-field",
-        "name": "Submission title",
-        "classification": "input-field",
-        "embeddedOperations": [],
-        "evidence": [
-          "page:submission",
-          "page-module:identity-section",
-          "page-module:title-field"
-        ]
-      },
-      {
-        "pageId": "submission",
-        "moduleId": "options-section",
-        "leafId": "category-field",
-        "name": "Submission category",
-        "classification": "input-field",
-        "embeddedOperations": [],
-        "evidence": [
-          "page:submission",
-          "page-module:options-section",
-          "page-module:category-field"
-        ]
-      },
-      {
-        "pageId": "submission",
-        "moduleId": "options-section",
-        "leafId": "quantity-field",
-        "name": "Result quantity",
-        "classification": "input-field",
-        "embeddedOperations": [],
-        "evidence": [
-          "page:submission",
-          "page-module:options-section",
-          "page-module:quantity-field"
-        ]
-      }
-    ]
+    }
   },
   "domains": [
     {

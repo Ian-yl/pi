@@ -8,6 +8,7 @@
       "pageId": "submission",
       "controlId": "planned-export",
       "event": "request",
+      "submissionRole": null,
       "handlerSummary": "fetch('/api/submissions',{method:'POST',headers:{'content-type':'application/json'},body:JSON.stringify({title:document.querySelector('[data-vr-id=title-input]').value,category:document.querySelector('[data-vr-id=category-select]').value,quantity:document.querySelector('[data-vr-id=quantity-input]').value})})}document.querySelector('[data-vr-id=submit-button]').addEventListener('click',submit)",
       "stateReads": [
         "data",

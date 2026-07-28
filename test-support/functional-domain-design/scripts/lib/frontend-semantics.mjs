@@ -76,13 +76,17 @@ function enrichControl(pageId, control, items, sourceText) {
   const context = nearestContext(item, items);
   const text = clean(control.text || item.text || item.ariaLabel || item.placeholder);
   const sourceFragment = findSourceFragment(sourceText, text || item.placeholder || item.attrs?.dataVrId);
+  // Per-control attributes come from the control's OWN element (its data-vr-id tag), not a wide character
+  // window, so a neighbor's type/value/options never bleed onto this control. The structured inventory
+  // attrs remain the first source of truth; the own element only fills what the inventory did not capture.
+  const ownFragment = ownElement(sourceText, control.referenceId || item.auditId || item.id) || sourceFragment;
   return {
     controlId: control.referenceId || `observed-${pageId}-${control.referenceIndex}`,
     stableId: control.referenceId || null,
     pageId,
     kind: control.kind || item.kind || item.tag,
-    nativeType: item.attrs?.type || extractAttribute(sourceFragment, 'type'),
-    fieldName: item.attrs?.name || extractAttribute(sourceFragment, 'name') || null,
+    nativeType: item.attrs?.type || extractAttribute(ownFragment, 'type'),
+    fieldName: item.attrs?.name || extractAttribute(ownFragment, 'name') || null,
     formId: item.formId || item.attrs?.form || context?.formId || (['form'].includes(context?.tag || context?.kind) ? context.auditId || context.id : null),
     submissionScopeId: item.submissionScopeId || item.attrs?.dataSubmissionScope || context?.submissionScopeId || null,
     submissionRole: explicitSubmissionRole(item, sourceFragment),
@@ -94,11 +98,12 @@ function enrichControl(pageId, control, items, sourceText) {
     label: text || clean(context?.text),
     placeholder: clean(item.placeholder),
     required: evidenceRequired(item, context),
-    multiple: item.attrs?.multiple === true || /multiple|多图|多个/.test(sourceFragment),
-    accept: item.attrs?.accept || extractAttribute(sourceFragment, 'accept'),
-    defaultValue: extractDefault(sourceFragment),
-    options: extractNearbyOptions(sourceFragment),
+    multiple: item.attrs?.multiple === true || /multiple|多图|多个/.test(ownFragment),
+    accept: item.attrs?.accept || extractAttribute(ownFragment, 'accept'),
+    defaultValue: extractDefault(ownFragment),
+    options: extractSelectOptions(ownFragment),
     region: context ? { id: context.auditId || context.id, label: clean(context.text), selector: context.selector, semanticRole: context.semanticRole || context.attrs?.dataSemanticRole || null } : null,
+    domPath: item.domPath || null,
     hierarchy: String(item.domPath || '').split('>').filter(Boolean),
     observedHandler: extractHandler(sourceFragment),
     sourceReference: sourceFragment ? { type: 'source-fragment', digest: sha(Buffer.from(sourceFragment)), excerpt: sourceFragment.slice(0, 300) } : null,
@@ -144,10 +149,22 @@ function extractRegions(items) {
     .filter((item) => item.auditId || item.text || item.className)
     .map((item) => ({ regionId: item.auditId || item.id, kind: item.tag || item.kind, label: clean(item.text), selector: item.selector, parentPath: item.domPath }));
 }
+// Visible states are the processing/success/failure/empty surfaces a closure resolves its states against.
+// When the state text sits inside a released region item, the state is associated with that region so the
+// author can bind it to a result destination; otherwise it is recorded as a page-level observation.
 function extractVisibleStates(items, sourceText) {
+  const checks = [
+    ['loading', /loading|加载中|处理中|提交中|generating|生成中/i],
+    ['empty', /empty|暂无|空状态|尚无|no [a-z' ]*(?:result|history|data|item)|nothing/i],
+    ['success', /success|成功|已完成|已提交|done|completed/i],
+    ['error', /error|失败|异常|failed|余额不足/i],
+  ];
   const states = [];
-  const checks = [['loading', /loading|加载中|处理中|提交中/], ['empty', /empty|暂无|空状态|尚无/], ['success', /success|成功|已完成|已提交/], ['error', /error|失败|异常/]];
-  for (const [id, regex] of checks) if (regex.test(sourceText) || items.some((item) => regex.test(item.text || ''))) states.push({ id, observed: true });
+  for (const [id, regex] of checks) {
+    const region = items.find((item) => (item.auditId || item.id) && regex.test(item.text || ''));
+    if (region) states.push({ id, observed: true, regionId: region.auditId || region.id, source: 'region-text' });
+    else if (regex.test(sourceText)) states.push({ id, observed: true, regionId: null, source: 'page-source' });
+  }
   return states;
 }
 function semanticItem(pageId, item) { return { surfaceId: item.auditId || item.id, pageId, kind: item.kind, selector: item.selector, label: clean(item.text), sourceAsset: item.attrs?.src || null }; }
@@ -155,9 +172,23 @@ function isResultSurface(item) { return /result|preview|output|history|结果|�
 function nearestContext(item, items) { const path = String(item.domPath || ''); return [...items].filter((candidate) => candidate !== item && candidate.domPath && path.startsWith(candidate.domPath) && (candidate.text || candidate.auditId)).sort((a, b) => String(b.domPath).length - String(a.domPath).length)[0]; }
 function evidenceRequired(item, context) { const text = `${item.text || ''} ${item.placeholder || ''} ${context?.text || ''}`; if (/非必填|可选|optional/i.test(text)) return false; if (/必填|必选|required/i.test(text) || item.attrs?.required === true) return true; return null; }
 function findSourceFragment(text, needle) { if (!needle) return ''; const index = text.indexOf(String(needle)); return index < 0 ? '' : text.slice(Math.max(0, index - 350), Math.min(text.length, index + String(needle).length + 500)); }
+// The control's own element: the single tag carrying its data-vr-id, plus the <option> block for a <select>.
+// Attribute reads restricted to this string never pick up a neighboring control's type, value, or options.
+function ownElement(sourceText, controlId) {
+  if (!controlId) return '';
+  const marker = new RegExp(`data-vr-id=["']?${String(controlId).replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}["']?`);
+  const found = marker.exec(sourceText);
+  if (!found) return '';
+  const open = sourceText.lastIndexOf('<', found.index);
+  const close = sourceText.indexOf('>', found.index);
+  if (open < 0 || close < 0) return '';
+  const tagName = sourceText.slice(open + 1).match(/^\s*([a-zA-Z0-9-]+)/)?.[1]?.toLowerCase();
+  if (tagName === 'select') { const end = sourceText.indexOf('</select>', close); if (end >= 0) return sourceText.slice(open, end + '</select>'.length); }
+  return sourceText.slice(open, close + 1);
+}
 function extractAttribute(fragment, name) { return fragment.match(new RegExp(`${name}=["']([^"']+)["']`))?.[1] || null; }
 function extractDefault(fragment) { return fragment.match(/(?:value|defaultValue)=["']([^"']*)["']/)?.[1] || null; }
-function extractNearbyOptions(fragment) { const values = [...fragment.matchAll(/["']([^"']{1,80})["']/g)].map((item) => item[1]).filter((item) => !/[<>{}=;/]/.test(item)); return [...new Set(values)].slice(0, 20); }
+function extractSelectOptions(fragment) { return [...new Set([...String(fragment).matchAll(/<option[^>]*>([^<]{1,80})<\/option>/gi)].map((match) => clean(match[1])).filter(Boolean))].slice(0, 40); }
 function extractHandler(fragment) { if (/onChange/.test(fragment)) return 'change'; if (/onSubmit/.test(fragment)) return 'submit'; if (/onClick/.test(fragment)) return 'click'; return null; }
 function explicitSubmissionRole(item, fragment) { const role = item.submissionRole || item.attrs?.dataSubmissionRole; if (role) return role; return String(item.attrs?.type || extractAttribute(fragment, 'type')).toLowerCase() === 'submit' ? 'primary-submit' : null; }
 function extractNetwork(fragment) { const url = fragment.match(/["'`]([^"'`]+)["'`]/)?.[1] || null; const method = fragment.match(/method\s*:\s*["']([A-Z]+)["']/i)?.[1]?.toUpperCase() || (/axios\.(get|post|put|patch|delete)/.exec(fragment)?.[1]?.toUpperCase()) || 'GET'; const fields = [...fragment.matchAll(/\b([A-Za-z_$][\w$]*)\s*:/g)].map((item) => item[1]).filter((item) => !['method', 'headers', 'body'].includes(item)); return { method, url, requestFields: [...new Set(fields)] }; }

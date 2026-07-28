@@ -37,7 +37,7 @@ const releaseControlByInput = new Map((uiPlan.capabilities || []).flatMap((item)
 const submit = capabilities.find((item) => item.aggregateSubmission);
 const upload = capabilities.find((item) => item.operations?.[0]?.resourceTransfer);
 const planned = capabilities.find((item) => item.specificationStatus === 'planned');
-if (!headlessOnly && (!submit || !upload || !planned)) throw new Error('neutral schema 2.2 authored fixture lacks aggregate, upload, or planned capabilities');
+if (!headlessOnly && (!submit || !upload || !planned)) throw new Error('neutral schema 2.3 authored fixture lacks aggregate, upload, or planned capabilities');
 
 mkdirSync(`${implementation}/backend`, { recursive: true });
 mkdirSync(`${implementation}/tests`, { recursive: true });
@@ -167,14 +167,25 @@ function convertToHeadlessPreservingContracts(dir) {
   const dispositioned = new Set(dispositions.dispositions.map((item) => item.evidenceId));
   for (const item of index.evidence) if (!anchored.has(item.id) && !dispositioned.has(item.id)) dispositions.dispositions.push({ evidenceId: item.id, reason: 'out-of-scope', rationale: 'Evidence for a capability excluded from the all-headless subset (planned or non-complete); retained in the index but owned by no headless capability closure.' });
   writeJSON(`${dir}/evidence-dispositions.json`, dispositions);
+  // Every release control still needs a disposition, but the all-headless subset has no UI closure, so each
+  // control is honestly ignored-with-reason (a headless capability lands through services and APIs, not a control).
+  const ledger = readJSON(`${dir}/control-dispositions.json`);
+  for (const entry of ledger.dispositions) { entry.disposition = 'ignored-with-reason'; entry.rationale = 'All-headless fixture: capabilities are implemented through services and APIs with no UI control closure.'; delete entry.capabilityId; delete entry.operationId; }
+  writeJSON(`${dir}/control-dispositions.json`, ledger);
   const manifest = readJSON(`${dir}/manifest.json`); manifest.deliveryMode = 'complete'; manifest.productCompletionClaim = 'complete'; manifest.capabilitySummary = { ...manifest.capabilitySummary, total: spec.capabilities.length, complete: spec.capabilities.length, planned: 0 }; writeJSON(`${dir}/manifest.json`, manifest);
 }
 function overlayAuthoredClosure(dir) {
-  const authored = `${fixtures}/authored-domain-22`;
-  for (const file of ['functional-spec.json', 'capability-definitions.json', 'page-function-map.json', 'unresolved-items.json', 'evidence-dispositions.json', 'control-capability-map.json']) cpSync(`${authored}/${file}`, `${dir}/${file}`);
+  const authored = `${fixtures}/authored-domain-23`;
+  for (const file of ['functional-spec.json', 'capability-definitions.json', 'page-function-map.json', 'unresolved-items.json', 'evidence-dispositions.json', 'control-capability-map.json', 'control-dispositions.json']) cpSync(`${authored}/${file}`, `${dir}/${file}`);
   const manifest = readJSON(`${dir}/manifest.json`);
   const spec = readJSON(`${dir}/functional-spec.json`);
-  manifest.schemaVersion = '2.2';
+  // The control-disposition ledger is bound to the immutable release digest; the static authored fixture cannot
+  // hardcode it, so bind it from the scaffold's semantic inventory (like the observed-interaction anchors below).
+  const ledger = readJSON(`${dir}/control-dispositions.json`);
+  ledger.releaseDigest = readJSON(`${dir}/frontend-semantic-inventory.json`).release.releaseDigest;
+  writeJSON(`${dir}/control-dispositions.json`, ledger);
+  manifest.schemaVersion = '2.3';
+  manifest.controlDispositions = 'control-dispositions.json';
   manifest.evidenceIndex = 'evidence-index.json';
   manifest.authoringStatus = 'completed';
   manifest.deliveryMode = 'mixed';

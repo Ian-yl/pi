@@ -5,6 +5,7 @@ import { spawnSync } from 'node:child_process';
 import { resolve } from 'node:path';
 import { presentationFindings } from './lib/presentation.mjs';
 import { primarySubmitFindings } from './lib/primary-submit.mjs';
+import { controlDispositionFindings } from './lib/control-dispositions.mjs';
 import { treeDigest } from './lib/validator-tree.mjs';
 
 const args = parseArgs(process.argv.slice(2));
@@ -17,22 +18,24 @@ const planningManifest = read('planning-manifest.json');
 const planningArtifacts = read('planning-artifacts.json');
 const definitions = read('capability-definitions.json');
 const designManifest = read('design-manifest.json');
-const schema22 = manifest.schemaVersion === '2.2';
+const schema23 = manifest.schemaVersion === '2.3';
 const semanticMode = false;
-const SCHEMA_22_SEMANTIC_FILES = ['frontend-semantic-inventory.json', 'observed-interactions.json', 'control-capability-map.json', 'asset-role-inventory.json'];
-const assetRoleMode = schema22;
-const frontendInventory = schema22 ? read('frontend-semantic-inventory.json') : {};
-const observedInteractions = schema22 ? read('observed-interactions.json') : {};
-const controlMap = schema22 ? read('control-capability-map.json') : {};
+const SCHEMA_23_SEMANTIC_FILES = ['frontend-semantic-inventory.json', 'observed-interactions.json', 'control-capability-map.json', 'asset-role-inventory.json'];
+const assetRoleMode = schema23;
+const frontendInventory = schema23 ? read('frontend-semantic-inventory.json') : {};
+const observedInteractions = schema23 ? read('observed-interactions.json') : {};
+const controlMap = schema23 ? read('control-capability-map.json') : {};
+const controlDispositions = schema23 ? read('control-dispositions.json') : { dispositions: [] };
 const assetInventory = assetRoleMode ? read('asset-role-inventory.json') : { assets: [] };
 const reviewerAgentId = args['reviewer-agent'];
 const findings = [];
-if (schema22) findings.push(...primarySubmitFindings(spec, frontendInventory, observedInteractions, controlMap));
+if (schema23) findings.push(...primarySubmitFindings(spec, frontendInventory, observedInteractions, controlMap));
+if (schema23) findings.push(...controlDispositionFindings(controlDispositions, spec, frontendInventory, controlMap, observedInteractions));
 const coreCapabilityIds = new Set((spec.journeys || []).filter((journey) => journey.core === true).flatMap((journey) => journey.capabilityIds || []));
 const integrationCapabilityIds = new Set((spec.integrations || []).flatMap((integration) => integration.capabilityIds || []));
 const permissionCapabilityIds = new Set((spec.permissions || []).flatMap((permission) => permission.capabilityIds || []));
-if (manifest.schemaVersion !== '2.2') findings.push('only functional-domain schema 2.2 can be reviewed');
-if (schema22 && JSON.stringify(manifest.semanticArtifacts) !== JSON.stringify(SCHEMA_22_SEMANTIC_FILES)) findings.push('schema 2.2 semanticArtifacts must equal the fixed semantic artifact contract');
+if (manifest.schemaVersion !== '2.3') findings.push('only functional-domain schema 2.3 can be reviewed');
+if (schema23 && JSON.stringify(manifest.semanticArtifacts) !== JSON.stringify(SCHEMA_23_SEMANTIC_FILES)) findings.push('schema 2.3 semanticArtifacts must equal the fixed semantic artifact contract');
 if (planningManifest.packageType !== 'fdd-bmad-planning' || planningArtifacts.method !== 'bmad-planning') findings.push('FDD BMAD planning artifacts are invalid');
 if (!designManifest.images?.length || !planningManifest.inputDigests?.designs || !planningManifest.synthesisInputDigest) findings.push('finalized design input is absent or not bound to FDD planning');
 for (const group of ['capabilities', 'entities', 'valueObjects', 'relationships', 'consistencyBoundaries', 'journeys', 'rules', 'permissions', 'integrations']) if (JSON.stringify(definitions[group] || []) !== JSON.stringify(spec[group] || [])) findings.push(`planning capability definitions differ from formal domain: ${group}`);
@@ -138,7 +141,7 @@ if (existsSync(`${dir}/approval-runtime`)) rmSync(`${dir}/approval-runtime`, { r
 // Signing pins the latest immutable validator revision. A new approval can never be minted against a
 // superseded revision to evade its added rules — an explicit downgrade request is rejected, so the only
 // way to keep an older revision is to already hold an older approval receipt (never to sign a new one).
-const LATEST_VALIDATOR_ID = 'fdd-validator-2.2.5';
+const LATEST_VALIDATOR_ID = 'fdd-validator-2.3.0';
 const requestedValidatorId = args['validator-version'] ? `fdd-validator-${args['validator-version']}` : LATEST_VALIDATOR_ID;
 if (requestedValidatorId !== LATEST_VALIDATOR_ID) { console.error(`cannot sign an approval with the superseded validator revision ${requestedValidatorId}; new approvals are pinned to the latest ${LATEST_VALIDATOR_ID}`); process.exit(1); }
 const trustedValidatorId = LATEST_VALIDATOR_ID;

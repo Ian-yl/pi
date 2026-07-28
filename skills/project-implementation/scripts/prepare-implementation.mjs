@@ -14,21 +14,21 @@ const handoffDir = resolve(handoffArg);
 const output = resolve(args.output);
 if (existsSync(output) && readdirSync(output).length) throw new Error('implementation output directory must not exist or must be empty');
 const functionalManifestPreview = readJSON(`${functionalDir}/manifest.json`);
-const SCHEMA_22_SEMANTIC_FILES = ['frontend-semantic-inventory.json', 'observed-interactions.json', 'control-capability-map.json', 'asset-role-inventory.json'];
-const semanticFiles = functionalManifestPreview.schemaVersion === '2.2' ? SCHEMA_22_SEMANTIC_FILES : [];
+const SCHEMA_23_SEMANTIC_FILES = ['frontend-semantic-inventory.json', 'observed-interactions.json', 'control-capability-map.json', 'asset-role-inventory.json'];
+const semanticFiles = functionalManifestPreview.schemaVersion === '2.3' ? SCHEMA_23_SEMANTIC_FILES : [];
 const evidenceFiles = ['evidence-index.json', 'evidence-dispositions.json'];
 const requiredFunctionalFiles = ['manifest.json', 'planning-manifest.json', 'planning-artifacts.json', 'capability-definitions.json', 'design-manifest.json', ...evidenceFiles, ...semanticFiles, 'functional-spec.json', 'page-function-map.json', 'unresolved-items.json', 'planning-review-receipt.json', 'review-receipt.json'];
 const functionalPackageLockPreview = readJSON(`${functionalDir}/package-lock.json`);
 const protectedFunctionalFiles = lockedPackageFiles(functionalPackageLockPreview);
 const formalFunctionalFiles = [...protectedFunctionalFiles, 'package-lock.json'];
-const protectedHandoffFiles = ['handoff-manifest.json', 'visual-source.json', 'release-manifest.json', 'suite-gate.json', 'visual-approval.json', 'frontend-manifest.json', 'functional-spec.json', ...semanticFiles, ...(functionalManifestPreview.schemaVersion === '2.2' ? ['handoff-anchor-manifest.json'] : []), 'visual-controls.json', 'ui-implementation-plan.json', 'api-contract.json', 'domain-bindings.json', 'runtime-contract.json', 'handoff-review-receipt.json'];
+const protectedHandoffFiles = ['handoff-manifest.json', 'visual-source.json', 'release-manifest.json', 'suite-gate.json', 'visual-approval.json', 'frontend-manifest.json', 'functional-spec.json', ...semanticFiles, ...(functionalManifestPreview.schemaVersion === '2.3' ? ['handoff-anchor-manifest.json'] : []), 'visual-controls.json', 'ui-implementation-plan.json', 'api-contract.json', 'domain-bindings.json', 'runtime-contract.json', 'handoff-review-receipt.json'];
 const formalHandoffFiles = [...protectedHandoffFiles, 'handoff-lock.json'];
 const functionalJsonFiles = [...requiredFunctionalFiles, 'package-lock.json'];
 const f = Object.fromEntries(functionalJsonFiles.filter((file) => existsSync(`${functionalDir}/${file}`)).map((file) => [file, readJSON(`${functionalDir}/${file}`)]));
 const front = Object.fromEntries(formalHandoffFiles.filter((file) => existsSync(`${handoffDir}/${file}`)).map((file) => [file, readJSON(`${handoffDir}/${file}`)]));
 const errors = [];
-if (functionalManifestPreview.schemaVersion !== '2.2') errors.push('project implementation accepts only functional-domain schema 2.2');
-if (functionalManifestPreview.schemaVersion === '2.2' && JSON.stringify(functionalManifestPreview.semanticArtifacts) !== JSON.stringify(SCHEMA_22_SEMANTIC_FILES)) errors.push('schema 2.2 semanticArtifacts must equal the fixed semantic artifact contract');
+if (functionalManifestPreview.schemaVersion !== '2.3') errors.push('project implementation accepts only functional-domain schema 2.3');
+if (functionalManifestPreview.schemaVersion === '2.3' && JSON.stringify(functionalManifestPreview.semanticArtifacts) !== JSON.stringify(SCHEMA_23_SEMANTIC_FILES)) errors.push('schema 2.3 semanticArtifacts must equal the fixed semantic artifact contract');
 
 for (const file of requiredFunctionalFiles) if (!protectedFunctionalFiles.includes(file)) errors.push(`functional package lock is missing required file ${file}`);
 for (const file of formalFunctionalFiles) if (!existsSync(`${functionalDir}/${file}`)) errors.push(`functional package is missing ${file}`);
@@ -37,12 +37,7 @@ const manifest = f['manifest.json'] || {};
 const spec = f['functional-spec.json'] || {};
 const receipt = f['review-receipt.json'];
 const trustedFunctionalValidators = new Map([
-  ['fdd-validator-2.2.0', { contractVersion: 'functional-domain/2.2', entry: resolve(import.meta.dirname, '../validators/fdd-2.2.0/validate-package.mjs') }],
-  ['fdd-validator-2.2.1', { contractVersion: 'functional-domain/2.2', entry: resolve(import.meta.dirname, '../validators/fdd-2.2.1/validate-package.mjs') }],
-  ['fdd-validator-2.2.2', { contractVersion: 'functional-domain/2.2', entry: resolve(import.meta.dirname, '../validators/fdd-2.2.2/validate-package.mjs') }],
-  ['fdd-validator-2.2.3', { contractVersion: 'functional-domain/2.2', entry: resolve(import.meta.dirname, '../validators/fdd-2.2.3/validate-package.mjs') }],
-  ['fdd-validator-2.2.4', { contractVersion: 'functional-domain/2.2', entry: resolve(import.meta.dirname, '../validators/fdd-2.2.4/validate-package.mjs') }],
-  ['fdd-validator-2.2.5', { contractVersion: 'functional-domain/2.2', entry: resolve(import.meta.dirname, '../validators/fdd-2.2.5/validate-package.mjs') }],
+  ['fdd-validator-2.3.0', { contractVersion: 'functional-domain/2.3', entry: resolve(import.meta.dirname, '../validators/fdd-2.3.0/validate-package.mjs') }],
 ]);
 const planningManifest = f['planning-manifest.json'] || {}; const planningArtifacts = f['planning-artifacts.json'] || {}; const definitions = f['capability-definitions.json'] || {}; const planningReceipt = f['planning-review-receipt.json'];
 if (manifest.status !== 'approved') errors.push('functional package is not approved');
@@ -53,18 +48,18 @@ if (receipt) {
   if (manifest.approval?.reviewerAgentId !== receipt.reviewerAgentId) errors.push('functional manifest approval reviewer mismatch');
   const trustedValidator = receipt.trustedValidatorId ? trustedFunctionalValidators.get(receipt.trustedValidatorId) : null;
   if (receipt.contractVersion && (!trustedValidator || trustedValidator.contractVersion !== receipt.contractVersion || !existsSync(trustedValidator.entry) || receipt.validatorDigest !== treeDigest(resolve(trustedValidator.entry, '..')))) errors.push('functional approval does not reference the immutable trusted repository validator');
-  if (receipt.contractVersion !== 'functional-domain/2.2') errors.push('schema 2.2 functional approval contract is missing');
+  if (receipt.contractVersion !== 'functional-domain/2.3') errors.push('schema 2.3 functional approval contract is missing');
 }
 if (planningManifest.packageType !== 'fdd-bmad-planning' || planningManifest.status !== 'approved' || planningArtifacts.method !== 'bmad-planning') errors.push('FDD planning BMAD artifacts are incomplete or unapproved; return the package to FDD');
 if (!planningReceipt || planningReceipt.workflow !== 'fdd-bmad-planning' || planningReceipt.status !== 'approved' || planningReceipt.authorAgentId !== manifest.authorAgentId || planningReceipt.reviewerAgentId !== receipt?.reviewerAgentId) errors.push('FDD planning independent review is missing or inconsistent; return the package to FDD');
 for (const group of ['capabilities', 'entities', 'valueObjects', 'relationships', 'consistencyBoundaries', 'journeys', 'rules', 'permissions', 'integrations']) if (JSON.stringify(definitions[group] || []) !== JSON.stringify(spec[group] || [])) errors.push(`FDD planning definitions differ from approved domain contract: ${group}; return the package to FDD`);
 const functionalSchema = f['manifest.json'].schemaVersion;
-if (functionalSchema !== '2.2' || [f['functional-spec.json'], f['page-function-map.json'], f['unresolved-items.json']].some((doc) => doc.schemaVersion !== '2.2')) errors.push('functional package schema must be consistently 2.2');
+if (functionalSchema !== '2.3' || [f['functional-spec.json'], f['page-function-map.json'], f['unresolved-items.json']].some((doc) => doc.schemaVersion !== '2.3')) errors.push('functional package schema must be consistently 2.3');
 if (f['package-lock.json']) verifyFunctionalLock(functionalDir, f['package-lock.json'], errors);
 if (receipt?.contractVersion && !errors.length) { const trustedValidator = trustedFunctionalValidators.get(receipt.trustedValidatorId); const replay = spawnSync(process.execPath, [trustedValidator.entry, functionalDir, '--require-approved', '--trusted-validator-internal', '--check-lock'], { encoding: 'utf8' }); if (replay.status !== 0) errors.push(`trusted functional ${receipt.contractVersion} validation failed: ${replay.stderr || replay.stdout}`); }
 const handoffManifest = front['handoff-manifest.json'] || {}; const handoffReceipt = front['handoff-review-receipt.json']; const visualSource = front['visual-source.json']; const releaseManifest = front['release-manifest.json']; const handoffLock = front['handoff-lock.json'];
 const trustedHandoffReviewers = new Map([
-  ['implementation-handoff/2.2', { id: 'fdd-handoff-reviewer-2.2', entry: resolve(import.meta.dirname, '../validators/handoff-2.2/review-handoff.mjs') }],
+  ['implementation-handoff/2.3', { id: 'fdd-handoff-reviewer-2.3', entry: resolve(import.meta.dirname, '../validators/handoff-2.3/review-handoff.mjs') }],
 ]);
 const suiteGate = front['suite-gate.json']; const visualApproval = front['visual-approval.json'];
 const functionalPackageDigest = f['package-lock.json'] ? digestJSON(f['package-lock.json']) : null;
@@ -75,7 +70,7 @@ if (handoffReceipt) {
   if (!handoffReceipt.reviewerAgentId || handoffReceipt.reviewerAgentId === handoffManifest.authorAgentId) errors.push('handoff review must use a distinct reviewer agent');
   const trustedReviewer = handoffReceipt.contractVersion ? trustedHandoffReviewers.get(handoffReceipt.contractVersion) : null;
   if (handoffReceipt.contractVersion && (!trustedReviewer || handoffReceipt.trustedReviewerId !== trustedReviewer.id || !existsSync(trustedReviewer.entry) || handoffReceipt.validatorDigest !== treeDigest(resolve(trustedReviewer.entry, '..')))) errors.push('handoff approval does not reference the immutable trusted repository reviewer');
-  if (handoffReceipt.contractVersion !== 'implementation-handoff/2.2') errors.push('schema 2.2 handoff approval contract is missing');
+  if (handoffReceipt.contractVersion !== 'implementation-handoff/2.3') errors.push('schema 2.3 handoff approval contract is missing');
 }
 if (handoffManifest.functionalPackageDigest !== functionalPackageDigest || handoffReceipt?.functionalPackageDigest !== functionalPackageDigest || handoffLock?.functionalPackageDigest !== functionalPackageDigest) errors.push('handoff functional package digest mismatch');
 if (releaseManifest && releaseDigest(releaseManifest) !== releaseManifest.releaseDigest) errors.push('ai-restore release manifest digest mismatch');
@@ -271,7 +266,7 @@ function buildFieldBindingPlan() {
         bindings.push({ id: `binding-${capability.id}-${operation.id}-${slug(field.path)}`, kind: 'input', source, controlId: `input-${capability.id}-${slug(field.path)}`, capabilityId: capability.id, statePath: `capabilities.${capability.id}.inputs.${field.path}`, operationId: operation.id, requestPath: field.path, responsePath: responseFields[0]?.path || null, effectIds, required: field.required, schema: field.schema, ...(dependency ? { sourceOperationId: dependency.sourceOperationId, sourceResponsePath: dependency.sourceField } : {}) });
       }
       bindings.push({ id: `binding-${capability.id}-${operation.id}-command`, kind: 'command', controlId: `command-${capability.id}-${operation.id}`, capabilityId: capability.id, statePath: `capabilities.${capability.id}.status`, operationId: operation.id, requestPath: null, responsePath: responseFields[0]?.path || null, effectIds, required: true });
-      for (const field of responseFields) bindings.push({ id: `binding-${capability.id}-${operation.id}-response-${slug(field.path)}`, kind: 'display', controlId: `output-${capability.id}-${slug(field.path)}`, capabilityId: capability.id, statePath: `capabilities.${capability.id}.response.${field.path}`, operationId: operation.id, requestPath: null, responsePath: field.path, effectIds, required: field.required, runtimeValueRequired: functionalSchema === '2.2', elementSemantic: field.schema?.type === 'array' ? 'collection-value' : 'field-value' });
+      for (const field of responseFields) bindings.push({ id: `binding-${capability.id}-${operation.id}-response-${slug(field.path)}`, kind: 'display', controlId: `output-${capability.id}-${slug(field.path)}`, capabilityId: capability.id, statePath: `capabilities.${capability.id}.response.${field.path}`, operationId: operation.id, requestPath: null, responsePath: field.path, effectIds, required: field.required, runtimeValueRequired: functionalSchema === '2.3', elementSemantic: field.schema?.type === 'array' ? 'collection-value' : 'field-value' });
     }
     const resultContract = uiContracts.get(capability.id)?.presentation?.surface?.contentContract?.resultContract;
     const primaryOperationId = uiContracts.get(capability.id)?.presentation?.primaryOperationId || capabilityOperations[0]?.id;

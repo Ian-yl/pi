@@ -1,5 +1,5 @@
 {
-  "schemaVersion": "2.2",
+  "schemaVersion": "2.3",
   "packageType": "fdd-bmad-planning",
   "status": "approved",
   "authorAgentId": "golden-domain-author",
@@ -16,6 +16,7 @@
     "design-manifest.json",
     "evidence-index.json",
     "evidence-dispositions.json",
+    "control-dispositions.json",
     "planning-artifacts.json",
     "capability-definitions.json",
     "frontend-semantic-inventory.json",

@@ -1,0 +1,3288 @@
+{
+  "schemaVersion": "2.3",
+  "project": {
+    "id": "neutral-submission",
+    "name": "Neutral submission workspace",
+    "brief": "Create an owned submission from multiple configuration sections and an uploaded source file.",
+    "goals": [
+      "Submit complete configuration",
+      "Present generated submission items",
+      "Keep an empty initial workspace"
+    ],
+    "users": [
+      "operator"
+    ],
+    "needs": [
+      "upload a source",
+      "configure a submission",
+      "observe its result"
+    ],
+    "problemStatement": "Create an owned submission from multiple configuration sections and an uploaded source file.",
+    "evidence": {
+      "status": "documented",
+      "sources": [
+        "product-context:brief",
+        "product-context:goals",
+        "product-context:users",
+        "product-context:needs"
+      ]
+    }
+  },
+  "architecture": {
+    "pageVersion": 1,
+    "systemVersion": 1,
+    "sources": [
+      "page architecture",
+      "system architecture",
+      "product context",
+      "immutable frontend release"
+    ],
+    "visualAlignment": {
+      "status": "aligned",
+      "productId": "neutral-submission",
+      "suiteId": "neutral-submission",
+      "architecturePageIds": [
+        "submission"
+      ],
+      "visualPageIds": [
+        "submission"
+      ],
+      "matchedPageIds": [
+        "submission"
+      ],
+      "missingArchitecturePageIds": [],
+      "unexpectedVisualPageIds": [],
+      "routeMismatches": [],
+      "coverage": 1,
+      "findings": []
+    }
+  },
+  "domains": [
+    {
+      "id": "domain-submission",
+      "name": "Submission workspace",
+      "purpose": "Own Submission workspace business outcomes",
+      "pageIds": [
+        "submission"
+      ],
+      "entityIds": [
+        "entity-submission-resource",
+        "entity-submission-asset",
+        "entity-cap-submission-submit-submission-configuration"
+      ],
+      "evidence": {
+        "status": "documented",
+        "sources": [
+          "page:submission",
+          "system-node:domain-submission"
+        ]
+      }
+    }
+  ],
+  "entities": [
+    {
+      "id": "entity-submission-resource",
+      "domainId": "domain-submission",
+      "name": "Submission workspace resource",
+      "identity": {
+        "fields": [
+          "id"
+        ]
+      },
+      "aggregateRoot": true,
+      "lifecycle": [
+        "draft",
+        "active",
+        "updated",
+        "archived",
+        "deleted"
+      ],
+      "stateMachine": {
+        "initial": "draft",
+        "transitions": [
+          {
+            "from": "draft",
+            "to": "active",
+            "condition": "domain operation authorizes draft -> active",
+            "irreversible": false
+          },
+          {
+            "from": "active",
+            "to": "updated",
+            "condition": "domain operation authorizes active -> updated",
+            "irreversible": false
+          },
+          {
+            "from": "updated",
+            "to": "archived",
+            "condition": "domain operation authorizes updated -> archived",
+            "irreversible": false
+          },
+          {
+            "from": "archived",
+            "to": "deleted",
+            "condition": "domain operation authorizes archived -> deleted",
+            "irreversible": true
+          }
+        ],
+        "forbidden": [
+          {
+            "from": "deleted",
+            "to": "draft",
+            "reason": "terminal lifecycle state cannot silently reset"
+          }
+        ]
+      },
+      "constraints": {
+        "required": [
+          "id",
+          "ownerId",
+          "status"
+        ],
+        "unique": [
+          [
+            "id"
+          ]
+        ],
+        "status": {
+          "field": "status",
+          "allowed": [
+            "draft",
+            "active",
+            "updated",
+            "archived",
+            "deleted"
+          ]
+        }
+      },
+      "accessScope": {
+        "ownerActor": "user",
+        "scope": "owner",
+        "ownershipField": "ownerId"
+      },
+      "sensitiveFields": [],
+      "retention": {
+        "policy": "business-defined",
+        "evidenceStatus": "inferred"
+      },
+      "evidence": {
+        "status": "designed",
+        "sources": [
+          "domain:domain-submission"
+        ],
+        "rationale": "Lifecycle entity is required by declared operations and journeys."
+      }
+    },
+    {
+      "id": "entity-submission-asset",
+      "domainId": "domain-submission",
+      "name": "Submission workspace asset",
+      "identity": {
+        "fields": [
+          "id"
+        ]
+      },
+      "aggregateRoot": false,
+      "aggregateRootEntityId": "entity-submission-resource",
+      "lifecycle": [
+        "selected",
+        "uploading",
+        "validated",
+        "available",
+        "rejected",
+        "deleted"
+      ],
+      "stateMachine": {
+        "initial": "selected",
+        "transitions": [
+          {
+            "from": "selected",
+            "to": "uploading",
+            "condition": "domain operation authorizes selected -> uploading",
+            "irreversible": false
+          },
+          {
+            "from": "uploading",
+            "to": "validated",
+            "condition": "domain operation authorizes uploading -> validated",
+            "irreversible": false
+          },
+          {
+            "from": "validated",
+            "to": "available",
+            "condition": "domain operation authorizes validated -> available",
+            "irreversible": false
+          },
+          {
+            "from": "available",
+            "to": "rejected",
+            "condition": "domain operation authorizes available -> rejected",
+            "irreversible": false
+          },
+          {
+            "from": "rejected",
+            "to": "deleted",
+            "condition": "domain operation authorizes rejected -> deleted",
+            "irreversible": true
+          }
+        ],
+        "forbidden": [
+          {
+            "from": "deleted",
+            "to": "selected",
+            "reason": "terminal lifecycle state cannot silently reset"
+          }
+        ]
+      },
+      "constraints": {
+        "required": [
+          "id",
+          "ownerId",
+          "status"
+        ],
+        "unique": [
+          [
+            "id"
+          ]
+        ],
+        "status": {
+          "field": "status",
+          "allowed": [
+            "selected",
+            "uploading",
+            "validated",
+            "available",
+            "rejected",
+            "deleted"
+          ]
+        }
+      },
+      "accessScope": {
+        "ownerActor": "user",
+        "scope": "owner",
+        "ownershipField": "ownerId"
+      },
+      "sensitiveFields": [
+        "storageKey",
+        "checksum"
+      ],
+      "retention": {
+        "policy": "business-defined",
+        "evidenceStatus": "inferred"
+      },
+      "evidence": {
+        "status": "designed",
+        "sources": [
+          "domain:domain-submission"
+        ],
+        "rationale": "Lifecycle entity is required by declared operations and journeys."
+      }
+    },
+    {
+      "id": "entity-cap-submission-submit-submission-configuration",
+      "domainId": "domain-submission",
+      "name": "Create submission configuration",
+      "identity": {
+        "fields": [
+          "id"
+        ]
+      },
+      "aggregateRoot": true,
+      "lifecycle": [
+        "draft",
+        "validated",
+        "submitted",
+        "superseded"
+      ],
+      "stateMachine": {
+        "initial": "draft",
+        "transitions": [
+          {
+            "from": "draft",
+            "to": "validated",
+            "condition": "domain operation authorizes draft -> validated",
+            "irreversible": false
+          },
+          {
+            "from": "validated",
+            "to": "submitted",
+            "condition": "domain operation authorizes validated -> submitted",
+            "irreversible": false
+          },
+          {
+            "from": "submitted",
+            "to": "superseded",
+            "condition": "domain operation authorizes submitted -> superseded",
+            "irreversible": false
+          }
+        ],
+        "forbidden": [
+          {
+            "from": "superseded",
+            "to": "draft",
+            "reason": "terminal lifecycle state cannot silently reset"
+          }
+        ]
+      },
+      "constraints": {
+        "required": [
+          "id",
+          "ownerId",
+          "status"
+        ],
+        "unique": [
+          [
+            "id"
+          ]
+        ],
+        "status": {
+          "field": "status",
+          "allowed": [
+            "draft",
+            "validated",
+            "submitted",
+            "superseded"
+          ]
+        }
+      },
+      "accessScope": {
+        "ownerActor": "user",
+        "scope": "owner",
+        "ownershipField": "ownerId"
+      },
+      "sensitiveFields": [],
+      "retention": {
+        "policy": "business-defined",
+        "evidenceStatus": "inferred"
+      },
+      "evidence": {
+        "status": "designed",
+        "sources": [
+          "domain:domain-submission"
+        ],
+        "rationale": "Lifecycle entity is required by declared operations and journeys."
+      },
+      "fieldGroups": [
+        {
+          "id": "identity-section",
+          "fieldIds": [
+            "submission-title"
+          ]
+        },
+        {
+          "id": "options-section",
+          "fieldIds": [
+            "submission-category",
+            "result-quantity"
+          ]
+        }
+      ]
+    }
+  ],
+  "valueObjects": [
+    {
+      "id": "value-cap-submission-submit-submission-final-product",
+      "domainId": "domain-submission",
+      "name": "Create submission final product",
+      "immutable": true,
+      "fields": [
+        {
+          "name": "type",
+          "schema": {
+            "type": "string",
+            "const": "submission-items"
+          },
+          "required": true
+        },
+        {
+          "name": "quantity",
+          "schema": {
+            "type": "integer",
+            "minimum": 1,
+            "derivedFrom": "result-quantity"
+          },
+          "required": true
+        },
+        {
+          "name": "status",
+          "schema": {
+            "type": "string",
+            "enum": [
+              "processing",
+              "available",
+              "failed"
+            ]
+          },
+          "required": true
+        }
+      ]
+    },
+    {
+      "id": "value-submission-operation-input",
+      "domainId": "domain-submission",
+      "name": "Submission workspace operation input",
+      "immutable": true,
+      "fields": [
+        {
+          "name": "submission-title",
+          "schema": {
+            "type": "string",
+            "enum": [
+              "workspace",
+              "brand-icon",
+              "quantity-input",
+              "number",
+              "2",
+              "upload-panel",
+              "upload-input",
+              "file",
+              "sample-result",
+              "Sample result"
+            ]
+          },
+          "required": true
+        },
+        {
+          "name": "submission-category",
+          "schema": {
+            "type": "string",
+            "enum": [
+              "workspace",
+              "brand-icon",
+              "quantity-input",
+              "number",
+              "2",
+              "upload-panel",
+              "upload-input",
+              "file",
+              "sample-result",
+              "Sample result",
+              "submit-button",
+              "planned-export"
+            ]
+          },
+          "required": false
+        },
+        {
+          "name": "result-quantity",
+          "schema": {
+            "type": "string",
+            "enum": [
+              "brand-icon",
+              "quantity-input",
+              "number",
+              "2",
+              "upload-panel",
+              "upload-input",
+              "file",
+              "sample-result",
+              "Sample result",
+              "submit-button",
+              "planned-export",
+              "result-panel",
+              "history-panel"
+            ]
+          },
+          "required": true
+        },
+        {
+          "name": "upload-source-file-assetIds",
+          "schema": {
+            "type": "array",
+            "minItems": 1,
+            "maxItems": 1,
+            "items": {
+              "type": "string"
+            }
+          },
+          "required": true
+        },
+        {
+          "name": "files",
+          "schema": {
+            "type": "array",
+            "minItems": 1,
+            "maxItems": 20,
+            "items": {
+              "type": "string",
+              "format": "binary"
+            }
+          },
+          "required": true
+        }
+      ]
+    }
+  ],
+  "relationships": [],
+  "consistencyBoundaries": [
+    {
+      "id": "boundary-cap-submission-submit-submission-configuration",
+      "aggregateRootEntityId": "entity-cap-submission-submit-submission-configuration",
+      "entityIds": [
+        "entity-cap-submission-submit-submission-configuration"
+      ],
+      "strategy": "atomic"
+    },
+    {
+      "id": "boundary-submission",
+      "aggregateRootEntityId": "entity-submission-resource",
+      "entityIds": [
+        "entity-submission-resource",
+        "entity-submission-asset",
+        "entity-cap-submission-submit-submission-configuration"
+      ],
+      "strategy": "atomic"
+    }
+  ],
+  "journeys": [
+    {
+      "id": "journey-submission",
+      "name": "Submission workspace end-to-end outcome",
+      "actor": "user",
+      "capabilityIds": [
+        "cap-submission-submit-submission",
+        "cap-submission-upload-resource"
+      ],
+      "operationIds": [
+        "create-submission-submit-submission",
+        "upload-submission-upload-resource"
+      ],
+      "steps": [
+        {
+          "capabilityId": "cap-submission-submit-submission",
+          "operationId": "create-submission-submit-submission",
+          "consumes": [
+            "submission-title",
+            "submission-category",
+            "result-quantity",
+            "upload-source-file-assetIds"
+          ],
+          "produces": [
+            "submissionId",
+            "status",
+            "items"
+          ]
+        },
+        {
+          "capabilityId": "cap-submission-upload-resource",
+          "operationId": "upload-submission-upload-resource",
+          "consumes": [
+            "files"
+          ],
+          "produces": [
+            "assetIds",
+            "assets"
+          ]
+        }
+      ],
+      "acceptanceCriteria": [
+        "A user can progress from Submission workspace input through processing to an observable result without substituting fixed identifiers."
+      ],
+      "evidence": {
+        "status": "designed",
+        "sources": [
+          "page:submission"
+        ],
+        "rationale": "The journey closes the complete operations declared for this page."
+      }
+    }
+  ],
+  "rules": [
+    {
+      "id": "rule-cap-submission-submit-submission",
+      "name": "Create submission contract rule",
+      "appliesTo": [
+        "cap-submission-submit-submission"
+      ],
+      "conditions": [
+        "authenticated actor",
+        "required inputs are valid"
+      ],
+      "assertions": [
+        "observable result is specific to Create submission",
+        "required values are preserved end to end",
+        "actor lacks ownership or permission",
+        "input violates the operation schema or business rule",
+        "lifecycle or concurrency precondition is not satisfied"
+      ],
+      "evidence": {
+        "status": "designed",
+        "sources": [
+          "page:submission",
+          "page-module:submit-submission",
+          "system-node:submit-node",
+          "frontend-control:submit-button",
+          "visual-release:961069a7aa1f6c1f88f6806588230c530095905f80281efd7bacaa4f2310d1ec",
+          "page:submission",
+          "page-module:submit-submission",
+          "page-module:identity-section",
+          "page-module:options-section"
+        ],
+        "rationale": "Synthesized as create from architecture responsibility and observed frontend semantics."
+      }
+    },
+    {
+      "id": "rule-cap-submission-upload-resource",
+      "name": "Upload source file contract rule",
+      "appliesTo": [
+        "cap-submission-upload-resource"
+      ],
+      "conditions": [
+        "authenticated actor",
+        "selected resources satisfy declared transfer constraints"
+      ],
+      "assertions": [
+        "transferred bytes match the recorded checksum",
+        "only validated owned resources become available",
+        "actor lacks ownership or permission",
+        "input violates the operation schema or business rule",
+        "file type, count, size, or checksum is invalid",
+        "durable storage is unavailable"
+      ],
+      "evidence": {
+        "status": "designed",
+        "sources": [
+          "page:submission",
+          "page-module:upload-resource",
+          "system-node:upload-node",
+          "frontend-control:upload-input",
+          "visual-release:961069a7aa1f6c1f88f6806588230c530095905f80281efd7bacaa4f2310d1ec"
+        ],
+        "rationale": "Synthesized as upload from architecture responsibility and observed frontend semantics."
+      }
+    }
+  ],
+  "permissions": [
+    {
+      "id": "permission-submission-owner",
+      "actor": "user",
+      "resourceIds": [
+        "entity-submission-resource",
+        "entity-submission-asset",
+        "entity-cap-submission-submit-submission-configuration"
+      ],
+      "actions": [
+        "create",
+        "read",
+        "update",
+        "delete"
+      ],
+      "decision": "allow",
+      "scope": "owner"
+    }
+  ],
+  "integrations": [],
+  "capabilities": [
+    {
+      "id": "cap-submission-submit-submission",
+      "name": "Create submission",
+      "purpose": "Create submission produces a traceable business result rather than a generic response",
+      "actor": "user",
+      "pageIds": [
+        "submission"
+      ],
+      "capabilityIntent": {
+        "userGoal": "Complete Create submission for the product's declared business scenario",
+        "businessOutcome": "Create submission produces a traceable business result rather than a generic response",
+        "trigger": {
+          "type": "existing-control",
+          "pageId": "submission",
+          "controlId": "submit-button",
+          "label": "Create submission",
+          "evidence": {
+            "status": "observed",
+            "sources": [
+              "frontend-control:submit-button"
+            ]
+          }
+        },
+        "prerequisites": [
+          "authenticated actor",
+          "required inputs are valid"
+        ],
+        "inputs": [
+          {
+            "id": "submission-title",
+            "label": "Submission title",
+            "required": true,
+            "source": "frontend-state:title-input",
+            "schema": {
+              "type": "string",
+              "enum": [
+                "workspace",
+                "brand-icon",
+                "quantity-input",
+                "number",
+                "2",
+                "upload-panel",
+                "upload-input",
+                "file",
+                "sample-result",
+                "Sample result"
+              ]
+            },
+            "options": [
+              "workspace",
+              "brand-icon",
+              "quantity-input",
+              "number",
+              "2",
+              "upload-panel",
+              "upload-input",
+              "file",
+              "sample-result",
+              "Sample result"
+            ],
+            "ownership": {
+              "type": "aggregate-section",
+              "scopeId": "submission-scope",
+              "sectionId": "identity-section",
+              "regionId": "identity-section",
+              "capabilityModuleId": "submit-submission"
+            },
+            "controlId": "title-input",
+            "evidence": {
+              "status": "observed",
+              "sources": [
+                "frontend-page:submission",
+                "frontend-control:title-input"
+              ]
+            }
+          },
+          {
+            "id": "submission-category",
+            "label": "Submission category",
+            "required": false,
+            "source": "frontend-state:category-select",
+            "schema": {
+              "type": "string",
+              "enum": [
+                "workspace",
+                "brand-icon",
+                "quantity-input",
+                "number",
+                "2",
+                "upload-panel",
+                "upload-input",
+                "file",
+                "sample-result",
+                "Sample result",
+                "submit-button",
+                "planned-export"
+              ]
+            },
+            "options": [
+              "workspace",
+              "brand-icon",
+              "quantity-input",
+              "number",
+              "2",
+              "upload-panel",
+              "upload-input",
+              "file",
+              "sample-result",
+              "Sample result",
+              "submit-button",
+              "planned-export"
+            ],
+            "ownership": {
+              "type": "aggregate-section",
+              "scopeId": "submission-scope",
+              "sectionId": "options-section",
+              "regionId": "options-section",
+              "capabilityModuleId": "submit-submission"
+            },
+            "controlId": "category-select",
+            "evidence": {
+              "status": "observed",
+              "sources": [
+                "frontend-page:submission",
+                "frontend-control:category-select"
+              ]
+            }
+          },
+          {
+            "id": "result-quantity",
+            "label": "Result quantity",
+            "required": true,
+            "source": "frontend-state:quantity-input",
+            "schema": {
+              "type": "string",
+              "enum": [
+                "brand-icon",
+                "quantity-input",
+                "number",
+                "2",
+                "upload-panel",
+                "upload-input",
+                "file",
+                "sample-result",
+                "Sample result",
+                "submit-button",
+                "planned-export",
+                "result-panel",
+                "history-panel"
+              ]
+            },
+            "options": [
+              "brand-icon",
+              "quantity-input",
+              "number",
+              "2",
+              "upload-panel",
+              "upload-input",
+              "file",
+              "sample-result",
+              "Sample result",
+              "submit-button",
+              "planned-export",
+              "result-panel",
+              "history-panel"
+            ],
+            "ownership": {
+              "type": "aggregate-section",
+              "scopeId": "submission-scope",
+              "sectionId": "options-section",
+              "regionId": "options-section",
+              "capabilityModuleId": "submit-submission"
+            },
+            "controlId": "quantity-input",
+            "evidence": {
+              "status": "observed",
+              "sources": [
+                "frontend-page:submission",
+                "frontend-control:quantity-input"
+              ]
+            }
+          },
+          {
+            "id": "upload-source-file-assetIds",
+            "label": "Upload source file validated asset references",
+            "required": true,
+            "source": "prior-operation:upload-upload-resource",
+            "schema": {
+              "type": "array",
+              "minItems": 1,
+              "maxItems": 1,
+              "items": {
+                "type": "string"
+              }
+            },
+            "ownership": {
+              "type": "data-dependency",
+              "capabilityModuleId": "submit-submission",
+              "sourceArchitectureItemId": "upload-resource"
+            },
+            "evidence": {
+              "status": "designed",
+              "sources": [
+                "page:submission",
+                "page-module:submit-submission",
+                "system-node:submit-node",
+                "frontend-control:submit-button",
+                "visual-release:961069a7aa1f6c1f88f6806588230c530095905f80281efd7bacaa4f2310d1ec",
+                "page:submission",
+                "page-module:submit-submission",
+                "page-module:identity-section",
+                "page-module:options-section",
+                "page-module:upload-resource"
+              ],
+              "rationale": "The upload operation produces owned runtime asset references for this named input slot."
+            }
+          }
+        ],
+        "processingSemantics": "For Create submission, validate inputs, create the capability-specific aggregate state, and return its typed result.",
+        "outputs": [
+          {
+            "id": "submissionId",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "minLength": 1
+            }
+          },
+          {
+            "id": "status",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "enum": [
+                "succeeded"
+              ]
+            }
+          },
+          {
+            "id": "items",
+            "required": true,
+            "schema": {
+              "type": "array",
+              "minItems": 1,
+              "items": {
+                "type": "string",
+                "minLength": 1
+              }
+            }
+          }
+        ],
+        "sideEffects": [
+          {
+            "entityRole": "resource",
+            "effect": "create",
+            "observable": true
+          }
+        ],
+        "downstreamUsage": [
+          {
+            "outputPath": "response.operationId",
+            "consumers": [
+              "status-query",
+              "history-query",
+              "result-display"
+            ],
+            "propagation": "runtime-value"
+          }
+        ],
+        "qualityCriteria": [
+          "observable result is specific to Create submission",
+          "required values are preserved end to end"
+        ],
+        "failures": [
+          {
+            "code": "NOT_AUTHORIZED",
+            "status": 403,
+            "condition": "actor lacks ownership or permission",
+            "recovery": "authenticate or select an owned resource"
+          },
+          {
+            "code": "INVALID_INPUT",
+            "status": 422,
+            "condition": "input violates the operation schema or business rule",
+            "recovery": "correct the identified field"
+          },
+          {
+            "code": "CONFLICT",
+            "status": 409,
+            "condition": "lifecycle or concurrency precondition is not satisfied",
+            "recovery": "refresh authoritative state and retry when allowed"
+          }
+        ],
+        "evidence": {
+          "status": "designed",
+          "sources": [
+            "page:submission",
+            "page-module:submit-submission",
+            "system-node:submit-node",
+            "frontend-control:submit-button",
+            "visual-release:961069a7aa1f6c1f88f6806588230c530095905f80281efd7bacaa4f2310d1ec",
+            "page:submission",
+            "page-module:submit-submission",
+            "page-module:identity-section",
+            "page-module:options-section"
+          ],
+          "rationale": "Synthesized as create from architecture responsibility and observed frontend semantics."
+        }
+      },
+      "presentation": {
+        "mode": "reuse-control",
+        "targetPageId": "submission",
+        "triggerControl": {
+          "controlId": "submit-button",
+          "label": "Create submission"
+        },
+        "fieldBindings": [
+          {
+            "controlId": "title-input",
+            "inputId": "submission-title",
+            "statePath": "form.submission-title",
+            "requestPath": "request.submission-title",
+            "required": true,
+            "ownership": {
+              "type": "aggregate-section",
+              "scopeId": "submission-scope",
+              "sectionId": "identity-section",
+              "regionId": "identity-section",
+              "capabilityModuleId": "submit-submission"
+            }
+          },
+          {
+            "controlId": "category-select",
+            "inputId": "submission-category",
+            "statePath": "form.submission-category",
+            "requestPath": "request.submission-category",
+            "required": false,
+            "ownership": {
+              "type": "aggregate-section",
+              "scopeId": "submission-scope",
+              "sectionId": "options-section",
+              "regionId": "options-section",
+              "capabilityModuleId": "submit-submission"
+            }
+          },
+          {
+            "controlId": "quantity-input",
+            "inputId": "result-quantity",
+            "statePath": "form.result-quantity",
+            "requestPath": "request.result-quantity",
+            "required": true,
+            "ownership": {
+              "type": "aggregate-section",
+              "scopeId": "submission-scope",
+              "sectionId": "options-section",
+              "regionId": "options-section",
+              "capabilityModuleId": "submit-submission"
+            }
+          }
+        ],
+        "primaryAction": "Create submission",
+        "primaryOperationId": "create-submission-submit-submission",
+        "requiredUiStates": [
+          "idle",
+          "loading",
+          "success",
+          "error"
+        ],
+        "activation": {
+          "type": "existing-control",
+          "visualHint": {
+            "text": "Create submission",
+            "kind": "button"
+          }
+        },
+        "resultSurface": {
+          "region": "result-panel",
+          "dataSource": "operation:create-submission-submit-submission"
+        },
+        "surface": {
+          "type": "same-page-workspace",
+          "requiredRegions": [
+            "result-panel"
+          ],
+          "contentContract": {
+            "heading": "Create submission",
+            "inputIds": [
+              "submission-title",
+              "submission-category",
+              "result-quantity"
+            ],
+            "primaryAction": "Create submission",
+            "primaryOperationId": "create-submission-submit-submission",
+            "emptyState": "No Create submission result is available",
+            "resultContract": {
+              "targetRegion": "result-panel",
+              "bindings": [
+                {
+                  "id": "result-submit-submission",
+                  "responsePath": "response.items",
+                  "element": {
+                    "semantic": "result-item",
+                    "valueSource": "item-value"
+                  },
+                  "cardinality": "many",
+                  "count": {
+                    "mode": "request-field",
+                    "requestPath": "request.result-quantity",
+                    "responsePath": "response.items",
+                    "fixedValueForbidden": true
+                  }
+                }
+              ],
+              "states": {
+                "processing": {
+                  "regionStatus": "processing",
+                  "elementSemantic": "progress-indicator",
+                  "contentRequirement": "region contains a non-result progress affordance"
+                },
+                "success": {
+                  "regionStatus": "success",
+                  "elementSemantic": "bound-result-elements",
+                  "requiresBoundElements": true
+                },
+                "failure": {
+                  "regionStatus": "error",
+                  "elementSemantic": "error-message",
+                  "contentRequirement": "declared operation failure is visible in the target region"
+                }
+              },
+              "runtimeFlow": {
+                "mode": "immediate"
+              },
+              "product": {
+                "type": "submission-items",
+                "quantity": {
+                  "sourceField": "result-quantity"
+                },
+                "lifecycle": [
+                  "processing",
+                  "available",
+                  "failed"
+                ],
+                "downstreamUsage": [
+                  "result presentation",
+                  "history"
+                ]
+              },
+              "evidence": {
+                "status": "documented",
+                "sources": [
+                  "page:submission",
+                  "page-module:submit-submission",
+                  "system-node:submit-node",
+                  "frontend-control:submit-button",
+                  "visual-release:961069a7aa1f6c1f88f6806588230c530095905f80281efd7bacaa4f2310d1ec",
+                  "page-module:identity-section",
+                  "page-module:options-section",
+                  "frontend-result-surface:result-panel"
+                ],
+                "releaseDigest": "961069a7aa1f6c1f88f6806588230c530095905f80281efd7bacaa4f2310d1ec"
+              }
+            }
+          }
+        },
+        "visualHint": {
+          "text": "Create submission",
+          "kind": "button"
+        }
+      },
+      "synthesisAnalysis": {
+        "candidatePattern": "create",
+        "patternEvidence": {
+          "explicit": true,
+          "matchedExpression": "/新建|创建|提交|保存|create|submit|save/",
+          "subject": "create submission"
+        },
+        "confidence": "high",
+        "classifierRole": "candidate-analysis",
+        "bmadDecision": null,
+        "reviewedEvidence": {
+          "systemNodeId": "submit-node",
+          "triggerControlId": "submit-button",
+          "meaningfulInputIds": [
+            "submission-title",
+            "submission-category",
+            "result-quantity"
+          ],
+          "inputOwnership": [
+            {
+              "type": "aggregate-section",
+              "scopeId": "submission-scope",
+              "sectionId": "identity-section",
+              "regionId": "identity-section",
+              "capabilityModuleId": "submit-submission"
+            },
+            {
+              "type": "aggregate-section",
+              "scopeId": "submission-scope",
+              "sectionId": "options-section",
+              "regionId": "options-section",
+              "capabilityModuleId": "submit-submission"
+            },
+            {
+              "type": "aggregate-section",
+              "scopeId": "submission-scope",
+              "sectionId": "options-section",
+              "regionId": "options-section",
+              "capabilityModuleId": "submit-submission"
+            }
+          ],
+          "decisionId": null
+        },
+        "minimumImplementableInformation": "satisfied",
+        "entityRole": "resource",
+        "sourceModuleId": "submit-submission",
+        "sourceArchitectureLeafId": "submit-submission",
+        "sourceContainerModuleId": "submission-actions"
+      },
+      "resultPresentation": {
+        "targetRegion": "result-panel",
+        "bindings": [
+          {
+            "id": "result-submit-submission",
+            "responsePath": "response.items",
+            "element": {
+              "semantic": "result-item",
+              "valueSource": "item-value"
+            },
+            "cardinality": "many",
+            "count": {
+              "mode": "request-field",
+              "requestPath": "request.result-quantity",
+              "responsePath": "response.items",
+              "fixedValueForbidden": true
+            }
+          }
+        ],
+        "states": {
+          "processing": {
+            "regionStatus": "processing",
+            "elementSemantic": "progress-indicator",
+            "contentRequirement": "region contains a non-result progress affordance"
+          },
+          "success": {
+            "regionStatus": "success",
+            "elementSemantic": "bound-result-elements",
+            "requiresBoundElements": true
+          },
+          "failure": {
+            "regionStatus": "error",
+            "elementSemantic": "error-message",
+            "contentRequirement": "declared operation failure is visible in the target region"
+          }
+        },
+        "runtimeFlow": {
+          "mode": "immediate"
+        },
+        "product": {
+          "type": "submission-items",
+          "quantity": {
+            "sourceField": "result-quantity"
+          },
+          "lifecycle": [
+            "processing",
+            "available",
+            "failed"
+          ],
+          "downstreamUsage": [
+            "result presentation",
+            "history"
+          ]
+        },
+        "evidence": {
+          "status": "documented",
+          "sources": [
+            "page:submission",
+            "page-module:submit-submission",
+            "system-node:submit-node",
+            "frontend-control:submit-button",
+            "visual-release:961069a7aa1f6c1f88f6806588230c530095905f80281efd7bacaa4f2310d1ec",
+            "page-module:identity-section",
+            "page-module:options-section",
+            "frontend-result-surface:result-panel"
+          ],
+          "releaseDigest": "961069a7aa1f6c1f88f6806588230c530095905f80281efd7bacaa4f2310d1ec"
+        }
+      },
+      "aggregateSubmission": {
+        "schemaVersion": "1.0",
+        "scopeId": "submission-scope",
+        "pageId": "submission",
+        "primaryItemId": "submit-submission",
+        "triggerControlId": "submit-button",
+        "operation": {
+          "method": "POST",
+          "path": "/api/submissions"
+        },
+        "evidence": {
+          "status": "documented",
+          "sources": [
+            "page:submission",
+            "page-module:submit-submission",
+            "page-module:identity-section",
+            "page-module:options-section"
+          ]
+        },
+        "sections": [
+          {
+            "id": "identity-section",
+            "regionId": "identity-section",
+            "fieldIds": [
+              "title-input"
+            ],
+            "fields": [
+              {
+                "id": "submission-title",
+                "controlId": "title-input",
+                "label": "Submission title",
+                "required": true,
+                "schema": {
+                  "type": "string",
+                  "enum": [
+                    "workspace",
+                    "brand-icon",
+                    "quantity-input",
+                    "number",
+                    "2",
+                    "upload-panel",
+                    "upload-input",
+                    "file",
+                    "sample-result",
+                    "Sample result"
+                  ]
+                },
+                "regionId": "identity-section",
+                "evidence": {
+                  "status": "observed",
+                  "sources": [
+                    "frontend-page:submission",
+                    "frontend-control:title-input"
+                  ]
+                }
+              }
+            ]
+          },
+          {
+            "id": "options-section",
+            "regionId": "options-section",
+            "fieldIds": [
+              "category-select",
+              "quantity-input"
+            ],
+            "fields": [
+              {
+                "id": "submission-category",
+                "controlId": "category-select",
+                "label": "Submission category",
+                "required": false,
+                "schema": {
+                  "type": "string",
+                  "enum": [
+                    "workspace",
+                    "brand-icon",
+                    "quantity-input",
+                    "number",
+                    "2",
+                    "upload-panel",
+                    "upload-input",
+                    "file",
+                    "sample-result",
+                    "Sample result",
+                    "submit-button",
+                    "planned-export"
+                  ]
+                },
+                "regionId": "options-section",
+                "evidence": {
+                  "status": "observed",
+                  "sources": [
+                    "frontend-page:submission",
+                    "frontend-control:category-select"
+                  ]
+                }
+              },
+              {
+                "id": "result-quantity",
+                "controlId": "quantity-input",
+                "label": "Result quantity",
+                "required": true,
+                "schema": {
+                  "type": "string",
+                  "enum": [
+                    "brand-icon",
+                    "quantity-input",
+                    "number",
+                    "2",
+                    "upload-panel",
+                    "upload-input",
+                    "file",
+                    "sample-result",
+                    "Sample result",
+                    "submit-button",
+                    "planned-export",
+                    "result-panel",
+                    "history-panel"
+                  ]
+                },
+                "regionId": "options-section",
+                "evidence": {
+                  "status": "observed",
+                  "sources": [
+                    "frontend-page:submission",
+                    "frontend-control:quantity-input"
+                  ]
+                }
+              }
+            ]
+          }
+        ],
+        "sectionItemIds": [
+          "title-field",
+          "category-field",
+          "quantity-field"
+        ],
+        "finalProduct": {
+          "type": "submission-items",
+          "quantity": {
+            "sourceField": "result-quantity",
+            "nonDefaultValueRequired": true
+          },
+          "lifecycle": [
+            "processing",
+            "available",
+            "failed"
+          ],
+          "downstreamUsage": [
+            "result presentation",
+            "history"
+          ]
+        },
+        "status": "complete",
+        "findings": [],
+        "configurationAggregate": {
+          "entityId": "entity-cap-submission-submit-submission-configuration",
+          "lifecycle": [
+            "draft",
+            "validated",
+            "submitted",
+            "superseded"
+          ],
+          "sections": [
+            {
+              "id": "identity-section",
+              "fieldIds": [
+                "submission-title"
+              ]
+            },
+            {
+              "id": "options-section",
+              "fieldIds": [
+                "submission-category",
+                "result-quantity"
+              ]
+            }
+          ]
+        }
+      },
+      "inputs": [
+        "submission-title",
+        "submission-category",
+        "result-quantity",
+        "upload-source-file-assetIds"
+      ],
+      "inputSchema": {
+        "type": "object",
+        "required": [
+          "submission-title",
+          "result-quantity",
+          "upload-source-file-assetIds"
+        ],
+        "properties": {
+          "submission-title": {
+            "type": "string",
+            "enum": [
+              "workspace",
+              "brand-icon",
+              "quantity-input",
+              "number",
+              "2",
+              "upload-panel",
+              "upload-input",
+              "file",
+              "sample-result",
+              "Sample result"
+            ]
+          },
+          "submission-category": {
+            "type": "string",
+            "enum": [
+              "workspace",
+              "brand-icon",
+              "quantity-input",
+              "number",
+              "2",
+              "upload-panel",
+              "upload-input",
+              "file",
+              "sample-result",
+              "Sample result",
+              "submit-button",
+              "planned-export"
+            ]
+          },
+          "result-quantity": {
+            "type": "string",
+            "enum": [
+              "brand-icon",
+              "quantity-input",
+              "number",
+              "2",
+              "upload-panel",
+              "upload-input",
+              "file",
+              "sample-result",
+              "Sample result",
+              "submit-button",
+              "planned-export",
+              "result-panel",
+              "history-panel"
+            ]
+          },
+          "upload-source-file-assetIds": {
+            "type": "array",
+            "minItems": 1,
+            "maxItems": 1,
+            "items": {
+              "type": "string"
+            }
+          }
+        },
+        "additionalProperties": false
+      },
+      "outcomes": [
+        "submissionId",
+        "status",
+        "items"
+      ],
+      "outputSchema": {
+        "type": "object",
+        "required": [
+          "submissionId",
+          "status",
+          "items"
+        ],
+        "properties": {
+          "submissionId": {
+            "type": "string",
+            "minLength": 1
+          },
+          "status": {
+            "type": "string",
+            "enum": [
+              "succeeded"
+            ]
+          },
+          "items": {
+            "type": "array",
+            "minItems": 1,
+            "items": {
+              "type": "string",
+              "minLength": 1
+            }
+          }
+        },
+        "additionalProperties": false
+      },
+      "operations": [
+        {
+          "id": "create-submission-submit-submission",
+          "capabilityId": "cap-submission-submit-submission",
+          "semantics": "For Create submission, validate inputs, create the capability-specific aggregate state, and return its typed result.",
+          "method": "POST",
+          "path": "/api/pages/submission/capabilities/submit-submission/create",
+          "request": {
+            "contentType": "application/json",
+            "body": [
+              "submission-title",
+              "submission-category",
+              "result-quantity",
+              "upload-source-file-assetIds"
+            ],
+            "bodySchema": {
+              "type": "object",
+              "required": [
+                "submission-title",
+                "result-quantity",
+                "upload-source-file-assetIds"
+              ],
+              "properties": {
+                "submission-title": {
+                  "type": "string",
+                  "enum": [
+                    "workspace",
+                    "brand-icon",
+                    "quantity-input",
+                    "number",
+                    "2",
+                    "upload-panel",
+                    "upload-input",
+                    "file",
+                    "sample-result",
+                    "Sample result"
+                  ]
+                },
+                "submission-category": {
+                  "type": "string",
+                  "enum": [
+                    "workspace",
+                    "brand-icon",
+                    "quantity-input",
+                    "number",
+                    "2",
+                    "upload-panel",
+                    "upload-input",
+                    "file",
+                    "sample-result",
+                    "Sample result",
+                    "submit-button",
+                    "planned-export"
+                  ]
+                },
+                "result-quantity": {
+                  "type": "string",
+                  "enum": [
+                    "brand-icon",
+                    "quantity-input",
+                    "number",
+                    "2",
+                    "upload-panel",
+                    "upload-input",
+                    "file",
+                    "sample-result",
+                    "Sample result",
+                    "submit-button",
+                    "planned-export",
+                    "result-panel",
+                    "history-panel"
+                  ]
+                },
+                "upload-source-file-assetIds": {
+                  "type": "array",
+                  "minItems": 1,
+                  "maxItems": 1,
+                  "items": {
+                    "type": "string"
+                  }
+                }
+              },
+              "additionalProperties": false
+            }
+          },
+          "response": {
+            "successStatuses": [
+              201
+            ],
+            "bodySchema": {
+              "type": "object",
+              "required": [
+                "submissionId",
+                "status",
+                "items"
+              ],
+              "properties": {
+                "submissionId": {
+                  "type": "string",
+                  "minLength": 1
+                },
+                "status": {
+                  "type": "string",
+                  "enum": [
+                    "succeeded"
+                  ]
+                },
+                "items": {
+                  "type": "array",
+                  "minItems": 1,
+                  "items": {
+                    "type": "string",
+                    "minLength": 1
+                  }
+                }
+              },
+              "additionalProperties": false
+            }
+          },
+          "authorization": {
+            "authentication": "required",
+            "permission": "create:entity-submission-resource",
+            "ownership": "current-user"
+          },
+          "effects": [
+            {
+              "id": "effect-create-submission-submit-submission-configuration",
+              "entityId": "entity-cap-submission-submit-submission-configuration",
+              "effect": "create"
+            }
+          ],
+          "errors": [
+            {
+              "code": "NOT_AUTHORIZED",
+              "status": 403,
+              "recovery": "authenticate or select an owned resource"
+            },
+            {
+              "code": "INVALID_INPUT",
+              "status": 422,
+              "recovery": "correct the identified field"
+            },
+            {
+              "code": "CONFLICT",
+              "status": 409,
+              "recovery": "refresh authoritative state and retry when allowed"
+            }
+          ],
+          "transaction": {
+            "boundary": "entity-cap-submission-submit-submission-configuration",
+            "atomic": true
+          },
+          "consistency": null,
+          "idempotency": {
+            "required": true,
+            "key": "Idempotency-Key"
+          },
+          "concurrency": {
+            "strategy": "optimistic-version"
+          },
+          "acceptanceExample": {
+            "given": {
+              "submission-title": "runtime-value-1",
+              "submission-category": "runtime-value-2",
+              "result-quantity": "runtime-value-3",
+              "upload-source-file-assetIds": "runtime-value-4"
+            },
+            "when": "invoke create-submission-submit-submission",
+            "runtimeBindings": [
+              {
+                "source": "prior-operation:upload-upload-resource",
+                "target": "request.upload-source-file-assetIds",
+                "fixedValueForbidden": true
+              }
+            ],
+            "then": [
+              {
+                "assertion": "response.submissionId",
+                "matches": true
+              },
+              {
+                "assertion": "quality.observable-result-is-specific-to-create-submission",
+                "equals": true
+              },
+              {
+                "assertion": "quality.required-values-are-preserved-end-to-end",
+                "equals": true
+              },
+              {
+                "assertion": "declared-ui-state",
+                "equals": "success"
+              }
+            ],
+            "failures": [
+              {
+                "condition": "actor lacks ownership or permission",
+                "expect": "NOT_AUTHORIZED"
+              },
+              {
+                "condition": "input violates the operation schema or business rule",
+                "expect": "INVALID_INPUT"
+              },
+              {
+                "condition": "lifecycle or concurrency precondition is not satisfied",
+                "expect": "CONFLICT"
+              }
+            ]
+          },
+          "evidence": {
+            "status": "designed",
+            "sources": [
+              "page:submission",
+              "page-module:submit-submission",
+              "system-node:submit-node",
+              "frontend-control:submit-button",
+              "visual-release:961069a7aa1f6c1f88f6806588230c530095905f80281efd7bacaa4f2310d1ec",
+              "page:submission",
+              "page-module:submit-submission",
+              "page-module:identity-section",
+              "page-module:options-section"
+            ],
+            "rationale": "Operation contract specializes the create business behavior."
+          },
+          "aggregateSubmission": {
+            "scopeId": "submission-scope",
+            "triggerControlId": "submit-button",
+            "sectionBindings": [
+              {
+                "sectionId": "identity-section",
+                "regionId": "identity-section",
+                "requestFields": [
+                  "submission-title"
+                ]
+              },
+              {
+                "sectionId": "options-section",
+                "regionId": "options-section",
+                "requestFields": [
+                  "submission-category",
+                  "result-quantity"
+                ]
+              }
+            ],
+            "evidence": {
+              "status": "documented",
+              "sources": [
+                "page:submission",
+                "page-module:submit-submission",
+                "page-module:identity-section",
+                "page-module:options-section"
+              ]
+            }
+          },
+          "finalProduct": {
+            "type": "submission-items",
+            "quantity": {
+              "sourceField": "result-quantity"
+            },
+            "lifecycle": [
+              "processing",
+              "available",
+              "failed"
+            ],
+            "downstreamUsage": [
+              "result presentation",
+              "history"
+            ]
+          },
+          "dataDependencies": [
+            {
+              "sourceOperationId": "upload-submission-upload-resource",
+              "sourceField": "response.assetIds",
+              "targetOperationId": "create-submission-submit-submission",
+              "targetField": "request.upload-source-file-assetIds",
+              "requiredOwnership": "same-user",
+              "requiredLifecycleStatus": "available",
+              "consistencyRequirement": "read-your-writes",
+              "runtimeValueRequired": true
+            }
+          ],
+          "ruleIds": [
+            "rule-cap-submission-submit-submission"
+          ],
+          "providerContract": {
+            "requiredCapability": "media-generation",
+            "parameterMappings": [
+              {
+                "source": "request.upload-source-file-assetIds",
+                "target": "provider.inputs",
+                "required": true
+              }
+            ],
+            "outputConstraints": {
+              "items": {
+                "type": "array",
+                "minItems": 1
+              }
+            },
+            "outputMode": "independent-items",
+            "oneProviderResultPerItem": true,
+            "batchSupportAssumed": false,
+            "perCallConstraints": {
+              "singleItemPerCall": true,
+              "distinctMediaPerCall": true,
+              "outputSemantic": "each provider invocation returns exactly one independent media item with its own media resource URL"
+            },
+            "concurrency": {
+              "maxParallel": 2,
+              "ordering": "unordered",
+              "failurePolicy": "fail-fast"
+            }
+          },
+          "integrationBindings": [
+            {
+              "source": "request.upload-source-file-assetIds",
+              "target": "provider.inputs",
+              "required": true,
+              "schema": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              },
+              "evidence": {
+                "status": "designed",
+                "sources": [
+                  "page:submission",
+                  "page-module:submit-submission",
+                  "system-node:submit-node",
+                  "page-module:identity-section",
+                  "page-module:options-section"
+                ]
+              }
+            }
+          ],
+          "integrationVerification": {
+            "requiredScenarios": [
+              "success",
+              "timeout",
+              "unavailable"
+            ],
+            "artifactAssertions": [
+              {
+                "path": "response.submissionId",
+                "schema": {
+                  "type": "string",
+                  "minLength": 1
+                }
+              },
+              {
+                "path": "response.items",
+                "schema": {
+                  "type": "array",
+                  "minItems": 1
+                }
+              }
+            ],
+            "endpointPolicy": {
+              "nonLocal": true
+            },
+            "correlation": {
+              "requestHeader": "X-Integration-Challenge",
+              "responsePath": "submissionId"
+            }
+          }
+        }
+      ],
+      "entityEffects": [
+        {
+          "id": "effect-create-submission-submit-submission-configuration",
+          "entityId": "entity-cap-submission-submit-submission-configuration",
+          "effect": "create"
+        }
+      ],
+      "writesState": true,
+      "ruleIds": [
+        "rule-cap-submission-submit-submission"
+      ],
+      "failures": [
+        "NOT_AUTHORIZED",
+        "INVALID_INPUT",
+        "CONFLICT"
+      ],
+      "acceptanceCriteria": [
+        "Create submission consumes each required field with its declared type and constraint",
+        "Create submission produces its operation-specific output and observable UI state",
+        "Runtime output from the prerequisite operation is propagated without a fixed substitute",
+        "Create submission exposes its declared recovery behavior for each business failure"
+      ],
+      "acceptanceExamples": [
+        {
+          "given": {
+            "submission-title": "workspace",
+            "result-quantity": "brand-icon",
+            "upload-source-file-assetIds": [
+              "sample-value"
+            ]
+          },
+          "when": "invoke create-submission-submit-submission",
+          "then": [
+            {
+              "assertion": "response.status",
+              "path": "response.status",
+              "equals": "succeeded"
+            }
+          ]
+        }
+      ],
+      "sourceResponsibilities": [
+        "Create submission"
+      ],
+      "specificationStatus": "complete",
+      "deliveryPolicy": {
+        "requiredForCompletion": true,
+        "allowedIncompleteState": "planned"
+      },
+      "evidence": {
+        "status": "designed",
+        "sources": [
+          "page:submission",
+          "page-module:submit-submission",
+          "system-node:submit-node",
+          "frontend-control:submit-button",
+          "visual-release:961069a7aa1f6c1f88f6806588230c530095905f80281efd7bacaa4f2310d1ec",
+          "page:submission",
+          "page-module:submit-submission",
+          "page-module:identity-section",
+          "page-module:options-section"
+        ],
+        "rationale": "Synthesized as create from architecture responsibility and observed frontend semantics."
+      },
+      "evidenceAnchors": [
+        "page:submission",
+        "page-module:submit-submission",
+        "system-node:submit-node",
+        "page-module:identity-section",
+        "page-module:options-section"
+      ],
+      "closure": {
+        "userInput": {
+          "summary": "Operator provides Submission title, Submission category, Result quantity, Upload source file validated asset references.",
+          "evidenceAnchors": [
+            "page:submission",
+            "page-module:submit-submission",
+            "system-node:submit-node",
+            "page-module:identity-section",
+            "page-module:options-section",
+            "page-module:title-field",
+            "page-module:category-field",
+            "page-module:quantity-field",
+            "product-context:users",
+            "product-context:needs",
+            "design:submission"
+          ]
+        },
+        "systemBehavior": {
+          "summary": "For Create submission, validate inputs, create the capability-specific aggregate state, and return its typed result.",
+          "evidenceAnchors": [
+            "page:submission",
+            "page-module:submit-submission",
+            "system-node:submit-node",
+            "page-module:identity-section",
+            "page-module:options-section",
+            "product-context:brief"
+          ]
+        },
+        "output": {
+          "summary": "submissionId, status, items",
+          "evidenceAnchors": [
+            "page:submission",
+            "page-module:submit-submission",
+            "system-node:submit-node",
+            "page-module:identity-section",
+            "page-module:options-section"
+          ]
+        },
+        "resultDestination": {
+          "targetKind": "region",
+          "targetRegion": "result-panel",
+          "evidenceAnchors": [
+            "page:submission",
+            "page-module:submit-submission",
+            "system-node:submit-node",
+            "page-module:identity-section",
+            "page-module:options-section"
+          ],
+          "states": {
+            "processing": {
+              "regionStatus": "processing",
+              "elementSemantic": "progress-indicator",
+              "contentRequirement": "region contains a non-result progress affordance"
+            },
+            "success": {
+              "regionStatus": "success",
+              "elementSemantic": "bound-result-elements",
+              "requiresBoundElements": true
+            },
+            "failure": {
+              "regionStatus": "error",
+              "elementSemantic": "error-message",
+              "contentRequirement": "declared operation failure is visible in the target region"
+            }
+          },
+          "bindings": [
+            {
+              "id": "result-submit-submission",
+              "responsePath": "response.items",
+              "element": {
+                "semantic": "result-item",
+                "valueSource": "item-value"
+              },
+              "cardinality": "many",
+              "count": {
+                "mode": "request-field",
+                "requestPath": "request.result-quantity",
+                "responsePath": "response.items",
+                "fixedValueForbidden": true,
+                "nonDefaultValueRequired": true
+              }
+            }
+          ],
+          "itemContract": {
+            "mode": "independent-media",
+            "uniqueIdRequired": true,
+            "uniqueUrlRequired": true,
+            "uniqueFileRequired": true,
+            "compositeMediaForbidden": true
+          }
+        },
+        "failures": {
+          "summary": "NOT_AUTHORIZED, INVALID_INPUT, CONFLICT",
+          "evidenceAnchors": [
+            "page:submission",
+            "page-module:submit-submission",
+            "system-node:submit-node",
+            "page-module:identity-section",
+            "page-module:options-section"
+          ]
+        },
+        "downstreamUse": {
+          "summary": "[object Object]",
+          "evidenceAnchors": [
+            "page:submission",
+            "page-module:submit-submission",
+            "system-node:submit-node",
+            "page-module:identity-section",
+            "page-module:options-section",
+            "product-context:goals"
+          ]
+        },
+        "inputUtilization": [
+          {
+            "inputId": "submission-title",
+            "disposition": "application-only",
+            "evidenceAnchors": [
+              "page:submission",
+              "page-module:submit-submission",
+              "system-node:submit-node",
+              "page-module:identity-section",
+              "page-module:options-section",
+              "page-module:title-field",
+              "page-module:category-field",
+              "page-module:quantity-field",
+              "product-context:users",
+              "product-context:needs"
+            ],
+            "reason": "used only by the application (submission metadata / item count), not forwarded to the external provider"
+          },
+          {
+            "inputId": "submission-category",
+            "disposition": "application-only",
+            "evidenceAnchors": [
+              "page:submission",
+              "page-module:submit-submission",
+              "system-node:submit-node",
+              "page-module:identity-section",
+              "page-module:options-section",
+              "page-module:title-field",
+              "page-module:category-field",
+              "page-module:quantity-field",
+              "product-context:users",
+              "product-context:needs"
+            ],
+            "reason": "used only by the application (submission metadata / item count), not forwarded to the external provider"
+          },
+          {
+            "inputId": "result-quantity",
+            "disposition": "application-only",
+            "evidenceAnchors": [
+              "page:submission",
+              "page-module:submit-submission",
+              "system-node:submit-node",
+              "page-module:identity-section",
+              "page-module:options-section",
+              "page-module:title-field",
+              "page-module:category-field",
+              "page-module:quantity-field",
+              "product-context:users",
+              "product-context:needs"
+            ],
+            "reason": "used only by the application (submission metadata / item count), not forwarded to the external provider"
+          },
+          {
+            "inputId": "upload-source-file-assetIds",
+            "disposition": "provider-mapped",
+            "mapping": {
+              "providerParam": "provider.inputs",
+              "transform": "identity"
+            },
+            "evidenceAnchors": [
+              "page:submission",
+              "page-module:submit-submission",
+              "system-node:submit-node",
+              "page-module:identity-section",
+              "page-module:options-section",
+              "page-module:title-field",
+              "page-module:category-field",
+              "page-module:quantity-field",
+              "product-context:users",
+              "product-context:needs"
+            ],
+            "resourceResolution": {
+              "method": "asset-id-dereference",
+              "detail": "resolve each uploaded asset id to its stored bytes and hand the resource to the provider as a generation source"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "id": "cap-submission-upload-resource",
+      "name": "Upload source file",
+      "purpose": "Validated, owned assets are available for downstream operations",
+      "actor": "user",
+      "pageIds": [
+        "submission"
+      ],
+      "capabilityIntent": {
+        "userGoal": "Provide the business assets required by Upload source file",
+        "businessOutcome": "Validated, owned assets are available for downstream operations",
+        "trigger": {
+          "type": "existing-control",
+          "pageId": "submission",
+          "controlId": "upload-input",
+          "label": "Upload source file",
+          "evidence": {
+            "status": "observed",
+            "sources": [
+              "frontend-control:upload-input"
+            ]
+          }
+        },
+        "prerequisites": [
+          "authenticated actor",
+          "selected resources satisfy declared transfer constraints"
+        ],
+        "inputs": [
+          {
+            "id": "files",
+            "label": "Upload source file",
+            "required": true,
+            "source": "user-file-selection",
+            "schema": {
+              "type": "array",
+              "minItems": 1,
+              "maxItems": 20,
+              "items": {
+                "type": "string",
+                "format": "binary"
+              }
+            },
+            "constraints": {
+              "mimeTypes": [
+                "application/octet-stream"
+              ],
+              "maxBytesPerFile": 20971520,
+              "checksum": "sha256",
+              "evidenceStatus": "designed-default"
+            },
+            "ownership": {
+              "type": "architecture-item",
+              "ownerModuleId": "submission-actions",
+              "capabilityModuleId": "upload-resource"
+            },
+            "evidence": {
+              "status": "documented",
+              "sources": [
+                "page-module:upload-resource",
+                "page:submission",
+                "page-module:upload-resource",
+                "system-node:upload-node",
+                "frontend-control:upload-input",
+                "visual-release:961069a7aa1f6c1f88f6806588230c530095905f80281efd7bacaa4f2310d1ec"
+              ]
+            }
+          }
+        ],
+        "processingSemantics": "For Upload source file, validate transfer constraints, compute checksum, bind ownership, persist an opaque storage reference, and return runtime resource identifiers.",
+        "outputs": [
+          {
+            "id": "assetIds",
+            "required": true,
+            "schema": {
+              "type": "array",
+              "minItems": 1,
+              "items": {
+                "type": "string"
+              }
+            }
+          },
+          {
+            "id": "assets",
+            "required": true,
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "required": [
+                  "id",
+                  "status",
+                  "checksum"
+                ],
+                "properties": {
+                  "id": {
+                    "type": "string"
+                  },
+                  "status": {
+                    "type": "string",
+                    "enum": [
+                      "available"
+                    ]
+                  },
+                  "checksum": {
+                    "type": "string"
+                  }
+                },
+                "additionalProperties": false
+              }
+            }
+          }
+        ],
+        "sideEffects": [
+          {
+            "entityRole": "asset",
+            "effect": "create",
+            "observable": true
+          }
+        ],
+        "downstreamUsage": [
+          {
+            "outputPath": "response.assetIds",
+            "consumers": [
+              "downstream-operations"
+            ],
+            "propagation": "runtime-value"
+          }
+        ],
+        "qualityCriteria": [
+          "transferred bytes match the recorded checksum",
+          "only validated owned resources become available"
+        ],
+        "failures": [
+          {
+            "code": "NOT_AUTHORIZED",
+            "status": 403,
+            "condition": "actor lacks ownership or permission",
+            "recovery": "authenticate or select an owned resource"
+          },
+          {
+            "code": "INVALID_INPUT",
+            "status": 422,
+            "condition": "input violates the operation schema or business rule",
+            "recovery": "correct the identified field"
+          },
+          {
+            "code": "UNSUPPORTED_FILE",
+            "status": 415,
+            "condition": "file type, count, size, or checksum is invalid",
+            "recovery": "select a supported file"
+          },
+          {
+            "code": "STORAGE_UNAVAILABLE",
+            "status": 503,
+            "condition": "durable storage is unavailable",
+            "recovery": "retry without claiming the asset is available"
+          }
+        ],
+        "evidence": {
+          "status": "designed",
+          "sources": [
+            "page:submission",
+            "page-module:upload-resource",
+            "system-node:upload-node",
+            "frontend-control:upload-input",
+            "visual-release:961069a7aa1f6c1f88f6806588230c530095905f80281efd7bacaa4f2310d1ec"
+          ],
+          "rationale": "Synthesized as upload from architecture responsibility and observed frontend semantics."
+        }
+      },
+      "presentation": {
+        "mode": "reuse-control",
+        "targetPageId": "submission",
+        "triggerControl": {
+          "controlId": "upload-input",
+          "label": "Upload source file"
+        },
+        "fieldBindings": [],
+        "primaryAction": "Upload source file",
+        "primaryOperationId": "upload-submission-upload-resource",
+        "requiredUiStates": [
+          "idle",
+          "loading",
+          "success",
+          "error"
+        ],
+        "visualHint": {
+          "text": "Upload source file",
+          "kind": "input"
+        }
+      },
+      "synthesisAnalysis": {
+        "candidatePattern": "upload",
+        "patternEvidence": {
+          "explicit": true,
+          "matchedExpression": "/上传|upload|file/",
+          "subject": "upload source file"
+        },
+        "confidence": "high",
+        "classifierRole": "candidate-analysis",
+        "bmadDecision": null,
+        "reviewedEvidence": {
+          "systemNodeId": "upload-node",
+          "triggerControlId": "upload-input",
+          "meaningfulInputIds": [
+            "files"
+          ],
+          "inputOwnership": [
+            {
+              "type": "architecture-item",
+              "ownerModuleId": "submission-actions",
+              "capabilityModuleId": "upload-resource"
+            }
+          ],
+          "decisionId": null
+        },
+        "minimumImplementableInformation": "satisfied",
+        "entityRole": "asset",
+        "sourceModuleId": "upload-resource",
+        "sourceArchitectureLeafId": "upload-resource",
+        "sourceContainerModuleId": "submission-actions"
+      },
+      "inputs": [
+        "files"
+      ],
+      "inputSchema": {
+        "type": "object",
+        "required": [
+          "files"
+        ],
+        "properties": {
+          "files": {
+            "type": "array",
+            "minItems": 1,
+            "maxItems": 20,
+            "items": {
+              "type": "string",
+              "format": "binary"
+            }
+          }
+        },
+        "additionalProperties": false
+      },
+      "outcomes": [
+        "assetIds",
+        "assets"
+      ],
+      "outputSchema": {
+        "type": "object",
+        "required": [
+          "assetIds",
+          "assets"
+        ],
+        "properties": {
+          "assetIds": {
+            "type": "array",
+            "minItems": 1,
+            "items": {
+              "type": "string"
+            }
+          },
+          "assets": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "required": [
+                "id",
+                "status",
+                "checksum"
+              ],
+              "properties": {
+                "id": {
+                  "type": "string"
+                },
+                "status": {
+                  "type": "string",
+                  "enum": [
+                    "available"
+                  ]
+                },
+                "checksum": {
+                  "type": "string"
+                }
+              },
+              "additionalProperties": false
+            }
+          }
+        },
+        "additionalProperties": false
+      },
+      "operations": [
+        {
+          "id": "upload-submission-upload-resource",
+          "capabilityId": "cap-submission-upload-resource",
+          "semantics": "For Upload source file, validate transfer constraints, compute checksum, bind ownership, persist an opaque storage reference, and return runtime resource identifiers.",
+          "method": "POST",
+          "path": "/api/pages/submission/capabilities/upload-resource/assets",
+          "request": {
+            "contentType": "multipart/form-data",
+            "body": [
+              "files"
+            ],
+            "bodySchema": {
+              "type": "object",
+              "required": [
+                "files"
+              ],
+              "properties": {
+                "files": {
+                  "type": "array",
+                  "minItems": 1,
+                  "maxItems": 20,
+                  "items": {
+                    "type": "string",
+                    "format": "binary"
+                  }
+                }
+              },
+              "additionalProperties": false
+            }
+          },
+          "response": {
+            "successStatuses": [
+              201
+            ],
+            "bodySchema": {
+              "type": "object",
+              "required": [
+                "assetIds",
+                "assets"
+              ],
+              "properties": {
+                "assetIds": {
+                  "type": "array",
+                  "minItems": 1,
+                  "items": {
+                    "type": "string"
+                  }
+                },
+                "assets": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "required": [
+                      "id",
+                      "status",
+                      "checksum"
+                    ],
+                    "properties": {
+                      "id": {
+                        "type": "string"
+                      },
+                      "status": {
+                        "type": "string",
+                        "enum": [
+                          "available"
+                        ]
+                      },
+                      "checksum": {
+                        "type": "string"
+                      }
+                    },
+                    "additionalProperties": false
+                  }
+                }
+              },
+              "additionalProperties": false
+            }
+          },
+          "authorization": {
+            "authentication": "required",
+            "permission": "upload:entity-submission-asset",
+            "ownership": "current-user"
+          },
+          "effects": [
+            {
+              "id": "effect-upload-submission-upload-resource",
+              "entityId": "entity-submission-asset",
+              "effect": "create"
+            }
+          ],
+          "errors": [
+            {
+              "code": "NOT_AUTHORIZED",
+              "status": 403,
+              "recovery": "authenticate or select an owned resource"
+            },
+            {
+              "code": "INVALID_INPUT",
+              "status": 422,
+              "recovery": "correct the identified field"
+            },
+            {
+              "code": "UNSUPPORTED_FILE",
+              "status": 415,
+              "recovery": "select a supported file"
+            },
+            {
+              "code": "STORAGE_UNAVAILABLE",
+              "status": 503,
+              "recovery": "retry without claiming the asset is available"
+            }
+          ],
+          "transaction": {
+            "boundary": "boundary-submission",
+            "atomic": true
+          },
+          "consistency": null,
+          "idempotency": {
+            "required": true,
+            "key": "Idempotency-Key"
+          },
+          "concurrency": {
+            "strategy": "optimistic-version"
+          },
+          "acceptanceExample": {
+            "given": {
+              "files": "runtime-file-1"
+            },
+            "when": "invoke upload-submission-upload-resource",
+            "runtimeBindings": [],
+            "then": [
+              {
+                "assertion": "declared-output-schema",
+                "matches": true
+              },
+              {
+                "assertion": "quality.transferred-bytes-match-the-recorded-checksum",
+                "equals": true
+              },
+              {
+                "assertion": "quality.only-validated-owned-resources-become-available",
+                "equals": true
+              },
+              {
+                "assertion": "declared-ui-state",
+                "equals": "success"
+              }
+            ],
+            "failures": [
+              {
+                "condition": "actor lacks ownership or permission",
+                "expect": "NOT_AUTHORIZED"
+              },
+              {
+                "condition": "input violates the operation schema or business rule",
+                "expect": "INVALID_INPUT"
+              },
+              {
+                "condition": "file type, count, size, or checksum is invalid",
+                "expect": "UNSUPPORTED_FILE"
+              },
+              {
+                "condition": "durable storage is unavailable",
+                "expect": "STORAGE_UNAVAILABLE"
+              }
+            ]
+          },
+          "evidence": {
+            "status": "designed",
+            "sources": [
+              "page:submission",
+              "page-module:upload-resource",
+              "system-node:upload-node",
+              "frontend-control:upload-input",
+              "visual-release:961069a7aa1f6c1f88f6806588230c530095905f80281efd7bacaa4f2310d1ec"
+            ],
+            "rationale": "Operation contract specializes the upload business behavior."
+          },
+          "resourceTransfer": {
+            "contentType": "multipart/form-data",
+            "interaction": "file-selection",
+            "fileField": "files",
+            "purpose": "Upload source file",
+            "required": true,
+            "mimeTypes": [
+              "application/octet-stream"
+            ],
+            "maxBytesPerFile": 20971520,
+            "minItems": 1,
+            "maxItems": 20,
+            "checksum": "sha256",
+            "ownership": "current-user",
+            "lifecycle": [
+              "selected",
+              "uploading",
+              "validated",
+              "available",
+              "rejected",
+              "deleted"
+            ],
+            "storageReference": "opaque-storage-key",
+            "responseIdPath": "response.assetIds[]"
+          },
+          "ruleIds": [
+            "rule-cap-submission-upload-resource"
+          ]
+        }
+      ],
+      "entityEffects": [
+        {
+          "id": "effect-upload-submission-upload-resource",
+          "entityId": "entity-submission-asset",
+          "effect": "create"
+        }
+      ],
+      "writesState": true,
+      "ruleIds": [
+        "rule-cap-submission-upload-resource"
+      ],
+      "failures": [
+        "NOT_AUTHORIZED",
+        "INVALID_INPUT",
+        "UNSUPPORTED_FILE",
+        "STORAGE_UNAVAILABLE"
+      ],
+      "acceptanceCriteria": [
+        "Upload source file consumes each required field with its declared type and constraint",
+        "Upload source file produces its operation-specific output and observable UI state",
+        "Upload source file exposes its declared recovery behavior for each business failure"
+      ],
+      "acceptanceExamples": [
+        {
+          "given": {
+            "files": [
+              "sample-value"
+            ]
+          },
+          "when": "invoke upload-submission-upload-resource",
+          "then": [
+            {
+              "assertion": "response.assets[].status",
+              "path": "response.assets[].status",
+              "equals": "available"
+            }
+          ]
+        }
+      ],
+      "sourceResponsibilities": [
+        "Upload source file"
+      ],
+      "specificationStatus": "complete",
+      "deliveryPolicy": {
+        "requiredForCompletion": true,
+        "allowedIncompleteState": "planned"
+      },
+      "evidence": {
+        "status": "designed",
+        "sources": [
+          "page:submission",
+          "page-module:upload-resource",
+          "system-node:upload-node",
+          "frontend-control:upload-input",
+          "visual-release:961069a7aa1f6c1f88f6806588230c530095905f80281efd7bacaa4f2310d1ec"
+        ],
+        "rationale": "Synthesized as upload from architecture responsibility and observed frontend semantics."
+      },
+      "evidenceAnchors": [
+        "page:submission",
+        "page-module:upload-resource",
+        "system-node:upload-node"
+      ],
+      "closure": {
+        "userInput": {
+          "summary": "Operator provides Upload source file.",
+          "evidenceAnchors": [
+            "page:submission",
+            "page-module:upload-resource",
+            "system-node:upload-node",
+            "design:submission"
+          ]
+        },
+        "systemBehavior": {
+          "summary": "For Upload source file, validate transfer constraints, compute checksum, bind ownership, persist an opaque storage reference, and return runtime resource identifiers.",
+          "evidenceAnchors": [
+            "page:submission",
+            "page-module:upload-resource",
+            "system-node:upload-node"
+          ]
+        },
+        "output": {
+          "summary": "assetIds, assets",
+          "evidenceAnchors": [
+            "page:submission",
+            "page-module:upload-resource",
+            "system-node:upload-node"
+          ]
+        },
+        "resultDestination": {
+          "targetKind": "region",
+          "targetRegion": "upload-panel",
+          "evidenceAnchors": [
+            "page:submission",
+            "page-module:upload-resource",
+            "system-node:upload-node"
+          ],
+          "states": {
+            "processing": {
+              "regionStatus": "busy",
+              "elementSemantic": "progress"
+            },
+            "success": {
+              "regionStatus": "ready",
+              "elementSemantic": "status-badge",
+              "requiresBoundElements": true
+            },
+            "failure": {
+              "regionStatus": "error",
+              "elementSemantic": "error-message"
+            }
+          },
+          "bindings": [
+            {
+              "id": "binding-cap-submission-upload-resource-assetIds",
+              "responsePath": "response.assetIds",
+              "element": {
+                "semantic": "status-badge"
+              },
+              "count": {
+                "mode": "response-cardinality"
+              }
+            }
+          ]
+        },
+        "failures": {
+          "summary": "NOT_AUTHORIZED, INVALID_INPUT, UNSUPPORTED_FILE, STORAGE_UNAVAILABLE",
+          "evidenceAnchors": [
+            "page:submission",
+            "page-module:upload-resource",
+            "system-node:upload-node"
+          ]
+        },
+        "downstreamUse": {
+          "summary": "[object Object]",
+          "evidenceAnchors": [
+            "page:submission",
+            "page-module:upload-resource",
+            "system-node:upload-node"
+          ]
+        }
+      }
+    },
+    {
+      "id": "cap-submission-planned-export",
+      "name": "External submission review",
+      "purpose": "External submission review produces a traceable business result rather than a generic response",
+      "actor": "user",
+      "pageIds": [
+        "submission"
+      ],
+      "capabilityIntent": {
+        "userGoal": "Complete External submission review for the product's declared business scenario",
+        "businessOutcome": "External submission review produces a traceable business result rather than a generic response",
+        "trigger": {
+          "type": "existing-control",
+          "pageId": "submission",
+          "controlId": "planned-export",
+          "label": "External submission review",
+          "evidence": {
+            "status": "observed",
+            "sources": [
+              "frontend-control:planned-export"
+            ]
+          }
+        },
+        "prerequisites": [
+          "authenticated actor",
+          "required inputs are authorized and available",
+          "declared external capability is available"
+        ],
+        "inputs": [],
+        "processingSemantics": {
+          "mode": "undetermined",
+          "reason": "External submission review has no documented or confirmed capability-specific output schema; a generated name, generic reference list, or result region cannot define its business product; No observed, documented, or confirmed result region identifies where External submission review renders its product; External submission review has no operation response field that can be bound to result elements"
+        },
+        "outputs": [],
+        "sideEffects": [],
+        "downstreamUsage": [],
+        "qualityCriteria": [],
+        "failures": [],
+        "evidence": {
+          "status": "designed",
+          "sources": [
+            "page:submission",
+            "page-module:planned-export",
+            "system-node:export-node",
+            "frontend-control:planned-export",
+            "visual-release:961069a7aa1f6c1f88f6806588230c530095905f80281efd7bacaa4f2310d1ec"
+          ],
+          "rationale": "Synthesized as external-operation from architecture responsibility and observed frontend semantics."
+        }
+      },
+      "presentation": {
+        "mode": "reuse-control",
+        "targetPageId": "submission",
+        "triggerControl": {
+          "controlId": "planned-export",
+          "label": "External submission review"
+        },
+        "fieldBindings": [],
+        "primaryOperationId": null,
+        "requiredUiStates": [
+          "idle",
+          "planned"
+        ],
+        "visualHint": {
+          "text": "External submission review",
+          "kind": "button"
+        },
+        "behavior": "planned-state",
+        "plannedState": {
+          "title": "External submission review",
+          "message": "功能待实现",
+          "capabilitySpecific": true
+        }
+      },
+      "synthesisAnalysis": {
+        "candidatePattern": "external-operation",
+        "patternEvidence": {
+          "explicit": true,
+          "matchedExpression": "/外部|第三方|external|provider|integration|\\bai\\b/i",
+          "subject": "external submission review"
+        },
+        "confidence": "high",
+        "classifierRole": "candidate-analysis",
+        "bmadDecision": null,
+        "reviewedEvidence": {
+          "systemNodeId": "export-node",
+          "triggerControlId": "planned-export",
+          "meaningfulInputIds": [
+            "submission-title",
+            "submission-category",
+            "result-quantity"
+          ],
+          "inputOwnership": [
+            {
+              "type": "page-workspace-template",
+              "ownerModuleId": "identity-section",
+              "capabilityModuleId": "planned-export",
+              "affinity": 0.058823529411764705,
+              "sharedAcrossCapabilities": true
+            },
+            {
+              "type": "page-workspace-template",
+              "ownerModuleId": "options-section",
+              "capabilityModuleId": "planned-export",
+              "affinity": 0.1,
+              "sharedAcrossCapabilities": true
+            },
+            {
+              "type": "page-workspace-template",
+              "ownerModuleId": "options-section",
+              "capabilityModuleId": "planned-export",
+              "affinity": 0.1,
+              "sharedAcrossCapabilities": true
+            }
+          ],
+          "decisionId": null
+        },
+        "minimumImplementableInformation": "satisfied",
+        "entityRole": "task",
+        "sourceModuleId": "planned-export",
+        "sourceArchitectureLeafId": "planned-export",
+        "sourceContainerModuleId": "submission-actions"
+      },
+      "inputs": [],
+      "inputSchema": null,
+      "outcomes": [],
+      "outputSchema": null,
+      "operations": [],
+      "entityEffects": [],
+      "writesState": false,
+      "ruleIds": [],
+      "failures": [],
+      "acceptanceCriteria": [
+        "Opening External submission review shows its capability-specific 功能待实现 state without a business request or fabricated result"
+      ],
+      "acceptanceExamples": [],
+      "sourceResponsibilities": [
+        "External submission review"
+      ],
+      "specificationStatus": "planned",
+      "planningReason": "External submission review has no documented or confirmed capability-specific output schema; a generated name, generic reference list, or result region cannot define its business product; No observed, documented, or confirmed result region identifies where External submission review renders its product; External submission review has no operation response field that can be bound to result elements",
+      "missingDecisions": [
+        "External submission review has no documented or confirmed capability-specific output schema; a generated name, generic reference list, or result region cannot define its business product",
+        "No observed, documented, or confirmed result region identifies where External submission review renders its product",
+        "External submission review has no operation response field that can be bound to result elements"
+      ],
+      "deliveryPolicy": {
+        "requiredForCompletion": false,
+        "allowedIncompleteState": "planned",
+        "uiBehavior": "show-planned-state"
+      },
+      "evidence": {
+        "status": "designed",
+        "sources": [
+          "page:submission",
+          "page-module:planned-export",
+          "system-node:export-node",
+          "frontend-control:planned-export",
+          "visual-release:961069a7aa1f6c1f88f6806588230c530095905f80281efd7bacaa4f2310d1ec"
+        ],
+        "rationale": "Synthesized as external-operation from architecture responsibility and observed frontend semantics."
+      },
+      "evidenceAnchors": [
+        "page:submission",
+        "page-module:planned-export",
+        "system-node:export-node"
+      ],
+      "closure": {
+        "userInput": {
+          "summary": "Complete External submission review for the product's declared business scenario",
+          "evidenceAnchors": [
+            "page:submission",
+            "page-module:planned-export",
+            "system-node:export-node"
+          ]
+        },
+        "systemBehavior": {
+          "summary": {
+            "mode": "undetermined",
+            "reason": "External submission review has no documented or confirmed capability-specific output schema; a generated name, generic reference list, or result region cannot define its business product; No observed, documented, or confirmed result region identifies where External submission review renders its product; External submission review has no operation response field that can be bound to result elements"
+          },
+          "evidenceAnchors": [
+            "page:submission",
+            "page-module:planned-export",
+            "system-node:export-node"
+          ]
+        },
+        "output": {
+          "summary": "A business result.",
+          "evidenceAnchors": [
+            "page:submission",
+            "page-module:planned-export",
+            "system-node:export-node"
+          ]
+        },
+        "resultDestination": {
+          "targetKind": "region",
+          "evidenceAnchors": [
+            "page:submission",
+            "page-module:planned-export",
+            "system-node:export-node"
+          ]
+        },
+        "failures": {
+          "summary": "Typed errors without partial persistence.",
+          "evidenceAnchors": [
+            "page:submission",
+            "page-module:planned-export",
+            "system-node:export-node"
+          ]
+        },
+        "downstreamUse": {
+          "summary": "Consumed by downstream operations and history.",
+          "evidenceAnchors": [
+            "page:submission",
+            "page-module:planned-export",
+            "system-node:export-node"
+          ]
+        }
+      },
+      "missingDecision": {
+        "question": "External submission review has no documented or confirmed capability-specific output schema; a generated name, generic reference list, or result region cannot define its business product; No observed, documented, or confirmed result region identifies where External submission review renders its product; External submission review has no operation response field that can be bound to result elements",
+        "missingBusinessDecision": "External submission review has no documented or confirmed capability-specific output schema; a generated name, generic reference list, or result region cannot define its business product",
+        "sourceEvidenceUnanswered": true,
+        "evidenceAnchors": [
+          "page:submission",
+          "page-module:planned-export",
+          "system-node:export-node"
+        ]
+      }
+    }
+  ],
+  "visualSource": {
+    "sourceType": "ai-restore-release",
+    "releaseDigest": "961069a7aa1f6c1f88f6806588230c530095905f80281efd7bacaa4f2310d1ec",
+    "suiteGateDigest": "671b5da89cba71925cf574111ad3ce8f3cec1c722c7f3e247cf1291a45c12010",
+    "pageIds": [
+      "submission"
+    ],
+    "routes": {
+      "submission": "/submission"
+    },
+    "sourceTreeDigest": "1c351538968e657d634275343d892ba8389790f33472e922b3798b806e85787e"
+  },
+  "visualMappings": [
+    {
+      "capabilityId": "cap-submission-submit-submission",
+      "presentation": {
+        "mode": "reuse-control",
+        "targetPageId": "submission",
+        "triggerControl": {
+          "controlId": "submit-button",
+          "label": "Create submission"
+        },
+        "fieldBindings": [
+          {
+            "controlId": "title-input",
+            "inputId": "submission-title",
+            "statePath": "form.submission-title",
+            "requestPath": "request.submission-title",
+            "required": true,
+            "ownership": {
+              "type": "aggregate-section",
+              "scopeId": "submission-scope",
+              "sectionId": "identity-section",
+              "regionId": "identity-section",
+              "capabilityModuleId": "submit-submission"
+            }
+          },
+          {
+            "controlId": "category-select",
+            "inputId": "submission-category",
+            "statePath": "form.submission-category",
+            "requestPath": "request.submission-category",
+            "required": false,
+            "ownership": {
+              "type": "aggregate-section",
+              "scopeId": "submission-scope",
+              "sectionId": "options-section",
+              "regionId": "options-section",
+              "capabilityModuleId": "submit-submission"
+            }
+          },
+          {
+            "controlId": "quantity-input",
+            "inputId": "result-quantity",
+            "statePath": "form.result-quantity",
+            "requestPath": "request.result-quantity",
+            "required": true,
+            "ownership": {
+              "type": "aggregate-section",
+              "scopeId": "submission-scope",
+              "sectionId": "options-section",
+              "regionId": "options-section",
+              "capabilityModuleId": "submit-submission"
+            }
+          }
+        ],
+        "primaryAction": "Create submission",
+        "primaryOperationId": "create-submission-submit-submission",
+        "requiredUiStates": [
+          "idle",
+          "loading",
+          "success",
+          "error"
+        ],
+        "activation": {
+          "type": "existing-control",
+          "visualHint": {
+            "text": "Create submission",
+            "kind": "button"
+          }
+        },
+        "resultSurface": {
+          "region": "result-panel",
+          "dataSource": "operation:create-submission-submit-submission"
+        },
+        "surface": {
+          "type": "same-page-workspace",
+          "requiredRegions": [
+            "result-panel"
+          ],
+          "contentContract": {
+            "heading": "Create submission",
+            "inputIds": [
+              "submission-title",
+              "submission-category",
+              "result-quantity"
+            ],
+            "primaryAction": "Create submission",
+            "primaryOperationId": "create-submission-submit-submission",
+            "emptyState": "No Create submission result is available",
+            "resultContract": {
+              "targetRegion": "result-panel",
+              "bindings": [
+                {
+                  "id": "result-submit-submission",
+                  "responsePath": "response.items",
+                  "element": {
+                    "semantic": "result-item",
+                    "valueSource": "item-value"
+                  },
+                  "cardinality": "many",
+                  "count": {
+                    "mode": "request-field",
+                    "requestPath": "request.result-quantity",
+                    "responsePath": "response.items",
+                    "fixedValueForbidden": true
+                  }
+                }
+              ],
+              "states": {
+                "processing": {
+                  "regionStatus": "processing",
+                  "elementSemantic": "progress-indicator",
+                  "contentRequirement": "region contains a non-result progress affordance"
+                },
+                "success": {
+                  "regionStatus": "success",
+                  "elementSemantic": "bound-result-elements",
+                  "requiresBoundElements": true
+                },
+                "failure": {
+                  "regionStatus": "error",
+                  "elementSemantic": "error-message",
+                  "contentRequirement": "declared operation failure is visible in the target region"
+                }
+              },
+              "runtimeFlow": {
+                "mode": "immediate"
+              },
+              "product": {
+                "type": "submission-items",
+                "quantity": {
+                  "sourceField": "result-quantity"
+                },
+                "lifecycle": [
+                  "processing",
+                  "available",
+                  "failed"
+                ],
+                "downstreamUsage": [
+                  "result presentation",
+                  "history"
+                ]
+              },
+              "evidence": {
+                "status": "documented",
+                "sources": [
+                  "page:submission",
+                  "page-module:submit-submission",
+                  "system-node:submit-node",
+                  "frontend-control:submit-button",
+                  "visual-release:961069a7aa1f6c1f88f6806588230c530095905f80281efd7bacaa4f2310d1ec",
+                  "page-module:identity-section",
+                  "page-module:options-section",
+                  "frontend-result-surface:result-panel"
+                ],
+                "releaseDigest": "961069a7aa1f6c1f88f6806588230c530095905f80281efd7bacaa4f2310d1ec"
+              }
+            }
+          }
+        },
+        "visualHint": {
+          "text": "Create submission",
+          "kind": "button"
+        }
+      },
+      "source": "visual-release:961069a7aa1f6c1f88f6806588230c530095905f80281efd7bacaa4f2310d1ec"
+    },
+    {
+      "capabilityId": "cap-submission-upload-resource",
+      "presentation": {
+        "mode": "reuse-control",
+        "targetPageId": "submission",
+        "triggerControl": {
+          "controlId": "upload-input",
+          "label": "Upload source file"
+        },
+        "fieldBindings": [],
+        "primaryAction": "Upload source file",
+        "primaryOperationId": "upload-submission-upload-resource",
+        "requiredUiStates": [
+          "idle",
+          "loading",
+          "success",
+          "error"
+        ],
+        "visualHint": {
+          "text": "Upload source file",
+          "kind": "input"
+        }
+      },
+      "source": "visual-release:961069a7aa1f6c1f88f6806588230c530095905f80281efd7bacaa4f2310d1ec"
+    },
+    {
+      "capabilityId": "cap-submission-planned-export",
+      "presentation": {
+        "mode": "reuse-control",
+        "targetPageId": "submission",
+        "triggerControl": {
+          "controlId": "planned-export",
+          "label": "External submission review"
+        },
+        "fieldBindings": [],
+        "primaryOperationId": null,
+        "requiredUiStates": [
+          "idle",
+          "planned"
+        ],
+        "visualHint": {
+          "text": "External submission review",
+          "kind": "button"
+        },
+        "behavior": "planned-state",
+        "plannedState": {
+          "title": "External submission review",
+          "message": "功能待实现",
+          "capabilitySpecific": true
+        }
+      },
+      "source": "visual-release:961069a7aa1f6c1f88f6806588230c530095905f80281efd7bacaa4f2310d1ec"
+    }
+  ]
+}

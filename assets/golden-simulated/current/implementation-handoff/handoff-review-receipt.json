@@ -1,12 +1,12 @@
 {
   "schemaVersion": "1.4",
-  "contractVersion": "implementation-handoff/2.2",
-  "trustedReviewerId": "fdd-handoff-reviewer-2.2",
-  "validatorDigest": "22582302b509717a920bba690f8cbad44ae4342045ed2ae9076669e35ee84658",
+  "contractVersion": "implementation-handoff/2.3",
+  "trustedReviewerId": "fdd-handoff-reviewer-2.3",
+  "validatorDigest": "66dd49dee630b26e3f6515db4ff4febf9bac3eb8a349a594b88a0fb0abc5f8e6",
   "status": "approved",
   "authorAgentId": "golden-handoff-author",
   "reviewerAgentId": "golden-handoff-reviewer",
-  "functionalPackageDigest": "de6f7b1c622ef579caef8bd856cb7cd5e57acd3693daaf95af924d709fff069f",
+  "functionalPackageDigest": "5d28d32edfb180e5053c070fa28151cc75a92f6db2ca96320796698ee85dcfcb",
   "visualReleaseDigest": "961069a7aa1f6c1f88f6806588230c530095905f80281efd7bacaa4f2310d1ec",
-  "reviewedAt": "2026-07-27T06:01:33.437Z"
+  "reviewedAt": "2026-07-28T05:36:40.868Z"
 }

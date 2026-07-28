@@ -1,0 +1,85 @@
+{
+  "schemaVersion": "1.0",
+  "releaseDigest": "961069a7aa1f6c1f88f6806588230c530095905f80281efd7bacaa4f2310d1ec",
+  "dispositions": [
+    {
+      "controlId": "submit-button",
+      "pageId": "submission",
+      "disposition": "primary-trigger",
+      "capabilityId": "cap-submission-submit-submission",
+      "operationId": "create-submission-submit-submission",
+      "evidence": {
+        "status": "observed",
+        "sources": [
+          "frontend-page:submission",
+          "frontend-control:submit-button"
+        ]
+      }
+    },
+    {
+      "controlId": "title-input",
+      "pageId": "submission",
+      "disposition": "input",
+      "capabilityId": "cap-submission-submit-submission",
+      "evidence": {
+        "status": "observed",
+        "sources": [
+          "frontend-page:submission",
+          "frontend-control:title-input"
+        ]
+      }
+    },
+    {
+      "controlId": "category-select",
+      "pageId": "submission",
+      "disposition": "input",
+      "capabilityId": "cap-submission-submit-submission",
+      "evidence": {
+        "status": "observed",
+        "sources": [
+          "frontend-page:submission",
+          "frontend-control:category-select"
+        ]
+      }
+    },
+    {
+      "controlId": "quantity-input",
+      "pageId": "submission",
+      "disposition": "input",
+      "capabilityId": "cap-submission-submit-submission",
+      "evidence": {
+        "status": "observed",
+        "sources": [
+          "frontend-page:submission",
+          "frontend-control:quantity-input"
+        ]
+      }
+    },
+    {
+      "controlId": "upload-input",
+      "pageId": "submission",
+      "disposition": "input",
+      "capabilityId": "cap-submission-upload-resource",
+      "evidence": {
+        "status": "observed",
+        "sources": [
+          "frontend-page:submission",
+          "frontend-control:upload-input"
+        ]
+      }
+    },
+    {
+      "controlId": "planned-export",
+      "pageId": "submission",
+      "disposition": "secondary-action",
+      "capabilityId": "cap-submission-planned-export",
+      "evidence": {
+        "status": "observed",
+        "sources": [
+          "frontend-page:submission",
+          "frontend-control:planned-export"
+        ]
+      }
+    }
+  ]
+}

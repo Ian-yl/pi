@@ -3,7 +3,7 @@
   "projectId": "neutral-submission",
   "status": "simulated",
   "verificationLevel": "simulated",
-  "deliveryStatus": "delivered-with-planned-capabilities",
+  "deliveryStatus": "incomplete-planned-capabilities",
   "units": [
     {
       "id": "persistence-entity-submission-resource",

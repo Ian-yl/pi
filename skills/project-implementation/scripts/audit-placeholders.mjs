@@ -10,7 +10,7 @@ const dir = resolve(dirArg);
 const resolution = readJSON(`${dir}/placeholder-resolution.json`);
 const plan = readJSON(`${dir}/implementation-plan.json`);
 const runtime = readJSON(`${dir}/frontend-runtime-report.json`);
-const functionalManifest = existsSync(`${dir}/inputs/functional-manifest.json`) ? readJSON(`${dir}/inputs/functional-manifest.json`) : {}; const assetInventoryRequired = functionalManifest.schemaVersion === '2.2'; const assetInventoryPath = `${dir}/inputs/handoff-asset-role-inventory.json`;
+const functionalManifest = existsSync(`${dir}/inputs/functional-manifest.json`) ? readJSON(`${dir}/inputs/functional-manifest.json`) : {}; const assetInventoryRequired = functionalManifest.schemaVersion === '2.3'; const assetInventoryPath = `${dir}/inputs/handoff-asset-role-inventory.json`;
 const assetInventory = existsSync(assetInventoryPath) ? readJSON(assetInventoryPath) : { assets: [] };
 const allowed = new Set(['replaced-by-api-data', 'replaced-by-user-input', 'converted-to-empty-state', 'retained-as-static-decoration', 'retained-as-explicit-demo-fixture']);
 const errors = [];

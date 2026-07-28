@@ -9,7 +9,7 @@
       "bindingId": "initial-submission",
       "locator": "main",
       "pageId": "submission",
-      "pageUrl": "http://127.0.0.1:49644/submission",
+      "pageUrl": "http://127.0.0.1:63630/submission",
       "mode": "display-only",
       "event": "initial-state",
       "artifacts": [
@@ -22,7 +22,7 @@
       "capabilityId": "cap-submission-upload-resource",
       "bindingId": "binding-cap-submission-upload-resource",
       "locator": "input-cap-submission-upload-resource-body-files",
-      "pageUrl": "http://127.0.0.1:49644/submission",
+      "pageUrl": "http://127.0.0.1:63630/submission",
       "mode": "reuse-control",
       "event": "upload",
       "expectedOutcome": "failure",
@@ -36,7 +36,7 @@
       "capabilityId": "cap-submission-upload-resource",
       "bindingId": "binding-cap-submission-upload-resource",
       "locator": "input-cap-submission-upload-resource-body-files",
-      "pageUrl": "http://127.0.0.1:49644/submission",
+      "pageUrl": "http://127.0.0.1:63630/submission",
       "mode": "reuse-control",
       "event": "upload",
       "artifacts": [
@@ -49,7 +49,7 @@
       "capabilityId": "cap-submission-submit-submission",
       "bindingId": "binding-cap-submission-submit-submission",
       "locator": "control-cap-submission-submit-submission",
-      "pageUrl": "http://127.0.0.1:49644/submission",
+      "pageUrl": "http://127.0.0.1:63630/submission",
       "mode": "reuse-control",
       "event": "click",
       "expectedOutcome": "failure",
@@ -63,7 +63,7 @@
       "capabilityId": "cap-submission-submit-submission",
       "bindingId": "binding-cap-submission-submit-submission",
       "locator": "control-cap-submission-submit-submission",
-      "pageUrl": "http://127.0.0.1:49644/submission",
+      "pageUrl": "http://127.0.0.1:63630/submission",
       "mode": "reuse-control",
       "event": "click",
       "artifacts": [
@@ -76,7 +76,7 @@
       "capabilityId": "cap-submission-planned-export",
       "bindingId": "binding-cap-submission-planned-export",
       "locator": "control-cap-submission-planned-export",
-      "pageUrl": "http://127.0.0.1:49644/submission",
+      "pageUrl": "http://127.0.0.1:63630/submission",
       "mode": "reuse-control",
       "event": "click",
       "artifacts": [

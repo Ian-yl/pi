@@ -9,7 +9,7 @@ if (!args.functional || !args['visual-release'] || !args.output || !args['author
 const functionalDir = resolve(args.functional); const output = resolve(args.output);
 const manifest = readJSON(`${functionalDir}/manifest.json`); const spec = readJSON(`${functionalDir}/functional-spec.json`); const functionalLock = readJSON(`${functionalDir}/package-lock.json`);
 if (manifest.status !== 'approved' || !existsSync(`${functionalDir}/review-receipt.json`)) throw new Error('functional package is not approved');
-if (manifest.schemaVersion !== '2.2') throw new Error('implementation handoff can be built only from functional-domain schema 2.2');
+if (manifest.schemaVersion !== '2.3') throw new Error('implementation handoff can be built only from functional-domain schema 2.3');
 const semanticFiles = ['frontend-semantic-inventory.json', 'observed-interactions.json', 'control-capability-map.json', 'asset-role-inventory.json'];
 const functionalFiles = ['manifest.json', 'planning-manifest.json', 'planning-artifacts.json', 'capability-definitions.json', ...semanticFiles, 'functional-spec.json', 'page-function-map.json', 'unresolved-items.json', 'planning-review-receipt.json', 'review-receipt.json'];
 for (const file of functionalFiles) if (!functionalLock.digests?.[file] || sha(readFileSync(`${functionalDir}/${file}`)) !== functionalLock.digests[file]) throw new Error(`functional package lock mismatch: ${file}`);
@@ -29,7 +29,7 @@ const uiPlan = (spec.capabilities || []).map((capability) => {
 const visualControls = visual.pages.flatMap((pageId) => interactiveControls(visual.inventories[pageId]).map((control) => ({ pageId, ...control })));
 const operations = (spec.capabilities || []).flatMap((capability) => (capability.operations || []).map((operation) => {
   const normalized = { ...operation, capabilityId: capability.id, ruleIds: operation.ruleIds || capability.ruleIds || [] };
-  if (normalized.assetTransfer) throw new Error(`operation ${normalized.id} uses unsupported assetTransfer; schema 2.2 requires resourceTransfer`);
+  if (normalized.assetTransfer) throw new Error(`operation ${normalized.id} uses unsupported assetTransfer; schema 2.3 requires resourceTransfer`);
   return normalized;
 }));
 mkdirSync(output, { recursive: true });
@@ -44,7 +44,7 @@ writeJSON(`${output}/api-contract.json`, { schemaVersion: '1.0', operations });
 writeJSON(`${output}/domain-bindings.json`, { schemaVersion: semanticFiles.length ? '1.1' : '1.0', functionalPackageDigest, capabilityIds: (spec.capabilities || []).map((item) => item.id), completeCapabilityIds: (spec.capabilities || []).filter((item) => item.specificationStatus === 'complete').map((item) => item.id), plannedCapabilityIds: (spec.capabilities || []).filter((item) => item.specificationStatus === 'planned').map((item) => item.id), ruleIds: (spec.rules || []).map((item) => item.id), ...(semanticFiles.length ? { semanticArtifacts: semanticFiles } : {}) });
 writeJSON(`${output}/runtime-contract.json`, { schemaVersion: '1.0', command: spec.runtime?.command || 'npm start', healthUrl: spec.runtime?.healthUrl || 'http://127.0.0.1:${PORT}/health', requiredEnvironment: spec.runtime?.requiredEnvironment || ['PORT'] });
 writeJSON(`${output}/handoff-manifest.json`, { schemaVersion: '1.0', packageType: 'implementation-handoff', status: 'draft', authorAgentId: args['author-agent'], functionalProjectId: manifest.projectId, functionalPackageDigest, visualReleaseDigest: visual.releaseDigest, sourceDirectory: basename(visual.root) });
-if (manifest.schemaVersion === '2.2') {
+if (manifest.schemaVersion === '2.3') {
   const inventory = readJSON(`${functionalDir}/frontend-semantic-inventory.json`);
   const anchorPages = (inventory.pages || []).map((page) => {
     const seen = new Set(); const anchors = [];

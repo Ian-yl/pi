@@ -12,7 +12,8 @@ for (const file of ['import-productforge.mjs', 'scaffold-package.mjs', 'review-p
 for (const file of ['agents/openai.yaml', 'runtime-manifest.json']) if (!existsSync(`${root}/${file}`) || !existsSync(`${skill}/${file}`) || digestFile(`${root}/${file}`) !== digestFile(`${skill}/${file}`)) errors.push(`${file} missing or differs from project source`);
 if (digestTree(`${root}/scripts/lib`) !== digestTree(`${skill}/scripts/lib`)) errors.push('scripts/lib bundle differs from project source');
 if (!existsSync(`${skill}/validators`) || digestTree(`${root}/validators`) !== digestTree(`${skill}/validators`)) errors.push('trusted validator bundle differs from project source');
-const frozen = spawnSync(process.execPath, [`${root}/scripts/freeze-validator.mjs`, '--version', '2.2.5', '--check'], { encoding: 'utf8' }); if (frozen.status !== 0) errors.push(frozen.stderr.trim() || frozen.stdout.trim() || 'current validator snapshot differs from generator output');
+const frozen = spawnSync(process.execPath, [`${root}/scripts/freeze-validator.mjs`, '--version', '2.3.0', '--check'], { encoding: 'utf8' }); if (frozen.status !== 0) errors.push(frozen.stderr.trim() || frozen.stdout.trim() || 'current validator snapshot differs from generator output');
+const frozenHandoff = spawnSync(process.execPath, [`${root}/scripts/freeze-validator.mjs`, '--kind', 'handoff', '--version', '2.3', '--check'], { encoding: 'utf8' }); if (frozenHandoff.status !== 0) errors.push(frozenHandoff.stderr.trim() || frozenHandoff.stdout.trim() || 'current handoff reviewer snapshot differs from generator output');
 if (existsSync(`${skill}/scripts/profiles`)) errors.push('product-specific profiles must not be bundled in the generic Skill');
 if (digestTree(`${root}/references`) !== digestTree(`${skill}/references`)) errors.push('references bundle differs from project source');
 const skillText = existsSync(`${skill}/SKILL.md`) ? readFileSync(`${skill}/SKILL.md`, 'utf8') : '';
