@@ -12,6 +12,8 @@ import { buildResultReviewRequest, resultReviewReceiptFindings } from './lib/cam
 const dirArg = process.argv.slice(2).find((value) => !value.startsWith('--'));
 if (!dirArg) { console.error('Usage: verify-implementation.mjs <implementation-dir>'); process.exit(2); }
 const dir = resolve(dirArg);
+const visualRestorationHandoffPath = `${dir}/visual-restoration-handoff.json`;
+if (existsSync(visualRestorationHandoffPath)) rmSync(visualRestorationHandoffPath);
 const functionalManifestPreview = existsSync(`${dir}/inputs/functional-manifest.json`) ? readJSON(`${dir}/inputs/functional-manifest.json`) : {};
 const handoffManifestPreview = existsSync(`${dir}/inputs/handoff-handoff-manifest.json`) ? readJSON(`${dir}/inputs/handoff-handoff-manifest.json`) : {};
 const inputMode = handoffManifestPreview.inputMode;
@@ -200,7 +202,6 @@ const runtimeEvidenceFiles = requiresFrontendRuntime && existsSync(`${dir}/evide
 const sources = implementationSources();
 const sourceDigests = Object.fromEntries(Object.entries(sources).map(([group, files]) => [group, hashSourceFiles(files)]));
 const visualRestorationHandoff = inputMode === 'design-led' && productStatus === 'implemented' ? 'visual-restoration-handoff.json' : null;
-if (!visualRestorationHandoff && existsSync(`${dir}/visual-restoration-handoff.json`)) rmSync(`${dir}/visual-restoration-handoff.json`);
 if (visualRestorationHandoff) writeFileSync(`${dir}/${visualRestorationHandoff}`, `${JSON.stringify({
   schemaVersion: '1.0',
   packageType: 'visual-restoration-handoff',

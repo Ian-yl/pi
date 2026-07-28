@@ -79,15 +79,16 @@ test('design-led fixture flows from FDD approval through PI verification to the 
   } finally { rmSync(output, { recursive: true, force: true }); }
 });
 
-test('verification removes a stale AR handoff when the workspace is not design-led complete', () => {
+test('verification removes a stale AR handoff before a failing verification exits', () => {
   const source = path.resolve(import.meta.dirname, '../assets/golden-simulated/current/implementation');
   const dir = mkdtempSync(path.join(os.tmpdir(), 'stale-ar-handoff-'));
   try {
     cpSync(source, dir, { recursive: true });
     writeFileSync(`${dir}/visual-restoration-handoff.json`, '{"status":"stale"}\n');
-    rmSync(`${dir}/implementation-lock.json`);
+    rmSync(`${dir}/test-report.json`);
     const result = spawnSync('node', [path.resolve(import.meta.dirname, '../scripts/verify-implementation.mjs'), dir, '--require-level', 'simulated'], { encoding: 'utf8' });
-    assert.equal(result.status, 0, `${result.stdout}${result.stderr}`);
+    assert.notEqual(result.status, 0, `${result.stdout}${result.stderr}`);
+    assert.match(`${result.stdout}${result.stderr}`, /missing test-report.json/);
     assert.equal(existsSync(`${dir}/visual-restoration-handoff.json`), false);
   } finally { rmSync(dir, { recursive: true, force: true }); }
 });
