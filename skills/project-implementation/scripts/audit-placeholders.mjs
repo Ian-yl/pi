@@ -41,7 +41,10 @@ for (const asset of assetInventory.assets || []) {
     if (references.length) errors.push(`business-sample asset remains referenced by implementation or runtime evidence: ${asset.id} (${references.map((item) => item.kind).join(', ')}) — replace it with API data, user input, or the declared empty state`);
     const expected = ({ 'api-data': 'replaced-by-api-data', 'user-input': 'replaced-by-user-input', 'empty-state': 'converted-to-empty-state' })[asset.requiredReplacement];
     if (resolutionItem.resolution !== expected) errors.push(`business-sample asset does not use its required replacement: ${asset.id}`);
-  } else if (asset.role === 'decorative' && !scannedDigests.has(asset.digest)) errors.push(`decorative asset was removed or changed instead of being preserved: ${asset.id}`);
+  } else if (asset.role === 'decorative') {
+    const virtual = ['remote-url', 'data-uri'].includes(asset.sourceType);
+    if ((!virtual && !scannedDigests.has(asset.digest)) || (virtual && !assetReferenceFindings(scannedFiles, runtime, asset).length)) errors.push(`decorative asset was removed or changed instead of being preserved: ${asset.id}`);
+  }
 }
 if (errors.length) { console.error(errors.map((item) => `- ${item}`).join('\n')); process.exit(1); }
 const digest = createHash('sha256').update(readFileSync(`${dir}/placeholder-resolution.json`)).digest('hex');

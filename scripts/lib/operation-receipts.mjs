@@ -51,7 +51,13 @@ function thenSatisfied(operation, assertion, event) {
   const name = String(assertion?.assertion || '');
   if (name.startsWith('response.')) { const value = getPath(event.response?.body, name.slice('response.'.length)); if (Object.hasOwn(assertion, 'equals')) return deepEqual(value, assertion.equals); if (assertion.matches === true) return presentNonEmpty(value); return true; }
   if (name === 'declared-output-schema' && assertion.matches === true) return schemaFindings(event.response?.body, operation.response?.bodySchema || operation.response?.schema, 'response.body').length === 0;
-  return true;
+  if (name === 'declared-ui-state' || name.startsWith('quality.') || name.startsWith('effect.')) {
+    if (!event.assertions || !Object.hasOwn(event.assertions, name)) return false;
+    const value = event.assertions[name];
+    if (Object.hasOwn(assertion, 'equals')) return deepEqual(value, assertion.equals);
+    if (assertion.matches === true) return presentNonEmpty(value);
+  }
+  return false;
 }
 function requestFieldValue(request, field) { for (const location of ['body', 'path', 'query', 'header']) { const container = request?.[location]; if (container && typeof container === 'object' && Object.hasOwn(container, field)) return container[field]; } return getPath(request?.body, field); }
 function presentNonEmpty(value) { return value !== undefined && value !== null && value !== '' && !(Array.isArray(value) && value.length === 0); }

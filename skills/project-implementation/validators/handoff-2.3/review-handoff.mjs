@@ -40,7 +40,8 @@ for (const capabilityId of capabilityIds) {
   if (capability.specificationStatus === 'planned' && (coreCapabilityIds.has(capabilityId) || capability.deliveryPolicy?.requiredForCompletion === true)) errors.push(`core capability ${capabilityId} cannot remain planned in an approved handoff`);
   if (semanticFiles.length && presentation?.mode !== 'headless' && !mapping) errors.push(`capability ${capabilityId} has no locked control mapping`);
   if (presentation?.primaryOperationId && !(capability.operations || []).some((operation) => operation.id === presentation.primaryOperationId)) errors.push(`capability ${capabilityId} primary operation is absent`);
-  if (capability.resultPresentation && JSON.stringify(presentation?.surface?.contentContract?.resultContract) !== JSON.stringify(capability.resultPresentation)) errors.push(`capability ${capabilityId} result presentation contract was not preserved in the handoff`);
+  const destination = capability.closure?.resultDestination; const expectedResult = capability.specificationStatus === 'complete' ? capability.resultPresentation || (destination?.targetKind === 'region' ? { targetRegion: destination.targetRegion, bindings: destination.bindings, states: destination.states, runtimeFlow: destination.runtimeFlow } : null) : null;
+  if (expectedResult && JSON.stringify(presentation?.surface?.contentContract?.resultContract) !== JSON.stringify(expectedResult)) errors.push(`capability ${capabilityId} result presentation contract was not preserved in the handoff`);
 }
 for (const capabilityId of planned.keys()) if (!capabilityIds.has(capabilityId)) errors.push(`UI implementation plan references unknown capability ${capabilityId}`);
 const operationIds = new Set((api.operations || []).map((item) => item.id)); if (operationIds.size !== (api.operations || []).length) errors.push('API contract contains duplicate operation IDs');

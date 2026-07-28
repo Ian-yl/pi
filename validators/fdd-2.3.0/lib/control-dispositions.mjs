@@ -41,13 +41,26 @@ export function controlDispositionFindings(ledgerDoc, spec, inventory, controlMa
       // A main button is never a navigation or history control.
       if (navControl) findings.push(`primary-trigger control ${key} is a navigation or history control and cannot submit a business operation`);
       // The trigger is mirrored in control-capability-map (the handoff-facing artifact PI consumes).
-      if (!(controlMap?.mappings || []).some((item) => item.capabilityId === entry.capabilityId && item.controlId === entry.controlId)) findings.push(`primary-trigger control ${key} is not mirrored in control-capability-map for capability ${entry.capabilityId}`);
+      if (!(controlMap?.mappings || []).some((item) => item.capabilityId === entry.capabilityId && item.controlId === entry.controlId && item.primaryOperationId === entry.operationId)) findings.push(`primary-trigger control ${key} is not mirrored with the same operation in control-capability-map for capability ${entry.capabilityId}`);
     } else if (entry.disposition === 'input') {
-      if (!capabilities.get(entry.capabilityId)) findings.push(`input control ${key} names an unknown capability: ${entry.capabilityId}`);
+      const capability = capabilities.get(entry.capabilityId);
+      if (!capability) findings.push(`input control ${key} names an unknown capability: ${entry.capabilityId}`);
       if (entry.operationId) findings.push(`input control ${key} must not name an operation`);
+      if (capability) {
+        const bindings = (controlMap?.mappings || []).filter((mapping) => mapping.capabilityId === entry.capabilityId).flatMap((mapping) => (mapping.fieldBindings || []).filter((binding) => binding.controlId === entry.controlId));
+        if (bindings.length !== 1) findings.push(`input control ${key} must have exactly one field binding in control-capability-map for capability ${entry.capabilityId}`);
+        else {
+          const binding = bindings[0];
+          const operation = (capability.operations || []).find((item) => item.id === binding.operationId);
+          if (!operation) findings.push(`input control ${key} field binding names an operation that is not on capability ${entry.capabilityId}: ${binding.operationId}`);
+          if (!binding.inputId || !binding.statePath || !binding.requestPath) findings.push(`input control ${key} field binding lacks inputId, statePath, or requestPath`);
+          else if (operation && !requestPaths(operation.request).has(binding.requestPath)) findings.push(`input control ${key} field binding request path is absent from operation ${binding.operationId}: ${binding.requestPath}`);
+        }
+      }
     } else if (entry.disposition === 'secondary-action') {
-      if (!capabilities.get(entry.capabilityId)) findings.push(`secondary-action control ${key} names an unknown capability: ${entry.capabilityId}`);
-      if (entry.operationId) { if (!operationsById.has(entry.operationId)) findings.push(`secondary-action control ${key} names an unknown operation: ${entry.operationId}`); else triggeredOperations.add(entry.operationId); }
+      const capability = capabilities.get(entry.capabilityId);
+      if (!capability) findings.push(`secondary-action control ${key} names an unknown capability: ${entry.capabilityId}`);
+      if (entry.operationId) { if (!(capability?.operations || []).some((item) => item.id === entry.operationId)) findings.push(`secondary-action control ${key} names an operation that is not on capability ${entry.capabilityId}: ${entry.operationId}`); else triggeredOperations.add(entry.operationId); }
     } else if (entry.disposition === 'navigation' || entry.disposition === 'presentation-only') {
       if (entry.capabilityId || entry.operationId) findings.push(`${entry.disposition} control ${key} must not bind a capability or operation (a navigation control can never carry a state-writing operation)`);
     } else if (entry.disposition === 'ignored-with-reason') {
@@ -69,4 +82,15 @@ export function controlDispositionFindings(ledgerDoc, spec, inventory, controlMa
     else if (!String(trigger.reason || '').trim()) findings.push(`operation ${operationId} ${trigger.kind} trigger lacks a reason`);
   }
   return findings;
+}
+
+function requestPaths(request = {}) {
+  const paths = new Set();
+  for (const [location, schema] of [['path', request.pathSchema], ['query', request.querySchema], ['header', request.headerSchema], ['body', request.bodySchema]]) for (const path of schemaPaths(schema)) paths.add(`${location}.${path}`);
+  return paths;
+}
+function schemaPaths(schema, prefix = '') {
+  if (!schema || typeof schema !== 'object') return [];
+  if (schema.type === 'object') return Object.entries(schema.properties || {}).flatMap(([key, value]) => schemaPaths(value, prefix ? `${prefix}.${key}` : key));
+  return prefix ? [prefix] : [];
 }

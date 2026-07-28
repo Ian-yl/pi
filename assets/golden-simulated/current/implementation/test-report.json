@@ -1,6 +1,6 @@
 {
   "schemaVersion": "1.0",
-  "generatedAt": "2026-07-28T05:36:43.010Z",
+  "generatedAt": "2026-07-28T06:31:24.080Z",
   "cases": [
     {
       "id": "backend-contract-tests",
@@ -314,6 +314,42 @@
       "status": "passed",
       "unitIds": [
         "presentation-cap-submission-upload-resource"
+      ],
+      "evidence": [
+        "frontend-runtime-report.json",
+        "browser-e2e-report.json",
+        "placeholder-audit-report.json"
+      ]
+    },
+    {
+      "id": "runtime-activation-cap-submission-upload-resource",
+      "status": "passed",
+      "unitIds": [
+        "activation-cap-submission-upload-resource"
+      ],
+      "evidence": [
+        "frontend-runtime-report.json",
+        "browser-e2e-report.json",
+        "placeholder-audit-report.json"
+      ]
+    },
+    {
+      "id": "runtime-surface-cap-submission-upload-resource",
+      "status": "passed",
+      "unitIds": [
+        "surface-cap-submission-upload-resource"
+      ],
+      "evidence": [
+        "frontend-runtime-report.json",
+        "browser-e2e-report.json",
+        "placeholder-audit-report.json"
+      ]
+    },
+    {
+      "id": "runtime-result-presentation-cap-submission-upload-resource",
+      "status": "passed",
+      "unitIds": [
+        "result-presentation-cap-submission-upload-resource"
       ],
       "evidence": [
         "frontend-runtime-report.json",

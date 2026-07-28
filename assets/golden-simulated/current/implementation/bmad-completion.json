@@ -273,9 +273,63 @@
       }
     },
     {
-      "unitId": "interaction-cap-submission-upload-resource",
+      "unitId": "activation-cap-submission-upload-resource",
       "storyId": "1.16",
-      "storyDigest": "f75296dc983ba8b1a16db90d651d7e9ccfb5a6b2bc59595691ebfb251f56bb7e",
+      "storyDigest": "7f592b17f906fc0447844a73e82353e4d8519884c07f85ed42f337473df89c10",
+      "devStory": {
+        "status": "completed",
+        "agentId": "golden-dev",
+        "completedAt": "2026-01-01T00:00:00.000Z",
+        "changedFiles": [
+          "web/pages/submission/index.html"
+        ]
+      },
+      "codeReview": {
+        "status": "approved",
+        "reviewerAgentId": "golden-reviewer",
+        "reviewedAt": "2026-01-01T00:01:00.000Z"
+      }
+    },
+    {
+      "unitId": "surface-cap-submission-upload-resource",
+      "storyId": "1.17",
+      "storyDigest": "351077896e3243e221222e63e592a9ddae3c59a01563c7fa81bf94edf1efd69a",
+      "devStory": {
+        "status": "completed",
+        "agentId": "golden-dev",
+        "completedAt": "2026-01-01T00:00:00.000Z",
+        "changedFiles": [
+          "web/pages/submission/index.html"
+        ]
+      },
+      "codeReview": {
+        "status": "approved",
+        "reviewerAgentId": "golden-reviewer",
+        "reviewedAt": "2026-01-01T00:01:00.000Z"
+      }
+    },
+    {
+      "unitId": "result-presentation-cap-submission-upload-resource",
+      "storyId": "1.18",
+      "storyDigest": "eab0880994ecc2d9b6d940cd9ca47cd42e71b11ee682df98715550777a4f36c0",
+      "devStory": {
+        "status": "completed",
+        "agentId": "golden-dev",
+        "completedAt": "2026-01-01T00:00:00.000Z",
+        "changedFiles": [
+          "web/pages/submission/index.html"
+        ]
+      },
+      "codeReview": {
+        "status": "approved",
+        "reviewerAgentId": "golden-reviewer",
+        "reviewedAt": "2026-01-01T00:01:00.000Z"
+      }
+    },
+    {
+      "unitId": "interaction-cap-submission-upload-resource",
+      "storyId": "1.19",
+      "storyDigest": "ddbf92e5c828fea51a873c9c9e34cb75ad7b73cd110abd9f7381298dc6175191",
       "devStory": {
         "status": "completed",
         "agentId": "golden-dev",
@@ -292,8 +346,8 @@
     },
     {
       "unitId": "frontend-state-cap-submission-upload-resource",
-      "storyId": "1.17",
-      "storyDigest": "8e358938d25e3c04c0f890470af439313db27864a0ffc10c8d9077c756883f05",
+      "storyId": "1.20",
+      "storyDigest": "f50aabef4bca91c6d4f65b2ed34edfee1acd0ff65a1003e28d5dc60e61572eb2",
       "devStory": {
         "status": "completed",
         "agentId": "golden-dev",
@@ -310,8 +364,8 @@
     },
     {
       "unitId": "frontend-data-cap-submission-upload-resource",
-      "storyId": "1.18",
-      "storyDigest": "439397433f772a8f54629aeec6cea89ab50737d03fb777ab62ba6203308ec546",
+      "storyId": "1.21",
+      "storyDigest": "4c4c24f1c801f892bdd61ab3e887b1c11dbf8104b584b98cef4d0cc18f4e7db2",
       "devStory": {
         "status": "completed",
         "agentId": "golden-dev",
@@ -328,8 +382,8 @@
     },
     {
       "unitId": "planned-capability-cap-submission-planned-export",
-      "storyId": "1.19",
-      "storyDigest": "15b0edfcfcdaf98057dadda6c10f969ed83374205710636808abd0339725d1b4",
+      "storyId": "1.22",
+      "storyDigest": "5b9c2f526cb6a98ef529a2975255100475119808c8dfaf0f1a52ef114e6cf9d3",
       "devStory": {
         "status": "completed",
         "agentId": "golden-dev",
@@ -346,8 +400,8 @@
     },
     {
       "unitId": "rule-rule-cap-submission-submit-submission",
-      "storyId": "1.20",
-      "storyDigest": "232faeaff934b762a4805f3d0a16edf2e0aa9ec346a0054fdfdfb95eaf49f31a",
+      "storyId": "1.23",
+      "storyDigest": "2959bec04a60a2ae68727276311755057998b64901cdf0f9ba50e466ddf1e374",
       "devStory": {
         "status": "completed",
         "agentId": "golden-dev",
@@ -364,8 +418,8 @@
     },
     {
       "unitId": "rule-rule-cap-submission-upload-resource",
-      "storyId": "1.21",
-      "storyDigest": "e9fe6aa9eaf6c2d073d12bdc586930a90389962ba6f173c42e3b8184d69ad629",
+      "storyId": "1.24",
+      "storyDigest": "4e417d8c101c2a17041a2a97b1ee180c32516011fc06028d6656974bc3bf39e3",
       "devStory": {
         "status": "completed",
         "agentId": "golden-dev",
@@ -382,8 +436,8 @@
     },
     {
       "unitId": "operation-create-submission-submit-submission",
-      "storyId": "1.22",
-      "storyDigest": "5311efad5bef55d2a9e0fd7fd83affe67d9e2ad39c933411eb161f0ed43dd77c",
+      "storyId": "1.25",
+      "storyDigest": "e17a2a5c5f9afaadb206437f3a00f7864f10b2f3030c057ec6005f9b26113759",
       "devStory": {
         "status": "completed",
         "agentId": "golden-dev",
@@ -400,8 +454,8 @@
     },
     {
       "unitId": "data-dependency-create-submission-submit-submission",
-      "storyId": "1.23",
-      "storyDigest": "2f26e8046ea684e12a0668f7a1af10c508719cc1ae2d875ed841c1cb3e817878",
+      "storyId": "1.26",
+      "storyDigest": "af4d099c410c44acf75381c46d934f1352ab4aa627c297ac931f5bc683f2ceb9",
       "devStory": {
         "status": "completed",
         "agentId": "golden-dev",
@@ -418,8 +472,8 @@
     },
     {
       "unitId": "integration-binding-create-submission-submit-submission",
-      "storyId": "1.24",
-      "storyDigest": "7893f64d6a64ff387229ed347b2a2b1284623303565ef7a4f19ae9f283d4fa0e",
+      "storyId": "1.27",
+      "storyDigest": "68f6ca3ade6d87983714ca0360af253fd2bf66e5c2e226b42e105e8fb25248a6",
       "devStory": {
         "status": "completed",
         "agentId": "golden-dev",
@@ -436,8 +490,8 @@
     },
     {
       "unitId": "external-effect-create-submission-submit-submission",
-      "storyId": "1.25",
-      "storyDigest": "9fd2a5d159b6f7fa84088f31fca99f56f8ee2e67c06a15e27c059179d397c17e",
+      "storyId": "1.28",
+      "storyDigest": "312383cb4ec446584a91590aee7052f0ca3f8dbe68f34f1caca6cc5701764dca",
       "devStory": {
         "status": "completed",
         "agentId": "golden-dev",
@@ -454,8 +508,8 @@
     },
     {
       "unitId": "operation-upload-submission-upload-resource",
-      "storyId": "1.26",
-      "storyDigest": "7753b6d3112de95cc753e58821787129e6832dc52f0f84f54058242c79ab0c42",
+      "storyId": "1.29",
+      "storyDigest": "061097acbe99ec26867d93e8372bb44a671e5db2d10b95403d999028611bfcbb",
       "devStory": {
         "status": "completed",
         "agentId": "golden-dev",
@@ -472,8 +526,8 @@
     },
     {
       "unitId": "resource-transfer-upload-submission-upload-resource",
-      "storyId": "1.27",
-      "storyDigest": "09b8916cf59262bfd16a4fb697d41c3a54a8891c38647b4b93f1774f01a1a0aa",
+      "storyId": "1.30",
+      "storyDigest": "7629ce8e098b5f02ee4a9d18e4671360e5d06d4c8e93ac98c566f6f0a5aee13f",
       "devStory": {
         "status": "completed",
         "agentId": "golden-dev",
@@ -490,8 +544,8 @@
     },
     {
       "unitId": "resource-validation-upload-submission-upload-resource",
-      "storyId": "1.28",
-      "storyDigest": "03fdd9890e6f4bf52b9ad1169da5076e6f395b53439da0f338c5c9253ef952f9",
+      "storyId": "1.31",
+      "storyDigest": "a5cdbaceec9fedc1887d04735983d19756c4b132be7271760a152226551105d0",
       "devStory": {
         "status": "completed",
         "agentId": "golden-dev",
@@ -508,8 +562,8 @@
     },
     {
       "unitId": "resource-persistence-upload-submission-upload-resource",
-      "storyId": "1.29",
-      "storyDigest": "412ff11257f1032830ad91f10a20c88c064ae3b636e26295448471ad48572eb7",
+      "storyId": "1.32",
+      "storyDigest": "d4df0ee0ba28212a4d850aa3203e99232ae8946a27c11b7e90fe770bb691dc3f",
       "devStory": {
         "status": "completed",
         "agentId": "golden-dev",
@@ -526,8 +580,8 @@
     },
     {
       "unitId": "journey-journey-submission",
-      "storyId": "1.30",
-      "storyDigest": "5c8d01a7ff4e3694140efffca1b34034da7a5a066bb87723baa9a64987d4a7e0",
+      "storyId": "1.33",
+      "storyDigest": "f80af1e9ba312052d7b40e475aa8cf517595a1d4b48bdf931870506368bc7477",
       "devStory": {
         "status": "completed",
         "agentId": "golden-dev",

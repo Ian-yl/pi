@@ -41,12 +41,13 @@
         "binding-cap-submission-upload-resource-upload-submission-upload-resource-command",
         "binding-cap-submission-upload-resource-upload-submission-upload-resource-response-assetids",
         "binding-cap-submission-upload-resource-upload-submission-upload-resource-response-assets",
+        "binding-cap-submission-upload-resource-result-binding-cap-submission-upload-resource-assetids",
         "binding-cap-submission-upload-resource-state-loading",
         "binding-cap-submission-upload-resource-state-success",
         "binding-cap-submission-upload-resource-state-failure",
         "binding-cap-submission-upload-resource-state-empty"
       ],
-      "resultTarget": null
+      "resultTarget": "upload-panel"
     },
     {
       "pageId": "submission",

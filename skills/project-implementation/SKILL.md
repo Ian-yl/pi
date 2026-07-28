@@ -31,7 +31,7 @@ description: Implement and verify a complete project from an approved functional
    ```bash
    node <skill-dir>/scripts/verify-implementation.mjs <implementation-workspace> --require-level integrated
    ```
-   Only the formal Schema 2.2 FDD and handoff path is supported.
+   Only the formal Schema 2.3 FDD and handoff path is supported.
 
 ## Judgment Rules
 

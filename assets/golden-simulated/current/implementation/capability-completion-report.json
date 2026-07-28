@@ -35,6 +35,9 @@
       "unitIds": [
         "capability-cap-submission-upload-resource",
         "presentation-cap-submission-upload-resource",
+        "activation-cap-submission-upload-resource",
+        "surface-cap-submission-upload-resource",
+        "result-presentation-cap-submission-upload-resource",
         "interaction-cap-submission-upload-resource",
         "frontend-state-cap-submission-upload-resource",
         "frontend-data-cap-submission-upload-resource",

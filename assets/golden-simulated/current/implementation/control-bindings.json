@@ -21,7 +21,7 @@
       "runtimeEvidenceId": "browser-upload",
       "source": {
         "path": "web/pages/submission/index.html",
-        "locator": "input-cap-submission-upload-resource-body-files"
+        "locator": "upload-input"
       }
     },
     {

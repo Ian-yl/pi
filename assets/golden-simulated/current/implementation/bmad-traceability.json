@@ -269,26 +269,81 @@
       "status": "ready-for-dev"
     },
     {
-      "unitId": "interaction-cap-submission-upload-resource",
+      "unitId": "activation-cap-submission-upload-resource",
       "storyId": "1.16",
-      "storyPath": "implementation-artifacts/stories/1.16-interaction-cap-submission-upload-resource.md",
+      "storyPath": "implementation-artifacts/stories/1.16-activation-cap-submission-upload-resource.md",
+      "contract": {
+        "unitId": "activation-cap-submission-upload-resource",
+        "type": "ui-activation",
+        "dependsOn": [
+          "presentation-cap-submission-upload-resource"
+        ],
+        "acceptance": [
+          "browser activation sets the declared active capability",
+          "development planned state is explicit and final completion is implemented"
+        ]
+      },
+      "contractDigest": "1b65c3e62c64ee7f3f542020d8a0ab00e5c3b244b34122d832c5c3fb49460f20",
+      "status": "ready-for-dev"
+    },
+    {
+      "unitId": "surface-cap-submission-upload-resource",
+      "storyId": "1.17",
+      "storyPath": "implementation-artifacts/stories/1.17-surface-cap-submission-upload-resource.md",
+      "contract": {
+        "unitId": "surface-cap-submission-upload-resource",
+        "type": "ui-surface",
+        "dependsOn": [
+          "activation-cap-submission-upload-resource"
+        ],
+        "acceptance": [
+          "runtime content fingerprint matches the domain surface contract",
+          "workspace content, inputs, operation, empty state, and results belong to the active capability"
+        ]
+      },
+      "contractDigest": "9e694382282f461c6ec2af38630754a3f08564a6afe6500023d407f8a61661fd",
+      "status": "ready-for-dev"
+    },
+    {
+      "unitId": "result-presentation-cap-submission-upload-resource",
+      "storyId": "1.18",
+      "storyPath": "implementation-artifacts/stories/1.18-result-presentation-cap-submission-upload-resource.md",
+      "contract": {
+        "unitId": "result-presentation-cap-submission-upload-resource",
+        "type": "ui-result-presentation",
+        "dependsOn": [
+          "interaction-cap-submission-upload-resource"
+        ],
+        "acceptance": [
+          "the successful operation response is rendered in the declared semantic region",
+          "rendered element values and cardinality match the runtime response",
+          "processing, success, and failure region states are observable without pixel assertions"
+        ]
+      },
+      "contractDigest": "c6e1e300f6e3f8e8cbaaea5c6bff777d705c81358d34635bc4cbf0f701b55bb1",
+      "status": "ready-for-dev"
+    },
+    {
+      "unitId": "interaction-cap-submission-upload-resource",
+      "storyId": "1.19",
+      "storyPath": "implementation-artifacts/stories/1.19-interaction-cap-submission-upload-resource.md",
       "contract": {
         "unitId": "interaction-cap-submission-upload-resource",
         "type": "ui-interaction",
         "dependsOn": [
-          "presentation-cap-submission-upload-resource"
+          "surface-cap-submission-upload-resource"
         ],
         "acceptance": [
           "runtime event produces the declared server request or client state change"
         ]
       },
-      "contractDigest": "7cfbeb6da81197775aa56c88283ac6f9091dbb22d0d0858dfaca3d7da0c83774",
+      "contractDigest": "40cc05aeca36b56c6dc70da56d83ce1a26b96e09eb421dd43194e4717377d575",
       "status": "ready-for-dev"
     },
     {
       "unitId": "frontend-state-cap-submission-upload-resource",
-      "storyId": "1.17",
-      "storyPath": "implementation-artifacts/stories/1.17-frontend-state-cap-submission-upload-resource.md",
+      "storyId": "1.20",
+      "storyPath": "implementation-artifacts/stories/1.20-frontend-state-cap-submission-upload-resource.md",
       "contract": {
         "unitId": "frontend-state-cap-submission-upload-resource",
         "type": "ui-state",
@@ -304,8 +359,8 @@
     },
     {
       "unitId": "frontend-data-cap-submission-upload-resource",
-      "storyId": "1.18",
-      "storyPath": "implementation-artifacts/stories/1.18-frontend-data-cap-submission-upload-resource.md",
+      "storyId": "1.21",
+      "storyPath": "implementation-artifacts/stories/1.21-frontend-data-cap-submission-upload-resource.md",
       "contract": {
         "unitId": "frontend-data-cap-submission-upload-resource",
         "type": "ui-data",
@@ -322,8 +377,8 @@
     },
     {
       "unitId": "planned-capability-cap-submission-planned-export",
-      "storyId": "1.19",
-      "storyPath": "implementation-artifacts/stories/1.19-planned-capability-cap-submission-planned-export.md",
+      "storyId": "1.22",
+      "storyPath": "implementation-artifacts/stories/1.22-planned-capability-cap-submission-planned-export.md",
       "contract": {
         "unitId": "planned-capability-cap-submission-planned-export",
         "type": "ui-planned-state",
@@ -340,8 +395,8 @@
     },
     {
       "unitId": "rule-rule-cap-submission-submit-submission",
-      "storyId": "1.20",
-      "storyPath": "implementation-artifacts/stories/1.20-rule-rule-cap-submission-submit-submission.md",
+      "storyId": "1.23",
+      "storyPath": "implementation-artifacts/stories/1.23-rule-rule-cap-submission-submit-submission.md",
       "contract": {
         "unitId": "rule-rule-cap-submission-submit-submission",
         "type": "rule",
@@ -363,8 +418,8 @@
     },
     {
       "unitId": "rule-rule-cap-submission-upload-resource",
-      "storyId": "1.21",
-      "storyPath": "implementation-artifacts/stories/1.21-rule-rule-cap-submission-upload-resource.md",
+      "storyId": "1.24",
+      "storyPath": "implementation-artifacts/stories/1.24-rule-rule-cap-submission-upload-resource.md",
       "contract": {
         "unitId": "rule-rule-cap-submission-upload-resource",
         "type": "rule",
@@ -387,8 +442,8 @@
     },
     {
       "unitId": "operation-create-submission-submit-submission",
-      "storyId": "1.22",
-      "storyPath": "implementation-artifacts/stories/1.22-operation-create-submission-submit-submission.md",
+      "storyId": "1.25",
+      "storyPath": "implementation-artifacts/stories/1.25-operation-create-submission-submit-submission.md",
       "contract": {
         "unitId": "operation-create-submission-submit-submission",
         "type": "api",
@@ -407,8 +462,8 @@
     },
     {
       "unitId": "data-dependency-create-submission-submit-submission",
-      "storyId": "1.23",
-      "storyPath": "implementation-artifacts/stories/1.23-data-dependency-create-submission-submit-submission.md",
+      "storyId": "1.26",
+      "storyPath": "implementation-artifacts/stories/1.26-data-dependency-create-submission-submit-submission.md",
       "contract": {
         "unitId": "data-dependency-create-submission-submit-submission",
         "type": "cross-operation-data-flow",
@@ -426,8 +481,8 @@
     },
     {
       "unitId": "integration-binding-create-submission-submit-submission",
-      "storyId": "1.24",
-      "storyPath": "implementation-artifacts/stories/1.24-integration-binding-create-submission-submit-submission.md",
+      "storyId": "1.27",
+      "storyPath": "implementation-artifacts/stories/1.27-integration-binding-create-submission-submit-submission.md",
       "contract": {
         "unitId": "integration-binding-create-submission-submit-submission",
         "type": "integration-binding",
@@ -444,8 +499,8 @@
     },
     {
       "unitId": "external-effect-create-submission-submit-submission",
-      "storyId": "1.25",
-      "storyPath": "implementation-artifacts/stories/1.25-external-effect-create-submission-submit-submission.md",
+      "storyId": "1.28",
+      "storyPath": "implementation-artifacts/stories/1.28-external-effect-create-submission-submit-submission.md",
       "contract": {
         "unitId": "external-effect-create-submission-submit-submission",
         "type": "external-effect",
@@ -461,8 +516,8 @@
     },
     {
       "unitId": "operation-upload-submission-upload-resource",
-      "storyId": "1.26",
-      "storyPath": "implementation-artifacts/stories/1.26-operation-upload-submission-upload-resource.md",
+      "storyId": "1.29",
+      "storyPath": "implementation-artifacts/stories/1.29-operation-upload-submission-upload-resource.md",
       "contract": {
         "unitId": "operation-upload-submission-upload-resource",
         "type": "api",
@@ -481,8 +536,8 @@
     },
     {
       "unitId": "resource-transfer-upload-submission-upload-resource",
-      "storyId": "1.27",
-      "storyPath": "implementation-artifacts/stories/1.27-resource-transfer-upload-submission-upload-resource.md",
+      "storyId": "1.30",
+      "storyPath": "implementation-artifacts/stories/1.30-resource-transfer-upload-submission-upload-resource.md",
       "contract": {
         "unitId": "resource-transfer-upload-submission-upload-resource",
         "type": "resource-transfer",
@@ -499,8 +554,8 @@
     },
     {
       "unitId": "resource-validation-upload-submission-upload-resource",
-      "storyId": "1.28",
-      "storyPath": "implementation-artifacts/stories/1.28-resource-validation-upload-submission-upload-resource.md",
+      "storyId": "1.31",
+      "storyPath": "implementation-artifacts/stories/1.31-resource-validation-upload-submission-upload-resource.md",
       "contract": {
         "unitId": "resource-validation-upload-submission-upload-resource",
         "type": "resource-validation",
@@ -516,8 +571,8 @@
     },
     {
       "unitId": "resource-persistence-upload-submission-upload-resource",
-      "storyId": "1.29",
-      "storyPath": "implementation-artifacts/stories/1.29-resource-persistence-upload-submission-upload-resource.md",
+      "storyId": "1.32",
+      "storyPath": "implementation-artifacts/stories/1.32-resource-persistence-upload-submission-upload-resource.md",
       "contract": {
         "unitId": "resource-persistence-upload-submission-upload-resource",
         "type": "resource-persistence",
@@ -533,8 +588,8 @@
     },
     {
       "unitId": "journey-journey-submission",
-      "storyId": "1.30",
-      "storyPath": "implementation-artifacts/stories/1.30-journey-journey-submission.md",
+      "storyId": "1.33",
+      "storyPath": "implementation-artifacts/stories/1.33-journey-journey-submission.md",
       "contract": {
         "unitId": "journey-journey-submission",
         "type": "e2e",

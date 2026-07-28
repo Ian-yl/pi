@@ -83,7 +83,11 @@ for (const contract of uiPlan.capabilities || []) {
   }
   if (contract.deliveryPolicy?.requiredForCompletion !== false && !candidates.some((item) => item.observed?.activeCapabilityId === contract.capabilityId && item.observed?.capabilityStatus === 'implemented')) errors.push(`required capability is not active and implemented at runtime: ${contract.capabilityId} — wire its release entry to the implemented workspace`);
   if (candidates.some((item) => item.observed?.capabilityStatus === 'planned' || item.observed?.visibleText?.some?.((text) => /待实现|planned/i.test(text)))) errors.push(`required capability exposes a planned state: ${contract.capabilityId} — implement the approved contract instead of downgrading it`);
-  if (contract.presentation.activation && !candidates.some((item) => item.event === 'click' && item.observed?.activeCapabilityId === contract.capabilityId)) errors.push(`capability activation was not verified by click: ${contract.capabilityId}`);
+  if (contract.presentation.activation) {
+    const primaryOperation = operations.get(contract.presentation.primaryOperationId);
+    const activationEvent = primaryOperation?.resourceTransfer?.interaction === 'file-selection' ? 'upload' : 'click';
+    if (!candidates.some((item) => item.event === activationEvent && item.observed?.activeCapabilityId === contract.capabilityId)) errors.push(`capability activation was not verified by ${activationEvent}: ${contract.capabilityId}`);
+  }
   const expected = contract.presentation.surface?.contentContract;
   if (expected) {
     const actual = candidates.find((item) => item.surfaceFingerprint)?.surfaceFingerprint;

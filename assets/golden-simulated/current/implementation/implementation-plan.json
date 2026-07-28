@@ -5,7 +5,7 @@
   "authority": "approved-functional-domain-only",
   "planningSource": {
     "workflow": "fdd-bmad-planning",
-    "digest": "94a7c3a5b4f692a23b3130310574d4102b3c00dda20725b26e5a528f43d53a57",
+    "digest": "24c02346e506967434bcd8a7c2cf4c9db6b3367cb4f7503395e5aaabf2f78ddf",
     "semanticChangesAllowed": false
   },
   "implementationWorkflow": "pi-implementation-bmad",
@@ -1042,6 +1042,58 @@
         "visualHint": {
           "text": "Upload source file",
           "kind": "input"
+        },
+        "activation": {
+          "type": "existing-control",
+          "visualHint": {
+            "text": "Upload source file",
+            "kind": "input"
+          }
+        },
+        "surface": {
+          "type": "same-page-workspace",
+          "requiredRegions": [
+            "upload-panel"
+          ],
+          "contentContract": {
+            "heading": "Upload source file",
+            "inputIds": [
+              "files"
+            ],
+            "primaryAction": "Upload source file",
+            "primaryOperationId": "upload-submission-upload-resource",
+            "emptyState": "No source file selected",
+            "resultContract": {
+              "targetRegion": "upload-panel",
+              "bindings": [
+                {
+                  "id": "binding-cap-submission-upload-resource-assetIds",
+                  "responsePath": "response.assetIds",
+                  "element": {
+                    "semantic": "result-item"
+                  },
+                  "count": {
+                    "mode": "response-cardinality"
+                  }
+                }
+              ],
+              "states": {
+                "processing": {
+                  "regionStatus": "busy",
+                  "elementSemantic": "progress"
+                },
+                "success": {
+                  "regionStatus": "ready",
+                  "elementSemantic": "result-item",
+                  "requiresBoundElements": true
+                },
+                "failure": {
+                  "regionStatus": "error",
+                  "elementSemantic": "error-message"
+                }
+              }
+            }
+          }
         }
       },
       "dependsOn": [
@@ -1050,6 +1102,136 @@
       "acceptance": [
         "runtime DOM contains one visible presentation binding",
         "functional and visual regression evidence is recorded"
+      ]
+    },
+    {
+      "id": "activation-cap-submission-upload-resource",
+      "type": "ui-activation",
+      "capabilityIds": [
+        "cap-submission-upload-resource"
+      ],
+      "activation": {
+        "type": "existing-control",
+        "visualHint": {
+          "text": "Upload source file",
+          "kind": "input"
+        }
+      },
+      "deliveryPolicy": {
+        "requiredForCompletion": true,
+        "allowedIncompleteState": "planned"
+      },
+      "dependsOn": [
+        "presentation-cap-submission-upload-resource"
+      ],
+      "acceptance": [
+        "browser activation sets the declared active capability",
+        "development planned state is explicit and final completion is implemented"
+      ]
+    },
+    {
+      "id": "surface-cap-submission-upload-resource",
+      "type": "ui-surface",
+      "capabilityIds": [
+        "cap-submission-upload-resource"
+      ],
+      "surface": {
+        "type": "same-page-workspace",
+        "requiredRegions": [
+          "upload-panel"
+        ],
+        "contentContract": {
+          "heading": "Upload source file",
+          "inputIds": [
+            "files"
+          ],
+          "primaryAction": "Upload source file",
+          "primaryOperationId": "upload-submission-upload-resource",
+          "emptyState": "No source file selected",
+          "resultContract": {
+            "targetRegion": "upload-panel",
+            "bindings": [
+              {
+                "id": "binding-cap-submission-upload-resource-assetIds",
+                "responsePath": "response.assetIds",
+                "element": {
+                  "semantic": "result-item"
+                },
+                "count": {
+                  "mode": "response-cardinality"
+                }
+              }
+            ],
+            "states": {
+              "processing": {
+                "regionStatus": "busy",
+                "elementSemantic": "progress"
+              },
+              "success": {
+                "regionStatus": "ready",
+                "elementSemantic": "result-item",
+                "requiresBoundElements": true
+              },
+              "failure": {
+                "regionStatus": "error",
+                "elementSemantic": "error-message"
+              }
+            }
+          }
+        }
+      },
+      "aliasOf": null,
+      "dependsOn": [
+        "activation-cap-submission-upload-resource"
+      ],
+      "acceptance": [
+        "runtime content fingerprint matches the domain surface contract",
+        "workspace content, inputs, operation, empty state, and results belong to the active capability"
+      ]
+    },
+    {
+      "id": "result-presentation-cap-submission-upload-resource",
+      "type": "ui-result-presentation",
+      "capabilityIds": [
+        "cap-submission-upload-resource"
+      ],
+      "resultContract": {
+        "targetRegion": "upload-panel",
+        "bindings": [
+          {
+            "id": "binding-cap-submission-upload-resource-assetIds",
+            "responsePath": "response.assetIds",
+            "element": {
+              "semantic": "result-item"
+            },
+            "count": {
+              "mode": "response-cardinality"
+            }
+          }
+        ],
+        "states": {
+          "processing": {
+            "regionStatus": "busy",
+            "elementSemantic": "progress"
+          },
+          "success": {
+            "regionStatus": "ready",
+            "elementSemantic": "result-item",
+            "requiresBoundElements": true
+          },
+          "failure": {
+            "regionStatus": "error",
+            "elementSemantic": "error-message"
+          }
+        }
+      },
+      "dependsOn": [
+        "interaction-cap-submission-upload-resource"
+      ],
+      "acceptance": [
+        "the successful operation response is rendered in the declared semantic region",
+        "rendered element values and cardinality match the runtime response",
+        "processing, success, and failure region states are observable without pixel assertions"
       ]
     },
     {
@@ -1077,10 +1259,62 @@
         "visualHint": {
           "text": "Upload source file",
           "kind": "input"
+        },
+        "activation": {
+          "type": "existing-control",
+          "visualHint": {
+            "text": "Upload source file",
+            "kind": "input"
+          }
+        },
+        "surface": {
+          "type": "same-page-workspace",
+          "requiredRegions": [
+            "upload-panel"
+          ],
+          "contentContract": {
+            "heading": "Upload source file",
+            "inputIds": [
+              "files"
+            ],
+            "primaryAction": "Upload source file",
+            "primaryOperationId": "upload-submission-upload-resource",
+            "emptyState": "No source file selected",
+            "resultContract": {
+              "targetRegion": "upload-panel",
+              "bindings": [
+                {
+                  "id": "binding-cap-submission-upload-resource-assetIds",
+                  "responsePath": "response.assetIds",
+                  "element": {
+                    "semantic": "result-item"
+                  },
+                  "count": {
+                    "mode": "response-cardinality"
+                  }
+                }
+              ],
+              "states": {
+                "processing": {
+                  "regionStatus": "busy",
+                  "elementSemantic": "progress"
+                },
+                "success": {
+                  "regionStatus": "ready",
+                  "elementSemantic": "result-item",
+                  "requiresBoundElements": true
+                },
+                "failure": {
+                  "regionStatus": "error",
+                  "elementSemantic": "error-message"
+                }
+              }
+            }
+          }
         }
       },
       "dependsOn": [
-        "presentation-cap-submission-upload-resource"
+        "surface-cap-submission-upload-resource"
       ],
       "acceptance": [
         "runtime event produces the declared server request or client state change"
@@ -1111,6 +1345,58 @@
         "visualHint": {
           "text": "Upload source file",
           "kind": "input"
+        },
+        "activation": {
+          "type": "existing-control",
+          "visualHint": {
+            "text": "Upload source file",
+            "kind": "input"
+          }
+        },
+        "surface": {
+          "type": "same-page-workspace",
+          "requiredRegions": [
+            "upload-panel"
+          ],
+          "contentContract": {
+            "heading": "Upload source file",
+            "inputIds": [
+              "files"
+            ],
+            "primaryAction": "Upload source file",
+            "primaryOperationId": "upload-submission-upload-resource",
+            "emptyState": "No source file selected",
+            "resultContract": {
+              "targetRegion": "upload-panel",
+              "bindings": [
+                {
+                  "id": "binding-cap-submission-upload-resource-assetIds",
+                  "responsePath": "response.assetIds",
+                  "element": {
+                    "semantic": "result-item"
+                  },
+                  "count": {
+                    "mode": "response-cardinality"
+                  }
+                }
+              ],
+              "states": {
+                "processing": {
+                  "regionStatus": "busy",
+                  "elementSemantic": "progress"
+                },
+                "success": {
+                  "regionStatus": "ready",
+                  "elementSemantic": "result-item",
+                  "requiresBoundElements": true
+                },
+                "failure": {
+                  "regionStatus": "error",
+                  "elementSemantic": "error-message"
+                }
+              }
+            }
+          }
         }
       },
       "dependsOn": [
@@ -1145,6 +1431,58 @@
         "visualHint": {
           "text": "Upload source file",
           "kind": "input"
+        },
+        "activation": {
+          "type": "existing-control",
+          "visualHint": {
+            "text": "Upload source file",
+            "kind": "input"
+          }
+        },
+        "surface": {
+          "type": "same-page-workspace",
+          "requiredRegions": [
+            "upload-panel"
+          ],
+          "contentContract": {
+            "heading": "Upload source file",
+            "inputIds": [
+              "files"
+            ],
+            "primaryAction": "Upload source file",
+            "primaryOperationId": "upload-submission-upload-resource",
+            "emptyState": "No source file selected",
+            "resultContract": {
+              "targetRegion": "upload-panel",
+              "bindings": [
+                {
+                  "id": "binding-cap-submission-upload-resource-assetIds",
+                  "responsePath": "response.assetIds",
+                  "element": {
+                    "semantic": "result-item"
+                  },
+                  "count": {
+                    "mode": "response-cardinality"
+                  }
+                }
+              ],
+              "states": {
+                "processing": {
+                  "regionStatus": "busy",
+                  "elementSemantic": "progress"
+                },
+                "success": {
+                  "regionStatus": "ready",
+                  "elementSemantic": "result-item",
+                  "requiresBoundElements": true
+                },
+                "failure": {
+                  "regionStatus": "error",
+                  "elementSemantic": "error-message"
+                }
+              }
+            }
+          }
         }
       },
       "dependsOn": [

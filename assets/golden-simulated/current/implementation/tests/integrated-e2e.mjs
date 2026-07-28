@@ -38,12 +38,14 @@ async function run() {
 
   // Provider failure journeys are exercised against the application's isolated local fault endpoints, so
   // they never reach the campaign's concurrency observer.
+  const scenarioOutcomes = { success };
   for (const scenario of ['timeout', 'unavailable']) {
     const outcome = await submit(body, scenario);
     if (outcome.status < 400) throw new Error(`${scenario} scenario did not surface a provider failure (${outcome.status})`);
+    scenarioOutcomes[scenario] = outcome;
   }
 
-  writeStructuredEvidence(body, success, items);
+  writeStructuredEvidence(body, success, items, scenarioOutcomes);
   writeVisualAuditReceipt(items);
   console.log(`integrated-e2e observed ${submitOp.id} with ${items.length} independent provider results`);
 }
@@ -64,16 +66,18 @@ async function upload() {
 
 async function submit(body, scenario) {
   const suffix = scenario ? `?integrationScenario=${scenario}` : '';
-  const response = await fetch(baseUrl + submitOp.path + suffix, { method: 'POST', headers: { 'content-type': 'application/json' }, body: JSON.stringify(body) });
-  return { status: response.status, body: await response.json() };
+  const requestBytes = JSON.stringify(body);
+  const response = await fetch(baseUrl + submitOp.path + suffix, { method: 'POST', headers: { 'content-type': 'application/json' }, body: requestBytes });
+  const responseBytes = await response.text();
+  return { status: response.status, body: JSON.parse(responseBytes), requestDigest: sha(requestBytes), responseDigest: sha(responseBytes) };
 }
 
-function writeStructuredEvidence(body, success, items) {
+function writeStructuredEvidence(body, success, items, scenarioOutcomes) {
   mkdirSync('evidence/integration', { recursive: true });
   writeJSON('evidence/integration/request-success.json', { operationId: submitOp.id, method: submitOp.method, path: submitOp.path, request: { body } });
   writeJSON('evidence/integration/response-success.json', { operationId: submitOp.id, status: success.status, body: success.body });
   writeJSON('evidence/integration/effects.json', { operationId: submitOp.id, effects: (submitOp.effects || []).map((effect) => ({ entityId: effect.entityId, effect: effect.effect, observed: true, before: null, after: { id: success.body.submissionId } })) });
-  for (const scenario of ['success', 'timeout', 'unavailable']) writeJSON(`evidence/integration/scenario-${scenario}.json`, { operationId: submitOp.id, scenario, observed: true });
+  for (const scenario of ['success', 'timeout', 'unavailable']) writeJSON(`evidence/integration/scenario-${scenario}.json`, { operationId: submitOp.id, scenario, observed: true, requestDigest: scenarioOutcomes[scenario].requestDigest, responseDigest: scenarioOutcomes[scenario].responseDigest, responseStatus: scenarioOutcomes[scenario].status });
 
   const assetDigest = sha(JSON.stringify(body[assetField]));
   const dataFlowEvidence = (submitOp.dataDependencies || []).map((dependency) => ({ sourceOperationId: dependency.sourceOperationId, sourceField: dependency.sourceField, targetOperationId: submitOp.id, targetField: dependency.targetField, observed: true, sourceValueDigest: assetDigest, targetValueDigest: assetDigest, runtimeGenerated: true }));

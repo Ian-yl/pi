@@ -195,6 +195,58 @@
         "visualHint": {
           "text": "Upload source file",
           "kind": "input"
+        },
+        "activation": {
+          "type": "existing-control",
+          "visualHint": {
+            "text": "Upload source file",
+            "kind": "input"
+          }
+        },
+        "surface": {
+          "type": "same-page-workspace",
+          "requiredRegions": [
+            "upload-panel"
+          ],
+          "contentContract": {
+            "heading": "Upload source file",
+            "inputIds": [
+              "files"
+            ],
+            "primaryAction": "Upload source file",
+            "primaryOperationId": "upload-submission-upload-resource",
+            "emptyState": "No source file selected",
+            "resultContract": {
+              "targetRegion": "upload-panel",
+              "bindings": [
+                {
+                  "id": "binding-cap-submission-upload-resource-assetIds",
+                  "responsePath": "response.assetIds",
+                  "element": {
+                    "semantic": "result-item"
+                  },
+                  "count": {
+                    "mode": "response-cardinality"
+                  }
+                }
+              ],
+              "states": {
+                "processing": {
+                  "regionStatus": "busy",
+                  "elementSemantic": "progress"
+                },
+                "success": {
+                  "regionStatus": "ready",
+                  "elementSemantic": "result-item",
+                  "requiresBoundElements": true
+                },
+                "failure": {
+                  "regionStatus": "error",
+                  "elementSemantic": "error-message"
+                }
+              }
+            }
+          }
         }
       },
       "deliveryPolicy": {

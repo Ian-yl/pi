@@ -251,6 +251,7 @@ function lockedPackageFiles(lock) {
 }
 function buildFieldBindingPlan() {
   const bindings = [];
+  const authoredFieldBindings = new Map((front['control-capability-map.json']?.mappings || []).flatMap((mapping) => (mapping.fieldBindings || []).map((binding) => [`${mapping.capabilityId}:${binding.operationId}:${normalizeRequestPath(binding.requestPath)}`, binding])));
   for (const capability of capabilities.values()) {
     if (capability.specificationStatus === 'planned') {
       if (capability.presentation?.mode !== 'headless') bindings.push({ id: `binding-${capability.id}-state-planned`, kind: 'planned-state', controlId: `state-${capability.id}-planned`, capabilityId: capability.id, statePath: `capabilities.${capability.id}.states.planned`, operationId: null, requestPath: null, responsePath: null, effectIds: [], required: true });
@@ -263,7 +264,8 @@ function buildFieldBindingPlan() {
       for (const field of requestFields) {
         const dependency = (operation.dataDependencies || []).find((item) => normalizeRequestPath(item.targetField) === normalizeRequestPath(field.path));
         const source = dependency ? 'prior-operation' : field.location === 'body' ? 'user-input' : 'application-state';
-        bindings.push({ id: `binding-${capability.id}-${operation.id}-${slug(field.path)}`, kind: 'input', source, controlId: `input-${capability.id}-${slug(field.path)}`, capabilityId: capability.id, statePath: `capabilities.${capability.id}.inputs.${field.path}`, operationId: operation.id, requestPath: field.path, responsePath: responseFields[0]?.path || null, effectIds, required: field.required, schema: field.schema, ...(dependency ? { sourceOperationId: dependency.sourceOperationId, sourceResponsePath: dependency.sourceField } : {}) });
+        const authored = authoredFieldBindings.get(`${capability.id}:${operation.id}:${normalizeRequestPath(field.path)}`);
+        bindings.push({ id: `binding-${capability.id}-${operation.id}-${slug(field.path)}`, kind: 'input', source, controlId: authored?.controlId || `input-${capability.id}-${slug(field.path)}`, capabilityId: capability.id, statePath: authored?.statePath || `capabilities.${capability.id}.inputs.${field.path}`, operationId: operation.id, requestPath: field.path, responsePath: responseFields[0]?.path || null, effectIds, required: field.required, schema: field.schema, authoredControlBinding: Boolean(authored), ...(dependency ? { sourceOperationId: dependency.sourceOperationId, sourceResponsePath: dependency.sourceField } : {}) });
       }
       bindings.push({ id: `binding-${capability.id}-${operation.id}-command`, kind: 'command', controlId: `command-${capability.id}-${operation.id}`, capabilityId: capability.id, statePath: `capabilities.${capability.id}.status`, operationId: operation.id, requestPath: null, responsePath: responseFields[0]?.path || null, effectIds, required: true });
       for (const field of responseFields) bindings.push({ id: `binding-${capability.id}-${operation.id}-response-${slug(field.path)}`, kind: 'display', controlId: `output-${capability.id}-${slug(field.path)}`, capabilityId: capability.id, statePath: `capabilities.${capability.id}.response.${field.path}`, operationId: operation.id, requestPath: null, responsePath: field.path, effectIds, required: field.required, runtimeValueRequired: functionalSchema === '2.3', elementSemantic: field.schema?.type === 'array' ? 'collection-value' : 'field-value' });

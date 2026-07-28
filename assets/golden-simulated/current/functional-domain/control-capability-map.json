@@ -12,7 +12,8 @@
           "controlId": "title-input",
           "inputId": "submission-title",
           "statePath": "form.submission-title",
-          "requestPath": "request.submission-title",
+          "operationId": "create-submission-submit-submission",
+          "requestPath": "body.submission-title",
           "required": true,
           "ownership": {
             "type": "aggregate-section",
@@ -26,7 +27,8 @@
           "controlId": "category-select",
           "inputId": "submission-category",
           "statePath": "form.submission-category",
-          "requestPath": "request.submission-category",
+          "operationId": "create-submission-submit-submission",
+          "requestPath": "body.submission-category",
           "required": false,
           "ownership": {
             "type": "aggregate-section",
@@ -40,7 +42,8 @@
           "controlId": "quantity-input",
           "inputId": "result-quantity",
           "statePath": "form.result-quantity",
-          "requestPath": "request.result-quantity",
+          "operationId": "create-submission-submit-submission",
+          "requestPath": "body.result-quantity",
           "required": true,
           "ownership": {
             "type": "aggregate-section",
@@ -73,7 +76,16 @@
       "pageId": "submission",
       "controlId": "upload-input",
       "mappingType": "observed-trigger",
-      "fieldBindings": [],
+      "fieldBindings": [
+        {
+          "controlId": "upload-input",
+          "inputId": "files",
+          "statePath": "form.files",
+          "operationId": "upload-submission-upload-resource",
+          "requestPath": "body.files",
+          "required": true
+        }
+      ],
       "primaryOperationId": "upload-submission-upload-resource",
       "evidence": {
         "status": "designed",

@@ -5,6 +5,7 @@ import os from 'node:os';
 import path from 'node:path';
 import { spawnSync } from 'node:child_process';
 import test from 'node:test';
+import { computeOperationReceipts } from '../scripts/lib/operation-receipts.mjs';
 
 const root = path.resolve(import.meta.dirname, '..');
 const source = path.resolve(root, 'assets/golden-simulated/current/implementation');
@@ -14,6 +15,14 @@ const buildReceipts = path.resolve(root, 'scripts/build-operation-receipts.mjs')
 const runBrowser = path.resolve(root, 'scripts/run-browser-e2e.mjs');
 
 // --- Group 2 · anti-scripting guardrails -------------------------------------
+
+test('operation receipts fail closed for an unknown acceptance assertion type', () => {
+  const operation = { id: 'op', method: 'POST', path: '/op', request: { contentType: 'application/json', bodySchema: { type: 'object', required: [], properties: {} } }, response: { bodySchema: { type: 'object', required: ['ok'], properties: { ok: { type: 'boolean' } } } }, errors: [], effects: [], acceptanceExample: { given: {}, then: [{ assertion: 'unregistered-business-claim', matches: true }] } };
+  const raw = { events: [{ id: 'event', operationId: 'op', request: { method: 'POST', route: '/op', contentType: 'application/json', body: {} }, response: { status: 200, body: { ok: true } }, authorization: { checked: true } }] };
+  const receipt = computeOperationReceipts({ operations: [operation] }, raw, JSON.stringify(raw)).receipts[0];
+  assert.equal(receipt.status, 'failed');
+  assert.match(receipt.findings.join('\n'), /acceptance example is not proven/);
+});
 
 test('gate A rejects schema-shaped operation events that skip the acceptance example', () => {
   const dir = copyGolden('gate-a-schema-shape');

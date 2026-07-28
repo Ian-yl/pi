@@ -19,7 +19,6 @@ const planningArtifacts = read('planning-artifacts.json');
 const definitions = read('capability-definitions.json');
 const designManifest = read('design-manifest.json');
 const schema23 = manifest.schemaVersion === '2.3';
-const semanticMode = false;
 const SCHEMA_23_SEMANTIC_FILES = ['frontend-semantic-inventory.json', 'observed-interactions.json', 'control-capability-map.json', 'asset-role-inventory.json'];
 const assetRoleMode = schema23;
 const frontendInventory = schema23 ? read('frontend-semantic-inventory.json') : {};
@@ -39,53 +38,37 @@ if (schema23 && JSON.stringify(manifest.semanticArtifacts) !== JSON.stringify(SC
 if (planningManifest.packageType !== 'fdd-bmad-planning' || planningArtifacts.method !== 'bmad-planning') findings.push('FDD BMAD planning artifacts are invalid');
 if (!designManifest.images?.length || !planningManifest.inputDigests?.designs || !planningManifest.synthesisInputDigest) findings.push('finalized design input is absent or not bound to FDD planning');
 for (const group of ['capabilities', 'entities', 'valueObjects', 'relationships', 'consistencyBoundaries', 'journeys', 'rules', 'permissions', 'integrations']) if (JSON.stringify(definitions[group] || []) !== JSON.stringify(spec[group] || [])) findings.push(`planning capability definitions differ from formal domain: ${group}`);
-if (semanticMode && (!frontendInventory.pages?.length || !frontendInventory.sourceSummary?.length || observedInteractions.releaseDigest !== frontendInventory.release?.releaseDigest || controlMap.releaseDigest !== frontendInventory.release?.releaseDigest)) findings.push('frontend release semantics were not fully extracted and release-bound');
+if (!frontendInventory.pages?.length || !frontendInventory.sourceSummary?.length || observedInteractions.releaseDigest !== frontendInventory.release?.releaseDigest || controlMap.releaseDigest !== frontendInventory.release?.releaseDigest) findings.push('frontend release semantics were not fully extracted and release-bound');
 if (assetRoleMode && (assetInventory.releaseDigest !== frontendInventory.release?.releaseDigest || !Array.isArray(assetInventory.assets))) findings.push('asset role inventory is absent or not release-bound');
 for (const asset of assetInventory.assets || []) { if (!['decorative', 'business-sample'].includes(asset.role) || !asset.digest || !asset.evidence?.sources?.length) findings.push(`${asset.id || asset.path}: static asset is unclassified`); if (asset.role === 'business-sample' && !['api-data', 'user-input', 'empty-state'].includes(asset.requiredReplacement)) findings.push(`${asset.id}: business sample has no replacement contract`); }
-if (semanticMode && (spec.architecture?.visualAlignment?.status !== 'aligned' || spec.architecture?.visualAlignment?.coverage !== 1 || spec.architecture?.visualAlignment?.routeMismatches?.length)) findings.push('architecture pages, routes, and immutable frontend release are not aligned');
+if (spec.architecture?.visualAlignment?.status !== 'aligned' || spec.architecture?.visualAlignment?.coverage !== 1 || spec.architecture?.visualAlignment?.routeMismatches?.length) findings.push('architecture pages, routes, and immutable frontend release are not aligned');
 if (!manifest.authorAgentId) findings.push('missing authorAgentId');
 if (manifest.authorAgentId === reviewerAgentId) findings.push('reviewer must be a different agent from the author');
 for (const item of unresolved.items || []) if (item.severity === 'blocker' && item.status !== 'resolved') findings.push(`${item.id}: ${item.question}`);
 for (const capability of spec.capabilities || []) if (capability.specificationStatus === 'blocked') findings.push(`${capability.id}: capability specification is blocked`);
-for (const capability of spec.capabilities || []) if (semanticMode && capability.specificationStatus === 'planned' && capability.presentation?.mode === 'headless') findings.push(`${capability.id}: planned capability cannot be headless`);
-for (const capability of spec.capabilities || []) findings.push(...presentationFindings(capability.id, capability.presentation, capability, { requireDeliveryPolicy: semanticMode }));
+for (const capability of spec.capabilities || []) if (capability.specificationStatus === 'planned' && capability.presentation?.mode === 'headless') findings.push(`${capability.id}: planned capability cannot be headless`);
+for (const capability of spec.capabilities || []) findings.push(...presentationFindings(capability.id, capability.presentation, capability, { requireDeliveryPolicy: true }));
 for (const capability of spec.capabilities || []) {
   const requiresServerOperation = capabilityRequiresServerOperation(capability, integrationCapabilityIds, permissionCapabilityIds);
   if (capability.specificationStatus === 'planned' && (coreCapabilityIds.has(capability.id) || capability.deliveryPolicy?.requiredForCompletion === true)) findings.push(`${capability.id}: core capability cannot remain planned`);
   if (capability.specificationStatus === 'complete' && requiresServerOperation && !capability.operations?.length) findings.push(`${capability.id}: complete server-required capability has no operation`);
-  const requiredIntent = ['userGoal', 'businessOutcome', 'trigger', 'prerequisites', 'inputs', 'processingSemantics', 'outputs', 'sideEffects', 'downstreamUsage', 'qualityCriteria', 'failures', 'evidence'];
-  if (semanticMode && requiredIntent.some((field) => capability.capabilityIntent?.[field] === undefined)) findings.push(`${capability.id}: capability intent is not semantically closed`);
-  if (semanticMode) { const leaf = (spec.architecture?.leafClassifications || []).find((item) => item.pageId === capability.pageIds?.[0] && item.leafId === capability.synthesisAnalysis?.sourceArchitectureLeafId); if (!leaf || (!['business-capability', 'operation'].includes(leaf.classification) && !leaf.embeddedOperations?.length)) findings.push(`${capability.id}: capability was synthesized from an input, display, local control, navigation, state, or constraint leaf without an embedded operation`); }
-  if (semanticMode && (capability.synthesisAnalysis?.classifierRole !== 'candidate-analysis' || (capability.specificationStatus === 'complete' && capability.synthesisAnalysis?.minimumImplementableInformation !== 'satisfied'))) findings.push(`${capability.id}: keyword classification was not confirmed by minimum implementable information`);
-  if (semanticMode && capability.synthesisAnalysis?.confidence === 'low' && !['planned', 'blocked'].includes(capability.specificationStatus)) findings.push(`${capability.id}: low-confidence semantics must remain planned until an explicit decision exists`);
-  if (semanticMode && capability.specificationStatus === 'planned' && ((capability.operations || []).length || (capability.entityEffects || []).length || capability.writesState || (capability.inputs || []).length || capability.inputSchema || (capability.outcomes || []).length || capability.outputSchema || (capability.acceptanceExamples || []).length || capability.deliveryPolicy?.requiredForCompletion !== false || capability.deliveryPolicy?.uiBehavior !== 'show-planned-state' || !capability.planningReason)) findings.push(`${capability.id}: planned capability exposes implementation semantics or lacks a planned UI contract`);
-  if (semanticMode && capability.synthesisAnalysis?.confidence === 'medium') {
-    const decision = capability.synthesisAnalysis.bmadDecision;
-    if (decision?.status !== 'accepted' || decision.chosenPattern !== capability.synthesisAnalysis.candidatePattern || !decision.rationale || !decision.rejectedAlternatives?.length || decision.rejectedAlternatives.some((item) => !item.pattern || !item.reason) || !decision.evidence?.length || !decision.reviewerAgentId || decision.inputDigest !== planningManifest.synthesisInputDigest) findings.push(`${capability.id}: medium-confidence semantics have no accepted input-bound BMAD decision`);
-  }
-  if (semanticMode) for (const input of capability.capabilityIntent?.inputs || []) {
-    const ownership = input.ownership;
-    if (!ownership?.type) findings.push(`${capability.id}: input ${input.id} has no capability-specific ownership evidence`);
-    if (ownership?.capabilityModuleId && ownership.capabilityModuleId !== capability.synthesisAnalysis?.sourceModuleId) findings.push(`${capability.id}: input ${input.id} belongs to another capability module`);
-    if (ownership?.type === 'architecture-owner-module' && ownership.ownerModuleId !== capability.synthesisAnalysis?.sourceContainerModuleId && Number(ownership.affinity || 0) < 0.6) findings.push(`${capability.id}: input ${input.id} is not semantically related to its capability`);
-  }
-  if (semanticMode && capability.presentation?.mode !== 'headless' && !(controlMap.mappings || []).some((item) => item.capabilityId === capability.id)) findings.push(`${capability.id}: frontend control mapping is absent`);
+  if (capability.presentation?.mode !== 'headless' && !(controlMap.mappings || []).some((item) => item.capabilityId === capability.id)) findings.push(`${capability.id}: frontend control mapping is absent`);
   if (capability.presentation?.primaryOperationId && !(capability.operations || []).some((operation) => operation.id === capability.presentation.primaryOperationId)) findings.push(`${capability.id}: primary operation is absent`);
-  if (semanticMode && (containsUnconstrainedGeneric(capability.inputSchema) || containsUnconstrainedGeneric(capability.outputSchema))) findings.push(`${capability.id}: unconstrained generic objects replace business schemas`);
-  if (semanticMode && capability.specificationStatus === 'complete' && ['create', 'update', 'retry', 'external-operation'].includes(capability.synthesisAnalysis?.candidatePattern) && hasOnlyNameWrappedGenericResult(capability.outputSchema)) findings.push(`${capability.id}: capability-name wrapper around kind/references/quality is not a business result contract`);
-  if (semanticMode && capability.aggregateSubmission) findings.push(...reviewAggregateSubmission(capability, spec));
-  if (semanticMode) findings.push(...reviewResultPresentation(capability, frontendInventory));
+  if (containsUnconstrainedGeneric(capability.inputSchema) || containsUnconstrainedGeneric(capability.outputSchema)) findings.push(`${capability.id}: unconstrained generic objects replace business schemas`);
+  if (capability.specificationStatus === 'complete' && ['create', 'update', 'retry', 'external-operation'].includes(capability.synthesisAnalysis?.candidatePattern) && hasOnlyNameWrappedGenericResult(capability.outputSchema)) findings.push(`${capability.id}: capability-name wrapper around kind/references/quality is not a business result contract`);
+  if (capability.aggregateSubmission) findings.push(...reviewAggregateSubmission(capability, spec));
+  findings.push(...reviewResultPresentation(capability, frontendInventory));
   for (const operation of capability.operations || []) {
     if (!operation.method || !operation.path || !operation.request?.contentType || !operation.response?.bodySchema) findings.push(`${operation.id}: operation lacks method, path, content type, request, or response schema`);
     if (!operation.authorization || !operation.errors?.length || !operation.effects?.length) findings.push(`${operation.id}: operation lacks authorization, errors, or entity effects`);
-    if (semanticMode && (!operation.authorization || !operation.idempotency || !operation.concurrency || !operation.acceptanceExample || !operation.errors?.length)) findings.push(`${operation.id}: operation semantics are incomplete`);
-    const resourceTransfer = operation.resourceTransfer || (!semanticMode ? operation.assetTransfer : null);
-    if (semanticMode && operation.assetTransfer) findings.push(`${operation.id}: legacy assetTransfer must be migrated to resourceTransfer`);
+    if (!operation.authorization || !operation.idempotency || !operation.concurrency || !operation.acceptanceExample || !operation.errors?.length) findings.push(`${operation.id}: operation semantics are incomplete`);
+    const resourceTransfer = operation.resourceTransfer;
+    if (operation.assetTransfer) findings.push(`${operation.id}: legacy assetTransfer must be migrated to resourceTransfer`);
     if (operation.request?.contentType === 'multipart/form-data' && (!resourceTransfer || resourceTransfer.interaction !== 'file-selection')) findings.push(`${operation.id}: transfer has no file-selection resource transfer contract`);
     if (operation.providerContract && !operation.providerContract.parameterMappings?.length) findings.push(`${operation.id}: provider contract does not cover operation inputs`);
     if (operation.providerContract) for (const mapping of operation.providerContract.parameterMappings || []) if (!(operation.integrationBindings || []).some((binding) => binding.source === mapping.source && binding.target === mapping.target && binding.required === mapping.required)) findings.push(`${operation.id}: provider mapping ${mapping.source} is not a formal integration binding`);
-    if (semanticMode && operation.providerContract && !operation.integrationVerification) findings.push(`${operation.id}: provider contract has no integrated verification scenarios`);
-    if (semanticMode && (!operation.ruleIds?.length || operation.ruleIds.some((ruleId) => !capability.ruleIds?.includes(ruleId)))) findings.push(`${operation.id}: operation is not bound to capability rules`);
+    if (operation.providerContract && !operation.integrationVerification) findings.push(`${operation.id}: provider contract has no integrated verification scenarios`);
+    if (!operation.ruleIds?.length || operation.ruleIds.some((ruleId) => !capability.ruleIds?.includes(ruleId))) findings.push(`${operation.id}: operation is not bound to capability rules`);
     if (operation.dataDependencies?.some((item) => !item.runtimeValueRequired || !item.requiredOwnership || !item.requiredLifecycleStatus)) findings.push(`${operation.id}: runtime data lineage is incomplete`);
   }
   if (capability.evidence?.status !== 'designed') continue;
@@ -104,9 +87,8 @@ const fingerprints = new Map();
 const triggers = new Map();
 const providerFingerprints = new Map();
 for (const capability of spec.capabilities || []) {
-  if (!semanticMode) break;
   if (capability.aliasOf) continue;
-  const fingerprint = JSON.stringify({ pageScope: capability.pageIds, input: capability.inputSchema, output: capability.outputSchema, processing: capability.capabilityIntent?.processingSemantics, effects: capability.entityEffects, failures: capability.failures });
+  const fingerprint = JSON.stringify({ pageScope: capability.pageIds, input: capability.inputSchema, output: capability.outputSchema, processing: capability.capabilityIntent?.processingSemantics ?? capability.closure?.systemBehavior?.summary, effects: capability.entityEffects, failures: capability.failures });
   if (fingerprints.has(fingerprint)) findings.push(`${capability.id}: business semantics are indistinguishable from ${fingerprints.get(fingerprint)}`); else fingerprints.set(fingerprint, capability.id);
   const trigger = capability.presentation?.triggerControl?.controlId; const triggerKey = `${capability.pageIds?.[0]}:${trigger}`;
   if (trigger) { if (triggers.has(triggerKey)) findings.push(`${capability.id}: primary trigger ${trigger} is already assigned to unrelated capability ${triggers.get(triggerKey)}`); else triggers.set(triggerKey, capability.id); }
@@ -168,8 +150,9 @@ function allStrings(value, found = []) { if (typeof value === 'string') found.pu
 function containsUnconstrainedGeneric(schema) { if (!schema || typeof schema !== 'object') return false; if (schema.type === 'object' && schema.additionalProperties === true && !Object.keys(schema.properties || {}).length) return true; return Object.values(schema).some((value) => Array.isArray(value) ? value.some(containsUnconstrainedGeneric) : containsUnconstrainedGeneric(value)); }
 function capabilityRequiresServerOperation(capability, integrationCapabilityIds, permissionCapabilityIds) { return capability.presentation?.behavior === 'server-operation' || capability.writesState === true || (capability.entityEffects || []).length > 0 || (capability.operations || []).length > 0 || integrationCapabilityIds.has(capability.id) || permissionCapabilityIds.has(capability.id) || (capability.capabilityIntent?.sideEffects || []).length > 0; }
 function reviewResultPresentation(capability, frontend) {
-  const result = []; const product = capability.aggregateSubmission?.finalProduct || (capability.specificationStatus === 'complete' && ['create', 'update', 'retry', 'external-operation'].includes(capability.synthesisAnalysis?.candidatePattern)); const contract = capability.resultPresentation;
-  if (product && capability.specificationStatus === 'complete' && !contract) return [`${capability.id}: product-producing complete capability has no resultPresentation`];
+  if (capability.specificationStatus !== 'complete') return [];
+  const result = []; const destination = capability.closure?.resultDestination; const product = capability.aggregateSubmission?.finalProduct || destination?.targetKind === 'region'; const contract = capability.resultPresentation || (destination?.targetKind === 'region' ? { targetRegion: destination.targetRegion, bindings: destination.bindings, states: destination.states, evidence: { status: 'observed' } } : null);
+  if (product && !contract) return [`${capability.id}: product-producing complete capability has no resultPresentation`];
   if (!contract) return result;
   const page = (frontend.pages || []).find((item) => item.pageId === capability.pageIds?.[0]); const regions = new Set([...(page?.regions || []).map((item) => item.regionId), ...(page?.resultSurfaces || []).map((item) => item.surfaceId)]);
   if (!regions.has(contract.targetRegion)) result.push(`${capability.id}: resultPresentation targets a region absent from the immutable release inventory`);

@@ -2,7 +2,7 @@ import { readFileSync, readdirSync } from 'node:fs';
 import { extname } from 'node:path';
 import { digestJSON, interactiveControls, sha } from './visual-release.mjs';
 
-const SOURCE_EXTENSIONS = new Set(['.js', '.jsx', '.ts', '.tsx', '.html', '.vue', '.svelte']);
+const SOURCE_EXTENSIONS = new Set(['.js', '.jsx', '.ts', '.tsx', '.html', '.vue', '.svelte', '.css', '.scss', '.sass', '.less']);
 
 export function extractFrontendSemantics(visual) {
   const sources = walk(visual.publicationRoot)
@@ -50,8 +50,29 @@ function extractAssetRoles(root, sources, pages, releaseDigest) {
     assets.push(asset);
     if (classificationStatus === 'defaulted-fail-closed') unresolved.push({ id: `unresolved-asset-role-${asset.id}`, severity: 'minor', status: 'open', disposition: 'replace-business-sample', question: `Static asset ${relativePath} has no reliable decorative or business role evidence and is treated as business-sample`, relatedIds: [asset.id], sources: asset.evidence.sources });
   }
+  const virtualReferences = new Map();
+  for (const source of sources) {
+    for (const match of source.text.matchAll(/(?:https?:\/\/[^\s"'`)]+|data:[^\s"')]+(?:;base64,[A-Za-z0-9+/=]+)?)/g)) {
+      const value = match[0]; const key = value.startsWith('data:') ? `data:${sha(dataBytes(value))}` : value;
+      const lineStart = source.text.lastIndexOf('\n', match.index) + 1; const lineEnd = source.text.indexOf('\n', match.index + value.length);
+      const item = virtualReferences.get(key) || { value, references: [] };
+      item.references.push({ file: source.path, context: source.text.slice(lineStart, lineEnd < 0 ? source.text.length : lineEnd) }); virtualReferences.set(key, item);
+    }
+  }
+  for (const { value, references } of virtualReferences.values()) {
+    const context = references.map((item) => item.context).join(' '); const classification = classifyAssetContext(context); const bytes = value.startsWith('data:') ? dataBytes(value) : Buffer.from(value);
+    const asset = { id: `asset-${sha(Buffer.from(value)).slice(0, 16)}`, path: value, sourceType: value.startsWith('data:') ? 'data-uri' : 'remote-url', ...(value.startsWith('http') ? { sourceUrl: value } : {}), digest: sha(bytes), bytes: bytes.length, role: classification.role, classificationStatus: classification.status, ...(classification.replacement ? { requiredReplacement: classification.replacement } : {}), evidence: { status: classification.status === 'evidence-backed' ? 'observed' : 'inferred', sources: [...new Set([...references.map((item) => `frontend-source:${item.file}`), `visual-release:${releaseDigest}`])], rationale: classification.rationale } };
+    assets.push(asset);
+    if (classification.status === 'defaulted-fail-closed') unresolved.push({ id: `unresolved-asset-role-${asset.id}`, severity: 'minor', status: 'open', disposition: 'replace-business-sample', question: `${asset.sourceType} asset has no reliable decorative or business role evidence and is treated as business-sample`, relatedIds: [asset.id], sources: asset.evidence.sources });
+  }
   return { assets, unresolved };
 }
+function classifyAssetContext(context) {
+  const business = /result|output|preview|history|record|product|material|upload|thumbnail|sample|fixture|结果|预览|历史|商品|素材|上传|样例/i.test(context); const decorative = /logo|icon|background|decoration|ornament|avatar-shell|品牌|图标|背景|装饰/i.test(context) && !business;
+  const role = decorative ? 'decorative' : 'business-sample'; const status = decorative || business ? 'evidence-backed' : 'defaulted-fail-closed'; const replacement = role === 'business-sample' ? (/upload|input|素材|上传/i.test(context) ? 'user-input' : /result|output|history|record|结果|历史/i.test(context) ? 'api-data' : 'empty-state') : null;
+  return { role, status, replacement, rationale: decorative ? 'Referenced only as visual chrome and carries no observed business-data meaning.' : business ? 'Referenced in a business input, result, history, material, or sample context.' : 'No reliable decorative evidence exists; classified as business-sample by fail-closed policy.' };
+}
+function dataBytes(value) { const match = String(value).match(/^data:([^;,]+)?(;base64)?,(.*)$/s); if (!match) return Buffer.from(String(value)); return match[2] ? Buffer.from(match[3], 'base64') : Buffer.from(decodeURIComponent(match[3])); }
 function referenceContexts(source, relativePath, basename) {
   const result = [];
   for (const needle of [relativePath, basename]) {

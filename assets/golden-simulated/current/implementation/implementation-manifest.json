@@ -111,6 +111,27 @@
       ]
     },
     {
+      "id": "activation-cap-submission-upload-resource",
+      "status": "succeeded",
+      "testIds": [
+        "runtime-activation-cap-submission-upload-resource"
+      ]
+    },
+    {
+      "id": "surface-cap-submission-upload-resource",
+      "status": "succeeded",
+      "testIds": [
+        "runtime-surface-cap-submission-upload-resource"
+      ]
+    },
+    {
+      "id": "result-presentation-cap-submission-upload-resource",
+      "status": "succeeded",
+      "testIds": [
+        "runtime-result-presentation-cap-submission-upload-resource"
+      ]
+    },
+    {
       "id": "interaction-cap-submission-upload-resource",
       "status": "succeeded",
       "testIds": [

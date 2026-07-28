@@ -4,7 +4,7 @@
   "workflow": "fdd-bmad-planning",
   "authorAgentId": "golden-domain-author",
   "reviewerAgentId": "golden-domain-reviewer",
-  "reviewedAt": "2026-07-28T05:36:40.506Z",
+  "reviewedAt": "2026-07-28T06:31:15.009Z",
   "checks": [
     "project understanding reviewed",
     "requirements analysis reviewed",

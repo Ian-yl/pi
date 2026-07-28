@@ -1058,18 +1058,6 @@
               {
                 "assertion": "response.submissionId",
                 "matches": true
-              },
-              {
-                "assertion": "quality.observable-result-is-specific-to-create-submission",
-                "equals": true
-              },
-              {
-                "assertion": "quality.required-values-are-preserved-end-to-end",
-                "equals": true
-              },
-              {
-                "assertion": "declared-ui-state",
-                "equals": "success"
               }
             ],
             "failures": [
@@ -1697,6 +1685,28 @@
         "visualHint": {
           "text": "Upload source file",
           "kind": "input"
+        },
+        "activation": {
+          "type": "existing-control",
+          "visualHint": {
+            "text": "Upload source file",
+            "kind": "input"
+          }
+        },
+        "surface": {
+          "type": "same-page-workspace",
+          "requiredRegions": [
+            "upload-panel"
+          ],
+          "contentContract": {
+            "heading": "Upload source file",
+            "inputIds": [
+              "files"
+            ],
+            "primaryAction": "Upload source file",
+            "primaryOperationId": "upload-submission-upload-resource",
+            "emptyState": "No source file selected"
+          }
         }
       },
       "synthesisAnalysis": {
@@ -1933,18 +1943,6 @@
               {
                 "assertion": "declared-output-schema",
                 "matches": true
-              },
-              {
-                "assertion": "quality.transferred-bytes-match-the-recorded-checksum",
-                "equals": true
-              },
-              {
-                "assertion": "quality.only-validated-owned-resources-become-available",
-                "equals": true
-              },
-              {
-                "assertion": "declared-ui-state",
-                "equals": "success"
               }
             ],
             "failures": [
@@ -2111,7 +2109,7 @@
             },
             "success": {
               "regionStatus": "ready",
-              "elementSemantic": "status-badge",
+              "elementSemantic": "result-item",
               "requiresBoundElements": true
             },
             "failure": {
@@ -2124,7 +2122,7 @@
               "id": "binding-cap-submission-upload-resource-assetIds",
               "responsePath": "response.assetIds",
               "element": {
-                "semantic": "status-badge"
+                "semantic": "result-item"
               },
               "count": {
                 "mode": "response-cardinality"

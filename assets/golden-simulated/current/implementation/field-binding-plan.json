@@ -6,9 +6,9 @@
       "id": "binding-cap-submission-submit-submission-create-submission-submit-submission-body-submission-title",
       "kind": "input",
       "source": "user-input",
-      "controlId": "input-cap-submission-submit-submission-body-submission-title",
+      "controlId": "title-input",
       "capabilityId": "cap-submission-submit-submission",
-      "statePath": "capabilities.cap-submission-submit-submission.inputs.body.submission-title",
+      "statePath": "form.submission-title",
       "operationId": "create-submission-submit-submission",
       "requestPath": "body.submission-title",
       "responsePath": "submissionId",
@@ -30,15 +30,16 @@
           "sample-result",
           "Sample result"
         ]
-      }
+      },
+      "authoredControlBinding": true
     },
     {
       "id": "binding-cap-submission-submit-submission-create-submission-submit-submission-body-submission-category",
       "kind": "input",
       "source": "user-input",
-      "controlId": "input-cap-submission-submit-submission-body-submission-category",
+      "controlId": "category-select",
       "capabilityId": "cap-submission-submit-submission",
-      "statePath": "capabilities.cap-submission-submit-submission.inputs.body.submission-category",
+      "statePath": "form.submission-category",
       "operationId": "create-submission-submit-submission",
       "requestPath": "body.submission-category",
       "responsePath": "submissionId",
@@ -62,15 +63,16 @@
           "submit-button",
           "planned-export"
         ]
-      }
+      },
+      "authoredControlBinding": true
     },
     {
       "id": "binding-cap-submission-submit-submission-create-submission-submit-submission-body-result-quantity",
       "kind": "input",
       "source": "user-input",
-      "controlId": "input-cap-submission-submit-submission-body-result-quantity",
+      "controlId": "quantity-input",
       "capabilityId": "cap-submission-submit-submission",
-      "statePath": "capabilities.cap-submission-submit-submission.inputs.body.result-quantity",
+      "statePath": "form.result-quantity",
       "operationId": "create-submission-submit-submission",
       "requestPath": "body.result-quantity",
       "responsePath": "submissionId",
@@ -95,7 +97,8 @@
           "result-panel",
           "history-panel"
         ]
-      }
+      },
+      "authoredControlBinding": true
     },
     {
       "id": "binding-cap-submission-submit-submission-create-submission-submit-submission-body-upload-source-file-assetids",
@@ -119,6 +122,7 @@
           "type": "string"
         }
       },
+      "authoredControlBinding": false,
       "sourceOperationId": "upload-submission-upload-resource",
       "sourceResponsePath": "response.assetIds"
     },
@@ -278,9 +282,9 @@
       "id": "binding-cap-submission-upload-resource-upload-submission-upload-resource-body-files",
       "kind": "input",
       "source": "user-input",
-      "controlId": "input-cap-submission-upload-resource-body-files",
+      "controlId": "upload-input",
       "capabilityId": "cap-submission-upload-resource",
-      "statePath": "capabilities.cap-submission-upload-resource.inputs.body.files",
+      "statePath": "form.files",
       "operationId": "upload-submission-upload-resource",
       "requestPath": "body.files",
       "responsePath": "assetIds",
@@ -296,7 +300,8 @@
           "type": "string",
           "format": "binary"
         }
-      }
+      },
+      "authoredControlBinding": true
     },
     {
       "id": "binding-cap-submission-upload-resource-upload-submission-upload-resource-command",
@@ -343,6 +348,40 @@
       "required": true,
       "runtimeValueRequired": true,
       "elementSemantic": "collection-value"
+    },
+    {
+      "id": "binding-cap-submission-upload-resource-result-binding-cap-submission-upload-resource-assetids",
+      "kind": "result",
+      "controlId": "result-cap-submission-upload-resource-binding-cap-submission-upload-resource-assetids",
+      "capabilityId": "cap-submission-upload-resource",
+      "statePath": "capabilities.cap-submission-upload-resource.result.binding-cap-submission-upload-resource-assetIds",
+      "operationId": "upload-submission-upload-resource",
+      "requestPath": null,
+      "responsePath": "assetIds",
+      "effectIds": [
+        "upload-submission-upload-resource:entity-submission-asset:create:0"
+      ],
+      "required": true,
+      "regionId": "upload-panel",
+      "elementSemantic": "result-item",
+      "count": {
+        "mode": "response-cardinality"
+      },
+      "resultStates": {
+        "processing": {
+          "regionStatus": "busy",
+          "elementSemantic": "progress"
+        },
+        "success": {
+          "regionStatus": "ready",
+          "elementSemantic": "result-item",
+          "requiresBoundElements": true
+        },
+        "failure": {
+          "regionStatus": "error",
+          "elementSemantic": "error-message"
+        }
+      }
     },
     {
       "id": "binding-cap-submission-upload-resource-state-loading",

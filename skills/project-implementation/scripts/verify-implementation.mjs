@@ -19,7 +19,7 @@ const functionalPackageLockPreview = existsSync(`${dir}/inputs/functional-packag
 const lockedFunctionalInputs = lockedPackageFiles(functionalPackageLockPreview);
 const formalFunctionalInputs = [...lockedFunctionalInputs, 'package-lock.json'];
 const formalHandoffInputs = ['handoff-manifest.json', 'visual-source.json', 'release-manifest.json', 'suite-gate.json', 'visual-approval.json', 'frontend-manifest.json', 'functional-spec.json', ...semanticInputs, ...(functionalManifestPreview.schemaVersion === '2.3' ? ['handoff-anchor-manifest.json'] : []), 'visual-controls.json', 'ui-implementation-plan.json', 'api-contract.json', 'domain-bindings.json', 'runtime-contract.json', 'handoff-review-receipt.json', 'handoff-lock.json'];
-if (process.argv.includes('--legacy') || process.argv.includes('--legacy-archive-internal')) fail(['legacy verification modes are unsupported; prepare a Schema 2.2 workspace']);
+if (process.argv.includes('--legacy') || process.argv.includes('--legacy-archive-internal')) fail(['legacy verification modes are unsupported; prepare a Schema 2.3 workspace']);
 const requiredLevel = optionValue('--require-level') || 'integrated';
 const levels = ['simulated', 'integrated'];
 if (!levels.includes(requiredLevel)) { console.error(`invalid verification level: ${requiredLevel}`); process.exit(2); }
@@ -95,7 +95,9 @@ if (manifest.verificationLevel !== 'simulated') {
       if (!file || !existsSync(file) || statSync(file).size === 0) errors.push(`integrated scenario evidence is missing: ${artifact}`);
       else try {
         const record = readJSON(file);
-        if (record.operationId !== integration.operationId || record.scenario !== scenario || record.observed !== true) errors.push(`integrated scenario evidence does not match ${scenario}: ${artifact}`);
+        const observation = existsSync(`${dir}/operation-observation-receipt.json`) ? readJSON(`${dir}/operation-observation-receipt.json`) : null;
+        const correlated = observation?.observations?.some((item) => item.challengeId === record.challengeId && item.requestDigest === record.requestDigest && item.responseDigest === record.responseDigest && item.status === record.responseStatus);
+        if (record.generatedBy !== 'project-implementation/validation-campaign-observer' || record.operationId !== integration.operationId || record.scenario !== scenario || record.observed !== true || !correlated) errors.push(`integrated scenario evidence does not match a campaign-observed ${scenario} request and response: ${artifact}`);
       } catch { errors.push(`integrated scenario evidence is not valid JSON: ${artifact}`); }
     }
   }
@@ -151,6 +153,7 @@ const capabilityCompletion = uiContractsForCompletion.map((contract) => {
 });
 if (capabilityCompletion.some((item) => item.status === 'failed')) fail(capabilityCompletion.filter((item) => item.status === 'failed').map((item) => `capability delivery was not proven: ${item.capabilityId} — inspect its failed bindings, operations, states, effects, and acceptance cases`));
 if (requiredLevel === 'integrated' && capabilityCompletion.some((item) => item.status === 'planned')) fail(capabilityCompletion.filter((item) => item.status === 'planned').map((item) => `formal integrated completion cannot contain a planned capability: ${item.capabilityId} — complete and verify the approved capability before declaring product delivery`));
+if (requiredLevel === 'integrated' && capabilityCompletion.some((item) => item.status === 'simulated-verified')) fail(capabilityCompletion.filter((item) => item.status === 'simulated-verified').map((item) => `formal integrated completion lacks campaign-owned evidence for an external capability: ${item.capabilityId} — observe every required external operation through the application before declaring product delivery`));
 const productStatus = capabilityCompletion.some((item) => item.status === 'simulated-verified') ? 'simulated-verified' : capabilityCompletion.some((item) => item.status === 'planned') ? 'incomplete-planned-capabilities' : 'implemented';
 writeFileSync(`${dir}/capability-completion-report.json`, `${JSON.stringify({ schemaVersion: '1.1', generatedBy: 'project-implementation/verify-implementation', productStatus, counts: { implemented: capabilityCompletion.filter((item) => item.status === 'implemented').length, planned: capabilityCompletion.filter((item) => item.status === 'planned').length, simulatedVerified: capabilityCompletion.filter((item) => item.status === 'simulated-verified').length }, capabilities: capabilityCompletion }, null, 2)}\n`);
 
@@ -276,11 +279,13 @@ function verifyUniqueOperationHandling(apiContract, provenance, items) {
 function verifyFieldBindingPlan(bindingPlan, apiContract, items) {
   if (bindingPlan.generatedFrom !== 'locked-functional-and-handoff-contracts' || !Array.isArray(bindingPlan.bindings)) { items.push('field binding plan is missing or not contract-derived'); return; }
   const ids = new Set(); const operations = new Map((apiContract.operations || []).map((item) => [item.id, item]));
+  const authored = new Map((readJSON(`${dir}/inputs/handoff-control-capability-map.json`).mappings || []).flatMap((mapping) => (mapping.fieldBindings || []).map((binding) => [`${mapping.capabilityId}:${binding.operationId}:${normalizeRequestPath(binding.requestPath)}`, binding])));
   for (const binding of bindingPlan.bindings) {
     if (!binding.id || ids.has(binding.id)) items.push(`field binding plan has a missing or duplicate binding: ${binding.id || '<missing>'}`); else ids.add(binding.id);
     if (!binding.controlId || !binding.capabilityId || !binding.statePath || typeof binding.required !== 'boolean' || !Array.isArray(binding.effectIds)) items.push(`field binding is incomplete: ${binding.id}`);
     if (binding.operationId && !operations.has(binding.operationId)) items.push(`field binding references unknown operation: ${binding.id}`);
     if (binding.kind === 'input' && !binding.requestPath) items.push(`input binding has no request path: ${binding.id}`);
+    if (binding.kind === 'input') { const expected = authored.get(`${binding.capabilityId}:${binding.operationId}:${normalizeRequestPath(binding.requestPath)}`); if (expected && (binding.controlId !== expected.controlId || binding.statePath !== expected.statePath || binding.authoredControlBinding !== true)) items.push(`input binding does not preserve its approved release control mapping: ${binding.id}`); }
     if (binding.kind === 'display' && !binding.responsePath) items.push(`display binding has no response path: ${binding.id}`);
     if (binding.kind === 'result' && (!binding.responsePath || !binding.regionId || !binding.elementSemantic || !binding.count?.mode || !binding.resultStates?.processing || !binding.resultStates?.success || !binding.resultStates?.failure)) items.push(`result presentation binding is incomplete: ${binding.id}`);
   }
@@ -293,6 +298,7 @@ function verifyFieldBindingPlan(bindingPlan, apiContract, items) {
     if (JSON.stringify(expectedEffects) !== JSON.stringify(actualEffects)) items.push(`field binding effect set differs from operation contract: ${operation.id}`);
   }
 }
+function normalizeRequestPath(value) { return String(value || '').replace(/^request\./, 'body.'); }
 function verifyOperationTestEvidence(operation, test, unitId, items) { if (operation && !operationReceipts.receipts?.some((receipt) => receipt.operationId === operation.id && receipt.status === 'passed')) items.push(`unit ${unitId} has no passing runner-owned operation receipt for ${operation.id}`); }
 function verifyOperationReceipts(receipts, rawEvents, apiContract, items) { const expectedDocument = computeOperationReceipts(apiContract, JSON.parse(rawEvents), rawEvents); if (JSON.stringify(receipts) !== JSON.stringify(expectedDocument)) items.push('operation receipts differ from receipts recomputed from operation-events.json'); for (const receipt of expectedDocument.receipts || []) if (receipt.status !== 'passed' || receipt.findings?.length) items.push(`operation receipt failed: ${receipt.operationId}`); }
 function requestContractPaths(request) { return [['path', request.pathSchema], ['query', request.querySchema], ['header', request.headerSchema], ['body', request.bodySchema]].flatMap(([location, schema]) => schemaContractPaths(schema).map((path) => `${location}.${path}`)); }

@@ -119,7 +119,7 @@ for (let index = 1; index <= count; index += 1) {
       if (result.status !== 0) throw new Error(`${runId}/runtime-browser-e2e failed`);
       if (level === 'integrated' && !existsSync(`${destination}/integration-evidence.json`)) throw new Error(`${runId}/integrated-e2e did not write integration-evidence.json`);
       if (level === 'integrated') {
-        const operationId = readJSON(`${destination}/integration-evidence.json`).operationId;
+        const integrationEvidence = readJSON(`${destination}/integration-evidence.json`); const operationId = integrationEvidence.operationId;
         const api = readJSON(`${destination}/inputs/handoff-api-contract.json`); const operation = (api.operations || []).find((item) => item.id === operationId);
         const ingress = observations.find((item) => operation && item.challengeId === challengeId && String(item.method).toUpperCase() === String(operation.method).toUpperCase() && routeMatches(operation.path, item.path) && item.status >= 200 && item.status < 300);
         const egress = externalObservations.find((item) => item.challengeId === challengeId && item.status >= 200 && item.status < 300 && ingress && item.observedAt >= ingress.startedAt && item.observedAt <= ingress.observedAt && ingress.responseValues.includes(item.externalResultId));
@@ -137,6 +137,20 @@ for (let index = 1; index <= count; index += 1) {
         writeFileSync(`${destination}/visual-sampling-sheet.json`, `${JSON.stringify({ schemaVersion: '1.0', operationId, challengeId, maxInFlight: concurrencyState.maxInFlight, items: samplingSheet }, null, 2)}\n`);
         const auditReceipt = existsSync(`${destination}/visual-audit-receipt.json`) ? readJSON(`${destination}/visual-audit-receipt.json`) : null;
         const visualResults = visualAuditFindings(samplingSheet, auditReceipt);
+        const controlledScenarios = {};
+        for (const scenario of operation?.integrationVerification?.requiredScenarios || []) {
+          const candidateArtifact = integrationEvidence.scenarios?.[scenario]?.evidence?.[0];
+          const candidatePath = candidateArtifact ? resolve(destination, candidateArtifact) : null;
+          if (!candidatePath || !candidatePath.startsWith(`${destination}/`) || !existsSync(candidatePath)) throw new Error(`${runId}/integrated scenario ${scenario} has no candidate observation to correlate`);
+          const candidate = readJSON(candidatePath);
+          const observed = observations.find((item) => item.challengeId === challengeId && String(item.method).toUpperCase() === String(operation.method).toUpperCase() && routeMatches(operation.path, item.path) && item.requestDigest === candidate.requestDigest && item.responseDigest === candidate.responseDigest && item.status === candidate.responseStatus);
+          if (!observed) throw new Error(`${runId}/integrated scenario ${scenario} is not correlated with a campaign-observed application request and response`);
+          const artifact = `evidence/integration/campaign-scenario-${scenario}.json`;
+          writeFileSync(`${destination}/${artifact}`, `${JSON.stringify({ schemaVersion: '1.0', generatedBy: 'project-implementation/validation-campaign-observer', challengeId, operationId, scenario, observed: true, requestDigest: observed.requestDigest, responseDigest: observed.responseDigest, responseStatus: observed.status }, null, 2)}\n`);
+          controlledScenarios[scenario] = { status: 'observed', evidence: [artifact] };
+        }
+        integrationEvidence.scenarios = controlledScenarios;
+        writeFileSync(`${destination}/integration-evidence.json`, `${JSON.stringify(integrationEvidence, null, 2)}\n`);
         const ingressPassed = Boolean(ingress);
         const egressPassed = Boolean(egress);
         const bindingsPassed = integrationBindingEvidence.every((item) => !item.required || item.observed);

@@ -21,7 +21,8 @@ for (const journey of (spec.journeys || []).filter((item) => item.core)) {
   if (planned.length) throw new Error(planned.map((id) => `core journey ${journey.id} includes planned capability ${id} (${capabilityStatus.get(id)?.missingDecision?.missingBusinessDecision || capabilityStatus.get(id)?.planningReason || 'missing business decision'}); a core journey cannot be handed off with an unimplementable step`).join('\n'));
 }
 const uiPlan = (spec.capabilities || []).map((capability) => {
-  const presentation = capability.resultPresentation ? { ...capability.presentation, surface: { ...(capability.presentation.surface || {}), contentContract: { ...(capability.presentation.surface?.contentContract || {}), resultContract: capability.resultPresentation } } } : capability.presentation;
+  const destination = capability.closure?.resultDestination; const resultContract = capability.specificationStatus === 'complete' ? capability.resultPresentation || (destination?.targetKind === 'region' ? { targetRegion: destination.targetRegion, bindings: destination.bindings, states: destination.states, runtimeFlow: destination.runtimeFlow } : null) : null;
+  const presentation = resultContract ? { ...capability.presentation, surface: { ...(capability.presentation.surface || {}), contentContract: { ...(capability.presentation.surface?.contentContract || {}), resultContract } } } : capability.presentation;
   const findings = presentationFindings(capability.id, presentation, capability, { requireDeliveryPolicy: true });
   if (findings.length) throw new Error(findings.join('\n'));
   return { capabilityId: capability.id, specificationStatus: capability.specificationStatus, presentation, deliveryPolicy: capability.deliveryPolicy || { requiredForCompletion: true, allowedIncompleteState: 'planned' }, planningReason: capability.planningReason || null, missingDecisions: capability.missingDecisions || [], aliasOf: capability.aliasOf || null };
