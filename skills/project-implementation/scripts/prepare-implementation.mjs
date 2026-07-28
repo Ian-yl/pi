@@ -41,6 +41,7 @@ const trustedFunctionalValidators = new Map([
   ['fdd-validator-2.2.1', { contractVersion: 'functional-domain/2.2', entry: resolve(import.meta.dirname, '../validators/fdd-2.2.1/validate-package.mjs') }],
   ['fdd-validator-2.2.2', { contractVersion: 'functional-domain/2.2', entry: resolve(import.meta.dirname, '../validators/fdd-2.2.2/validate-package.mjs') }],
   ['fdd-validator-2.2.3', { contractVersion: 'functional-domain/2.2', entry: resolve(import.meta.dirname, '../validators/fdd-2.2.3/validate-package.mjs') }],
+  ['fdd-validator-2.2.4', { contractVersion: 'functional-domain/2.2', entry: resolve(import.meta.dirname, '../validators/fdd-2.2.4/validate-package.mjs') }],
 ]);
 const planningManifest = f['planning-manifest.json'] || {}; const planningArtifacts = f['planning-artifacts.json'] || {}; const definitions = f['capability-definitions.json'] || {}; const planningReceipt = f['planning-review-receipt.json'];
 if (manifest.status !== 'approved') errors.push('functional package is not approved');
@@ -100,6 +101,13 @@ const rawUiContracts = (front['ui-implementation-plan.json'] || {}).capabilities
 const rawUiCapabilityIds = rawUiContracts.map((item) => item.capabilityId);
 const uiContracts = new Map(rawUiContracts.map((item) => [item.capabilityId, item]));
 const uiPlan = new Map([...uiContracts].map(([capabilityId, item]) => [capabilityId, item.presentation]));
+const integrationCapabilityIds = new Set((spec.integrations || []).flatMap((integration) => integration.capabilityIds || []));
+const permissionCapabilityIds = new Set((spec.permissions || []).flatMap((permission) => permission.capabilityIds || []));
+const contractCompletionItems = [...capabilities.values()].filter((capability) => capability.specificationStatus === 'complete' && capabilityRequiresServerOperation(capability, integrationCapabilityIds, permissionCapabilityIds) && !(capability.operations || []).length).map((capability) => ({ capabilityId: capability.id, reason: 'complete server-required capability has no operation', requiredAction: 'FDD agent authors the operation contract, independent review approves it, then rebuild and review the handoff before PI prepare is retried' }));
+if (contractCompletionItems.length) {
+  writeJSON(`${output}.contract-completion.json`, { schemaVersion: '1.0', generatedBy: 'project-implementation/prepare-implementation', status: 'requires-fdd-contract-completion', sourceFunctionalPackage: functionalDir, items: contractCompletionItems });
+  errors.push(`approved input requires contract completion for ${contractCompletionItems.map((item) => item.capabilityId).join(', ')}; return the generated work item to the FDD agent and use only a newly reviewed and locked package/handoff`);
+}
 if (new Set(rawUiCapabilityIds).size !== rawUiCapabilityIds.length || JSON.stringify([...rawUiCapabilityIds].sort()) !== JSON.stringify([...capabilities.keys()].sort())) errors.push('UI capability plan must be an exact one-to-one set with the functional capabilities');
 if (front['functional-spec.json'] && sha(readFileSync(`${handoffDir}/functional-spec.json`)) !== sha(readFileSync(`${functionalDir}/functional-spec.json`))) errors.push('handoff functional spec does not match approved package');
 if (!Array.isArray(spec.relationships) || !Array.isArray(spec.consistencyBoundaries)) errors.push('functional package has no formal relationship and consistency contracts');
@@ -285,6 +293,7 @@ function normalizeRequestPath(value) { return String(value || '').replace(/^requ
 function schemaLeaves(schema, prefix = '', inheritedRequired = true) { if (!schema || typeof schema !== 'object') return []; if (schema.type === 'object') { const required = new Set(schema.required || []); return Object.entries(schema.properties || {}).flatMap(([key, child]) => schemaLeaves(child, prefix ? `${prefix}.${key}` : key, inheritedRequired && required.has(key))); } if (schema.type === 'array') return [{ path: prefix, required: inheritedRequired, schema }]; return prefix ? [{ path: prefix, required: inheritedRequired, schema }] : []; }
 function schemaFromFields(fields) { return { type: 'object', required: fields, properties: Object.fromEntries(fields.map((field) => [field, { type: 'string' }])) }; }
 function slug(value) { return String(value).replace(/[^a-zA-Z0-9]+/g, '-').replace(/^-|-$/g, '').toLowerCase(); }
+function capabilityRequiresServerOperation(capability, integrationCapabilityIds, permissionCapabilityIds) { return capability.presentation?.behavior === 'server-operation' || capability.writesState === true || (capability.entityEffects || []).length > 0 || (capability.operations || []).length > 0 || integrationCapabilityIds.has(capability.id) || permissionCapabilityIds.has(capability.id) || (capability.capabilityIntent?.sideEffects || []).length > 0; }
 function verifyHandoffLock(dir, lock, errors) {
   const expected = [...protectedHandoffFiles, ...(existsSync(`${dir}/web`) ? ['web'] : [])].sort();
   const actual = Object.keys(lock.digests || {}).sort();

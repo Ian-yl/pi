@@ -49,6 +49,7 @@ if (existsSync(`${dir}/implementation-lock.json`)) {
 const bmadTraceability = existsSync(`${dir}/bmad-traceability.json`) ? readJSON(`${dir}/bmad-traceability.json`) : null;
 const bmadCompletion = existsSync(`${dir}/bmad-completion.json`) ? readJSON(`${dir}/bmad-completion.json`) : null;
 const api = readJSON(`${dir}/inputs/handoff-api-contract.json`);
+verifyOpenApiOperationClosure(readJSON(`${dir}/openapi.json`), api, errors);
 verifyFieldBindingPlan(readJSON(`${dir}/field-binding-plan.json`), api, errors);
 verifyOperationReceipts(operationReceipts, readFileSync(`${dir}/operation-events.json`), api, errors);
 verifyInputLock(inputLock, errors);
@@ -149,7 +150,8 @@ const capabilityCompletion = uiContractsForCompletion.map((contract) => {
   return { capabilityId: contract.capabilityId, status, unitIds, frontendRequired: contract.presentation?.mode !== 'headless', requiresIntegrated };
 });
 if (capabilityCompletion.some((item) => item.status === 'failed')) fail(capabilityCompletion.filter((item) => item.status === 'failed').map((item) => `capability delivery was not proven: ${item.capabilityId} — inspect its failed bindings, operations, states, effects, and acceptance cases`));
-const productStatus = capabilityCompletion.some((item) => item.status === 'simulated-verified') ? 'simulated-verified' : capabilityCompletion.some((item) => item.status === 'planned') ? 'delivered-with-planned-capabilities' : 'implemented';
+if (requiredLevel === 'integrated' && capabilityCompletion.some((item) => item.status === 'planned')) fail(capabilityCompletion.filter((item) => item.status === 'planned').map((item) => `formal integrated completion cannot contain a planned capability: ${item.capabilityId} — complete and verify the approved capability before declaring product delivery`));
+const productStatus = capabilityCompletion.some((item) => item.status === 'simulated-verified') ? 'simulated-verified' : capabilityCompletion.some((item) => item.status === 'planned') ? 'incomplete-planned-capabilities' : 'implemented';
 writeFileSync(`${dir}/capability-completion-report.json`, `${JSON.stringify({ schemaVersion: '1.1', generatedBy: 'project-implementation/verify-implementation', productStatus, counts: { implemented: capabilityCompletion.filter((item) => item.status === 'implemented').length, planned: capabilityCompletion.filter((item) => item.status === 'planned').length, simulatedVerified: capabilityCompletion.filter((item) => item.status === 'simulated-verified').length }, capabilities: capabilityCompletion }, null, 2)}\n`);
 
 const runtimeEvidenceFiles = requiresFrontendRuntime && existsSync(`${dir}/evidence/frontend`) ? walk(`${dir}/evidence/frontend`).map((file) => file.slice(dir.length + 1)) : [];
@@ -166,6 +168,17 @@ writeFileSync(`${dir}/implementation-lock.json`, `${JSON.stringify({ schemaVersi
 console.log(`Implementation valid (${declaredUnits.size} units, ${passed.size} passing cases)`);
 
 function fail(items) { console.error(items.map((item) => `- ${item}`).join('\n')); process.exit(1); }
+function verifyOpenApiOperationClosure(openapi, apiContract, items) {
+  const declared = [...new Set((apiContract.operations || []).map((operation) => operation.id))].sort();
+  const published = [];
+  for (const methods of Object.values(openapi.paths || {})) for (const operation of Object.values(methods || {})) {
+    if (!operation || typeof operation !== 'object') continue;
+    const variants = operation['x-operation-variants'];
+    if (Array.isArray(variants)) published.push(...variants.map((variant) => variant.operationId));
+    else if (operation.operationId) published.push(operation.operationId);
+  }
+  if (new Set(published).size !== published.length || JSON.stringify([...published].sort()) !== JSON.stringify(declared)) items.push('OpenAPI operation set must exactly match the approved FDD API contract — publish every operation once with its contract-specific route or discriminator');
+}
 function sha(value) { return createHash('sha256').update(value).digest('hex'); }
 function readJSON(path) { return JSON.parse(readFileSync(path, 'utf8')); }
 function optionValue(name) { const index = process.argv.indexOf(name); return index >= 0 ? process.argv[index + 1] : null; }

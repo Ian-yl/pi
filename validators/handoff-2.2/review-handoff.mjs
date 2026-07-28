@@ -22,6 +22,7 @@ if (semanticFiles.length && (semanticInventory.release?.releaseDigest !== releas
 if (semanticFiles.includes('asset-role-inventory.json') && (assetInventory.releaseDigest !== release.releaseDigest || (assetInventory.assets || []).some((item) => !['decorative', 'business-sample'].includes(item.role) || !item.digest || (item.role === 'business-sample' && !item.requiredReplacement)))) errors.push('handoff asset roles are unclassified or not release-bound');
 const copiedSourceDigest = hashDirectory(`${dir}/web`); if (frontend.sourceTreeDigest !== copiedSourceDigest || visual.sourceTreeDigest !== copiedSourceDigest) errors.push('handoff web source tree digest mismatch');
 const capabilities = new Map((spec.capabilities || []).map((item) => [item.id, item])); const capabilityIds = new Set(capabilities.keys()); const ruleIds = new Set((spec.rules || []).map((item) => item.id));
+const coreCapabilityIds = new Set((spec.journeys || []).filter((journey) => journey.core === true).flatMap((journey) => journey.capabilityIds || []));
 if (bindings.functionalPackageDigest !== manifest.functionalPackageDigest || JSON.stringify([...capabilityIds].sort()) !== JSON.stringify([...(bindings.capabilityIds || [])].sort())) errors.push('handoff domain bindings mismatch');
 const rawPlanIds = (plan.capabilities || []).map((item) => item.capabilityId); const planned = new Map((plan.capabilities || []).map((item) => [item.capabilityId, item.presentation]));
 if (new Set(rawPlanIds).size !== rawPlanIds.length || JSON.stringify([...rawPlanIds].sort()) !== JSON.stringify([...capabilityIds].sort())) errors.push('UI capability plan must be an exact one-to-one set with the functional capabilities');
@@ -34,19 +35,23 @@ for (const capabilityId of capabilityIds) {
   if (uiContract?.specificationStatus !== capability.specificationStatus) errors.push(`capability ${capabilityId} handoff status differs from the functional package`);
   if (capability.specificationStatus === 'planned' && (uiContract.deliveryPolicy?.requiredForCompletion !== false || uiContract.deliveryPolicy?.uiBehavior !== 'show-planned-state' || !uiContract.planningReason)) errors.push(`planned capability ${capabilityId} has no explicit planned delivery contract`);
   if (capability.specificationStatus === 'planned' && presentation?.mode === 'headless') errors.push(`planned capability ${capabilityId} cannot be headless`);
+  if (capability.specificationStatus === 'planned' && (coreCapabilityIds.has(capabilityId) || capability.deliveryPolicy?.requiredForCompletion === true)) errors.push(`core capability ${capabilityId} cannot remain planned in an approved handoff`);
   if (semanticFiles.length && presentation?.mode !== 'headless' && !mapping) errors.push(`capability ${capabilityId} has no locked control mapping`);
   if (presentation?.primaryOperationId && !(capability.operations || []).some((operation) => operation.id === presentation.primaryOperationId)) errors.push(`capability ${capabilityId} primary operation is absent`);
   if (capability.resultPresentation && JSON.stringify(presentation?.surface?.contentContract?.resultContract) !== JSON.stringify(capability.resultPresentation)) errors.push(`capability ${capabilityId} result presentation contract was not preserved in the handoff`);
 }
 for (const capabilityId of planned.keys()) if (!capabilityIds.has(capabilityId)) errors.push(`UI implementation plan references unknown capability ${capabilityId}`);
 const operationIds = new Set((api.operations || []).map((item) => item.id)); if (operationIds.size !== (api.operations || []).length) errors.push('API contract contains duplicate operation IDs');
+const expectedOperationIds = new Set((spec.capabilities || []).filter((capability) => capability.specificationStatus === 'complete').flatMap((capability) => capability.operations || []).map((operation) => operation.id));
+if (JSON.stringify([...operationIds].sort()) !== JSON.stringify([...expectedOperationIds].sort())) errors.push('handoff API operation set differs from the complete functional operation set');
 const routes = new Map();
 for (const operation of api.operations || []) {
   if (!operation.id || !operation.method || !operation.path) errors.push('API operation lacks id, method, or path');
   if (!capabilityIds.has(operation.capabilityId)) errors.push(`operation ${operation.id} references unknown capability ${operation.capabilityId}`);
   if (capabilities.get(operation.capabilityId)?.specificationStatus !== 'complete') errors.push(`operation ${operation.id} belongs to a non-complete capability`);
   for (const ruleId of operation.ruleIds || []) if (!ruleIds.has(ruleId)) errors.push(`operation ${operation.id} references unknown rule ${ruleId}`);
-  if (!operation.request || typeof operation.request !== 'object' || !operation.response || typeof operation.response !== 'object' || (!operation.response.bodySchema && !operation.response.schema && !operation.response.fields?.length)) errors.push(`operation ${operation.id} has incomplete request or response schema`);
+  if (!operation.request || typeof operation.request !== 'object' || !operation.request.contentType || !operation.response || typeof operation.response !== 'object' || !operation.response.bodySchema) errors.push(`operation ${operation.id} has incomplete request or response schema`);
+  if (!operation.authorization || !operation.errors?.length || !operation.effects?.length) errors.push(`operation ${operation.id} lacks authorization, errors, or entity effects`);
   if (operation.request?.contentType === 'multipart/form-data' && (!operation.resourceTransfer?.fileField || !operation.resourceTransfer?.responseIdPath)) errors.push(`multipart operation ${operation.id} has no resourceTransfer contract`);
   const writes = !['GET', 'HEAD'].includes(String(operation.method).toUpperCase()); if (writes && (!operation.effects?.length || !operation.errors?.length)) errors.push(`write operation ${operation.id} lacks effects or errors`);
   const key = `${String(operation.method).toUpperCase()} ${operation.path}`; routes.set(key, [...(routes.get(key) || []), operation]);

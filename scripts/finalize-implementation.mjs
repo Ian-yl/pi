@@ -49,7 +49,7 @@ const units = (plan.units || []).map((unit) => {
 });
 const testsPassed = units.every((unit) => unit.status === 'succeeded') && operationReceipts.status === 'passed' && browser.status === 'passed' && placeholders.status === 'passed' && frontendRuntime.status === 'passed';
 const hasPlannedCapabilities = (uiPlan.capabilities || []).some((item) => item.specificationStatus === 'planned');
-writeJSON(`${dir}/implementation-manifest.json`, { schemaVersion: '1.0', projectId: plan.projectId, status: testsPassed ? verificationLevel : 'failed', verificationLevel, deliveryStatus: testsPassed ? (hasPlannedCapabilities ? 'delivered-with-planned-capabilities' : 'implemented') : 'failed', units });
+writeJSON(`${dir}/implementation-manifest.json`, { schemaVersion: '1.0', projectId: plan.projectId, status: testsPassed ? verificationLevel : 'failed', verificationLevel, deliveryStatus: testsPassed ? (hasPlannedCapabilities ? 'incomplete-planned-capabilities' : 'implemented') : 'failed', units });
 
 const paths = {};
 const schemas = {};

@@ -26,6 +26,9 @@ const controlMap = schema22 ? read('control-capability-map.json') : {};
 const assetInventory = assetRoleMode ? read('asset-role-inventory.json') : { assets: [] };
 const reviewerAgentId = args['reviewer-agent'];
 const findings = [];
+const coreCapabilityIds = new Set((spec.journeys || []).filter((journey) => journey.core === true).flatMap((journey) => journey.capabilityIds || []));
+const integrationCapabilityIds = new Set((spec.integrations || []).flatMap((integration) => integration.capabilityIds || []));
+const permissionCapabilityIds = new Set((spec.permissions || []).flatMap((permission) => permission.capabilityIds || []));
 if (manifest.schemaVersion !== '2.2') findings.push('only functional-domain schema 2.2 can be reviewed');
 if (schema22 && JSON.stringify(manifest.semanticArtifacts) !== JSON.stringify(SCHEMA_22_SEMANTIC_FILES)) findings.push('schema 2.2 semanticArtifacts must equal the fixed semantic artifact contract');
 if (planningManifest.packageType !== 'fdd-bmad-planning' || planningArtifacts.method !== 'bmad-planning') findings.push('FDD BMAD planning artifacts are invalid');
@@ -42,6 +45,9 @@ for (const capability of spec.capabilities || []) if (capability.specificationSt
 for (const capability of spec.capabilities || []) if (semanticMode && capability.specificationStatus === 'planned' && capability.presentation?.mode === 'headless') findings.push(`${capability.id}: planned capability cannot be headless`);
 for (const capability of spec.capabilities || []) findings.push(...presentationFindings(capability.id, capability.presentation, capability, { requireDeliveryPolicy: semanticMode }));
 for (const capability of spec.capabilities || []) {
+  const requiresServerOperation = capabilityRequiresServerOperation(capability, integrationCapabilityIds, permissionCapabilityIds);
+  if (capability.specificationStatus === 'planned' && (coreCapabilityIds.has(capability.id) || capability.deliveryPolicy?.requiredForCompletion === true)) findings.push(`${capability.id}: core capability cannot remain planned`);
+  if (capability.specificationStatus === 'complete' && requiresServerOperation && !capability.operations?.length) findings.push(`${capability.id}: complete server-required capability has no operation`);
   const requiredIntent = ['userGoal', 'businessOutcome', 'trigger', 'prerequisites', 'inputs', 'processingSemantics', 'outputs', 'sideEffects', 'downstreamUsage', 'qualityCriteria', 'failures', 'evidence'];
   if (semanticMode && requiredIntent.some((field) => capability.capabilityIntent?.[field] === undefined)) findings.push(`${capability.id}: capability intent is not semantically closed`);
   if (semanticMode) { const leaf = (spec.architecture?.leafClassifications || []).find((item) => item.pageId === capability.pageIds?.[0] && item.leafId === capability.synthesisAnalysis?.sourceArchitectureLeafId); if (!leaf || (!['business-capability', 'operation'].includes(leaf.classification) && !leaf.embeddedOperations?.length)) findings.push(`${capability.id}: capability was synthesized from an input, display, local control, navigation, state, or constraint leaf without an embedded operation`); }
@@ -65,6 +71,8 @@ for (const capability of spec.capabilities || []) {
   if (semanticMode && capability.aggregateSubmission) findings.push(...reviewAggregateSubmission(capability, spec));
   if (semanticMode) findings.push(...reviewResultPresentation(capability, frontendInventory));
   for (const operation of capability.operations || []) {
+    if (!operation.method || !operation.path || !operation.request?.contentType || !operation.response?.bodySchema) findings.push(`${operation.id}: operation lacks method, path, content type, request, or response schema`);
+    if (!operation.authorization || !operation.errors?.length || !operation.effects?.length) findings.push(`${operation.id}: operation lacks authorization, errors, or entity effects`);
     if (semanticMode && (!operation.authorization || !operation.idempotency || !operation.concurrency || !operation.acceptanceExample || !operation.errors?.length)) findings.push(`${operation.id}: operation semantics are incomplete`);
     const resourceTransfer = operation.resourceTransfer || (!semanticMode ? operation.assetTransfer : null);
     if (semanticMode && operation.assetTransfer) findings.push(`${operation.id}: legacy assetTransfer must be migrated to resourceTransfer`);
@@ -128,7 +136,7 @@ if (existsSync(`${dir}/approval-runtime`)) rmSync(`${dir}/approval-runtime`, { r
 // Signing pins the latest immutable validator revision. A new approval can never be minted against a
 // superseded revision to evade its added rules — an explicit downgrade request is rejected, so the only
 // way to keep an older revision is to already hold an older approval receipt (never to sign a new one).
-const LATEST_VALIDATOR_ID = 'fdd-validator-2.2.3';
+const LATEST_VALIDATOR_ID = 'fdd-validator-2.2.4';
 const requestedValidatorId = args['validator-version'] ? `fdd-validator-${args['validator-version']}` : LATEST_VALIDATOR_ID;
 if (requestedValidatorId !== LATEST_VALIDATOR_ID) { console.error(`cannot sign an approval with the superseded validator revision ${requestedValidatorId}; new approvals are pinned to the latest ${LATEST_VALIDATOR_ID}`); process.exit(1); }
 const trustedValidatorId = LATEST_VALIDATOR_ID;
@@ -153,6 +161,7 @@ function digestFile(file) { return hash(readFileSync(resolve(import.meta.dirname
 function hash(value) { return createHash('sha256').update(value).digest('hex'); }
 function allStrings(value, found = []) { if (typeof value === 'string') found.push(value); else if (Array.isArray(value)) for (const item of value) allStrings(item, found); else if (value && typeof value === 'object') for (const item of Object.values(value)) allStrings(item, found); return found; }
 function containsUnconstrainedGeneric(schema) { if (!schema || typeof schema !== 'object') return false; if (schema.type === 'object' && schema.additionalProperties === true && !Object.keys(schema.properties || {}).length) return true; return Object.values(schema).some((value) => Array.isArray(value) ? value.some(containsUnconstrainedGeneric) : containsUnconstrainedGeneric(value)); }
+function capabilityRequiresServerOperation(capability, integrationCapabilityIds, permissionCapabilityIds) { return capability.presentation?.behavior === 'server-operation' || capability.writesState === true || (capability.entityEffects || []).length > 0 || (capability.operations || []).length > 0 || integrationCapabilityIds.has(capability.id) || permissionCapabilityIds.has(capability.id) || (capability.capabilityIntent?.sideEffects || []).length > 0; }
 function reviewResultPresentation(capability, frontend) {
   const result = []; const product = capability.aggregateSubmission?.finalProduct || (capability.specificationStatus === 'complete' && ['create', 'update', 'retry', 'external-operation'].includes(capability.synthesisAnalysis?.candidatePattern)); const contract = capability.resultPresentation;
   if (product && capability.specificationStatus === 'complete' && !contract) return [`${capability.id}: product-producing complete capability has no resultPresentation`];

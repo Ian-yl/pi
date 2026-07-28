@@ -39,6 +39,22 @@ test('gate A rejects schema-shaped operation events that skip the acceptance exa
   } finally { rmSync(dir, { recursive: true, force: true }); }
 });
 
+test('formal verifier rejects an OpenAPI document that omits an approved FDD operation', () => {
+  const dir = copyGolden('openapi-operation-closure');
+  try {
+    rmSync(`${dir}/implementation-lock.json`);
+    patch(dir, 'openapi.json', (openapi) => {
+      const methods = Object.values(openapi.paths)[0];
+      const operation = Object.values(methods)[0];
+      operation['x-operation-variants'] = operation['x-operation-variants'].slice(1);
+      return openapi;
+    });
+    const check = spawnSync('node', [verifyImpl, dir, '--require-level', 'simulated'], { encoding: 'utf8' });
+    assert.notEqual(check.status, 0);
+    assert.match(`${check.stdout}${check.stderr}`, /OpenAPI operation set must exactly match the approved FDD API contract/);
+  } finally { rmSync(dir, { recursive: true, force: true }); }
+});
+
 test('gate B rejects three non-GET operations wired to one catch-all handler', () => {
   const dir = copyGolden('gate-b-catch-all');
   try {
