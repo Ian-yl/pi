@@ -1,6 +1,6 @@
 # project-implementation
 
-从批准的 functional-domain package 和 implementation handoff 交付可运行、可验证的完整项目。PI 实现前端接线、后端、持久化、外部集成和运行验收，不修改或猜测领域语义。
+从批准的 functional-domain package 和 implementation handoff 交付可运行、可验证的完整项目。PI 在 `release-backed` 模式接线现有前端，在 `design-led` 模式依据设计与合同实现完整前后端，不修改或猜测领域语义。design-led 项目通过 PI 验收后交给 AI Restore 仅做视觉还原，AR 完成即结束，不再回到 PI 二次验收。
 
 Skill 入口：[skills/project-implementation/SKILL.md](skills/project-implementation/SKILL.md)
 

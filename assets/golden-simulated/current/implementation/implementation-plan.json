@@ -5,7 +5,7 @@
   "authority": "approved-functional-domain-only",
   "planningSource": {
     "workflow": "fdd-bmad-planning",
-    "digest": "03372a121f4ce8bc1878976837371b515588ea3b1097d75498ab7a5c27710c2d",
+    "digest": "c027012353bdf18f3e4f59f970030358e96ed88feac30ee168e09b09d18d8f83",
     "semanticChangesAllowed": false
   },
   "implementationWorkflow": "pi-implementation-bmad",

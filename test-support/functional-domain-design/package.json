@@ -1,0 +1,19 @@
+{
+  "name": "functional-domain-design",
+  "private": true,
+  "type": "module",
+  "engines": { "node": ">=20" },
+  "scripts": {
+    "domain:import": "node scripts/import-productforge.mjs",
+    "domain:scaffold": "node scripts/scaffold-package.mjs",
+    "domain:review": "node scripts/review-package.mjs",
+    "domain:validate": "node scripts/validate-package.mjs",
+    "handoff:build": "node scripts/build-implementation-handoff.mjs",
+    "handoff:review": "node scripts/review-implementation-handoff.mjs",
+    "handoff:validate": "node scripts/validate-implementation-handoff.mjs",
+    "validator:freeze": "node scripts/freeze-validator.mjs",
+    "skill:sync": "node scripts/sync-skill-bundle.mjs",
+    "skill:check": "node scripts/check-skill-bundle.mjs",
+    "test": "node --test tests/*.test.mjs"
+  }
+}

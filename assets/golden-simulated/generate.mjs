@@ -18,10 +18,12 @@ const implementation = `${output}/implementation`;
 
 rmSync(output, { recursive: true, force: true });
 mkdirSync(output, { recursive: true });
-run(`${fddRoot}/scripts/scaffold-package.mjs`, ['--input', architecture, '--visual-release', release, '--output', functional, '--author-agent', 'golden-domain-author', '--designs', `${fixtures}/designs`]);
-overlayAuthoredClosure(functional);
-if (headlessOnly) convertToHeadlessPreservingContracts(functional);
-run(`${fddRoot}/scripts/review-package.mjs`, ['--package', functional, '--reviewer-agent', 'golden-domain-reviewer']);
+  run(`${fddRoot}/scripts/scaffold-package.mjs`, ['--input', architecture, '--visual-release', release, '--output', functional, '--author-agent', 'golden-domain-author', '--designs', `${fixtures}/designs`]);
+  overlayAuthoredClosure(functional);
+  if (headlessOnly) convertToHeadlessPreservingContracts(functional);
+  run(`${fddRoot}/scripts/review-package.mjs`, ['--package', functional, '--reviewer-agent', 'golden-domain-reviewer', '--prepare-semantic-review']);
+  writeSemanticReview(functional, 'golden-domain-reviewer');
+  run(`${fddRoot}/scripts/review-package.mjs`, ['--package', functional, '--reviewer-agent', 'golden-domain-reviewer']);
 run(`${fddRoot}/scripts/build-implementation-handoff.mjs`, ['--functional', functional, '--visual-release', release, '--output', handoff, '--author-agent', 'golden-handoff-author']);
 run(`${fddRoot}/scripts/review-implementation-handoff.mjs`, ['--handoff', handoff, '--reviewer-agent', 'golden-handoff-reviewer']);
 run(`${piRoot}/scripts/prepare-implementation.mjs`, ['--functional', functional, '--handoff', handoff, '--output', implementation]);
@@ -70,6 +72,7 @@ function writeFrontendImplementation() {
   const displayBindings = [...submitBindings, ...uploadBindings].filter((item) => item.kind === 'display');
   const uploadCommand = uploadBindings.find((item) => item.kind === 'command');
   const pagePath = `${implementation}/web/pages/submission/index.html`;
+  mkdirSync(resolve(pagePath, '..'), { recursive: true });
   const uploadFieldSchema = uploadOperation.request?.bodySchema?.properties?.[uploadOperation.resourceTransfer.fileField] || {};
   const uploadMultiple = Number(uploadOperation.resourceTransfer.maxFiles ?? uploadOperation.resourceTransfer.constraints?.maxFiles ?? uploadFieldSchema.maxItems ?? 1) > 1;
   const controls = { submit: `control-${submit.id}`, upload: uploadInput.controlId, planned: `control-${planned.id}` };
@@ -80,6 +83,32 @@ function writeFrontendImplementation() {
   const sampleAsset = `${implementation}/web/pages/submission/assets/sample-result.svg`;
   if (existsSync(sampleAsset)) rmSync(sampleAsset);
   writeBrowserTest({ controls, inputBindings, uploadInput, submitCommand, uploadCommand, resultBinding, uploadResultBinding, displayBindings, submitOperation, uploadOperation });
+}
+
+function writeSemanticReview(packageDir, reviewerAgentId) {
+  const request = readJSON(`${packageDir}/semantic-review-request.json`);
+  const spec = readJSON(`${packageDir}/functional-spec.json`);
+  const capabilitiesByPage = new Map();
+  for (const capability of spec.capabilities || []) {
+    const pageId = capability.presentation?.targetPageId;
+    if (!pageId) continue;
+    if (!capabilitiesByPage.has(pageId)) capabilitiesByPage.set(pageId, []);
+    capabilitiesByPage.get(pageId).push(capability.id);
+  }
+  writeJSON(`${packageDir}/semantic-review.json`, {
+    schemaVersion: '1.0',
+    reviewerAgentId,
+    requestDigest: request.requestDigest,
+    status: 'approved',
+    pageReviews: request.pageIds.map((pageId) => ({
+      pageId,
+      verdict: 'approved',
+      capabilityIds: (capabilitiesByPage.get(pageId) || []).sort(),
+      controlIds: request.controlIds.filter((id) => id.startsWith(`${pageId}:`)).sort(),
+      closureAssessment: 'The neutral fixture capabilities form distinct trigger-input-operation-result closures.',
+      evidenceAssessment: 'The authored closure accounts for the locked architecture and frontend semantic evidence.'
+    }))
+  });
 }
 
 function writeBrowserTest(data) {
@@ -195,7 +224,8 @@ function overlayAuthoredClosure(dir) {
   // The control-disposition ledger is bound to the immutable release digest; the static authored fixture cannot
   // hardcode it, so bind it from the scaffold's semantic inventory (like the observed-interaction anchors below).
   const ledger = readJSON(`${dir}/control-dispositions.json`);
-  ledger.releaseDigest = readJSON(`${dir}/frontend-semantic-inventory.json`).release.releaseDigest;
+  const semanticInventory = readJSON(`${dir}/frontend-semantic-inventory.json`);
+  if (semanticInventory.release?.releaseDigest) ledger.releaseDigest = semanticInventory.release.releaseDigest;
   writeJSON(`${dir}/control-dispositions.json`, ledger);
   manifest.schemaVersion = '2.3';
   manifest.controlDispositions = 'control-dispositions.json';

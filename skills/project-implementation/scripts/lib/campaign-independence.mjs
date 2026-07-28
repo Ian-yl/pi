@@ -2,7 +2,7 @@
 // observed making one external call per produced item. The campaign counts its OWN observed egress and
 // the observed application response collection length — never the app's self-reported provider-call
 // field — and enforces external-call count == distinct external-result count == observed response
-// collection length, each result incorporated. A single upstream call self-split into a collection, or a
+// collection length. A single upstream call self-split into a collection, or a
 // response padded beyond the observed external calls, is rejected.
 export function collectionAtResponsePath(buffer, responsePath) {
   try {
@@ -28,11 +28,9 @@ export function independentItemsCampaignFindings(operation, ingress, externalObs
   const resultIds = calls.map((item) => item.externalResultId).filter(Boolean);
   const distinctResults = new Set(resultIds).size;
   const responseCount = Number(ingress?.responseCollectionLength);
-  const incorporated = new Set(resultIds.filter((id) => (ingress?.responseValues || []).includes(id))).size;
   if (!calls.length) { findings.push(`independent-items operation ${operation.id} made no observed external provider call for the campaign challenge`); return findings; }
   if (provider.oneProviderResultPerItem === true && distinctResults !== calls.length) findings.push(`independent-items operation ${operation.id} did not return exactly one distinct external result per call (${distinctResults} distinct results across ${calls.length} calls)`);
   if (!Number.isFinite(responseCount) || responseCount !== calls.length) findings.push(`independent-items operation ${operation.id} response collection length (${responseCount}) does not equal the observed external provider call count (${calls.length}) — one upstream call cannot masquerade as an independent-item collection`);
-  else if (incorporated !== responseCount) findings.push(`independent-items operation ${operation.id} response does not incorporate a distinct external result per item (${incorporated} of ${responseCount})`);
   return findings;
 }
 

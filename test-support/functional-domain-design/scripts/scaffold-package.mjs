@@ -7,7 +7,7 @@ import { extractFrontendSemantics } from './lib/frontend-semantics.mjs';
 import { buildEvidenceIndex } from './lib/evidence-index.mjs';
 
 const args = parseArgs(process.argv.slice(2));
-if (!args.input || !args.output || !args['author-agent'] || !args['visual-release'] || !args.designs) usage();
+if (!args.input || !args.output || !args['author-agent'] || !args.designs) usage();
 if (args.schema && args.schema !== '2.3') throw new Error('only functional-domain schema 2.3 is supported');
 if (args.profile) throw new Error('product profiles are not supported; author domain semantics from the approved evidence');
 
@@ -16,19 +16,20 @@ const output = resolve(args.output);
 const pageDocument = readKnownJSON(input, ['pageTree.json', 'page-architecture.json']);
 const system = readKnownJSON(input, ['systemArchitecture.json', 'system-architecture.json']);
 const product = readKnownJSON(input, ['product-context.json']);
-const visual = verifyVisualRelease(args['visual-release']);
+const inputMode = args['visual-release'] ? 'release-backed' : 'design-led';
+const visual = args['visual-release'] ? verifyVisualRelease(args['visual-release']) : null;
 const decisionsDocument = args.decisions ? JSON.parse(readFileSync(resolve(args.decisions), 'utf8')) : null;
 const decisions = normalizeDecisions(decisionsDocument);
 const pages = pageDocument.nodes || [];
 if (!pages.length || !Array.isArray(system.nodes) || !product.name) throw new Error('the three architecture JSON documents are incomplete');
 
 const projectId = product.projectId || `project-${stableId(product.name)}`;
-const frontend = extractFrontendSemantics(visual);
 mkdirSync(output, { recursive: true });
 const designs = buildDesignManifest(resolve(args.designs), output, new Set(pages.map((page) => page.id)));
 const designDigest = digest(designs);
-const synthesisInputDigest = digest({ pageDocument, system, product, visualReleaseDigest: visual.releaseDigest, decisions: decisionsDocument, designManifest: designs });
-const visualAlignment = assessVisualAlignment(pages, visual, product);
+const frontend = visual ? extractFrontendSemantics(visual) : buildDesignLedSemantics(pages, designs, designDigest);
+const synthesisInputDigest = digest({ pageDocument, system, product, inputMode, visualReleaseDigest: visual?.releaseDigest || null, decisions: decisionsDocument, designManifest: designs });
+const visualAlignment = visual ? assessVisualAlignment(pages, visual, product) : { status: 'design-led', architecturePageIds: pages.map((page) => page.id), navigationOnlyPageIds: pages.filter((page) => page.nav === true).map((page) => page.id), visualRequiredPageIds: [], visualPageIds: [], matchedPageIds: [], missingArchitecturePageIds: [], unexpectedVisualPageIds: [], routeMismatches: [], coverage: null, findings: [] };
 const unresolved = [...visualAlignment.findings, ...(frontend.unresolved || [])];
 
 // Schema 2.3: the scaffold synthesizes no capability and classifies no architecture leaf. It seeds the
@@ -45,7 +46,7 @@ for (const page of frontend.inventory.pages || []) for (const control of page.co
     kind: control.kind || null,
     label: control.label || null,
     regionId: control.region?.id || null,
-    evidence: { status: 'observed', sources: [`frontend-page:${page.pageId}`, `frontend-control:${control.controlId}`] },
+    evidence: { status: inputMode === 'release-backed' ? 'observed' : 'designed', sources: inputMode === 'release-backed' ? [`frontend-page:${page.pageId}`, `frontend-control:${control.controlId}`] : [`design:${page.pageId}`] },
   });
 }
 const groupingCandidates = buildGroupingCandidates(frontend);
@@ -55,23 +56,23 @@ for (const decision of decisions) unresolved.push({ id: `decision-${decision.id}
 const spec = {
   schemaVersion: '2.3',
   project: { id: projectId, name: product.name, brief: product.brief, goals: product.goals || [], users: product.users || [], needs: product.needs || [], problemStatement: product.brief || product.goals?.[0], evidence: { status: 'documented', sources: ['product-context:brief', 'product-context:goals', 'product-context:users', 'product-context:needs'] } },
-  architecture: { pageVersion: pageDocument.version || 1, systemVersion: system.version || 1, sources: ['page architecture', 'system architecture', 'product context', 'immutable frontend release', ...(decisions.length ? ['user business decisions'] : [])], visualAlignment },
+  architecture: { pageVersion: pageDocument.version || 1, systemVersion: system.version || 1, sources: ['page architecture', 'system architecture', 'product context', 'finalized design exports', ...(visual ? ['immutable frontend release'] : []), ...(decisions.length ? ['user business decisions'] : [])], visualAlignment },
   domains: [], entities: [], valueObjects: [], relationships: [], consistencyBoundaries: [], capabilities: [], journeys: [], rules: [], permissions: [], integrations: [],
-  visualSource: { sourceType: 'ai-restore-release', releaseDigest: visual.releaseDigest, suiteGateDigest: visual.suiteGateDigest, pageIds: visual.pages, routes: visual.routes, sourceTreeDigest: visual.sourceTreeDigest },
+  visualSource: visual ? { sourceType: 'ai-restore-release', releaseDigest: visual.releaseDigest, suiteGateDigest: visual.suiteGateDigest, pageIds: visual.pages, routes: visual.routes, sourceTreeDigest: visual.sourceTreeDigest } : { sourceType: 'finalized-design', designManifestDigest: designDigest, pageIds: designs.images.map((image) => image.pageHint), routes: {} },
 };
 const semanticArtifacts = ['frontend-semantic-inventory.json', 'observed-interactions.json', 'control-capability-map.json', 'asset-role-inventory.json'];
 const planningArtifacts = ['design-manifest.json', 'evidence-index.json', 'evidence-dispositions.json', 'control-dispositions.json', 'planning-artifacts.json', 'capability-definitions.json', ...semanticArtifacts];
 const groups = ['capabilities', 'entities', 'valueObjects', 'relationships', 'consistencyBoundaries', 'journeys', 'rules', 'permissions', 'integrations'];
 
-writeJSON(`${output}/evidence-index.json`, buildEvidenceIndex({ pageDocument, system, product, observedInteractions: frontend.interactions, designs, releaseDigest: visual.releaseDigest, synthesisInputDigest }));
+writeJSON(`${output}/evidence-index.json`, buildEvidenceIndex({ pageDocument, system, product, observedInteractions: frontend.interactions, designs, releaseDigest: visual?.releaseDigest || null, synthesisInputDigest }));
 writeJSON(`${output}/evidence-dispositions.json`, { schemaVersion: '1.0', dispositions: [] });
-writeJSON(`${output}/control-dispositions.json`, { schemaVersion: '1.0', releaseDigest: visual.releaseDigest, dispositions: controlDispositions });
-writeJSON(`${output}/grouping-candidates.json`, { schemaVersion: '1.0', releaseDigest: visual.releaseDigest, role: 'advisory-hint', groups: groupingCandidates });
+writeJSON(`${output}/control-dispositions.json`, { schemaVersion: '1.0', inputMode, ...(visual ? { releaseDigest: visual.releaseDigest } : { designManifestDigest: designDigest }), dispositions: controlDispositions });
+writeJSON(`${output}/grouping-candidates.json`, { schemaVersion: '1.0', inputMode, ...(visual ? { releaseDigest: visual.releaseDigest } : { designManifestDigest: designDigest }), role: 'advisory-hint', groups: groupingCandidates });
 writeJSON(`${output}/frontend-semantic-inventory.json`, frontend.inventory);
 writeJSON(`${output}/observed-interactions.json`, frontend.interactions);
-writeJSON(`${output}/control-capability-map.json`, { schemaVersion: '1.0', releaseDigest: visual.releaseDigest, mappings: [] });
+writeJSON(`${output}/control-capability-map.json`, { schemaVersion: '1.0', inputMode, ...(visual ? { releaseDigest: visual.releaseDigest } : { designManifestDigest: designDigest }), mappings: [] });
 writeJSON(`${output}/asset-role-inventory.json`, frontend.assets);
-writeJSON(`${output}/planning-manifest.json`, { schemaVersion: '2.3', packageType: 'fdd-bmad-planning', status: 'authoring-pending', authorAgentId: args['author-agent'], synthesisInputDigest, inputDigests: { pageArchitecture: digest(pageDocument), systemArchitecture: digest(system), productContext: digest(product), visualRelease: visual.releaseDigest, designs: designDigest, userDecisions: decisionsDocument ? digest(decisionsDocument) : null }, artifacts: planningArtifacts });
+writeJSON(`${output}/planning-manifest.json`, { schemaVersion: '2.3', packageType: 'fdd-bmad-planning', inputMode, status: 'authoring-pending', authorAgentId: args['author-agent'], synthesisInputDigest, inputDigests: { pageArchitecture: digest(pageDocument), systemArchitecture: digest(system), productContext: digest(product), visualRelease: visual?.releaseDigest || null, designs: designDigest, userDecisions: decisionsDocument ? digest(decisionsDocument) : null }, artifacts: planningArtifacts });
 writeJSON(`${output}/planning-artifacts.json`, { schemaVersion: '2.3', method: 'evidence-workspace', evidencePriority: ['confirmed', 'documented', 'observed', 'designed', 'inferred', 'blocked'], phases: [
   { id: 'project-understanding', status: 'completed', outputs: { project: spec.project, evidenceIndex: 'evidence-index.json', frontendSemanticInventory: 'frontend-semantic-inventory.json' } },
   { id: 'requirements-analysis', status: 'authoring-pending', outputs: { controlDispositions: 'control-dispositions.json', seededControlCount: controlDispositions.length, groupingCandidates: 'grouping-candidates.json', observedInteractions: 'observed-interactions.json' } },
@@ -79,12 +80,12 @@ writeJSON(`${output}/planning-artifacts.json`, { schemaVersion: '2.3', method: '
   { id: 'independent-domain-review', status: 'pending', outputs: {} },
 ] });
 writeJSON(`${output}/capability-definitions.json`, { schemaVersion: '2.3', generatedBy: 'functional-domain-design/evidence-workspace', ...Object.fromEntries(groups.map((group) => [group, spec[group] || []])) });
-writeJSON(`${output}/manifest.json`, { schemaVersion: '2.3', packageType: 'functional-domain', projectId, projectName: product.name, status: 'draft', authoringStatus: 'pending', authorAgentId: args['author-agent'], sourceDirectory: basename(input), sourceContract: { requiredFiles: ['page architecture JSON', 'system architecture JSON', 'product context JSON', 'finalized design export directory', 'AI Restore release'], optionalFiles: decisions.length ? ['user business decisions JSON'] : [] }, planning: { manifest: 'planning-manifest.json', artifacts: 'planning-artifacts.json', capabilityDefinitions: 'capability-definitions.json', designManifest: 'design-manifest.json' }, evidenceIndex: 'evidence-index.json', semanticArtifacts, controlDispositions: 'control-dispositions.json', capabilitySummary: { total: 0, complete: 0, planned: 0, blockedCapabilities: 0, openBlockers: unresolved.filter((item) => item.severity === 'blocker').length } });
+writeJSON(`${output}/manifest.json`, { schemaVersion: '2.3', packageType: 'functional-domain', inputMode, projectId, projectName: product.name, status: 'draft', authoringStatus: 'pending', authorAgentId: args['author-agent'], sourceDirectory: basename(input), sourceContract: { requiredFiles: ['page architecture JSON', 'system architecture JSON', 'product context JSON', 'finalized design export directory', ...(visual ? ['AI Restore release'] : [])], optionalFiles: [...(visual ? [] : ['AI Restore release']), ...(decisions.length ? ['user business decisions JSON'] : [])] }, planning: { manifest: 'planning-manifest.json', artifacts: 'planning-artifacts.json', capabilityDefinitions: 'capability-definitions.json', designManifest: 'design-manifest.json' }, evidenceIndex: 'evidence-index.json', semanticArtifacts, controlDispositions: 'control-dispositions.json', capabilitySummary: { total: 0, complete: 0, planned: 0, blockedCapabilities: 0, openBlockers: unresolved.filter((item) => item.severity === 'blocker').length }, ...(visual ? { visualReleaseDigest: visual.releaseDigest } : {}) });
 writeJSON(`${output}/functional-spec.json`, spec);
 writeJSON(`${output}/page-function-map.json`, { schemaVersion: '2.3', pages: pages.map((page) => ({ pageId: page.id, title: page.title, navigationOnly: page.nav === true, capabilityIds: [] })) });
 writeJSON(`${output}/unresolved-items.json`, { schemaVersion: '2.3', items: unresolved });
-bindVisualRelease(output, args['visual-release']);
-console.log(`Scaffolded schema 2.3 evidence workspace (${controlDispositions.length} controls seeded unresolved, ${groupingCandidates.length} grouping candidates, ${visualAlignment.matchedPageIds.length} aligned pages) -> ${output}`);
+if (visual) bindVisualRelease(output, args['visual-release']);
+console.log(`Scaffolded schema 2.3 ${inputMode} evidence workspace (${controlDispositions.length} controls seeded unresolved, ${groupingCandidates.length} grouping candidates${visual ? `, ${visualAlignment.matchedPageIds.length} aligned pages` : ''}) -> ${output}`);
 
 // Candidate disposition is an advisory hint only; the seed stays `unresolved` and the author decides. Derived
 // from structured control facts (submission role, kind, semantic role) — never from labels or DOM proximity.
@@ -126,6 +127,17 @@ function buildGroupingCandidates(frontend) {
 }
 
 function assessVisualAlignment(architecturePages, release, context) { const architecturePageIds = architecturePages.map((page) => page.id); const navigationOnlyPageIds = architecturePages.filter((page) => page.nav === true).map((page) => page.id); const visualRequiredPageIds = architecturePages.filter((page) => page.nav !== true).map((page) => page.id); const visualPageIds = release.pages || []; const matchedPageIds = visualRequiredPageIds.filter((id) => visualPageIds.includes(id)); const missingArchitecturePageIds = visualRequiredPageIds.filter((id) => !visualPageIds.includes(id)); const unexpectedVisualPageIds = visualPageIds.filter((id) => !architecturePageIds.includes(id)); const routeMismatches = matchedPageIds.filter((id) => !release.routes[id] || !String(release.routes[id]).includes(id)); const findings = []; if (visualRequiredPageIds.length && !matchedPageIds.length) findings.push({ id: 'visual-release-product-mismatch', severity: 'blocker', status: 'open', question: 'The immutable frontend release has no visually required page identity in common with the architecture', relatedIds: [...visualRequiredPageIds, ...visualPageIds], sources: ['page-architecture:nodes', `visual-release:${release.releaseDigest}`] }); for (const pageId of missingArchitecturePageIds) findings.push({ id: `visual-release-missing-page-${pageId}`, severity: 'warning', status: 'open', question: `Architecture page ${pageId} is absent from the immutable frontend release; the author and reviewer must decide whether it is stale context or requires an approved extension`, relatedIds: [pageId], sources: [`page:${pageId}`, `visual-release:${release.releaseDigest}`] }); for (const pageId of routeMismatches) findings.push({ id: `visual-release-route-mismatch-${pageId}`, severity: 'warning', status: 'open', question: `Frontend route for ${pageId} differs from its architecture identity; use the release route unless review establishes an approved change`, relatedIds: [pageId], sources: [`frontend-page:${pageId}`, `visual-release:${release.releaseDigest}`] }); if (unexpectedVisualPageIds.length && (matchedPageIds.length || !visualRequiredPageIds.length)) findings.push({ id: 'visual-release-extra-pages', severity: 'warning', status: 'open', question: 'The immutable frontend release contains pages not declared by the architecture; treat the release as the implementation baseline and review the stale context', relatedIds: unexpectedVisualPageIds, sources: ['page-architecture:nodes', `visual-release:${release.releaseDigest}`] }); return { status: findings.some((item) => item.severity === 'blocker') ? 'blocked' : 'aligned', productId: context.projectId || null, suiteId: release.manifest.suiteId || null, architecturePageIds, navigationOnlyPageIds, visualRequiredPageIds, visualPageIds, matchedPageIds, missingArchitecturePageIds, unexpectedVisualPageIds, routeMismatches, coverage: visualRequiredPageIds.length ? matchedPageIds.length / visualRequiredPageIds.length : 1, findings }; }
+function buildDesignLedSemantics(architecturePages, designs, designManifestDigest) {
+  const imageByPage = new Map((designs.images || []).map((image) => [image.pageHint, image]));
+  const pages = architecturePages.filter((page) => page.nav !== true).map((page) => ({ pageId: page.id, title: page.title || page.id, route: null, regions: [], controls: [], resultSurfaces: [], states: [], designEvidence: imageByPage.has(page.id) ? [`design:${imageByPage.get(page.id).id}`] : [] }));
+  const sourceSummary = (designs.images || []).map((image) => ({ path: image.path, sha256: image.sha256, pageId: image.pageHint }));
+  return {
+    inventory: { schemaVersion: '1.0', sourceType: 'finalized-design', design: { manifestDigest: designManifestDigest }, pages, sourceSummary, authoringStatus: 'pending-agent-semantic-extraction' },
+    interactions: { schemaVersion: '1.0', sourceType: 'finalized-design', designManifestDigest, interactions: [] },
+    assets: { schemaVersion: '1.0', sourceType: 'finalized-design', designManifestDigest, assets: [] },
+    unresolved: [],
+  };
+}
 function normalizeDecisions(value) { if (!value) return []; const items = Array.isArray(value) ? value : value.decisions || value.items || []; return items.map((item, index) => ({ id: item.id || `decision-${index + 1}`, ...item })); }
 function stableId(value) { return [...String(value)].reduce((hash, char) => Math.imul(hash ^ char.codePointAt(0), 16777619) >>> 0, 2166136261).toString(16); }
 function digest(value) { return createHash('sha256').update(JSON.stringify(value)).digest('hex'); }
@@ -155,4 +167,4 @@ function buildDesignManifest(designDir, outputDir, pageIds) {
   writeFileSync(`${outputDir}/design-manifest.json`, `${JSON.stringify(manifest, null, 2)}\n`);
   return manifest;
 }
-function usage() { console.error('Usage: scaffold-package.mjs --input <three-json-directory> --designs <finalized-design-export-directory> --visual-release <ai-restore-release> --output <package-dir> --author-agent <stable-agent-id> [--decisions <user-business-decisions.json>]'); process.exit(2); }
+function usage() { console.error('Usage: scaffold-package.mjs --input <three-json-directory> --designs <finalized-design-export-directory> [--visual-release <ai-restore-release>] --output <package-dir> --author-agent <stable-agent-id> [--decisions <user-business-decisions.json>]'); process.exit(2); }

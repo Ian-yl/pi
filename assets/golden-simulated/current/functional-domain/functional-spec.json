@@ -1823,6 +1823,45 @@
           ],
           "providerContract": {
             "requiredCapability": "media-generation",
+            "controlledResponse": {
+              "status": 200,
+              "contentType": "application/json",
+              "bodySchema": {
+                "type": "object",
+                "required": [
+                  "externalResultId",
+                  "status"
+                ],
+                "properties": {
+                  "externalResultId": {
+                    "type": "string",
+                    "minLength": 1
+                  },
+                  "status": {
+                    "const": "accepted"
+                  }
+                }
+              },
+              "body": {
+                "externalResultId": "campaign-result",
+                "status": "accepted"
+              },
+              "resultIdPath": "externalResultId"
+            },
+            "providerResultLineage": {
+              "id": "lineage-provider-to-submission-items",
+              "sourcePath": "providerResponse.externalResultId",
+              "targetPath": "response.items",
+              "transformation": "persist provider output and expose business-owned result items",
+              "reviewAssertionId": "review-provider-result-lineage",
+              "evidence": {
+                "status": "designed",
+                "sources": [
+                  "page-module:result-items",
+                  "page:submission"
+                ]
+              }
+            },
             "parameterMappings": [
               {
                 "source": "request.upload-source-file-assetIds",
@@ -1897,6 +1936,15 @@
             ],
             "endpointPolicy": {
               "nonLocal": true
+            },
+            "resultReview": {
+              "required": true,
+              "assertions": [
+                {
+                  "id": "review-provider-result-lineage",
+                  "acceptance": "Judge whether the actual provider results were transformed into the declared business result items."
+                }
+              ]
             }
           }
         }

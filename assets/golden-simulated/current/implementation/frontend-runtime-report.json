@@ -1,9 +1,9 @@
 {
   "schemaVersion": "1.0",
   "generatedBy": "project-implementation/run-browser-e2e",
-  "browserReceiptDigest": "d5c609c35e19339389954cf29e028a0b8fef4d57d513bd88439aa3f5c657739c",
+  "browserReceiptDigest": "8461d5f2b59f505d15b2beac563a84d6ca2bca4be5bb1e7b7806e64d562a0fb5",
   "application": {
-    "baseUrl": "http://127.0.0.1:56508",
+    "baseUrl": "http://127.0.0.1:53498",
     "healthPassed": true
   },
   "cases": [
@@ -13,7 +13,7 @@
       "bindingId": "initial-submission",
       "locator": "main",
       "pageId": "submission",
-      "pageUrl": "http://127.0.0.1:56508/submission",
+      "pageUrl": "http://127.0.0.1:53498/submission",
       "mode": "display-only",
       "event": "initial-state",
       "artifacts": [
@@ -23,9 +23,39 @@
       "observed": {
         "matchCount": 1,
         "visible": true,
-        "pageUrl": "http://127.0.0.1:56508/submission",
+        "pageUrl": "http://127.0.0.1:53498/submission",
         "cleanSession": true,
         "networkRequests": [
+          {
+            "method": "GET",
+            "path": "/assets/icon.svg",
+            "query": {},
+            "headers": {
+              "accept": "image/avif,image/webp,image/apng,image/svg+xml,image/*,*/*;q=0.8",
+              "accept-encoding": "gzip, deflate, br, zstd",
+              "connection": "keep-alive",
+              "host": "127.0.0.1:53498",
+              "referer": "http://127.0.0.1:53498/submission",
+              "sec-fetch-dest": "image",
+              "sec-fetch-mode": "no-cors",
+              "sec-fetch-site": "same-origin",
+              "user-agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/149.0.7827.55 Safari/537.36",
+              "sec-ch-ua": "\"HeadlessChrome\";v=\"149\", \"Chromium\";v=\"149\", \"Not)A;Brand\";v=\"24\"",
+              "sec-ch-ua-mobile": "?0",
+              "sec-ch-ua-platform": "\"macOS\""
+            },
+            "responseHeaders": {
+              "connection": "keep-alive",
+              "content-length": "111",
+              "content-type": "image/svg+xml",
+              "date": "Tue, 28 Jul 2026 12:17:21 GMT",
+              "keep-alive": "timeout=5",
+              "x-pi-origin-receipt": "5bdbe3949902215481472cdde289f4a0d3fbf8662d7cf052"
+            },
+            "status": 200,
+            "requestBody": "",
+            "responseBody": "<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"16\" height=\"16\"><circle cx=\"8\" cy=\"8\" r=\"7\" fill=\"#333\"/></svg>\n"
+          },
           {
             "method": "GET",
             "path": "/submission",
@@ -34,7 +64,7 @@
               "accept": "text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7",
               "accept-encoding": "gzip, deflate, br, zstd",
               "connection": "keep-alive",
-              "host": "127.0.0.1:56508",
+              "host": "127.0.0.1:53498",
               "sec-fetch-dest": "document",
               "sec-fetch-mode": "navigate",
               "sec-fetch-site": "none",
@@ -49,43 +79,13 @@
               "connection": "keep-alive",
               "content-length": "10798",
               "content-type": "text/html; charset=utf-8",
-              "date": "Tue, 28 Jul 2026 11:06:15 GMT",
+              "date": "Tue, 28 Jul 2026 12:17:21 GMT",
               "keep-alive": "timeout=5",
-              "x-pi-origin-receipt": "aef791736b9997f175026db6c1de99fef2c3fe54fff132d5"
+              "x-pi-origin-receipt": "c2e5bcfb1c90b3751f4bb9f4de1a9ffcdae3a2d0f1331907"
             },
             "status": 200,
             "requestBody": "",
             "responseBody": "<!doctype html><html><body><main data-vr-id=\"workspace\" data-clean-session=\"true\" data-active-capability-id=\"cap-submission-submit-submission\" data-capability-status=\"implemented\" data-surface-heading=\"Create submission\" data-primary-action=\"Create submission\" data-primary-operation-id=\"create-submission-submit-submission\" data-empty-state=\"No Create submission result is available\"><img src=\"/assets/icon.svg\" alt=\"\" width=\"16\" height=\"16\"><section data-vr-id=\"identity-section\" data-region=\"identity-section\"><label>title-input<input id=\"title-input\" data-vr-id=\"title-input\" data-domain-input-id=\"submission-title\"></label></section><section data-vr-id=\"options-section\" data-region=\"options-section\"><label>category-select<input id=\"category-select\" data-vr-id=\"category-select\" data-domain-input-id=\"submission-category\"></label><label>quantity-input<input id=\"quantity-input\" data-vr-id=\"quantity-input\" data-domain-input-id=\"result-quantity\"></label></section><section data-vr-id=\"upload-panel\" data-region=\"upload-panel\" data-upload-state=\"empty\" data-result-region-id=\"upload-panel\" data-result-status=\"empty\"><input id=\"upload-input\" data-vr-id=\"upload-input\" type=\"file\" multiple><div id=\"upload-status\" data-state=\"empty\">No source file selected</div><div data-display-host-id=\"binding-cap-submission-upload-resource-upload-submission-upload-resource-response-assetids\"></div><div data-display-host-id=\"binding-cap-submission-upload-resource-upload-submission-upload-resource-response-assets\"></div></section><button id=\"control-cap-submission-submit-submission\" data-vr-id=\"submit-button\">Create submission</button><button id=\"control-cap-submission-planned-export\" data-vr-id=\"planned-export\">External submission review</button><section data-vr-id=\"result-panel\" data-region=\"result-panel\" data-result-region-id=\"result-panel\" data-result-status=\"empty\"><span>No Create submission result is available</span></section><section data-vr-id=\"history-panel\" data-region=\"history-panel\" data-history-state=\"empty\">No submission history</section><section data-region=\"detail-panel\" data-detail-region data-detail-for=\"\"></section><div data-display-host-id=\"binding-cap-submission-submit-submission-create-submission-submit-submission-response-submissionid\"></div><div data-display-host-id=\"binding-cap-submission-submit-submission-create-submission-submit-submission-response-status\"></div><div data-display-host-id=\"binding-cap-submission-submit-submission-create-submission-submit-submission-response-items\"></div></main><script>const submitId=\"cap-submission-submit-submission\",uploadId=\"cap-submission-upload-resource\",plannedId=\"cap-submission-planned-export\";let resourceIds=JSON.parse(localStorage.getItem('resourceIds')||'[]');const main=document.querySelector('main'),uploadStatus=document.querySelector('#upload-status'),result=document.querySelector('[data-result-region-id=\"result-panel\"]');function state(value){const marker=document.createElement('i');marker.dataset.state=value;marker.hidden=true;main.append(marker)}function renderDisplays(capabilityId,data){for(const binding of [{\"id\":\"binding-cap-submission-submit-submission-create-submission-submit-submission-response-submissionid\",\"kind\":\"display\",\"controlId\":\"output-cap-submission-submit-submission-submissionid\",\"capabilityId\":\"cap-submission-submit-submission\",\"statePath\":\"capabilities.cap-submission-submit-submission.response.submissionId\",\"operationId\":\"create-submission-submit-submission\",\"requestPath\":null,\"responsePath\":\"submissionId\",\"effectIds\":[\"create-submission-submit-submission:entity-cap-submission-submit-submission-configuration:create:0\"],\"required\":true,\"runtimeValueRequired\":true,\"elementSemantic\":\"field-value\"},{\"id\":\"binding-cap-submission-submit-submission-create-submission-submit-submission-response-status\",\"kind\":\"display\",\"controlId\":\"output-cap-submission-submit-submission-status\",\"capabilityId\":\"cap-submission-submit-submission\",\"statePath\":\"capabilities.cap-submission-submit-submission.response.status\",\"operationId\":\"create-submission-submit-submission\",\"requestPath\":null,\"responsePath\":\"status\",\"effectIds\":[\"create-submission-submit-submission:entity-cap-submission-submit-submission-configuration:create:0\"],\"required\":true,\"runtimeValueRequired\":true,\"elementSemantic\":\"field-value\"},{\"id\":\"binding-cap-submission-submit-submission-create-submission-submit-submission-response-items\",\"kind\":\"display\",\"controlId\":\"output-cap-submission-submit-submission-items\",\"capabilityId\":\"cap-submission-submit-submission\",\"statePath\":\"capabilities.cap-submission-submit-submission.response.items\",\"operationId\":\"create-submission-submit-submission\",\"requestPath\":null,\"responsePath\":\"items\",\"effectIds\":[\"create-submission-submit-submission:entity-cap-submission-submit-submission-configuration:create:0\"],\"required\":true,\"runtimeValueRequired\":true,\"elementSemantic\":\"collection-value\"},{\"id\":\"binding-cap-submission-upload-resource-upload-submission-upload-resource-response-assetids\",\"kind\":\"display\",\"controlId\":\"output-cap-submission-upload-resource-assetids\",\"capabilityId\":\"cap-submission-upload-resource\",\"statePath\":\"capabilities.cap-submission-upload-resource.response.assetIds\",\"operationId\":\"upload-submission-upload-resource\",\"requestPath\":null,\"responsePath\":\"assetIds\",\"effectIds\":[\"upload-submission-upload-resource:entity-submission-asset:create:0\"],\"required\":true,\"runtimeValueRequired\":true,\"elementSemantic\":\"collection-value\"},{\"id\":\"binding-cap-submission-upload-resource-upload-submission-upload-resource-response-assets\",\"kind\":\"display\",\"controlId\":\"output-cap-submission-upload-resource-assets\",\"capabilityId\":\"cap-submission-upload-resource\",\"statePath\":\"capabilities.cap-submission-upload-resource.response.assets\",\"operationId\":\"upload-submission-upload-resource\",\"requestPath\":null,\"responsePath\":\"assets\",\"effectIds\":[\"upload-submission-upload-resource:entity-submission-asset:create:0\"],\"required\":true,\"runtimeValueRequired\":true,\"elementSemantic\":\"collection-value\"}]){if(binding.capabilityId!==capabilityId)continue;const host=document.querySelector('[data-display-host-id=\"'+binding.id+'\"]');const value=data[binding.responsePath];host.replaceChildren(...(Array.isArray(value)?value:[value]).map(item=>{const node=document.createElement('span');node.dataset.displayBindingId=binding.id;node.textContent=typeof item==='object'?JSON.stringify(item):String(item);return node}))}}document.querySelector('#upload-input').addEventListener('change',async event=>{main.dataset.activeCapabilityId=uploadId;main.dataset.capabilityStatus='implemented';main.dataset.surfaceHeading='Upload source file';main.dataset.primaryAction='Upload source file';main.dataset.primaryOperationId=\"upload-submission-upload-resource\";main.dataset.emptyState='No source file selected';document.querySelectorAll('[data-domain-input-id]').forEach(node=>node.removeAttribute('data-domain-input-id'));event.target.dataset.domainInputId='files';state('empty');state('loading');uploadStatus.dataset.state='loading';const body=new FormData();for(const file of event.target.files)body.append(\"files\",file);const response=await fetch(\"/api/resources\"+(new URL(location.href).search.includes('uploadFailure=1')?'?fail=1':''),{method:'POST',body});const data=await response.json();if(!response.ok){state('failure');uploadStatus.dataset.state='failure';uploadStatus.parentElement.dataset.resultStatus='error';uploadStatus.innerHTML='<span data-result-error=\"true\">'+data.error+'</span>';return}resourceIds=data.assetIds;localStorage.setItem('resourceIds',JSON.stringify(resourceIds));state('success');uploadStatus.dataset.state='success';uploadStatus.parentElement.dataset.resultStatus='success';uploadStatus.replaceChildren(...data.assetIds.map(value=>{const node=document.createElement('span');node.dataset.resultBindingId=\"binding-cap-submission-upload-resource-result-binding-cap-submission-upload-resource-assetids\";node.textContent=value;return node}));renderDisplays(uploadId,data)});document.querySelector('#control-cap-submission-submit-submission').addEventListener('click',async()=>{main.dataset.activeCapabilityId=submitId;main.dataset.capabilityStatus='implemented';main.dataset.surfaceHeading=\"Create submission\";main.dataset.primaryAction=\"Create submission\";main.dataset.primaryOperationId=\"create-submission-submit-submission\";main.dataset.emptyState=\"No Create submission result is available\";document.querySelector('#upload-input').removeAttribute('data-domain-input-id');document.querySelector('#title-input').dataset.domainInputId=\"submission-title\";document.querySelector('#category-select').dataset.domainInputId=\"submission-category\";document.querySelector('#quantity-input').dataset.domainInputId=\"result-quantity\";state('empty');state('loading');result.dataset.resultStatus='processing';result.textContent='Processing submission';const body={\"submission-title\":document.querySelector('#title-input').value,\"submission-category\":document.querySelector('#category-select').value,\"result-quantity\":document.querySelector('#quantity-input').value,\"upload-source-file-assetIds\":resourceIds};const response=await fetch(\"/api/submissions\",{method:'POST',headers:{'content-type':'application/json'},body:JSON.stringify(body)});const data=await response.json();if(!response.ok){state('failure');result.dataset.resultStatus='error';result.innerHTML='<span data-result-error=\"true\">'+data.error+'</span>';return}state('success');result.dataset.resultStatus='success';result.replaceChildren(...data.items.map(value=>{const node=document.createElement('span');node.dataset.resultRegionId=\"result-panel\";node.dataset.resultBindingId=\"binding-cap-submission-submit-submission-result-result-submit-submission\";node.textContent=value;return node}));renderDisplays(submitId,data);document.querySelector('[data-history-state]').dataset.historyState='populated';document.querySelector('[data-history-state]').textContent=data.submissionId;const detailRegion=document.querySelector('[data-detail-region]');Promise.all(data.items.map(value=>fetch(value))).then(()=>{detailRegion.dataset.thumbsLoaded=String(data.items.length)})});document.querySelector('#control-cap-submission-planned-export').addEventListener('click',()=>{main.dataset.activeCapabilityId=plannedId;main.dataset.capabilityStatus='planned';main.removeAttribute('data-primary-action');main.removeAttribute('data-primary-operation-id');main.removeAttribute('data-empty-state');main.dataset.surfaceHeading=\"External submission review\";main.innerHTML='<section data-planned-surface=\"true\"><h1>External submission review</h1><p>功能待实现（暂未开放）</p><button id=\"control-cap-submission-planned-export\" data-vr-id=\"planned-export\">External submission review</button></section>'});</script></body></html>\n"
-          },
-          {
-            "method": "GET",
-            "path": "/assets/icon.svg",
-            "query": {},
-            "headers": {
-              "accept": "image/avif,image/webp,image/apng,image/svg+xml,image/*,*/*;q=0.8",
-              "accept-encoding": "gzip, deflate, br, zstd",
-              "connection": "keep-alive",
-              "host": "127.0.0.1:56508",
-              "referer": "http://127.0.0.1:56508/submission",
-              "sec-fetch-dest": "image",
-              "sec-fetch-mode": "no-cors",
-              "sec-fetch-site": "same-origin",
-              "user-agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/149.0.7827.55 Safari/537.36",
-              "sec-ch-ua": "\"HeadlessChrome\";v=\"149\", \"Chromium\";v=\"149\", \"Not)A;Brand\";v=\"24\"",
-              "sec-ch-ua-mobile": "?0",
-              "sec-ch-ua-platform": "\"macOS\""
-            },
-            "responseHeaders": {
-              "connection": "keep-alive",
-              "content-length": "111",
-              "content-type": "image/svg+xml",
-              "date": "Tue, 28 Jul 2026 11:06:15 GMT",
-              "keep-alive": "timeout=5",
-              "x-pi-origin-receipt": "635da4c91c7c33982cbd919427dbc66d6def5ddef6721007"
-            },
-            "status": 200,
-            "requestBody": "",
-            "responseBody": "<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"16\" height=\"16\"><circle cx=\"8\" cy=\"8\" r=\"7\" fill=\"#333\"/></svg>\n"
           }
         ],
         "stateTransitions": [
@@ -134,7 +134,7 @@
       "capabilityId": "cap-submission-upload-resource",
       "bindingId": "binding-cap-submission-upload-resource",
       "locator": "upload-input",
-      "pageUrl": "http://127.0.0.1:56508/submission",
+      "pageUrl": "http://127.0.0.1:53498/submission",
       "mode": "reuse-control",
       "event": "upload",
       "expectedOutcome": "failure",
@@ -151,7 +151,7 @@
         "matchCount": 1,
         "visible": true,
         "enabled": true,
-        "pageUrl": "http://127.0.0.1:56508/submission?uploadFailure=1",
+        "pageUrl": "http://127.0.0.1:53498/submission?uploadFailure=1",
         "actionCallId": "call@22",
         "activeCapabilityId": "cap-submission-upload-resource",
         "capabilityStatus": "implemented",
@@ -167,10 +167,10 @@
               "accept-encoding": "gzip, deflate, br, zstd",
               "connection": "keep-alive",
               "content-length": "569",
-              "content-type": "multipart/form-data; boundary=----WebKitFormBoundaryIrc6aLmsA2lLM23p",
-              "host": "127.0.0.1:56508",
-              "origin": "http://127.0.0.1:56508",
-              "referer": "http://127.0.0.1:56508/submission?uploadFailure=1",
+              "content-type": "multipart/form-data; boundary=----WebKitFormBoundaryx54wLjZkAA3AuMpv",
+              "host": "127.0.0.1:53498",
+              "origin": "http://127.0.0.1:53498",
+              "referer": "http://127.0.0.1:53498/submission?uploadFailure=1",
               "sec-fetch-dest": "empty",
               "sec-fetch-mode": "cors",
               "sec-fetch-site": "same-origin",
@@ -183,12 +183,12 @@
               "connection": "keep-alive",
               "content-length": "25",
               "content-type": "application/json",
-              "date": "Tue, 28 Jul 2026 11:06:15 GMT",
+              "date": "Tue, 28 Jul 2026 12:17:21 GMT",
               "keep-alive": "timeout=5",
-              "x-pi-origin-receipt": "f5adcaa27ed184594e646c335123475318adf0feb5a131ab"
+              "x-pi-origin-receipt": "f8701a6216a7e2d6f854afdd0e6e37bec9e0f0bc5bfda67f"
             },
             "status": 422,
-            "contentType": "multipart/form-data; boundary=----WebKitFormBoundaryIrc6aLmsA2lLM23p",
+            "contentType": "multipart/form-data; boundary=----WebKitFormBoundaryx54wLjZkAA3AuMpv",
             "requestBody": {
               "fields": {},
               "files": {}
@@ -273,7 +273,7 @@
       "capabilityId": "cap-submission-upload-resource",
       "bindingId": "binding-cap-submission-upload-resource",
       "locator": "upload-input",
-      "pageUrl": "http://127.0.0.1:56508/submission",
+      "pageUrl": "http://127.0.0.1:53498/submission",
       "mode": "reuse-control",
       "event": "upload",
       "artifacts": [
@@ -289,7 +289,7 @@
         "matchCount": 1,
         "visible": true,
         "enabled": true,
-        "pageUrl": "http://127.0.0.1:56508/submission",
+        "pageUrl": "http://127.0.0.1:53498/submission",
         "actionCallId": "call@38",
         "activeCapabilityId": "cap-submission-upload-resource",
         "capabilityStatus": "implemented",
@@ -303,10 +303,10 @@
               "accept-encoding": "gzip, deflate, br, zstd",
               "connection": "keep-alive",
               "content-length": "569",
-              "content-type": "multipart/form-data; boundary=----WebKitFormBoundaryiC1U44sLRtBXv6Gp",
-              "host": "127.0.0.1:56508",
-              "origin": "http://127.0.0.1:56508",
-              "referer": "http://127.0.0.1:56508/submission",
+              "content-type": "multipart/form-data; boundary=----WebKitFormBoundaryfax5bbBpYIsCBx5o",
+              "host": "127.0.0.1:53498",
+              "origin": "http://127.0.0.1:53498",
+              "referer": "http://127.0.0.1:53498/submission",
               "sec-fetch-dest": "empty",
               "sec-fetch-mode": "cors",
               "sec-fetch-site": "same-origin",
@@ -319,31 +319,31 @@
               "connection": "keep-alive",
               "content-length": "333",
               "content-type": "application/json",
-              "date": "Tue, 28 Jul 2026 11:06:15 GMT",
+              "date": "Tue, 28 Jul 2026 12:17:21 GMT",
               "keep-alive": "timeout=5",
-              "x-pi-origin-receipt": "6bc08ff59455fae69e61cda583edd4ca28b47cedbbb15db2"
+              "x-pi-origin-receipt": "17014cc2f16740361cc9b35a14f1e6d6dbeccedfcfaa5af1"
             },
             "status": 201,
-            "contentType": "multipart/form-data; boundary=----WebKitFormBoundaryiC1U44sLRtBXv6Gp",
+            "contentType": "multipart/form-data; boundary=----WebKitFormBoundaryfax5bbBpYIsCBx5o",
             "requestBody": {
               "fields": {},
               "files": {}
             },
             "responseBody": {
               "assetIds": [
-                "resource-a71840c8fa7c",
-                "resource-edb8ecd17e65"
+                "resource-6b0ac30fb9df",
+                "resource-5111d39cb70c"
               ],
               "assets": [
                 {
-                  "id": "resource-a71840c8fa7c",
+                  "id": "resource-6b0ac30fb9df",
                   "status": "available",
-                  "checksum": "a71840c8fa7ca7fd445be93e41b0793fea25474788eb1e9614b960edde264f4f"
+                  "checksum": "6b0ac30fb9df53f2b904fb00aa3d4352211a770d9de2e6e88a1c98a7426d7a2e"
                 },
                 {
-                  "id": "resource-edb8ecd17e65",
+                  "id": "resource-5111d39cb70c",
                   "status": "available",
-                  "checksum": "edb8ecd17e6588dfc68fed77517ce9d9303e04a9294500b26751b7dd07e74e72"
+                  "checksum": "5111d39cb70ca72fe9b932c0d9a2694c413c9770207d6644a0cf3e5d44b8fead"
                 }
               ]
             }
@@ -355,7 +355,7 @@
             "controlId": "upload-input",
             "operationId": "upload-submission-upload-resource",
             "bindingType": "multipart-file",
-            "inputValue": "a71840c8fa7ca7fd445be93e41b0793fea25474788eb1e9614b960edde264f4f",
+            "inputValue": "6b0ac30fb9df53f2b904fb00aa3d4352211a770d9de2e6e88a1c98a7426d7a2e",
             "requestValue": [],
             "dynamic": true
           }
@@ -369,12 +369,12 @@
           "selectedCount": 2,
           "selectedChallenge": true,
           "requestMatched": true,
-          "requestContentType": "multipart/form-data; boundary=----WebKitFormBoundaryiC1U44sLRtBXv6Gp",
+          "requestContentType": "multipart/form-data; boundary=----WebKitFormBoundaryfax5bbBpYIsCBx5o",
           "contractContentType": "multipart/form-data",
           "multipartFiles": [],
           "responseIntegrityDigests": [
-            "a71840c8fa7ca7fd445be93e41b0793fea25474788eb1e9614b960edde264f4f",
-            "edb8ecd17e6588dfc68fed77517ce9d9303e04a9294500b26751b7dd07e74e72"
+            "6b0ac30fb9df53f2b904fb00aa3d4352211a770d9de2e6e88a1c98a7426d7a2e",
+            "5111d39cb70ca72fe9b932c0d9a2694c413c9770207d6644a0cf3e5d44b8fead"
           ],
           "challengeDigestMatched": true
         },
@@ -399,12 +399,12 @@
             "responseCount": 2,
             "actualCount": 2,
             "expectedValues": [
-              "resource-a71840c8fa7c",
-              "resource-edb8ecd17e65"
+              "resource-6b0ac30fb9df",
+              "resource-5111d39cb70c"
             ],
             "actualValues": [
-              "resource-a71840c8fa7c",
-              "resource-edb8ecd17e65"
+              "resource-6b0ac30fb9df",
+              "resource-5111d39cb70c"
             ]
           }
         ],
@@ -414,12 +414,12 @@
             "observationSource": "playwright-computed-render-v1",
             "testDomMutationFree": true,
             "expectedValues": [
-              "resource-a71840c8fa7c",
-              "resource-edb8ecd17e65"
+              "resource-6b0ac30fb9df",
+              "resource-5111d39cb70c"
             ],
             "actualValues": [
-              "resource-a71840c8fa7c",
-              "resource-edb8ecd17e65"
+              "resource-6b0ac30fb9df",
+              "resource-5111d39cb70c"
             ],
             "allElementsVisible": true,
             "semanticMatches": true
@@ -429,12 +429,12 @@
             "observationSource": "playwright-computed-render-v1",
             "testDomMutationFree": true,
             "expectedValues": [
-              "{\"id\":\"resource-a71840c8fa7c\",\"status\":\"available\",\"checksum\":\"a71840c8fa7ca7fd445be93e41b0793fea25474788eb1e9614b960edde264f4f\"}",
-              "{\"id\":\"resource-edb8ecd17e65\",\"status\":\"available\",\"checksum\":\"edb8ecd17e6588dfc68fed77517ce9d9303e04a9294500b26751b7dd07e74e72\"}"
+              "{\"id\":\"resource-6b0ac30fb9df\",\"status\":\"available\",\"checksum\":\"6b0ac30fb9df53f2b904fb00aa3d4352211a770d9de2e6e88a1c98a7426d7a2e\"}",
+              "{\"id\":\"resource-5111d39cb70c\",\"status\":\"available\",\"checksum\":\"5111d39cb70ca72fe9b932c0d9a2694c413c9770207d6644a0cf3e5d44b8fead\"}"
             ],
             "actualValues": [
-              "{\"id\":\"resource-a71840c8fa7c\",\"status\":\"available\",\"checksum\":\"a71840c8fa7ca7fd445be93e41b0793fea25474788eb1e9614b960edde264f4f\"}",
-              "{\"id\":\"resource-edb8ecd17e65\",\"status\":\"available\",\"checksum\":\"edb8ecd17e6588dfc68fed77517ce9d9303e04a9294500b26751b7dd07e74e72\"}"
+              "{\"id\":\"resource-6b0ac30fb9df\",\"status\":\"available\",\"checksum\":\"6b0ac30fb9df53f2b904fb00aa3d4352211a770d9de2e6e88a1c98a7426d7a2e\"}",
+              "{\"id\":\"resource-5111d39cb70c\",\"status\":\"available\",\"checksum\":\"5111d39cb70ca72fe9b932c0d9a2694c413c9770207d6644a0cf3e5d44b8fead\"}"
             ],
             "allElementsVisible": true,
             "semanticMatches": true
@@ -479,7 +479,7 @@
           "missing": []
         },
         "visibleText": [
-          "title-input category-select quantity-input resource-a71840c8fa7c resource-edb8ecd17e65 resource-a71840c8fa7c resource-edb8ecd17e65 {\"id\":\"resource-a71840c8fa7c\",\"status\":\"available\",\"checksum\":\"a71840c8fa7ca7fd445be93e41b0793fea25474788eb1e9614b960edde264f4f\"} {\"id\":\"resource-edb8ecd17e65\",\"status\":\"available\",\"checksum\":\"edb8ecd17e6588dfc68fed77517ce9d9303e04a9294500b26751b7dd07e74e72\"} Create submission External submission review No Create submission result is available No submission history"
+          "title-input category-select quantity-input resource-6b0ac30fb9df resource-5111d39cb70c resource-6b0ac30fb9df resource-5111d39cb70c {\"id\":\"resource-6b0ac30fb9df\",\"status\":\"available\",\"checksum\":\"6b0ac30fb9df53f2b904fb00aa3d4352211a770d9de2e6e88a1c98a7426d7a2e\"} {\"id\":\"resource-5111d39cb70c\",\"status\":\"available\",\"checksum\":\"5111d39cb70ca72fe9b932c0d9a2694c413c9770207d6644a0cf3e5d44b8fead\"} Create submission External submission review No Create submission result is available No submission history"
         ]
       },
       "surfaceFingerprint": {
@@ -505,7 +505,7 @@
       "capabilityId": "cap-submission-submit-submission",
       "bindingId": "binding-cap-submission-submit-submission",
       "locator": "control-cap-submission-submit-submission",
-      "pageUrl": "http://127.0.0.1:56508/submission",
+      "pageUrl": "http://127.0.0.1:53498/submission",
       "mode": "reuse-control",
       "event": "click",
       "expectedOutcome": "failure",
@@ -522,7 +522,7 @@
         "matchCount": 1,
         "visible": true,
         "enabled": true,
-        "pageUrl": "http://127.0.0.1:56508/submission",
+        "pageUrl": "http://127.0.0.1:53498/submission",
         "actionCallId": "call@68",
         "activeCapabilityId": "cap-submission-submit-submission",
         "capabilityStatus": "implemented",
@@ -536,9 +536,9 @@
               "accept-encoding": "gzip, deflate, br, zstd",
               "connection": "keep-alive",
               "content-length": "173",
-              "host": "127.0.0.1:56508",
-              "origin": "http://127.0.0.1:56508",
-              "referer": "http://127.0.0.1:56508/submission",
+              "host": "127.0.0.1:53498",
+              "origin": "http://127.0.0.1:53498",
+              "referer": "http://127.0.0.1:53498/submission",
               "sec-fetch-dest": "empty",
               "sec-fetch-mode": "cors",
               "sec-fetch-site": "same-origin",
@@ -552,9 +552,9 @@
               "connection": "keep-alive",
               "content-length": "25",
               "content-type": "application/json",
-              "date": "Tue, 28 Jul 2026 11:06:15 GMT",
+              "date": "Tue, 28 Jul 2026 12:17:22 GMT",
               "keep-alive": "timeout=5",
-              "x-pi-origin-receipt": "1ff964ba823a56b08356b1a98c6d2c63b0442c3a9884fcb2"
+              "x-pi-origin-receipt": "da2cd48600d35c0abdae41be90421be0320c424318111a64"
             },
             "status": 422,
             "contentType": "application/json",
@@ -563,8 +563,8 @@
               "submission-category": "submit-button",
               "result-quantity": "2",
               "upload-source-file-assetIds": [
-                "resource-a71840c8fa7c",
-                "resource-edb8ecd17e65"
+                "resource-6b0ac30fb9df",
+                "resource-5111d39cb70c"
               ]
             },
             "responseBody": {
@@ -670,7 +670,7 @@
       "capabilityId": "cap-submission-submit-submission",
       "bindingId": "binding-cap-submission-submit-submission",
       "locator": "control-cap-submission-submit-submission",
-      "pageUrl": "http://127.0.0.1:56508/submission",
+      "pageUrl": "http://127.0.0.1:53498/submission",
       "mode": "reuse-control",
       "event": "click",
       "artifacts": [
@@ -686,7 +686,7 @@
         "matchCount": 1,
         "visible": true,
         "enabled": true,
-        "pageUrl": "http://127.0.0.1:56508/submission",
+        "pageUrl": "http://127.0.0.1:53498/submission",
         "actionCallId": "call@90",
         "activeCapabilityId": "cap-submission-submit-submission",
         "capabilityStatus": "implemented",
@@ -700,9 +700,9 @@
               "accept-encoding": "gzip, deflate, br, zstd",
               "connection": "keep-alive",
               "content-length": "172",
-              "host": "127.0.0.1:56508",
-              "origin": "http://127.0.0.1:56508",
-              "referer": "http://127.0.0.1:56508/submission",
+              "host": "127.0.0.1:53498",
+              "origin": "http://127.0.0.1:53498",
+              "referer": "http://127.0.0.1:53498/submission",
               "sec-fetch-dest": "empty",
               "sec-fetch-mode": "cors",
               "sec-fetch-site": "same-origin",
@@ -716,9 +716,9 @@
               "connection": "keep-alive",
               "content-length": "174",
               "content-type": "application/json",
-              "date": "Tue, 28 Jul 2026 11:06:15 GMT",
+              "date": "Tue, 28 Jul 2026 12:17:22 GMT",
               "keep-alive": "timeout=5",
-              "x-pi-origin-receipt": "95b9680f7fea10bfd46c7039fef93448d245108f5249689e"
+              "x-pi-origin-receipt": "485007411d9810fcdd8c0b42e59bc2286cff07f24fc4ce43"
             },
             "status": 201,
             "contentType": "application/json",
@@ -727,30 +727,30 @@
               "submission-category": "submit-button",
               "result-quantity": "3",
               "upload-source-file-assetIds": [
-                "resource-a71840c8fa7c",
-                "resource-edb8ecd17e65"
+                "resource-6b0ac30fb9df",
+                "resource-5111d39cb70c"
               ]
             },
             "responseBody": {
-              "submissionId": "submission-d2c5d537",
+              "submissionId": "submission-57071bb4",
               "status": "succeeded",
               "items": [
-                "/media/submission-d2c5d537-1.txt",
-                "/media/submission-d2c5d537-2.txt",
-                "/media/submission-d2c5d537-3.txt"
+                "/media/submission-57071bb4-1.txt",
+                "/media/submission-57071bb4-2.txt",
+                "/media/submission-57071bb4-3.txt"
               ]
             }
           },
           {
             "method": "GET",
-            "path": "/media/submission-d2c5d537-1.txt",
+            "path": "/media/submission-57071bb4-1.txt",
             "query": {},
             "headers": {
               "accept": "*/*",
               "accept-encoding": "gzip, deflate, br, zstd",
               "connection": "keep-alive",
-              "host": "127.0.0.1:56508",
-              "referer": "http://127.0.0.1:56508/submission",
+              "host": "127.0.0.1:53498",
+              "referer": "http://127.0.0.1:53498/submission",
               "sec-fetch-dest": "empty",
               "sec-fetch-mode": "cors",
               "sec-fetch-site": "same-origin",
@@ -763,23 +763,23 @@
               "connection": "keep-alive",
               "content-length": "48",
               "content-type": "text/plain; charset=utf-8",
-              "date": "Tue, 28 Jul 2026 11:06:15 GMT",
+              "date": "Tue, 28 Jul 2026 12:17:22 GMT",
               "keep-alive": "timeout=5",
-              "x-pi-origin-receipt": "12b80a717e0a0a74d9ccb6a46342cf9a014b5f42e161e0fb"
+              "x-pi-origin-receipt": "8e6590109d67f4d362c9160c8b67d9f3320c8e10b6cd0f02"
             },
             "status": 200,
             "requestBody": ""
           },
           {
             "method": "GET",
-            "path": "/media/submission-d2c5d537-3.txt",
+            "path": "/media/submission-57071bb4-3.txt",
             "query": {},
             "headers": {
               "accept": "*/*",
               "accept-encoding": "gzip, deflate, br, zstd",
               "connection": "keep-alive",
-              "host": "127.0.0.1:56508",
-              "referer": "http://127.0.0.1:56508/submission",
+              "host": "127.0.0.1:53498",
+              "referer": "http://127.0.0.1:53498/submission",
               "sec-fetch-dest": "empty",
               "sec-fetch-mode": "cors",
               "sec-fetch-site": "same-origin",
@@ -792,23 +792,23 @@
               "connection": "keep-alive",
               "content-length": "48",
               "content-type": "text/plain; charset=utf-8",
-              "date": "Tue, 28 Jul 2026 11:06:15 GMT",
+              "date": "Tue, 28 Jul 2026 12:17:22 GMT",
               "keep-alive": "timeout=5",
-              "x-pi-origin-receipt": "fa45d56532928c2564b8abdf3d3e8df339a68c10a4345537"
+              "x-pi-origin-receipt": "114a21dd8248b4025816f32ef87da199bc9b4f6f091283ed"
             },
             "status": 200,
             "requestBody": ""
           },
           {
             "method": "GET",
-            "path": "/media/submission-d2c5d537-2.txt",
+            "path": "/media/submission-57071bb4-2.txt",
             "query": {},
             "headers": {
               "accept": "*/*",
               "accept-encoding": "gzip, deflate, br, zstd",
               "connection": "keep-alive",
-              "host": "127.0.0.1:56508",
-              "referer": "http://127.0.0.1:56508/submission",
+              "host": "127.0.0.1:53498",
+              "referer": "http://127.0.0.1:53498/submission",
               "sec-fetch-dest": "empty",
               "sec-fetch-mode": "cors",
               "sec-fetch-site": "same-origin",
@@ -821,9 +821,9 @@
               "connection": "keep-alive",
               "content-length": "48",
               "content-type": "text/plain; charset=utf-8",
-              "date": "Tue, 28 Jul 2026 11:06:15 GMT",
+              "date": "Tue, 28 Jul 2026 12:17:22 GMT",
               "keep-alive": "timeout=5",
-              "x-pi-origin-receipt": "902743b85924631091a7e8773a10e3050f38ab0010b1d898"
+              "x-pi-origin-receipt": "ca8f4f926128a2d48de23737549988c502c4a97802c84784"
             },
             "status": 200,
             "requestBody": ""
@@ -859,8 +859,8 @@
             "controlId": "input-cap-submission-submit-submission-body-upload-source-file-assetids",
             "operationId": "create-submission-submit-submission",
             "requestValue": [
-              "resource-a71840c8fa7c",
-              "resource-edb8ecd17e65"
+              "resource-6b0ac30fb9df",
+              "resource-5111d39cb70c"
             ],
             "dynamic": false
           }
@@ -887,14 +887,14 @@
             "responseCount": 3,
             "actualCount": 3,
             "expectedValues": [
-              "/media/submission-d2c5d537-1.txt",
-              "/media/submission-d2c5d537-2.txt",
-              "/media/submission-d2c5d537-3.txt"
+              "/media/submission-57071bb4-1.txt",
+              "/media/submission-57071bb4-2.txt",
+              "/media/submission-57071bb4-3.txt"
             ],
             "actualValues": [
-              "/media/submission-d2c5d537-1.txt",
-              "/media/submission-d2c5d537-2.txt",
-              "/media/submission-d2c5d537-3.txt"
+              "/media/submission-57071bb4-1.txt",
+              "/media/submission-57071bb4-2.txt",
+              "/media/submission-57071bb4-3.txt"
             ]
           }
         ],
@@ -904,10 +904,10 @@
             "observationSource": "playwright-computed-render-v1",
             "testDomMutationFree": true,
             "expectedValues": [
-              "submission-d2c5d537"
+              "submission-57071bb4"
             ],
             "actualValues": [
-              "submission-d2c5d537"
+              "submission-57071bb4"
             ],
             "allElementsVisible": true,
             "semanticMatches": true
@@ -930,14 +930,14 @@
             "observationSource": "playwright-computed-render-v1",
             "testDomMutationFree": true,
             "expectedValues": [
-              "/media/submission-d2c5d537-1.txt",
-              "/media/submission-d2c5d537-2.txt",
-              "/media/submission-d2c5d537-3.txt"
+              "/media/submission-57071bb4-1.txt",
+              "/media/submission-57071bb4-2.txt",
+              "/media/submission-57071bb4-3.txt"
             ],
             "actualValues": [
-              "/media/submission-d2c5d537-1.txt",
-              "/media/submission-d2c5d537-2.txt",
-              "/media/submission-d2c5d537-3.txt"
+              "/media/submission-57071bb4-1.txt",
+              "/media/submission-57071bb4-2.txt",
+              "/media/submission-57071bb4-3.txt"
             ],
             "allElementsVisible": true,
             "semanticMatches": true
@@ -982,7 +982,7 @@
           "missing": []
         },
         "visibleText": [
-          "title-input category-select quantity-input No source file selected Create submission External submission review /media/submission-d2c5d537-1.txt /media/submission-d2c5d537-2.txt /media/submission-d2c5d537-3.txt submission-d2c5d537 submission-d2c5d537 succeeded /media/submission-d2c5d537-1.txt /media/submission-d2c5d537-2.txt /media/submission-d2c5d537-3.txt"
+          "title-input category-select quantity-input No source file selected Create submission External submission review /media/submission-57071bb4-1.txt /media/submission-57071bb4-2.txt /media/submission-57071bb4-3.txt submission-57071bb4 submission-57071bb4 succeeded /media/submission-57071bb4-1.txt /media/submission-57071bb4-2.txt /media/submission-57071bb4-3.txt"
         ],
         "itemIndependence": {
           "capabilityId": "cap-submission-submit-submission",
@@ -1021,7 +1021,7 @@
       "capabilityId": "cap-submission-planned-export",
       "bindingId": "binding-cap-submission-planned-export",
       "locator": "control-cap-submission-planned-export",
-      "pageUrl": "http://127.0.0.1:56508/submission",
+      "pageUrl": "http://127.0.0.1:53498/submission",
       "mode": "reuse-control",
       "event": "click",
       "artifacts": [
@@ -1037,7 +1037,7 @@
         "matchCount": 1,
         "visible": true,
         "enabled": true,
-        "pageUrl": "http://127.0.0.1:56508/submission",
+        "pageUrl": "http://127.0.0.1:53498/submission",
         "actionCallId": "call@118",
         "activeCapabilityId": "cap-submission-planned-export",
         "capabilityStatus": "planned",

@@ -7,6 +7,8 @@ import { createServer as createHttpServer, request as httpRequest } from 'node:h
 import { dirname, relative, resolve } from 'node:path';
 import { collectionAtResponsePath, concurrencyFindings, independentItemsCampaignFindings, invocationBindingEvidence, operationResourceProofs, operationScopedCalls, providerOperationSetFindings } from './lib/campaign-independence.mjs';
 import { observedRequestEvidence } from './lib/request-observation.mjs';
+import { buildResultReviewRequest, controlledProviderResponse, resultReviewReceiptFindings } from './lib/campaign-review.mjs';
+import { workspaceCwd } from './lib/workspace-path.mjs';
 
 const args = parseArgs(process.argv.slice(2));
 for (const key of ['functional', 'candidate', 'output']) if (!args[key]) usage();
@@ -40,8 +42,11 @@ for (let index = 1; index <= count; index += 1) {
     const preparedState = protectedState(implementation);
     copyCandidate(implementation);
     assertProtectedState(implementation, preparedState, 'candidate copy');
-    for (const [installIndex, install] of (candidateContract.install || []).entries()) { command(`install-${installIndex + 1}`, install.command, install.args || [], install.env || {}, resolve(implementation, install.cwd || '.')); assertProtectedState(implementation, preparedState, `install-${installIndex + 1}`); }
-    if (level === 'integrated') await runtimeE2E(implementation);
+    for (const [installIndex, install] of (candidateContract.install || []).entries()) { command(`install-${installIndex + 1}`, install.command, install.args || [], install.env || {}, workspaceCwd(implementation, install.cwd || '.', `install-${installIndex + 1} cwd`)); assertProtectedState(implementation, preparedState, `install-${installIndex + 1}`); }
+    if (level === 'integrated') {
+      const reviewRequest = await runtimeE2E(implementation);
+      if (reviewRequest) await awaitResultReview(implementation, reviewRequest);
+    }
     command('implementation-finalize', 'node', [`${root}/scripts/finalize-implementation.mjs`, '--dir', implementation]);
     assertProtectedState(implementation, preparedState, 'finalize');
     command('implementation-verify', 'node', [`${root}/scripts/verify-implementation.mjs`, implementation, '--require-level', level]);
@@ -100,7 +105,7 @@ for (let index = 1; index <= count; index += 1) {
     const externalObservations = [];
     const observer = level === 'integrated' ? await startObserver(observerPort, appPort, observations, challengeId, apiContract.operations || []) : null;
     const concurrencyState = { inFlight: 0, maxInFlight: 0 };
-    const externalObserver = level === 'integrated' ? await startExternalObserver(externalObserverPort, externalObservations, challengeId, operationTokens, concurrencyState, 200) : null;
+    const externalObserver = level === 'integrated' ? await startExternalObserver(externalObserverPort, externalObservations, challengeId, operationTokens, apiContract.operations || [], concurrencyState, 200) : null;
     const providerChunks = [];
     const appChunks = [];
     provider?.stdout.on('data', (chunk) => providerChunks.push(chunk)); provider?.stderr.on('data', (chunk) => providerChunks.push(chunk));
@@ -115,7 +120,7 @@ for (let index = 1; index <= count; index += 1) {
       const e2eArgs = (e2e.args || []).map((value) => expand(value, variables));
       // Must be async: the ingress and external observers run in this process, so a synchronous child
       // would block the event loop and the observers could never answer the application's traffic.
-      const result = await spawnCollect(e2e.command, e2eArgs, { cwd: resolve(destination, e2e.cwd || '.'), env: expandedEnv(e2e.env, variables), timeoutMs: Number(e2e.timeoutMs || 120000) });
+      const result = await spawnCollect(e2e.command, e2eArgs, { cwd: workspaceCwd(destination, e2e.cwd || '.', 'browser E2E cwd'), env: expandedEnv(e2e.env, variables), timeoutMs: Number(e2e.timeoutMs || 120000) });
       const e2eCommand = `${e2e.command} ${e2eArgs.join(' ')}`;
       writeFileSync(`${runDir}/logs/browser-e2e.log`, `$ ${e2eCommand}\n${result.stdout || ''}${result.stderr || ''}`);
       steps.push({ id: 'runtime-browser-e2e', status: result.status === 0 ? 'passed' : 'failed', durationMs: Date.now() - before, command: e2eCommand, log: 'logs/browser-e2e.log' });
@@ -131,6 +136,7 @@ for (let index = 1; index <= count; index += 1) {
         const operationSetFindings = providerOperationSetFindings(api.operations, evidenceRecords);
         if (operationSetFindings.length) throw new Error(`${runId}/${operationSetFindings[0]}`);
         const operationReceipts = [];
+        const operationResults = [];
         for (const operation of requiredOperations) {
           const record = evidenceRecords.find((item) => item.operationId === operation.id);
           const operationId = operation.id;
@@ -138,9 +144,9 @@ for (let index = 1; index <= count; index += 1) {
           const resultPath = operationResultPath(uiPlan, operation);
           const resultItems = ingress ? collectionAtResponsePath(Buffer.from(JSON.stringify(ingress.responseBody)), resultPath) : null;
           if (operation.providerContract?.outputMode === 'independent-items' && !resultPath) throw new Error(`${runId}/${operationId} has no declared resultContract responsePath`);
-          if (ingress) { ingress.responseCollectionLength = Array.isArray(resultItems) ? resultItems.length : null; ingress.responseValues = scalarValues(ingress.responseBody); }
+          if (ingress) ingress.responseCollectionLength = Array.isArray(resultItems) ? resultItems.length : null;
           const externalCalls = operationScopedCalls(externalObservations, challengeId, operation.id, ingress);
-          const egressPassed = externalCalls.some((item) => ingress?.responseValues?.includes(item.externalResultId));
+          operationResults.push({ operationId, result: ingress?.responseBody ?? null, providerResults: externalCalls.map((item) => item.responseBody) });
           const integrationBindingEvidence = invocationBindingEvidence(operation, ingress, externalCalls, challengeId, operationResourceProofs(functionalSpec, operation, api.operations, observations, ingress));
           const independentItemsFindings = independentItemsCampaignFindings(operation, ingress, externalCalls, challengeId);
           const quantity = Array.isArray(resultItems) ? resultItems.length : externalCalls.length;
@@ -160,22 +166,37 @@ for (let index = 1; index <= count; index += 1) {
           }
           record.scenarios = controlledScenarios;
           const bindingsPassed = integrationBindingEvidence.every((item) => !item.required || item.observed) && (operation.integrationBindings || []).every((binding) => externalCalls.length > 0 && integrationBindingEvidence.filter((item) => item.source === binding.source && item.target === (binding.target || binding.providerField)).length === externalCalls.length);
-          const passed = Boolean(ingress) && egressPassed && bindingsPassed && !independentItemsFindings.length && !concurrencyResults.length;
+          const passed = Boolean(ingress) && externalCalls.length > 0 && bindingsPassed && !independentItemsFindings.length && !concurrencyResults.length;
           operationReceipts.push({ operationId, status: passed ? 'passed' : 'failed', resultPath, maxInFlight, integrationBindingEvidence, independentItemsFindings, concurrencyFindings: concurrencyResults });
           if (!ingress) throw new Error(`${runId}/observer did not capture integrated operation ${operationId}`);
-          if (!egressPassed) throw new Error(`${runId}/external observer did not capture an application-originated call for ${operationId}`);
+          if (!externalCalls.length) throw new Error(`${runId}/external observer did not capture an application-originated call for ${operationId}`);
           if (!bindingsPassed) throw new Error(`${runId}/not every provider invocation preserved all required bindings for ${operationId}`);
           if (independentItemsFindings.length) throw new Error(`${runId}/${independentItemsFindings[0]}`);
           if (concurrencyResults.length) throw new Error(`${runId}/${concurrencyResults[0]}`);
         }
         writeFileSync(`${destination}/integration-evidence.json`, `${JSON.stringify(integrationEvidence, null, 2)}\n`);
         writeFileSync(`${destination}/operation-observation-receipt.json`, `${JSON.stringify({ schemaVersion: '1.5', generatedBy: 'project-implementation/validation-campaign-observer', challengeId, status: operationReceipts.every((item) => item.status === 'passed') ? 'passed' : 'failed', observations, externalObservations, operationReceipts }, null, 2)}\n`);
+        const implementationAgents = [...new Set((readJSON(`${destination}/bmad-completion.json`).records || []).map((item) => item.devStory?.agentId).filter(Boolean))];
+        const reviewRequest = buildResultReviewRequest(requiredOperations, operationResults, challengeId, implementationAgents);
+        if (reviewRequest) writeFileSync(`${destination}/result-review-request.json`, `${JSON.stringify(reviewRequest, null, 2)}\n`);
+        return reviewRequest;
       }
     } finally {
       app.kill('SIGTERM'); provider?.kill('SIGTERM'); observer?.close(); externalObserver?.close();
       writeFileSync(providerLog, Buffer.concat(providerChunks).toString());
       writeFileSync(appLog, Buffer.concat(appChunks).toString());
     }
+  }
+
+  async function awaitResultReview(destination, request) {
+    const receiptPath = `${destination}/result-review-receipt.json`;
+    const timeoutMs = Number(args['review-timeout-ms'] || 300000);
+    console.log(`${runId}: awaiting distinct reviewer Agent receipt at ${receiptPath}`);
+    const startedAt = Date.now();
+    while (!existsSync(receiptPath) && Date.now() - startedAt < timeoutMs) await new Promise((resolveWait) => setTimeout(resolveWait, 250));
+    if (!existsSync(receiptPath)) throw new Error(`${runId}/independent result review receipt was not produced; give result-review-request.json to a distinct reviewer Agent`);
+    const findings = resultReviewReceiptFindings(request, readJSON(receiptPath));
+    if (findings.length) throw new Error(`${runId}/${findings[0]}`);
   }
 
   function finish(status, error = null) {
@@ -207,7 +228,7 @@ function assertProtectedState(dir, expected, stage) { if (JSON.stringify(protect
 function fileDigest(path) { return createHash('sha256').update(readFileSync(path)).digest('hex'); }
 function treeDigest(dir) { const hash = createHash('sha256'); for (const file of walk(dir)) hash.update(file.slice(dir.length + 1)).update('\0').update(readFileSync(file)).update('\0'); return hash.digest('hex'); }
 function walk(dir) { return readdirSync(dir, { withFileTypes: true }).flatMap((entry) => { const path = `${dir}/${entry.name}`; return entry.isDirectory() ? walk(path) : statSync(path).isFile() ? [path] : []; }).sort(); }
-function start(spec, destination, variables) { return spawn(spec.command, (spec.args || []).map((value) => expand(value, variables)), { cwd: resolve(destination, spec.cwd || '.'), env: expandedEnv(spec.env, variables), stdio: ['ignore', 'pipe', 'pipe'] }); }
+function start(spec, destination, variables) { return spawn(spec.command, (spec.args || []).map((value) => expand(value, variables)), { cwd: workspaceCwd(destination, spec.cwd || '.', 'runtime cwd'), env: expandedEnv(spec.env, variables), stdio: ['ignore', 'pipe', 'pipe'] }); }
 function spawnCollect(command, args, { cwd, env, timeoutMs }) {
   return new Promise((resolveResult) => {
     const child = spawn(command, args, { cwd, env, stdio: ['ignore', 'pipe', 'pipe'] });
@@ -223,14 +244,13 @@ function expand(value, variables) { return String(value).replace(/\$\{([A-Z_]+)\
 function freePort() { return new Promise((resolvePort, reject) => { const server = createServer(); server.once('error', reject); server.listen(0, '127.0.0.1', () => { const address = server.address(); server.close(() => resolvePort(address.port)); }); }); }
 function startObserver(port, targetPort, observations, challengeId, operations) { return new Promise((resolveServer, reject) => { const server = createHttpServer((incoming, outgoing) => { const chunks = []; const startedAt = Date.now(); incoming.on('data', (chunk) => chunks.push(chunk)); incoming.on('end', () => { const requestBody = Buffer.concat(chunks); const requestEvidence = observedRequestEvidence(incoming, requestBody, operations); const upstream = httpRequest({ hostname: '127.0.0.1', port: targetPort, path: incoming.url, method: incoming.method, headers: { ...incoming.headers, 'x-validation-challenge': challengeId } }, (response) => { const responseChunks = []; outgoing.writeHead(response.statusCode || 502, response.headers); response.on('data', (chunk) => { responseChunks.push(chunk); outgoing.write(chunk); }); response.on('end', () => { outgoing.end(); const body = Buffer.concat(responseChunks); observations.push({ challengeId, method: incoming.method, path: new URL(incoming.url, 'http://observer').pathname, status: response.statusCode, startedAt, observedAt: Date.now(), requestDigest: createHash('sha256').update(requestBody).digest('hex'), requestValueDigests: requestEvidence.valueDigests, requestContentDigests: requestEvidence.contentDigests, responseDigest: createHash('sha256').update(body).digest('hex'), responseBody: parseJson(body) }); }); }); upstream.on('error', () => { outgoing.writeHead(502); outgoing.end(); }); upstream.end(requestBody); }); }); server.once('error', reject); server.listen(port, '127.0.0.1', () => resolveServer(server)); }); }
 // The external observer injects a fixed delay so concurrent outbound calls deterministically overlap, and
-// records the maximum in-flight count. It never inspects business content — only counts overlap and returns
-// one distinct result id per call.
-function startExternalObserver(port, observations, challengeId, operationTokens, concurrency = { inFlight: 0, maxInFlight: 0 }, delayMs = 0) { const operationsByToken = new Map(Object.entries(operationTokens || {}).map(([operationId, token]) => [token, operationId])); return new Promise((resolveServer, reject) => { const server = createHttpServer((request, response) => { const chunks = []; request.on('data', (chunk) => chunks.push(chunk)); request.on('end', () => { const requestBody = Buffer.concat(chunks); const requestEvidence = observedRequestEvidence(request, requestBody, [], 'provider'); const received = request.headers['x-validation-challenge']; const operationToken = request.headers['x-validation-operation-token']; const operationId = operationsByToken.get(operationToken) || null; const matched = received === challengeId && Boolean(operationId); const externalResultId = matched ? randomUUID() : null; const body = Buffer.from(JSON.stringify(matched ? { externalResultId, status: 'accepted' } : { error: 'challenge-mismatch' })); concurrency.inFlight += 1; concurrency.maxInFlight = Math.max(concurrency.maxInFlight, concurrency.inFlight); const observation = { id: randomUUID(), challengeId: received || null, operationId, method: request.method, path: new URL(request.url, 'http://external-observer').pathname, status: matched ? 200 : 403, startedAt: Date.now(), observedAt: null, externalResultId, requestDigest: createHash('sha256').update(requestBody).digest('hex'), requestValueDigests: requestEvidence.valueDigests, requestContentDigests: requestEvidence.contentDigests, responseDigest: createHash('sha256').update(body).digest('hex') }; observations.push(observation); setTimeout(() => { concurrency.inFlight -= 1; observation.observedAt = Date.now(); response.writeHead(matched ? 200 : 403, { 'content-type': 'application/json' }); response.end(body); }, delayMs); }); }); server.once('error', reject); server.listen(port, '127.0.0.1', () => resolveServer(server)); }); }
+// records the maximum in-flight count. It replays only the Agent-authored response contract and never
+// judges how the application transforms that provider result into a business result.
+function startExternalObserver(port, observations, challengeId, operationTokens, operations, concurrency = { inFlight: 0, maxInFlight: 0 }, delayMs = 0) { const operationsByToken = new Map(Object.entries(operationTokens || {}).map(([operationId, token]) => [token, (operations || []).find((operation) => operation.id === operationId)])); return new Promise((resolveServer, reject) => { const server = createHttpServer((request, response) => { const chunks = []; request.on('data', (chunk) => chunks.push(chunk)); request.on('end', () => { const requestBody = Buffer.concat(chunks); const requestEvidence = observedRequestEvidence(request, requestBody, [], 'provider'); const received = request.headers['x-validation-challenge']; const operationToken = request.headers['x-validation-operation-token']; const operation = operationsByToken.get(operationToken) || null; const operationId = operation?.id || null; const matched = received === challengeId && Boolean(operation); const externalResultId = matched ? randomUUID() : null; const controlled = matched ? controlledProviderResponse(operation, externalResultId) : { status: 403, contentType: 'application/json', body: { error: 'challenge-mismatch' }, bytes: Buffer.from(JSON.stringify({ error: 'challenge-mismatch' })) }; const body = controlled.bytes; concurrency.inFlight += 1; concurrency.maxInFlight = Math.max(concurrency.maxInFlight, concurrency.inFlight); const observation = { id: randomUUID(), challengeId: received || null, operationId, method: request.method, path: new URL(request.url, 'http://external-observer').pathname, status: controlled.status, startedAt: Date.now(), observedAt: null, externalResultId, responseBody: controlled.body, requestDigest: createHash('sha256').update(requestBody).digest('hex'), requestValueDigests: requestEvidence.valueDigests, requestContentDigests: requestEvidence.contentDigests, responseDigest: createHash('sha256').update(body).digest('hex') }; observations.push(observation); setTimeout(() => { concurrency.inFlight -= 1; observation.observedAt = Date.now(); response.writeHead(controlled.status, { 'content-type': controlled.contentType }); response.end(body); }, delayMs); }); }); server.once('error', reject); server.listen(port, '127.0.0.1', () => resolveServer(server)); }); }
 
 function operationResultPath(uiPlan, operation) { const contract = (uiPlan.capabilities || []).find((item) => item.capabilityId === operation.capabilityId)?.presentation?.surface?.contentContract?.resultContract; return operation.integrationVerification?.resultCollectionPath || (contract?.bindings || []).find((item) => !item.operationId || item.operationId === operation.id)?.responsePath || null; }
 function maximumOverlap(calls) { const events = calls.flatMap((item) => [[item.startedAt, 1], [item.observedAt, -1]]).filter(([time]) => Number.isFinite(time)).sort((a, b) => a[0] - b[0] || b[1] - a[1]); let active = 0; let maximum = 0; for (const [, delta] of events) { active += delta; maximum = Math.max(maximum, active); } return maximum; }
 function parseJson(buffer) { try { return JSON.parse(buffer.toString('utf8')); } catch { return null; } }
-function scalarValues(value) { if (Array.isArray(value)) return value.flatMap(scalarValues); if (value && typeof value === 'object') return Object.values(value).flatMap(scalarValues); return value === null || value === undefined ? [] : [String(value)]; }
 function jsonScalarValues(buffer) { try { const values = []; collectScalars(JSON.parse(buffer.toString('utf8')), values); return values; } catch { return []; } }
 function collectScalars(value, values) { if (value === null || ['string', 'number', 'boolean'].includes(typeof value)) values.push(value); else if (Array.isArray(value)) for (const item of value) collectScalars(item, values); else if (value && typeof value === 'object') for (const item of Object.values(value)) collectScalars(item, values); }
 function routeMatches(contractPath, observedPath) { const pattern = String(contractPath).split(/(\{[^}]+\})/).map((part) => part.startsWith('{') ? '[^/]+' : part.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')).join(''); return new RegExp(`^${pattern}$`).test(observedPath); }

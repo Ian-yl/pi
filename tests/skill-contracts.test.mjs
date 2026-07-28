@@ -127,8 +127,12 @@ test('implementation preparation rejects a handoff receipt author mismatch', () 
 
 test('implementation preparation invalidates a handoff after the functional package is republished', () => withApprovedFunctional((approved) => withApprovedFrontend(approved, (handoff) => {
   patchJson(`${approved}/functional-spec.json`, (value) => ({ ...value, project: { ...value.project, brief: 'republished domain contract' } }));
-  const validation = runFdd('validate-package.mjs', [approved, '--require-approved']);
-  assert.equal(validation.status, 0, validation.stderr);
+  const reviewerAgentId = 'republish-reviewer';
+  const request = runFdd('review-package.mjs', ['--package', approved, '--reviewer-agent', reviewerAgentId, '--prepare-semantic-review']);
+  assert.equal(request.status, 0, `${request.stdout}${request.stderr}`);
+  writeSemanticReview(approved, reviewerAgentId);
+  const validation = runFdd('review-package.mjs', ['--package', approved, '--reviewer-agent', reviewerAgentId]);
+  assert.equal(validation.status, 0, `${validation.stdout}${validation.stderr}`);
   const output = mkdtempSync(path.join(os.tmpdir(), 'implementation-output-'));
   try {
     const result = run('project-implementation/scripts/prepare-implementation.mjs', ['--functional', approved, '--handoff', handoff, '--output', output]);
@@ -336,30 +340,17 @@ function withTempImplementation(callback) { const dir = mkdtempSync(path.join(os
 function writeOperationEventEmitter(dir, operations) { const events = operations.flatMap((operation) => [{ id: `success-${operation.id}`, operationId: operation.id, request: { method: operation.method, route: operation.path, contentType: operation.request?.contentType || 'application/json', path: {}, query: {}, header: {}, body: {} }, response: { status: 200, body: {} }, authorization: { checked: true }, effects: [] }, ...(operation.errors || []).map((error, index) => ({ id: `error-${operation.id}-${index}`, operationId: operation.id, errorCode: typeof error === 'object' ? error.code : error }))]); writeFileSync(`${dir}/emit-operation-events.cjs`, `require('node:fs').writeFileSync('operation-events.json', ${JSON.stringify(JSON.stringify({ schemaVersion: '1.0', events }))});\n`); }
 function withApprovedFunctional(callback) {
   withCopy(functional, (dir) => {
-    const authorAgentId = 'contract-test-author';
-    const reviewerAgentId = 'contract-test-reviewer';
-    patchJson(`${dir}/functional-spec.json`, (value) => ({ ...value,
-      entities: (value.entities || []).map((item) => ({ ...item, identity: item.identity || { fields: ['id'] }, aggregateRoot: item.aggregateRoot ?? true, lifecycle: item.lifecycle?.length ? item.lifecycle : ['active'], constraints: item.constraints || { required: ['id'], unique: [['id']], status: { field: 'status', allowed: item.lifecycle?.length ? item.lifecycle : ['active'] } }, accessScope: item.accessScope || { ownerActor: 'creator', scope: 'owner', ownershipField: 'userId' } })),
-      relationships: value.relationships || [],
-      consistencyBoundaries: value.consistencyBoundaries || (value.entities || []).map((item) => ({ id: `boundary-${item.id}`, aggregateRootEntityId: item.id, entityIds: [item.id], strategy: 'atomic' })),
-      capabilities: (value.capabilities || []).map((item) => ({ ...item, presentation: item.presentation || { mode: 'add-control', targetPageId: item.pageIds?.[0], preferredRegion: 'primary-content', control: { type: 'primary-button', label: item.name } } })),
-      permissions: (value.permissions || []).map((item) => ({ ...item, resourceIds: (value.entities || []).map((entity) => entity.id) })),
-      integrations: (value.integrations || []).map((item) => ({ ...item, capabilityIds: (value.capabilities || []).filter((capability) => capability.writesState).map((capability) => capability.id) })),
-    }));
-    const approvedSpec = readJson(`${dir}/functional-spec.json`); const planningGroups = ['capabilities', 'entities', 'relationships', 'consistencyBoundaries', 'journeys', 'rules', 'permissions', 'integrations'];
-    patchJson(`${dir}/capability-definitions.json`, (value) => ({ ...value, ...Object.fromEntries(planningGroups.map((group) => [group, approvedSpec[group] || []])) }));
-    patchJson(`${dir}/manifest.json`, (value) => ({ ...value, status: 'approved', authorAgentId, approval: { method: 'independent-agent-review', reviewerAgentId, reviewedAt: '2026-07-23T00:00:00.000Z' } }));
-    patchJson(`${dir}/planning-manifest.json`, (value) => ({ ...value, status: 'approved', authorAgentId }));
-    writeJson(`${dir}/planning-review-receipt.json`, { schemaVersion: '1.0', status: 'approved', workflow: 'fdd-bmad-planning', authorAgentId, reviewerAgentId, reviewedAt: '2026-07-23T00:00:00.000Z' });
-    const trustedReceipt = readJson(`${dir}/review-receipt.json`);
-    writeFileSync(`${dir}/review-receipt.json`, `${JSON.stringify({ ...trustedReceipt, status: 'approved', authorAgentId, reviewerAgentId, reviewedAt: '2026-07-23T00:00:00.000Z', checks: ['contract fixture'] }, null, 2)}\n`);
     const validation = runFdd('validate-package.mjs', [dir, '--require-approved']);
     assert.equal(validation.status, 0, validation.stderr);
     callback(dir);
   });
 }
 function withApprovedFrontend(functionalDir, callback) {
-  const domainReview = runFdd('review-package.mjs', ['--package', functionalDir, '--reviewer-agent', 'contract-refresh-reviewer']);
+  const reviewerAgentId = 'contract-refresh-reviewer';
+  const request = runFdd('review-package.mjs', ['--package', functionalDir, '--reviewer-agent', reviewerAgentId, '--prepare-semantic-review']);
+  assert.equal(request.status, 0, `${request.stdout}${request.stderr}`);
+  writeSemanticReview(functionalDir, reviewerAgentId);
+  const domainReview = runFdd('review-package.mjs', ['--package', functionalDir, '--reviewer-agent', reviewerAgentId]);
   assert.equal(domainReview.status, 0, `${domainReview.stdout}${domainReview.stderr}`);
   const dir = mkdtempSync(path.join(os.tmpdir(), 'approved-handoff-'));
   try {
@@ -370,37 +361,18 @@ function withApprovedFrontend(functionalDir, callback) {
     assert.equal(review.status, 0, `${review.stdout}${review.stderr}`);
     callback(dir);
   } finally { rmSync(dir, { recursive: true, force: true }); }
-  return;
-  withCopy(frontend, (dir) => {
-    const gateDigest = 'b'.repeat(64);
-    const releaseBase = { schemaVersion: '1.0', suiteId: 'test-suite', runId: 'test-run', gateDigest, approvalDigest: 'c'.repeat(64), payloadManifestDigest: digestJson({ schemaVersion: '1.0', files: [] }), payloadManifest: { schemaVersion: '1.0', files: [] } };
-    const releaseDigest = digestJson(releaseBase);
-    patchJson(`${functionalDir}/manifest.json`, (value) => ({ ...value, visualReleaseDigest: releaseDigest }));
-    patchJson(`${functionalDir}/functional-spec.json`, (value) => ({ ...value, visualSource: { sourceType: 'ai-restore-release', releaseDigest } }));
-    const validation = runFdd('validate-package.mjs', [functionalDir, '--require-approved']);
-    assert.equal(validation.status, 0, validation.stderr);
-    const functionalPackageDigest = digestJson(readJson(`${functionalDir}/package-lock.json`));
-    writeJson(`${dir}/release-manifest.json`, { ...releaseBase, releaseDigest });
-    writeJson(`${dir}/suite-gate.json`, { schemaVersion: '1.0', pass: true, gateDigest });
-    writeJson(`${dir}/visual-approval.json`, { schemaVersion: '1.0', approvalDigest: releaseBase.approvalDigest });
-    const sourceTreeDigest = digestTree(`${dir}/web`);
-    writeJson(`${dir}/visual-source.json`, { schemaVersion: '1.0', sourceType: 'ai-restore-release', releaseManifest: 'release-manifest.json', releaseDigest, suiteGateDigest: gateDigest, pageIds: Object.keys(readJson(`${dir}/frontend-manifest.json`).pages), routes: {}, sourceTreeDigest });
-    writeJson(`${dir}/visual-controls.json`, { schemaVersion: '1.0', controls: [] });
-    const functionalSpec = readJson(`${functionalDir}/functional-spec.json`);
-    writeJson(`${dir}/functional-spec.json`, functionalSpec);
-    writeJson(`${dir}/ui-implementation-plan.json`, { schemaVersion: '1.0', capabilities: functionalSpec.capabilities.map((item) => ({ capabilityId: item.id, specificationStatus: item.specificationStatus || 'complete', presentation: item.presentation || { mode: 'add-control', targetPageId: item.pageIds?.[0], control: { type: 'button', label: item.name } }, deliveryPolicy: item.deliveryPolicy || { requiredForCompletion: true, allowedIncompleteState: 'planned' }, planningReason: item.planningReason || null, missingDecisions: item.missingDecisions || [] })) });
-    const capabilityById = new Map(functionalSpec.capabilities.map((item) => [item.id, item]));
-    patchJson(`${dir}/api-contract.json`, (value) => ({ ...value, operations: (value.operations || []).filter((operation) => capabilityById.get(operation.capabilityId)?.specificationStatus !== 'planned').map((operation) => ({ ...operation, ...((new Set((operation.effects || []).map((effect) => effect.entityId)).size > 1 || (operation.effects || []).some((effect) => effect.effect === 'associate')) && !operation.transaction ? { transaction: { boundary: operation.effects[0].entityId, atomic: true } } : {}) })) }));
-    writeJson(`${dir}/domain-bindings.json`, { schemaVersion: '1.0', functionalPackageDigest, capabilityIds: readJson(`${functionalDir}/functional-spec.json`).capabilities.map((item) => item.id), ruleIds: readJson(`${functionalDir}/functional-spec.json`).rules.map((item) => item.id) });
-    writeJson(`${dir}/runtime-contract.json`, { schemaVersion: '1.0', command: 'npm start', healthUrl: 'http://127.0.0.1:${PORT}/health', requiredEnvironment: ['PORT'] });
-    writeJson(`${dir}/handoff-manifest.json`, { schemaVersion: '1.0', packageType: 'implementation-handoff', status: 'approved', authorAgentId: 'handoff-author', functionalPackageDigest, visualReleaseDigest: releaseDigest, approval: { reviewerAgentId: 'handoff-reviewer' } });
-    writeJson(`${dir}/handoff-review-receipt.json`, { schemaVersion: '1.0', status: 'approved', authorAgentId: 'handoff-author', reviewerAgentId: 'handoff-reviewer', functionalPackageDigest, visualReleaseDigest: releaseDigest });
-    const files = ['handoff-manifest.json', 'visual-source.json', 'release-manifest.json', 'suite-gate.json', 'visual-approval.json', 'frontend-manifest.json', 'functional-spec.json', 'visual-controls.json', 'ui-implementation-plan.json', 'api-contract.json', 'domain-bindings.json', 'runtime-contract.json', 'handoff-review-receipt.json'];
-    const digests = Object.fromEntries(files.map((file) => [file, digest(readFileSync(`${dir}/${file}`))]));
-    digests.web = sourceTreeDigest;
-    writeJson(`${dir}/handoff-lock.json`, { schemaVersion: '1.0', algorithm: 'sha256', functionalPackageDigest, visualReleaseDigest: releaseDigest, sourceTreeDigest, digests });
-    callback(dir);
-  });
+}
+function writeSemanticReview(packageDir, reviewerAgentId) {
+  const request = readJson(`${packageDir}/semantic-review-request.json`);
+  const spec = readJson(`${packageDir}/functional-spec.json`);
+  const capabilitiesByPage = new Map();
+  for (const capability of spec.capabilities || []) {
+    const pageId = capability.presentation?.targetPageId;
+    if (!pageId) continue;
+    if (!capabilitiesByPage.has(pageId)) capabilitiesByPage.set(pageId, []);
+    capabilitiesByPage.get(pageId).push(capability.id);
+  }
+  writeJson(`${packageDir}/semantic-review.json`, { schemaVersion: '1.0', reviewerAgentId, requestDigest: request.requestDigest, status: 'approved', pageReviews: request.pageIds.map((pageId) => ({ pageId, verdict: 'approved', capabilityIds: (capabilitiesByPage.get(pageId) || []).sort(), controlIds: request.controlIds.filter((id) => id.startsWith(`${pageId}:`)).sort(), closureAssessment: 'The neutral test fixture has distinct interaction closures.', evidenceAssessment: 'The locked fixture evidence accounts for these closures.' })) });
 }
 function patchJson(file, transform) { const value = JSON.parse(readFileSync(file, 'utf8')); writeFileSync(file, `${JSON.stringify(transform(value), null, 2)}\n`); }
 function makePlanned(capability) {
@@ -417,7 +389,3 @@ function writeJson(file, value) { writeFileSync(file, `${JSON.stringify(value, n
 function digest(value) { return createHash('sha256').update(value).digest('hex'); }
 function digestJson(value) { return digest(Buffer.from(canonical(value), 'utf8')); }
 function canonical(value) { if (value === null || typeof value !== 'object') return JSON.stringify(value); if (Array.isArray(value)) return `[${value.map(canonical).join(',')}]`; return `{${Object.keys(value).sort().map((key) => `${JSON.stringify(key)}:${canonical(value[key])}`).join(',')}}`; }
-function digestTree(root) {
-  const files = spawnSync('find', [root, '-type', 'f'], { encoding: 'utf8' }).stdout.trim().split('\n').filter(Boolean).filter((file) => !file.includes('/node_modules/') && !file.includes('/dist/')).sort();
-  return digestJson(files.map((file) => ({ path: file.slice(root.length + 1), size: readFileSync(file).length, sha256: digest(readFileSync(file)) })));
-}

@@ -1,14 +1,15 @@
 {
   "schemaVersion": "1.0",
   "packageType": "implementation-handoff",
+  "inputMode": "release-backed",
   "status": "approved",
   "authorAgentId": "golden-handoff-author",
   "functionalProjectId": "neutral-submission",
-  "functionalPackageDigest": "baf35b90442a159d1804fc7c1dd40594affd06c3ebb66d2affbba68de24aba4d",
+  "functionalPackageDigest": "0cd29171cc0e13f590747d2c655edcb5b1ff0f105290d2b462c30dd651755d6a",
   "visualReleaseDigest": "961069a7aa1f6c1f88f6806588230c530095905f80281efd7bacaa4f2310d1ec",
   "sourceDirectory": "visual-release",
   "approval": {
     "reviewerAgentId": "golden-handoff-reviewer",
-    "reviewedAt": "2026-07-28T11:06:13.675Z"
+    "reviewedAt": "2026-07-28T12:17:20.668Z"
   }
 }

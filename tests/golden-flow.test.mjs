@@ -59,6 +59,7 @@ test('golden fixture completes the current simulated flow', () => {
     assert.ok(lock.sourceDigests.backend);
     assert.ok(lock.sourceDigests.frontend);
     assert.ok(lock.sourceDigests.tests);
+    assert.equal(existsSync(`${output}/implementation/visual-restoration-handoff.json`), false, 'release-backed flow must not enter the design-led AR handoff');
   } finally { rmSync(output, { recursive: true, force: true }); }
 });
 

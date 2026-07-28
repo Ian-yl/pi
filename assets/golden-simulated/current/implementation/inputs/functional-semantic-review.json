@@ -1,0 +1,27 @@
+{
+  "schemaVersion": "1.0",
+  "reviewerAgentId": "golden-domain-reviewer",
+  "requestDigest": "f084fd02290756274e7209d4dd5568cd3685e3e0f43f41b77efa0599773e9ecb",
+  "status": "approved",
+  "pageReviews": [
+    {
+      "pageId": "submission",
+      "verdict": "approved",
+      "capabilityIds": [
+        "cap-submission-planned-export",
+        "cap-submission-submit-submission",
+        "cap-submission-upload-resource"
+      ],
+      "controlIds": [
+        "submission:category-select",
+        "submission:planned-export",
+        "submission:quantity-input",
+        "submission:submit-button",
+        "submission:title-input",
+        "submission:upload-input"
+      ],
+      "closureAssessment": "The neutral fixture capabilities form distinct trigger-input-operation-result closures.",
+      "evidenceAssessment": "The authored closure accounts for the locked architecture and frontend semantic evidence."
+    }
+  ]
+}

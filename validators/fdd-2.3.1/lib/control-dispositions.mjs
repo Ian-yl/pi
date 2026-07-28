@@ -12,8 +12,12 @@ export function controlDispositionFindings(ledgerDoc, spec, inventory, controlMa
   const capabilities = new Map((spec?.capabilities || []).map((cap) => [cap.id, cap]));
   const operationsById = new Map((spec?.capabilities || []).flatMap((cap) => (cap.operations || []).map((operation) => [operation.id, { operation, capability: cap }])));
 
-  // Gate 10: the ledger is bound to the same immutable release as the semantic inventory.
-  if (!ledgerDoc || ledgerDoc.releaseDigest !== inventory?.release?.releaseDigest) findings.push('control-dispositions.json is not bound to the release digest of the semantic inventory');
+  // The ledger is bound to the selected presentation authority: immutable release or finalized design.
+  const releaseBacked = inventory?.sourceType !== 'finalized-design';
+  const bindingMatches = releaseBacked
+    ? ledgerDoc?.releaseDigest === inventory?.release?.releaseDigest
+    : ledgerDoc?.designManifestDigest === inventory?.design?.manifestDigest;
+  if (!ledgerDoc || !bindingMatches) findings.push('control-dispositions.json is not bound to the semantic inventory source digest');
 
   const seen = new Set();
   const triggeredOperations = new Set();

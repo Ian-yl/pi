@@ -7,11 +7,14 @@ import { schemaFindings } from './lib/json-schema.mjs';
 import { computeOperationReceipts } from './lib/operation-receipts.mjs';
 import { digestJSON, releaseDigest } from './lib/handoff.mjs';
 import { operationResourceProofs, operationScopedCalls, providerOperationSetFindings } from './lib/campaign-independence.mjs';
+import { buildResultReviewRequest, resultReviewReceiptFindings } from './lib/campaign-review.mjs';
 
 const dirArg = process.argv.slice(2).find((value) => !value.startsWith('--'));
 if (!dirArg) { console.error('Usage: verify-implementation.mjs <implementation-dir>'); process.exit(2); }
 const dir = resolve(dirArg);
 const functionalManifestPreview = existsSync(`${dir}/inputs/functional-manifest.json`) ? readJSON(`${dir}/inputs/functional-manifest.json`) : {};
+const handoffManifestPreview = existsSync(`${dir}/inputs/handoff-handoff-manifest.json`) ? readJSON(`${dir}/inputs/handoff-handoff-manifest.json`) : {};
+const inputMode = handoffManifestPreview.inputMode;
 const SCHEMA_23_SEMANTIC_FILES = ['frontend-semantic-inventory.json', 'observed-interactions.json', 'control-capability-map.json', 'asset-role-inventory.json'];
 const semanticInputs = functionalManifestPreview.schemaVersion === '2.3' ? SCHEMA_23_SEMANTIC_FILES : [];
 const evidenceInputs = ['evidence-index.json', 'evidence-dispositions.json'];
@@ -19,7 +22,8 @@ const requiredFunctionalInputs = ['manifest.json', 'planning-manifest.json', 'pl
 const functionalPackageLockPreview = existsSync(`${dir}/inputs/functional-package-lock.json`) ? readJSON(`${dir}/inputs/functional-package-lock.json`) : {};
 const lockedFunctionalInputs = lockedPackageFiles(functionalPackageLockPreview);
 const formalFunctionalInputs = [...lockedFunctionalInputs, 'package-lock.json'];
-const formalHandoffInputs = ['handoff-manifest.json', 'visual-source.json', 'release-manifest.json', 'suite-gate.json', 'visual-approval.json', 'frontend-manifest.json', 'functional-spec.json', ...semanticInputs, ...(functionalManifestPreview.schemaVersion === '2.3' ? ['handoff-anchor-manifest.json'] : []), 'visual-controls.json', 'ui-implementation-plan.json', 'api-contract.json', 'domain-bindings.json', 'runtime-contract.json', 'handoff-review-receipt.json', 'handoff-lock.json'];
+const handoffSourceInputs = inputMode === 'release-backed' ? ['visual-source.json', 'release-manifest.json', 'suite-gate.json', 'visual-approval.json'] : inputMode === 'design-led' ? ['design-source.json'] : [];
+const formalHandoffInputs = ['handoff-manifest.json', ...handoffSourceInputs, 'frontend-manifest.json', 'functional-spec.json', ...semanticInputs, ...(functionalManifestPreview.schemaVersion === '2.3' ? ['handoff-anchor-manifest.json'] : []), 'visual-controls.json', 'ui-implementation-plan.json', 'api-contract.json', 'domain-bindings.json', 'runtime-contract.json', 'handoff-review-receipt.json', 'handoff-lock.json'];
 const supportedOptions = new Set(['--require-level']);
 for (const value of process.argv.slice(2)) if (value.startsWith('--') && !supportedOptions.has(value)) { console.error(`unsupported verification option: ${value}`); process.exit(2); }
 const requiredLevel = optionValue('--require-level') || 'integrated';
@@ -31,6 +35,7 @@ const lockHeader = existsSync(`${dir}/input-lock.json`) ? readJSON(`${dir}/input
 const required = ['input-lock.json', 'implementation-plan.json', 'field-binding-plan.json', 'operation-events.json', 'operation-receipts.json', 'implementation-provenance.json', 'implementation-manifest.json', 'integration-evidence.json', 'openapi.json', 'startup.json', 'test-report.json', 'bmad-traceability.json', 'bmad-completion.json', ...(requiresFrontendRuntime ? ['interaction-manifest.json', 'control-bindings.json', 'frontend-runtime-config.json', 'frontend-runtime-report.json', 'frontend-capability-results.json', 'browser-e2e-report.json', 'placeholder-resolution.json', 'placeholder-audit-report.json'] : [])];
 const errors = [];
 if (functionalManifestPreview.schemaVersion !== '2.3') errors.push('formal verification accepts only functional-domain schema 2.3');
+if (!['release-backed', 'design-led'].includes(inputMode) || functionalManifestPreview.inputMode !== inputMode || lockHeader.inputMode !== inputMode) errors.push('formal verification inputMode chain is missing or inconsistent');
 if (functionalManifestPreview.schemaVersion === '2.3' && JSON.stringify(functionalManifestPreview.semanticArtifacts) !== JSON.stringify(SCHEMA_23_SEMANTIC_FILES)) errors.push('schema 2.3 semanticArtifacts must equal the fixed semantic artifact contract');
 for (const file of required) if (!existsSync(`${dir}/${file}`) || statSync(`${dir}/${file}`).size === 0) errors.push(`missing ${file}`);
 if (errors.length) fail(errors);
@@ -73,6 +78,18 @@ if (manifest.verificationLevel !== 'simulated') {
   const operationSetFindings = providerOperationSetFindings(api.operations, integrationRecords);
   if (integration.viaApplication !== true || operationSetFindings.length) errors.push(`integrated evidence must come through an application operation and exactly cover every provider operation — ${operationSetFindings[0] || 'viaApplication is not proven'}`);
   for (const record of integrationRecords) verifyIntegratedOperation(record, errors);
+  if ((api.operations || []).some((operation) => operation.integrationVerification?.resultReview?.required === true)) {
+    if (!existsSync(`${dir}/result-review-request.json`) || !existsSync(`${dir}/result-review-receipt.json`)) errors.push('integrated verification lacks the independent Agent result review request or receipt');
+    else {
+      const observation = readJSON(`${dir}/operation-observation-receipt.json`);
+      const operationResults = (api.operations || []).map((operation) => ({ operationId: operation.id, result: observation.observations?.find((item) => String(item.method).toUpperCase() === String(operation.method).toUpperCase() && pathMatches(operation.path, item.path) && Number(item.status) >= 200 && Number(item.status) < 300)?.responseBody ?? null, providerResults: (observation.externalObservations || []).filter((item) => item.operationId === operation.id).map((item) => item.responseBody) }));
+      const implementationAgents = [...new Set((bmadCompletion?.records || []).map((item) => item.devStory?.agentId).filter(Boolean))];
+      const expectedRequest = buildResultReviewRequest(api.operations, operationResults, observation.challengeId, implementationAgents);
+      const actualRequest = readJSON(`${dir}/result-review-request.json`);
+      if (JSON.stringify(actualRequest) !== JSON.stringify(expectedRequest)) errors.push('independent result review request does not match campaign-owned operation results');
+      errors.push(...resultReviewReceiptFindings(actualRequest, readJSON(`${dir}/result-review-receipt.json`)));
+    }
+  }
 }
 
 function verifyIntegratedOperation(integrationRecord, items) {
@@ -180,10 +197,33 @@ const productStatus = capabilityCompletion.some((item) => item.status === 'simul
 writeFileSync(`${dir}/capability-completion-report.json`, `${JSON.stringify({ schemaVersion: '1.1', generatedBy: 'project-implementation/verify-implementation', productStatus, counts: { implemented: capabilityCompletion.filter((item) => item.status === 'implemented').length, planned: capabilityCompletion.filter((item) => item.status === 'planned').length, simulatedVerified: capabilityCompletion.filter((item) => item.status === 'simulated-verified').length }, capabilities: capabilityCompletion }, null, 2)}\n`);
 
 const runtimeEvidenceFiles = requiresFrontendRuntime && existsSync(`${dir}/evidence/frontend`) ? walk(`${dir}/evidence/frontend`).map((file) => file.slice(dir.length + 1)) : [];
-const lockFiles = [...required, 'capability-completion-report.json', ...(bmadTraceability ? ['bmad-traceability.json'] : []), ...runtimeEvidenceFiles];
-const digests = Object.fromEntries(lockFiles.map((file) => [file, sha(readFileSync(`${dir}/${file}`))]));
 const sources = implementationSources();
 const sourceDigests = Object.fromEntries(Object.entries(sources).map(([group, files]) => [group, hashSourceFiles(files)]));
+const visualRestorationHandoff = inputMode === 'design-led' && productStatus === 'implemented' ? 'visual-restoration-handoff.json' : null;
+if (visualRestorationHandoff) writeFileSync(`${dir}/${visualRestorationHandoff}`, `${JSON.stringify({
+  schemaVersion: '1.0',
+  packageType: 'visual-restoration-handoff',
+  status: 'ready-for-visual-restoration',
+  generatedBy: 'project-implementation/verify-implementation',
+  designManifestDigest: inputLock.sources.designManifestDigest,
+  functionalPackageDigest: inputLock.sources.functionalPackageDigest,
+  handoffPackageDigest: inputLock.sources.handoffPackageDigest,
+  verifiedFrontendSourceDigest: sourceDigests.frontend,
+  behaviorContractDigests: {
+    apiContract: sha(readFileSync(`${dir}/inputs/handoff-api-contract.json`)),
+    interactionManifest: requiresFrontendRuntime ? sha(readFileSync(`${dir}/interaction-manifest.json`)) : null,
+    controlBindings: requiresFrontendRuntime ? sha(readFileSync(`${dir}/control-bindings.json`)) : null,
+    capabilityCompletion: sha(readFileSync(`${dir}/capability-completion-report.json`)),
+  },
+  restorationBoundary: {
+    allowed: ['layout', 'spacing', 'typography', 'color', 'visual-assets', 'responsive-visual-treatment'],
+    preserve: ['routes', 'control-semantics', 'interaction-behavior', 'operation-requests', 'application-state-transitions', 'business-results'],
+    completionOwner: 'ai-restore',
+    returnToProjectImplementation: false,
+  },
+}, null, 2)}\n`);
+const lockFiles = [...required, 'capability-completion-report.json', ...(visualRestorationHandoff ? [visualRestorationHandoff] : []), ...(bmadTraceability ? ['bmad-traceability.json'] : []), ...runtimeEvidenceFiles];
+const digests = Object.fromEntries(lockFiles.map((file) => [file, sha(readFileSync(`${dir}/${file}`))]));
 if (existsSync(`${dir}/implementation-lock.json`)) {
   const prior = readJSON(`${dir}/implementation-lock.json`);
   if (JSON.stringify(prior.digests) !== JSON.stringify(digests)) fail(['implementation metadata lock mismatch']);
@@ -213,8 +253,9 @@ function verifyInputLock(lock, items) {
     const expected = [...formalFunctionalInputs.map((file) => `functional/${file}`), ...formalHandoffInputs.map((file) => `handoff/${file}`)].sort();
     const actual = Object.keys(lock.digests || {}).sort();
     if (JSON.stringify(expected) !== JSON.stringify(actual)) items.push('prepared input lock digest file set mismatch');
-    const functionalLockPath = `${dir}/inputs/functional-package-lock.json`; const handoffLockPath = `${dir}/inputs/handoff-handoff-lock.json`; const releasePath = `${dir}/inputs/handoff-release-manifest.json`;
-    if (!lock.sources || !lock.sources.functionalPackageDigest || !lock.sources.fddPlanningDigest || !lock.sources.handoffPackageDigest || !lock.sources.visualReleaseDigest) items.push('prepared input lock source chain is incomplete');
+    const functionalLockPath = `${dir}/inputs/functional-package-lock.json`; const handoffLockPath = `${dir}/inputs/handoff-handoff-lock.json`; const releasePath = `${dir}/inputs/handoff-release-manifest.json`; const designSourcePath = `${dir}/inputs/handoff-design-source.json`;
+    const sourceDigest = inputMode === 'release-backed' ? lock.sources?.visualReleaseDigest : lock.sources?.designManifestDigest;
+    if (!lock.sources || !lock.sources.functionalPackageDigest || !lock.sources.fddPlanningDigest || !lock.sources.handoffPackageDigest || !sourceDigest) items.push('prepared input lock source chain is incomplete');
     else {
       if (!existsSync(functionalLockPath) || lock.sources.functionalPackageDigest !== digestJSON(readJSON(functionalLockPath))) items.push('functional package source digest mismatch');
       if (!existsSync(handoffLockPath) || lock.sources.handoffPackageDigest !== digestJSON(readJSON(handoffLockPath))) items.push('handoff package source digest mismatch');
@@ -222,8 +263,10 @@ function verifyInputLock(lock, items) {
       const planning = Object.fromEntries(planningFiles.map((file) => [file.replace('.json', '').replaceAll('-', '_'), readJSON(`${dir}/inputs/functional-${file}`)]));
       const planningDigest = digestJSON({ manifest: planning.planning_manifest, artifacts: planning.planning_artifacts, definitions: planning.capability_definitions, review: planning.planning_review_receipt });
       if (lock.sources.fddPlanningDigest !== planningDigest || plan.planningSource?.workflow !== 'fdd-bmad-planning' || plan.planningSource?.digest !== planningDigest || plan.planningSource?.semanticChangesAllowed !== false) items.push('FDD planning source chain or PI semantic boundary is invalid');
-      if (!existsSync(releasePath)) items.push('visual release source manifest is missing');
-      else { const release = readJSON(releasePath); if (releaseDigest(release) !== release.releaseDigest || lock.sources.visualReleaseDigest !== release.releaseDigest) items.push('visual release source digest mismatch'); }
+      if (inputMode === 'release-backed') {
+        if (!existsSync(releasePath)) items.push('visual release source manifest is missing');
+        else { const release = readJSON(releasePath); if (releaseDigest(release) !== release.releaseDigest || lock.sources.visualReleaseDigest !== release.releaseDigest) items.push('visual release source digest mismatch'); }
+      } else if (!existsSync(designSourcePath) || readJSON(designSourcePath).designManifestDigest !== lock.sources.designManifestDigest) items.push('finalized design source digest mismatch');
     }
   }
   for (const [source, digest] of Object.entries(lock.digests || {})) {

@@ -4,26 +4,28 @@
 
 The functional package uses schema `2.3` across all formal domain files, has status `approved`, contains no unresolved blockers, and includes `review-receipt.json` plus a valid `package-lock.json`. It also includes FDD-owned `planning-manifest.json`, `planning-artifacts.json`, `capability-definitions.json`, `evidence-index.json`, `evidence-dispositions.json`, `control-dispositions.json`, and `planning-review-receipt.json`. PI copies both evidence files into `inputs/`, locks their digests, and treats them as read-only planning provenance. Capability, entity, relationship, journey, rule, permission, and integration sets exactly match the approved functional spec.
 
-PI treats the approved FDD `package-lock.json` as the complete functional input file set. Every safe locked path, including `design-manifest.json`, `designs/*`, and locked acceptance fixtures, is copied under `inputs/functional-*` and included in `input-lock.json`. PI does not reinterpret the designs, but preserves them for implementation traceability and independent replay of the complete FDD package.
+PI treats the approved FDD `package-lock.json` as the complete functional input file set. Every safe locked path, including `design-manifest.json`, `designs/*`, and locked acceptance fixtures, is copied under `inputs/functional-*` and included in `input-lock.json`. PI does not reinterpret business semantics in the designs. In `design-led`, the PI Agent reads the locked designs together with the approved presentation contract and implements the frontend from scratch.
 
 FDD planning uses workflow ID `fdd-bmad-planning`. PI implementation planning uses workflow ID `pi-implementation-bmad`. PI derives units and stories from approved IDs and acceptance contracts. A missing or inconsistent domain contract is returned to FDD rather than reinterpreted by PI.
 
 ## Implementation handoff input
 
-The handoff directory contains:
+Every handoff declares `inputMode` and contains the common functional, presentation, API, runtime, review, and lock artifacts. Source-specific inputs are:
 
-- `handoff-manifest.json`: approval status, author, functional package digest, and visual release digest.
-- `visual-source.json`, `release-manifest.json`, `suite-gate.json`, and `visual-approval.json`: copied ai-restore release identity, passing Gate and approval evidence, page/route closure, and original source tree digest.
+- `release-backed`: `visual-source.json`, `release-manifest.json`, `suite-gate.json`, `visual-approval.json`, and `web/` provide the immutable frontend baseline.
+- `design-led`: `design-source.json` binds the finalized design manifest; no frontend source is supplied, so PI creates it.
+- `handoff-manifest.json`: approval status, author, functional package digest, input mode, and its release or design digest.
 - `frontend-manifest.json`: pages, routes, and copied source status.
 - `functional-spec.json`: complete capabilities and business behavior copied from the approved domain package.
 - `ui-implementation-plan.json`: presentation intent for each capability using `reuse-control`, `add-control`, `extend-flow`, `headless`, or `display-only`.
 - `visual-controls.json`: advisory inventory for locating possible controls in the visual baseline.
 - `api-contract.json`: operations, request/response shapes, capability IDs, rule IDs, effects, and errors.
 - `handoff-review-receipt.json`: approval whose author matches the handoff manifest and whose reviewer differs.
-- `handoff-lock.json`: exact digests for every formal handoff file, functional package lock, ai-restore release manifest, and original `web/` tree.
-- `web/`: runnable frontend source.
+- `handoff-lock.json`: exact digests for every formal handoff file and its source-specific provenance.
 
-`input-lock.json` records `functionalPackageDigest`, `visualReleaseDigest`, and `handoffPackageDigest`. The copied source receives a separate `implementationFrontendDigest`; API wiring may change the implementation copy while the read-only visual-source digest remains the handoff baseline.
+`input-lock.json` records `functionalPackageDigest`, `handoffPackageDigest`, and either `visualReleaseDigest` or `designManifestDigest`. A release-backed source receives a separate implementation frontend digest; a design-led workspace starts without frontend source and the PI Agent creates it.
+
+After a design-led implementation reaches computed product status `implemented`, verification writes `visual-restoration-handoff.json`. It binds the verified frontend and behavior-contract digests and permits AI Restore to change layout, spacing, typography, color, visual assets, and responsive visual treatment while preserving routes, control semantics, requests, state transitions, and business results. This is a handoff boundary, not a post-restoration PI gate: AI Restore finishes the chain.
 
 ## Readiness rules
 

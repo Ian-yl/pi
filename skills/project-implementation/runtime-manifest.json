@@ -16,7 +16,9 @@
     "scripts/lib/origin-proxy.mjs",
     "scripts/lib/asset-references.mjs",
     "scripts/lib/campaign-independence.mjs",
+    "scripts/lib/campaign-review.mjs",
     "scripts/lib/request-observation.mjs",
+    "scripts/lib/workspace-path.mjs",
     "validators/fdd-2.3.1/validate-package.mjs",
     "validators/handoff-2.3/review-handoff.mjs"
   ],

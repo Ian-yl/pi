@@ -8,6 +8,7 @@ import { primarySubmitFindings } from './lib/primary-submit.mjs';
 import { controlDispositionFindings } from './lib/control-dispositions.mjs';
 import { treeDigest } from './lib/validator-tree.mjs';
 import { collectStringValues, collectAnchorReferences, bookkeepingFindings } from './lib/evidence-index.mjs';
+import { buildSemanticReviewRequest, semanticReviewFindings } from './lib/semantic-review.mjs';
 
 const dirArg = process.argv.slice(2).find((value) => !value.startsWith('--'));
 if (!dirArg) { console.error('Usage: validate-package.mjs <package-dir> [--require-approved]'); process.exit(2); }
@@ -21,9 +22,12 @@ const semanticFiles = isSchema23 ? SCHEMA_23_SEMANTIC_FILES : [];
 const files = ['manifest.json', 'planning-manifest.json', 'planning-artifacts.json', 'capability-definitions.json', 'design-manifest.json', 'evidence-index.json', 'evidence-dispositions.json', 'control-dispositions.json', ...semanticFiles, 'functional-spec.json', 'page-function-map.json', 'unresolved-items.json'];
 if (existsSync(`${dir}/review-receipt.json`)) files.push('review-receipt.json');
 if (existsSync(`${dir}/planning-review-receipt.json`)) files.push('planning-review-receipt.json');
+if (existsSync(`${dir}/semantic-review.json`)) files.push('semantic-review.json');
+if (existsSync(`${dir}/semantic-review-request.json`)) files.push('semantic-review-request.json');
 const docs = Object.fromEntries(files.map((file) => [file, readJSON(`${dir}/${file}`)]));
 const errors = [];
 const manifest = docs['manifest.json'];
+const inputMode = manifest.inputMode;
 if (manifest.schemaVersion !== '2.3') errors.push('only functional-domain schema 2.3 is supported');
 if (isSchema23 && JSON.stringify(manifest.semanticArtifacts) !== JSON.stringify(SCHEMA_23_SEMANTIC_FILES)) errors.push('schema 2.3 semanticArtifacts must equal the fixed semantic artifact contract');
 if (isSchema23 && manifest.evidenceIndex !== 'evidence-index.json') errors.push('schema 2.3 manifest must declare the evidence-index.json bookkeeping artifact');
@@ -32,6 +36,7 @@ const spec = docs['functional-spec.json'];
 const mapping = docs['page-function-map.json'];
 const unresolved = docs['unresolved-items.json'];
 const planningManifest = docs['planning-manifest.json'];
+if (!['release-backed', 'design-led'].includes(inputMode) || planningManifest?.inputMode !== inputMode) errors.push('schema 2.3 inputMode must be release-backed or design-led and match the planning manifest');
 const planningArtifacts = docs['planning-artifacts.json'];
 const definitions = docs['capability-definitions.json'];
 const designManifest = docs['design-manifest.json'];
@@ -39,6 +44,8 @@ const frontendInventory = docs['frontend-semantic-inventory.json'] || {};
 const observedInteractions = docs['observed-interactions.json'] || {};
 const controlMap = docs['control-capability-map.json'] || {};
 const assetInventory = docs['asset-role-inventory.json'] || {};
+const semanticReview = docs['semantic-review.json'];
+const semanticReviewRequest = docs['semantic-review-request.json'];
 const approvalReceipt = docs['review-receipt.json'];
 // Schema 2.3 approvals and replay use the current repository-owned validator revision.
 const trustedValidators = new Map([
@@ -55,11 +62,18 @@ if (!planningManifest.synthesisInputDigest || planningManifest.inputDigests?.des
 if (docs['evidence-index.json']?.synthesisInputDigest !== planningManifest.synthesisInputDigest) errors.push('evidence index synthesis input digest differs from FDD planning input');
 if (planningArtifacts.method !== 'bmad-planning' || !['project-understanding', 'requirements-analysis', 'domain-design', 'independent-domain-review'].every((id) => planningArtifacts.phases?.some((item) => item.id === id))) errors.push('FDD BMAD planning phases are incomplete');
 for (const group of ['capabilities', 'entities', 'valueObjects', 'relationships', 'consistencyBoundaries', 'journeys', 'rules', 'permissions', 'integrations']) if (JSON.stringify(definitions[group] || []) !== JSON.stringify(spec[group] || [])) errors.push(`capability definitions differ from functional spec: ${group}`);
-if (!frontendInventory.release?.releaseDigest || !frontendInventory.pages?.length || !frontendInventory.sourceSummary?.length) errors.push('frontend semantic inventory did not parse the immutable release');
-if (!manifest.visualReleaseDigest || !spec.visualSource?.releaseDigest || manifest.visualReleaseDigest !== spec.visualSource.releaseDigest || manifest.visualReleaseDigest !== frontendInventory.release?.releaseDigest) errors.push('functional package visual release digest is missing or inconsistent');
-if (observedInteractions.releaseDigest !== frontendInventory.release?.releaseDigest || controlMap.releaseDigest !== frontendInventory.release?.releaseDigest) errors.push('frontend semantic artifact release digests differ');
+if (!frontendInventory.pages?.length || !frontendInventory.sourceSummary?.length) errors.push('presentation semantic inventory has no pages or source summary');
+if (inputMode === 'release-backed') {
+  if (frontendInventory.sourceType === 'finalized-design' || !frontendInventory.release?.releaseDigest) errors.push('release-backed semantic inventory did not parse the immutable release');
+  if (!manifest.visualReleaseDigest || !spec.visualSource?.releaseDigest || manifest.visualReleaseDigest !== spec.visualSource.releaseDigest || manifest.visualReleaseDigest !== frontendInventory.release?.releaseDigest) errors.push('functional package visual release digest is missing or inconsistent');
+  if (observedInteractions.releaseDigest !== frontendInventory.release?.releaseDigest || controlMap.releaseDigest !== frontendInventory.release?.releaseDigest || assetInventory.releaseDigest !== frontendInventory.release?.releaseDigest) errors.push('release-backed semantic artifact digests differ');
+} else {
+  if (manifest.visualReleaseDigest || planningManifest.inputDigests?.visualRelease !== null) errors.push('design-led package must not claim an immutable frontend release');
+  if (spec.visualSource?.sourceType !== 'finalized-design' || spec.visualSource?.designManifestDigest !== designDigest || frontendInventory.sourceType !== 'finalized-design' || frontendInventory.design?.manifestDigest !== designDigest) errors.push('design-led package is not bound to its finalized design manifest');
+  if (observedInteractions.designManifestDigest !== designDigest || controlMap.designManifestDigest !== designDigest || assetInventory.designManifestDigest !== designDigest) errors.push('design-led semantic artifact digests differ');
+}
 if (!Array.isArray(observedInteractions.interactions) || !Array.isArray(controlMap.mappings)) errors.push('frontend semantic artifacts are incomplete');
-if (assetInventory.releaseDigest !== frontendInventory.release?.releaseDigest || !Array.isArray(assetInventory.assets)) errors.push('asset role inventory is absent or not release-bound');
+if (!Array.isArray(assetInventory.assets)) errors.push('asset role inventory is absent or incomplete');
 for (const asset of assetInventory.assets || []) { if (!asset.id || !asset.path || !asset.digest || !['decorative', 'business-sample'].includes(asset.role) || !asset.evidence?.sources?.length) errors.push(`asset role entry is unclassified or incomplete: ${asset.id || asset.path || '<unknown>'}`); if (asset.role === 'business-sample' && !['api-data', 'user-input', 'empty-state'].includes(asset.requiredReplacement)) errors.push(`business sample asset has no valid replacement contract: ${asset.id}`); }
 if (spec.planningContext) errors.push('external planningContext is outside the FDD-owned planning workflow');
 if (manifest.schemaVersion !== '2.3' || manifest.packageType !== 'functional-domain') errors.push('manifest contract is invalid');
@@ -77,6 +91,12 @@ if (requireApproved) {
   const planningReceipt = docs['planning-review-receipt.json'];
   if (!planningReceipt || planningReceipt.status !== 'approved' || planningReceipt.reviewerAgentId !== receipt?.reviewerAgentId || planningReceipt.authorAgentId !== manifest.authorAgentId) errors.push('FDD planning has no matching independent review receipt');
   if (planningManifest.status !== 'approved') errors.push('FDD planning is not approved');
+  if (!semanticReview) errors.push('approved package has no independent semantic-review.json');
+  else {
+    const expectedSemanticRequest = buildSemanticReviewRequest(dir, spec, frontendInventory, docs['control-dispositions.json']);
+    if (JSON.stringify(semanticReviewRequest) !== JSON.stringify(expectedSemanticRequest)) errors.push('approved package semantic-review-request.json does not match its locked semantic inputs');
+    errors.push(...semanticReviewFindings(expectedSemanticRequest, semanticReview, receipt?.reviewerAgentId));
+  }
 }
 if (manifest.schemaVersion !== spec.schemaVersion || manifest.schemaVersion !== mapping.schemaVersion || manifest.schemaVersion !== unresolved.schemaVersion) errors.push('package schema versions do not match');
 const ids = new Set();
@@ -171,6 +191,11 @@ for (const cap of capabilities.values()) {
     if (resourceTransfer) errors.push(...resourceFileRangeFindings(operation));
     if (operation.providerContract && (!operation.providerContract.requiredCapability || !operation.providerContract.parameterMappings?.length || !operation.providerContract.outputConstraints)) errors.push(`operation ${operation.id} has an incomplete provider contract`);
     if (operation.providerContract) {
+      const controlled = operation.providerContract.controlledResponse;
+      if (!controlled || !Number.isInteger(controlled.status) || controlled.status < 200 || controlled.status > 299 || !controlled.contentType || !controlled.body || typeof controlled.body !== 'object' || !controlled.bodySchema || typeof controlled.bodySchema !== 'object' || !controlled.resultIdPath || !objectHasPath(controlled.body, controlled.resultIdPath)) errors.push(`operation ${operation.id} provider contract has no executable controlled response`);
+      const lineage = operation.providerContract.providerResultLineage;
+      const expectedSource = `providerResponse.${controlled?.resultIdPath || ''}`;
+      if (!lineage?.id || lineage.sourcePath !== expectedSource || !lineage.targetPath?.startsWith('response.') || !schemaHasPath(operation.response?.bodySchema, lineage.targetPath.replace(/^response\./, '')) || !String(lineage.transformation || '').trim() || !lineage.evidence?.sources?.length) errors.push(`operation ${operation.id} provider result lineage is incomplete or does not resolve to its response contract`);
       const bindings = operation.integrationBindings || [];
       const mappings = operation.providerContract.parameterMappings || [];
       const mappingKeys = mappings.map((mapping) => `${mapping.source}:${mapping.target}`);
@@ -208,6 +233,11 @@ for (const cap of capabilities.values()) {
       if (!Array.isArray(verification.requiredScenarios) || verification.requiredScenarios.some((item) => typeof item !== 'string' || !item)) errors.push(`operation ${operation.id} has invalid integration verification scenarios`);
       if (!Array.isArray(verification.artifactAssertions) || verification.artifactAssertions.some((item) => !item?.path || !(item.schema || item.type))) errors.push(`operation ${operation.id} has invalid integration artifact assertions`);
       if (verification.endpointPolicy && typeof verification.endpointPolicy.nonLocal !== 'boolean') errors.push(`operation ${operation.id} has invalid integration endpoint policy`);
+      if (verification.resultReview) {
+        const review = verification.resultReview;
+        if (review.required !== true || !Array.isArray(review.assertions) || !review.assertions.length || review.assertions.some((item) => !item?.id || !item?.acceptance)) errors.push(`operation ${operation.id} has an invalid independent result review contract`);
+      }
+      if (operation.providerContract && (!verification.resultReview?.assertions || !verification.resultReview.assertions.some((item) => item.id === operation.providerContract.providerResultLineage?.reviewAssertionId))) errors.push(`operation ${operation.id} provider result lineage is not assigned to an independent Agent review assertion`);
     }
   }
 }
@@ -293,7 +323,7 @@ if (isSchema23) {
       errors.push(...resultDestinationFindings(cap, frontendInventory, inputFieldTypes));
       errors.push(...inputUtilizationFindings(cap, anchorIds));
       const mapped = (controlMap.mappings || []).find((item) => item.capabilityId === cap.id);
-      if (cap.presentation?.mode !== 'headless' && !mapped?.controlId) errors.push(`complete non-headless capability ${cap.id} has no observed release control binding (control provenance requires a release controlId)`);
+      if (cap.presentation?.mode !== 'headless' && !mapped?.controlId) errors.push(`complete non-headless capability ${cap.id} has no presentation control binding`);
     }
   }
   const referenced = collectAnchorReferences(spec);
@@ -483,6 +513,7 @@ function normalizeLedgerRequestPath(value) { const path = String(value || '').re
 function providerSourceForRequestPath(path) { const normalized = normalizeLedgerRequestPath(path); return normalized.startsWith('body.') ? `request.${normalized.slice(5)}` : `request.${normalized}`; }
 function operationHasProviderSource(operation, source) { return operationRequestFields(operation).some((field) => providerSourceForRequestPath(field.requestPath) === source); }
 function requestLocationAndPath(value) { const normalized = normalizeLedgerRequestPath(value); const [location, ...parts] = normalized.split('.'); return { location, path: parts.join('.') }; }
+function objectHasPath(value, path) { let current = value; const parts = String(path || '').replace(/^response\./, '').split('.').filter(Boolean); for (const part of parts) { if (!current || typeof current !== 'object' || !(part in current)) return false; current = current[part]; } return parts.length > 0; }
 // Dual-axis evidence taxonomy: a complete capability's closure must anchor both axes structurally — an
 // intent-axis item (design/annotation/product-context: what to build and why) and an anchor-axis item
 // (release control/observed interaction: where it lands). Validate only checks both axes are anchored and

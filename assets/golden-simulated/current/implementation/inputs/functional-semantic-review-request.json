@@ -1,0 +1,22 @@
+{
+  "schemaVersion": "1.0",
+  "generatedBy": "functional-domain-design/semantic-review-request",
+  "inputDigest": "7a264f6635e953c9b8a452393c9cd1dc379b9d81f075ba1750641093c4d99a77",
+  "pageIds": [
+    "submission"
+  ],
+  "capabilityIds": [
+    "cap-submission-planned-export",
+    "cap-submission-submit-submission",
+    "cap-submission-upload-resource"
+  ],
+  "controlIds": [
+    "submission:category-select",
+    "submission:planned-export",
+    "submission:quantity-input",
+    "submission:submit-button",
+    "submission:title-input",
+    "submission:upload-input"
+  ],
+  "requestDigest": "f084fd02290756274e7209d4dd5568cd3685e3e0f43f41b77efa0599773e9ecb"
+}
