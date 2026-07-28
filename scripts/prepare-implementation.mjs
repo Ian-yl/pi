@@ -137,6 +137,17 @@ for (const [capabilityId, capability] of capabilities) {
   if (functionalStatus === 'planned' && ((capability.operations || []).length || (capability.entityEffects || []).length || capability.writesState || (capability.inputs || []).length || capability.inputSchema || (capability.outcomes || []).length || capability.outputSchema || (capability.acceptanceExamples || []).length || capability.deliveryPolicy?.requiredForCompletion !== false || capability.deliveryPolicy?.uiBehavior !== 'show-planned-state' || !capability.planningReason)) errors.push(`planned capability ${capabilityId} exposes implementation semantics or lacks its planned delivery contract`);
   if (functionalStatus === 'planned' && capability.presentation?.mode === 'headless') errors.push(`planned capability ${capabilityId} cannot be headless`);
 }
+const approvedFieldBindings = new Map((front['control-capability-map.json']?.mappings || []).flatMap((mapping) => (mapping.fieldBindings || []).map((binding) => [`${mapping.capabilityId}:${binding.operationId}:${normalizeRequestPath(binding.requestPath)}`, binding])));
+for (const capability of capabilities.values()) {
+  if (capability.specificationStatus === 'planned' || capability.presentation?.mode === 'headless') continue;
+  for (const operation of [...operations.values()].filter((item) => item.capabilityId === capability.id)) {
+    for (const field of requestSchemaFields(operation.request || {}).filter((item) => item.required)) {
+      const requestPath = normalizeRequestPath(field.path);
+      const dependency = (operation.dataDependencies || []).some((item) => normalizeRequestPath(item.targetField) === requestPath);
+      if (!dependency && !approvedFieldBindings.has(`${capability.id}:${operation.id}:${requestPath}`)) errors.push(`required request field ${operation.id}:${requestPath} has no approved release, designed-control, or application-state binding; return the contract to FDD instead of inventing implementation semantics`);
+    }
+  }
+}
 for (const journey of spec.journeys || []) {
   for (const capabilityId of journey.capabilityIds || []) if (capabilities.get(capabilityId)?.specificationStatus !== 'complete') errors.push(`implementation journey ${journey.id} includes non-complete capability ${capabilityId}`);
   if (!journey.acceptanceCriteria?.length && !journey.success) errors.push(`journey ${journey.id} has no acceptance contract`);
@@ -263,9 +274,9 @@ function buildFieldBindingPlan() {
       const effectIds = (operation.effects || []).map((item, index) => `${operation.id}:${item.entityId}:${item.effect}:${index}`);
       for (const field of requestFields) {
         const dependency = (operation.dataDependencies || []).find((item) => normalizeRequestPath(item.targetField) === normalizeRequestPath(field.path));
-        const source = dependency ? 'prior-operation' : field.location === 'body' ? 'user-input' : 'application-state';
         const authored = authoredFieldBindings.get(`${capability.id}:${operation.id}:${normalizeRequestPath(field.path)}`);
-        bindings.push({ id: `binding-${capability.id}-${operation.id}-${slug(field.path)}`, kind: 'input', source, controlId: authored?.controlId || `input-${capability.id}-${slug(field.path)}`, capabilityId: capability.id, statePath: authored?.statePath || `capabilities.${capability.id}.inputs.${field.path}`, operationId: operation.id, requestPath: field.path, responsePath: responseFields[0]?.path || null, effectIds, required: field.required, schema: field.schema, authoredControlBinding: Boolean(authored), ...(dependency ? { sourceOperationId: dependency.sourceOperationId, sourceResponsePath: dependency.sourceField } : {}) });
+        const source = dependency ? 'prior-operation' : authored?.source || (field.location === 'body' ? 'user-input' : 'application-state');
+        bindings.push({ id: `binding-${capability.id}-${operation.id}-${slug(field.path)}`, kind: 'input', source, controlId: authored?.controlId || `input-${capability.id}-${slug(field.path)}`, capabilityId: capability.id, statePath: authored?.statePath || `capabilities.${capability.id}.inputs.${field.path}`, operationId: operation.id, requestPath: field.path, responsePath: responseFields[0]?.path || null, effectIds, required: field.required, schema: field.schema, authoredControlBinding: Boolean(authored), ...(authored?.designedControl ? { designedControl: authored.designedControl } : {}), ...(authored?.rationale ? { rationale: authored.rationale } : {}), ...(authored?.evidenceAnchors ? { evidenceAnchors: authored.evidenceAnchors } : {}), ...(dependency ? { sourceOperationId: dependency.sourceOperationId, sourceResponsePath: dependency.sourceField } : {}) });
       }
       bindings.push({ id: `binding-${capability.id}-${operation.id}-command`, kind: 'command', controlId: `command-${capability.id}-${operation.id}`, capabilityId: capability.id, statePath: `capabilities.${capability.id}.status`, operationId: operation.id, requestPath: null, responsePath: responseFields[0]?.path || null, effectIds, required: true });
       for (const field of responseFields) bindings.push({ id: `binding-${capability.id}-${operation.id}-response-${slug(field.path)}`, kind: 'display', controlId: `output-${capability.id}-${slug(field.path)}`, capabilityId: capability.id, statePath: `capabilities.${capability.id}.response.${field.path}`, operationId: operation.id, requestPath: null, responsePath: field.path, effectIds, required: field.required, runtimeValueRequired: functionalSchema === '2.3', elementSemantic: field.schema?.type === 'array' ? 'collection-value' : 'field-value' });

@@ -55,6 +55,27 @@ test('implementation preparation accepts a locked approved implementation handof
   } finally { rmSync(output, { recursive: true, force: true }); }
 })));
 
+test('implementation preparation preserves FDD-authored designed-control metadata', () => withApprovedFunctional((approved) => {
+  patchJson(`${approved}/control-capability-map.json`, (value) => {
+    const mapping = value.mappings.find((item) => item.capabilityId === 'cap-submission-submit-submission');
+    const binding = mapping.fieldBindings.find((item) => item.requestPath === 'body.submission-category');
+    Object.assign(binding, { source: 'designed-control', designedControl: { type: 'select', label: 'Category', targetRegion: 'options-section' }, rationale: 'The implementation may refine this control while preserving its approved data role.', evidenceAnchors: ['page-module:options-section'] });
+    return value;
+  });
+  withApprovedFrontend(approved, (released) => {
+    const output = mkdtempSync(path.join(os.tmpdir(), 'implementation-designed-control-'));
+    try {
+      const result = run('project-implementation/scripts/prepare-implementation.mjs', ['--functional', approved, '--handoff', released, '--output', output]);
+      assert.equal(result.status, 0, result.stderr);
+      const binding = readJson(`${output}/field-binding-plan.json`).bindings.find((item) => item.requestPath === 'body.submission-category');
+      assert.equal(binding.source, 'designed-control');
+      assert.equal(binding.controlId, 'category-select');
+      assert.deepEqual(binding.designedControl, { type: 'select', label: 'Category', targetRegion: 'options-section' });
+      assert.equal(binding.authoredControlBinding, true);
+    } finally { rmSync(output, { recursive: true, force: true }); }
+  });
+}));
+
 test('implementation preparation never executes a handoff-supplied validator snapshot', () => withApprovedFunctional((approved) => withApprovedFrontend(approved, (released) => {
   const marker = `${released}/package-code-executed`; const malicious = `${released}/malicious.mjs`;
   writeFileSync(malicious, `import { writeFileSync } from 'node:fs'; writeFileSync(${JSON.stringify(marker)}, 'executed');\n`);

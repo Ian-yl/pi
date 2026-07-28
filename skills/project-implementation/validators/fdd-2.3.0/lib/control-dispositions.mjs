@@ -81,6 +81,28 @@ export function controlDispositionFindings(ledgerDoc, spec, inventory, controlMa
     if (!trigger || !['system', 'data-dependency'].includes(trigger.kind)) findings.push(`operation ${operationId} has no trigger source: no control disposition names it and it declares no system or data-dependency trigger`);
     else if (!String(trigger.reason || '').trim()) findings.push(`operation ${operationId} ${trigger.kind} trigger lacks a reason`);
   }
+  // Required UI request values need an authored source. Existing release controls are recorded in the
+  // ledger; controls absent from the release are allowed when the FDD author explicitly designs them.
+  for (const capability of capabilities.values()) {
+    if (capability.specificationStatus !== 'complete' || capability.presentation?.mode === 'headless') continue;
+    const mappings = (controlMap?.mappings || []).filter((item) => item.capabilityId === capability.id);
+    for (const operation of capability.operations || []) {
+      const dependencies = new Set((operation.dataDependencies || []).map((item) => normalizeRequestPath(item.targetField)));
+      for (const requestPath of requiredRequestPaths(operation.request)) {
+        if (dependencies.has(requestPath)) continue;
+        const binding = mappings.flatMap((item) => item.fieldBindings || []).find((item) => item.operationId === operation.id && normalizeRequestPath(item.requestPath) === requestPath);
+        if (!binding) { findings.push(`required request field ${operation.id}:${requestPath} has no authored UI or application-state binding`); continue; }
+        const controlKey = `${capability.pageIds?.[0]}:${binding.controlId}`;
+        if (inventoryControls.has(controlKey)) continue;
+        if (binding.source === 'application-state') {
+          if (!String(binding.rationale || '').trim() || !(binding.evidenceAnchors || []).length) findings.push(`application-state binding ${operation.id}:${requestPath} lacks a rationale or evidence`);
+          continue;
+        }
+        const designed = binding.designedControl;
+        if (binding.source !== 'designed-control' || !binding.controlId || !designed?.type || !designed?.label || !designed?.targetRegion) findings.push(`required request field ${operation.id}:${requestPath} is absent from the release and has no complete designed-control contract`);
+      }
+    }
+  }
   return findings;
 }
 
@@ -94,3 +116,15 @@ function schemaPaths(schema, prefix = '') {
   if (schema.type === 'object') return Object.entries(schema.properties || {}).flatMap(([key, value]) => schemaPaths(value, prefix ? `${prefix}.${key}` : key));
   return prefix ? [prefix] : [];
 }
+function requiredRequestPaths(request = {}) {
+  const result = [];
+  for (const [location, schema] of [['path', request.pathSchema], ['query', request.querySchema], ['header', request.headerSchema], ['body', request.bodySchema]]) for (const path of requiredSchemaPaths(schema)) result.push(`${location}.${path}`);
+  return result;
+}
+function requiredSchemaPaths(schema, prefix = '', parentRequired = true) {
+  if (!schema || typeof schema !== 'object' || !parentRequired) return [];
+  if (schema.type !== 'object') return prefix ? [prefix] : [];
+  const required = new Set(schema.required || []);
+  return Object.entries(schema.properties || {}).flatMap(([key, value]) => requiredSchemaPaths(value, prefix ? `${prefix}.${key}` : key, required.has(key)));
+}
+function normalizeRequestPath(value) { return String(value || '').replace(/^request\./, 'body.'); }

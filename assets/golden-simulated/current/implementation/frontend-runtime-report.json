@@ -1,9 +1,9 @@
 {
   "schemaVersion": "1.0",
   "generatedBy": "project-implementation/run-browser-e2e",
-  "browserReceiptDigest": "6add998a9af85c6a4b3dc1851fb253c984e49864f837ae1ead8856f5adf95648",
+  "browserReceiptDigest": "97e978b380bc00131c0eb35ec31aa3924678f23bed4ce0bcc3ba96a2b5c156be",
   "application": {
-    "baseUrl": "http://127.0.0.1:53030",
+    "baseUrl": "http://127.0.0.1:65063",
     "healthPassed": true
   },
   "cases": [
@@ -13,7 +13,7 @@
       "bindingId": "initial-submission",
       "locator": "main",
       "pageId": "submission",
-      "pageUrl": "http://127.0.0.1:53030/submission",
+      "pageUrl": "http://127.0.0.1:65063/submission",
       "mode": "display-only",
       "event": "initial-state",
       "artifacts": [
@@ -23,7 +23,7 @@
       "observed": {
         "matchCount": 1,
         "visible": true,
-        "pageUrl": "http://127.0.0.1:53030/submission",
+        "pageUrl": "http://127.0.0.1:65063/submission",
         "cleanSession": true,
         "networkRequests": [
           {
@@ -34,8 +34,8 @@
               "accept": "image/avif,image/webp,image/apng,image/svg+xml,image/*,*/*;q=0.8",
               "accept-encoding": "gzip, deflate, br, zstd",
               "connection": "keep-alive",
-              "host": "127.0.0.1:53030",
-              "referer": "http://127.0.0.1:53030/submission",
+              "host": "127.0.0.1:65063",
+              "referer": "http://127.0.0.1:65063/submission",
               "sec-fetch-dest": "image",
               "sec-fetch-mode": "no-cors",
               "sec-fetch-site": "same-origin",
@@ -48,9 +48,9 @@
               "connection": "keep-alive",
               "content-length": "111",
               "content-type": "image/svg+xml",
-              "date": "Tue, 28 Jul 2026 06:31:16 GMT",
+              "date": "Tue, 28 Jul 2026 06:50:33 GMT",
               "keep-alive": "timeout=5",
-              "x-pi-origin-receipt": "c8d50da43edce9d6f2988f81cc1ce49a6035a33bd11416b6"
+              "x-pi-origin-receipt": "3270c32978f3fe1e507a7b631f6b6b715b9eaa2fd14311cf"
             },
             "status": 200,
             "requestBody": "",
@@ -64,7 +64,7 @@
               "accept": "text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7",
               "accept-encoding": "gzip, deflate, br, zstd",
               "connection": "keep-alive",
-              "host": "127.0.0.1:53030",
+              "host": "127.0.0.1:65063",
               "sec-fetch-dest": "document",
               "sec-fetch-mode": "navigate",
               "sec-fetch-site": "none",
@@ -79,9 +79,9 @@
               "connection": "keep-alive",
               "content-length": "10855",
               "content-type": "text/html; charset=utf-8",
-              "date": "Tue, 28 Jul 2026 06:31:16 GMT",
+              "date": "Tue, 28 Jul 2026 06:50:33 GMT",
               "keep-alive": "timeout=5",
-              "x-pi-origin-receipt": "02415e4e101a251880ed6d042837c3e558832d75ee5fb6e9"
+              "x-pi-origin-receipt": "044384432951f87fca1fefd72c6f13232c1e5bc1e51c7a06"
             },
             "status": 200,
             "requestBody": "",
@@ -134,7 +134,7 @@
       "capabilityId": "cap-submission-upload-resource",
       "bindingId": "binding-cap-submission-upload-resource",
       "locator": "upload-input",
-      "pageUrl": "http://127.0.0.1:53030/submission",
+      "pageUrl": "http://127.0.0.1:65063/submission",
       "mode": "reuse-control",
       "event": "upload",
       "expectedOutcome": "failure",
@@ -151,7 +151,7 @@
         "matchCount": 1,
         "visible": true,
         "enabled": true,
-        "pageUrl": "http://127.0.0.1:53030/submission?uploadFailure=1",
+        "pageUrl": "http://127.0.0.1:65063/submission?uploadFailure=1",
         "actionCallId": "call@22",
         "activeCapabilityId": "cap-submission-upload-resource",
         "capabilityStatus": "implemented",
@@ -167,10 +167,10 @@
               "accept-encoding": "gzip, deflate, br, zstd",
               "connection": "keep-alive",
               "content-length": "306",
-              "content-type": "multipart/form-data; boundary=----WebKitFormBoundary2ZhhyJiitKXVHS7j",
-              "host": "127.0.0.1:53030",
-              "origin": "http://127.0.0.1:53030",
-              "referer": "http://127.0.0.1:53030/submission?uploadFailure=1",
+              "content-type": "multipart/form-data; boundary=----WebKitFormBoundaryD2EhURc9CuBBOVoU",
+              "host": "127.0.0.1:65063",
+              "origin": "http://127.0.0.1:65063",
+              "referer": "http://127.0.0.1:65063/submission?uploadFailure=1",
               "sec-fetch-dest": "empty",
               "sec-fetch-mode": "cors",
               "sec-fetch-site": "same-origin",
@@ -183,12 +183,12 @@
               "connection": "keep-alive",
               "content-length": "25",
               "content-type": "application/json",
-              "date": "Tue, 28 Jul 2026 06:31:16 GMT",
+              "date": "Tue, 28 Jul 2026 06:50:33 GMT",
               "keep-alive": "timeout=5",
-              "x-pi-origin-receipt": "579451487fc856d4d282ecefd8b6a27ff7890a51ed8d0446"
+              "x-pi-origin-receipt": "f4bb31788f7c2bc900069ee441e9d50c4caad082b2363e60"
             },
             "status": 422,
-            "contentType": "multipart/form-data; boundary=----WebKitFormBoundary2ZhhyJiitKXVHS7j",
+            "contentType": "multipart/form-data; boundary=----WebKitFormBoundaryD2EhURc9CuBBOVoU",
             "requestBody": {
               "fields": {},
               "files": {}
@@ -273,7 +273,7 @@
       "capabilityId": "cap-submission-upload-resource",
       "bindingId": "binding-cap-submission-upload-resource",
       "locator": "upload-input",
-      "pageUrl": "http://127.0.0.1:53030/submission",
+      "pageUrl": "http://127.0.0.1:65063/submission",
       "mode": "reuse-control",
       "event": "upload",
       "artifacts": [
@@ -289,7 +289,7 @@
         "matchCount": 1,
         "visible": true,
         "enabled": true,
-        "pageUrl": "http://127.0.0.1:53030/submission",
+        "pageUrl": "http://127.0.0.1:65063/submission",
         "actionCallId": "call@38",
         "activeCapabilityId": "cap-submission-upload-resource",
         "capabilityStatus": "implemented",
@@ -303,10 +303,10 @@
               "accept-encoding": "gzip, deflate, br, zstd",
               "connection": "keep-alive",
               "content-length": "306",
-              "content-type": "multipart/form-data; boundary=----WebKitFormBoundarybXPNnv15B70X7VyP",
-              "host": "127.0.0.1:53030",
-              "origin": "http://127.0.0.1:53030",
-              "referer": "http://127.0.0.1:53030/submission",
+              "content-type": "multipart/form-data; boundary=----WebKitFormBoundaryEoUBodnDDeSf3ehF",
+              "host": "127.0.0.1:65063",
+              "origin": "http://127.0.0.1:65063",
+              "referer": "http://127.0.0.1:65063/submission",
               "sec-fetch-dest": "empty",
               "sec-fetch-mode": "cors",
               "sec-fetch-site": "same-origin",
@@ -319,25 +319,25 @@
               "connection": "keep-alive",
               "content-length": "179",
               "content-type": "application/json",
-              "date": "Tue, 28 Jul 2026 06:31:17 GMT",
+              "date": "Tue, 28 Jul 2026 06:50:33 GMT",
               "keep-alive": "timeout=5",
-              "x-pi-origin-receipt": "564665797f32a942505e13b954c48b204e85f999bdd5fd4d"
+              "x-pi-origin-receipt": "5424ca6aaba89d869ddca731bbe7a0cb746649d7055b7dd1"
             },
             "status": 201,
-            "contentType": "multipart/form-data; boundary=----WebKitFormBoundarybXPNnv15B70X7VyP",
+            "contentType": "multipart/form-data; boundary=----WebKitFormBoundaryEoUBodnDDeSf3ehF",
             "requestBody": {
               "fields": {},
               "files": {}
             },
             "responseBody": {
               "assetIds": [
-                "resource-bf1b61bb42d9"
+                "resource-7b3aac43ad0c"
               ],
               "assets": [
                 {
-                  "id": "resource-bf1b61bb42d9",
+                  "id": "resource-7b3aac43ad0c",
                   "status": "available",
-                  "checksum": "bf1b61bb42d9ac1e2f5bb727f5a215ee112d924384d20ebd44a9e6ec4d4521fd"
+                  "checksum": "7b3aac43ad0c9988f6d403a0e6c4dfac19a41a461979b7a27948ad2fcdb9b52b"
                 }
               ]
             }
@@ -349,7 +349,7 @@
             "controlId": "upload-input",
             "operationId": "upload-submission-upload-resource",
             "bindingType": "multipart-file",
-            "inputValue": "bf1b61bb42d9ac1e2f5bb727f5a215ee112d924384d20ebd44a9e6ec4d4521fd",
+            "inputValue": "7b3aac43ad0c9988f6d403a0e6c4dfac19a41a461979b7a27948ad2fcdb9b52b",
             "requestValue": [],
             "dynamic": true
           }
@@ -363,11 +363,11 @@
           "selectedCount": 1,
           "selectedChallenge": true,
           "requestMatched": true,
-          "requestContentType": "multipart/form-data; boundary=----WebKitFormBoundarybXPNnv15B70X7VyP",
+          "requestContentType": "multipart/form-data; boundary=----WebKitFormBoundaryEoUBodnDDeSf3ehF",
           "contractContentType": "multipart/form-data",
           "multipartFiles": [],
           "responseIntegrityDigests": [
-            "bf1b61bb42d9ac1e2f5bb727f5a215ee112d924384d20ebd44a9e6ec4d4521fd"
+            "7b3aac43ad0c9988f6d403a0e6c4dfac19a41a461979b7a27948ad2fcdb9b52b"
           ],
           "challengeDigestMatched": true
         },
@@ -391,10 +391,10 @@
             "responseCount": 1,
             "actualCount": 1,
             "expectedValues": [
-              "resource-bf1b61bb42d9"
+              "resource-7b3aac43ad0c"
             ],
             "actualValues": [
-              "resource-bf1b61bb42d9"
+              "resource-7b3aac43ad0c"
             ]
           }
         ],
@@ -404,10 +404,10 @@
             "observationSource": "playwright-computed-render-v1",
             "testDomMutationFree": true,
             "expectedValues": [
-              "resource-bf1b61bb42d9"
+              "resource-7b3aac43ad0c"
             ],
             "actualValues": [
-              "resource-bf1b61bb42d9"
+              "resource-7b3aac43ad0c"
             ],
             "allElementsVisible": true,
             "semanticMatches": true
@@ -417,10 +417,10 @@
             "observationSource": "playwright-computed-render-v1",
             "testDomMutationFree": true,
             "expectedValues": [
-              "{\"id\":\"resource-bf1b61bb42d9\",\"status\":\"available\",\"checksum\":\"bf1b61bb42d9ac1e2f5bb727f5a215ee112d924384d20ebd44a9e6ec4d4521fd\"}"
+              "{\"id\":\"resource-7b3aac43ad0c\",\"status\":\"available\",\"checksum\":\"7b3aac43ad0c9988f6d403a0e6c4dfac19a41a461979b7a27948ad2fcdb9b52b\"}"
             ],
             "actualValues": [
-              "{\"id\":\"resource-bf1b61bb42d9\",\"status\":\"available\",\"checksum\":\"bf1b61bb42d9ac1e2f5bb727f5a215ee112d924384d20ebd44a9e6ec4d4521fd\"}"
+              "{\"id\":\"resource-7b3aac43ad0c\",\"status\":\"available\",\"checksum\":\"7b3aac43ad0c9988f6d403a0e6c4dfac19a41a461979b7a27948ad2fcdb9b52b\"}"
             ],
             "allElementsVisible": true,
             "semanticMatches": true
@@ -465,7 +465,7 @@
           "missing": []
         },
         "visibleText": [
-          "title-input category-select quantity-input resource-bf1b61bb42d9 resource-bf1b61bb42d9 {\"id\":\"resource-bf1b61bb42d9\",\"status\":\"available\",\"checksum\":\"bf1b61bb42d9ac1e2f5bb727f5a215ee112d924384d20ebd44a9e6ec4d4521fd\"} Create submission External submission review No Create submission result is available No submission history"
+          "title-input category-select quantity-input resource-7b3aac43ad0c resource-7b3aac43ad0c {\"id\":\"resource-7b3aac43ad0c\",\"status\":\"available\",\"checksum\":\"7b3aac43ad0c9988f6d403a0e6c4dfac19a41a461979b7a27948ad2fcdb9b52b\"} Create submission External submission review No Create submission result is available No submission history"
         ]
       },
       "surfaceFingerprint": {
@@ -491,7 +491,7 @@
       "capabilityId": "cap-submission-submit-submission",
       "bindingId": "binding-cap-submission-submit-submission",
       "locator": "control-cap-submission-submit-submission",
-      "pageUrl": "http://127.0.0.1:53030/submission",
+      "pageUrl": "http://127.0.0.1:65063/submission",
       "mode": "reuse-control",
       "event": "click",
       "expectedOutcome": "failure",
@@ -508,7 +508,7 @@
         "matchCount": 1,
         "visible": true,
         "enabled": true,
-        "pageUrl": "http://127.0.0.1:53030/submission",
+        "pageUrl": "http://127.0.0.1:65063/submission",
         "actionCallId": "call@68",
         "activeCapabilityId": "cap-submission-submit-submission",
         "capabilityStatus": "implemented",
@@ -522,9 +522,9 @@
               "accept-encoding": "gzip, deflate, br, zstd",
               "connection": "keep-alive",
               "content-length": "149",
-              "host": "127.0.0.1:53030",
-              "origin": "http://127.0.0.1:53030",
-              "referer": "http://127.0.0.1:53030/submission",
+              "host": "127.0.0.1:65063",
+              "origin": "http://127.0.0.1:65063",
+              "referer": "http://127.0.0.1:65063/submission",
               "sec-fetch-dest": "empty",
               "sec-fetch-mode": "cors",
               "sec-fetch-site": "same-origin",
@@ -538,9 +538,9 @@
               "connection": "keep-alive",
               "content-length": "25",
               "content-type": "application/json",
-              "date": "Tue, 28 Jul 2026 06:31:17 GMT",
+              "date": "Tue, 28 Jul 2026 06:50:33 GMT",
               "keep-alive": "timeout=5",
-              "x-pi-origin-receipt": "8599e464bd6b1064433b7158892ad243290f705c810585e6"
+              "x-pi-origin-receipt": "554355a5d4d8497cdaea76391c15d3c8ea9898b0a04d13d5"
             },
             "status": 422,
             "contentType": "application/json",
@@ -549,7 +549,7 @@
               "submission-category": "submit-button",
               "result-quantity": "2",
               "upload-source-file-assetIds": [
-                "resource-bf1b61bb42d9"
+                "resource-7b3aac43ad0c"
               ]
             },
             "responseBody": {
@@ -655,7 +655,7 @@
       "capabilityId": "cap-submission-submit-submission",
       "bindingId": "binding-cap-submission-submit-submission",
       "locator": "control-cap-submission-submit-submission",
-      "pageUrl": "http://127.0.0.1:53030/submission",
+      "pageUrl": "http://127.0.0.1:65063/submission",
       "mode": "reuse-control",
       "event": "click",
       "artifacts": [
@@ -671,7 +671,7 @@
         "matchCount": 1,
         "visible": true,
         "enabled": true,
-        "pageUrl": "http://127.0.0.1:53030/submission",
+        "pageUrl": "http://127.0.0.1:65063/submission",
         "actionCallId": "call@90",
         "activeCapabilityId": "cap-submission-submit-submission",
         "capabilityStatus": "implemented",
@@ -685,9 +685,9 @@
               "accept-encoding": "gzip, deflate, br, zstd",
               "connection": "keep-alive",
               "content-length": "148",
-              "host": "127.0.0.1:53030",
-              "origin": "http://127.0.0.1:53030",
-              "referer": "http://127.0.0.1:53030/submission",
+              "host": "127.0.0.1:65063",
+              "origin": "http://127.0.0.1:65063",
+              "referer": "http://127.0.0.1:65063/submission",
               "sec-fetch-dest": "empty",
               "sec-fetch-mode": "cors",
               "sec-fetch-site": "same-origin",
@@ -701,9 +701,9 @@
               "connection": "keep-alive",
               "content-length": "174",
               "content-type": "application/json",
-              "date": "Tue, 28 Jul 2026 06:31:17 GMT",
+              "date": "Tue, 28 Jul 2026 06:50:33 GMT",
               "keep-alive": "timeout=5",
-              "x-pi-origin-receipt": "4b3e73a6d0eceeb5e65dd2d0e41a9550eae0571b4d6c49e6"
+              "x-pi-origin-receipt": "37e405b7780825c1eff1ea7f23df0ecf53295c268332ec9f"
             },
             "status": 201,
             "contentType": "application/json",
@@ -712,29 +712,29 @@
               "submission-category": "submit-button",
               "result-quantity": "3",
               "upload-source-file-assetIds": [
-                "resource-bf1b61bb42d9"
+                "resource-7b3aac43ad0c"
               ]
             },
             "responseBody": {
-              "submissionId": "submission-74693a12",
+              "submissionId": "submission-d004b59d",
               "status": "succeeded",
               "items": [
-                "/media/submission-74693a12-1.txt",
-                "/media/submission-74693a12-2.txt",
-                "/media/submission-74693a12-3.txt"
+                "/media/submission-d004b59d-1.txt",
+                "/media/submission-d004b59d-2.txt",
+                "/media/submission-d004b59d-3.txt"
               ]
             }
           },
           {
             "method": "GET",
-            "path": "/media/submission-74693a12-1.txt",
+            "path": "/media/submission-d004b59d-1.txt",
             "query": {},
             "headers": {
               "accept": "*/*",
               "accept-encoding": "gzip, deflate, br, zstd",
               "connection": "keep-alive",
-              "host": "127.0.0.1:53030",
-              "referer": "http://127.0.0.1:53030/submission",
+              "host": "127.0.0.1:65063",
+              "referer": "http://127.0.0.1:65063/submission",
               "sec-fetch-dest": "empty",
               "sec-fetch-mode": "cors",
               "sec-fetch-site": "same-origin",
@@ -747,24 +747,23 @@
               "connection": "keep-alive",
               "content-length": "48",
               "content-type": "text/plain; charset=utf-8",
-              "date": "Tue, 28 Jul 2026 06:31:17 GMT",
+              "date": "Tue, 28 Jul 2026 06:50:33 GMT",
               "keep-alive": "timeout=5",
-              "x-pi-origin-receipt": "81be2d355b41d28ac18ec3a03d20ff450d64370348abeb3b"
+              "x-pi-origin-receipt": "c3f12f623b4029bd6bb6f46988eedbfba8fc4c2f440ab20f"
             },
             "status": 200,
-            "requestBody": "",
-            "responseBody": "independent-media-item:submission-74693a12-1.txt"
+            "requestBody": ""
           },
           {
             "method": "GET",
-            "path": "/media/submission-74693a12-2.txt",
+            "path": "/media/submission-d004b59d-3.txt",
             "query": {},
             "headers": {
               "accept": "*/*",
               "accept-encoding": "gzip, deflate, br, zstd",
               "connection": "keep-alive",
-              "host": "127.0.0.1:53030",
-              "referer": "http://127.0.0.1:53030/submission",
+              "host": "127.0.0.1:65063",
+              "referer": "http://127.0.0.1:65063/submission",
               "sec-fetch-dest": "empty",
               "sec-fetch-mode": "cors",
               "sec-fetch-site": "same-origin",
@@ -777,24 +776,23 @@
               "connection": "keep-alive",
               "content-length": "48",
               "content-type": "text/plain; charset=utf-8",
-              "date": "Tue, 28 Jul 2026 06:31:17 GMT",
+              "date": "Tue, 28 Jul 2026 06:50:33 GMT",
               "keep-alive": "timeout=5",
-              "x-pi-origin-receipt": "7040a400e159fa24184aa993ff9d01327f09859fae9e92c5"
+              "x-pi-origin-receipt": "7bca72691d97ffce63b0881c09b644db2883a0ba2f5651af"
             },
             "status": 200,
-            "requestBody": "",
-            "responseBody": "independent-media-item:submission-74693a12-2.txt"
+            "requestBody": ""
           },
           {
             "method": "GET",
-            "path": "/media/submission-74693a12-3.txt",
+            "path": "/media/submission-d004b59d-2.txt",
             "query": {},
             "headers": {
               "accept": "*/*",
               "accept-encoding": "gzip, deflate, br, zstd",
               "connection": "keep-alive",
-              "host": "127.0.0.1:53030",
-              "referer": "http://127.0.0.1:53030/submission",
+              "host": "127.0.0.1:65063",
+              "referer": "http://127.0.0.1:65063/submission",
               "sec-fetch-dest": "empty",
               "sec-fetch-mode": "cors",
               "sec-fetch-site": "same-origin",
@@ -807,13 +805,12 @@
               "connection": "keep-alive",
               "content-length": "48",
               "content-type": "text/plain; charset=utf-8",
-              "date": "Tue, 28 Jul 2026 06:31:17 GMT",
+              "date": "Tue, 28 Jul 2026 06:50:33 GMT",
               "keep-alive": "timeout=5",
-              "x-pi-origin-receipt": "6e8dafb9e9988fa88f76e10f3192cbc3353612bba8df0124"
+              "x-pi-origin-receipt": "556a88f0f919f08219ed658afbb5701f73ffee26909a8221"
             },
             "status": 200,
-            "requestBody": "",
-            "responseBody": "independent-media-item:submission-74693a12-3.txt"
+            "requestBody": ""
           }
         ],
         "inputBindings": [
@@ -846,7 +843,7 @@
             "controlId": "input-cap-submission-submit-submission-body-upload-source-file-assetids",
             "operationId": "create-submission-submit-submission",
             "requestValue": [
-              "resource-bf1b61bb42d9"
+              "resource-7b3aac43ad0c"
             ],
             "dynamic": false
           }
@@ -873,14 +870,14 @@
             "responseCount": 3,
             "actualCount": 3,
             "expectedValues": [
-              "/media/submission-74693a12-1.txt",
-              "/media/submission-74693a12-2.txt",
-              "/media/submission-74693a12-3.txt"
+              "/media/submission-d004b59d-1.txt",
+              "/media/submission-d004b59d-2.txt",
+              "/media/submission-d004b59d-3.txt"
             ],
             "actualValues": [
-              "/media/submission-74693a12-1.txt",
-              "/media/submission-74693a12-2.txt",
-              "/media/submission-74693a12-3.txt"
+              "/media/submission-d004b59d-1.txt",
+              "/media/submission-d004b59d-2.txt",
+              "/media/submission-d004b59d-3.txt"
             ]
           }
         ],
@@ -890,10 +887,10 @@
             "observationSource": "playwright-computed-render-v1",
             "testDomMutationFree": true,
             "expectedValues": [
-              "submission-74693a12"
+              "submission-d004b59d"
             ],
             "actualValues": [
-              "submission-74693a12"
+              "submission-d004b59d"
             ],
             "allElementsVisible": true,
             "semanticMatches": true
@@ -916,14 +913,14 @@
             "observationSource": "playwright-computed-render-v1",
             "testDomMutationFree": true,
             "expectedValues": [
-              "/media/submission-74693a12-1.txt",
-              "/media/submission-74693a12-2.txt",
-              "/media/submission-74693a12-3.txt"
+              "/media/submission-d004b59d-1.txt",
+              "/media/submission-d004b59d-2.txt",
+              "/media/submission-d004b59d-3.txt"
             ],
             "actualValues": [
-              "/media/submission-74693a12-1.txt",
-              "/media/submission-74693a12-2.txt",
-              "/media/submission-74693a12-3.txt"
+              "/media/submission-d004b59d-1.txt",
+              "/media/submission-d004b59d-2.txt",
+              "/media/submission-d004b59d-3.txt"
             ],
             "allElementsVisible": true,
             "semanticMatches": true
@@ -968,7 +965,7 @@
           "missing": []
         },
         "visibleText": [
-          "title-input category-select quantity-input No source file selected Create submission External submission review /media/submission-74693a12-1.txt /media/submission-74693a12-2.txt /media/submission-74693a12-3.txt submission-74693a12 submission-74693a12 succeeded /media/submission-74693a12-1.txt /media/submission-74693a12-2.txt /media/submission-74693a12-3.txt"
+          "title-input category-select quantity-input No source file selected Create submission External submission review /media/submission-d004b59d-1.txt /media/submission-d004b59d-2.txt /media/submission-d004b59d-3.txt submission-d004b59d submission-d004b59d succeeded /media/submission-d004b59d-1.txt /media/submission-d004b59d-2.txt /media/submission-d004b59d-3.txt"
         ],
         "itemIndependence": {
           "capabilityId": "cap-submission-submit-submission",
@@ -1007,7 +1004,7 @@
       "capabilityId": "cap-submission-planned-export",
       "bindingId": "binding-cap-submission-planned-export",
       "locator": "control-cap-submission-planned-export",
-      "pageUrl": "http://127.0.0.1:53030/submission",
+      "pageUrl": "http://127.0.0.1:65063/submission",
       "mode": "reuse-control",
       "event": "click",
       "artifacts": [
@@ -1023,7 +1020,7 @@
         "matchCount": 1,
         "visible": true,
         "enabled": true,
-        "pageUrl": "http://127.0.0.1:53030/submission",
+        "pageUrl": "http://127.0.0.1:65063/submission",
         "actionCallId": "call@118",
         "activeCapabilityId": "cap-submission-planned-export",
         "capabilityStatus": "planned",

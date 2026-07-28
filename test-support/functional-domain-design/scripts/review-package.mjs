@@ -125,7 +125,15 @@ if (existsSync(`${dir}/approval-runtime`)) rmSync(`${dir}/approval-runtime`, { r
 // way to keep an older revision is to already hold an older approval receipt (never to sign a new one).
 const LATEST_VALIDATOR_ID = 'fdd-validator-2.3.0';
 const requestedValidatorId = args['validator-version'] ? `fdd-validator-${args['validator-version']}` : LATEST_VALIDATOR_ID;
-if (requestedValidatorId !== LATEST_VALIDATOR_ID) { console.error(`cannot sign an approval with the superseded validator revision ${requestedValidatorId}; new approvals are pinned to the latest ${LATEST_VALIDATOR_ID}`); process.exit(1); }
+if (requestedValidatorId !== LATEST_VALIDATOR_ID) {
+  manifest.status = 'draft'; delete manifest.approval; write('manifest.json', manifest);
+  planningManifest.status = 'review-pending'; write('planning-manifest.json', planningManifest);
+  if (reviewPhase) { reviewPhase.status = 'pending'; reviewPhase.outputs = {}; write('planning-artifacts.json', planningArtifacts); }
+  if (existsSync(`${dir}/review-receipt.json`)) rmSync(`${dir}/review-receipt.json`);
+  if (existsSync(`${dir}/planning-review-receipt.json`)) rmSync(`${dir}/planning-review-receipt.json`);
+  write('review-rejection.json', { schemaVersion: '1.0', status: 'rejected', authorAgentId: manifest.authorAgentId, reviewerAgentId, reviewedAt: new Date().toISOString(), findings: [`superseded validator revision ${requestedValidatorId} cannot sign a new approval`] });
+  console.error(`cannot sign an approval with the superseded validator revision ${requestedValidatorId}; new approvals are pinned to the latest ${LATEST_VALIDATOR_ID}`); process.exit(1);
+}
 const trustedValidatorId = LATEST_VALIDATOR_ID;
 const trustedValidatorPath = resolve(import.meta.dirname, `../validators/${trustedValidatorId.replace('fdd-validator-', 'fdd-')}/validate-package.mjs`);
 write('review-receipt.json', { schemaVersion: '1.4', contractVersion: `functional-domain/${manifest.schemaVersion}`, trustedValidatorId, validatorDigest: treeDigest(resolve(trustedValidatorPath, '..')), status: 'approved', authorAgentId: manifest.authorAgentId, reviewerAgentId, reviewedAt: manifest.approval.reviewedAt, checks: ['all blockers resolved', 'all capability specifications complete', 'evidence statuses reviewed', 'acceptance criteria executable'] });

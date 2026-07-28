@@ -185,10 +185,9 @@ for (const cap of capabilities.values()) {
         if (provider.oneProviderResultPerItem !== true) errors.push(`operation ${operation.id} independent-items provider must set oneProviderResultPerItem to true`);
         if (typeof provider.batchSupportAssumed !== 'boolean') errors.push(`operation ${operation.id} independent-items provider must declare batchSupportAssumed (loop per item when batch support is unconfirmed)`);
         if (!provider.perCallConstraints || typeof provider.perCallConstraints !== 'object' || !Object.keys(provider.perCallConstraints).length) errors.push(`operation ${operation.id} independent-items provider must declare per-call single-item output constraints`);
-        // Concurrency contract must exist so it is never silently omitted, but its values are the author's
-        // (maxParallel:1 serial is valid) — the framework infers no default. Only presence/structure here.
         const concurrency = provider.concurrency;
         if (!concurrency || typeof concurrency !== 'object' || !Number.isInteger(concurrency.maxParallel) || concurrency.maxParallel < 1 || !['index-ordered', 'unordered'].includes(concurrency.ordering) || !String(concurrency.failurePolicy || '').trim()) errors.push(`operation ${operation.id} independent-items provider must declare a concurrency contract (integer maxParallel >= 1, ordering index-ordered|unordered, failurePolicy) — values are the author's, only presence is required`);
+        else if (quantityMayExceedOne(cap, operation) && concurrency.maxParallel < 2) errors.push(`operation ${operation.id} produces multiple independent items but provider concurrency maxParallel is below 2`);
       }
     }
     const effectEntities = new Set();
@@ -460,10 +459,18 @@ function inputUtilizationFindings(cap, anchorIds) {
     if (!['provider-mapped', 'application-only', 'not-used'].includes(entry.disposition)) { findings.push(`provider-backed capability ${cap.id} input ${inputId} has an unrecognized disposition: ${entry.disposition}`); continue; }
     if (entry.disposition === 'provider-mapped' && !String(entry.mapping?.providerParam || '').trim()) findings.push(`provider-backed capability ${cap.id} provider-mapped input ${inputId} lacks a mapping to a provider parameter`);
     if (entry.disposition === 'provider-mapped' && resourceFields.has(inputId) && (!entry.resourceResolution || typeof entry.resourceResolution !== 'object' || !Object.keys(entry.resourceResolution).length)) findings.push(`provider-backed capability ${cap.id} provider-mapped resource input ${inputId} lacks a resourceResolution (how the resource id becomes bytes or a URL for the provider)`);
-    if (entry.disposition === 'not-used' && !String(entry.reason || '').trim()) findings.push(`provider-backed capability ${cap.id} not-used input ${inputId} lacks a reason`);
+    if (entry.disposition === 'application-only' && (!String(entry.reason || '').trim() || !(entry.evidenceAnchors || []).length)) findings.push(`provider-backed capability ${cap.id} application-only input ${inputId} lacks a reason or evidence`);
+    if (entry.disposition === 'not-used' && (!String(entry.reason || '').trim() || !(entry.evidenceAnchors || []).length)) findings.push(`provider-backed capability ${cap.id} not-used input ${inputId} lacks a reason or evidence`);
     for (const anchor of entry.evidenceAnchors || []) if (!anchorIds.has(anchor)) findings.push(`provider-backed capability ${cap.id} input ${inputId} references an unknown evidence anchor: ${anchor}`);
   }
   return findings;
+}
+function quantityMayExceedOne(capability, operation) {
+  const source = String(capability.finalProduct?.quantity?.sourceField || operation.finalProduct?.quantity?.sourceField || '').replace(/^request\./, '').replace(/^body\./, '');
+  const schema = operation.request?.bodySchema?.properties?.[source] || capability.inputSchema?.properties?.[source];
+  if (schema?.type === 'integer' || schema?.type === 'number') return schema.maximum === undefined || Number(schema.maximum) > 1;
+  const outputItems = operation.providerContract?.outputConstraints?.items;
+  return outputItems?.maxItems === undefined || Number(outputItems.maxItems) > 1;
 }
 // Dual-axis evidence taxonomy: a complete capability's closure must anchor both axes structurally — an
 // intent-axis item (design/annotation/product-context: what to build and why) and an anchor-axis item
